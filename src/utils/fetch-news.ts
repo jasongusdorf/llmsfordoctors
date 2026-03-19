@@ -7,9 +7,9 @@ import { newsSources, type NewsSource } from './news-sources.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_PATH = resolve(__dirname, '../data/news.json');
 const FEED_TIMEOUT_MS = 10_000;
-const MAX_AGE_DAYS = 3;
-const MAX_AGE_DAYS_PUBMED = 14; // journals publish less frequently
-const MAX_ITEMS = 5;
+const MAX_AGE_DAYS = 90; // 3 months of journal articles
+const MAX_AGE_DAYS_PUBMED = 90;
+const MAX_ITEMS = 10;
 
 export interface NewsItem {
   title: string;
@@ -82,7 +82,7 @@ async function fetchPubMed(): Promise<{ items: NewsItem[]; priority: number }> {
     const searchParams = new URLSearchParams({
       db: 'pubmed',
       term: PUBMED_QUERY,
-      retmax: '20',
+      retmax: '50',
       retmode: 'json',
       sort: 'date',
     });
@@ -205,8 +205,8 @@ export function aiRelevanceScore(item: NewsItem): number {
 export function scoreItem(item: NewsItem, sourcePriority: number, isAiOnly: boolean): number {
   const ageMs = Date.now() - new Date(item.date).getTime();
   const ageDays = ageMs / (1000 * 60 * 60 * 24);
-  // Recency score: 0-10 (newer = higher)
-  const recencyScore = Math.max(0, 10 - ageDays * 3);
+  // Recency score: 0-10 (newer = higher, gentle decay over 90 days)
+  const recencyScore = Math.max(0, 10 - (ageDays / 9));
   // Priority score: 1=10pts, 2=7pts, 3=4pts, 4=1pt
   const priorityScore = Math.max(1, 11 - sourcePriority * 3);
   // AI relevance: sources marked aiOnly get automatic 10pts, others earn it from keywords
