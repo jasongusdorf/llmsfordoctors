@@ -6,7 +6,7 @@
 
 ## Overview
 
-Add a daily-updated "AI in Medicine News" section to the llmsfordoctors.com homepage. News is fetched at build time from curated RSS feeds and NewsAPI, displayed as image cards below the workflow grid, and refreshed via a daily GitHub Action that deploys to Cloudflare Pages.
+Add a daily-updated "AI in Medicine News" section to the llmsfordoctors.com homepage. News is fetched at build time from curated RSS feeds, displayed as image cards below the workflow grid, and refreshed via a daily GitHub Action that deploys to Cloudflare Pages.
 
 ## Goals
 
@@ -21,16 +21,16 @@ Add a daily-updated "AI in Medicine News" section to the llmsfordoctors.com home
 - User-configurable news preferences or filtering
 - Full-text article content (link out to original sources)
 - News as an Astro content collection (this is ephemeral data, not curated content)
+- Migrating `netlify.toml` to Cloudflare config (tracked separately — the newsletter form uses Netlify Forms and needs its own migration plan)
 
 ## Architecture
 
 ### Data Pipeline (`src/utils/fetch-news.ts`)
 
-Build-time Node script that:
+Build-time Node script, run via `npm run fetch-news` (`tsx src/utils/fetch-news.ts`):
 
-1. **Fetches RSS feeds** in parallel from curated sources (with per-feed timeout — one failure doesn't break the build)
-2. **Fetches NewsAPI** results for broad keyword coverage (1 API call)
-3. **Normalizes** both into a common shape:
+1. **Fetches RSS feeds** in parallel from curated sources (with 10s per-feed timeout — one failure doesn't break the build)
+2. **Normalizes** all items into a common shape:
    ```ts
    interface NewsItem {
      title: string;
@@ -41,31 +41,30 @@ Build-time Node script that:
      imageUrl?: string;  // nullable, fallback handled in UI
    }
    ```
-4. **Deduplicates** by URL and fuzzy title matching
-5. **Filters** to last 3 days only
-6. **Scores** by recency + source priority (curated RSS sources rank higher than NewsAPI results)
-7. **Picks top 5** items
-8. **Writes** to `src/data/news.json`
+3. **Deduplicates** by exact URL match, then by fuzzy title matching (normalize to lowercase, strip punctuation, flag as duplicate if Jaccard word similarity > 0.8)
+4. **Filters** to last 3 days only
+5. **Scores** by recency + source priority (higher-priority feeds rank first, recency breaks ties)
+6. **Picks top 5** items
+7. **Writes** to `src/data/news.json`
 
-### RSS Feed Sources (`src/data/news-sources.ts`)
+**Error handling:** The script exits 0 even if all sources fail (preserving existing `news.json`). Only exits non-zero for programming errors. This ensures deployment always proceeds.
+
+### RSS Feed Sources (`src/utils/news-sources.ts`)
 
 Curated config file containing feed URLs and priority scores:
 
-- STAT News AI/Health
-- Nature Digital Medicine
-- MIT Technology Review (Health/AI)
-- The Lancet Digital Health
-- JAMA Network (health informatics)
-- Wired (health/science)
-- Ars Technica (health)
-- Google News RSS (query: "artificial intelligence medicine")
+| Source | Feed URL | Priority |
+|--------|----------|----------|
+| STAT News | `https://www.statnews.com/feed/` | 1 (highest) |
+| Nature Digital Medicine | `https://www.nature.com/npjdigitalmed.rss` | 1 |
+| PubMed (AI + medicine) | Custom saved-search RSS query | 2 |
+| JAMA Network | `https://jamanetwork.com/rss/site_X/Y.xml` (exact URL pinned during implementation) | 2 |
+| MIT Technology Review | Category-filtered feed (health/AI, not main feed) | 3 |
+| Wired | `https://www.wired.com/feed/category/science/latest/rss` (science category, not main) | 3 |
+| Ars Technica | Health/science category feed | 3 |
+| Google News RSS | `https://news.google.com/rss/search?q=artificial+intelligence+medicine&hl=en` | 4 (broadest) |
 
-### NewsAPI Query
-
-- Endpoint: `everything`
-- Query: `"AI medicine" OR "artificial intelligence healthcare" OR "LLM clinical"`
-- Filters: last 3 days, English, sorted by relevance
-- 1 call per build (well within free tier of 100 req/day)
+Note: Exact URLs for JAMA, MIT Tech Review, and Ars Technica will be verified and pinned during implementation. Category-specific feeds are required to avoid pulling irrelevant articles.
 
 ### Fallback Strategy
 
@@ -75,7 +74,7 @@ Curated config file containing feed URLs and priority scores:
 
 ### Component: `NewsSection.astro`
 
-Placed below the workflow grid, above the CTA section in `src/pages/index.astro`.
+Placed as a new full-width section between the workflow/sidebar flex container and the CTA section in `src/pages/index.astro` — outside the sidebar layout.
 
 **Section layout:**
 - Heading: "AI in Medicine News" with subheading "Updated daily"
@@ -108,13 +107,14 @@ Each card contains:
 **Steps:**
 1. Checkout repo
 2. Install Node dependencies
-3. Run news fetch script — writes `src/data/news.json`
+3. Run `npm run fetch-news` — writes `src/data/news.json`
 4. Commit `news.json` if changed (keeps cache fresh in version control)
 5. Run `npm run build`
 6. Deploy with `wrangler pages deploy dist --project-name=llmsfordoctors --branch=main`
 
+**Error handling:** The fetch-news step uses `continue-on-error: true` so deployment proceeds even if the script crashes unexpectedly.
+
 **Secrets required:**
-- `NEWSAPI_KEY`
 - `CLOUDFLARE_API_TOKEN`
 - `CLOUDFLARE_ACCOUNT_ID`
 
@@ -123,6 +123,7 @@ Each card contains:
 - Acts as fallback cache if fetch fails on a subsequent build
 - Makes news data inspectable in version control
 - Non-cron deploys (manual pushes) still have recent news baked in
+- Add `src/data/news.json` to `.gitattributes` with `linguist-generated=true` so GitHub collapses diffs by default
 
 ## File Changes
 
@@ -130,31 +131,28 @@ Each card contains:
 | File | Purpose |
 |------|---------|
 | `src/utils/fetch-news.ts` | Fetch + normalize + deduplicate + score logic |
+| `src/utils/news-sources.ts` | RSS feed URLs + source priority config |
 | `src/data/news.json` | Cached news output (committed to repo) |
-| `src/data/news-sources.ts` | RSS feed URLs + source priority config |
 | `src/components/NewsSection.astro` | Homepage news grid section |
 | `src/components/NewsCard.astro` | Individual news card component |
 | `.github/workflows/daily-news-build.yml` | Daily cron + deploy workflow |
-| `public/_headers` | Cloudflare Pages security headers (migrated from netlify.toml) |
+| `.gitattributes` | Mark `news.json` as linguist-generated |
 
 ### Modified files
 | File | Change |
 |------|--------|
-| `src/pages/index.astro` | Import `news.json`, add `NewsSection` below workflow grid |
-| `package.json` | Add `rss-parser` dependency |
-
-### Deleted files
-| File | Reason |
-|------|--------|
-| `netlify.toml` | Deployment is Cloudflare Pages, not Netlify. Headers migrated to `_headers`. |
+| `src/pages/index.astro` | Import `news.json`, add `NewsSection` as full-width section below workflow/sidebar container, above CTA |
+| `package.json` | Add `rss-parser` dependency, `tsx` devDependency, `fetch-news` script |
 
 ### Unchanged
 - `astro.config.ts` (stays `output: 'static'`)
+- `netlify.toml` (cleanup scoped out — newsletter form depends on Netlify Forms)
 - Content collections (news is ephemeral data, not a collection)
 - Existing components and layouts
 
 ## Dependencies
 
-| Package | Purpose |
-|---------|---------|
-| `rss-parser` | Parse RSS/Atom feeds |
+| Package | Type | Purpose |
+|---------|------|---------|
+| `rss-parser` | dependency | Parse RSS/Atom feeds |
+| `tsx` | devDependency | Run TypeScript fetch script outside Astro build |
