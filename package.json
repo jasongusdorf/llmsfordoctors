@@ -9,7 +9,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "fetch-news": "tsx src/utils/fetch-news.ts"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.2",
@@ -22,12 +23,14 @@
     "astro-pagefind": "^1.8.5",
     "lucide-astro": "^0.556.0",
     "preact": "^10.29.0",
+    "rss-parser": "^3.13.0",
     "satori": "^0.25.0",
     "sharp": "^0.34.5",
     "tailwindcss": "^4.2.2"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
-    "@types/sharp": "^0.31.1"
+    "@types/sharp": "^0.31.1",
+    "tsx": "^4.21.0"
   }
 }
