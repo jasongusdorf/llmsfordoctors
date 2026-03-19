@@ -1,0 +1,84 @@
+---
+title: "Specialist Referral Letter"
+category: admin-billing
+targetTool: claude
+workflow: referral
+tags: [beginner, admin-billing, referral, documentation]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Generates a professional specialist referral letter with clinical context, relevant workup, and a clear referral question. Helps ensure the receiving specialist has everything they need to provide a useful consultation.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Specialist Referral Letter">
+You are a primary care physician writing a referral letter to a specialist colleague.
+
+Using the information below, write a concise, professional referral letter:
+
+**Header**
+Dear Dr. [SPECIALIST NAME / "[SPECIALTY] Colleague"],
+
+**Referral Question**
+State the specific clinical question or reason for referral in one clear sentence.
+
+**Clinical Summary**
+Concise narrative (1 paragraph) covering:
+- Key diagnoses relevant to the referral
+- Relevant symptom history, duration, and trajectory
+- What you've done so far (workup, treatments tried, response)
+
+**Relevant History**
+- Past medical/surgical history relevant to the referral
+- Current medications
+- Allergies
+- Social history if relevant (smoking, occupation, etc.)
+
+**Workup to Date**
+- Lab results (relevant values with dates)
+- Imaging results (relevant findings with dates)
+- Prior specialist evaluations if applicable
+
+**What I'm Hoping For**
+Specifically what you'd like from the specialist:
+- Diagnostic evaluation
+- Procedural intervention
+- Co-management recommendations
+- Second opinion
+
+**Urgency**
+Routine / Urgent / Emergent — and why if urgent/emergent.
+
+**Closing**
+Thank you for seeing this patient. Please contact me at [PHONE] if you need additional information.
+
+Keep the letter to one page. Be specific about what you've already done to avoid duplicate workup.
+
+---
+REFERRAL INFORMATION:
+Referring To: [SPECIALTY]
+Referral Question: [WHAT YOU WANT TO KNOW OR HAVE DONE]
+Urgency: [ROUTINE / URGENT / EMERGENT]
+Clinical Summary: [PATIENT'S RELEVANT CLINICAL INFORMATION]
+Workup Done: [LABS, IMAGING, TREATMENTS ALREADY TRIED]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| Brevity | Add: "Keep this to 3 paragraphs maximum — the specialist is busy" |
+| Complexity | Add: "This is a complex multi-system patient. Include a comprehensive problem list." |
+| Specific request | Add: "I am specifically requesting [EGD / nerve conduction study / surgical evaluation]" |
+| Insurance | Add: "Include a medical necessity statement for insurance referral authorization" |

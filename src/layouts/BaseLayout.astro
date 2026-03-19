@@ -1,0 +1,78 @@
+---
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Practical guides, workflows, and tools for clinicians using AI in medicine.' } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+// Dynamic OG image: use per-page path when it exists, else fall back to default
+const ogImageUrl = new URL(`/og${Astro.url.pathname}.png`, Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+
+    <!-- OG / Social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'MedicalWebPage',
+      name: title + ' | LLMs for Doctors',
+      description: description,
+      url: canonicalURL.toString(),
+      author: { '@type': 'Person', name: 'Jason Gusdorf, MD', jobTitle: 'Physician' },
+      publisher: { '@type': 'Organization', name: 'LLMs for Doctors', url: 'https://llmsfordoctors.com' },
+    })} />
+
+    <!-- Dark mode detection: run before paint to avoid flash -->
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="font-body text-clinical-800 bg-clinical-50 dark:bg-clinical-900 dark:text-clinical-100 min-h-screen flex flex-col">
+    <Nav />
+    <main class="flex-1 pt-16">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,60 @@
+---
+title: "AI-Assisted Trial Eligibility Prescreening"
+journal: "JAMA"
+year: 2025
+doi: "10.1001/jama.2024.28047"
+keyFinding: "RAG-enabled LLM system (RECTIFIER) identified eligible trial patients more rapidly than manual screening."
+lastUpdated: 2026-03-18
+tags: [rct, clinical-trials, screening, rag, workflow-automation]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Clinical trial screening is one of the most expensive bottlenecks in medical research, and most of it involves reading text — a task perfectly suited for LLMs. Unlu et al. conducted a prospective blinded RCT at Mass General Brigham evaluating RECTIFIER — a retrieval-augmented generation-enabled trial infrastructure system — for clinical trial eligibility prescreening. The system was tested against standard manual screening for a heart failure clinical trial.
+
+RECTIFIER combined an LLM with retrieval-augmented generation to search patient records, extract relevant clinical data, and assess eligibility criteria against predefined inclusion/exclusion criteria. Screeners in both arms were blinded to the other arm's results. The primary outcome was time to identify eligible patients while maintaining screening accuracy. The system was designed to handle the complexity of real-world eligibility criteria, which often involve temporal conditions (e.g., "no hospitalization within 30 days"), negation, and information scattered across multiple record sections. The study has accumulated 20 citations.
+
+---
+
+## Key Findings
+
+- The AI-assisted arm **identified eligible patients significantly faster** than the manual screening arm
+- Screening accuracy was **maintained or improved** — the system did not sacrifice precision for speed
+- RECTIFIER's retrieval-augmented approach allowed it to pull relevant information from across the EHR, including unstructured clinical notes, lab results, and medication lists
+- The system was particularly effective at **ruling out ineligible patients quickly**, reducing the burden of false-positive screening that consumes most manual screening time
+- The architecture was purpose-built for the task — not a general-purpose chatbot repurposed for screening
+- The system provided structured explanations for its eligibility determinations, allowing screeners to verify reasoning rather than accepting black-box decisions
+
+<Callout type="evidence">
+  Trial screening is one of the most resource-intensive bottlenecks in clinical research. Most of the work involves reading unstructured text to determine eligibility — a task that is tedious for humans and well-suited for LLMs. This study provides RCT-level evidence that the approach works in practice, not just in theory.
+</Callout>
+
+---
+
+## Clinical Implications
+
+This is a "quietly enormous" use case that does not generate the same headlines as diagnostic AI but may deliver more immediate, concrete value:
+
+1. **Trial accrual is a crisis.** The majority of clinical trials fail to meet enrollment targets on time, and a significant portion of the delay is attributable to inefficient screening. Any technology that accelerates screening while maintaining accuracy directly impacts the pace of medical research.
+
+2. **The RAG architecture is key.** A standalone LLM could not do this — it needs to retrieve and synthesize information from across the patient record. RECTIFIER's purpose-built retrieval pipeline is what makes it work. This is not a ChatGPT-in-a-box solution.
+
+3. **Health-system specificity is a real limitation.** The system was tested at Mass General Brigham, which has a particular EHR configuration, data quality level, and clinical trial infrastructure. Generalizability to community hospitals with different systems and data quality is uncertain.
+
+<Callout type="pitfall">
+  EHR structure, data quality, and local workflow vary enormously across institutions. A system that works well at an academic medical center with structured data may struggle at a community hospital where critical eligibility information is buried in unstructured notes with inconsistent formatting. Implementation requires local validation.
+</Callout>
+
+4. **Regulatory pathway is clearer for this use case.** Trial screening is a research operations function, not a direct clinical decision. The regulatory requirements for deploying AI in this context are less onerous than for diagnostic or treatment tools, which may accelerate adoption.
+
+5. **The cost-effectiveness case is straightforward.** Failed trial accrual costs sponsors millions of dollars per month in extended timelines. Even modest acceleration of screening can produce a clear positive ROI, making this an easy business case for institutional investment in AI tooling.
+
+---
+
+## My Takeaway
+
+If I were advising a health system on where to start with medical AI, clinical trial screening would be near the top of the list. The task is well-defined, high-volume, text-heavy, and the consequences of errors are manageable (a missed eligible patient is a missed enrollment opportunity, not a patient safety event). RECTIFIER demonstrates that a purpose-built RAG system can meaningfully accelerate this workflow.
+
+The unglamorous truth about medical AI is that the highest-value near-term applications are probably not diagnostic oracles but operational tools that reduce the enormous administrative burden of modern medicine. Trial screening is a perfect example — and unlike diagnostic AI, it has a clearer regulatory pathway and lower patient-safety risk, making it an ideal starting point for institutions building their AI capabilities.

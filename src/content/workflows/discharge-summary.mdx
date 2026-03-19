@@ -1,0 +1,91 @@
+---
+title: "Writing a Discharge Summary with AI"
+category: note-writing
+tools: [claude]
+templates: [discharge-summary-basic]
+tags: [discharge, inpatient, documentation, note-writing]
+timeToRead: 5
+lastUpdated: 2026-03-18
+specialty: [general-medicine]
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+import ToolCard from '../../components/ToolCard.astro';
+
+## The Problem
+
+Discharge summaries take **15–20 minutes** per patient on average — often more for complex admissions. That's time taken from patient care, teaching, or rest. AI can reliably cut this to under 5 minutes while improving consistency and completeness.
+
+This workflow walks you through a repeatable 3-step process for drafting discharge summaries using Claude or a similar LLM.
+
+<Callout type="hipaa">
+  Never paste identifiable patient information (name, DOB, MRN, dates of service) into a consumer AI tool. Use a de-identified summary or ensure your organization has a BAA in place with the vendor before using patient data.
+</Callout>
+
+---
+
+## Step 1: Gather Your Inputs
+
+Before prompting the AI, collect the key clinical information you'll need:
+
+- **Admission diagnosis and reason for visit**
+- **Hospital course** (brief narrative of what happened)
+- **Key studies** (labs, imaging, procedures)
+- **Medications changed** (started, stopped, dose-adjusted)
+- **Discharge condition** (stable, improved, etc.)
+- **Follow-up instructions** (appointments, pending results, return precautions)
+
+Having these organized before you prompt will dramatically improve output quality. A messy input yields a messy output.
+
+---
+
+## Step 2: Use the Prompt Template
+
+Use the template below with Claude. Paste in your de-identified clinical notes or a structured summary of the above points.
+
+<PromptPlayground tool="Claude" title="Discharge Summary Prompt">
+You are an experienced hospitalist physician writing a discharge summary. Using the clinical information below, draft a complete, concise discharge summary suitable for the outpatient primary care provider.
+
+Format the summary with the following sections:
+1. Admission Diagnosis
+2. Hospital Course
+3. Significant Results
+4. Discharge Medications (changes only — started, stopped, dose-changed)
+5. Discharge Condition
+6. Follow-up Instructions
+7. Return Precautions
+
+Be concise and clinically precise. Avoid filler phrases. Use plain language for the follow-up section.
+
+CLINICAL INFORMATION:
+[Paste your de-identified clinical notes here]
+</PromptPlayground>
+
+---
+
+## Step 3: Review and Edit
+
+The AI output is a **first draft**, not a final product. Always:
+
+1. **Verify medication accuracy** — this is the highest-risk section
+2. **Check that pending results are documented** and follow-up is assigned
+3. **Ensure the hospital course narrative is complete** and accurate
+4. **Remove any fabricated information** (hallucinations are rare but possible)
+5. **Sign and co-sign** per your institution's requirements
+
+<Callout type="pitfall">
+  The most common AI error in discharge summaries is medication omissions or incorrect doses. Always cross-reference the AI output against the actual medication reconciliation before signing.
+</Callout>
+
+---
+
+## Recommended Tool
+
+<ToolCard
+  name="Claude for Clinical Practice"
+  slug="claude"
+  rating={5}
+  verdict="Best-in-class for long clinical narratives and nuanced reasoning"
+  hasBaa={true}
+/>

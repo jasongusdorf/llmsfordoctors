@@ -1,0 +1,75 @@
+---
+title: "Board-Style Question Generator"
+category: board-prep
+targetTool: claude
+workflow: board-questions
+tags: [beginner, board-prep, questions, study, usmle]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Generates board-style multiple choice questions on any medical topic. Specify the topic, difficulty level, and question style, and get practice questions with detailed explanations for each answer choice. Great for self-study or for attendings creating teaching questions.
+
+<Callout type="tip">
+  For the most realistic practice, ask for questions in the style of your specific exam (USMLE Step 1/2/3, COMLEX, shelf exams, specialty boards). Each has different question formats and emphasis areas.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Board-Style Question Generator">
+You are a medical education expert writing board-style exam questions.
+
+Generate [NUMBER — e.g., 5] multiple choice questions on the following topic:
+
+**Topic:** [MEDICAL TOPIC — e.g., "heart failure pharmacology," "pediatric milestones," "acid-base disorders"]
+**Exam Style:** [USMLE Step 1 / Step 2 CK / Step 3 / Shelf / Specialty Board]
+**Difficulty:** [Easy / Medium / Hard]
+
+For each question:
+
+**Question [N]**
+Present a clinical vignette (3–5 sentences) followed by a question stem. Include relevant demographics, history, physical exam findings, and lab/imaging data.
+
+**Answer Choices**
+A. [Choice]
+B. [Choice]
+C. [Choice]
+D. [Choice]
+E. [Choice]
+
+**Correct Answer:** [Letter]
+
+**Explanation**
+- Why the correct answer is right (2–3 sentences with the underlying mechanism or principle)
+- Why each wrong answer is wrong (1 sentence each)
+- **High-yield point:** One key takeaway to remember
+
+Make questions clinically realistic. Avoid "all of the above" or "none of the above." Each question should test a single concept. Vary the question format: best next step, most likely diagnosis, mechanism of action, most likely finding, etc.
+
+---
+ADDITIONAL PREFERENCES:
+[Any specific subtopics to focus on, question types to emphasize, or areas of weakness to target]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| Quantity | Change `[NUMBER]` to however many questions you want |
+| Image-based | Add: "Include a description of what the clinical image would show (e.g., ECG, X-ray, histology)" |
+| Two-step | Add: "Make these two-step reasoning questions (identify the diagnosis, then choose the management)" |
+| Explanations only | Add: "I already have questions. Here they are: [QUESTIONS]. Provide detailed explanations for each." |
+
+---
+
+## Notes
+
+- AI-generated questions may not perfectly match the nuance of real board questions. Use them as a supplement to, not a replacement for, question banks (UWorld, Amboss, etc.).
+- For Step 1-style questions, emphasize basic science mechanisms. For Step 2-style, emphasize clinical management.
+- Verify key facts in the explanations against a trusted reference — AI can occasionally state incorrect pharmacology or physiology details.

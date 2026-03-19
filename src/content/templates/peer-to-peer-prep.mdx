@@ -1,0 +1,94 @@
+---
+title: "Peer-to-Peer Review Preparation"
+category: admin-billing
+targetTool: claude
+workflow: peer-to-peer
+tags: [intermediate, admin-billing, peer-to-peer, insurance, utilization-review]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Prepares talking points and a structured argument for a peer-to-peer phone call with an insurance reviewer. Provide the denied service, denial reason, and clinical case, and get a concise set of talking points organized for a 5–10 minute phone call.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, insurance ID, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Peer-to-Peer Review Preparation">
+You are a physician preparing for a peer-to-peer review call with an insurance medical director.
+
+Using the case details below, prepare a structured set of talking points for a 5–10 minute phone call:
+
+**Opening (30 seconds)**
+- Introduce yourself: specialty and role
+- State what you're calling about: "I'm calling regarding the denial of [SERVICE] for my patient"
+- Reference the denial number
+
+**The Ask (30 seconds)**
+State clearly what you are requesting and why in 2 sentences maximum.
+
+**Clinical Case Summary (2 minutes)**
+Concise, persuasive narrative hitting:
+- Diagnosis and severity
+- Clinical trajectory (getting worse / not responding / urgent)
+- What's been tried and why it hasn't worked
+- Why this specific service is needed NOW
+
+**Rebuttal of Denial Reason (2 minutes)**
+For each stated denial reason:
+- Acknowledge it
+- Explain why it doesn't apply
+- Cite the specific clinical evidence or guideline
+
+**Key Evidence Points (1 minute)**
+3 strongest supporting arguments, in order of strength:
+1. [Strongest clinical argument]
+2. [Guideline support]
+3. [Patient-specific factor that makes this case compelling]
+
+**Anticipated Pushback**
+For each likely objection the reviewer might raise:
+- The objection
+- Your response
+
+**Closing (30 seconds)**
+Restate the ask. Request immediate authorization. Ask for a reference number if approved. Ask about next steps if not approved on the call.
+
+**Key Numbers to Have Ready**
+List specific labs, dates, dosages, or scores you might be asked about during the call.
+
+Keep all talking points concise — you're preparing for a phone call, not writing an essay.
+
+---
+CASE DETAILS:
+Denied Service: [WHAT WAS DENIED]
+Denial Reason: [STATED REASON]
+Clinical Summary: [RELEVANT CLINICAL INFORMATION]
+Previous Treatments: [WHAT'S BEEN TRIED]
+Relevant Guidelines: [ANY GUIDELINES THAT SUPPORT YOUR CASE]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| Tone | Add: "The reviewer is likely to be adversarial — prepare firmer pushback" or "The reviewer is likely to be collaborative — use a collegial tone" |
+| Time | Add: "This call is limited to 5 minutes — condense to essentials only" |
+| Specialty | Add: "The reviewing physician is a [SPECIALTY] — adjust clinical language accordingly" |
+| Multiple denials | Add: "I have multiple denials to discuss on this call: [LIST]" |
+
+---
+
+## Notes
+
+- Print the talking points and keep them in front of you during the call. The structure prevents rambling.
+- Document the date, time, reviewer name, and outcome of every P2P call in the chart.
+- If the reviewer is not in your specialty, be prepared to explain specialty-specific reasoning in general terms.

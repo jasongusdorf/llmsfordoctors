@@ -1,0 +1,886 @@
+---
+title: "HIPAA Compliance for Clinicians Using LLMs"
+description: "The definitive practical guide to using AI tools without violating patient privacy. Covers PHI, BAAs, de-identification, vendor evaluation, and institutional policy."
+tags: [hipaa, privacy, compliance, phi, security, policy, beginner]
+lastUpdated: 2026-03-18
+featured: true
+---
+
+import Callout from '../../components/Callout.astro';
+
+HIPAA compliance is not a checkbox. It is a combination of four things: (1) who you are, (2) what data you are sending, (3) what the vendor does with it, and (4) the contract and technical safeguards in place. Get any one of those wrong and you have a problem — regardless of what the other three look like.
+
+This guide is written for clinicians who want to use LLMs in their practice without putting patients or themselves at risk. It is practical, not theoretical. If you remember nothing else, remember the one-line rule:
+
+**If the tool is not explicitly approved for PHI use under a BAA, do not feed it PHI.**
+
+That single sentence will keep you out of trouble in the vast majority of situations. The rest of this guide explains why, and what to do when the answer is more nuanced.
+
+---
+
+## Who This Guide Is For
+
+You are a clinician — physician, nurse practitioner, PA, pharmacist, therapist, or other licensed provider — working within or adjacent to a covered entity. You want to use large language models for clinical tasks: drafting notes, summarizing literature, generating patient education materials, reasoning through differentials, or writing prior authorization letters.
+
+You are not a compliance officer. You should not have to be one. But you do need to understand enough about HIPAA to make safe decisions at the point of use, because the tool is in your hands and the data is your patient's.
+
+---
+
+## Part 1: Core Definitions You Actually Need
+
+Most HIPAA training is designed for administrators. This section translates the concepts that matter for LLM use into clinical language.
+
+---
+
+### Protected Health Information (PHI)
+
+PHI is individually identifiable health information held or transmitted by a covered entity or its business associate. "Individually identifiable" is the key phrase. A medication list by itself is not PHI. A medication list attached to a name, date of birth, MRN, or any other identifier — that is PHI.
+
+A prompt becomes PHI the moment you type something like "Mr. J., MRN 12345, 68M with CHF and CKD..." The model's output is also typically PHI if it references or could be linked back to that identifiable patient.
+
+Electronic PHI (ePHI) is simply PHI in electronic form. Every prompt you type into an LLM that contains identifiable patient information is ePHI the instant you hit enter.
+
+<Callout type="hipaa">
+  PHI is not limited to the "medical" parts. A patient's name, zip code, date of birth, email, phone number, Social Security number, MRN, or even a photograph — any of these combined with health information creates PHI. A prompt that says "the 94-year-old female patient in room 312 at Springfield General" is PHI even without a name, because the combination of details could identify her.
+</Callout>
+
+---
+
+### The 18 HIPAA Identifiers
+
+Under the Safe Harbor method of de-identification, you must remove all 18 of these categories before data is considered de-identified:
+
+1. **Names** (patient, relatives, employers, household members)
+2. **Geographic data** smaller than a state (street address, city, zip code — first 3 digits of zip may be kept if the geographic unit has >20,000 people)
+3. **Dates** related to the individual (birth, admission, discharge, death — year may be kept; ages >89 are aggregated)
+4. **Phone numbers**
+5. **Fax numbers**
+6. **Email addresses**
+7. **Social Security numbers**
+8. **Medical record numbers**
+9. **Health plan beneficiary numbers**
+10. **Account numbers**
+11. **Certificate/license numbers**
+12. **Vehicle identifiers** (license plates, serial numbers)
+13. **Device identifiers and serial numbers**
+14. **Web URLs**
+15. **IP addresses**
+16. **Biometric identifiers** (fingerprints, voiceprints, retinal scans)
+17. **Full-face photographs** and comparable images
+18. **Any other unique identifying number, characteristic, or code**
+
+<Callout type="tip">
+  Print this list or save it somewhere accessible. Before pasting clinical information into any AI tool, mentally scan the prompt against these 18 categories. If any are present and you have not removed them, you are sending PHI.
+</Callout>
+
+---
+
+### Covered Entities
+
+A covered entity is a health plan, a healthcare clearinghouse, or a healthcare provider that transmits any health information electronically in connection with a HIPAA-covered transaction (billing, eligibility checks, referrals, etc.).
+
+If you work for a hospital, health system, medical group, or insurance plan, your organization is almost certainly a covered entity. If you are an independent clinician who bills electronically — and nearly everyone does — you are a covered entity.
+
+This matters because HIPAA applies to you directly. It is not just your employer's problem.
+
+---
+
+### Business Associates and BAAs
+
+A business associate is any person or organization that creates, receives, maintains, or transmits PHI on behalf of a covered entity. When you use an LLM vendor's API or platform and send it PHI, that vendor is acting as your business associate.
+
+A Business Associate Agreement (BAA) is a written contract required by HIPAA. It spells out what the business associate can and cannot do with PHI, requires them to implement safeguards, and obligates them to report breaches.
+
+<Callout type="hipaa" title="The BAA Is the Gating Item">
+  "We're HIPAA-compliant" is marketing language. It means whatever the vendor wants it to mean. "We will sign a BAA" is the gating item. If a vendor will not sign a BAA, they are telling you — in legal terms — that they do not accept the obligations of a business associate. Do not send them PHI, no matter what their website says.
+</Callout>
+
+Not every LLM vendor offers a BAA. As of this writing, some major vendors offer BAAs for enterprise or healthcare-specific tiers (e.g., Microsoft Azure OpenAI Service, Google Cloud Vertex AI, Amazon Bedrock, Epic's integrated AI features). Consumer-facing products like the free version of ChatGPT, Google Gemini, or Claude.ai's free tier generally do not.
+
+---
+
+### The Minimum Necessary Standard
+
+HIPAA requires that you limit the PHI you use or disclose to the minimum amount necessary to accomplish the intended purpose. This applies directly to how you write prompts.
+
+Do not paste an entire chart into an LLM if the model only needs a medication list to answer your question. Do not include a patient's name if the clinical question can be answered without it. Do not upload a full H&P if you only need the assessment and plan summarized.
+
+<Callout type="pitfall">
+  The most common violation pattern we see: a clinician copies an entire progress note — including patient name, MRN, date of birth, and insurance information — into a consumer LLM to "help draft a letter." The letter could have been drafted with de-identified clinical details only. The identifiers added nothing but risk.
+</Callout>
+
+---
+
+### De-identification: Safe Harbor vs. Expert Determination
+
+HIPAA provides two methods for de-identifying data:
+
+**Safe Harbor**: Remove all 18 identifier categories listed above. The entity must also have no actual knowledge that the remaining information could identify an individual. This is the method most clinicians can use themselves — strip the identifiers before prompting.
+
+**Expert Determination**: A qualified statistical expert certifies that the risk of re-identification is "very small." This is used for research datasets and institutional data pipelines, not for individual clinician workflows.
+
+<Callout type="tip">
+  Safe Harbor de-identification is your best friend. If you strip identifiers before they reach the LLM, HIPAA's restrictions on PHI no longer apply to that interaction. The clinical content — "68M with HFrEF, EF 25%, on sacubitril-valsartan, presenting with volume overload" — is not PHI without identifiers. You can use any LLM for that query.
+</Callout>
+
+---
+
+## Part 2: Where PHI Shows Up in LLM Systems
+
+Understanding the technical architecture matters because PHI can leak in places you do not expect. It is not just about what you type.
+
+---
+
+### Prompts (Your Inputs)
+
+This is the obvious one. Every character you type or paste into an LLM prompt is transmitted to the vendor's servers. If that text contains PHI, PHI has left your organization.
+
+---
+
+### Responses (Model Outputs)
+
+If the model generates text that references or could be linked back to an identifiable patient, the output is also PHI. A discharge summary drafted by an LLM using patient-specific details is ePHI the moment it is generated.
+
+---
+
+### Logs and Telemetry
+
+Many LLM platforms log prompts and responses for debugging, quality improvement, abuse detection, or analytics. Even if the vendor promises not to "use your data for training," they may retain it in operational logs. These logs contain your patients' PHI.
+
+<Callout type="hipaa">
+  Ask — or have your IT/compliance team ask — explicit questions about data retention. How long are prompts stored? Who has access? Are logs encrypted at rest? Can you request deletion? A BAA should address these questions, but the answers vary significantly between vendors.
+</Callout>
+
+---
+
+### Model Training
+
+This is the biggest compliance fork in vendor evaluation. Some vendors include language like "we may use your content to improve our models" in their terms of service. This means your patients' clinical data could be incorporated into model weights and potentially regurgitated in responses to other users.
+
+LLMs can memorize training examples — this is a well-documented phenomenon in machine learning research. If a model is trained on a prompt containing "John Smith, MRN 98765, diagnosed with HIV," there is a nonzero probability that information could surface in a future response.
+
+<Callout type="pitfall" title="Read the Terms of Service">
+  The phrase "to improve our services" or "to improve our models" in a vendor's terms of service is a red flag for PHI use. This language typically means your inputs may be used as training data. Under a proper BAA, the vendor should contractually commit to NOT using PHI for model training — or to using only de-identified data with appropriate safeguards.
+</Callout>
+
+---
+
+### RAG Systems and Embeddings
+
+Retrieval-Augmented Generation (RAG) systems work by converting documents into numerical vectors (embeddings) and storing them in a database. When a user asks a question, the system retrieves relevant document chunks and feeds them to the LLM as context.
+
+If those documents contain PHI — patient records, clinical notes, lab results — then the embeddings and the retrieved chunks contain PHI. The vector database becomes a repository of ePHI that must be secured under the HIPAA Security Rule.
+
+---
+
+### Chat Histories and Session Data
+
+Some platforms store conversation histories so users can return to previous chats. If those conversations contained PHI, the stored history is ePHI. This includes browser local storage, cookies, and any server-side session data.
+
+<Callout type="tip">
+  If you accidentally paste PHI into a non-approved tool, delete the conversation immediately if the platform allows it, then report the incident to your privacy officer. Speed matters — the faster you act, the more likely the data can be purged before it is processed or stored permanently.
+</Callout>
+
+---
+
+## Part 3: The Decision Flowchart
+
+Before using an LLM for any clinical task, walk through these steps in order. Stop at the first "No" that applies.
+
+**Step 1: Will you input patient-specific information?**
+
+- **No** → You are using the LLM for general medical education, literature review, template creation, or other tasks that involve no identifiable patient data. Proceed. HIPAA's PHI restrictions do not apply to general medical knowledge queries.
+- **Yes** → Continue to Step 2.
+
+**Step 2: Is the data de-identified per HIPAA Safe Harbor?**
+
+- **Yes** → You have removed all 18 identifier categories. Proceed with the de-identified workflow. You can use any LLM, though institutional policies may still apply.
+- **No** → The data contains one or more identifiers. Continue to Step 3.
+
+**Step 3: Is the tool approved by your organization with a signed BAA?**
+
+- **No** → **Stop. Do not use this tool with PHI.** Full stop. Go back and de-identify the data, or use an approved tool.
+- **Yes** → Continue to Step 4.
+
+**Step 4: Does your workflow meet the minimum necessary standard and Security Rule safeguards?**
+
+- **No** → Reduce the scope of PHI in your prompt. Remove identifiers that are not essential to the task. Enable available security features (encryption, access controls, audit logging). Then reassess.
+- **Yes** → Continue to Step 5.
+
+**Step 5: Will the vendor use your content for model training?**
+
+- **Yes** → Require contractual controls that prohibit training on PHI, or require de-identification before any training use. If these controls cannot be obtained, do not send PHI.
+- **No, contractually prohibited** → Continue to Step 6.
+
+**Step 6: Use the tool with PHI in the approved scope.**
+
+The clinician reviews all AI-generated output before it enters the medical record or is communicated to the patient. The AI is a drafting tool, not a decision-maker.
+
+<Callout type="tip" title="Bookmark This Flowchart">
+  Print this decision tree or save it to your phone. The first few times you use it, it will take 30 seconds. After that, it becomes automatic. The vast majority of your interactions will be resolved at Step 1 (no PHI needed) or Step 2 (de-identify first).
+</Callout>
+
+---
+
+## Part 4: Do's and Don'ts
+
+These are concrete, actionable rules. Tape them to your monitor if that helps.
+
+---
+
+### Do
+
+- **Use institution-approved AI tools** that have been explicitly designated for PHI workflows. Your compliance and IT teams have (or should have) evaluated these tools, reviewed BAAs, and assessed security controls. Use their work.
+
+- **Treat every prompt like an outbound email.** Would you email this text to an outside party? If not, do not paste it into an AI tool without appropriate safeguards. Disclose the minimum necessary.
+
+- **Prefer de-identification.** In the majority of clinical LLM use cases — drafting notes, generating patient education, reasoning through differentials, creating templates — you do not need identifiers. "68M with HFrEF, CKD3, DM2" works just as well as "John Smith, DOB 3/15/1958, MRN 12345, with HFrEF, CKD3, DM2."
+
+- **Assume outputs containing identifiable patient information are PHI.** Store them, transmit them, and dispose of them accordingly. An AI-generated discharge summary is ePHI and belongs in the medical record, not in your personal Dropbox.
+
+- **Escalate to your privacy/security officer** if a tool stores chat histories, mentions "product improvement" in its terms, or does anything else that raises questions. You are not expected to make compliance judgments alone. You are expected to ask.
+
+- **Log your AI use** if your institution requires it. Many organizations are building audit trails for AI-assisted clinical documentation. Cooperate with these efforts — they protect you.
+
+- **Review every AI output before use.** HIPAA compliance does not end when the model generates a response. If the output contains errors, hallucinated details, or inappropriate disclosures, you — not the AI — are responsible.
+
+<Callout type="evidence">
+  Multiple studies have demonstrated that LLMs can produce clinically plausible but factually incorrect outputs, including fabricated citations, incorrect drug dosages, and invented patient history details. Clinician review is not optional — it is both a clinical safety requirement and a compliance safeguard.
+</Callout>
+
+---
+
+### Don't
+
+- **Don't paste PHI into consumer or general-purpose chatbots.** This includes ChatGPT's free tier, Google Gemini's consumer product, Claude.ai's free tier, Copilot's consumer version, or any other tool that does not have a signed BAA with your organization. These tools are designed for general use and their terms of service typically permit data use for model improvement.
+
+- **Don't assume "encrypted" or "HIPAA-compliant" marketing substitutes for a BAA.** Encryption is a technical control required under the Security Rule. It is necessary but not sufficient. A vendor can encrypt data in transit and at rest while simultaneously using it for model training. The BAA is the legal instrument that restricts what the vendor can do.
+
+- **Don't rely on privacy policies as permission.** A vendor's privacy policy describes their practices — it does not create the contractual obligations required by HIPAA. "We mention data protection in our privacy policy" is not a BAA.
+
+- **Don't upload entire charts "just in case."** This violates the minimum necessary standard. If you need a medication reconciliation, send the medication list. If you need a procedure summary, send the operative note. Scope your inputs.
+
+- **Don't use personal devices for PHI-containing AI workflows** unless those devices are managed by your organization and meet Security Rule requirements (encryption, remote wipe capability, access controls, etc.).
+
+- **Don't assume your colleagues are compliant.** If you see a colleague pasting patient data into an unapproved tool, say something. This is not about being punitive — it is about protecting patients and protecting your colleague from an accidental breach.
+
+<Callout type="pitfall" title="The 'Quick Question' Trap">
+  The most dangerous scenario is not the deliberate, planned use of an LLM for clinical work. It is the quick, thoughtless one: you are running behind, you have a complex patient, and you paste the relevant section of the chart into whatever chat window is open on your screen. That 10-second decision is where most clinician-level HIPAA violations with AI tools will occur. Slow down. De-identify. Use the right tool.
+</Callout>
+
+---
+
+## Part 5: Evaluating Vendors
+
+Your compliance team should handle formal vendor evaluation, but you should understand what "good" looks like so you can advocate for the right tools and recognize red flags.
+
+---
+
+### The Four Questions
+
+When evaluating any LLM vendor for clinical use, four questions matter above all others:
+
+**1. Will you sign a BAA?**
+
+If the answer is no, the conversation is over for PHI use cases. Move on.
+
+**2. What do you do with my data?**
+
+Acceptable answers: "We process it to generate responses and delete it within [defined period]." "We do not use customer data for model training." "We store it only as long as necessary to provide the service."
+
+Unacceptable answers: "We may use your content to improve our services." "Your data helps us train better models." Any answer that is vague about retention or training use.
+
+**3. Where is my data stored and processed?**
+
+The answer should specify geographic locations and whether data stays within a particular jurisdiction. For U.S. healthcare organizations, data should generally remain in the United States. Some state laws (more on this below) have additional requirements.
+
+**4. What happens during a breach?**
+
+A BAA requires the business associate to report breaches. But the specifics matter: How quickly will they notify you? What forensic information will they provide? Do they carry cyber insurance? What is their incident response process?
+
+<Callout type="tip">
+  You do not need to evaluate vendors yourself. But if your institution's AI governance committee asks for clinical input on which tools would be most useful, these four questions give you a framework for separating serious vendors from those that are not ready for healthcare.
+</Callout>
+
+---
+
+### Vendor Tiers: A Practical Framework
+
+Not all vendor offerings are equal. Here is a rough hierarchy of trust levels:
+
+**Tier 1 — EHR-Integrated Tools**: AI features built into your EHR (Epic, Cerner/Oracle Health, etc.) or approved clinical platforms. These typically operate under existing BAAs, within your organization's data environment, and under your IT team's security controls. This is the safest category.
+
+**Tier 2 — Enterprise Healthcare AI Platforms**: Cloud AI services with signed BAAs, dedicated healthcare configurations, SOC 2 Type II certification, and HITRUST or equivalent security frameworks. Examples include enterprise tiers of major cloud providers configured specifically for healthcare.
+
+**Tier 3 — General Enterprise AI with BAA**: Vendor offers a BAA but is not healthcare-specific. Security controls exist but may require configuration. Your IT team needs to verify that the healthcare-appropriate settings are actually enabled.
+
+**Tier 4 — Consumer AI Products**: No BAA available. Not appropriate for PHI under any circumstances. Fine for general medical education, literature search, template creation, and other tasks that do not involve identifiable patient data.
+
+<Callout type="hipaa">
+  A tool's tier can change over time. Vendors add BAA offerings, change their terms of service, or modify their data practices. What was Tier 4 last year might be Tier 2 today. Reassess periodically, and rely on your compliance team's current approved list rather than your memory of a vendor's status.
+</Callout>
+
+---
+
+## Part 6: Where PHI Meets the Keyboard — Common Clinical Scenarios
+
+Abstract rules become concrete when you apply them to daily clinical work. Here are common scenarios with the compliant path for each.
+
+---
+
+### Scenario 1: Drafting a Discharge Summary
+
+**The task**: You want an LLM to help draft a discharge summary for a patient with a complex hospital course.
+
+**The compliant path**: Use an institution-approved, BAA-covered tool (ideally EHR-integrated). If no such tool is available, de-identify the clinical details before using any LLM. Replace the patient's name with "Patient," remove the MRN, replace specific dates with relative timelines ("hospital day 3"), and generalize the age if >89.
+
+**The non-compliant path**: Copy-pasting the admission H&P — complete with name, DOB, and MRN — into ChatGPT's free tier to "help me organize this."
+
+---
+
+### Scenario 2: Literature Search and Clinical Question
+
+**The task**: "What is the evidence for SGLT2 inhibitors in HFpEF with CKD stage 3?"
+
+**The compliant path**: This question contains no PHI. Use any LLM. This is general medical knowledge.
+
+**The non-compliant path**: There isn't one for this scenario — no patient data is involved. However, if you add "My patient John Smith has HFpEF and CKD3, should I start him on dapagliflozin?" you have created PHI. Remove the name and it is no longer PHI.
+
+---
+
+### Scenario 3: Prior Authorization Letter
+
+**The task**: Draft a prior authorization letter for a specific medication for a specific patient.
+
+**The compliant path**: If your organization has an approved AI tool with a BAA for this purpose, use it with patient details as permitted. If not, draft the letter using de-identified clinical details in the LLM, then manually add the patient-specific identifiers afterward in your secure clinical environment.
+
+<Callout type="tip" title="The De-Identify-Then-Re-Identify Pattern">
+  This is one of the most practical workflows for clinicians. Use the LLM with de-identified data to generate the draft, then manually add identifiers in your EHR or secure document system. You get the AI's help with the hard part (organizing clinical reasoning, structuring the letter) without exposing PHI. It adds 30 seconds of work and eliminates the compliance risk entirely.
+</Callout>
+
+---
+
+### Scenario 4: Patient Education Materials
+
+**The task**: Create a patient-friendly explanation of a new diabetes diagnosis.
+
+**The compliant path**: This is almost always a general knowledge task. "Explain type 2 diabetes to a newly diagnosed patient at an 8th grade reading level" contains no PHI. Use any LLM.
+
+**The non-compliant path**: "My patient Maria Garcia, DOB 4/12/1975, was just diagnosed with type 2 diabetes. Her A1c is 8.2. Create an education sheet for her." The patient-specific details are unnecessary — the education content would be the same without them.
+
+---
+
+### Scenario 5: Clinical Decision Support
+
+**The task**: You have a complex patient and want to use an LLM to help think through the differential diagnosis.
+
+**The compliant path**: De-identify. "72M, presenting with acute onset dyspnea, bilateral lower extremity edema, elevated BNP, EF 25% on echo, Cr 2.1 from baseline 1.4. On furosemide 40mg, lisinopril 10mg, metoprolol 50mg. DDx and next steps?" This contains zero identifiers and works perfectly for the clinical question.
+
+**The non-compliant path**: Uploading the patient's chart PDF to a consumer AI tool.
+
+---
+
+### Scenario 6: Voice-to-Text and Ambient Listening
+
+**The task**: Using an AI-powered ambient listening tool to generate clinical notes from patient encounters.
+
+**The compliant path**: Use only tools that your organization has approved, with signed BAAs, that process audio within HIPAA-compliant environments. Ambient listening tools inherently capture PHI — there is no way to de-identify a live patient conversation in real time.
+
+<Callout type="hipaa">
+  Ambient AI scribes are one of the highest-risk LLM applications from a HIPAA perspective. They capture everything said in the room — patient names, family member names, social history details, sensitive diagnoses. There is no "minimum necessary" possible in real-time transcription. The entire compliance burden falls on the vendor's infrastructure and your organization's BAA. Do not use any ambient AI tool that has not been formally approved by your organization.
+</Callout>
+
+---
+
+### Scenario 7: Research and Quality Improvement
+
+**The task**: You want to use an LLM to analyze patterns across multiple patient cases for a QI project or research study.
+
+**The compliant path**: Work with your IRB or QI committee. For research, a HIPAA waiver of authorization may apply, but the data must still be handled by a BAA-covered tool if PHI is involved. For QI, use your institution's approved analytics platforms. Better yet, work with your data team to provide a de-identified dataset for the LLM analysis.
+
+**The non-compliant path**: Exporting a spreadsheet of patient data with identifiers and uploading it to a consumer AI platform for "quick analysis."
+
+<Callout type="pitfall">
+  Aggregate data can still be PHI. A spreadsheet of 15 patients with rare diseases at a small rural hospital may be identifiable even without names. Consider whether the combination of clinical details, dates, and demographics could identify individuals in context — especially in small populations.
+</Callout>
+
+---
+
+### Scenario 8: Secure Messaging and Consultations
+
+**The task**: You want to use an LLM to help compose a message to a colleague about a shared patient.
+
+**The compliant path**: If the message will be sent through your institution's secure messaging system (EHR inbox, approved secure messaging platform), draft it there. If you want AI help with phrasing, de-identify: "I'm writing to a cardiologist colleague about a shared patient with new-onset afib and recent GI bleed. Help me frame the anticoagulation discussion." No PHI needed for the drafting assistance.
+
+**The non-compliant path**: Pasting the patient's name, MRN, and clinical details into a consumer LLM to "help me write this consult message."
+
+---
+
+### Scenario 9: Medical Education and Training
+
+**The task**: You are a preceptor and want to create a case-based teaching exercise for residents.
+
+**The compliant path**: Create fictional cases or de-identify real cases thoroughly. Change demographics, dates, and clinical details enough that the case is not recognizable. "Inspired by" a real case is fine; a thinly disguised copy of a real patient's chart is not.
+
+**The non-compliant path**: Giving a resident a real patient's chart and asking them to "run it through ChatGPT to generate learning points."
+
+<Callout type="tip">
+  LLMs are excellent at generating realistic clinical vignettes for teaching. Instead of de-identifying a real case (and risking incomplete de-identification), ask the LLM to generate a case with similar clinical features. "Generate a clinical vignette of a 60-year-old with new-onset heart failure, diabetes, and CKD presenting with volume overload. Include vital signs, labs, and imaging." The teaching value is the same with zero compliance risk.
+</Callout>
+
+---
+
+### Scenario 10: Billing and Coding Assistance
+
+**The task**: You want help selecting the correct ICD-10 or CPT codes for a complex encounter.
+
+**The compliant path**: For general coding questions — "What ICD-10 code covers acute systolic heart failure with chronic diastolic heart failure?" — no PHI is needed. Use any LLM. If you need help coding a specific encounter, use an institution-approved coding tool or de-identify: "Code this encounter: 45-minute established patient visit, level 4 complexity, for management of uncontrolled diabetes, new CKD diagnosis, and medication adjustment."
+
+**The non-compliant path**: Pasting the full encounter note with patient identifiers into a consumer AI for coding suggestions.
+
+---
+
+## Part 7: Beyond HIPAA — Other Laws That Apply
+
+HIPAA gets the most attention, but it is not the only privacy law that governs clinical AI use. Several other regulatory frameworks are relevant and may impose stricter requirements.
+
+---
+
+### State Privacy Laws
+
+**California — Confidentiality of Medical Information Act (CMIA)**: Applies to healthcare providers in California and is in some ways stricter than HIPAA. Requires explicit patient authorization for many disclosures that HIPAA permits under the "treatment, payment, or healthcare operations" exception. If you practice in California, your compliance team should advise on how CMIA interacts with AI tool use.
+
+**Washington — My Health My Data Act**: One of the broadest state health privacy laws. Applies to any entity that collects, shares, or sells health data — not just HIPAA-covered entities. This means consumer AI tools that handle health-related queries from Washington residents may have obligations under this law even without a BAA.
+
+**Texas — Broader Covered Entity Concept**: Texas law defines "covered entity" more broadly than HIPAA, extending privacy protections to entities that handle health information even if they are not HIPAA-covered entities. This has implications for AI vendors operating in or serving Texas patients.
+
+**Illinois — Biometric Information Privacy Act (BIPA)**: Particularly relevant for voice-enabled AI tools, ambient listening applications, and any AI system that processes biometric identifiers (voiceprints, facial geometry). BIPA requires informed consent before collecting biometric data and provides a private right of action — meaning individual patients can sue.
+
+<Callout type="pitfall">
+  State laws can create obligations that exceed HIPAA's. A workflow that is HIPAA-compliant may still violate state law. If your organization serves patients in multiple states, your compliance framework needs to account for the strictest applicable standard. When in doubt, ask your compliance or legal team about state-specific requirements.
+</Callout>
+
+---
+
+### FTC Enforcement
+
+HIPAA is enforced by the Department of Health and Human Services' Office for Civil Rights (OCR). But the Federal Trade Commission (FTC) has its own authority over unfair or deceptive practices involving health data — and it has been using it aggressively.
+
+**GoodRx (2023)**: FTC fined GoodRx $1.5 million for sharing user health data with advertising platforms like Facebook and Google without user consent. GoodRx is not a HIPAA-covered entity, but the FTC found the data sharing constituted an unfair and deceptive practice.
+
+**BetterHelp (2023)**: FTC ordered BetterHelp to pay $7.8 million for sharing mental health data with advertisers, despite promising users their data would be kept private.
+
+The lesson: HIPAA is not the only cop in the privacy neighborhood. Even if a vendor is not a HIPAA-covered entity or business associate, sharing health data in ways that contradict privacy promises can trigger FTC enforcement. This matters for AI tools that handle health-related queries — particularly consumer-facing tools that clinicians might use outside institutional channels.
+
+<Callout type="evidence">
+  The FTC's enforcement actions signal a clear trend: health data privacy obligations extend beyond HIPAA's traditional scope. Vendors that handle health information — even if they are not covered entities — face regulatory risk for mishandling that data. Clinicians should be aware that using non-HIPAA-covered tools for health-related queries may expose both the vendor and potentially the clinician's organization to regulatory scrutiny.
+</Callout>
+
+---
+
+### FDA: When Does a Clinical LLM Become a Medical Device?
+
+The FDA regulates clinical decision support (CDS) software as a medical device under certain conditions. Not every LLM use case triggers FDA regulation, but the line is important to understand.
+
+**Generally NOT a regulated device:**
+- Drafting administrative documents (prior auth letters, appeal letters, referral letters)
+- Generating patient education materials from general medical knowledge
+- Summarizing literature or clinical guidelines
+- Assisting with clinical documentation (note drafting, discharge summaries)
+
+**Potentially a regulated device:**
+- Providing specific diagnostic recommendations ("Based on this data, the diagnosis is X")
+- Recommending specific treatments ("Start the patient on X medication at Y dose")
+- Analyzing medical images, pathology slides, or diagnostic data
+- Generating risk scores or prognostic assessments tied to individual patients
+
+The key distinction the FDA draws: if the software provides a recommendation that the clinician does not need to independently evaluate the basis for (because the recommendation itself drives the action), it is more likely a regulated device. If the software provides information that the clinician independently reviews and applies their own judgment to, it is more likely exempt.
+
+<Callout type="tip">
+  For most clinician LLM use, you are in the "drafting and summarizing" category — not the "diagnostic directive" category. But be cautious about LLM tools that present themselves as diagnostic engines or treatment recommenders. If a vendor claims their LLM can "diagnose" conditions or "prescribe" treatments, ask whether the product has FDA clearance. If it does not, treat its outputs with extra skepticism.
+</Callout>
+
+---
+
+## Part 8: Building Institutional Policy
+
+If your organization does not yet have a policy governing clinician use of AI tools, someone needs to write one. This section provides a skeleton framework. It is not a substitute for legal review, but it gives your governance committee a starting point.
+
+---
+
+### Sample Policy Skeleton
+
+**1. Purpose**
+
+This policy establishes guidelines for the use of artificial intelligence and large language model tools by [Organization Name] workforce members in connection with patient care, clinical operations, and health information management.
+
+**2. Scope**
+
+This policy applies to all workforce members (employees, contractors, volunteers, trainees, medical staff) who use AI/LLM tools in any context involving patient health information or clinical operations, regardless of whether the tool is provided by the organization or accessed independently.
+
+**3. Approved Tools**
+
+The organization maintains a current list of AI/LLM tools approved for use with PHI. This list is maintained by [responsible department] and is available at [location]. Only tools on this list may be used with PHI.
+
+| Tool | Approved PHI Use | BAA Status | Notes |
+|------|-----------------|------------|-------|
+| [EHR-integrated AI feature] | Yes — within EHR workflow | Covered under EHR BAA | Use per EHR training |
+| [Enterprise AI platform] | Yes — approved use cases only | Signed BAA on file | Requires org credentials |
+| [Consumer AI tool] | No — general knowledge only | No BAA | No PHI permitted |
+
+**4. Permitted Use Cases**
+
+- Clinical documentation assistance (using approved tools with PHI, or any tool with de-identified data)
+- Literature review and clinical education (no PHI required — any tool)
+- Patient education material generation (no PHI required — any tool)
+- Administrative drafting with approved tools (prior auth, appeals)
+- Quality improvement analysis (using approved tools with appropriate data governance)
+
+**5. Prohibited Use Cases**
+
+- Entering PHI into any tool not on the approved list
+- Using AI-generated output as a substitute for clinical judgment without review
+- Uploading patient records, images, or documents to non-approved platforms
+- Using personal AI accounts for any PHI-related work
+- Sharing AI credentials or using another person's AI account
+
+**6. Minimum Necessary Requirements**
+
+Workforce members must limit PHI in AI prompts to the minimum necessary for the intended purpose. Where feasible, workforce members should de-identify data before use. Prompts should not include patient identifiers unless the identifier is essential to the task and the tool is approved for PHI use.
+
+**7. Security Requirements**
+
+AI tools used with PHI must be accessed from organization-managed devices. Workforce members must use organization credentials (not personal accounts) for approved tools. Chat histories containing PHI must be treated as ePHI and managed according to the organization's information security policies.
+
+**8. Output Review and Documentation**
+
+All AI-generated content that enters the medical record or is communicated to patients must be reviewed by a licensed clinician before use. The clinician is responsible for the accuracy and appropriateness of the final content. Organizations may require documentation that AI was used in generating clinical content.
+
+**9. Incident Response**
+
+Any suspected or confirmed disclosure of PHI to a non-approved AI tool must be reported to [Privacy Officer/Help Desk/Compliance Hotline] within [timeframe]. The organization will investigate and manage such incidents under its existing breach notification procedures.
+
+**10. Training**
+
+All workforce members who use or may use AI/LLM tools must complete [training requirement] before using these tools with clinical data. Training must be repeated [annually/upon policy update].
+
+<Callout type="tip">
+  If you are a clinician advocating for AI policy at your institution, start with the approved tools list. A clear, maintained list of "these tools are OK for PHI, these are not" eliminates 90% of the ambiguity that leads to accidental violations. The rest of the policy can be built around it.
+</Callout>
+
+---
+
+## Part 9: Technical Mitigations
+
+You may not implement these yourself, but you should understand them well enough to advocate for them and to recognize when they are missing.
+
+---
+
+### De-identification Pipelines
+
+The most effective technical mitigation is automated de-identification — software that strips identifiers from clinical text before it reaches the LLM. Several commercial and open-source tools exist for clinical NLP de-identification.
+
+A well-implemented de-ID pipeline:
+- Runs automatically between the clinician's input and the LLM API
+- Catches identifiers that humans miss (embedded dates, room numbers, unique clinical details)
+- Provides a mapping so identifiers can be re-inserted into the output if needed
+- Logs what was removed for audit purposes
+
+<Callout type="evidence">
+  Modern clinical NLP de-identification tools achieve recall rates above 95% for common identifiers (names, dates, MRNs) and above 90% for less common categories (URLs, device serials). However, no automated tool catches everything — particularly rare identifiers or contextual re-identification risks. Automated de-ID should be treated as a strong layer of defense, not a guarantee.
+</Callout>
+
+---
+
+### Retention Controls
+
+Configure AI tools to minimize data retention:
+- Disable chat history storage where possible
+- Set the shortest available retention period for API logs
+- Request (and verify) that the vendor deletes prompts and responses after processing
+- Ensure that any retained data is encrypted at rest with keys managed by your organization
+
+---
+
+### Encryption and Access Controls
+
+Baseline Security Rule requirements for any system handling ePHI:
+- **Encryption in transit**: TLS 1.2 or higher for all data transmitted to and from the LLM service
+- **Encryption at rest**: AES-256 or equivalent for any stored prompts, responses, or embeddings
+- **Access controls**: Role-based access, unique user credentials, multi-factor authentication
+- **Audit logging**: All access to PHI-containing AI systems must be logged with user identity, timestamp, and action
+
+---
+
+### Environment Segregation
+
+PHI-containing AI workflows should be segregated from general-purpose AI use:
+- Separate API endpoints or instances for PHI vs. non-PHI workloads
+- Different access credentials for PHI-approved tools
+- Network segmentation to prevent PHI from being routed through non-compliant infrastructure
+- Separate model instances that are not trained on or exposed to PHI from other sources
+
+---
+
+### RAG Over Full-Chart Pasting
+
+If your organization implements AI systems that need access to patient records, RAG architecture is generally preferable to pasting entire charts into prompts:
+- RAG retrieves only the relevant document chunks, reducing PHI exposure
+- The vector database can be hosted within your organization's secure environment
+- Access controls can be applied at the document and chunk level
+- RAG reduces the amount of PHI in any single LLM API call
+
+<Callout type="tip">
+  If your organization is building clinical AI tools, advocate for RAG-based architectures over "dump the whole chart into the context window" approaches. RAG is better for privacy (minimum necessary), better for accuracy (relevant context only), and better for cost (fewer tokens).
+</Callout>
+
+---
+
+### Model Training Governance
+
+If your organization is fine-tuning or training models on clinical data:
+- Use de-identified data whenever possible
+- Implement differential privacy techniques to reduce memorization risk
+- Maintain strict access controls on training datasets
+- Conduct regular audits for PHI leakage in model outputs
+- Document the provenance and processing of all training data
+
+---
+
+## Part 10: What to Do When Things Go Wrong
+
+Breaches happen. Mistakes happen. A clinician will paste PHI into the wrong tool. A vendor will have a security incident. Having a response plan matters more than having a perfect prevention plan.
+
+---
+
+### Immediate Steps for Clinicians
+
+If you realize you have entered PHI into a non-approved AI tool:
+
+1. **Stop using the tool immediately.** Do not enter additional information.
+2. **Delete the conversation** if the platform allows it. Take a screenshot of the deletion confirmation.
+3. **Document what happened**: what data was entered, which tool, when, and approximately how much PHI was involved.
+4. **Report the incident** to your privacy officer, compliance department, or designated reporting channel. Do this immediately — do not wait to see if it "becomes a problem."
+5. **Do not attempt to cover up the incident.** Unreported breaches that are later discovered are treated far more seriously than promptly reported incidents.
+
+<Callout type="hipaa" title="Breach Notification">
+  Under HIPAA, a covered entity must notify affected individuals within 60 days of discovering a breach of unsecured PHI affecting 500 or more individuals, and must also notify HHS and prominent media outlets. For breaches affecting fewer than 500 individuals, notification to HHS can be made annually. Your privacy officer will determine whether a specific incident meets the threshold for breach notification — but they cannot make that determination if you do not report the incident.
+</Callout>
+
+---
+
+### Institutional Response Framework
+
+For compliance and IT teams managing AI-related incidents:
+
+- **Classification**: Determine whether the incident constitutes a breach under HIPAA's definition (acquisition, access, use, or disclosure of PHI in a manner not permitted, unless a low probability that PHI was compromised can be demonstrated through a four-factor risk assessment).
+- **Vendor communication**: Contact the AI vendor to determine data retention, whether the data was used for training, and whether deletion is possible.
+- **Scope assessment**: Identify all patients whose PHI may have been affected.
+- **Risk assessment**: Apply the four-factor test (nature and extent of PHI, unauthorized person who received it, whether PHI was actually acquired or viewed, extent of mitigation).
+- **Notification decisions**: Based on the risk assessment, determine notification obligations.
+- **Remediation**: Address the root cause — was the tool on the approved list? Did the clinician receive training? Is the policy clear?
+
+---
+
+## Part 11: HIPAA Penalties — What Is Actually at Stake
+
+Understanding the consequences helps calibrate the seriousness of compliance. HIPAA violations are not hypothetical risks.
+
+---
+
+### Civil Penalties
+
+OCR enforces HIPAA through a tiered penalty structure:
+
+- **Tier 1 — Did Not Know**: The covered entity did not know and, by exercising reasonable diligence, would not have known of the violation. Penalty: $100 to $50,000 per violation.
+- **Tier 2 — Reasonable Cause**: The violation was due to reasonable cause and not willful neglect. Penalty: $1,000 to $50,000 per violation.
+- **Tier 3 — Willful Neglect, Corrected**: Willful neglect that is corrected within 30 days. Penalty: $10,000 to $50,000 per violation.
+- **Tier 4 — Willful Neglect, Not Corrected**: Willful neglect that is not corrected within 30 days. Penalty: $50,000 per violation.
+
+The annual maximum per violation category is approximately $2 million. Multiple violation categories can be assessed simultaneously.
+
+<Callout type="hipaa">
+  "Per violation" can mean per patient affected, per day, or per incident — the calculation depends on the nature of the violation. A single act of pasting 50 patients' data into a consumer AI tool could be assessed as 50 separate violations. The numbers add up quickly.
+</Callout>
+
+---
+
+### Criminal Penalties
+
+Criminal penalties apply to individuals who knowingly obtain or disclose PHI in violation of HIPAA:
+
+- **Knowingly obtaining or disclosing PHI**: Up to $50,000 fine and up to 1 year imprisonment
+- **Offenses committed under false pretenses**: Up to $100,000 fine and up to 5 years imprisonment
+- **Offenses committed with intent to sell, transfer, or use for personal gain**: Up to $250,000 fine and up to 10 years imprisonment
+
+Criminal enforcement is rare for clinicians, but it does happen — particularly in cases involving intentional misuse of patient records.
+
+---
+
+### Professional and Institutional Consequences
+
+Beyond regulatory penalties:
+
+- **Licensure actions**: State medical boards can investigate and discipline clinicians for HIPAA violations, up to and including license revocation.
+- **Employment consequences**: Hospitals and health systems routinely terminate employees for willful HIPAA violations.
+- **Reputational damage**: Breaches affecting 500+ individuals are posted on the HHS "Wall of Shame" — a public, searchable database.
+- **Malpractice exposure**: A HIPAA violation that results in patient harm (e.g., disclosure of HIV status, substance abuse treatment, mental health records) could support a malpractice claim.
+- **Institutional costs**: The average cost of a healthcare data breach exceeds $10 million when factoring in investigation, notification, remediation, legal fees, and reputational damage.
+
+<Callout type="pitfall">
+  The most common clinician defense — "I didn't know it was a violation" — falls under Tier 1 penalties but does not eliminate liability. Ignorance of HIPAA requirements is a mitigating factor, not an excuse. You are expected to know the basics. This guide exists to make sure you do.
+</Callout>
+
+---
+
+## Part 12: Common Misconceptions
+
+These are the myths we encounter most frequently when talking to clinicians about AI and HIPAA. Each one has led to real compliance incidents.
+
+---
+
+### "It's fine because I used it for patient care."
+
+HIPAA does not prohibit the use of PHI for treatment purposes. But it does require that PHI be disclosed only to authorized recipients with appropriate safeguards. A consumer AI tool without a BAA is not an authorized recipient, regardless of your clinical intent. Your purpose does not change the vendor's obligations — or lack thereof.
+
+---
+
+### "The AI doesn't store anything — it forgets after each conversation."
+
+This is a misunderstanding of how LLM systems work. While the model itself does not have persistent memory of individual conversations (in most configurations), the platform may log prompts and responses for operational purposes. "The model forgets" and "the vendor deletes your data" are two very different statements. Focus on the vendor's data retention practices, not the model's architecture.
+
+---
+
+### "I only used initials, so it's not PHI."
+
+Initials combined with other identifying information — date of service, clinical details, location, age — can constitute PHI if the combination could reasonably identify the patient. "J.S., 94F, seen at Springfield Clinic on 3/15 for management of Wilson's disease" is identifiable despite using only initials. At a minimum, initials are on the boundary — and the safe practice is to remove them.
+
+---
+
+### "My institution uses this vendor, so I must be covered."
+
+Not necessarily. Your institution may have a BAA with a vendor for specific products or tiers, but not for the consumer version. Microsoft has a BAA for Azure OpenAI Service configured for healthcare — that does not mean your personal Copilot subscription is covered. Always verify which specific product and configuration is approved.
+
+---
+
+### "It's just a draft — it's not going in the chart."
+
+PHI is PHI regardless of what you do with the output. The violation occurs at the point of disclosure — when you send identifiable patient data to a non-authorized recipient. Whether you use the output in the chart, delete it, or ignore it does not change the fact that PHI left your control.
+
+---
+
+### "Everyone does it."
+
+They might. They are also all in violation. Widespread noncompliance does not create compliance. If "everyone" at your institution is pasting PHI into consumer AI tools, that is an institutional problem that needs to be addressed through policy, training, and approved tool provisioning — not a justification for continuing the practice.
+
+<Callout type="hipaa">
+  OCR has stated that it considers the proliferation of AI tools in healthcare a priority enforcement area. The fact that many clinicians are using these tools without proper safeguards is exactly why enforcement attention is increasing. Being part of the crowd does not provide protection.
+</Callout>
+
+---
+
+## Part 13: The Compliance Landscape Is Changing
+
+HIPAA was written in 1996 and last significantly updated in 2013 (the Omnibus Rule). It was not designed for AI. Regulatory guidance is evolving rapidly, and clinicians should be aware of the direction things are heading.
+
+---
+
+### HHS Rulemaking
+
+HHS has proposed updates to the HIPAA Security Rule that would strengthen requirements for ePHI security, including more prescriptive requirements for encryption, multi-factor authentication, and vulnerability management. These changes, if finalized, will apply to AI systems that handle ePHI.
+
+---
+
+### State-Level AI Legislation
+
+Multiple states are considering or have enacted AI-specific legislation that intersects with healthcare:
+- Transparency requirements (disclosing when AI was used in clinical decisions)
+- Algorithmic impact assessments for AI systems used in healthcare
+- Patient consent requirements for AI analysis of their health data
+- Prohibitions on certain AI uses in healthcare settings
+
+---
+
+### Professional Standards
+
+Medical societies and licensing boards are beginning to issue guidance on clinician use of AI. While these do not carry the force of law, they set standards of care that may be relevant in malpractice litigation.
+
+<Callout type="evidence">
+  The AMA, AHA, and multiple specialty societies have issued policy statements on AI in clinical practice. A common theme: the clinician remains responsible for clinical decisions regardless of whether AI was used to inform them. AI-generated output must be reviewed and validated by the clinician before acting on it. This principle is consistent across virtually all published professional guidance as of early 2026.
+</Callout>
+
+---
+
+## Part 14: Quick Reference
+
+For daily use, here are the essentials condensed into the shortest possible format.
+
+---
+
+### The One-Line Rule
+
+**If the tool is not explicitly approved for PHI use under a BAA, do not feed it PHI.**
+
+---
+
+### The Three-Second Check
+
+Before hitting enter on any prompt:
+1. **Does this contain identifiers?** (Names, MRN, DOB, dates, locations)
+2. **Is this tool approved for PHI?**
+3. **Am I sending more than I need to?**
+
+If the answer to #1 is yes and #2 is no — stop and de-identify.
+
+---
+
+### The Safe Workflow
+
+1. Strip identifiers from clinical data
+2. Prompt with de-identified data
+3. Review the output
+4. Re-insert identifiers in your secure clinical environment
+5. Final review before use
+
+---
+
+### The Emergency Checklist
+
+PHI went into the wrong tool:
+1. Delete the conversation
+2. Screenshot the deletion
+3. Document what happened
+4. Report to privacy officer immediately
+5. Do not cover it up
+
+---
+
+### Key Definitions in One Sentence Each
+
+- **PHI**: Health information that identifies or could identify a specific person.
+- **ePHI**: PHI in electronic form — which includes every AI prompt containing patient data.
+- **Covered entity**: Your hospital, practice, or health plan — and probably you personally.
+- **Business associate**: Any vendor that handles PHI on your behalf.
+- **BAA**: The contract that makes a vendor legally accountable for protecting PHI.
+- **Minimum necessary**: Only send the PHI actually needed for the task.
+- **De-identification**: Stripping all 18 identifier categories so data is no longer PHI.
+- **Safe Harbor**: The practical method for de-identification — remove the 18 identifiers.
+- **Breach**: Unauthorized access to, use of, or disclosure of unsecured PHI.
+
+---
+
+## Conclusion
+
+HIPAA compliance for clinician LLM use is not as complicated as it first appears. The vast majority of clinical AI interactions either involve no PHI at all (general knowledge queries, template creation, literature review) or can be made PHI-free through simple de-identification at the point of prompting.
+
+For the cases where PHI is necessary — ambient scribes, EHR-integrated documentation tools, population health analytics — the path is equally clear: use institution-approved tools with signed BAAs, apply the minimum necessary standard, and review every output.
+
+The technology is moving fast. The regulations will catch up. In the meantime, the one-line rule will keep you and your patients safe:
+
+**If the tool is not explicitly approved for PHI use under a BAA, do not feed it PHI.**
+
+When in doubt, de-identify. When uncertain, ask your compliance team. When you make a mistake, report it immediately. These three habits — de-identify, ask, report — are the foundation of compliant AI use in clinical practice.
+
+<Callout type="tip" title="Stay Current">
+  Bookmark your institution's approved AI tools list and check it periodically. Subscribe to your compliance department's updates. The landscape is changing quickly — tools that are not approved today may be approved tomorrow, and tools that are approved today may change their terms of service. Stay informed, and keep your practice current.
+</Callout>

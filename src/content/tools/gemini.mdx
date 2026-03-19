@@ -1,0 +1,86 @@
+---
+title: "Google Gemini for Clinical Practice"
+slug: gemini
+vendor: Google
+rating: 3
+verdict: "Massive context window is a real advantage for complex cases with extensive records, but reasoning depth trails Claude and o3"
+pricing: "Free tier + $20/mo Advanced"
+hasBaa: true
+categories: [clinical-reasoning, literature-review, general]
+lastUpdated: 2026-03-19
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Overview
+
+Google Gemini's defining clinical advantage is its context window. With 1 million tokens of context in Gemini 1.5 Pro and beyond, you can paste an entire patient chart — years of notes, labs, imaging reports, medication lists, specialist correspondence — and ask Gemini to reason across all of it at once. No other widely available LLM matches this at scale.
+
+Gemini performs well at summarization tasks and literature synthesis. Google's search integration (in the consumer product) provides real-time grounding for some queries. For organizations already in the Google Workspace ecosystem, integration is straightforward.
+
+However, for structured clinical reasoning tasks — differential diagnosis, step-by-step workup planning — Gemini's output tends to be less precise and less systematically organized than Claude or OpenAI's o-series. The reasoning is capable, but the depth of deliberate chain-of-thought thinking that makes o3 or Claude stand out is not consistently present.
+
+---
+
+## Clinical Strengths
+
+- **Massive context window** — 1M+ tokens; paste full patient charts, entire operative reports, multi-year longitudinal records
+- **Summarization at scale** — synthesizes long, disorganized clinical documents into structured summaries efficiently
+- **Literature synthesis** — handles large volumes of abstracts and research documents; good at identifying patterns across sources
+- **Google Workspace integration** — for organizations on Google Workspace, Gemini integrates with Docs, Sheets, and Gmail
+- **Multimodal input** — accepts images, PDFs, and audio alongside text; useful for reviewing scanned records or imaging reports
+
+---
+
+## When Gemini Makes Sense
+
+The primary use case where Gemini has a clear edge is when the volume of input is the challenge, not the depth of reasoning required.
+
+| Scenario | Why Gemini? |
+|---|---|
+| Summarize a 300-page medical record | 1M token context handles it in one pass |
+| Synthesize 50+ abstracts from a literature search | Processes all at once; no chunking required |
+| Review multi-year longitudinal chart for trends | Context window spans the entire history |
+| Extract structured data from unstructured notes at volume | Fast and handles long documents natively |
+| Google Workspace-native workflow | Tight integration with Docs, Sheets, Drive |
+
+For cases where reasoning depth matters more than input volume — complex DDx, rare presentations, nuanced pharmacology questions — Claude or OpenAI's o-series will generally produce more careful, structured output.
+
+---
+
+## Weaknesses
+
+- **Reasoning depth** — compared to Claude 3.5+ or OpenAI o3, Gemini's structured clinical reasoning is less precise; differentials can feel broad rather than carefully prioritized
+- **Verbose output** — Gemini frequently produces longer responses than necessary, which requires more effort to scan for the key clinical content
+- **BAA requires Vertex AI** — the consumer Gemini product (gemini.google.com) does NOT include a BAA; HIPAA-compliant access requires Google Cloud's Vertex AI platform, which has meaningful technical and administrative overhead compared to a simple consumer subscription
+- **Setup friction for HIPAA use** — Vertex AI is a developer/enterprise platform; individual clinicians cannot simply sign up and use it the way they can with a consumer subscription
+- **Inconsistent instruction following** — less reliable than Claude at adhering to strict output format requirements
+
+---
+
+## HIPAA & Privacy
+
+<Callout type="hipaa">
+  The consumer Gemini product at gemini.google.com (Free and Advanced tiers) does NOT include a Business Associate Agreement (BAA) and is NOT HIPAA-compliant. Do not enter real patient information on the consumer Gemini product. HIPAA-compliant access to Gemini requires using Google Cloud's Vertex AI platform with a signed Google Cloud BAA — this is a developer/enterprise product, not a consumer subscription.
+</Callout>
+
+For HIPAA-compliant Gemini access via Vertex AI:
+- Google Cloud BAA must be in place (covers Vertex AI services)
+- Data is not used for model training when using Vertex AI
+- SOC 2 Type II and HIPAA eligible under Google Cloud's compliance framework
+- Requires Google Cloud project setup, IAM configuration, and API access
+- Not a consumer sign-up flow — requires IT / engineering involvement
+
+For most individual clinicians, the BAA pathway is not practical without organizational IT support. If your institution already uses Google Cloud, the path is easier.
+
+---
+
+## Bottom Line
+
+Gemini earns its place in a clinical AI toolkit specifically when the volume of input exceeds what other models can handle. If you need to summarize an entire patient chart, synthesize a large literature corpus, or work with extensive longitudinal records, the 1M token context window is a genuine capability advantage that no current competitor matches at scale.
+
+For structured clinical reasoning — differential generation, diagnostic workup planning, nuanced clinical decisions — Claude and OpenAI's o-series produce more careful, precisely organized output.
+
+The HIPAA story is a real limitation: HIPAA-compliant access requires Vertex AI, not the consumer product, which introduces meaningful setup friction for most clinical users.
+
+For a head-to-head comparison against Claude and OpenAI, see the [LLM Clinical Reasoning Comparison guide](/guides/llm-clinical-reasoning-comparison).

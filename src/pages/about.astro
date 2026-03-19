@@ -1,0 +1,124 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+
+<BaseLayout
+  title="About — LLMs for Doctors"
+  description="LLMs for Doctors is a resource for clinicians learning to use AI responsibly and effectively in clinical practice."
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'About' }]} />
+
+    <!-- Mission -->
+    <section class="mb-12">
+      <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mb-6">
+        About LLMs for Doctors
+      </h1>
+      <div class="prose prose-clinical dark:prose-invert max-w-none">
+        <p class="text-lg leading-relaxed">
+          Large language models are transforming clinical practice — but most physicians don't have a trusted, evidence-based resource to help them use these tools well. <strong>LLMs for Doctors</strong> fills that gap.
+        </p>
+        <p>
+          Our mission is to provide clinicians with practical, privacy-aware, and evidence-grounded guidance on integrating AI into everyday clinical work — from documentation and patient communication to clinical reasoning and literature review.
+        </p>
+        <p>
+          Every workflow, tool review, and prompt template here is written by a physician for physicians. We're honest about limitations, rigorous about HIPAA, and focused on what actually works in the clinic.
+        </p>
+      </div>
+    </section>
+
+    <!-- About Jason -->
+    <section class="mb-12">
+      <h2 class="font-heading text-2xl font-bold text-clinical-900 dark:text-clinical-50 mb-4">
+        About Jason Gusdorf, MD
+      </h2>
+      <div class="flex flex-col sm:flex-row gap-6 items-start">
+        <img
+          src="/headshot.png"
+          alt="Jason Gusdorf, MD"
+          class="w-32 h-32 rounded-full object-cover object-[center_15%] border-2 border-clinical-200 dark:border-clinical-600 flex-shrink-0"
+        />
+        <div class="prose prose-clinical dark:prose-invert max-w-none flex-1">
+          <p>
+            Jason Gusdorf is a physician and technologist interested in the responsible application of AI in medicine. He created LLMs for Doctors to help fellow clinicians navigate the rapidly evolving landscape of AI tools — cutting through hype to focus on what's safe, effective, and practical at the bedside.
+          </p>
+          <p>
+            When he's not seeing patients or writing about AI, Jason builds software and thinks about the intersection of technology, medicine, and privacy.
+          </p>
+          <p>
+            Learn more at <a href="https://jasongusdorf.com" target="_blank" rel="noopener noreferrer">jasongusdorf.com</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section>
+      <h2 class="font-heading text-2xl font-bold text-clinical-900 dark:text-clinical-50 mb-4">
+        Get in Touch
+      </h2>
+      <p class="text-clinical-600 dark:text-clinical-400 mb-6">
+        Have a question, suggestion, or want to collaborate? Fill out the form below.
+      </p>
+
+      <form
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        class="space-y-5"
+      >
+        <input type="hidden" name="form-name" value="contact" />
+
+        <div>
+          <label for="name" class="block text-sm font-medium text-clinical-700 dark:text-clinical-300 mb-1">
+            Name
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            class="w-full rounded-md border border-clinical-300 dark:border-clinical-600 bg-white dark:bg-clinical-800 px-3 py-2 text-clinical-900 dark:text-clinical-100 placeholder-clinical-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+            placeholder="Dr. Jane Smith"
+          />
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium text-clinical-700 dark:text-clinical-300 mb-1">
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="w-full rounded-md border border-clinical-300 dark:border-clinical-600 bg-white dark:bg-clinical-800 px-3 py-2 text-clinical-900 dark:text-clinical-100 placeholder-clinical-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+            placeholder="you@example.com"
+          />
+        </div>
+
+        <div>
+          <label for="message" class="block text-sm font-medium text-clinical-700 dark:text-clinical-300 mb-1">
+            Message
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            rows={5}
+            required
+            class="w-full rounded-md border border-clinical-300 dark:border-clinical-600 bg-white dark:bg-clinical-800 px-3 py-2 text-clinical-900 dark:text-clinical-100 placeholder-clinical-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm resize-y"
+            placeholder="Your message..."
+          ></textarea>
+        </div>
+
+        <button
+          type="submit"
+          class="px-5 py-2.5 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        >
+          Send Message
+        </button>
+      </form>
+    </section>
+  </div>
+</BaseLayout>

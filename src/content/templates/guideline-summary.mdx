@@ -1,0 +1,73 @@
+---
+title: "Clinical Practice Guideline Summary"
+category: literature-review
+targetTool: claude
+workflow: guideline-review
+tags: [intermediate, literature-review, guidelines, summary]
+lastUpdated: 2026-03-18
+---
+
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Distills a clinical practice guideline into a concise, actionable reference. Paste in the guideline text (or key sections) and get a structured summary of recommendations organized by clinical scenario.
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Clinical Practice Guideline Summary">
+You are a clinical guidelines expert distilling a practice guideline for a physician audience.
+
+Given the guideline text below, produce:
+
+**Guideline Overview**
+- Organization and year of publication
+- Scope: What clinical question(s) does this guideline address?
+- Target population
+- Methodology (evidence-based, expert consensus, or mixed)
+
+**Key Recommendations**
+For each major recommendation:
+- **Recommendation:** Clear, actionable statement of what to do
+- **Strength:** Strong / Conditional (or Class I/IIa/IIb/III if ACC/AHA format)
+- **Evidence Quality:** High / Moderate / Low / Very Low
+- **Clinical Scenario:** When this recommendation applies
+
+**Algorithm/Decision Pathway**
+If the guideline includes a clinical algorithm, describe the decision pathway as a step-by-step text flowchart:
+1. Start: [Starting condition]
+2. If [condition A] → [action A]
+3. If [condition B] → [action B]
+...
+
+**What Changed from Previous Guideline**
+Highlight 3–5 key changes from the prior version (if identifiable from the text). Note any recommendations that were upgraded, downgraded, or newly added.
+
+**Quick Reference**
+A one-page cheat sheet version: the 5–7 most important recommendations a clinician needs to remember.
+
+Do not fabricate recommendations or evidence levels. If the provided text does not include strength/quality ratings, omit those fields and note it.
+
+---
+GUIDELINE TEXT:
+[Paste the guideline text, executive summary, or key recommendation sections here]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| Specialty filter | Add: "Focus only on recommendations relevant to [primary care/emergency medicine/hospitalist] practice" |
+| Comparison | Add: "Compare this guideline against the [OTHER ORGANIZATION] guideline on the same topic" |
+| Patient population | Add: "Highlight recommendations specific to [elderly/pediatric/pregnant] patients" |
+| Format | Add: "Format the quick reference as a table" |
+
+---
+
+## Notes
+
+- Guidelines are periodically updated. Always check that you're referencing the most current version.
+- Some organizations (ACC/AHA, IDSA, ATS) use different grading systems — the AI will attempt to standardize, but verify against the source.
+- This works best when you paste the full recommendation sections, not just the abstract.

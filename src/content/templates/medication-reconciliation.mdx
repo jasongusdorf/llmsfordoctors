@@ -1,0 +1,81 @@
+---
+title: "Medication Reconciliation Review"
+category: clinical-reasoning
+targetTool: claude
+workflow: medication-reconciliation
+tags: [intermediate, clinical-reasoning, medications, reconciliation, safety]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Reviews a medication list for interactions, duplications, dosing concerns, and reconciliation issues. Paste in the current medication list along with relevant clinical context (diagnoses, renal/hepatic function) and get a structured safety review.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+<Callout type="pitfall">
+  AI-generated medication reviews do not replace pharmacist review or clinical decision support systems. Always verify interactions against an authoritative drug database (e.g., Lexicomp, Micromedex).
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Medication Reconciliation Review">
+You are a clinical pharmacist reviewing a medication list for safety and appropriateness.
+
+Given the medication list and clinical context below, provide:
+
+**Drug-Drug Interactions**
+For each identified interaction:
+- Medications involved
+- Severity: Major / Moderate / Minor
+- Clinical consequence (what could happen)
+- Recommendation (monitor, adjust, or discontinue)
+
+**Therapeutic Duplications**
+Flag any medications in the same class or with overlapping mechanisms. Recommend which to continue and which to consider discontinuing.
+
+**Dosing Concerns**
+Flag any doses that appear inappropriate given the clinical context:
+- Renal dose adjustments needed
+- Hepatic dose adjustments needed
+- Age-related dosing concerns
+- Supratherapeutic or subtherapeutic doses
+
+**Missing Medications**
+Based on the diagnoses provided, flag any guideline-recommended medications that are absent (e.g., statin for ASCVD, ACEi for HFrEF). Note if there may be a valid reason for omission.
+
+**Deprescribing Opportunities**
+Flag any medications that may no longer be indicated, have high side-effect burden in this patient, or are on the Beers Criteria list for older adults.
+
+**Summary**
+2–3 sentences summarizing the highest-priority medication safety concerns.
+
+Do not fabricate interactions or dosing information. If uncertain about a specific interaction or dose, say so. Base recommendations on current clinical guidelines.
+
+---
+CLINICAL CONTEXT:
+Age/Sex: [AGE AND SEX]
+Key Diagnoses: [ACTIVE DIAGNOSES]
+Renal Function: [CREATININE AND/OR GFR IF KNOWN]
+Hepatic Function: [RELEVANT LFTS IF KNOWN]
+Allergies: [DRUG ALLERGIES]
+
+CURRENT MEDICATION LIST:
+[Paste full medication list with doses and frequencies]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| Transition of care | Add: "Compare this admission med list against the home med list below and flag discrepancies: [HOME MEDS]" |
+| Geriatric focus | Add: "Focus on Beers Criteria and anticholinergic burden" |
+| Specific concern | Add: "I am specifically concerned about [QTc prolongation / bleeding risk / serotonin syndrome]" |
+| Formulary | Add: "Check for therapeutic substitutions on the [INSTITUTION] formulary" |

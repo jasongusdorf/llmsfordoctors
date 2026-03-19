@@ -1,0 +1,100 @@
+---
+title: "OpenAI (GPT-4o / o1 / o3) for Clinical Practice"
+slug: openai
+vendor: OpenAI
+rating: 4
+verdict: "The o-series reasoning models are the best available for structured diagnostic thinking"
+pricing: "Free tier + $20/mo Plus + $200/mo Pro"
+hasBaa: true
+categories: [clinical-reasoning, note-writing, general]
+lastUpdated: 2026-03-19
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Overview
+
+OpenAI offers a family of models that spans from the fast, general-purpose GPT-4o to the deliberate, chain-of-thought-driven o-series (o1, o3). For clinical users, the distinction matters enormously: GPT-4o is a capable workhorse for routine tasks, while the o-series models represent a genuine leap forward for structured diagnostic reasoning.
+
+The o3 model in particular applies extended chain-of-thought computation before producing an answer. In practice, this means it will walk through a differential systematically, weigh competing diagnoses against each other, and surface considerations that faster models skip — behavior that closely mirrors how a careful clinician thinks.
+
+OpenAI makes a Business Associate Agreement available at the enterprise tier, enabling HIPAA-compliant use of patient data for healthcare organizations.
+
+---
+
+## Clinical Strengths
+
+- **Differential diagnosis generation** — o1 and o3's chain-of-thought reasoning produces structured, ordered differentials with explicit reasoning steps
+- **Complex clinical reasoning** — excels at multi-step problems: drug-drug interactions, atypical presentations, rare disease workups
+- **Note writing with GPT-4o** — fast enough for real-time documentation assistance; produces well-formatted SOAP notes and discharge summaries
+- **Instruction following** — GPT-4o reliably produces output in specified formats (tables, structured templates, numbered lists)
+- **Broad general knowledge** — strong performance across specialties, including areas with sparse training data
+
+---
+
+## Which Model Should I Use?
+
+| Clinical Task | Best Model | Why |
+|---|---|---|
+| Differential diagnosis (complex case) | o3 | Deep chain-of-thought reasoning; systematic |
+| Differential diagnosis (routine) | o1 or GPT-4o | Faster; sufficient for most presentations |
+| SOAP note / discharge summary | GPT-4o | Speed matters; output quality is excellent |
+| Drug interaction check | o1 | Reasoning depth catches subtle interactions |
+| Patient education letter | GPT-4o | Fast; excellent at tone and reading level |
+| Literature question ("Is there evidence for X?") | GPT-4o + web browsing | Built-in search in ChatGPT |
+| Rare disease workup | o3 | Extended reasoning handles sparse evidence well |
+| Board-style question analysis | o1 or o3 | Step-by-step reasoning matches vignette format |
+
+---
+
+## Pricing
+
+| Tier | Monthly Cost | HIPAA / BAA | Notes |
+|---|---|---|---|
+| Free | $0 | No | GPT-4o access, limited usage |
+| Plus | $20 | No | Higher limits, o1 access, web browsing |
+| Pro | $200 | No | Unlimited o1 Pro, o3 access |
+| Team | $30/user | No | Shared workspace, higher limits |
+| Enterprise | Custom | **Yes** | BAA available, SSO, audit logs, data controls |
+| API | Pay-per-token | **Yes (with BAA)** | BAA required at account setup; programmatic access |
+
+<Callout type="hipaa">
+  Only the Enterprise tier and API (with a signed BAA) are HIPAA-compliant. Free, Plus, Pro, and Team subscriptions at chat.openai.com do NOT include a BAA. Do not enter real patient information on the consumer ChatGPT tiers.
+</Callout>
+
+---
+
+## Weaknesses
+
+- **Confusing model lineup** — GPT-4o, o1, o1-mini, o1-pro, o3, o3-mini: the naming is opaque and the differences are not intuitive for non-technical users
+- **o-series is slow** — o3 in particular takes significantly longer to respond than GPT-4o; not suitable for real-time note dictation
+- **Consumer tiers are not HIPAA-compliant** — the most accessible tiers (Free, Plus, Pro) cannot be used with patient data; enterprise setup adds friction
+- **Hallucination risk** — like all LLMs, the o-series can produce confident but incorrect clinical details; extended reasoning reduces but does not eliminate errors
+- **No persistent memory by default** — each session starts fresh; you must re-establish patient context manually
+
+---
+
+## HIPAA & Privacy
+
+<Callout type="hipaa">
+  The standard ChatGPT consumer product (Free, Plus, Pro, Team tiers at chat.openai.com) does NOT include a Business Associate Agreement (BAA). Do not enter real patient information on these tiers. For HIPAA-compliant use, your organization must have an OpenAI Enterprise agreement or use the API under a signed BAA. Contact OpenAI's enterprise sales team to initiate the BAA process.
+</Callout>
+
+OpenAI's Enterprise tier includes:
+- Business Associate Agreement (BAA)
+- Data not used for model training
+- SOC 2 Type II compliance
+- Admin controls and audit logging
+- SSO / SCIM provisioning
+
+Individual physicians without enterprise access should use only de-identified data. When in doubt, remove all 18 HIPAA identifiers before pasting into any consumer AI product.
+
+---
+
+## Bottom Line
+
+If structured diagnostic reasoning is your primary use case, the o-series models are the best available tools as of early 2026. The chain-of-thought approach genuinely mirrors careful clinical thinking in a way that faster models do not. For routine note-writing and documentation tasks, GPT-4o is fast and reliable.
+
+The practical barrier is HIPAA compliance: the consumer tiers that most physicians use daily do not include a BAA. Organizations willing to set up enterprise agreements gain access to a genuinely powerful clinical reasoning tool.
+
+For a head-to-head comparison against Claude and Gemini, see the [LLM Clinical Reasoning Comparison guide](/guides/llm-clinical-reasoning-comparison).

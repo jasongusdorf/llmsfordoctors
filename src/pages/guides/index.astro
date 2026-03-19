@@ -1,0 +1,79 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+const allGuides = await getCollection('guides');
+const sorted = allGuides.sort((a, b) => b.data.lastUpdated.getTime() - a.data.lastUpdated.getTime());
+---
+
+<BaseLayout
+  title="Clinical AI Guides — LLMs for Doctors"
+  description="Practical guides for clinicians using AI in medicine. Learn prompting, workflows, and best practices."
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Guides' }]} />
+
+    <header class="mb-10">
+      <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mb-3">
+        Clinical AI Guides
+      </h1>
+      <p class="text-lg text-clinical-600 dark:text-clinical-400">
+        Practical, evidence-aware guides for clinicians integrating AI into their practice.
+      </p>
+    </header>
+
+    {sorted.length === 0 ? (
+      <div class="text-center py-20 text-clinical-500 dark:text-clinical-400">
+        <p class="text-xl font-medium">Guides coming soon.</p>
+        <p class="mt-2 text-sm">We're writing comprehensive guides for clinical AI use. Check back soon.</p>
+      </div>
+    ) : (
+      <ul class="space-y-4">
+        {sorted.map((guide) => (
+          <li>
+            <a
+              href={`/guides/${guide.id}`}
+              class="block p-5 rounded-lg border border-clinical-200 dark:border-clinical-700 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-sm transition-all group bg-white dark:bg-clinical-800"
+            >
+              <div class="flex items-start justify-between gap-3">
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2 mb-1">
+                    <h2 class="font-semibold text-clinical-900 dark:text-clinical-50 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                      {guide.data.title}
+                    </h2>
+                    {guide.data.featured && (
+                      <span class="shrink-0 px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300">
+                        Featured
+                      </span>
+                    )}
+                  </div>
+                  {guide.data.description && (
+                    <p class="text-sm text-clinical-600 dark:text-clinical-400 mb-2 line-clamp-2">
+                      {guide.data.description}
+                    </p>
+                  )}
+                  <div class="flex flex-wrap items-center gap-3 text-xs text-clinical-500 dark:text-clinical-400">
+                    <time datetime={guide.data.lastUpdated.toISOString()}>
+                      Updated {guide.data.lastUpdated.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </time>
+                    {guide.data.tags.length > 0 && (
+                      <div class="flex flex-wrap gap-1">
+                        {guide.data.tags.slice(0, 3).map((tag) => (
+                          <span class="px-2 py-0.5 rounded bg-clinical-100 dark:bg-clinical-700 text-clinical-600 dark:text-clinical-300">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <span class="text-clinical-400 group-hover:text-blue-500 transition-colors shrink-0 mt-1">→</span>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</BaseLayout>

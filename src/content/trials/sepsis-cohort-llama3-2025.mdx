@@ -1,0 +1,60 @@
+---
+title: "Syndromic Analysis of Sepsis Cohorts Using LLaMA 3"
+journal: "JAMA Network Open"
+year: 2025
+doi: "10.1001/jamanetworkopen.2025.39267"
+keyFinding: "LLaMA 3 8B extracted presenting symptoms from 104,248 sepsis patients' notes with 99.3% accuracy, enabling syndromic clustering at health-system scale."
+lastUpdated: 2026-03-18
+tags: [sepsis, symptom-extraction, llama-3, open-source, ehr, real-world, research-instrumentation]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This study uses an LLM not as a clinical tool but as a research instrument — and the results suggest this may be where LLMs deliver the most immediate value. Pak et al. conducted a retrospective cohort study of 104,248 patients with possible infection, using LLaMA 3 8B deployed via vLLM to extract presenting symptoms from history of present illness (HPI) text in electronic health records. Extracted symptoms were mapped to a controlled clinical vocabulary, then clustered into syndromic phenotypes using unsupervised methods.
+
+The study aimed to demonstrate LLMs as scalable research instrumentation — replacing bespoke NLP pipelines with a general-purpose model that could convert narrative clinical text into structured, analyzable data at health-system scale. The pipeline processed free-text HPI sections of varying lengths and documentation styles, extracting symptom mentions and mapping them to a standardized vocabulary for downstream clustering and outcome analysis. The study has 3 citations, likely because the methodology paper format does not generate the same attention as clinical outcome studies.
+
+---
+
+## Key Findings
+
+- LLaMA 3 8B achieved **99.3% extraction accuracy** on presenting symptoms from HPI text, with a balanced accuracy of 84.6% across symptom categories
+- Extracted symptoms were successfully clustered into **distinct syndromic phenotypes** that correlated with infection sources and clinical outcomes
+- The **cardiopulmonary symptom cluster** was associated with increased mortality, providing a clinically meaningful validation of the clustering approach
+- The entire pipeline ran on an **open-source model (8B parameters)** using vLLM, demonstrating that massive computational resources are not required for this class of application
+- The approach eliminated the need for **bespoke NLP pipelines** — no custom training, no labeled datasets, no rule-based extraction systems
+- Processing throughput was sufficient to handle the full cohort in a reasonable timeframe, demonstrating operational feasibility for large-scale retrospective studies
+
+<Callout type="evidence">
+  This study demonstrates LLMs as research instrumentation rather than clinical decision tools. Converting 104,248 patients' narrative notes into structured syndromic data — without building a custom NLP pipeline — represents a fundamental shift in how retrospective clinical research can be conducted. The pattern is broadly applicable to any study requiring structured data extraction from clinical text.
+</Callout>
+
+---
+
+## Clinical Implications
+
+This is primarily a research methodology paper, but its implications extend to clinical operations:
+
+1. **Retrospective clinical research is about to get much faster.** The traditional approach — build a custom NLP pipeline, label training data, validate, iterate — takes months to years. An LLM-based extraction pipeline can be deployed in days and generalize across clinical domains without retraining.
+
+2. **The 8B parameter model is the important detail.** This was not GPT-4 or a massive proprietary model. LLaMA 3 8B can run on a single GPU, making it deployable within institutional infrastructure without external API calls. For research use cases, the combination of accuracy and deployability is compelling.
+
+3. **Symptom clusters as phenotypes is a powerful framework.** The finding that LLM-extracted symptom clusters correlated with infection sources and mortality validates the approach and opens pathways for syndromic surveillance, real-time cohort identification, and outcome prediction research.
+
+<Callout type="pitfall">
+  Extraction accuracy depends heavily on documentation quality and HPI structure, which vary across institutions, specialties, and individual clinicians. The 99.3% accuracy achieved here reflects the specific documentation patterns in this health system's data. Performance at other institutions should be validated locally before relying on the pipeline for research conclusions.
+</Callout>
+
+4. **Prompt design and vocabulary mapping are the new bottlenecks.** The model's accuracy depends on how extraction prompts are written and how extracted terms are mapped to controlled vocabularies. These decisions — not model selection — are likely the primary determinants of pipeline quality.
+
+5. **The syndromic clustering approach has immediate clinical applications.** Beyond research, real-time symptom extraction could support syndromic surveillance, early outbreak detection, and automated cohort identification for quality improvement initiatives.
+
+---
+
+## My Takeaway
+
+This paper will not make headlines, but it may be the most practically impactful study in this collection for clinical researchers. The pattern it demonstrates — LLM as scalable research instrument for converting narrative text to structured data — will transform retrospective clinical research.
+
+The key insight is that you do not need a frontier model or a massive budget. An 8B parameter open-source model, running on institutional hardware, achieved 99.3% extraction accuracy across six figures of patient records. If you are a clinical researcher sitting on a large EHR dataset and wishing you had structured symptom data, this paper shows you how to get it — and the barrier to entry is remarkably low. The same pattern applies far beyond sepsis: any retrospective study that needs structured data extracted from clinical narratives can use this approach.

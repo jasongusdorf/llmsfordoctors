@@ -1,0 +1,60 @@
+---
+title: "LLM Diagnostic Assistance After AI-Literacy Training in LMIC"
+journal: "Nature Health"
+year: 2026
+doi: "10.1038/s44360-025-00007-8"
+keyFinding: "After AI-literacy training, LLM access improved physician diagnostic reasoning from 42.6% to 71.4%, though LLM alone outperformed physicians+LLM on average."
+lastUpdated: 2026-03-18
+tags: [rct, diagnosis, ai-literacy, training, lmic, gpt-4o]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This study asks a question most AI research ignores: what happens when you actually train physicians to use AI tools before measuring the effect? Qazi et al. conducted a single-blind randomized controlled trial with 60 physicians (58 completed) in a low- and middle-income country (LMIC) setting. Before the trial, all participants in the intervention arm completed a 20-hour AI-literacy curriculum covering prompt engineering, output interpretation, appropriate reliance strategies, and critical evaluation of AI-generated medical content.
+
+Physicians then worked through up to 6 clinical vignettes in 75-minute sessions, with the intervention arm having access to ChatGPT 4o. The primary outcome was diagnostic reasoning score assessed by expert rubric. Critically, the study also ran an exploratory arm where the LLM answered vignettes alone, enabling a three-way comparison: physician alone, physician+LLM, and LLM alone. This three-way design is what makes the study particularly valuable — it quantifies not just the benefit of AI access, but the specific contribution of the human in the loop. The study has 2 citations and an Altmetric score of 40.
+
+---
+
+## Key Findings
+
+- Physician+LLM diagnostic reasoning score was **71.4% vs 42.6% for physician alone** (adjusted improvement of +27.5 percentage points, P&lt;0.001)
+- The improvement was achieved with **no increase in time per case**, suggesting the AI-literacy training enabled efficient integration
+- In exploratory analysis, **LLM alone outperformed physician+LLM on average**, raising uncomfortable questions about the value of human-AI teaming versus automation
+- However, **physician+LLM exceeded the median LLM-alone score in 31.4% of cases**, suggesting physicians add value on specific case types
+- The 20-hour AI-literacy curriculum was treated as an integral part of the intervention — not a separate variable
+- Physicians who engaged more actively with the AI (more prompts, more follow-up questions) tended to score higher, suggesting that interaction quality matters as much as access
+
+<Callout type="evidence">
+  The near-30-percentage-point improvement in diagnostic reasoning is among the largest effect sizes reported in any medical AI trial. Treating AI-literacy training as part of the intervention design — not an afterthought — is arguably what made this possible and should become standard practice.
+</Callout>
+
+---
+
+## Clinical Implications
+
+This study is both encouraging and unsettling, depending on which finding you focus on:
+
+1. **AI-literacy training is not optional — it is part of the intervention.** The magnitude of improvement here likely reflects not just LLM access but trained LLM use. Physicians who know how to prompt effectively, interpret outputs critically, and integrate AI suggestions into clinical reasoning get dramatically better results.
+
+2. **The LLM-alone superiority finding is uncomfortable but important.** On average, the LLM without a physician produced better diagnostic reasoning than a physician using the LLM. This does not mean physicians are unnecessary — but it does mean we have not yet figured out the optimal human-AI workflow.
+
+3. **The 31.4% figure is the nuance.** Physicians added value on roughly one-third of cases, likely the ones involving ambiguity, atypical presentations, or contextual factors the LLM could not assess. Identifying which cases benefit from human oversight is a critical next step.
+
+<Callout type="pitfall">
+  This was a vignette-based study — the LLM-alone superiority finding should not be extrapolated to real clinical practice, where physicians contribute physical examination, patient rapport, contextual knowledge, and longitudinal care that vignettes cannot capture. The finding highlights a workflow optimization problem, not a case for removing physicians from the loop.
+</Callout>
+
+4. **LMIC context matters.** The baseline physician score of 42.6% reflects the diagnostic challenges in resource-constrained settings with less specialist access. The absolute improvement may be even more impactful in these contexts than in well-resourced health systems.
+
+5. **The 20-hour curriculum is a significant investment.** Scaling AI-literacy training to all physicians in a health system requires institutional commitment, curriculum development, and protected time. The study demonstrates the value but does not address feasibility at scale.
+
+---
+
+## My Takeaway
+
+Two findings from this study will stick with me. First, the massive effect size when AI-literacy training is built into the intervention design. This strongly suggests that the "just give clinicians access to ChatGPT" approach is inadequate — structured training in how to use these tools is what unlocks their potential. Every medical school and residency program should be watching this space closely.
+
+Second, the uncomfortable finding that LLM alone outperformed physician+LLM on average. We are not yet good at human-AI teaming in medicine. Physicians sometimes override correct AI outputs and sometimes fail to catch incorrect ones. The 31.4% figure — the cases where physicians genuinely added value — tells us the solution is not to remove humans but to get much better at understanding when and how human judgment complements AI reasoning. The next frontier is not better models but better human-AI interaction design.

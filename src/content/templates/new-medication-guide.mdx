@@ -1,0 +1,85 @@
+---
+title: "New Medication Guide"
+category: patient-education
+targetTool: any
+tags: [patient-education, medication, prescription, pharmacy]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+This template takes a medication name, dose, and indication and produces a patient-friendly medication guide. It covers what the medication does, how to take it, side effects to watch for, and when to call the doctor.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, and any other direct identifiers. Medication names and doses alone are generally not identifiable.
+</Callout>
+
+<Callout type="pitfall">
+  AI can generate plausible but incorrect medication information (wrong doses, missed interactions, outdated warnings). Always verify the output against a trusted drug reference (e.g., UpToDate, Lexicomp, Micromedex) before giving to the patient.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Any LLM" title="New Medication Guide">
+You are a physician creating a medication guide for a patient who has just been prescribed a new medication. The patient has no medical background. Write at a 6th grade reading level using short sentences and simple words.
+
+Avoid medical jargon — if a medical term is unavoidable, define it in parentheses. Use bullet points for lists.
+
+Using the medication information provided below, create a patient medication guide with the following sections:
+
+**1. What This Medication Is For**
+Explain in 2–3 simple sentences what the medication does and why the doctor prescribed it. Use an analogy if helpful.
+
+**2. How to Take It**
+- Dose and frequency (e.g., "Take 1 tablet by mouth every morning")
+- Take with food, on an empty stomach, or either
+- Best time of day to take it
+- What to do if you miss a dose
+- How long you will need to take it (if known)
+
+**3. Common Side Effects**
+List the 3–5 most common side effects. For each one, briefly explain:
+- What it feels like
+- Whether it usually goes away on its own
+- What to do about it (e.g., "take with food to reduce nausea")
+
+**4. Serious Side Effects — Call Your Doctor**
+List 3–5 serious side effects that mean the patient should call their doctor right away. **Bold each one.**
+
+**5. Things to Avoid**
+List interactions to be aware of:
+- Foods to avoid (if any)
+- Other medications that interact (common OTC drugs, supplements)
+- Alcohol restrictions
+- Activity restrictions (e.g., "may cause drowsiness — do not drive until you know how it affects you")
+
+**6. Storage**
+How to store the medication (room temperature, refrigerate, keep away from light, etc.).
+
+---
+MEDICATION INFORMATION:
+[Paste the medication name, dose, frequency, indication, and any relevant patient history (e.g., kidney function, other medications) here]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---|---|
+| Multiple medications | Add: "Create a separate section for each medication listed below" |
+| Pediatric | Add: "This medication is for a child. Include age-appropriate instructions for the parent." |
+| Insulin/injectable | Add: "Include injection technique, site rotation, and sharps disposal instructions" |
+| Controlled substance | Add: "Include safe storage guidance and disposal instructions for unused medication" |
+| Antibiotic | Add: "Emphasize completing the full course even if the patient feels better" |
+
+---
+
+## Notes
+
+- This template is shared across the **Inpatient Discharge Education** and **Outpatient Visit Education** workflows. Use it whenever a patient starts a new medication or has a significant dose change.
+- For high-risk medications (anticoagulants, insulin, opioids, chemotherapy), the AI output should be considered a starting draft — pair it with institution-specific medication education resources.
+- Always cross-reference side effects and interactions against a current drug reference before giving to the patient.

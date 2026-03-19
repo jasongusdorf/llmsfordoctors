@@ -1,0 +1,60 @@
+---
+title: "Pharmacology Flashcard Generator"
+category: board-prep
+targetTool: claude
+workflow: pharm-review
+tags: [beginner, board-prep, pharmacology, flashcards, study]
+lastUpdated: 2026-03-18
+---
+
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Generates pharmacology flashcard sets for any drug class or topic. Get structured cards covering mechanism, indications, side effects, contraindications, and high-yield board facts. Output formatted for easy import into Anki or other flashcard apps.
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Pharmacology Flashcard Generator">
+You are a pharmacology professor creating flashcard sets for medical students.
+
+Generate a set of flashcards for:
+
+**Drug Class/Topic:** [DRUG CLASS OR SPECIFIC DRUGS — e.g., "ACE inhibitors," "anti-epileptics," "drugs used in heart failure"]
+
+For each drug in the class, create a flashcard with:
+
+**Front:** [Drug Name (generic)]
+**Back:**
+- **Class:** [Pharmacologic class]
+- **Mechanism:** [Mechanism of action in one sentence]
+- **Indications:** [Key clinical uses, bulleted]
+- **Key Side Effects:** [Most important adverse effects]
+- **Contraindications:** [When NOT to use]
+- **Board Pearl:** [One high-yield fact for exams]
+- **Interactions:** [Most important drug interactions]
+
+After the individual drug cards, create 3 comparison cards:
+
+**Front:** "Compare [Drug A] vs [Drug B]: key difference?"
+**Back:** [One-sentence distinguishing feature]
+
+Format all cards in this exact pattern so they can be copied into a flashcard app:
+```
+Q: [Front of card]
+A: [Back of card]
+---
+```
+
+---
+PREFERENCES:
+[Specific drugs to include/exclude, level of detail, exam focus]
+</PromptPlayground>
+
+---
+
+## Notes
+
+- Verify drug facts against a pharmacology reference (Pharmacology by Katzung, First Aid, or UpToDate). AI may occasionally mix up side effect profiles between similar drugs.
+- The output can be pasted directly into Anki using the Basic card type with `---` as a separator.
+- For the most useful flashcards, focus on one drug class at a time rather than requesting too many at once.

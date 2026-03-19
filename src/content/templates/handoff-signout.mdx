@@ -1,0 +1,75 @@
+---
+title: "Shift Handoff — I-PASS Format"
+category: note-writing
+targetTool: claude
+workflow: shift-handoff
+tags: [intermediate, note-writing, handoff, signout, patient-safety]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Generates a structured patient handoff using the I-PASS framework (Illness severity, Patient summary, Action list, Situation awareness, Synthesis by receiver). Paste in your patient's current status and get a concise, safety-focused signout.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Shift Handoff — I-PASS">
+You are a physician preparing a structured shift handoff for the incoming team using the I-PASS framework.
+
+Using the patient information below, generate a concise handoff for each patient:
+
+**I — Illness Severity**
+One word: STABLE / WATCHER / UNSTABLE
+
+**P — Patient Summary**
+Two to three sentence summary: [Age] [sex] with [key history] admitted for [reason], hospital day [X]. Current status: [brief trajectory].
+
+**A — Action List**
+Bulleted list of specific to-do items for the incoming team:
+- Tasks that MUST be done (with timeframes)
+- Pending results to follow up
+- Medication timing (e.g., "Next dose of vancomycin at 22:00 — check trough before")
+
+**S — Situation Awareness & Contingency Planning**
+"If…then" statements for likely overnight scenarios:
+- "If BP drops below 90 systolic → [specific action]"
+- "If fever spikes → [specific action]"
+- "If family calls → [what to tell them / who to contact]"
+
+**S — Synthesis by Receiver**
+Leave blank — to be completed verbally during handoff.
+
+Keep each patient's handoff to one page maximum. Prioritize safety-critical information. Use exact values for vitals, labs, and medication doses.
+
+Do not infer or fabricate any clinical information not provided. Flag any assumptions.
+
+---
+PATIENT INFORMATION:
+[Paste current patient status: diagnoses, active issues, recent events, vitals, key labs, meds, pending items, and anticipated overnight issues]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| Multiple patients | Add: "Generate a separate I-PASS handoff for each patient below, separated by a horizontal rule" |
+| Code status | Add: "Include code status and goals of care at the top of each patient" |
+| Cross-cover | Add: "This is a cross-cover handoff. I am not the primary team. Focus on overnight action items only." |
+| Service-specific | Add: "This is a [surgery/ICU/OB] service. Adjust the contingency plans for [service]-specific emergencies." |
+
+---
+
+## Notes
+
+- I-PASS has been shown to reduce medical errors during handoffs by up to 30% (Starmer et al., NEJM 2014).
+- The "Synthesis by Receiver" section is intentionally left blank — it's meant to be completed during the live verbal handoff as a read-back.
+- For cross-cover signout, prioritize anticipatory guidance over background history.

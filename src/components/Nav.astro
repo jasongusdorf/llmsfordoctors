@@ -1,0 +1,101 @@
+---
+import DarkModeToggle from './DarkModeToggle.astro';
+
+const pathname = Astro.url.pathname;
+
+const navLinks = [
+  { href: '/workflows', label: 'Workflows' },
+  { href: '/guides',    label: 'Guides' },
+  { href: '/tools',     label: 'Tools' },
+  { href: '/templates', label: 'Templates' },
+  { href: '/trials',    label: 'Trials' },
+  { href: 'https://community.llmsfordoctors.com', label: 'Community' },
+  { href: '/about',     label: 'About' },
+];
+---
+
+<nav class="fixed top-0 left-0 right-0 z-50 bg-clinical-50/95 dark:bg-clinical-900/95 backdrop-blur border-b border-clinical-200 dark:border-clinical-700">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+
+      <!-- Brand -->
+      <a
+        href="/"
+        class="font-heading font-semibold text-lg text-clinical-900 dark:text-clinical-50 hover:text-clinical-600 dark:hover:text-clinical-300 transition-colors"
+      >
+        LLMs for Doctors
+      </a>
+
+      <!-- Desktop links -->
+      <div class="hidden sm:flex items-center gap-1">
+        {navLinks.map(({ href, label }) => (
+          <a
+            href={href}
+            class:list={[
+              'px-3 py-2 rounded-md text-sm font-medium transition-colors',
+              pathname.startsWith(href)
+                ? 'bg-clinical-100 dark:bg-clinical-800 text-clinical-900 dark:text-clinical-50'
+                : 'text-clinical-600 dark:text-clinical-400 hover:text-clinical-900 dark:hover:text-clinical-100 hover:bg-clinical-100 dark:hover:bg-clinical-800',
+            ]}
+          >
+            {label}
+          </a>
+        ))}
+        <div class="ml-2">
+          <DarkModeToggle />
+        </div>
+      </div>
+
+      <!-- Mobile: dark toggle + hamburger -->
+      <div class="flex sm:hidden items-center gap-2">
+        <DarkModeToggle />
+        <button
+          id="mobile-menu-toggle"
+          class="p-2 rounded-md text-clinical-600 dark:text-clinical-400 hover:text-clinical-900 dark:hover:text-clinical-100 hover:bg-clinical-100 dark:hover:bg-clinical-800 transition-colors"
+          aria-label="Toggle mobile menu"
+          aria-expanded="false"
+        >
+          <!-- Hamburger icon -->
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Mobile menu (hidden by default) -->
+  <div
+    id="mobile-menu"
+    class="hidden sm:hidden border-t border-clinical-200 dark:border-clinical-700 bg-clinical-50 dark:bg-clinical-900"
+  >
+    <div class="px-4 py-3 space-y-1">
+      {navLinks.map(({ href, label }) => (
+        <a
+          href={href}
+          class:list={[
+            'block px-3 py-2 rounded-md text-sm font-medium transition-colors',
+            pathname.startsWith(href)
+              ? 'bg-clinical-100 dark:bg-clinical-800 text-clinical-900 dark:text-clinical-50'
+              : 'text-clinical-600 dark:text-clinical-400 hover:text-clinical-900 dark:hover:text-clinical-100 hover:bg-clinical-100 dark:hover:bg-clinical-800',
+          ]}
+        >
+          {label}
+        </a>
+      ))}
+    </div>
+  </div>
+</nav>
+
+<script>
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      const isOpen = !menu.classList.contains('hidden');
+      menu.classList.toggle('hidden', isOpen);
+      toggle.setAttribute('aria-expanded', String(!isOpen));
+    });
+  }
+</script>

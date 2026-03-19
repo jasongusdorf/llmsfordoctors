@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SearchBar from '../components/SearchBar.astro';
+---
+
+<BaseLayout
+  title="Page Not Found — LLMs for Doctors"
+  description="The page you're looking for doesn't exist. Find clinical AI workflows, guides, and tools here."
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+    <p class="text-8xl font-bold text-clinical-200 dark:text-clinical-700 mb-4">404</p>
+    <h1 class="font-heading text-2xl sm:text-3xl font-bold text-clinical-900 dark:text-clinical-50 mb-3">
+      Page Not Found
+    </h1>
+    <p class="text-clinical-600 dark:text-clinical-400 mb-10 max-w-md mx-auto">
+      The page you're looking for doesn't exist or may have moved. Try searching or browse by category below.
+    </p>
+
+    <!-- Search -->
+    <div class="max-w-md mx-auto mb-12">
+      <SearchBar />
+    </div>
+
+    <!-- Category links grid -->
+    <section class="mb-12">
+      <h2 class="font-heading text-lg font-semibold text-clinical-800 dark:text-clinical-200 mb-4">
+        Browse by Category
+      </h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        {[
+          { label: 'Workflows', href: '/workflows', icon: '⚡' },
+          { label: 'Guides', href: '/guides', icon: '📖' },
+          { label: 'Tools', href: '/tools', icon: '🔧' },
+          { label: 'Templates', href: '/templates', icon: '📝' },
+          { label: 'Trials', href: '/trials', icon: '🔬' },
+          { label: 'About', href: '/about', icon: 'ℹ️' },
+        ].map(({ label, href, icon }) => (
+          <a
+            href={href}
+            class="flex flex-col items-center gap-1.5 p-4 rounded-lg border border-clinical-200 dark:border-clinical-700 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-sm transition-all bg-white dark:bg-clinical-800 group"
+          >
+            <span class="text-2xl">{icon}</span>
+            <span class="text-sm font-medium text-clinical-700 dark:text-clinical-300 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+              {label}
+            </span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Popular pages -->
+    <section>
+      <h2 class="font-heading text-lg font-semibold text-clinical-800 dark:text-clinical-200 mb-4">
+        Popular Pages
+      </h2>
+      <ul class="space-y-2 text-left max-w-sm mx-auto">
+        {[
+          { label: 'Discharge Summary Workflow', href: '/workflows/discharge-summary' },
+          { label: 'Prompting 101 for Clinicians', href: '/guides/prompting-101' },
+          { label: 'Claude for Clinical Practice', href: '/tools/claude' },
+        ].map(({ label, href }) => (
+          <li>
+            <a
+              href={href}
+              class="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline text-sm"
+            >
+              <span class="text-clinical-400">→</span>
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Back home -->
+    <div class="mt-12">
+      <a
+        href="/"
+        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-colors"
+      >
+        ← Back to Home
+      </a>
+    </div>
+  </div>
+</BaseLayout>

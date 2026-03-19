@@ -1,0 +1,60 @@
+---
+title: "Safety of LLM-Based Clinical Decision Support in African Primary Care"
+journal: "Nature Health"
+year: 2026
+doi: "10.1038/s44360-026-00082-5"
+keyFinding: "EMR-embedded LLM CDS aligned with guidelines 99% of the time but produced actively harmful recommendations in 7.8% of encounters."
+lastUpdated: 2026-03-18
+tags: [safety, deployment, clinical-decision-support, primary-care, hallucination, real-world]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Unlike most medical AI studies, this one evaluates what actually happened when an AI system was deployed in real clinics with real patients. Agweyu et al. conducted a retrospective evaluation of an EMR-embedded LLM clinical decision support system deployed across 16 primary care clinics in Kenya. A total of 1,469 patient encounter records were reviewed by clinical experts for guideline alignment, presence of hallucinations, harmful recommendations, and beneficial risk mitigation.
+
+This was not a simulated benchmark — the system had been actively deployed, generating recommendations that clinicians could accept, modify, or reject as part of their routine workflow. The evaluation assessed what actually happened during real clinical encounters, including whether harmful recommendations reached the final clinical documentation. Expert reviewers independently categorized each AI recommendation as aligned, hallucinated, harmful, or beneficially mitigating, with inter-rater reliability assessed. The study had an Altmetric score of 2, suggesting it has not yet received the attention it deserves given its significance for real-world AI safety.
+
+---
+
+## Key Findings
+
+- The system demonstrated **99% alignment with clinical guidelines** across the evaluated encounters
+- **Hallucination rate was 3.4%** — relatively low but non-zero in a deployed clinical setting
+- Despite high guideline alignment, **7.8% of encounters contained actively harmful recommendations** — and some of these reached the final clinical documentation
+- The system provided **beneficial risk mitigation in 8.0% of encounters overall** (12.1% of cases where clinicians amended the AI suggestions)
+- The "friction asymmetry" problem was evident: **accepting an AI recommendation required less effort than rejecting one**, creating a systematic bias toward harmful outputs persisting
+- Harmful recommendations spanned multiple categories including inappropriate medication suggestions, missed contraindications, and incorrect dosing — not a single failure mode
+
+<Callout type="evidence">
+  This is the clearest "safety math" study to date for deployed medical AI. The simultaneous finding of 99% guideline alignment AND 7.8% harmful recommendations demolishes the assumption that high alignment scores mean a system is safe. These are not contradictory findings — they reveal that safety is not a single number.
+</Callout>
+
+---
+
+## Clinical Implications
+
+This study should be required reading for anyone deploying clinical decision support:
+
+1. **Utility and harm do not average out.** A system that helps 8% of the time and harms 7.8% of the time is not "roughly neutral." Harmful recommendations can cause irreversible patient injury; beneficial suggestions add incremental value. The downside risk is categorically different from the upside.
+
+2. **The friction asymmetry problem is real and underappreciated.** When the default UI action is "accept," and rejecting requires active intervention, harmful recommendations will predictably reach patients at higher rates than a simple accuracy metric would suggest. System design matters as much as model quality.
+
+3. **Guideline alignment is necessary but not sufficient.** A system can follow guidelines 99% of the time and still generate dangerous outputs in the remaining cases. Safety evaluation must specifically probe for harmful recommendations, not just measure concordance.
+
+<Callout type="pitfall">
+  This was a retrospective, documentation-centric evaluation. Patient-level health outcomes were not measured. It is possible that some "harmful" recommendations were caught and corrected before reaching the patient, or conversely, that additional harms occurred that were not captured in the documentation.
+</Callout>
+
+4. **Context matters enormously.** These findings are from primary care clinics in Kenya, where clinician workload, resource availability, and supervision structures differ from other settings. The specific harm rate may not generalize, but the pattern — high alignment coexisting with non-trivial harm — almost certainly does.
+
+5. **The beneficial risk mitigation rate provides a floor for value.** The 8.0% beneficial intervention rate is meaningful — it means the system caught clinically important issues in nearly 1 in 12 encounters. The challenge is building systems where the 8% benefit is preserved while the 7.8% harm is systematically reduced.
+
+---
+
+## My Takeaway
+
+This is the most important safety study in deployed medical AI that almost nobody has read. The core finding is deceptively simple: you can have 99% guideline alignment and 7.8% harmful recommendations at the same time. These numbers are not contradictory — they measure different things, and conflating them is exactly the mistake that leads to premature deployment confidence.
+
+The friction asymmetry finding is equally critical: if your system makes it easier to accept than to reject, you have built a harm amplifier regardless of how accurate the underlying model is. Every health system deploying clinical AI should study this paper and specifically audit their acceptance/rejection UX flows. The question is not just "is the model accurate?" but "does the system design protect patients when the model is wrong?"

@@ -1,0 +1,106 @@
+---
+title: "Creating Inpatient Discharge Education Materials"
+category: patient-education
+tools: [claude]
+templates: [discharge-instructions-patient, new-medication-guide, post-procedure-care, follow-up-visit-prep]
+tags: [patient-education, discharge, inpatient, education-materials]
+timeToRead: 6
+lastUpdated: 2026-03-18
+specialty: [general-medicine]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## The Problem
+
+Patients forget **40–80% of medical information** provided during discharge, and nearly half recall it incorrectly. Handwritten or rushed discharge instructions lead to medication errors, missed follow-ups, and preventable readmissions. AI can help generate clear, consistent, patient-friendly education materials in minutes.
+
+This workflow walks you through generating a complete set of discharge education materials using prompt templates and any LLM.
+
+<Callout type="hipaa">
+  Never paste identifiable patient information (name, DOB, MRN, dates of service) into a consumer AI tool. Use a de-identified summary or ensure your organization has a BAA in place with the vendor before using patient data.
+</Callout>
+
+---
+
+## Step 1: De-Identify Your Notes
+
+Before using any AI tool, remove all direct identifiers from your discharge documentation:
+
+- Patient name, date of birth, MRN
+- Admission and discharge dates
+- Provider names
+- Any other PHI (addresses, phone numbers, Social Security numbers)
+
+Keep the clinical content: diagnoses, medications, procedures, lab results, and follow-up plans.
+
+---
+
+## Step 2: Generate the Discharge Instructions
+
+Use the **[Patient Discharge Instructions](/templates/discharge-instructions-patient)** template. Paste in your de-identified discharge summary or structured notes. The output will include:
+
+- A simple explanation of why they were hospitalized
+- Medication changes in plain language
+- Activity and diet guidance
+- Follow-up appointments
+- Warning signs for when to call the doctor or go to the ER
+
+---
+
+## Step 3: Generate Medication Guides
+
+For each **new or significantly changed medication**, use the **[New Medication Guide](/templates/new-medication-guide)** template. This produces a dedicated guide for each medication covering:
+
+- What it does and why it was prescribed
+- How to take it correctly
+- Side effects and interactions
+- What to do if a dose is missed
+
+<Callout type="tip">
+  For patients going home on 3+ new medications, generating individual medication guides for each one significantly improves adherence and reduces confusion.
+</Callout>
+
+---
+
+## Step 4: Generate Post-Procedure Instructions (If Applicable)
+
+If the patient had a procedure during their hospitalization, use the **[Post-Procedure Care Instructions](/templates/post-procedure-care)** template. This covers wound care, activity restrictions, pain management, and warning signs specific to the procedure.
+
+Skip this step if no procedure was performed.
+
+---
+
+## Step 5: Generate Follow-Up Visit Prep
+
+Use the **[Follow-Up Visit Preparation](/templates/follow-up-visit-prep)** template to help the patient prepare for their first outpatient follow-up. This gives them a tracking checklist, symptom diary, and questions to ask at their next visit.
+
+---
+
+## Step 6: Review All Materials
+
+Before giving any AI-generated materials to the patient, verify:
+
+- [ ] **Medication names, doses, and frequencies** match the actual discharge medication reconciliation
+- [ ] **Follow-up appointments** are accurate and include scheduling instructions
+- [ ] **Warning signs** are appropriate for this patient's specific conditions
+- [ ] **Activity restrictions** are consistent with the physician's actual orders
+- [ ] **No fabricated information** appears in any document
+- [ ] **Reading level** is appropriate for this specific patient
+
+<Callout type="pitfall">
+  The medication section is the highest-risk part of any AI-generated patient education material. Always cross-reference against the actual medication reconciliation and pharmacy discharge paperwork.
+</Callout>
+
+---
+
+## Step 7: Customize and Deliver
+
+Adjust materials for the individual patient:
+
+- **Lower reading level** if the patient has limited literacy
+- **Add translations** if the patient has limited English proficiency (have a qualified medical interpreter review)
+- **Increase or decrease detail** based on discharge complexity
+- **Highlight the most critical action items** for this specific patient
+
+Print, email through the patient portal, or hand-deliver depending on your institution's workflow.

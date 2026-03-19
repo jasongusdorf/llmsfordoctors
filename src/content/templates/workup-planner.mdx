@@ -1,0 +1,93 @@
+---
+title: "Diagnostic Workup Planner"
+category: clinical-reasoning
+targetTool: openai
+workflow: clinical-reasoning
+tags: [intermediate, clinical-reasoning, workup, diagnostics, test-ordering]
+lastUpdated: 2026-03-19
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Converts a clinical impression and differential diagnosis into a prioritized, rationale-driven diagnostic workup plan. Provide your leading diagnoses and the clinical context, and get a structured list of tests organized by urgency and diagnostic yield.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+<Callout type="evidence">
+  Diagnostic test recommendations reflect general clinical principles. Institutional protocols, local prevalence, patient values, and cost constraints must all factor into actual test-ordering decisions. AI output does not replace clinical judgment or specialty consultation.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="ChatGPT (GPT-4o)" title="Diagnostic Workup Planner">
+You are an experienced attending physician helping to plan a diagnostic workup for an undifferentiated clinical presentation.
+
+Given the clinical scenario and differential diagnoses below, generate a structured workup plan organized by priority tier:
+
+**Tier 1 — Immediate (order now, results needed within hours)**
+List tests that must be obtained urgently to rule out dangerous diagnoses or guide immediate management. For each test:
+- Test name
+- What diagnosis or question it addresses
+- Threshold that would change management
+
+**Tier 2 — Early (order now, results within 24–48 hours)**
+List tests that are diagnostically important but not immediately time-critical. Include the same format as Tier 1.
+
+**Tier 3 — Deferred (pending Tier 1/2 results or outpatient)**
+List tests that can wait for initial results before ordering, or that are appropriate in an outpatient or follow-up setting.
+
+**Procedures / Consultations**
+List any procedures (e.g., lumbar puncture, paracentesis, biopsy) or specialty consultations indicated, with the specific question to be answered.
+
+**Decision Branch Points**
+Briefly describe how key Tier 1/2 results would shift the workup. Use "If [result], then [next step]" format for the 2–3 most pivotal tests.
+
+**What to Avoid**
+List 2–3 tests that might seem indicated but are low-yield or potentially harmful in this specific scenario. Briefly explain why.
+
+Rules:
+- Prioritize tests by diagnostic yield and clinical urgency, not by comprehensiveness.
+- Do not fabricate test sensitivities, specificities, or cutoff values — state them only if well-established.
+- Do not infer clinical information not explicitly provided below.
+
+---
+CLINICAL SCENARIO:
+Age / Sex: [AGE AND SEX]
+Presentation: [CHIEF COMPLAINT, DURATION, KEY FINDINGS]
+Vital Signs: [HEART RATE, BP, RR, O2 SAT, TEMPERATURE]
+Exam: [PERTINENT PHYSICAL EXAM]
+Already Obtained: [ANY RESULTS ALREADY AVAILABLE — labs, imaging, ECG]
+Setting: [EMERGENCY DEPARTMENT / INPATIENT / OUTPATIENT]
+
+DIFFERENTIAL DIAGNOSES TO WORK UP:
+1. [MOST LIKELY DIAGNOSIS]
+2. [SECOND DIAGNOSIS]
+3. [THIRD DIAGNOSIS]
+Must-not-miss: [ANY HIGH-ACUITY DIAGNOSES TO RULE OUT]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| Setting | Add: "This is an outpatient visit — limit workup to tests available in clinic or sendout" |
+| Resource constraints | Add: "Prioritize the 3 highest-yield tests given limited resources" |
+| Prior workup | Add: "These tests were already obtained [LIST]. Focus the plan on what remains." |
+| Subspecialty | Add: "This is a [nephrology / hematology / rheumatology] workup — use specialty-appropriate sequencing" |
+| Patient factors | Add: "This patient has [CKD / contrast allergy / coagulopathy] — adjust accordingly" |
+
+---
+
+## Notes
+
+- Works best when paired with the **DDx Generator** template: first generate your differential, then paste it here to build the workup plan.
+- The **Decision Branch Points** section is the highest-value output — it makes your clinical reasoning explicit and helps anticipate what you'll do before results return.
+- The **What to Avoid** section helps with both test stewardship and patient safety (e.g., avoiding contrast in AKI, avoiding LP before CT in certain cases).
+- For complex multi-system presentations, run this template once per major diagnostic question rather than trying to cover everything in a single prompt.

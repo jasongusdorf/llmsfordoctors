@@ -1,0 +1,30 @@
+---
+// Pagefind search UI integration.
+// pagefind assets are generated at build time into /pagefind/ and not available to Rollup/Vite.
+// We load them lazily at runtime via a script tag.
+---
+
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+<div id="search" class="w-full"></div>
+
+<script is:inline>
+  (function () {
+    var script = document.createElement('script');
+    script.src = '/pagefind/pagefind-ui.js';
+    script.onload = function () {
+      new PagefindUI({ element: '#search', showSubResults: true, showImages: false });
+    };
+    script.onerror = function () {
+      var el = document.getElementById('search');
+      if (el) {
+        var input = document.createElement('input');
+        input.type = 'search';
+        input.placeholder = 'Search (available after build)...';
+        input.className = 'w-full px-4 py-2 rounded-lg border border-clinical-300 bg-white text-clinical-800 focus:outline-none focus:ring-2 focus:ring-blue-500';
+        input.disabled = true;
+        el.appendChild(input);
+      }
+    };
+    document.head.appendChild(script);
+  })();
+</script>

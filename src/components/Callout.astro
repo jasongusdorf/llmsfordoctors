@@ -1,0 +1,62 @@
+---
+interface Props {
+  type: 'hipaa' | 'pitfall' | 'tip' | 'evidence';
+  title?: string;
+}
+
+const { type, title } = Astro.props;
+
+type CalloutConfig = {
+  bg: string;
+  border: string;
+  text: string;
+  icon: string;
+  defaultTitle: string;
+};
+
+const config: Record<Props['type'], CalloutConfig> = {
+  hipaa: {
+    bg: 'bg-callout-hipaa-bg',
+    border: 'border-callout-hipaa-border',
+    text: 'text-callout-hipaa-text',
+    icon: '🔒',
+    defaultTitle: 'HIPAA Notice',
+  },
+  pitfall: {
+    bg: 'bg-callout-pitfall-bg',
+    border: 'border-callout-pitfall-border',
+    text: 'text-callout-pitfall-text',
+    icon: '⚠️',
+    defaultTitle: 'Pitfall',
+  },
+  tip: {
+    bg: 'bg-callout-tip-bg',
+    border: 'border-callout-tip-border',
+    text: 'text-callout-tip-text',
+    icon: '💡',
+    defaultTitle: 'Tip',
+  },
+  evidence: {
+    bg: 'bg-callout-evidence-bg',
+    border: 'border-callout-evidence-border',
+    text: 'text-callout-evidence-text',
+    icon: '📊',
+    defaultTitle: 'Evidence',
+  },
+};
+
+const { bg, border, text, icon, defaultTitle } = config[type];
+const displayTitle = title ?? defaultTitle;
+---
+
+<aside class:list={['no-print my-6 rounded-r-md border-l-4 px-5 py-4', bg, border, text]}>
+  <div class="flex items-start gap-3">
+    <span class="text-xl leading-none mt-0.5" aria-hidden="true">{icon}</span>
+    <div class="flex-1 min-w-0">
+      <p class="font-semibold text-sm mb-1">{displayTitle}</p>
+      <div class="text-sm leading-relaxed prose-sm">
+        <slot />
+      </div>
+    </div>
+  </div>
+</aside>

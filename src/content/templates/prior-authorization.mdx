@@ -1,0 +1,95 @@
+---
+title: "Prior Authorization Letter"
+category: admin-billing
+targetTool: claude
+workflow: prior-authorization
+tags: [beginner, admin-billing, prior-auth, insurance, documentation]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Generates a medical necessity letter for prior authorization requests. Provide the patient's clinical information, the requested service, and the insurer's requirements, and get a professional letter citing clinical criteria and evidence. One of the most time-consuming physician tasks — this template helps draft it in minutes.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, insurance ID, provider names, and any other direct identifiers.
+</Callout>
+
+<Callout type="tip">
+  The strongest prior auth letters cite the insurer's own coverage criteria and relevant clinical guidelines. If you have the insurer's policy document, paste the relevant section into the prompt for better results.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Prior Authorization Letter">
+You are a physician writing a letter of medical necessity to support a prior authorization request.
+
+Using the clinical information below, write a formal letter that includes:
+
+**Header**
+[Date]
+To: [INSURANCE COMPANY] Utilization Review Department
+Re: Prior Authorization Request for [REQUESTED SERVICE/MEDICATION]
+Member ID: [REDACTED — add before sending]
+
+**Opening**
+Identify yourself, your specialty, and your relationship to the patient. State what you are requesting authorization for.
+
+**Clinical History**
+Summarize the patient's relevant medical history, including:
+- Diagnosis (with ICD-10 code if provided)
+- Duration and severity of the condition
+- Impact on the patient's functional status and quality of life
+
+**Previous Treatments**
+Document prior treatments tried and failed (step therapy), including:
+- Medication/treatment name
+- Duration of trial
+- Reason for failure (ineffective, adverse effects, contraindicated)
+
+**Medical Necessity Argument**
+Explain why the requested service is medically necessary for this patient:
+- Clinical rationale based on the patient's specific situation
+- Reference to clinical practice guidelines (cite specific guidelines by name and year)
+- Reference to insurer's own coverage criteria if provided
+- Why alternatives are inappropriate, insufficient, or contraindicated
+
+**Supporting Evidence**
+Cite 2–3 relevant studies or guidelines that support this intervention for this indication.
+
+**Closing**
+Request expedited review if clinically urgent. Offer to provide additional information. Include contact information placeholder.
+
+Use a professional, factual tone. Avoid emotional appeals. Focus on clinical evidence and guideline concordance.
+
+---
+CLINICAL INFORMATION:
+Diagnosis: [DIAGNOSIS AND ICD-10 CODE]
+Requested Service: [MEDICATION, PROCEDURE, IMAGING, DME, OR REFERRAL]
+Insurance: [INSURANCE COMPANY AND PLAN TYPE]
+Previous Treatments Tried: [LIST WITH DURATIONS AND OUTCOMES]
+Relevant Clinical Data: [LABS, IMAGING, FUNCTIONAL ASSESSMENTS]
+Insurer Coverage Criteria (if available): [PASTE RELEVANT POLICY LANGUAGE]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| Urgency | Add: "This is an urgent/expedited request due to [REASON]" |
+| Step therapy | Add: "Document that the following step therapy requirements have been met: [REQUIREMENTS]" |
+| Specialty medication | Add: "Include pharmacokinetic rationale for this specific agent over alternatives" |
+| DME | Add: "Include functional assessment scores and mobility evaluation results" |
+
+---
+
+## Notes
+
+- Always verify citations and guideline references before sending — AI may generate plausible-sounding but inaccurate citations.
+- Add the actual patient identifiers and your signature before submitting.
+- Save successful prior auth letters as templates for future patients with similar conditions.

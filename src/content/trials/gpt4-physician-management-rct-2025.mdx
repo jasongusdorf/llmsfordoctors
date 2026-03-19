@@ -1,0 +1,60 @@
+---
+title: "GPT-4 Improves Physician Performance on Management Tasks"
+journal: "Nature Medicine"
+year: 2025
+doi: "10.1038/s41591-024-03456-y"
+keyFinding: "LLM-assisted physicians scored 6.5% higher on management reasoning tasks, but took ~2 minutes longer per case."
+lastUpdated: 2026-03-18
+tags: [rct, gpt-4, management-reasoning, physician-performance, clinical-reasoning]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Most medical AI studies measure diagnostic accuracy. This one measured something harder and more important. Goh et al. conducted a prospective randomized controlled trial with 92 physicians randomized to either GPT-4-assisted or unassisted arms. Each physician worked through 5 expert-developed clinical vignettes that used sequential information release — meaning clinical data was revealed progressively, mimicking real-world diagnostic and management unfolding rather than presenting all information at once.
+
+The primary outcome was management reasoning score, assessed by expert consensus rubric. The study specifically targeted management decisions (treatment plans, follow-up, referrals) rather than diagnostic accuracy alone, marking a deliberate shift from earlier LLM evaluations. Vignettes covered a range of specialties and acuity levels, and scoring rubrics were developed by a panel of subspecialists to ensure the evaluation captured nuanced management choices — not just whether the "right" treatment was selected, but whether the reasoning pathway was sound. With 118 citations and an Altmetric score of 345, this trial generated substantial attention.
+
+---
+
+## Key Findings
+
+- LLM-assisted physicians scored **6.5% higher on management reasoning** compared to the unassisted group (P&lt;0.001)
+- However, the assisted group took an **additional 119 seconds per case** (~2 minutes longer), a statistically significant time cost
+- This was the **first large-vignette RCT focused specifically on management reasoning** rather than diagnostic multiple-choice questions
+- The improvement was consistent across physician experience levels, suggesting benefit for both trainees and attendings
+- Sequential information release made the task more realistic than single-prompt vignette studies
+- Subgroup analysis suggested the largest gains in cases requiring **multidisciplinary management coordination**, where the LLM helped physicians consider additional specialties and follow-up pathways
+
+<Callout type="evidence">
+  This is the first RCT to demonstrate measurable improvement in what arguably matters most in clinical AI — management reasoning, not just diagnostic accuracy. A 6.5% improvement on expert-scored management tasks is clinically meaningful, especially since management errors are a leading source of adverse events.
+</Callout>
+
+---
+
+## Clinical Implications
+
+The management reasoning focus makes this study significantly more relevant to real clinical practice than diagnostic benchmarks. But the findings need context:
+
+1. **The time cost is not trivial.** Two extra minutes per case sounds small, but at scale — across a full clinic day or ED shift — it compounds. If AI assistance slows physicians down by even 10%, the net effect on patient throughput could be negative.
+
+2. **Simulated vignettes are still not real patients.** Sequential information release is better than static vignettes, but physicians in practice also deal with interruptions, system friction, and competing priorities that were absent here.
+
+3. **Management reasoning is harder to automate than diagnosis.** Management depends on patient preferences, comorbidities, local resource availability, and insurance constraints that no vignette fully captures.
+
+<Callout type="pitfall">
+  The 119-second time penalty per case is easy to dismiss in a study context but could be practice-limiting at scale. Before deploying LLM-assisted management tools, institutions need to model the throughput impact — not just the quality improvement.
+</Callout>
+
+4. **The consistent benefit across experience levels** is encouraging but also raises questions about whether the AI is providing genuine reasoning enhancement or simply prompting more thorough documentation.
+
+5. **Sequential information release is a methodological advance** that other studies should adopt. Static vignettes that present all information at once test a fundamentally different cognitive task than real clinical reasoning, where information arrives piecemeal and must be integrated over time.
+
+---
+
+## My Takeaway
+
+This is one of the most important medical AI studies published to date because it measures the right thing. Diagnostic accuracy is table stakes; what physicians actually need help with is the messy, multifactorial world of management decisions. The 6.5% improvement is real and meaningful. But so is the time cost.
+
+The honest conclusion is that GPT-4 can function as a useful management reasoning aid — a structured second opinion for treatment planning — as long as we accept the tradeoff that it makes things slower. Whether that tradeoff is worth it depends entirely on the clinical context: high-stakes, low-volume decisions (oncology treatment planning, complex discharge planning) are a clear yes; high-volume, time-pressured settings (ED triage, urgent care) are a harder sell. The next generation of studies needs to measure not just quality improvement but net clinical value — quality gains minus throughput losses — across different practice environments.

@@ -1,0 +1,59 @@
+@import "tailwindcss";
+@variant dark (&:where(.dark, .dark *));
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-heading: 'Newsreader', 'Georgia', serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  /* Clinical palette */
+  --color-clinical-50: #f8fafc;
+  --color-clinical-100: #f1f5f9;
+  --color-clinical-200: #e2e8f0;
+  --color-clinical-300: #cbd5e1;
+  --color-clinical-400: #94a3b8;
+  --color-clinical-500: #64748b;
+  --color-clinical-600: #475569;
+  --color-clinical-700: #334155;
+  --color-clinical-800: #1e293b;
+  --color-clinical-900: #0f172a;
+
+  /* Callout colors */
+  --color-callout-hipaa-bg: #fef2f2;
+  --color-callout-hipaa-border: #ef4444;
+  --color-callout-hipaa-text: #991b1b;
+
+  --color-callout-pitfall-bg: #fffbeb;
+  --color-callout-pitfall-border: #f59e0b;
+  --color-callout-pitfall-text: #92400e;
+
+  --color-callout-tip-bg: #eff6ff;
+  --color-callout-tip-border: #3b82f6;
+  --color-callout-tip-text: #1e40af;
+
+  --color-callout-evidence-bg: #f0fdf4;
+  --color-callout-evidence-border: #22c55e;
+  --color-callout-evidence-text: #166534;
+}
+
+@layer base {
+  @font-face {
+    font-family: 'Newsreader';
+    src: url('/fonts/Newsreader-Variable.woff2') format('woff2');
+    font-weight: 300 700;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Inter';
+    src: url('/fonts/Inter-Variable.woff2') format('woff2');
+    font-weight: 300 700;
+    font-display: swap;
+  }
+}
+
+@media print {
+  nav, footer, .no-print, .dark-mode-toggle { display: none !important; }
+  body { font-size: 12pt; line-height: 1.5; color: #000; background: #fff; }
+  a { color: #000; text-decoration: underline; }
+  a[href^="http"]::after { content: ' (' attr(href) ')'; font-size: 0.8em; }
+}

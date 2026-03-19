@@ -1,0 +1,83 @@
+---
+title: "Differential Diagnosis Generator"
+category: clinical-reasoning
+targetTool: openai
+workflow: clinical-reasoning
+tags: [intermediate, clinical-reasoning, diagnosis, differential, gpt-4]
+lastUpdated: 2026-03-19
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Generates a structured, ranked differential diagnosis from a clinical vignette using GPT-4. Provide the chief complaint, key history, physical exam findings, and available data, and get an organized DDx with supporting and opposing evidence for each entry.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+<Callout type="pitfall">
+  AI-generated differentials are a cognitive aid, not a diagnostic oracle. They can over-weight common diagnoses and miss rare or atypical presentations. Always integrate your own clinical gestalt and the full patient context.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="ChatGPT (GPT-4o)" title="Differential Diagnosis Generator">
+You are a senior internal medicine physician acting as a diagnostic reasoning consultant.
+
+Given the clinical presentation below, generate a structured differential diagnosis. Your output should include:
+
+**Ranked Differential Diagnoses** (top 5–7, ordered by likelihood)
+
+For each diagnosis, provide:
+1. **Diagnosis** — name and brief category (e.g., infectious, inflammatory, vascular)
+2. **Likelihood** — High / Moderate / Low, with a brief rationale
+3. **Supporting features** — specific elements from the case that favor this diagnosis
+4. **Against** — findings that argue against it, or classic features that are absent
+5. **Clinching test** — the single best next test or finding that would confirm or exclude this diagnosis
+
+**Must-Not-Miss Diagnoses**
+List any high-acuity diagnoses that must be actively ruled out even if currently less likely. For each, specify the test or evaluation required.
+
+**Synthesis**
+In 2–3 sentences, state your leading diagnosis, your key reasoning, and the initial workup priority.
+
+Rules:
+- Do not infer history, labs, or exam findings not explicitly stated below.
+- If critical information is missing, state what you need and why it matters.
+- Do not fabricate test results or clinical data.
+
+---
+CLINICAL PRESENTATION:
+Chief Complaint: [CHIEF COMPLAINT]
+Age / Sex: [AGE AND SEX]
+Duration of symptoms: [DURATION AND ONSET — acute vs. subacute vs. chronic]
+Key History: [RELEVANT HISTORY, ASSOCIATED SYMPTOMS, PERTINENT NEGATIVES]
+Past Medical History: [RELEVANT PMH, MEDICATIONS, ALLERGIES]
+Exam Findings: [VITAL SIGNS AND PERTINENT PHYSICAL EXAM FINDINGS]
+Available Data: [ANY LABS, IMAGING, ECG, OR OTHER RESULTS]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| Breadth | Add: "Expand to top 10 diagnoses" or "Focus only on the top 3 most likely" |
+| Specialty | Add: "Prioritize [cardiology / neurology / GI / rheumatology] diagnoses" |
+| Acuity | Add: "This is an emergency department presentation. Emphasize time-sensitive diagnoses." |
+| Age group | Add: "This is a [pediatric / geriatric] patient. Use age-appropriate differentials." |
+| Teaching | Add: "After the differential, provide a one-paragraph teaching point on the pathophysiology of the leading diagnosis." |
+
+---
+
+## Notes
+
+- This template is optimized for **undifferentiated presentations** — chest pain, dyspnea, altered mental status, fever, and similar common chief complaints where the diagnosis is not yet clear.
+- The **must-not-miss** section is often the most clinically valuable output. Use it as a rapid safety checklist.
+- GPT-4o performs well on DDx generation when the case is clearly presented. Include pertinent negatives explicitly — they significantly improve output quality.
+- For specialty-specific differentials (e.g., neurology localization, rheumatologic workup), consider adding specialty-specific framing in the customization section.
+- For board prep differentials, see the **Differential Diagnosis Drill** template under Board Prep.

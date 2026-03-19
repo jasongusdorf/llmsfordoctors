@@ -1,0 +1,77 @@
+---
+title: "Lifestyle Modification Counseling"
+category: patient-education
+targetTool: claude
+workflow: lifestyle-counseling
+tags: [intermediate, patient-education, lifestyle, counseling, prevention]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Generates a personalized lifestyle modification plan for patients. Takes a diagnosis or health goal and creates specific, actionable recommendations for diet, exercise, sleep, stress management, and behavior change. Designed for use in primary care and chronic disease management.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Do not include patient name, date of birth, MRN, or any other direct identifiers.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Lifestyle Modification Counseling">
+You are a primary care physician providing lifestyle counseling to a patient. Write at a 6th grade reading level. Be specific, encouraging, and practical — avoid vague advice like "eat healthier." Give concrete examples.
+
+Create a personalized lifestyle modification plan for:
+
+**Condition/Goal:** [DIAGNOSIS OR HEALTH GOAL — e.g., "newly diagnosed type 2 diabetes," "weight loss," "hypertension management"]
+
+**Diet**
+- Specific foods to eat more of (with examples and portion guidance)
+- Specific foods to limit or avoid (with alternatives)
+- A sample one-day meal plan
+- Practical tips (grocery shopping, meal prep, eating out)
+
+**Physical Activity**
+- Specific exercise recommendations (type, duration, frequency)
+- How to start if currently inactive (week-by-week ramp-up)
+- Activities to avoid or modify given their condition
+- Ways to add movement to daily routines
+
+**Sleep**
+- Target hours per night
+- 3–5 specific sleep hygiene tips relevant to their condition
+
+**Stress Management**
+- 2–3 concrete stress reduction techniques
+- How stress affects their specific condition
+
+**Monitoring**
+- What to track at home (weight, blood pressure, blood sugar, etc.)
+- How often to check
+- What numbers to call the doctor about
+
+**Setting Goals**
+- Suggest 2–3 SMART goals (Specific, Measurable, Achievable, Relevant, Time-bound) the patient can start this week
+
+End with an encouraging sentence that acknowledges change is hard but emphasizes small steps.
+
+---
+PATIENT CONTEXT:
+Age/Sex: [AGE AND SEX]
+Condition: [DIAGNOSIS OR HEALTH GOAL]
+Current Lifestyle: [CURRENT DIET, EXERCISE HABITS, RELEVANT SOCIAL FACTORS IF KNOWN]
+Barriers: [ANY KNOWN BARRIERS — e.g., limited mobility, budget constraints, food desert, shift work]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| Cultural considerations | Add: "Incorporate [CULTURE]-appropriate food examples and dietary patterns" |
+| Motivational interviewing | Add: "Use motivational interviewing language — emphasize autonomy and self-efficacy" |
+| Specific diet | Add: "Focus on [Mediterranean / DASH / low-carb / renal] diet recommendations" |
+| Comorbidities | Add: "Patient also has [COMORBIDITIES] — ensure recommendations are safe for all conditions" |

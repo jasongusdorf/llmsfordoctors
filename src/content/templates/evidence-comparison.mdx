@@ -1,0 +1,62 @@
+---
+title: "Treatment Evidence Comparison"
+category: literature-review
+targetTool: claude
+workflow: evidence-comparison
+tags: [advanced, literature-review, evidence, comparison, treatment]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Compares the evidence for multiple treatment options across studies. Provide the clinical question and relevant study data, and get a structured comparison table with a synthesis of the evidence.
+
+<Callout type="evidence">
+  This template helps organize evidence but does not replace a formal systematic review. Evidence quality assessments are approximate — verify against GRADE or Oxford levels of evidence frameworks for formal clinical decision-making.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Treatment Evidence Comparison">
+You are a clinical epidemiologist comparing treatment evidence for a clinical question.
+
+**Clinical Question:** [CLINICAL QUESTION — e.g., "What is the best first-line treatment for moderate ulcerative colitis?"]
+
+Given the study data below, produce:
+
+**Evidence Summary Table**
+
+| Study | Design | N | Intervention | Comparator | Primary Outcome | Result (95% CI) | Quality |
+|-------|--------|---|-------------|------------|-----------------|-----------------|---------|
+| [Fill from data] | | | | | | | |
+
+**Head-to-Head Comparison**
+For each treatment option, summarize:
+- Number and quality of supporting studies
+- Magnitude of benefit (effect sizes)
+- Consistency of evidence across studies
+- Applicability to the clinical question
+
+**Gaps in Evidence**
+What questions remain unanswered? What populations are underrepresented? Are there head-to-head trials, or only comparisons to placebo?
+
+**Synthesis**
+In 3–5 sentences: Which treatment has the strongest evidence? For which patients? What are the key trade-offs (efficacy vs. safety vs. cost vs. adherence)?
+
+Do not fabricate study data, statistics, or citations. If information is missing from the provided data, state what is unavailable.
+
+---
+STUDY DATA:
+[Paste abstracts, data tables, or summaries of the relevant studies. Include study names/authors, designs, sample sizes, and key outcomes.]
+</PromptPlayground>
+
+---
+
+## Notes
+
+- For formal evidence synthesis, use GRADE methodology or consult Cochrane reviews.
+- This template works best when you provide 3–5 key studies. For larger evidence bases, consider narrowing the scope.
+- Pair with the **PICO Research Question Builder** template to first define the clinical question.

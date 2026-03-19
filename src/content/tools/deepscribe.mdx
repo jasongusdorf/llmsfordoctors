@@ -1,0 +1,81 @@
+---
+title: "DeepScribe AI Medical Scribe"
+slug: deepscribe
+vendor: "DeepScribe"
+rating: 3
+verdict: "Specialty-focused scribing with BA status, but verify retention and aggregation clauses"
+pricing: "Enterprise pricing (contact vendor)"
+hasBaa: true
+categories: [note-writing, general]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Overview
+
+DeepScribe is an ambient AI medical scribe focused on specialty-specific documentation. Rather than offering a one-size-fits-all ambient note, DeepScribe tailors its output to the documentation patterns of specific clinical specialties — a meaningful differentiator for specialists whose notes have unique structural requirements.
+
+The platform operates as a Business Associate under executed agreements with its customers. DeepScribe maintains a security program narrative that describes encryption, role-based access controls, audit capabilities, and incident response procedures. The privacy policy explicitly describes the company's role as a Business Associate.
+
+DeepScribe is primarily an enterprise product, requiring organizational procurement and deployment.
+
+The specialty focus matters in practice. A dermatologist's note looks nothing like a cardiologist's note, and a tool that understands those structural differences out of the box saves significant editing time compared to a generic ambient scribe that produces one-size-fits-all output.
+
+---
+
+## Clinical Strengths
+
+DeepScribe's specialty focus is its primary advantage:
+
+- **Specialty alignment** — documentation templates and AI behavior are tuned for specific specialties rather than using a generic approach. This matters for fields like orthopedics, cardiology, or dermatology where note structure varies significantly.
+- **Explicit security program** — DeepScribe publishes a security narrative covering their organizational controls, not just a brief compliance checkbox
+- **RBAC and audit capabilities** — role-based access controls and audit logging are described, providing the access governance that compliance teams expect
+- **Incident response described** — a defined incident response process is part of the published security posture
+- **Business Associate status** — operates explicitly as a BA under customer agreements, providing a clear HIPAA framework
+- **Coding support** — beyond documentation, DeepScribe offers coding assistance that can help ensure notes support appropriate billing codes for specialty-specific procedures
+
+<Callout type="tip">
+  If you are in a specialty with unique documentation requirements — detailed procedure notes, specific exam templates, or specialty-specific coding patterns — evaluate DeepScribe's specialty-specific capabilities against general-purpose ambient tools. A specialty-tuned scribe can save significant editing time compared to a generic note that needs heavy revision.
+</Callout>
+
+---
+
+## Weaknesses
+
+Several areas warrant careful review:
+
+- **Encryption specifics are vague** — the security page states that encryption is used in transit and at rest, but specific algorithms (e.g., TLS version, AES key length) are not detailed in public documentation
+- **Data aggregation and de-identification clauses** — like several competitors, DeepScribe's contractual terms may include provisions for aggregating and de-identifying data. Validate these clauses align with your organization's data governance policies.
+- **Retention terms need verification** — public documentation does not specify exact retention timelines for audio, transcripts, or notes. These details are likely contract-specific.
+- **Audit and logging expectations** — while RBAC and audits are described, the specific granularity of audit logs (what is logged, how long logs are retained, how they can be accessed) should be confirmed during procurement
+- **Limited public technical detail** — compared to vendors like Microsoft/Nuance or Abridge, DeepScribe's public-facing security documentation is less granular
+- **Specialty coverage scope** — while specialty alignment is a strength, not all specialties may be equally well-supported. Confirm that your specific specialty has mature templates before committing to procurement.
+
+<Callout type="pitfall">
+  When a vendor describes "encryption in transit and at rest" without specifying algorithms or standards, this is a yellow flag — not a red flag. It means you need to request technical security documentation directly during procurement. Do not skip this step.
+</Callout>
+
+---
+
+## HIPAA & Privacy
+
+<Callout type="hipaa">
+  DeepScribe operates as a Business Associate under executed agreements. Terms include BAA-like clauses governing PHI obligations. The security page states encryption is used in transit and at rest, and RBAC is described. However, specific encryption algorithms, retention timelines, and audit log details are not publicly documented. Request technical security documentation directly from the vendor during your evaluation.
+</Callout>
+
+Key compliance details:
+
+- **BA status** — operates as a Business Associate under customer agreements
+- **BAA-like terms** — privacy policy and contractual terms describe BA obligations
+- **Encryption** — stated for transit and at rest; algorithms unspecified publicly
+- **RBAC** — role-based access controls described
+- **Incident response** — defined process included in security program
+- **Audit capabilities** — described but granularity unspecified in public materials
+- **Data aggregation** — contractual clauses may permit aggregation and de-identification; verify against your policies
+
+For compliance teams: DeepScribe's published security narrative provides a reasonable starting point, but you will need to request supplemental technical documentation to complete a thorough security assessment. Focus on encryption specifics, retention timelines, audit log capabilities, and the scope of data aggregation provisions.
+
+The bottom line: DeepScribe's specialty alignment is genuinely useful for the right practice, and the BA framework provides a HIPAA foundation. The gap is in publicly available technical detail — plan to spend more time in vendor security briefings than you would with competitors who publish more granular documentation.
+
+For specialty practices evaluating ambient documentation, DeepScribe is worth including in your shortlist specifically because of its specialty-tuned approach. Generic tools may require more post-generation editing to match your documentation standards.

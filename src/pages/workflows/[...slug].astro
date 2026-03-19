@@ -1,0 +1,61 @@
+---
+import { getCollection, render } from 'astro:content';
+import ContentLayout from '../../layouts/ContentLayout.astro';
+import { getToolsBySlug, getTemplatesForWorkflow, getTrialsBySlug } from '../../utils/collections';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('workflows');
+  return entries.map((e) => ({ params: { slug: e.id }, props: { entry: e } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+// Cross-reference related content
+const tools = entry.data.tools?.length ? await getToolsBySlug(entry.data.tools) : [];
+const templates = await getTemplatesForWorkflow(entry.id);
+const trials = entry.data.trials?.length ? await getTrialsBySlug(entry.data.trials) : [];
+
+const relatedItems = [
+  ...tools.map((t) => ({
+    title: t.data.title,
+    href: `/tools/${t.id}`,
+    type: 'tool' as const,
+  })),
+  ...templates.map((t) => ({
+    title: t.data.title,
+    href: `/templates/${t.id}`,
+    type: 'template' as const,
+  })),
+  ...trials.map((t) => ({
+    title: t.data.title,
+    href: `/trials/${t.id}`,
+    type: 'trial' as const,
+  })),
+];
+
+const categoryLabels: Record<string, string> = {
+  'note-writing': 'Note Writing',
+  'clinical-reasoning': 'Clinical Reasoning',
+  'patient-education': 'Patient Education',
+  'literature-review': 'Literature Review',
+  'admin-billing': 'Admin & Billing',
+  'board-prep': 'Board Prep',
+};
+---
+
+<ContentLayout
+  title={entry.data.title}
+  lastUpdated={entry.data.lastUpdated}
+  tags={entry.data.tags}
+  timeToRead={entry.data.timeToRead}
+  breadcrumbs={[
+    { label: 'Home', href: '/' },
+    { label: 'Workflows', href: '/workflows' },
+    { label: categoryLabels[entry.data.category] ?? entry.data.category, href: `/workflows?category=${entry.data.category}` },
+    { label: entry.data.title },
+  ]}
+  relatedItems={relatedItems}
+>
+  <Content />
+</ContentLayout>

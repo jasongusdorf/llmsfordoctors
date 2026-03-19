@@ -1,0 +1,86 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+const allTemplates = await getCollection('templates');
+
+const grouped: Record<string, typeof allTemplates> = {};
+for (const t of allTemplates) {
+  const cat = t.data.category;
+  if (!grouped[cat]) grouped[cat] = [];
+  grouped[cat].push(t);
+}
+
+const categoryLabels: Record<string, string> = {
+  'note-writing': 'Note Writing',
+  'clinical-reasoning': 'Clinical Reasoning',
+  'patient-education': 'Patient Education',
+  'literature-review': 'Literature Review',
+  'admin-billing': 'Admin & Billing',
+  'board-prep': 'Board Prep',
+};
+
+const categories = Object.keys(grouped).sort();
+---
+
+<BaseLayout
+  title="Prompt Templates — LLMs for Doctors"
+  description="Ready-to-use AI prompt templates for clinical documentation, patient communication, and more."
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Templates' }]} />
+
+    <header class="mb-10">
+      <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mb-3">
+        Prompt Templates
+      </h1>
+      <p class="text-lg text-clinical-600 dark:text-clinical-400">
+        Copy-ready prompt templates optimized for clinical use cases.
+      </p>
+    </header>
+
+    {categories.length === 0 ? (
+      <div class="text-center py-20 text-clinical-500 dark:text-clinical-400">
+        <p class="text-xl font-medium">Templates coming soon.</p>
+        <p class="mt-2 text-sm">We're building a library of clinical prompt templates. Check back soon.</p>
+      </div>
+    ) : (
+      <div class="space-y-12">
+        {categories.map((cat) => (
+          <section>
+            <h2 class="font-heading text-xl font-semibold text-clinical-800 dark:text-clinical-200 mb-4 pb-2 border-b border-clinical-200 dark:border-clinical-700">
+              {categoryLabels[cat] ?? cat}
+            </h2>
+            <ul class="grid sm:grid-cols-2 gap-4">
+              {grouped[cat].map((tmpl) => (
+                <li>
+                  <a
+                    href={`/templates/${tmpl.id}`}
+                    class="block p-4 rounded-lg border border-clinical-200 dark:border-clinical-700 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-sm transition-all group bg-white dark:bg-clinical-800"
+                  >
+                    <h3 class="font-semibold text-clinical-900 dark:text-clinical-50 group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-1">
+                      {tmpl.data.title}
+                    </h3>
+                    <p class="text-xs text-clinical-500 dark:text-clinical-400 mb-2">
+                      For {tmpl.data.targetTool === 'any' ? 'Any LLM' : tmpl.data.targetTool} · Updated {tmpl.data.lastUpdated.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}
+                    </p>
+                    {tmpl.data.tags.length > 0 && (
+                      <div class="flex flex-wrap gap-1">
+                        {tmpl.data.tags.slice(0, 3).map((tag) => (
+                          <span class="px-2 py-0.5 rounded text-xs bg-clinical-100 dark:bg-clinical-700 text-clinical-600 dark:text-clinical-300">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+    )}
+  </div>
+</BaseLayout>

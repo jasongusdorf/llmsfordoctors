@@ -1,0 +1,69 @@
+---
+title: "Journal Club Preparation"
+category: literature-review
+targetTool: claude
+workflow: journal-club
+tags: [advanced, literature-review, journal-club, critique, teaching]
+lastUpdated: 2026-03-18
+---
+
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Prepares a structured journal club presentation and critical appraisal. Paste in the article and get a ready-to-present summary with methodological critique, discussion questions, and clinical applicability assessment.
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Journal Club Preparation">
+You are a faculty member preparing a journal club presentation with critical appraisal.
+
+Given the article below, produce a journal club preparation package:
+
+**Article Summary** (5 minutes of presentation)
+- Citation, study design, population, intervention, comparator, primary outcome, key result — in a concise narrative.
+
+**Methods Critique**
+Evaluate each domain:
+- **Study Design:** Is this the right design for the question? What are inherent limitations?
+- **Randomization & Blinding:** Adequate? Risk of allocation or ascertainment bias?
+- **Sample Size & Power:** Was the study adequately powered? Was a power calculation reported?
+- **Outcome Selection:** Is the primary outcome clinically meaningful or a surrogate?
+- **Analysis:** Intention-to-treat vs. per-protocol? How were missing data handled?
+- **Funding & Conflicts:** Industry-funded? Potential conflicts of interest?
+
+**Validity Assessment**
+- **Internal validity:** Can we trust the results? Rate: Strong / Moderate / Weak
+- **External validity:** Do these results apply to our patients? Who is missing?
+
+**Statistics Decoded**
+Explain the key statistical results in plain language. For each major result:
+- What the number means clinically
+- Whether the confidence interval is clinically meaningful (not just statistically significant)
+- Absolute vs. relative risk reduction (calculate NNT if applicable)
+
+**Discussion Questions**
+5 thought-provoking questions for group discussion, progressing from factual to interpretive to applicability:
+1. [Factual — about the study design/methods]
+2. [Factual — about the results]
+3. [Interpretive — about the implications]
+4. [Applicability — how this applies to our practice]
+5. [Big picture — how this fits into the broader evidence]
+
+**Clinical Bottom Line**
+In 2–3 sentences: Should this change practice? For whom? What's the level of certainty?
+
+Do not fabricate data, statistics, or citations. Base all critique on what is provided in the article text.
+
+---
+ARTICLE TEXT:
+[Paste the full text or abstract + methods + results sections of the article]
+</PromptPlayground>
+
+---
+
+## Notes
+
+- For the richest critique, paste the full text including methods and results sections, not just the abstract.
+- Pair with the **Article Summary** template for a quicker, less critical overview.
+- The discussion questions are designed to fill 20–30 minutes of group discussion.
