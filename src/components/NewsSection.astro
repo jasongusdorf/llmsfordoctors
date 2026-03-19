@@ -1,14 +1,6 @@
 ---
 import NewsCard from './NewsCard.astro';
-
-interface NewsItem {
-  title: string;
-  source: string;
-  url: string;
-  date: string;
-  summary: string;
-  imageUrl?: string;
-}
+import type { NewsItem } from '../utils/fetch-news';
 
 interface Props {
   items: NewsItem[];
