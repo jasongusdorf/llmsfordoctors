@@ -10,7 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "fetch-news": "tsx src/utils/fetch-news.ts"
+    "fetch-news": "tsx src/utils/fetch-news.ts",
+    "test": "vitest run"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.2",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@types/node": "^25.5.0",
     "@types/sharp": "^0.31.1",
-    "tsx": "^4.21.0"
+    "tsx": "^4.21.0",
+    "vitest": "^4.1.0"
   }
 }

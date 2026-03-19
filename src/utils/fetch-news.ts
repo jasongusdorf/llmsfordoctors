@@ -48,7 +48,7 @@ async function fetchFeed(
   }
 }
 
-function stripHtml(html: string): string {
+export function stripHtml(html: string): string {
   return html.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
 }
 
@@ -67,7 +67,7 @@ function extractImage(item: Record<string, unknown>): string | undefined {
 
 // --- Deduplication ---
 
-function tokenize(text: string): Set<string> {
+export function tokenize(text: string): Set<string> {
   return new Set(
     text
       .toLowerCase()
@@ -77,13 +77,13 @@ function tokenize(text: string): Set<string> {
   );
 }
 
-function jaccardSimilarity(a: Set<string>, b: Set<string>): number {
+export function jaccardSimilarity(a: Set<string>, b: Set<string>): number {
   const intersection = new Set([...a].filter((x) => b.has(x)));
   const union = new Set([...a, ...b]);
   return union.size === 0 ? 0 : intersection.size / union.size;
 }
 
-function deduplicate(items: NewsItem[]): NewsItem[] {
+export function deduplicate(items: NewsItem[]): NewsItem[] {
   const seen = new Map<string, { tokens: Set<string>; item: NewsItem }>();
 
   for (const item of items) {
@@ -109,7 +109,7 @@ function deduplicate(items: NewsItem[]): NewsItem[] {
 
 // --- Scoring ---
 
-function scoreItem(item: NewsItem, sourcePriority: number): number {
+export function scoreItem(item: NewsItem, sourcePriority: number): number {
   const ageMs = Date.now() - new Date(item.date).getTime();
   const ageDays = ageMs / (1000 * 60 * 60 * 24);
   // Recency score: 0-10 (newer = higher)
