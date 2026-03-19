@@ -26,6 +26,7 @@ jobs:
 
       - name: Fetch news
         run: npm run fetch-news
+        timeout-minutes: 5
         continue-on-error: true
 
       - name: Commit news.json if changed

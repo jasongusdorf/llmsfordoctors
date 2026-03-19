@@ -32,7 +32,11 @@ async function fetchFeed(
   });
 
   try {
-    const feed = await parser.parseURL(url);
+    const feedPromise = parser.parseURL(url);
+    const timeoutPromise = new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error(`Timeout after ${FEED_TIMEOUT_MS}ms`)), FEED_TIMEOUT_MS)
+    );
+    const feed = await Promise.race([feedPromise, timeoutPromise]);
     const items: NewsItem[] = (feed.items || []).map((item) => ({
       title: (item.title || '').trim(),
       source: sourceName,
