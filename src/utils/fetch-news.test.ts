@@ -5,6 +5,7 @@ import {
   jaccardSimilarity,
   deduplicate,
   scoreItem,
+  aiRelevanceScore,
   type NewsItem,
 } from './fetch-news.js';
 
@@ -106,17 +107,48 @@ describe('deduplicate', () => {
   });
 });
 
+describe('aiRelevanceScore', () => {
+  it('scores AI-related articles higher', () => {
+    const aiArticle: NewsItem = {
+      title: 'Machine learning improves clinical diagnosis',
+      source: 'Test',
+      url: 'https://example.com',
+      date: new Date().toISOString(),
+      summary: 'A new artificial intelligence model helps doctors',
+    };
+    const genericArticle: NewsItem = {
+      title: 'New drug approved for diabetes',
+      source: 'Test',
+      url: 'https://example.com',
+      date: new Date().toISOString(),
+      summary: 'The FDA approved a new treatment option',
+    };
+    expect(aiRelevanceScore(aiArticle)).toBeGreaterThan(aiRelevanceScore(genericArticle));
+  });
+
+  it('returns 0 for articles with no AI keywords', () => {
+    const item: NewsItem = {
+      title: 'Flu season peaks in February',
+      source: 'Test',
+      url: 'https://example.com',
+      date: new Date().toISOString(),
+      summary: 'Hospitals report higher admissions',
+    };
+    expect(aiRelevanceScore(item)).toBe(0);
+  });
+});
+
 describe('scoreItem', () => {
   it('scores recent high-priority items higher', () => {
     const recent: NewsItem = {
       title: 'Test',
       source: 'Test',
       url: 'https://example.com',
-      date: new Date().toISOString(), // now
+      date: new Date().toISOString(),
       summary: 'Test',
     };
-    const highPriority = scoreItem(recent, 1);
-    const lowPriority = scoreItem(recent, 4);
+    const highPriority = scoreItem(recent, 1, false);
+    const lowPriority = scoreItem(recent, 4, false);
     expect(highPriority).toBeGreaterThan(lowPriority);
   });
 
@@ -132,6 +164,19 @@ describe('scoreItem', () => {
       ...now,
       date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
     };
-    expect(scoreItem(now, 2)).toBeGreaterThan(scoreItem(twoDaysAgo, 2));
+    expect(scoreItem(now, 2, false)).toBeGreaterThan(scoreItem(twoDaysAgo, 2, false));
+  });
+
+  it('gives aiOnly sources a relevance boost', () => {
+    const item: NewsItem = {
+      title: 'Generic article title',
+      source: 'Test',
+      url: 'https://example.com',
+      date: new Date().toISOString(),
+      summary: 'No AI keywords here',
+    };
+    const withAiOnly = scoreItem(item, 2, true);
+    const withoutAiOnly = scoreItem(item, 2, false);
+    expect(withAiOnly).toBeGreaterThan(withoutAiOnly);
   });
 });

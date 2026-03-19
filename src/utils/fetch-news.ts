@@ -2,7 +2,7 @@ import Parser from 'rss-parser';
 import { writeFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { newsSources } from './news-sources.js';
+import { newsSources, type NewsSource } from './news-sources.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_PATH = resolve(__dirname, '../data/news.json');
@@ -111,16 +111,39 @@ export function deduplicate(items: NewsItem[]): NewsItem[] {
   return [...seen.values()].map((v) => v.item);
 }
 
+// --- AI Relevance ---
+
+const AI_KEYWORDS = [
+  'artificial intelligence', 'machine learning', 'deep learning',
+  'neural network', 'large language model', 'llm', 'chatgpt', 'gpt-4',
+  'claude', 'gemini', 'clinical decision support', 'natural language processing',
+  'nlp', 'computer vision', 'radiology ai', 'pathology ai', 'medical ai',
+  'ai in medicine', 'ai in healthcare', 'ai-powered', 'ai-driven',
+  'predictive model', 'diagnostic ai', 'generative ai', 'foundation model',
+  'clinical ai', 'health ai', 'digital health', 'algorithm',
+];
+
+export function aiRelevanceScore(item: NewsItem): number {
+  const text = `${item.title} ${item.summary}`.toLowerCase();
+  let score = 0;
+  for (const keyword of AI_KEYWORDS) {
+    if (text.includes(keyword)) score += 5;
+  }
+  return score;
+}
+
 // --- Scoring ---
 
-export function scoreItem(item: NewsItem, sourcePriority: number): number {
+export function scoreItem(item: NewsItem, sourcePriority: number, isAiOnly: boolean): number {
   const ageMs = Date.now() - new Date(item.date).getTime();
   const ageDays = ageMs / (1000 * 60 * 60 * 24);
   // Recency score: 0-10 (newer = higher)
   const recencyScore = Math.max(0, 10 - ageDays * 3);
   // Priority score: 1=10pts, 2=7pts, 3=4pts, 4=1pt
   const priorityScore = Math.max(1, 11 - sourcePriority * 3);
-  return recencyScore + priorityScore;
+  // AI relevance: sources marked aiOnly get automatic 10pts, others earn it from keywords
+  const relevanceScore = isAiOnly ? 10 : aiRelevanceScore(item);
+  return recencyScore + priorityScore + relevanceScore;
 }
 
 // --- Main ---
@@ -136,11 +159,13 @@ async function main() {
     newsSources.map((source) => fetchFeed(source.url, source.name, source.priority))
   );
 
-  // Flatten and attach priority
-  const allItems: { item: NewsItem; priority: number }[] = [];
-  for (const result of results) {
+  // Flatten and attach priority + aiOnly flag
+  const allItems: { item: NewsItem; priority: number; aiOnly: boolean }[] = [];
+  for (let i = 0; i < results.length; i++) {
+    const result = results[i];
+    const source = newsSources[i];
     for (const item of result.items) {
-      allItems.push({ item, priority: result.priority });
+      allItems.push({ item, priority: result.priority, aiOnly: source.aiOnly });
     }
   }
 
@@ -154,20 +179,23 @@ async function main() {
   // Deduplicate
   const unique = deduplicate(recent.map((r) => r.item));
 
-  // Build priority map for scoring
-  const priorityMap = new Map<string, number>();
-  for (const { item, priority } of recent) {
-    if (!priorityMap.has(item.url)) {
-      priorityMap.set(item.url, priority);
+  // Build metadata map for scoring
+  const metaMap = new Map<string, { priority: number; aiOnly: boolean }>();
+  for (const { item, priority, aiOnly } of recent) {
+    if (!metaMap.has(item.url)) {
+      metaMap.set(item.url, { priority, aiOnly });
     }
   }
 
   // Score and sort
   const scored = unique
-    .map((item) => ({
-      item,
-      score: scoreItem(item, priorityMap.get(item.url) || 4),
-    }))
+    .map((item) => {
+      const meta = metaMap.get(item.url) || { priority: 4, aiOnly: false };
+      return {
+        item,
+        score: scoreItem(item, meta.priority, meta.aiOnly),
+      };
+    })
     .sort((a, b) => b.score - a.score);
 
   // Pick top N
