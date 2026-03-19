@@ -4,6 +4,7 @@ import DarkModeToggle from './DarkModeToggle.astro';
 const pathname = Astro.url.pathname;
 
 const navLinks = [
+  { href: '/',          label: 'Home' },
   { href: '/workflows', label: 'Workflows' },
   { href: '/guides',    label: 'Guides' },
   { href: '/tools',     label: 'Tools' },
@@ -33,7 +34,7 @@ const navLinks = [
             href={href}
             class:list={[
               'px-3 py-2 rounded-md text-sm font-medium transition-colors',
-              pathname.startsWith(href)
+              href === '/' ? pathname === '/' : pathname.startsWith(href)
                 ? 'bg-clinical-100 dark:bg-clinical-800 text-clinical-900 dark:text-clinical-50'
                 : 'text-clinical-600 dark:text-clinical-400 hover:text-clinical-900 dark:hover:text-clinical-100 hover:bg-clinical-100 dark:hover:bg-clinical-800',
             ]}
