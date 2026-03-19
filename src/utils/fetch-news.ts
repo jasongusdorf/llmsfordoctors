@@ -1,0 +1,183 @@
+import Parser from 'rss-parser';
+import { writeFileSync } from 'node:fs';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { newsSources } from './news-sources.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const OUTPUT_PATH = resolve(__dirname, '../data/news.json');
+const FEED_TIMEOUT_MS = 10_000;
+const MAX_AGE_DAYS = 3;
+const MAX_ITEMS = 5;
+
+export interface NewsItem {
+  title: string;
+  source: string;
+  url: string;
+  date: string;
+  summary: string;
+  imageUrl?: string;
+}
+
+// --- Fetching ---
+
+async function fetchFeed(
+  url: string,
+  sourceName: string,
+  priority: number
+): Promise<{ items: NewsItem[]; priority: number }> {
+  const parser = new Parser({
+    timeout: FEED_TIMEOUT_MS,
+    headers: { 'User-Agent': 'LLMsForDoctors-NewsFetcher/1.0' },
+  });
+
+  try {
+    const feed = await parser.parseURL(url);
+    const items: NewsItem[] = (feed.items || []).map((item) => ({
+      title: (item.title || '').trim(),
+      source: sourceName,
+      url: item.link || '',
+      date: item.isoDate || item.pubDate || new Date().toISOString(),
+      summary: stripHtml(item.contentSnippet || item.content || '').slice(0, 200),
+      imageUrl: extractImage(item),
+    }));
+    return { items, priority };
+  } catch (err) {
+    console.warn(`[fetch-news] Failed to fetch ${sourceName}: ${(err as Error).message}`);
+    return { items: [], priority };
+  }
+}
+
+function stripHtml(html: string): string {
+  return html.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+}
+
+function extractImage(item: Record<string, unknown>): string | undefined {
+  // rss-parser puts media content in enclosure or itunes image
+  const enclosure = item.enclosure as { url?: string } | undefined;
+  if (enclosure?.url) return enclosure.url;
+
+  // Check for media:content or media:thumbnail in raw XML
+  const content = (item['content:encoded'] || item.content || '') as string;
+  const imgMatch = content.match(/<img[^>]+src=["']([^"']+)["']/);
+  if (imgMatch?.[1]) return imgMatch[1];
+
+  return undefined;
+}
+
+// --- Deduplication ---
+
+function tokenize(text: string): Set<string> {
+  return new Set(
+    text
+      .toLowerCase()
+      .replace(/[^\w\s]/g, '')
+      .split(/\s+/)
+      .filter((w) => w.length > 2)
+  );
+}
+
+function jaccardSimilarity(a: Set<string>, b: Set<string>): number {
+  const intersection = new Set([...a].filter((x) => b.has(x)));
+  const union = new Set([...a, ...b]);
+  return union.size === 0 ? 0 : intersection.size / union.size;
+}
+
+function deduplicate(items: NewsItem[]): NewsItem[] {
+  const seen = new Map<string, { tokens: Set<string>; item: NewsItem }>();
+
+  for (const item of items) {
+    // Exact URL match
+    if (seen.has(item.url)) continue;
+
+    // Fuzzy title match
+    const tokens = tokenize(item.title);
+    let isDuplicate = false;
+    for (const [, existing] of seen) {
+      if (jaccardSimilarity(tokens, existing.tokens) > 0.8) {
+        isDuplicate = true;
+        break;
+      }
+    }
+    if (!isDuplicate) {
+      seen.set(item.url, { tokens, item });
+    }
+  }
+
+  return [...seen.values()].map((v) => v.item);
+}
+
+// --- Scoring ---
+
+function scoreItem(item: NewsItem, sourcePriority: number): number {
+  const ageMs = Date.now() - new Date(item.date).getTime();
+  const ageDays = ageMs / (1000 * 60 * 60 * 24);
+  // Recency score: 0-10 (newer = higher)
+  const recencyScore = Math.max(0, 10 - ageDays * 3);
+  // Priority score: 1=10pts, 2=7pts, 3=4pts, 4=1pt
+  const priorityScore = Math.max(1, 11 - sourcePriority * 3);
+  return recencyScore + priorityScore;
+}
+
+// --- Main ---
+
+async function main() {
+  console.log('[fetch-news] Starting news fetch...');
+
+  const cutoffDate = new Date();
+  cutoffDate.setDate(cutoffDate.getDate() - MAX_AGE_DAYS);
+
+  // Fetch all feeds in parallel
+  const results = await Promise.all(
+    newsSources.map((source) => fetchFeed(source.url, source.name, source.priority))
+  );
+
+  // Flatten and attach priority
+  const allItems: { item: NewsItem; priority: number }[] = [];
+  for (const result of results) {
+    for (const item of result.items) {
+      allItems.push({ item, priority: result.priority });
+    }
+  }
+
+  // Filter to last 3 days
+  const recent = allItems.filter(
+    ({ item }) => new Date(item.date) >= cutoffDate && item.title && item.url
+  );
+
+  console.log(`[fetch-news] ${recent.length} items within last ${MAX_AGE_DAYS} days`);
+
+  // Deduplicate
+  const unique = deduplicate(recent.map((r) => r.item));
+
+  // Build priority map for scoring
+  const priorityMap = new Map<string, number>();
+  for (const { item, priority } of recent) {
+    if (!priorityMap.has(item.url)) {
+      priorityMap.set(item.url, priority);
+    }
+  }
+
+  // Score and sort
+  const scored = unique
+    .map((item) => ({
+      item,
+      score: scoreItem(item, priorityMap.get(item.url) || 4),
+    }))
+    .sort((a, b) => b.score - a.score);
+
+  // Pick top N
+  const topItems = scored.slice(0, MAX_ITEMS).map((s) => s.item);
+
+  if (topItems.length > 0) {
+    writeFileSync(OUTPUT_PATH, JSON.stringify(topItems, null, 2) + '\n');
+    console.log(`[fetch-news] Wrote ${topItems.length} items to ${OUTPUT_PATH}`);
+  } else {
+    console.log('[fetch-news] No new items found, preserving existing news.json');
+  }
+}
+
+main().catch((err) => {
+  console.error('[fetch-news] Unexpected error:', err);
+  process.exit(1);
+});
