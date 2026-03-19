@@ -177,7 +177,10 @@ async function main() {
   }
 }
 
-main().catch((err) => {
-  console.error('[fetch-news] Unexpected error:', err);
-  process.exit(1);
-});
+// Only run main when executed directly (not when imported for testing)
+if (process.argv[1] && resolve(process.argv[1]) === resolve(fileURLToPath(import.meta.url))) {
+  main().catch((err) => {
+    console.error('[fetch-news] Unexpected error:', err);
+    process.exit(1);
+  });
+}
