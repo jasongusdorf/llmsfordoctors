@@ -1,5 +1,19 @@
 [
   {
+    "title": "Effect of a clinical decision support system on stroke care quality and outcomes in patients with acute ischaemic stroke (GOLDEN BRIDGE II): cluster randomised clinical trial",
+    "source": "BMJ",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/41862204/",
+    "date": "2026-03-20T00:00:00.000Z",
+    "summary": "Zhang X et al. Published in BMJ."
+  },
+  {
+    "title": "Advancing diagnostic equity through artificial intelligence chest radiograph screening for osteoporosis in Asian populations",
+    "source": "NPJ Digit Med",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/41857300/",
+    "date": "2026-03-19T00:00:00.000Z",
+    "summary": "Chen SH et al. Published in NPJ Digit Med."
+  },
+  {
     "title": "Coronary artery disease diagnosis with signal processing and machine learning of heart sound signals: a systematic review",
     "source": "NPJ Digit Med",
     "url": "https://pubmed.ncbi.nlm.nih.gov/41840115/",
@@ -54,19 +68,5 @@
     "url": "https://pubmed.ncbi.nlm.nih.gov/41792018/",
     "date": "2026-03-05T00:00:00.000Z",
     "summary": "Wu S et al. Published in Lancet Digit Health."
-  },
-  {
-    "title": "Automated detection of new cerebral infarctions and prognostic implications using deep learning on serial MRI",
-    "source": "NPJ Digit Med",
-    "url": "https://pubmed.ncbi.nlm.nih.gov/41786919/",
-    "date": "2026-03-05T00:00:00.000Z",
-    "summary": "Cho HH et al. Published in NPJ Digit Med."
-  },
-  {
-    "title": "Artificial intelligence-enabled ultrasound diagnosis and stratification of follicular thyroid neoplasms: a multi-center study",
-    "source": "NPJ Digit Med",
-    "url": "https://pubmed.ncbi.nlm.nih.gov/41781694/",
-    "date": "2026-03-05T00:00:00.000Z",
-    "summary": "Li J et al. Published in NPJ Digit Med."
   }
 ]
