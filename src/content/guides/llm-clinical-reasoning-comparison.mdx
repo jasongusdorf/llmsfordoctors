@@ -10,6 +10,10 @@ import Callout from '../../components/Callout.astro';
 import OutputComparison from '../../components/OutputComparison.tsx';
 import PerformanceMatrix from '../../components/PerformanceMatrix.tsx';
 
+<Callout type="tip">
+**TL;DR:** We ran the same clinical case through five LLMs. The results: **o3** wins for differential diagnosis and workup planning (most structured, auditable outputs). **Claude** wins for case synthesis and cognitive debiasing (best clinical judgment and actionable critique). **Perplexity** wins for literature-grounded reasoning (real citations with subgroup-level detail). **Gemini** wins for long medical records (largest context window). No single model dominates all tasks -- match the model to the job. <a href="#the-verdict">Jump to The Verdict</a> for full recommendations.
+</Callout>
+
 Every vendor claims their LLM is the best at clinical reasoning. Marketing decks are full of benchmark scores and cherry-picked demos. We decided to test it ourselves: same clinical case, five models, five distinct reasoning tasks. No vendor sponsorship, no cherry-picking, just representative outputs from each model on the same prompts.
 
 The results were more nuanced than any single leaderboard can capture. Different models genuinely excel at different things.
@@ -34,7 +38,7 @@ We chose a case with a clear leading diagnosis but enough complexity to test whe
 >
 > **Labs:** D-dimer 2,400 ng/mL (normal &lt;500). Troponin I mildly elevated at 0.08 ng/mL. BNP 320 pg/mL.
 
-This case was selected because PE is the obvious leading diagnosis, but a thorough clinician should also consider pneumothorax, ACS, pericarditis, pneumonia, and aortic dissection in the differential. The mildly elevated troponin and BNP add layers that test whether the model can integrate findings rather than anchor on a single diagnosis.
+This case was selected because PE is the obvious leading diagnosis, but a thorough clinician should also consider pneumothorax, ACS, pericarditis, pneumonia, and aortic dissection in the differential. The mildly elevated troponin and BNP add layers that test whether the model can integrate findings rather than anchor on a single diagnosis. (Want to try a similar prompt yourself? Use our [DDx Generator template](/templates/ddx-generator) and apply the principles from [Prompting 101](/guides/prompting-101).)
 
 ---
 
@@ -91,6 +95,8 @@ This case was selected because PE is the obvious leading diagnosis, but a thorou
 
 We asked each model to recommend a prioritized diagnostic workup for the same patient. Here's how they differed:
 
+<!-- TODO: Future improvement -- add OutputComparison component with full model outputs for Comparisons 2-5, matching the format of Comparison 1. -->
+
 **o3** produced the most actionable output: a tiered workup organized into "immediate" (CTPA, lower extremity duplex, type and screen, CBC/BMP/coags), "within 1 hour" (echocardiogram, serial troponins, ABG), and "if initial workup equivocal" (V/Q scan, CT aortography). Each test included a one-line justification tied to specific clinical findings. The tier structure reflected genuine ED workflow awareness.
 
 **Claude** was nearly as strong, organizing the workup by clinical question rather than time urgency: "Confirm PE" (CTPA, LE duplex), "Assess severity" (echo, serial troponins, BNP trend), "Exclude alternatives" (CXR, repeat ECG). Claude also flagged the decision point around thrombolysis, noting that if the echo showed RV dilation with hemodynamic stability, this would be submassive PE warranting ICU admission and consideration of catheter-directed therapy. This added clinical reasoning was valuable but came at the cost of immediate scannability.
@@ -107,7 +113,7 @@ We asked each model to recommend a prioritized diagnostic workup for the same pa
 
 **Task:** Given all the initial workup results (we provided CTPA confirming bilateral PE with RV strain, positive LE duplex, echo showing RV dilation), write a case synthesis for the admitting team.
 
-**Winner: Claude**
+**Winner: Claude** (Try it yourself with our [Case Synthesis template](/templates/case-synthesis).)
 
 Claude organized the synthesis by problem: primary (acute submassive PE with confirmed bilateral pulmonary emboli and RV strain), secondary (confirmed right popliteal DVT as embolic source), and tertiary (hemodynamic status, tachycardic but normotensive, classify as intermediate-high risk per ESC). It explicitly stated the level of diagnostic confidence ("confirmed by CTPA and concordant with clinical, laboratory, and echocardiographic findings") and named the remaining clinical uncertainty: "The key decision point is whether this patient warrants escalation beyond anticoagulation alone given the RV strain. Recommend serial echocardiography and trending troponin/BNP to guide this decision."
 
@@ -276,3 +282,12 @@ After running these comparisons, here are our opinionated recommendations:
 <Callout type="tip">
   Disagree with our ratings? Have a case you'd like us to test? We welcome community feedback. The goal is to give clinicians honest, practical guidance on which tools work best for which tasks.
 </Callout>
+
+---
+
+## Related Guides
+
+- **[Prompting 101](/guides/prompting-101)** -- The four principles behind every prompt we used in this comparison.
+- **[The Evidence Landscape: LLMs in Medicine](/guides/evidence-landscape-2025)** -- The broader research base for clinical AI, including the trials that informed our methodology.
+- **[HIPAA Compliance Guide](/guides/hipaa-compliance)** -- How to use any of these models safely with clinical data.
+- **Templates used in this comparison:** [DDx Generator](/templates/ddx-generator) | [Case Synthesis](/templates/case-synthesis)

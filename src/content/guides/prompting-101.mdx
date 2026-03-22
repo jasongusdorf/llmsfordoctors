@@ -8,6 +8,10 @@ featured: true
 
 import Callout from '../../components/Callout.astro';
 
+<Callout type="tip">
+**TL;DR:** Four principles make the difference between useful and frustrating AI output: **(1) Set the Role** -- tell the LLM who it is (e.g., "experienced hospitalist"); **(2) Provide Context** -- clinical details, audience, and goal; **(3) Be Specific About Format** -- bullets, tables, SOAP, etc.; **(4) Iterate** -- refine rather than rewrite. Master these four and most clinical prompts will produce usable first drafts. For the underlying clinical workflow (de-identify, prompt, review), see the companion [LLMs in Clinical Care 101](/guides/llms-in-clinical-care-101) guide.
+</Callout>
+
 Getting good output from an AI isn't magic; it's a skill. And like most clinical skills, it improves with deliberate practice. This guide covers the four core principles that separate a useful AI interaction from a frustrating one.
 
 ---
@@ -41,7 +45,7 @@ Useful context to provide:
 **Example:**
 > "The patient is a 72-year-old man with HFrEF (EF 30%), CKD stage 3, and type 2 diabetes. He was admitted for acute decompensated heart failure. Draft a discharge instruction sheet in plain language (8th grade reading level) covering fluid restriction, daily weights, and when to call the doctor."
 
-The more specific your context, the less editing you'll need to do.
+The more specific your context, the less editing you'll need to do. If you're including any patient-specific details, remember to [de-identify first](/guides/hipaa-compliance) -- strip names, MRNs, and dates of birth before pasting into a consumer LLM.
 
 <Callout type="evidence">
   Studies consistently show that prompt specificity is one of the strongest predictors of output quality. Vague prompts produce vague responses. Clinical precision in the prompt yields clinical precision in the output.
@@ -55,9 +59,9 @@ Tell the AI exactly how you want the output structured. Common formats that work
 
 - **Bullet points**: great for rapid review, handoffs, clinical reasoning lists
 - **Numbered steps**: good for procedures, protocols, and patient instructions
-- **Table**: useful for medication comparisons, differential diagnoses
+- **Table**: useful for medication comparisons, differential diagnoses (see the [DDx Generator template](/templates/ddx-generator))
 - **Paragraph narrative**: best for letters, referrals, summaries for patients or families
-- **SOAP format**: familiar structure for progress notes
+- **SOAP format**: familiar structure for progress notes (see the [SOAP Progress Note template](/templates/progress-note-soap))
 
 **Example format instruction:**
 > "Provide your response as a table with three columns: Diagnosis, Supporting Evidence, Against. Limit to 5 rows."
@@ -93,3 +97,79 @@ Here's a before/after example:
 > "You are an experienced hospitalist. Write a brief hospital course section for a discharge summary. The patient is a 65-year-old woman admitted for community-acquired pneumonia treated with ceftriaxone and azithromycin for 5 days with good clinical response. She was afebrile for 48 hours prior to discharge. She has a follow-up chest X-ray ordered in 6 weeks. Write in concise, professional prose suitable for a primary care physician."
 
 The strong prompt takes 30 extra seconds to write and will save you 5 minutes of editing.
+
+---
+
+## Worked Example: Prompt → Response → Review
+
+To see the full cycle in practice, here is a complete prompt, the LLM response it produces, and the physician review that follows.
+
+**The clinical situation:** You need discharge instructions for a patient with a new diagnosis of atrial fibrillation started on apixaban during this admission.
+
+**The prompt:**
+> "You are an experienced hospitalist. Write discharge instructions for a patient-facing handout at an 8th grade reading level. The patient is a 68-year-old man newly diagnosed with atrial fibrillation during this admission. He was started on apixaban 5 mg twice daily and metoprolol succinate 50 mg daily for rate control. Cover: what atrial fibrillation is (2-3 sentences), why he is on a blood thinner, signs of bleeding to watch for, when to take his medications, and when to call the doctor or go to the ER. Use short paragraphs and bullet points."
+
+**The LLM response:**
+
+> **Understanding Your Heart Rhythm**
+>
+> During your hospital stay, we found that your heart was beating in an irregular pattern. This is called atrial fibrillation (sometimes shortened to "AFib"). It means the upper chambers of your heart are not beating in sync with the lower chambers. This is a common condition and can be managed with medications.
+>
+> **Your New Medications**
+>
+> - **Apixaban (Eliquis) 5 mg** -- Take one tablet twice a day, once in the morning and once in the evening. This is a blood thinner that helps prevent blood clots, which can form when the heart beats irregularly. Do not skip doses.
+> - **Metoprolol succinate (Toprol XL) 50 mg** -- Take one tablet once a day in the morning. This medication slows your heart rate to a more normal speed.
+>
+> **Why You Need a Blood Thinner**
+>
+> When your heart beats irregularly, blood can pool in the upper chambers and form clots. If a clot travels to your brain, it can cause a stroke. Apixaban helps prevent these clots from forming.
+>
+> **Signs of Bleeding to Watch For**
+>
+> Because apixaban thins your blood, you may bleed more easily. Call your doctor if you notice:
+> - Unusual bruising or bruises that are larger than normal
+> - Pink or brown urine
+> - Red or black stools
+> - Bleeding from your gums that does not stop
+> - Nosebleeds that last more than 10 minutes
+> - Coughing up blood
+>
+> **Go to the ER immediately if you experience:**
+> - A fall and you hit your head
+> - Bleeding that will not stop
+> - Sudden severe headache, confusion, or weakness on one side of your body (these could be signs of a stroke)
+>
+> **When to Call Your Doctor**
+>
+> - Your heart feels like it is racing or pounding for more than a few minutes
+> - You feel dizzy, lightheaded, or faint
+> - You have new shortness of breath
+> - You have chest pain
+>
+> **Follow-Up**
+>
+> You have an appointment with your primary care doctor in 1-2 weeks. Please bring this sheet and your medication bottles to that visit.
+
+**The physician review:**
+
+This is a solid first draft. Before signing off, a physician should check the following:
+
+1. **Accuracy of medication details.** Apixaban 5 mg BID and metoprolol succinate 50 mg daily match what was prescribed -- confirmed. (If this patient had renal impairment or was on a dose-reduced regimen, you would need to catch that.)
+2. **Completeness.** The output covers all five requested topics. The follow-up section mentions a 1-2 week appointment, which the LLM inferred; you would edit this to the actual scheduled date.
+3. **Hallucination check.** Nothing fabricated here, but the "1-2 week" follow-up is a reasonable assumption that might not match reality -- edit to the real date.
+4. **Tone and reading level.** Language is plain and appropriate. The stroke warning signs are correctly included.
+
+Total time: approximately 90 seconds to prompt, 60 seconds to review and edit. Compare that to writing discharge instructions from scratch.
+
+For a ready-to-use version of this workflow, try the [Discharge Summary template](/templates/discharge-summary-basic).
+
+---
+
+## What's Next
+
+Now that you have the four prompting principles, here's where to go from here:
+
+- **[LLMs in Clinical Care 101](/guides/llms-in-clinical-care-101)** -- The step-by-step workflow for using LLMs in your daily practice: de-identify, prompt, review.
+- **[HIPAA Compliance Guide](/guides/hipaa-compliance)** -- What you need to know about patient data and AI tools before you start prompting with clinical information.
+- **[Which LLM for Clinical Reasoning?](/guides/llm-clinical-reasoning-comparison)** -- A head-to-head comparison of models so you can pick the right tool for the task.
+- **Ready-to-use templates:** Start with the [Discharge Summary](/templates/discharge-summary-basic), [DDx Generator](/templates/ddx-generator), or [SOAP Progress Note](/templates/progress-note-soap) and apply the principles from this guide.

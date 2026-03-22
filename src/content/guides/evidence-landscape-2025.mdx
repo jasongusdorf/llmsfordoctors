@@ -12,6 +12,19 @@ The evidence base for LLMs in medicine has gone from anecdotal to substantial in
 
 This guide surveys the major studies and themes from 2025 through early 2026. It is organized around five themes that emerged from the literature, not as a flat list of papers, but as a narrative of what the field has learned, where the evidence is strong, and where the gaps remain dangerous.
 
+## Contents
+
+- [Theme 1: Clinician Performance in Controlled Trials](#theme-1-clinician-performance-in-controlled-trials)
+- [Theme 2: Safety and Adoption in Real Deployments](#theme-2-safety-and-adoption-in-real-deployments)
+- [Theme 3: Security and Robustness Failure Modes](#theme-3-security-and-robustness-failure-modes)
+- [Theme 4: Workflow Automation](#theme-4-workflow-automation)
+- [Theme 5: Specialty-Domain Validation](#theme-5-specialty-domain-validation)
+- [The Open-Source Inflection Point](#the-open-source-inflection-point)
+- [Cross-Cutting Lessons](#cross-cutting-lessons)
+- [What's Coming Next](#whats-coming-next)
+- [Summary Table: Key Studies at a Glance](#summary-table-key-studies-at-a-glance)
+- [Bottom Line](#bottom-line)
+
 The publication arc itself tells a story: early 2025 was dominated by foundation-level medical QA benchmarks and clinician-in-the-loop RCTs. By late 2025, the field shifted to large-scale EHR cohort extraction and workflow automation. Early 2026 brought deployment safety audits, AI-literacy as a measurable intervention, and governance frameworks. The field is maturing, and the questions are getting harder.
 
 A note on scope: this guide focuses on studies published in high-impact peer-reviewed journals (Nature Medicine, NEJM AI, JAMA, and their companion journals). These represent the most rigorously evaluated evidence. There is a much larger body of preprints, conference abstracts, and vendor-sponsored evaluations that we don't cover here. Some of that work is excellent; some is not. The peer-reviewed literature is the floor, not the ceiling, of what's known.
@@ -58,7 +71,7 @@ The study design deserves attention. Physicians weren't given a pre-generated AI
 
 That time penalty matters. In a 15-minute primary care visit, two extra minutes is a 13% productivity hit. In an ED running at capacity, it might not be feasible at all. The question isn't just "does it help?" but "does it help enough to justify the workflow cost?", and the answer depends heavily on the clinical setting.
 
-There's a deeper question here too: does the time cost decrease with experience? The Goh et al. study measured physicians on their first use of LLM assistance. It's plausible that experienced LLM users learn to query more efficiently, evaluate output more quickly, and integrate AI input into their workflow with less friction. But we don't have longitudinal data on this yet; it's an important gap in the evidence.
+There's a deeper question here too: does the time cost decrease with experience? The Goh et al. study measured physicians on their first use of LLM assistance. It's plausible that experienced LLM users learn to query more efficiently, evaluate output more quickly, and integrate AI input into their workflow with less friction. But we don't have longitudinal data on this yet; it's an important gap in the evidence. (For more detail on the Goh et al. RCT, see our [trial summary](/trials/gpt4-physician-management-rct-2025).)
 
 <Callout type="tip">
   When interpreting the time-cost findings from AI-assisted reasoning studies, remember that these are typically first-exposure measurements. Experienced users may be faster. But don't assume the time cost disappears; plan for it in workflow design, and measure it in your own deployment.
@@ -83,6 +96,10 @@ That last finding (LLM-alone beating physician+LLM) deserves careful interpretat
   Do not interpret "LLM-alone outperformed physician+LLM" as evidence that physicians are unnecessary. Average performance hides the cases where physician judgment catches catastrophic AI errors. The goal is calibrated collaboration: knowing when to trust the model and when to override it. That's exactly what AI-literacy training teaches.
 </Callout>
 
+<Callout type="tip">
+**What to do with this:** Start building your own AI-literacy now. Learn the basics of how LLMs generate text, practice recognizing hallucinations, and develop a habit of verifying AI output against your own clinical reasoning. Our [Prompting 101](/guides/prompting-101) guide is a practical starting point. For a head-to-head look at how different models handle the same clinical case, see [Which LLM for Clinical Reasoning?](/guides/llm-clinical-reasoning-comparison).
+</Callout>
+
 ---
 
 ## Theme 2: Safety and Adoption in Real Deployments
@@ -91,7 +108,7 @@ Controlled trials are one thing. What happens when LLMs are embedded in producti
 
 ### The Kenya CDS deployment
 
-Agweyu et al. (2026, Nature Health) audited an EMR-embedded clinical decision support system across 16 clinics in Kenya, reviewing 1,469 clinical records. The headline numbers look encouraging: guideline alignment was 99%, and the hallucination rate was just 3.4%.
+Agweyu et al. (2026, Nature Health) audited an EMR-embedded clinical decision support system across 16 clinics in Kenya, reviewing 1,469 clinical records ([trial summary](/trials/emr-cds-safety-kenya-2026)). The headline numbers look encouraging: guideline alignment was 99%, and the hallucination rate was just 3.4%.
 
 But buried in the data: actively harmful recommendations appeared in 7.8% of encounters.
 
@@ -135,6 +152,10 @@ Several additional studies reinforce this theme:
   Bias in LLM clinical recommendations is not hypothetical. When demographic or socioeconomic details are included in a prompt, they can shift the model's clinical recommendations even when they shouldn't. This is a systemic problem that cannot be fixed by prompt engineering alone; it requires careful evaluation, monitoring, and audit at the deployment level.
 </Callout>
 
+<Callout type="tip">
+**What to do with this:** Before trusting any AI-CDS tool in your workflow, ask two questions: (1) What is the measured harm rate, not the accuracy rate? (2) How hard is it for a clinician to reject a suggestion versus accept one? If your vendor cannot answer the first question or the answer to the second is "harder," push back. See our [HIPAA Compliance guide](/guides/hipaa-compliance) for the broader vendor evaluation framework.
+</Callout>
+
 ---
 
 ## Theme 3: Security and Robustness Failure Modes
@@ -176,6 +197,10 @@ The data poisoning risk changes the calculus for how medical LLMs should be vali
 
 <Callout type="tip">
   When evaluating medical LLM vendors, ask about training data provenance and curation. "Trained on internet data" is not a reassuring answer for clinical use. Look for models trained on curated medical corpora with documented quality control processes.
+</Callout>
+
+<Callout type="tip">
+**What to do with this:** Never use a single benchmark score as evidence that a model is safe for clinical use. When your institution evaluates an LLM tool, insist on adversarial testing against your own clinical scenarios, not just vendor-supplied benchmarks. For literature-backed questions, use a search-augmented model like [Perplexity](/tools/perplexity) to verify claims against primary sources.
 </Callout>
 
 ---
@@ -249,7 +274,11 @@ Several other workflow automation studies from 2025 round out the picture:
 
 - **Clinical outcome adjudication (2025):** Fu-LLM was evaluated for adjudicating clinical outcomes in trials, classifying events like myocardial infarction or stroke from clinical records. This is another trials operations bottleneck where LLMs can accelerate human review without replacing it. In large trials, outcome adjudication can involve thousands of medical records reviewed by clinical events committees. LLM pre-classification could reduce that workload by an order of magnitude.
 
-The common thread across all workflow automation applications is a design pattern worth internalizing: **AI generates, human validates.** The model produces a first draft, extraction, or classification. A qualified human reviews it before it has clinical consequences. This pattern works because it plays to the strengths of both parties: the model's speed and consistency, the human's judgment and accountability.
+The common thread across all workflow automation applications is a design pattern worth internalizing: **AI generates, human validates.** The model produces a first draft, extraction, or classification. A qualified human reviews it before it has clinical consequences. This pattern works because it plays to the strengths of both parties: the model's speed and consistency, the human's judgment and accountability. (For a detailed look at the ambient scribe evidence, see our [DAX/Nabla RCT summary](/trials/ambient-ai-scribes-dax-nabla-rct-2025).)
+
+<Callout type="tip">
+**What to do with this:** Pick one documentation task and try it this week. Discharge summaries are the best starting point: the format is predictable, the output is easy to verify, and the time savings are immediate. See our [LLMs in Clinical Care 101](/guides/llms-in-clinical-care-101) guide for the step-by-step workflow and the [Discharge Summary template](/templates/discharge-summary-basic) for a ready-to-use prompt.
+</Callout>
 
 ---
 
@@ -295,6 +324,10 @@ This doesn't mean GenAI therapy chatbots should never be developed. The mental h
 
 <Callout type="pitfall">
   Direct-to-patient generative AI therapy is in a different risk category than clinician-facing tools. There is no human in the loop to catch errors. The patient is the least equipped person to evaluate whether the AI's therapeutic guidance is appropriate. Regulatory frameworks for this use case are still being developed; proceed with extreme caution.
+</Callout>
+
+<Callout type="tip">
+**What to do with this:** If your specialty is evaluating LLM tools, insist on validation with your own institution's data and formats. Out-of-the-box performance on standardized reports does not predict performance on your institution's reports. Start with low-risk communication tasks (report simplification, patient-facing summaries) rather than diagnostic applications.
 </Callout>
 
 ---
@@ -478,6 +511,32 @@ A few practical notes for clinicians evaluating AI studies.
 
 ---
 
+## Applying the Evidence: Two Worked Examples
+
+### Example 1: Evaluating a vendor's accuracy claims
+
+**The scenario:** Your department chair forwards you a vendor pitch deck for an AI-CDS tool. The deck claims "97% accuracy on clinical decision tasks" and cites a single benchmark study.
+
+**How to apply the evidence from this guide:**
+
+1. **Ask about the harm rate, not just the accuracy rate.** The Kenya CDS study showed 99% guideline alignment with 7.8% actively harmful recommendations. A 97% accuracy rate tells you nothing about the tail risk. Request the vendor's data on harmful or dangerous outputs specifically.
+2. **Check the evaluation setting.** Was the 97% measured on standardized board-style questions or on real clinical encounters? Benchmark performance does not equal deployment safety (Alber et al.).
+3. **Ask about bias audits.** Has the tool been tested for differential performance across patient demographics? The retinal disease study showed that demographic details in prompts shifted recommendations even when clinical presentation was identical.
+4. **Insist on local validation.** Specialty-specific studies consistently show that performance degrades on your institution's data compared to standardized datasets. Request a pilot with your own clinical scenarios before procurement.
+
+### Example 2: Choosing the right LLM task for your workflow
+
+**The scenario:** You are a hospitalist who wants to start using LLMs but are not sure where to begin. You have 15 minutes to spend on this decision.
+
+**How to apply the evidence from this guide:**
+
+1. **Start with documentation, not clinical reasoning.** The workflow automation evidence (Theme 4) has the strongest combination of benefit, manageable risk, and institutional readiness. Small et al. showed LLM-generated hospital course summaries required less editing than physician-written ones.
+2. **Use the de-identify-prompt-review workflow.** This pattern is described in detail in the [LLMs in Clinical Care 101](/guides/llms-in-clinical-care-101) guide. It takes 30 seconds to learn and eliminates HIPAA risk for consumer tools.
+3. **Pick one template and use it for a week.** The [Discharge Summary template](/templates/discharge-summary-basic) is the best starting point. Track how much time it saves you and how much editing the output requires.
+4. **Do not use LLMs for clinical decision support without understanding the risks.** The controlled trial evidence (Theme 1) shows that LLM-assisted reasoning improves quality but requires AI-literacy training and takes extra time. This is a second-phase adoption, not a starting point.
+
+---
+
 ## Bottom Line
 
 The evidence landscape for LLMs in medicine as of early 2026 can be summarized in five statements:
@@ -499,3 +558,9 @@ If you take one thing from this review, let it be this: the evidence supports us
 The tools are here. The evidence is accumulating. The question is whether institutions will deploy them wisely or rush to adopt without the safeguards the evidence says are necessary. The studies reviewed in this guide give you what you need to tell the difference.
 
 This evidence landscape will look different a year from now. Bookmark it, revisit it, and use it as a baseline for evaluating what comes next.
+
+**Related guides and resources:**
+- [Which LLM for Clinical Reasoning?](/guides/llm-clinical-reasoning-comparison) -- Our head-to-head model comparison, grounded in the evidence discussed here.
+- [HIPAA Compliance Guide](/guides/hipaa-compliance) -- The practical compliance framework for using any LLM tool safely.
+- [Prompting 101](/guides/prompting-101) -- How to write effective prompts that produce clinically useful output.
+- [LLM Clinical Reasoning (JAMA 2023)](/trials/llm-clinical-reasoning-jama-2023) -- The foundational trial on LLM diagnostic reasoning.

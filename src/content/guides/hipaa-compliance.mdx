@@ -16,13 +16,31 @@ This guide is written for clinicians who want to use LLMs in their practice with
 
 That single sentence will keep you out of trouble in the vast majority of situations. The rest of this guide explains why, and what to do when the answer is more nuanced.
 
+## Contents
+
+- [Who This Guide Is For](#who-this-guide-is-for)
+- [Part 1: Core Definitions You Actually Need](#part-1-core-definitions-you-actually-need)
+- [Part 2: Where PHI Shows Up in LLM Systems](#part-2-where-phi-shows-up-in-llm-systems)
+- [Part 3: The Decision Flowchart](#part-3-the-decision-flowchart)
+- [Part 4: Do's and Don'ts](#part-4-dos-and-donts)
+- [Part 5: Evaluating Vendors](#part-5-evaluating-vendors)
+- [Part 6: Common Clinical Scenarios](#part-6-where-phi-meets-the-keyboard---common-clinical-scenarios)
+- [Part 7: Beyond HIPAA -- Other Laws](#part-7-beyond-hipaa---other-laws-that-apply)
+- [Part 8: Building Institutional Policy](#part-8-building-institutional-policy)
+- [Part 9: Technical Mitigations](#part-9-technical-mitigations)
+- [Part 10: What to Do When Things Go Wrong](#part-10-what-to-do-when-things-go-wrong)
+- [Part 11: HIPAA Penalties](#part-11-hipaa-penalties---what-is-actually-at-stake)
+- [Part 12: Common Misconceptions](#part-12-common-misconceptions)
+- [Part 13: The Compliance Landscape Is Changing](#part-13-the-compliance-landscape-is-changing)
+- [Part 14: Quick Reference](#part-14-quick-reference)
+
 ---
 
 ## Who This Guide Is For
 
 You are a clinician (physician, nurse practitioner, PA, pharmacist, therapist, or other licensed provider) working within or adjacent to a covered entity. You want to use large language models for clinical tasks: drafting notes, summarizing literature, generating patient education materials, reasoning through differentials, or writing prior authorization letters.
 
-You are not a compliance officer. You should not have to be one. But you do need to understand enough about HIPAA to make safe decisions at the point of use, because the tool is in your hands and the data is your patient's.
+You are not a compliance officer. You should not have to be one. But you do need to understand enough about HIPAA to make safe decisions at the point of use, because the tool is in your hands and the data is your patient's. If you are brand new to using LLMs in clinical work, start with [LLMs in Clinical Care 101](/guides/llms-in-clinical-care-101), which walks through the practical workflow step by step; then return here for the compliance details.
 
 ---
 
@@ -332,7 +350,7 @@ Abstract rules become concrete when you apply them to daily clinical work. Here 
 
 **The task**: You want an LLM to help draft a discharge summary for a patient with a complex hospital course.
 
-**The compliant path**: Use an institution-approved, BAA-covered tool (ideally EHR-integrated). If no such tool is available, de-identify the clinical details before using any LLM. Replace the patient's name with "Patient," remove the MRN, replace specific dates with relative timelines ("hospital day 3"), and generalize the age if >89.
+**The compliant path**: Use an institution-approved, BAA-covered tool (ideally EHR-integrated). If no such tool is available, de-identify the clinical details before using any LLM. Replace the patient's name with "Patient," remove the MRN, replace specific dates with relative timelines ("hospital day 3"), and generalize the age if >89. (See the [Discharge Summary template](/templates/discharge-summary-basic) for a ready-to-use prompt that follows these principles.)
 
 **The non-compliant path**: Copy-pasting the admission H&P (complete with name, DOB, and MRN) into ChatGPT's free tier to "help me organize this."
 
@@ -350,7 +368,7 @@ Abstract rules become concrete when you apply them to daily clinical work. Here 
 
 ### Scenario 3: Prior Authorization Letter
 
-**The task**: Draft a prior authorization letter for a specific medication for a specific patient.
+**The task**: Draft a prior authorization letter for a specific medication for a specific patient. (See the [Prior Authorization template](/templates/prior-authorization) for a ready-to-use prompt.)
 
 **The compliant path**: If your organization has an approved AI tool with a BAA for this purpose, use it with patient details as permitted. If not, draft the letter using de-identified clinical details in the LLM, then manually add the patient-specific identifiers afterward in your secure clinical environment.
 
@@ -374,7 +392,7 @@ Abstract rules become concrete when you apply them to daily clinical work. Here 
 
 **The task**: You have a complex patient and want to use an LLM to help think through the differential diagnosis.
 
-**The compliant path**: De-identify. "72M, presenting with acute onset dyspnea, bilateral lower extremity edema, elevated BNP, EF 25% on echo, Cr 2.1 from baseline 1.4. On furosemide 40mg, lisinopril 10mg, metoprolol 50mg. DDx and next steps?" This contains zero identifiers and works perfectly for the clinical question.
+**The compliant path**: De-identify. "72M, presenting with acute onset dyspnea, bilateral lower extremity edema, elevated BNP, EF 25% on echo, Cr 2.1 from baseline 1.4. On furosemide 40mg, lisinopril 10mg, metoprolol 50mg. DDx and next steps?" This contains zero identifiers and works perfectly for the clinical question. (For effective prompting techniques, see [Prompting 101](/guides/prompting-101). For a ready-to-use DDx prompt, try the [DDx Generator template](/templates/ddx-generator).)
 
 **The non-compliant path**: Uploading the patient's chart PDF to a consumer AI tool.
 
