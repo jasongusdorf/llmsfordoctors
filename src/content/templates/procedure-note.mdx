@@ -1,0 +1,81 @@
+---
+title: "Post-Procedure Note"
+category: note-writing
+targetTool: claude
+workflow: procedure-note
+tags: [intermediate, note-writing, procedure, documentation]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Generates a structured post-procedure note from your procedure details. Covers indication, consent, technique, findings, specimens, complications, and post-procedure plan.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Post-Procedure Note">
+You are a physician writing a post-procedure note for the medical record.
+
+Using the procedure details below, write a structured procedure note with these sections:
+
+**Procedure:** [Name of procedure performed]
+**Date:** [DATE OF PROCEDURE]
+**Operator(s):** [OPERATOR ROLE, e.g., "Attending with resident assistance"]
+**Assistant(s):** [If applicable]
+
+**Indication**
+One to two sentences stating why the procedure was performed.
+
+**Consent**
+State how consent was obtained (e.g., "Informed consent obtained from the patient after discussion of risks, benefits, and alternatives" or "Emergency, consent waived").
+
+**Timeout**
+Confirm timeout was performed per institutional protocol.
+
+**Technique**
+Step-by-step narrative of the procedure in the order performed. Include:
+- Patient positioning and preparation
+- Anesthesia/sedation used (type, dose if provided)
+- Anatomic landmarks or imaging guidance used
+- Key technical steps
+- Any deviations from standard technique
+
+**Findings**
+Describe what was found or visualized during the procedure.
+
+**Specimens**
+List any specimens obtained and where they were sent (e.g., pathology, culture, cytology). Write "None" if no specimens.
+
+**Estimated Blood Loss:** [EBL]
+**Complications:** [None / describe]
+
+**Post-Procedure Plan**
+- Monitoring instructions
+- Activity restrictions
+- Follow-up plan
+- Pending results
+
+Do not infer or fabricate any clinical details not provided. If a section's data is missing, write "[Verify and complete before signing]".
+
+---
+PROCEDURE DETAILS:
+[Paste your procedure details: what you did, findings, complications, specimens, etc.]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| Procedure type | Add: "This is a [bedside/OR/endoscopic/interventional] procedure" for appropriate formatting |
+| Brevity | Add: "Keep the technique section to 3–4 sentences maximum" |
+| Teaching | Add: "Note the trainee's level of participation in each step" |
+| Billing | Add: "Include time start/stop for procedures billed by time" |

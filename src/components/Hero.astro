@@ -1,0 +1,52 @@
+---
+import SearchBar from './SearchBar.astro';
+import AuroraBackground from './ui/aurora-background.astro';
+---
+
+<AuroraBackground class="!h-auto !bg-clinical-900 dark:!bg-clinical-900 pt-20 pb-12 px-4 sm:px-6 lg:px-8">
+  <div class="relative z-10 max-w-3xl mx-auto text-center animate-fade-in-up">
+    <p class="text-sm font-semibold uppercase tracking-widest text-blue-400 mb-4">
+      LLMs for Doctors
+    </p>
+
+    <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+      Make your clinical life easier with AI
+    </h1>
+
+    <!-- Golden featured guide -->
+    <a
+      href="/guides/llms-in-clinical-care-101"
+      class="group mb-8 mx-auto max-w-2xl block rounded-xl border-2 border-amber-400/60 bg-gradient-to-br from-amber-500/15 via-amber-400/10 to-yellow-500/15 backdrop-blur p-6 hover:border-amber-400 hover:from-amber-500/25 hover:via-amber-400/20 hover:to-yellow-500/25 transition-all shadow-lg shadow-amber-500/10 hover:shadow-amber-500/20"
+    >
+      <div class="flex items-start gap-4">
+        <div class="flex-shrink-0 mt-1 w-10 h-10 rounded-full bg-amber-400/20 flex items-center justify-center">
+          <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M10 2l2.39 4.84L17.5 7.6l-3.75 3.66.89 5.17L10 13.93l-4.64 2.5.89-5.17L2.5 7.6l5.11-.76L10 2z" />
+          </svg>
+        </div>
+        <div class="flex-1 text-left">
+          <p class="text-xs font-semibold uppercase tracking-widest text-amber-400 mb-1">Start Here</p>
+          <h3 class="font-heading text-lg font-bold text-white group-hover:text-amber-200 transition-colors">
+            LLMs in Clinical Care 101
+          </h3>
+          <p class="text-sm text-clinical-300 mt-1 leading-relaxed">
+            The step-by-step workflow for using AI in clinical practice safely. De-identify, prompt, review. If you read one guide, make it this one.
+          </p>
+        </div>
+        <div class="flex-shrink-0 mt-3 text-amber-400/60 group-hover:text-amber-400 group-hover:translate-x-1 transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
+    </a>
+
+    <p class="font-display text-lg sm:text-xl italic text-clinical-200 max-w-lg mx-auto leading-relaxed mb-8">
+      The goal isn't less thinking. It's more time for the thinking that matters. Less charting, more doctoring.
+    </p>
+
+    <div class="max-w-xl mx-auto">
+      <SearchBar />
+    </div>
+  </div>
+</AuroraBackground>

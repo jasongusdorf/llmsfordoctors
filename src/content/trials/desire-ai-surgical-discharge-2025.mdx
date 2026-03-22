@@ -1,0 +1,51 @@
+---
+title: "AI for Surgical Discharge Prediction: The DESIRE Feasibility Study"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIcs2401132"
+keyFinding: "The DESIRE AI model for predicting safe postoperative discharge achieved 98% specificity and 92% PPV in a silent prospective trial, but only 14% sensitivity, highlighting the gap between model accuracy and real-world clinical utility."
+lastUpdated: 2026-03-21
+tags: [surgical-discharge, clinical-decision-support, feasibility, implementation, data-quality, perioperative]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Van de Sande et al. conducted a 3-month silent prospective trial of the DESIRE (Discharge after Surgery Using Artificial Intelligence) model at Erasmus MC in the Netherlands. The logistic regression model predicted safe discharge on postoperative day 2 for patients undergoing gastrointestinal or oncologic surgery. Clinicians were blinded to all AI outputs; predictions were generated daily and stored by the research team without influencing care. 132 adult patients were included, and discharge barriers were documented via structured electronic forms capturing both objective metrics and subjective factors.
+
+---
+
+## Key Findings
+
+- The model produced real-time predictions for **114 of 132 patients (86%)**
+- DESIRE achieved an **AUC of 0.77**, **98% specificity**, and **92% positive predictive value**, but only **14% sensitivity**
+- Low sensitivity was intentional; the model was designed to be **conservatively confident** about safe discharges rather than cast a wide net
+- **Corrupted surgery duration data** temporarily affected model reliability, demonstrating real-world data quality hazards
+- **12 patients** deemed "safe" by the model required hospital-specific care not captured in the AI's definition of safe discharge (11 had respiratory insufficiency)
+
+<Callout type="evidence">
+  This study is more valuable for what it reveals about implementation than for the model's performance. The data quality issues, definition mismatches, and workflow challenges are exactly the problems that most AI studies skip over by staying retrospective.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **High specificity, low sensitivity is the right tradeoff for discharge.** A false positive (saying a patient is safe when they're not) is far more dangerous than a false negative (missing a safe discharge opportunity). The 92% PPV means when the model says "safe," it's almost always right.
+
+2. **Data quality is the real bottleneck.** Corrupted surgery duration data degraded predictions until detected. This is a universal problem: hospital data pipelines are messy, and AI models are brittle to data corruption in ways that human clinicians are not.
+
+3. **Definition alignment matters.** The model defined "safe discharge" as absence of six specific adverse events. But 12 patients needed care that fell outside those definitions. AI and clinical teams must agree on what "safe" means before deployment.
+
+<Callout type="pitfall">
+  This was a single-center, single-specialty, 3-month silent trial with 132 patients. The model has never been tested with clinicians actually seeing and acting on its predictions. The real test (whether AI discharge predictions change behavior without causing harm) remains unanswered.
+</Callout>
+
+---
+
+## My Takeaway
+
+This is a refreshingly honest implementation study. Most AI papers show great retrospective performance and stop there. This one deployed in the real world and documented everything that went wrong: data corruption, definition mismatches, operational failures. The model itself works adequately for its intended conservative use case. But the paper's real contribution is demonstrating that clinical AI deployment is primarily an engineering, governance, and workflow challenge, not a modeling challenge.
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIcs2401132)

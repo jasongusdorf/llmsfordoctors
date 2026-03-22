@@ -1,0 +1,71 @@
+---
+title: "Journal Article Summary"
+category: literature-review
+targetTool: claude
+workflow: article-review
+tags: [beginner, literature-review, journal, summary, evidence]
+lastUpdated: 2026-03-18
+---
+
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Summarizes a journal article into a structured, clinician-friendly format. Paste in the abstract (or full text) and get a concise summary covering study design, population, key findings, limitations, and clinical takeaway. Great for staying current with the literature efficiently.
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Journal Article Summary">
+You are a clinical researcher summarizing a journal article for a busy physician audience.
+
+Given the article text below, produce a structured summary:
+
+**Citation**
+Authors, title, journal, year, DOI (extract from the provided text).
+
+**Study Design**
+One line: [RCT / Cohort / Case-control / Systematic review / Meta-analysis / Case series / etc.]
+
+**Population**
+Who was studied: sample size, inclusion/exclusion criteria, setting, demographics.
+
+**Intervention & Comparator** (if applicable)
+What was done to the intervention group vs. the control group.
+
+**Primary Outcome**
+The main outcome measured, the result, and statistical significance (include exact numbers: HR, OR, RR, ARR, NNT, p-value, 95% CI).
+
+**Secondary Outcomes**
+Key secondary outcomes with results (2–3 most important).
+
+**Limitations**
+3–5 key limitations of the study (methodological, generalizability, bias).
+
+**Clinical Bottom Line**
+In 2–3 sentences: What does this mean for clinical practice? Should this change what I do? For whom?
+
+Do not fabricate data, statistics, or citations. If the provided text does not contain specific numbers, state "not reported in the provided text."
+
+---
+ARTICLE TEXT:
+[Paste the abstract, or full text, or key sections of the article here]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| Depth | Add: "Include a detailed methods critique" or "Keep to 200 words total" |
+| Audience | Add: "Summarize for a [specialty] audience; highlight [specialty]-relevant implications" |
+| Multiple articles | Add: "Summarize each article separately, then provide a comparison of the key findings" |
+| Teaching | Add: "Include 3 discussion questions for a journal club audience" |
+
+---
+
+## Notes
+
+- This works best with abstracts or full-text PDFs pasted as text. For studies behind paywalls, the abstract alone produces a useful (if less detailed) summary.
+- Always verify extracted statistics against the original article, as AI may misread tables or confidence intervals.
+- For systematic reviews and meta-analyses, consider using the **Evidence Comparison** template instead.

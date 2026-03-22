@@ -1,0 +1,80 @@
+---
+title: "Microsoft Dragon Copilot"
+slug: dragon-copilot
+vendor: "Microsoft / Nuance"
+rating: 5
+verdict: "Enterprise-grade ambient documentation with the most detailed public security documentation"
+pricing: "Enterprise pricing (contact vendor)"
+hasBaa: true
+categories: [note-writing, clinical-reasoning, general]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Overview
+
+Microsoft Dragon Copilot (formerly DAX Copilot and Dragon Medical One) is the ambient clinical documentation platform from Microsoft's Nuance healthcare division. It represents the convergence of Nuance's decades of medical speech recognition expertise with Microsoft's Azure cloud infrastructure and AI capabilities.
+
+Dragon Copilot operates at enterprise scale, embedded directly within EHR systems or deployed as a standalone solution. It supports ambient documentation (listening to encounters and generating notes) as well as broader workflow automation. The platform runs entirely on Azure infrastructure.
+
+What distinguishes Dragon Copilot from the competitive field is the depth of its publicly available security documentation. The published security white paper details specific encryption algorithms, authentication mechanisms, audit logging infrastructure, and data segregation practices, the kind of granular technical detail that most competitors do not make publicly available.
+
+For large health systems with mature IT and security teams, Dragon Copilot is often the default choice, not because alternatives lack capability, but because Microsoft's enterprise security posture aligns with the compliance frameworks these organizations already operate within.
+
+---
+
+## Clinical Strengths
+
+Dragon Copilot sets the benchmark in several areas:
+
+- **Deep security documentation**: the security white paper specifies TLS 1.3 for data in transit, AES-256 for data at rest, and provides detailed architecture diagrams. This level of specificity is unmatched among ambient documentation vendors.
+- **Mature identity and access management**: authentication via Microsoft Entra ID (formerly Azure AD) with OpenID Connect. Role-based access controls with monthly access audits.
+- **Comprehensive audit infrastructure**: audit logs maintained in Azure Application Insights and Azure Sentinel, providing both operational and security monitoring
+- **Mobile data handling**: mobile application uses local encryption; desktop and web clients do not persist data locally, reducing endpoint risk
+- **Explicit data segregation**: customer data is architecturally segregated, not just logically partitioned
+- **EHR integration maturity**: Nuance's long history of EHR integration means Dragon Copilot works with most major platforms out of the box
+
+<Callout type="evidence">
+  Dragon Copilot's security white paper is one of the most detailed publicly available documents in the clinical AI space. If you are building a security assessment framework for evaluating ambient documentation tools, it serves as a useful benchmark for the level of detail you should expect from any vendor handling PHI.
+</Callout>
+
+---
+
+## Weaknesses
+
+Enterprise capability comes with enterprise complexity:
+
+- **Enterprise procurement complexity**: Dragon Copilot is not available for individual clinician purchase. Procurement involves Microsoft enterprise licensing, Nuance contracting, and potentially Azure infrastructure agreements.
+- **Configuration burden**: the depth of security and compliance features means significant configuration work during deployment. Entra ID integration, audit log routing, role definitions, and access review cadences all require setup.
+- **Clinical responsibility remains with the clinician**: like all ambient documentation tools, the AI-generated note requires human review and sign-off. The tool does not reduce the clinician's legal responsibility for documentation accuracy.
+- **Not available for solo practitioners**: the enterprise deployment model excludes individual physicians or small practices without IT infrastructure to support the platform
+- **Cost**: enterprise pricing at Microsoft/Nuance scale may be prohibitive for smaller organizations, even those with IT capabilities
+
+<Callout type="pitfall">
+  Dragon Copilot's maturity and security depth can create a false sense of completeness. The AI still generates notes that require your clinical review and signature. Do not develop "automation complacency"; read every generated note as carefully as you would review a resident's documentation.
+</Callout>
+
+---
+
+## HIPAA & Privacy
+
+<Callout type="hipaa">
+  HIPAA compliance is typically handled through Microsoft and Nuance enterprise contracting, which includes Business Associate Agreements. The security white paper provides specific technical details: TLS 1.3 for encryption in transit, AES-256 for encryption at rest, Microsoft Entra ID for authentication, and audit logs in Azure Application Insights and Azure Sentinel. This is the most detailed public security documentation among ambient documentation vendors reviewed on this site.
+</Callout>
+
+Key compliance details:
+
+- **BAA**: executed through Microsoft/Nuance enterprise contracts
+- **Encryption in transit**: TLS 1.3
+- **Encryption at rest**: AES-256
+- **Authentication**: Microsoft Entra ID with OpenID Connect
+- **Audit logging**: Azure Application Insights + Azure Sentinel
+- **Access controls**: role-based access with monthly access audits
+- **Data segregation**: explicit architectural segregation of customer data
+- **Mobile security**: local encryption on mobile devices; desktop/web do not persist data locally
+- **Data residency**: Azure infrastructure with configurable region settings
+
+For compliance teams: Dragon Copilot's published security white paper provides the technical specifics you need to complete a thorough assessment. Focus your due diligence on contract-specific terms (retention, data use, breach notification timelines) and on verifying that your organization's Azure/Entra ID configuration aligns with the security architecture described in the white paper.
+
+Dragon Copilot represents the high-water mark for publicly documented security in the ambient clinical documentation space. If you are building a vendor evaluation framework, the level of detail in its security white paper is the standard against which other vendors should be measured.

@@ -1,0 +1,75 @@
+---
+title: "Differential Diagnosis Generator"
+category: clinical-reasoning
+targetTool: claude
+workflow: differential-diagnosis
+tags: [intermediate, clinical-reasoning, diagnosis, differential]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Generates a structured differential diagnosis from a clinical presentation. Provide the chief complaint, key history, and findings, and get an organized DDx ranked by likelihood with supporting and opposing evidence for each.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+<Callout type="pitfall">
+  AI-generated differentials are a thinking aid, not a diagnostic tool. They can miss rare conditions and may over-weight common diagnoses. Always apply your own clinical judgment.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Differential Diagnosis Generator">
+You are an experienced diagnostician helping to generate a structured differential diagnosis.
+
+Given the clinical presentation below, provide:
+
+**Top 5 Differential Diagnoses** (ranked by likelihood)
+
+For each diagnosis:
+1. **Diagnosis name**
+2. **Likelihood:** High / Moderate / Low
+3. **Supporting evidence:** Specific findings from the presentation that support this diagnosis
+4. **Opposing evidence:** Findings that argue against it, or expected findings that are absent
+5. **Key next step:** The single most useful test or action to confirm or rule out this diagnosis
+
+**Must-Not-Miss Diagnoses**
+List any dangerous diagnoses that should be ruled out even if unlikely, with the specific test or evaluation needed for each.
+
+**Synthesis**
+In 2–3 sentences, state the most likely unifying diagnosis and your recommended initial workup approach.
+
+Do not infer any history, findings, or test results not explicitly provided. If critical information is missing, state what additional history or data would help narrow the differential.
+
+---
+CLINICAL PRESENTATION:
+Chief Complaint: [CHIEF COMPLAINT]
+Age/Sex: [AGE AND SEX]
+Key History: [RELEVANT HISTORY, TIMING, ASSOCIATED SYMPTOMS]
+Exam Findings: [PERTINENT PHYSICAL EXAM FINDINGS]
+Initial Data: [ANY LABS, IMAGING, OR VITALS AVAILABLE]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| Depth | Add: "Expand to top 10 diagnoses" or "Limit to top 3" |
+| Specialty focus | Add: "Focus on [cardiology/neurology/GI] diagnoses" |
+| Pediatric | Add: "This is a pediatric patient. Use age-appropriate differentials." |
+| EM setting | Add: "This is an emergency department presentation. Prioritize time-sensitive diagnoses." |
+
+---
+
+## Notes
+
+- This template is for clinical reasoning support, not board prep. For practice differentials, see the **Differential Diagnosis Drill** template in Board Prep.
+- The "must-not-miss" section is the most clinically valuable part: use it as a safety checklist.
+- Works best when you include pertinent negatives, not just positive findings.

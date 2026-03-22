@@ -1,0 +1,51 @@
+---
+title: "First FDA-Cleared AI Device for Hemorrhage Risk Assessment in Trauma"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIcs2401170"
+keyFinding: "APPRAISE-HRI, the first FDA-cleared AI software for hemorrhage risk in trauma patients, showed hemorrhagic patients were 6.88 times as likely as controls to be classified as high-risk (level III)."
+lastUpdated: 2026-03-21
+tags: [fda-clearance, hemorrhage, trauma, triage, vital-signs, military-medicine, medical-device]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Frock et al. independently validated APPRAISE-HRI (Automated Processing of the Physiological Registry for Assessment of Injury Severity, Hemorrhage Risk Index), an AI-enabled software that processes vital signs (heart rate, blood pressure) to stratify hemorrhage risk into three levels: low (I), average (II), or high (III). Validation used data from 5,895 trauma patients (543 hemorrhagic, 5,352 controls) collected from emergency departments and prehospital transport across eight U.S. medical centers. The study was designed to support FDA 510(k) clearance, which was subsequently granted as a Class II device (K233249), the first AI-enabled software as a medical device for hemorrhage risk assessment.
+
+---
+
+## Key Findings
+
+- Hemorrhagic patients were **6.88 times as likely** as controls to be classified at level III (high risk), strongly suggesting hemorrhage at this level
+- Hemorrhagic patients were **0.18 times as likely** as controls to be at level I (low risk), suggesting absence of hemorrhage
+- At level II (average risk), hemorrhagic patients were **0.70 times as likely** as controls, a weak discriminator
+- The software processes **real-time vital sign data** from a ZOLL monitor via Bluetooth, generating output every minute
+- **FDA 510(k) clearance** was obtained through demonstration of substantial equivalence with a predicate hemodynamic monitoring device
+
+<Callout type="evidence">
+  This is a landmark regulatory milestone: the first AI-enabled software cleared by the FDA specifically for hemorrhage risk assessment in trauma. The real significance is not the model's discrimination (which is moderate) but the precedent it sets for deploying AI-based triage tools in acute, high-stakes settings.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Military application is the primary target.** This was developed for combat medics who lack clinical decision support for hemorrhage triage. In a battlefield context, even moderate discrimination is valuable because the alternative is unaided clinical judgment under extreme stress.
+
+2. **The average-risk (level II) category is weak.** A likelihood ratio of 0.70 means level II provides minimal clinical information; the tool is most useful at the extremes (clearly high or clearly low risk), which limits its triaging value for the ambiguous middle ground.
+
+3. **Vital-sign-only approach is both a strength and a limitation.** Using only heart rate and blood pressure means the tool works with minimal hardware, but it misses the compensatory mechanisms (particularly in young, fit soldiers) that can mask hemorrhage until late decompensation.
+
+<Callout type="pitfall">
+  Validation used retrospective data from civilian trauma centers. Performance in the actual intended use case (battlefield triage with noisy data, movement artifacts, and non-standard monitoring) remains unproven.
+</Callout>
+
+---
+
+## My Takeaway
+
+The FDA clearance is the headline, and it matters for the field. But the device itself is a conservative, vital-sign-based classifier with moderate discrimination. Its real value is in the military context where any automated hemorrhage screening is better than nothing. For civilian emergency medicine, where clinicians have access to labs, imaging, and clinical assessment, the incremental value over existing triage protocols is less clear. The precedent for regulatory clearance of AI triage tools, however, opens the door for more sophisticated devices to follow.
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIcs2401170)

@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import DonateForm from '../components/DonateForm.tsx';
+---
+
+<BaseLayout
+  title="Donate - LLMs for Doctors"
+  description="Support LLMs for Doctors to keep evidence-based AI guidance free for clinicians."
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Donate' }]} />
+
+    <section class="mb-10">
+      <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mb-6">
+        Support LLMs for Doctors
+      </h1>
+      <div class="prose prose-clinical dark:prose-invert max-w-none mb-8">
+        <p class="text-lg leading-relaxed">
+          LLMs for Doctors is free, ad-free, and independent. Your donation helps cover hosting, research time, and tool reviews so every clinician can access trustworthy AI guidance without a paywall.
+        </p>
+      </div>
+
+      <DonateForm client:load stripeKey={import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY} />
+    </section>
+  </div>
+</BaseLayout>

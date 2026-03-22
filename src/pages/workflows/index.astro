@@ -1,0 +1,87 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+const allWorkflows = await getCollection('workflows');
+
+// Group by category
+const grouped: Record<string, typeof allWorkflows> = {};
+for (const wf of allWorkflows) {
+  const cat = wf.data.category;
+  if (!grouped[cat]) grouped[cat] = [];
+  grouped[cat].push(wf);
+}
+
+const categoryLabels: Record<string, string> = {
+  'note-writing': 'Note Writing',
+  'clinical-reasoning': 'Clinical Reasoning',
+  'patient-education': 'Patient Education',
+  'literature-review': 'Literature Review',
+  'admin-billing': 'Admin & Billing',
+  'board-prep': 'Board Prep',
+};
+
+const categories = Object.keys(grouped).sort();
+---
+
+<BaseLayout
+  title="Clinical AI Workflows - LLMs for Doctors"
+  description="Step-by-step AI workflows for clinicians, organized by specialty and use case."
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Workflows' }]} />
+
+    <header class="mb-10">
+      <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mb-3">
+        Clinical AI Workflows
+      </h1>
+      <p class="text-lg text-clinical-600 dark:text-clinical-400">
+        Step-by-step guides for integrating AI into your clinical practice.
+      </p>
+    </header>
+
+    {categories.length === 0 ? (
+      <div class="text-center py-20 text-clinical-500 dark:text-clinical-400">
+        <p class="text-xl font-medium">Workflows coming soon.</p>
+        <p class="mt-2 text-sm">We're building out a library of clinical AI workflows. Check back soon.</p>
+      </div>
+    ) : (
+      <div class="space-y-12">
+        {categories.map((cat) => (
+          <section>
+            <h2 class="font-heading text-xl font-semibold text-clinical-800 dark:text-clinical-200 mb-4 pb-2 border-b border-clinical-200 dark:border-clinical-700">
+              {categoryLabels[cat] ?? cat}
+            </h2>
+            <ul class="grid sm:grid-cols-2 gap-4">
+              {grouped[cat].map((wf) => (
+                <li>
+                  <a
+                    href={`/workflows/${wf.id}`}
+                    class="block p-4 rounded-lg border border-clinical-200 dark:border-clinical-700 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-sm transition-all group bg-white dark:bg-clinical-800"
+                  >
+                    <h3 class="font-semibold text-clinical-900 dark:text-clinical-50 group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-1">
+                      {wf.data.title}
+                    </h3>
+                    <p class="text-xs text-clinical-500 dark:text-clinical-400">
+                      {wf.data.timeToRead} min · Updated {wf.data.lastUpdated.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}
+                    </p>
+                    {wf.data.tags.length > 0 && (
+                      <div class="flex flex-wrap gap-1 mt-2">
+                        {wf.data.tags.slice(0, 3).map((tag) => (
+                          <span class="px-2 py-0.5 rounded text-xs bg-clinical-100 dark:bg-clinical-700 text-clinical-600 dark:text-clinical-300">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+    )}
+  </div>
+</BaseLayout>

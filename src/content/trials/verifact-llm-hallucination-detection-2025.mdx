@@ -1,0 +1,53 @@
+---
+title: "VeriFact: Automated Fact-Checking for LLM-Generated Clinical Documents"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIdbp2500418"
+keyFinding: "VeriFact, an AI system that checks LLM-generated clinical documents against the patient's EHR, achieved 93.2% agreement with clinicians, exceeding the highest inter-rater agreement among clinicians themselves (88.5%)."
+lastUpdated: 2026-03-21
+tags: [hallucination-detection, fact-checking, clinical-documentation, llm-safety, ehr, discharge-summary]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Chung et al. developed VeriFact, an AI system that combines retrieval-augmented generation (RAG) from a patient's EHR with an LLM-as-a-Judge to verify facts in clinical documents. They created a benchmark dataset (VeriFact-BHC) consisting of 100 patients with 13,070 statements derived from brief hospital course sections of discharge summaries, each annotated by three or more clinicians through chart review. VeriFact splits long-form text into propositions, retrieves relevant facts from the EHR, and classifies each proposition as "supported," "not supported," or "not addressed."
+
+---
+
+## Key Findings
+
+- VeriFact achieved **93.2% agreement with clinician annotations** on fact verification
+- The highest inter-rater agreement among clinicians was **88.5%**, meaning VeriFact was more consistent than human reviewers
+- **Scaling model size and adding reasoning capability** improved different facets of AI judgment and were synergistic when combined
+- The system works on both human-written and LLM-generated discharge summaries
+- VeriFact localizes errors and describes their underlying causes, going beyond simple binary verification
+
+<Callout type="evidence">
+  Achieving higher consistency than human clinicians on fact verification is a significant milestone. This directly addresses the biggest barrier to deploying LLMs for clinical documentation: the risk of undetected hallucinations entering the medical record.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **This is a spellchecker for medical facts.** Just as spellcheckers don't write text but catch errors, VeriFact doesn't generate documents; it verifies them. This is exactly the safety layer that LLM-based documentation tools need.
+
+2. **93.2% agreement isn't 100%.** The remaining ~7% of statements where VeriFact disagrees with clinicians could include false negatives (missed errors) that matter clinically. The consequences of each type of disagreement need stratification by clinical severity.
+
+3. **EHR completeness is the limiting factor.** VeriFact can only verify statements against information that exists in the patient's EHR. If the EHR is incomplete or contains its own errors, VeriFact inherits those limitations.
+
+<Callout type="pitfall">
+  The benchmark uses MIMIC-III data from a single academic center. Performance may vary with different EHR structures, documentation styles, and patient populations. The system also relies on the EHR being the source of truth, which assumes the EHR itself is accurate.
+</Callout>
+
+4. **This enables scalable chart review.** Beyond just checking LLM-generated notes, VeriFact could automate quality assurance, coding validation, and retrospective chart review tasks that currently require expensive clinician time.
+
+---
+
+## My Takeaway
+
+VeriFact solves a real problem at the right time. As health systems rush to deploy ambient scribes and LLM-based documentation tools, the risk of hallucinated content entering medical records is growing. VeriFact provides a systematic safety net, and the fact that it's more consistent than human reviewers suggests it could actually improve documentation quality even for human-written notes. The key next step is integration into EHR workflows so that VeriFact runs automatically on every AI-generated note before it's committed to the record.
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIdbp2500418)

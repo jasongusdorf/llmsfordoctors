@@ -1,0 +1,54 @@
+---
+title: "Ambient AI Scribes in Clinical Practice: DAX Copilot vs Nabla Randomized Trial"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIoa2501000"
+keyFinding: "In a 238-physician RCT comparing two AI scribes, Nabla reduced documentation time by 9.5% vs control while DAX did not; both improved burnout metrics, but occasional inaccuracies were reported with each platform."
+lastUpdated: 2026-03-21
+tags: [ambient-ai, documentation, rct, burnout, dax-copilot, nabla, physician-wellbeing, clinical-workflow]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Lukac et al. conducted a parallel three-group pragmatic RCT at UCLA with 238 outpatient physicians across 14 specialties. Physicians were randomized 1:1:1 to Microsoft DAX Copilot (N=79), Nabla (N=79), or usual-care control (N=80), using covariate-constrained randomization balancing on baseline time-in-note, burnout score, and clinic days per week. The trial ran 8 weeks (November 2024 – January 2025). Primary outcome was change in log writing time-in-note. Secondary endpoints included Mini-Z 2.0, physician task load (PTL), PFI-Work Exhaustion, and survey measures of safety, accuracy, and usability.
+
+---
+
+## Key Findings
+
+- DAX was used in **33.5% of 24,696 visits**; Nabla in **29.5% of 23,653 visits**
+- Nabla users: **9.5% decrease in time-in-note** vs control (P=0.02); DAX users: **no significant change** (−1.7%, P=0.66)
+- Both scribes improved burnout metrics: **Mini-Z increased ~2.8 points** (scale 10–50) for both; **PTL decreased ~35 points** (scale 0–400)
+- **Work exhaustion decreased** for DAX (−0.32, P significant) and trended down for Nabla (−0.23)
+- Clinically significant inaccuracies reported "occasionally" on Likert scale: **DAX 2.7, Nabla 2.8** (out of 5)
+- Only **one grade 1 (mild) adverse event** reported across the entire trial
+
+<Callout type="evidence">
+  This is the first head-to-head RCT comparing two ambient AI scribes against each other and a control group. The divergent results on time-in-note (Nabla reduces it, DAX doesn't) are important: not all AI scribes are equivalent, and product choice matters.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Product choice matters.** The two leading ambient AI platforms produced different results on the primary outcome. Health systems should not assume all ambient AI tools are interchangeable; independent evaluation is essential.
+
+2. **Adoption rates were low.** Both tools were used in only ~30% of visits, despite being provided for free during a trial. Understanding adoption barriers (workflow friction, certain visit types, patient preferences) is as important as measuring efficacy.
+
+3. **"Occasional" inaccuracies are concerning.** Both platforms scored ~2.7–2.8 on a 5-point Likert scale for inaccuracy frequency, meaning clinically significant errors happen regularly enough that physicians notice and report them. This demands ongoing vigilance in note review.
+
+<Callout type="pitfall">
+  The 8-week trial duration is short. Ambient AI benefits may increase as physicians become more comfortable with the tools, but inaccuracy fatigue and automation bias risks may also evolve over longer periods. A learning curve effect could explain some of the lower adoption rates.
+</Callout>
+
+4. **Burnout improvements are consistent.** Despite different time-saving results, both tools improved burnout metrics similarly. This suggests the well-being benefit may come from reduced cognitive burden of documentation rather than pure time savings.
+
+---
+
+## My Takeaway
+
+This is the study health systems have been waiting for: a randomized, controlled, head-to-head comparison of the two ambient AI scribes they're most likely evaluating. The finding that one reduces documentation time and the other doesn't, yet both improve burnout, is nuanced and important. It suggests that the subjective experience of AI-assisted documentation (reduced cognitive load, less dread about charting) may matter as much as objective time savings. The inaccuracy rates are a yellow flag: "occasional" clinically significant errors in ~30% of encounters where the tools are used means errors are entering medical records regularly. Health systems deploying these tools need mandatory note review workflows, not optional ones.
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2501000)

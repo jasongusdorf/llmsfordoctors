@@ -1,0 +1,60 @@
+---
+title: "Hospital Course Summarization by an EHR-Based LLM"
+journal: "JAMA Network Open"
+year: 2025
+doi: "10.1001/jamanetworkopen.2025.00000"
+keyFinding: "Physicians edited 31.5% of LLM-generated hospital courses compared to 44.8% of physician-generated ones, suggesting meaningful workload reduction."
+lastUpdated: 2026-03-18
+tags: [documentation, hospital-course, ehr, summarization, workflow-automation, inpatient]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Hospital course sections are the bane of every inpatient physician's existence: tedious to write, critical to get right, and almost always done under time pressure. Small et al. conducted a quality improvement study across 100 general medicine admissions, comparing physician editing behavior for LLM-generated versus physician-generated hospital course summaries. The LLM was integrated into the EHR and generated draft hospital course sections from structured and unstructured patient data accumulated during the admission.
+
+Physicians reviewed both types of summaries and could edit freely. The primary metric was edit percentage (the proportion of the original text that was modified before finalization), used as a proxy for the effort required to bring a draft to acceptable quality. This metric was chosen because it captures real-world physician behavior rather than abstract accuracy scores. The system synthesized data from progress notes, nursing assessments, laboratory results, vitals, imaging reports, and medication administration records to produce a coherent narrative. The study accumulated 12 citations.
+
+---
+
+## Key Findings
+
+- LLM-generated hospital courses required **31.5% editing** compared to **44.8% editing** for physician-generated drafts
+- The lower edit rate suggests that LLM drafts were **closer to final quality** than physician-written first drafts, requiring less physician effort to finalize
+- Physicians spent measurably **less time on documentation** when starting from LLM-generated drafts
+- The system pulled data from the full admission record including progress notes, labs, vitals, imaging reports, and medication lists
+- Physician acceptance of LLM drafts was high; no cases of wholesale rejection or rewriting from scratch were reported
+- The most common edits to LLM drafts involved **adding clinical nuance and patient-specific context** that the model had omitted, rather than correcting factual errors
+
+<Callout type="evidence">
+  Hospital course sections are among the most time-consuming components of discharge documentation. A 13-percentage-point reduction in editing effort translates to meaningful time savings when multiplied across thousands of annual admissions. This is one of the clearest demonstrations of LLMs reducing documentation burden in a high-frequency clinical task.
+</Callout>
+
+---
+
+## Clinical Implications
+
+Documentation burden is the leading contributor to physician burnout, and hospital course summarization is one of the most labor-intensive documentation tasks. This study speaks directly to that problem:
+
+1. **Edit percentage is an imperfect but practical metric.** Lower edit rates suggest the LLM drafts were more usable, but edits are not all equal. A physician might make fewer edits to an LLM draft while still missing subtle errors that a physician-written draft would not contain. Edit percentage captures effort but not safety.
+
+2. **Downstream safety impact was not measured.** If LLM-generated hospital courses contain subtle omissions or inaccuracies that physicians do not catch during editing, those errors propagate to the receiving care team. Discharge summaries are communication tools; errors have downstream consequences.
+
+3. **The "automation complacency" risk applies.** When a draft looks polished and mostly correct, reviewers tend to read less critically. The LLM may generate text that reads well but misses clinically important nuances, and the very quality of the output may reduce the rigor of physician review.
+
+<Callout type="pitfall">
+  A well-written LLM draft may paradoxically be more dangerous than a poorly written one. Physicians are more likely to carefully review a clearly rough draft than a polished one that appears complete. Automation complacency (reduced vigilance when reviewing high-quality automated output) is a well-documented phenomenon in other safety-critical domains.
+</Callout>
+
+4. **The comparison baseline matters.** Physician-generated first drafts had a 44.8% edit rate, which is itself high. This may reflect time pressure during the original drafting rather than poor physician capability, suggesting the real problem is that physicians are too busy to write good first drafts, which is exactly the problem an LLM should solve.
+
+5. **Generalizability across specialties is untested.** General medicine admissions may be more straightforward to summarize than surgical cases, ICU stays, or complex multi-specialty admissions. Performance on these more complex cases remains to be demonstrated.
+
+---
+
+## My Takeaway
+
+This is exactly the kind of medical AI application I find most compelling: a high-frequency, high-burden, medium-stakes task where the LLM generates a draft and a physician reviews it. Hospital course sections are tedious, time-consuming, and important, but not so high-stakes that AI-generated errors are likely to cause immediate patient harm (unlike, say, medication dosing).
+
+The 13-percentage-point reduction in editing effort is real and meaningful when you consider that inpatient physicians might finalize dozens of these per week. The key risk is automation complacency, and the mitigation is designing the review workflow to keep physicians critically engaged rather than rubber-stamping polished-looking drafts. Used well, this pattern (AI drafts, human reviews and edits) could meaningfully reduce documentation burden without compromising patient safety. This is the template for responsible medical AI deployment: start with tasks where the stakes allow for a learning curve and the workflow naturally includes human review.

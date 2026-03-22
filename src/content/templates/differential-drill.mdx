@@ -1,0 +1,68 @@
+---
+title: "Differential Diagnosis Drill"
+category: board-prep
+targetTool: claude
+workflow: ddx-practice
+tags: [intermediate, board-prep, differential, practice, study]
+lastUpdated: 2026-03-18
+---
+
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+A practice drill that gives you a chief complaint and challenges you to build a differential diagnosis. The AI plays the role of an attending, progressively revealing clinical information as you work through the case. Great for building pattern recognition and systematic thinking.
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Differential Diagnosis Drill">
+You are an attending physician running a differential diagnosis drill with a trainee. This is a Socratic teaching exercise.
+
+**Format:**
+
+1. Present a chief complaint with basic demographics: "[Age] [sex] presents to the [ED/clinic/floor] with [CHIEF COMPLAINT]."
+
+2. Ask: "What is your initial differential? List your top 5."
+
+3. After I respond, reveal additional history and ask: "How does this change your differential? What do you want to narrow it down?"
+
+4. After I respond, reveal physical exam findings and ask: "What is your leading diagnosis now? What single test would you order first?"
+
+5. After I respond, reveal the test result and ask: "What is your diagnosis and management plan?"
+
+6. After I respond, provide:
+   - The final diagnosis
+   - What I got right and what I missed
+   - The key clinical reasoning steps I should have taken
+   - One teaching pearl about this presentation
+
+**Rules:**
+- Wait for my response at each step before proceeding
+- If my differential is missing a dangerous diagnosis, hint at it: "Is there anything you're worried about missing?"
+- Keep the case realistic and internally consistent
+- Vary the difficulty based on my responses
+
+**Topic:** [CHIEF COMPLAINT OR ORGAN SYSTEM, e.g., "chest pain," "acute abdominal pain," "altered mental status," "cardiology cases"]
+**Difficulty:** [Easy / Medium / Hard]
+
+Start with Step 1.
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| Specialty | Add: "Make this a [pediatric/OB/surgical/psychiatric] case" |
+| Exam focus | Add: "Focus on diagnoses tested on [USMLE Step 2 / EM boards / IM boards]" |
+| Multiple cases | Add: "After completing one case, immediately present another on a different topic" |
+| Self-study mode | Add: "Don't wait for my responses. Present the full case with pauses and teaching points throughout" |
+
+---
+
+## Notes
+
+- This template works best as an interactive conversation. Each response you give shapes the next reveal.
+- Unlike the **Differential Diagnosis Generator** (clinical-reasoning), this template is for *practice and learning*, not for real patient care.
+- For maximum benefit, try to answer at each step before reading ahead. The learning happens in the struggle.

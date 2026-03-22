@@ -1,0 +1,129 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+export async function getStaticPaths() {
+  const [workflows, guides, templates, trials] = await Promise.all([
+    getCollection('workflows'),
+    getCollection('guides'),
+    getCollection('templates'),
+    getCollection('trials'),
+  ]);
+
+  // Collect all unique tags
+  const tagSet = new Set<string>();
+
+  workflows.forEach((e) => e.data.tags.forEach((t: string) => tagSet.add(t)));
+  guides.forEach((e) => e.data.tags.forEach((t: string) => tagSet.add(t)));
+  templates.forEach((e) => e.data.tags.forEach((t: string) => tagSet.add(t)));
+  trials.forEach((e) => e.data.tags.forEach((t: string) => tagSet.add(t)));
+
+  return Array.from(tagSet).map((tag) => ({
+    params: { tag },
+    props: { tag, workflows, guides, templates, trials },
+  }));
+}
+
+const { tag, workflows, guides, templates, trials } = Astro.props;
+
+// Filter each collection to entries with this tag
+const matchingWorkflows = workflows.filter((e: any) => e.data.tags.includes(tag));
+const matchingGuides = guides.filter((e: any) => e.data.tags.includes(tag));
+const matchingTemplates = templates.filter((e: any) => e.data.tags.includes(tag));
+const matchingTrials = trials.filter((e: any) => e.data.tags.includes(tag));
+
+const totalCount = matchingWorkflows.length + matchingGuides.length + matchingTemplates.length + matchingTrials.length;
+---
+
+<BaseLayout
+  title={`#${tag} - LLMs for Doctors`}
+  description={`All clinical AI resources tagged with "${tag}"`}
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Tags' }, { label: `#${tag}` }]} />
+
+    <header class="mb-10">
+      <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mb-3">
+        #{tag}
+      </h1>
+      <p class="text-clinical-600 dark:text-clinical-400">
+        {totalCount} {totalCount === 1 ? 'resource' : 'resources'} tagged with this topic.
+      </p>
+    </header>
+
+    <div class="space-y-10">
+      {matchingWorkflows.length > 0 && (
+        <section>
+          <h2 class="font-heading text-lg font-semibold text-clinical-800 dark:text-clinical-200 mb-3 pb-2 border-b border-clinical-200 dark:border-clinical-700">
+            Workflows
+          </h2>
+          <ul class="space-y-2">
+            {matchingWorkflows.map((wf: any) => (
+              <li>
+                <a href={`/workflows/${wf.id}`} class="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline">
+                  <span class="text-clinical-400">→</span>
+                  {wf.data.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {matchingGuides.length > 0 && (
+        <section>
+          <h2 class="font-heading text-lg font-semibold text-clinical-800 dark:text-clinical-200 mb-3 pb-2 border-b border-clinical-200 dark:border-clinical-700">
+            Guides
+          </h2>
+          <ul class="space-y-2">
+            {matchingGuides.map((g: any) => (
+              <li>
+                <a href={`/guides/${g.id}`} class="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline">
+                  <span class="text-clinical-400">→</span>
+                  {g.data.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {matchingTemplates.length > 0 && (
+        <section>
+          <h2 class="font-heading text-lg font-semibold text-clinical-800 dark:text-clinical-200 mb-3 pb-2 border-b border-clinical-200 dark:border-clinical-700">
+            Templates
+          </h2>
+          <ul class="space-y-2">
+            {matchingTemplates.map((t: any) => (
+              <li>
+                <a href={`/templates/${t.id}`} class="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline">
+                  <span class="text-clinical-400">→</span>
+                  {t.data.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {matchingTrials.length > 0 && (
+        <section>
+          <h2 class="font-heading text-lg font-semibold text-clinical-800 dark:text-clinical-200 mb-3 pb-2 border-b border-clinical-200 dark:border-clinical-700">
+            Trial Reviews
+          </h2>
+          <ul class="space-y-2">
+            {matchingTrials.map((t: any) => (
+              <li>
+                <a href={`/trials/${t.id}`} class="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline">
+                  <span class="text-clinical-400">→</span>
+                  {t.data.title} ({t.data.year})
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+    </div>
+  </div>
+</BaseLayout>

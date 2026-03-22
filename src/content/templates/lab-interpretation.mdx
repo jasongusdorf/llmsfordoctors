@@ -1,0 +1,77 @@
+---
+title: "Lab Panel Interpretation"
+category: clinical-reasoning
+targetTool: claude
+workflow: lab-interpretation
+tags: [beginner, clinical-reasoning, labs, interpretation]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Interprets a set of lab results in clinical context. Paste in the lab values and a brief clinical scenario, and get a structured interpretation highlighting abnormalities, likely causes, and suggested next steps. Designed for anyone who wants a second look at a complex panel.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+<Callout type="pitfall">
+  AI may not account for lab-specific reference ranges at your institution, specimen handling issues, or interfering substances. Always correlate with your institution's reference ranges and the clinical picture.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Lab Panel Interpretation">
+You are an experienced internist interpreting laboratory results.
+
+Given the lab values and clinical context below, provide:
+
+**Abnormal Values**
+List each abnormal result with:
+- The value and whether it is high or low
+- The normal reference range
+- Clinical significance in this patient's context
+
+**Pattern Recognition**
+Identify any recognizable lab patterns (e.g., anion gap metabolic acidosis, iron deficiency pattern, DIC labs, hepatocellular vs. cholestatic pattern). Explain the pattern and what it suggests.
+
+**Most Likely Explanation**
+In 2–3 sentences, state the most likely clinical explanation for the overall lab picture given the patient's context.
+
+**Recommended Next Steps**
+Bulleted list of additional labs, imaging, or clinical actions suggested by these results. Prioritize by clinical urgency.
+
+**Critical Values**
+Flag any values that require immediate clinical action, with the recommended response.
+
+Do not fabricate reference ranges or normal values. Use standard adult reference ranges unless told otherwise. If the clinical context is insufficient to interpret a result, say so.
+
+---
+CLINICAL CONTEXT:
+[AGE, SEX, KEY DIAGNOSES, REASON LABS WERE DRAWN, RELEVANT MEDICATIONS]
+
+LAB VALUES:
+[Paste lab results here, including all values, units, and any flagged abnormals]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| Pediatric | Add: "Use pediatric reference ranges. Patient age: [AGE]." |
+| Trending | Add: "Here are the prior values for comparison: [PRIOR LABS]. Comment on trends." |
+| Specific panel | Add: "Focus on the [hepatic/renal/coagulation/thyroid] panel" |
+| Teaching | Add: "Explain each abnormality as if teaching a medical student" |
+
+---
+
+## Notes
+
+- Reference ranges vary by institution, assay, and patient population. Always verify against your own lab's reference ranges.
+- For trending results, paste multiple time points; the AI will comment on the trajectory.
+- This template works for any lab panel: BMP, CMP, CBC, coag studies, LFTs, iron studies, thyroid, etc.

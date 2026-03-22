@@ -1,0 +1,60 @@
+---
+title: "DeepSeek Models Benchmarked for Clinical Decision-Making"
+journal: "Nature Medicine"
+year: 2025
+doi: "10.1038/s41591-025-03727-2"
+keyFinding: "Open-source DeepSeek models performed equally well and sometimes better than proprietary models on 125 clinical decision-support cases."
+lastUpdated: 2026-03-18
+tags: [benchmark, deepseek, open-source, clinical-reasoning, decision-support]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+The question this study answers is not "which model is best" but "can hospitals run capable models locally?" Sandmann et al. evaluated DeepSeek-V3 and DeepSeek-R1 (open-source large language models) against GPT-4o and Gemini-2.0 Flash on 125 patient cases spanning both frequent and rare diseases. The case set was designed to test clinical decision-support capabilities across diagnostic reasoning, treatment selection, and risk stratification.
+
+Each model received identical clinical vignettes and was scored by expert clinicians using a structured rubric. The study specifically highlighted the regulatory and deployment implications of open-source model performance, examining whether models that can be run entirely on-premises achieve the accuracy thresholds needed for clinical use. The case mix intentionally included rare diseases, which historically expose weaknesses in medical AI systems due to sparse training data. With 126 citations and an Altmetric score of 55, the paper drew attention from both the clinical and health IT communities.
+
+---
+
+## Key Findings
+
+- DeepSeek-V3 and DeepSeek-R1 achieved **performance parity with GPT-4o and Gemini-2.0 Flash** across the 125-case evaluation set
+- On certain case subsets, particularly rare disease vignettes, **DeepSeek-R1 outperformed the proprietary models**, likely due to its extended reasoning architecture
+- The results demonstrate the **feasibility of on-site deployment** for clinical decision support using open-source models, without relying on external API calls
+- Performance was consistent across case complexity levels, suggesting robustness rather than narrow benchmark optimization
+- The open-source models showed comparable calibration; they were similarly uncertain about cases they got wrong
+- Model response latency was not a limiting factor for clinical decision-support use cases, even when running on moderate hardware configurations
+
+<Callout type="evidence">
+  Parity between open-source and proprietary models on clinical benchmarks is a watershed moment for regulated healthcare environments. It means hospitals can potentially deploy capable clinical decision support systems entirely on-premises, maintaining full data sovereignty without sacrificing quality.
+</Callout>
+
+---
+
+## Clinical Implications
+
+This study matters most for health systems navigating data governance and regulatory constraints:
+
+1. **Data sovereignty becomes achievable.** Many hospitals cannot send patient data to external APIs due to regulatory requirements, institutional policy, or patient consent limitations. Open-source models that run locally eliminate this barrier entirely.
+
+2. **Cost structures change fundamentally.** API-based models incur per-query costs that scale with usage. On-premises deployment has fixed infrastructure costs that can be amortized, potentially making high-volume clinical decision support economically viable.
+
+3. **Auditability improves.** Open-source models can be inspected, tested, and version-controlled in ways that proprietary APIs cannot. This matters for regulatory compliance, adverse event investigation, and institutional quality assurance.
+
+<Callout type="pitfall">
+  This is still a vignette-based benchmark study, not a real-world deployment evaluation. Performance on curated clinical cases does not guarantee equivalent performance in production EHR workflows, with messy data, complex patient histories, and time pressure. The gap between benchmark and bedside remains uncharacterized for these models.
+</Callout>
+
+4. **Infrastructure requirements are non-trivial.** Running DeepSeek-R1 locally requires significant GPU resources. Health systems need to assess whether the total cost of ownership (hardware, maintenance, model updates, security) is actually lower than API-based alternatives.
+
+5. **Model update cadence is a practical concern.** Proprietary APIs update automatically; on-premises models require manual updates, testing, and validation. Health systems need to plan for ongoing model lifecycle management, not just initial deployment.
+
+---
+
+## My Takeaway
+
+This study shifts the conversation from "which model is best" to "which model can we actually deploy." For hospitals in regulated environments (and that is most hospitals), the ability to run a clinically capable model entirely on-premises, with full data control and no external dependencies, is transformative.
+
+The headline finding is parity, but the real story is deployment feasibility. The caveats about benchmark-versus-bedside gaps apply here just as they apply everywhere, but if you are a CMIO trying to build a case for clinical AI that your compliance team will approve, this paper is the one to start with. It directly addresses the objection that "open-source means lower quality" and makes the case that data sovereignty and clinical capability are no longer in tension.

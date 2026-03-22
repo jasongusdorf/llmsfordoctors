@@ -1,0 +1,84 @@
+---
+title: "Creating Procedure Education Materials"
+category: patient-education
+tools: [claude]
+templates: [procedure-prep, post-procedure-care]
+tags: [patient-education, procedure, surgery, education-materials]
+timeToRead: 4
+lastUpdated: 2026-03-18
+specialty: [general-medicine]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## The Problem
+
+Patients who understand what to expect before and after a procedure have less anxiety, better compliance with preparation instructions, and fewer post-procedure complications. But writing custom preparation and recovery guides for every procedure takes time, and generic institutional handouts often don't match the specific procedure or patient situation.
+
+This workflow shows you how to generate procedure-specific patient education materials using prompt templates and any LLM.
+
+<Callout type="hipaa">
+  Never paste identifiable patient information (name, DOB, MRN, scheduled dates) into a consumer AI tool. Use a de-identified summary or ensure your organization has a BAA in place with the vendor before using patient data.
+</Callout>
+
+---
+
+## Step 1: Before the Procedure - Preparation Guide
+
+Use the **[Procedure Preparation Guide](/templates/procedure-prep)** template to create a "what to expect" guide. Provide the procedure name, indication, anesthesia type, and any special preparation requirements.
+
+The output covers:
+- What the procedure is and why it's being done
+- How to prepare (fasting, medication holds, what to bring)
+- What will happen during the procedure (from the patient's perspective)
+- What to expect immediately after
+
+<Callout type="tip">
+  Give the preparation guide to the patient at the time the procedure is scheduled, not the day before. Patients need time to arrange transportation, adjust medications, and prepare mentally.
+</Callout>
+
+---
+
+## Step 2: After the Procedure - Recovery Instructions
+
+After the procedure is completed, use the **[Post-Procedure Care Instructions](/templates/post-procedure-care)** template. Provide the procedure performed, any complications, wound details, prescribed pain medications, and the follow-up plan.
+
+The output covers:
+- What was done (in plain language)
+- Wound/site care
+- Activity restrictions with specific timelines
+- Pain management guidance
+- Warning signs that need medical attention
+
+---
+
+## Step 3: Review Against Institutional Protocols
+
+AI-generated procedure instructions should be verified against your institution's standard protocols:
+
+- [ ] **Preparation instructions** match your institution's specific fasting and medication hold policies
+- [ ] **Wound care instructions** are appropriate for the specific procedure performed
+- [ ] **Activity restrictions** match the surgeon's or proceduralist's actual recommendations
+- [ ] **Pain management instructions** accurately reflect the prescribed medications and doses
+- [ ] **Follow-up timing** matches the scheduled post-procedure visit
+- [ ] **Warning signs** are comprehensive and appropriate
+
+<Callout type="pitfall">
+  Fasting guidelines, medication hold policies, and post-operative protocols vary by institution. The AI will generate reasonable general guidance, but always verify against your institution's specific policies.
+</Callout>
+
+---
+
+## Step 4: Customize for Complexity
+
+Adjust the detail level based on the procedure:
+
+| Procedure Type | Customization |
+|---|---|
+| Minor office procedure | Shorten instructions to 1 page. Simplify wound care. |
+| Endoscopy/colonoscopy | Add detailed bowel prep instructions. |
+| Day surgery | Include anesthesia recovery expectations. |
+| Major surgery | Add week-by-week recovery timeline. Include drain/device care if applicable. |
+| Repeat procedure | Shorten the "what to expect" section; focus on any changes from last time. |
+
+Deliver the preparation guide well in advance and the recovery guide at the time of discharge.

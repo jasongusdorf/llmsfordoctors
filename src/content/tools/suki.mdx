@@ -1,0 +1,80 @@
+---
+title: "Suki AI for Clinical Documentation"
+slug: suki
+vendor: "Suki AI"
+rating: 4
+verdict: "Clear retention policies and deep EHR integration, with explicit BAA support"
+pricing: "Enterprise pricing (contact vendor)"
+hasBaa: true
+categories: [note-writing, general]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Overview
+
+Suki AI is a clinical documentation assistant that combines ambient note generation with broader workflow support, including patient instructions, orders, and coding assistance. It runs on Google Cloud infrastructure and integrates deeply with major EHR platforms including Epic, Oracle Health, athenahealth, and MEDITECH.
+
+What sets Suki apart from several competitors is the clarity of its publicly stated data retention policies. Audio and transcripts are deleted after 30 days. Clinical notes are retained for the duration of the contract. These specifics give compliance teams concrete terms to evaluate rather than vague assurances.
+
+Suki explicitly states that BAAs are signed with customers, and the platform describes de-identification practices for data used in model training.
+
+The breadth of Suki's EHR integrations (spanning Epic, Oracle Health, athenahealth, and MEDITECH) means it can serve a wider range of health systems than tools locked into a single EHR ecosystem. This flexibility, combined with transparent retention policies, makes Suki a strong candidate for organizations that need both documentation support and compliance clarity.
+
+---
+
+## Clinical Strengths
+
+Suki delivers on documentation efficiency with several notable advantages:
+
+- **Clear retention statements**: audio and transcript deleted after 30 days, clinical note retained per contract duration. These explicit timelines are rare in the space.
+- **Deep EHR integration**: verified integrations with Epic, Oracle Health, athenahealth, and MEDITECH reduce workflow friction
+- **Explicit BAA signing**: Suki states that BAAs are executed as part of customer onboarding, not buried in optional addenda
+- **Broader workflow scope**: beyond ambient notes, Suki assists with patient instructions, orders, and coding, reducing the number of separate tools a clinician needs
+- **De-identification described**: Suki publicly describes its de-identification process for data used in model improvement, providing transparency into training practices
+- **Multi-specialty support**: designed to work across multiple clinical specialties, with note templates adapted to different documentation patterns
+- **Voice and ambient modes**: supports both dictation-style input and ambient encounter recording, giving clinicians flexibility in how they capture documentation
+
+<Callout type="tip">
+  When evaluating Suki against other ambient documentation tools, ask about integration depth with your specific EHR. A "supported" integration can range from basic API connectivity to deep bidirectional workflows. Suki's Epic integration, for example, operates within the EHR rather than as a standalone app.
+</Callout>
+
+---
+
+## Weaknesses
+
+These factors deserve scrutiny during evaluation:
+
+- **Training on de-identified data**: Suki states that de-identified data is used for model training. If your organization requires a "no training on your data" clause, confirm this is available in your contract.
+- **De-identification practices need vetting**: the quality of de-identification varies significantly across vendors. Understand the specific methodology and whether it has been independently validated.
+- **Consent responsibility falls on the clinician**: Suki places the obligation for obtaining patient consent for encounter recording on the customer/clinician, not on the platform. Ensure your consent workflows are in place.
+- **Enterprise-only access**: no individual clinician tier is available. Procurement requires organizational commitment.
+- **Google Cloud dependency**: data is processed and stored on Google Cloud infrastructure. Verify this aligns with your organization's cloud policies.
+- **Workflow scope can create overreliance**: because Suki addresses notes, instructions, orders, and coding, clinicians may lean on it more heavily than a single-purpose tool. More reliance means more data flowing through the platform.
+
+<Callout type="pitfall">
+  Patient consent for ambient recording is your responsibility, not Suki's. Before deploying any ambient documentation tool, establish a clear consent workflow, including signage, verbal notification, and documentation of consent in the chart. State laws on recording consent vary significantly.
+</Callout>
+
+---
+
+## HIPAA & Privacy
+
+<Callout type="hipaa">
+  Suki explicitly states that BAAs are signed with customers. Data is encrypted with TLS 1.2 in transit and AES-256 at rest. Audio and transcript data are deleted after 30 days. Clinical notes are retained for the contract duration. De-identified data is used for model training. If your organization requires "no training" clauses, negotiate this during contracting.
+</Callout>
+
+Key compliance details:
+
+- **BAA**: explicitly signed as part of customer onboarding
+- **Encryption in transit**: TLS 1.2
+- **Encryption at rest**: AES-256
+- **Audio/transcript retention**: deleted after 30 days
+- **Clinical note retention**: retained for contract duration
+- **Model training**: de-identified data used for model improvement; verify de-identification methodology and negotiate "no training" clauses if required
+- **Infrastructure**: Google Cloud Platform
+
+For compliance teams: Suki's publicly stated retention timelines are among the most specific in the ambient documentation market. Focus your due diligence on the de-identification methodology and whether "no training" clauses are available if your organization requires them.
+
+When comparing Suki to competitors, its combination of specific retention timelines, broad EHR support, and workflow scope beyond pure ambient documentation makes it a strong contender for mid-to-large health systems that want one platform to address multiple documentation needs.

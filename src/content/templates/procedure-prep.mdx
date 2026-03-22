@@ -1,0 +1,85 @@
+---
+title: "Procedure Preparation Guide"
+category: patient-education
+targetTool: any
+workflow: procedure-education
+tags: [patient-education, procedure, preparation, pre-op]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+This template takes a procedure name and relevant details and produces a patient-friendly "what to expect" preparation guide. It covers how to prepare, what happens during the procedure, and what to expect immediately after.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, scheduled dates, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Any LLM" title="Procedure Preparation Guide">
+You are a physician writing a preparation guide for a patient who has an upcoming medical procedure. The patient has no medical background. Write at a 6th grade reading level using short sentences and simple words.
+
+Avoid medical jargon. If a medical term is unavoidable, define it in parentheses. Use bullet points for action items.
+
+Using the procedure information provided below, create a patient preparation guide with the following sections:
+
+**1. What This Procedure Is**
+Explain in 2–3 simple sentences what the procedure is and why the doctor recommended it. Describe what will happen in terms the patient can picture.
+
+**2. How to Prepare**
+List specific preparation steps:
+- Fasting instructions (when to stop eating and drinking)
+- Medications to take or skip on the day of the procedure
+- What to wear (comfortable clothing, no jewelry, etc.)
+- What to bring (ID, insurance card, medication list, comfort items)
+- Transportation arrangements (will they need someone to drive them home?)
+
+**3. What Will Happen**
+Walk through the procedure from the patient's perspective:
+- Arrival and check-in
+- Pre-procedure preparation (IV, monitors, anesthesia if applicable)
+- During the procedure (what they will feel, hear, or experience; be honest but reassuring)
+- How long it typically takes
+
+**4. Right After the Procedure**
+- What to expect when it is over (recovery room, grogginess, discomfort)
+- How long they will stay before going home
+- Any immediate restrictions
+
+**5. Who to Call With Questions**
+Tell the patient who to contact if they have questions before the procedure:
+- The type of office to call (surgeon's office, procedure scheduling, pre-op clinic)
+- What kinds of questions to call about (medication questions, preparation confusion, need to reschedule)
+- When to call (business hours, after hours, day of procedure)
+
+**6. Questions to Ask Before Your Procedure**
+List 5 specific questions the patient should consider asking their doctor before the procedure.
+
+---
+PROCEDURE INFORMATION:
+[Paste the procedure name, indication, and any relevant details (anesthesia type, inpatient vs. outpatient, special considerations) here]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---|---|
+| Anesthesia type | Add: "This procedure uses general anesthesia" or "This is done under local anesthesia in the office" |
+| Pediatric | Add: "This procedure is for a child. Write the guide for the parents and include tips for explaining it to the child." |
+| Colonoscopy/endoscopy | Add: "Include detailed bowel prep instructions" |
+| Surgical | Add: "Include pre-operative testing requirements (labs, EKG, chest X-ray) and when they need to be completed" |
+| Anxiety | Add: "This patient is anxious about the procedure. Include reassuring language and coping strategies." |
+
+---
+
+## Notes
+
+- This template works for any procedure from office-based biopsies to major surgery. The AI will adapt the detail level based on the procedure information you provide.
+- Always verify preparation instructions against your institution's specific protocols, as fasting guidelines, medication holds, and arrival times vary by institution and procedure.
+- For procedures requiring bowel prep, anticoagulation bridging, or complex medication management, use the AI output as a starting point and add institution-specific details.

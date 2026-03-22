@@ -1,0 +1,80 @@
+---
+title: "OpenEvidence for Clinical Search"
+slug: openevidence
+vendor: "OpenEvidence"
+rating: 3
+verdict: "Strong evidence retrieval, but verify BAA status before using with PHI"
+pricing: "Free tier available"
+hasBaa: false
+categories: [clinical-reasoning, literature-review, general]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Overview
+
+OpenEvidence is an AI-powered clinical search and evidence retrieval platform designed for physicians. It surfaces point-of-care summaries drawn from peer-reviewed literature, aiming to close the gap between a clinical question and the best available evidence.
+
+The platform maintains a trust center indicating a HIPAA compliance program and SOC 2 Type 2 certification. It claims encryption-in-transit for data moving between your browser and their servers. However, the availability of a Business Associate Agreement for individual clinicians versus institutional customers remains unclear from public documentation alone.
+
+For straightforward clinical evidence queries ("What is the latest data on SGLT2 inhibitors in HFpEF?") OpenEvidence performs well. The risk enters when clinicians begin pasting patient-specific details into prompts without confirming their organization has a signed BAA in place.
+
+OpenEvidence occupies an interesting niche: it is more clinician-focused than general-purpose LLMs, but its compliance posture is less clearly documented than enterprise ambient documentation tools. That makes it useful for evidence lookup but risky for anything involving identifiable patient information.
+
+If your workflow involves answering clinical questions at the point of care (whether during rounds, in the emergency department, or before a procedure) OpenEvidence can serve as a fast literature-backed reference. Just keep patient-identifiable data out of the search box until your BAA situation is resolved.
+
+---
+
+## Clinical Strengths
+
+OpenEvidence is worth evaluating for these use cases:
+
+- **Clinician-focused medical search**: built specifically for physician queries, not repurposed from a general-purpose chatbot
+- **Evidence-based summaries**: returns structured answers grounded in published literature with citations
+- **Formal trust portal**: maintains a dedicated security and compliance page describing their HIPAA program and SOC 2 posture
+- **Low barrier to entry**: free tier available, making it accessible for individual clinicians to trial
+- **Point-of-care utility**: designed for the kinds of quick-turnaround questions that arise during clinical encounters
+- **Differential support**: useful for generating differential diagnoses based on clinical findings when framed as general medical questions
+
+<Callout type="tip">
+  OpenEvidence works best as a rapid evidence lookup tool. Think of it as a smarter PubMed search, not a replacement for your clinical reasoning. Frame queries as clinical questions rather than pasting chart data.
+</Callout>
+
+---
+
+## Weaknesses
+
+Keep these limitations in mind:
+
+- **BAA availability is ambiguous**: public documentation describes a HIPAA program, but whether individual clinicians can obtain a BAA (versus institutional customers) is not clearly stated
+- **Some institutions explicitly prohibit PHI entry**: multiple academic medical centers have warned staff not to enter patient data absent an organizational BAA with OpenEvidence
+- **Click-through agreements may not suffice**: a terms-of-service acceptance is not the same as a signed BAA that satisfies your employer's compliance requirements
+- **Audit and logging details are unspecified**: public documentation does not describe what access logs are maintained or how they can be reviewed
+- **Citation verification still necessary**: like any AI-powered search tool, references should be spot-checked against source material
+- **Not a replacement for dedicated resources**: OpenEvidence supplements but does not replace established point-of-care tools like UpToDate or DynaMed that have editorial oversight and structured drug information
+
+<Callout type="pitfall">
+  Do not assume that a platform's general HIPAA compliance program means you personally have BAA coverage. Many platforms maintain HIPAA programs for enterprise customers while offering no BAA to individual users on free tiers.
+</Callout>
+
+---
+
+## HIPAA & Privacy
+
+<Callout type="hipaa">
+  OpenEvidence states that PHI is handled under standard BAA and customer agreements, and their trust center describes a HIPAA compliance program with SOC 2 Type 2 certification. However, actionable BAA coverage depends entirely on your organization's agreement with the vendor. Do NOT assume that a personal account or click-through agreement satisfies institutional HIPAA requirements. Confirm with your compliance office before entering any patient-identifiable information.
+</Callout>
+
+What to verify before using OpenEvidence with patient data:
+
+- **Does your organization have a signed BAA with OpenEvidence?** This is the threshold question.
+- **Which features are covered under that BAA?** Not all product tiers or features may carry the same compliance posture.
+- **What are the data retention terms?** Understand how long your queries and any associated data are stored.
+- **What audit capabilities exist?** Confirm whether access logs are available for your compliance team.
+
+For evidence-based queries that contain no patient-identifiable information, OpenEvidence is a useful clinical tool regardless of BAA status. The issue arises only when PHI enters the equation.
+
+The practical rule: use OpenEvidence the same way you would use a medical textbook search: with clinical questions, not with patient charts. If you find yourself pasting anything from a patient's record, stop and confirm your BAA status first.
+
+When used within its intended scope (evidence retrieval without PHI) OpenEvidence is a valuable addition to a clinician's toolkit. The compliance question only becomes a barrier when patient-specific data enters the workflow.

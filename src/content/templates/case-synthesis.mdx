@@ -1,0 +1,84 @@
+---
+title: "Case Synthesis: Assessment & Plan"
+category: clinical-reasoning
+targetTool: claude
+workflow: clinical-reasoning
+tags: [advanced, clinical-reasoning, assessment, plan, synthesis, inpatient]
+lastUpdated: 2026-03-19
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Synthesizes a complex inpatient or outpatient case into a polished one-liner summary statement and a problem-based assessment and plan. Designed for attending-level synthesis: leading with conclusions, explicitly stating reasoning, and connecting findings to management.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+<Callout type="pitfall">
+  AI case synthesis is a drafting aid, not a clinical decision. The assessment and plan must reflect your reasoning, not the model's. Review every line, as fabricated or incorrect information can make it into the output, especially for plans involving dosing or monitoring parameters.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Case Synthesis: Assessment & Plan">
+You are an experienced attending physician synthesizing a complex patient case for rounds or for documentation.
+
+Using the clinical information provided, generate:
+
+**Summary Statement**
+One sentence in this format: "[Age] [sex] with [key past medical history] presenting with [chief complaint / duration] found to have [key clinical findings], most likely representing [leading diagnosis / unifying etiology]."
+
+**Active Problem List** (numbered by clinical priority)
+
+For each active problem:
+
+**Problem #[N]: [Problem Name]**
+- **Assessment:** Lead with your clinical conclusion. In 2–4 sentences, synthesize the relevant data, state the most likely etiology, and explicitly note the evidence that supports it. Do not merely restate the data; interpret it.
+- **Plan:**
+  - *Diagnostics:* Specific tests to order or that are pending, with what result would change management
+  - *Therapeutics:* Medications, procedures, or interventions (include doses and duration where applicable and where clearly established)
+  - *Monitoring:* Specific parameters, frequency, and thresholds that matter
+  - *Disposition:* How this problem affects discharge readiness or outpatient follow-up
+
+**Disposition Summary**
+One to two sentences on the overall clinical trajectory, anticipated disposition, and the single most important outstanding issue before discharge.
+
+**Outstanding Questions**
+List 2–3 clinical questions that remain unanswered and would benefit from specialist input, additional data, or time.
+
+Rules:
+- Lead each assessment with your conclusion, not your data: this is assertion-based reasoning.
+- Do not infer or fabricate any clinical data not provided below.
+- If information critical to a problem is missing, state explicitly what is needed.
+- This output is a physician draft; all clinical decisions require physician review.
+
+---
+CLINICAL INFORMATION:
+[Paste the full clinical picture: HPI, PMH, medications, allergies, family/social history, review of systems, vitals, physical exam, labs, imaging, ECG, hospital course to date, consultations]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| Reasoning style | Add: "Use a brief, assertive style: 1-2 sentence assessments maximum per problem" |
+| Format | Add: "Organize by organ system (cardiovascular, pulmonary, renal…) instead of problem-based" |
+| Teaching rounds | Add: "After each problem, include a one-sentence teaching pearl or clinical reasoning principle" |
+| Outpatient | Add: "This is an outpatient case. Replace inpatient disposition with follow-up planning." |
+| Focus | Add: "Focus the synthesis on [SPECIFIC PROBLEM]; the other problems are stable and established" |
+
+---
+
+## Notes
+
+- This template is for **clinical synthesis**, not documentation formatting. The goal is to help organize your reasoning, not to generate a note you paste directly into the EMR.
+- Works best when you paste **raw, unprocessed clinical data** (nursing notes, lab results, dictated HPI) rather than a pre-written note. Claude provides the synthesis layer.
+- For patients with more than 8–10 active problems, group related problems (e.g., "Cardiorenal syndrome" instead of separate CHF and AKI entries).
+- Compare this template to the **Case Summary & Assessment/Plan** template: this version uses a more explicit, assertion-based reasoning structure suited for complex cases with unclear etiology.
+- Always verify that the AI's assessment matches your actual clinical reasoning. The output is a draft that must reflect your thinking.

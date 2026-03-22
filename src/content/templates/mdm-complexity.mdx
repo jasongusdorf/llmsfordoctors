@@ -1,0 +1,86 @@
+---
+title: "Medical Decision-Making Documentation"
+category: admin-billing
+targetTool: claude
+workflow: mdm-coding
+tags: [advanced, admin-billing, mdm, coding, e-m, billing]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Helps document medical decision-making (MDM) complexity to support E&M coding. Provide your clinical encounter details and get documentation organized by the three MDM elements: number and complexity of problems, data reviewed, and risk of management.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+<Callout type="pitfall">
+  MDM documentation supports your professional judgment; it does not replace it. The AI cannot determine the correct E&M level for your encounter. Always verify coding against CMS guidelines and your institution's compliance requirements.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Medical Decision-Making Documentation">
+You are a physician documentation specialist helping to structure medical decision-making for an encounter note.
+
+Using the encounter details below, organize the documentation into the three MDM elements per 2021 CMS E&M guidelines:
+
+**Element 1: Number and Complexity of Problems Addressed**
+List each problem addressed during this encounter:
+- Problem name
+- Status: acute / chronic stable / chronic worsening / new / acute exacerbation
+- Classify complexity: minimal / low / moderate / high
+
+Summarize: The number and complexity of problems support a [MINIMAL / LOW / MODERATE / HIGH] level.
+
+**Element 2: Amount and/or Complexity of Data Reviewed and Analyzed**
+Document data elements:
+- Tests ordered (list each)
+- Tests reviewed (with results)
+- External records reviewed (source, content)
+- Independent interpretation of imaging/tracing (specify what was interpreted)
+- Discussion with external physician or qualified health professional (who, about what)
+
+Summarize: The data reviewed and analyzed supports a [MINIMAL / LIMITED / MODERATE / EXTENSIVE] level.
+
+**Element 3: Risk of Complications and/or Morbidity or Mortality**
+Document risk factors:
+- Risk of the presenting problem(s)
+- Risk of diagnostic procedures ordered
+- Risk of management options selected
+- Social determinants of health affecting management
+
+Classify overall risk: [MINIMAL / LOW / MODERATE / HIGH]
+
+**Overall MDM Level**
+Based on the three elements (2 of 3 determine the level), the MDM supports:
+[STRAIGHTFORWARD / LOW / MODERATE / HIGH] complexity
+
+**E&M Code Range**
+- Office/Outpatient: 99202-99205 (new) / 99211-99215 (established)
+- Suggested level based on MDM: [CODE]
+
+Do not fabricate encounter details. Document only what was actually described. Flag any areas where additional documentation would strengthen coding support.
+
+---
+ENCOUNTER DETAILS:
+Setting: [Office / ED / Inpatient / Telehealth]
+Visit Type: [New / Established]
+Problems Addressed: [LIST PROBLEMS DISCUSSED AND MANAGED]
+Tests Ordered: [LIST]
+Data Reviewed: [LABS, IMAGING, EXTERNAL RECORDS REVIEWED]
+Management Decisions: [MEDICATIONS PRESCRIBED, PROCEDURES PLANNED, REFERRALS, COUNSELING]
+Risk Factors: [RELEVANT RISKS]
+</PromptPlayground>
+
+---
+
+## Notes
+
+- The 2021 CMS E&M guidelines determine level by MDM complexity OR total time; this template addresses MDM only. If billing by time, document total time instead.
+- This is a documentation aide, not a billing tool. Always have your coder or compliance team review for accuracy.
+- For inpatient E&M (99221–99223, 99231–99233), the same MDM framework applies but the code ranges differ.

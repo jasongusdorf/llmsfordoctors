@@ -1,0 +1,61 @@
+---
+title: "Med-PaLM 2: Expert-Level Medical Question Answering"
+journal: "Nature Medicine"
+year: 2025
+doi: "10.1038/s41591-024-03423-7"
+keyFinding: "Med-PaLM 2 achieved 86.5% on MedQA and was preferred over physician answers on 8 of 9 quality axes."
+lastUpdated: 2026-03-18
+tags: [medical-qa, benchmark, med-palm, clinical-reasoning, safety]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This is the paper that launched the current era of medical LLM evaluation. Singhal et al. evaluated Med-PaLM 2 (a PaLM 2 variant fine-tuned for medicine using ensemble refinement and chain-of-retrieval augmented generation) across multiple medical benchmarks and a structured human evaluation. The benchmarks included MedQA, MedMCQA, PubMedQA, and MMLU clinical topics.
+
+For the human evaluation component, 1,066 consumer medical questions were assessed in a pairwise comparison where physicians judged Med-PaLM 2 responses against physician-written answers across nine quality axes including factual accuracy, reasoning, harm potential, and helpfulness. The evaluation used a panel of clinicians with diverse specialties to minimize single-rater bias. Importantly, the grounding strategy (chain-of-retrieval augmented generation) was designed to reduce hallucination by tethering model outputs to retrieved medical literature before generating final answers. The study accumulated 704 citations and an Altmetric score of 41, reflecting significant engagement from both research and clinical communities.
+
+---
+
+## Key Findings
+
+- Med-PaLM 2 achieved up to **86.5% accuracy on MedQA**, with corresponding improvements on MedMCQA, PubMedQA, and MMLU clinical subsets
+- In pairwise evaluation, **physicians preferred Med-PaLM 2 answers on 8 of 9 quality axes** over physician-written answers
+- The model demonstrated strong performance on questions requiring multi-step clinical reasoning and evidence synthesis
+- The study established an evaluation template that combined benchmark performance with structured clinician rubrics and grounding strategies
+- Ensemble refinement and chain-of-retrieval proved effective at reducing hallucination compared to base prompting
+- The gap between Med-PaLM 2 and its predecessor Med-PaLM was substantial, suggesting rapid capability gains with each model generation
+- Error analysis revealed that remaining failures clustered around **rare conditions** and questions requiring integration of numerical lab values with clinical context
+
+<Callout type="evidence">
+  This paper established the modern evaluation template for medical LLMs: multi-benchmark quantitative performance plus structured clinician rubric assessment. Nearly every major medical AI paper published since follows some version of this dual evaluation approach.
+</Callout>
+
+---
+
+## Clinical Implications
+
+This is the paper most frequently cited when making the case that LLMs are "ready" for medical use. That framing deserves scrutiny:
+
+1. **Benchmark/evaluation overlap is a real concern.** When training data may include the evaluation questions themselves, high benchmark scores become less meaningful. The study acknowledges this but cannot fully rule it out.
+
+2. **Physician preference is subjective.** The 8/9 quality axes finding is striking, but "preferred" does not mean "clinically superior." Physicians may prefer more verbose, confident-sounding answers without those answers being more accurate.
+
+3. **Real-world deployment was not established.** The study describes a pilot but does not report health outcomes, workflow integration, or longitudinal safety data.
+
+<Callout type="pitfall">
+  Benchmark performance and clinician preference ratings do not constitute evidence of clinical safety or effectiveness. This study shows what LLMs can do in controlled conditions, not what happens when they are deployed in messy, real-world clinical workflows with fatigued users and incomplete data.
+</Callout>
+
+4. **The grounding strategy matters enormously.** Med-PaLM 2's chain-of-retrieval augmentation was key to its performance. Stripping the retrieval component significantly degrades output quality, a detail often lost when people cite the headline numbers.
+
+5. **Consumer medical questions are not the same as clinical queries.** The pairwise evaluation used consumer health questions, which tend to be simpler and more general than the queries a physician would pose during clinical reasoning. Performance on consumer questions may overstate capability on clinical-grade questions.
+
+---
+
+## My Takeaway
+
+Med-PaLM 2 is genuinely important, but not for the reason most people think. Its lasting contribution is methodological: it defined how we evaluate medical LLMs. The dual approach (quantitative benchmarks plus structured clinician rubrics) is now standard practice.
+
+The raw numbers are impressive, and the physician-preference finding is provocative, but this paper is best understood as a proof of capability, not a proof of clinical readiness. The gap between "scores well on medical exams" and "safe to deploy in a clinic" remains enormous, and subsequent studies (including several on this site) make that gap painfully clear. When you see a vendor citing Med-PaLM 2 as evidence that medical LLMs are "ready," ask what they mean by ready, and whether their evaluation goes beyond benchmarks and preference ratings to include real-world safety data.

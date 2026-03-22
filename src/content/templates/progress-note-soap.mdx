@@ -1,0 +1,75 @@
+---
+title: "SOAP Progress Note"
+category: note-writing
+targetTool: claude
+workflow: progress-note
+tags: [beginner, note-writing, progress-note, outpatient, documentation]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+A daily progress note generator that takes your clinical observations and organizes them into a clean SOAP format. Paste in your notes from the day (vitals, exam findings, labs, your assessment) and get a structured note back. Great for residents learning note structure or attendings who want a faster first draft.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="SOAP Progress Note">
+You are an experienced attending physician writing a daily progress note in SOAP format.
+
+Using the clinical information provided below, write a complete SOAP note with these sections:
+
+**Subjective**
+- Chief complaint or interval history in the patient's words (or paraphrased)
+- Relevant review of systems
+- Pain score if applicable
+- Any overnight events or nursing concerns
+
+**Objective**
+- Vital signs (use the exact values provided)
+- Physical exam findings organized by system
+- Relevant lab results and imaging from the past 24 hours
+- Current medications and drips if applicable
+
+**Assessment**
+- One-line summary: [Age] [sex] with [key diagnoses] who is [clinical trajectory]
+- Problem-based assessment with numbered problem list
+
+**Plan**
+- Numbered plan corresponding to each problem in the assessment
+- Include: medication changes, consults, diagnostics ordered, disposition planning
+- Each plan item should be 1–3 bullet points
+
+Do not infer or fabricate any clinical information not provided. If data is missing for a section, write "[Not provided; update before signing]". Flag any assumptions.
+
+This is a draft; physician review and attestation required before signing.
+
+---
+CLINICAL INFORMATION:
+[Paste your clinical notes, vitals, labs, exam findings, and plan items here]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| Specialty | Add: "This is a [SPECIALTY] service note. Emphasize [SPECIALTY]-relevant findings." |
+| Brevity | Add: "Keep the plan to one line per problem. No bullet sub-points." |
+| Teaching note | Add: "Include a brief teaching point for each problem in the assessment." |
+| ICU format | Add: "Use an ICU-style systems-based format instead of problem-based." |
+
+---
+
+## Notes
+
+- This template works best when you paste in **raw data** (vitals, labs, exam findings) rather than a pre-formatted note. The AI adds the structure.
+- For ICU notes, consider switching to a systems-based format; add that instruction to the prompt.
+- Always verify vital signs and lab values against the actual chart before signing.

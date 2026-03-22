@@ -1,0 +1,84 @@
+---
+title: "Specialty Consultation Note"
+category: note-writing
+targetTool: claude
+workflow: consult-note
+tags: [intermediate, note-writing, consult, documentation]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Generates a structured consultation note from the requesting team's question and your clinical findings. Follows the standard consult format: reason for consult, HPI, relevant history, exam, data review, assessment, and recommendations.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Specialty Consultation Note">
+You are a [SPECIALTY] consultant writing a formal consultation note in response to a consult request.
+
+Using the clinical information below, write a consultation note with these sections:
+
+**Reason for Consultation**
+State the specific clinical question asked by the requesting team.
+
+**History of Present Illness**
+Relevant narrative focused on the consult question. Include pertinent positives and negatives. Be concise; this is not a full admission H&P.
+
+**Relevant Past Medical/Surgical History**
+Only history relevant to the consult question.
+
+**Medications**
+Current medications relevant to the consult question.
+
+**Examination**
+Focused physical exam findings relevant to your specialty assessment.
+
+**Data Review**
+Relevant labs, imaging, pathology, or other diagnostics. Include dates and trends where applicable.
+
+**Assessment**
+Your clinical impression. State the most likely diagnosis or differential, supported by the data above.
+
+**Recommendations**
+Numbered list of specific, actionable recommendations. Each should be clear enough for the primary team to execute without additional clarification. Include:
+- Diagnostic workup to order
+- Medication changes (with doses)
+- Follow-up plan and when to re-consult
+
+Thank you for this consultation. We will continue to follow.
+
+Do not infer or fabricate any clinical information not provided. Flag any assumptions clearly.
+
+---
+CONSULT QUESTION:
+[What the requesting team is asking]
+
+CLINICAL INFORMATION:
+[Paste relevant clinical data: HPI, PMH, meds, exam, labs, imaging]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| Specialty | Replace `[SPECIALTY]` with your field (e.g., cardiology, nephrology, ID) |
+| Urgency | Add: "This is an urgent/emergent consultation. Lead with recommendations." |
+| Curbside | Add: "This is a brief curbside; limit to assessment and 3 key recommendations." |
+| Follow-up | Add: "Include a follow-up note section with contingency plans." |
+
+---
+
+## Notes
+
+- The "Thank you for this consultation" closing is a convention. Remove it if your institution doesn't use it.
+- For procedural consults (e.g., GI for EGD), add the procedure indication and risk discussion to the recommendations.
+- Always verify that your recommendations match what you actually discussed with the primary team.

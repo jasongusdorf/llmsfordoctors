@@ -1,0 +1,35 @@
+// Clinical Design System for Discourse
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:wght@400;600;700&display=swap');
+
+:root {
+  --primary: #334155;         // slate-700
+  --secondary: #f8fafc;       // slate-50
+  --tertiary: #2563eb;        // blue-600
+  --quaternary: #3b82f6;      // blue-500
+  --header_background: #0f172a; // clinical-900
+  --header_primary: #e2e8f0;   // clinical-200
+  --highlight: #2563eb;
+  --danger: #ef4444;
+  --success: #22c55e;
+  --love: #f59e0b;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.topic-list .topic-list-data .main-link .link-top-line a.title,
+.category-name,
+h1, h2, h3 {
+  font-family: 'Newsreader', Georgia, serif;
+}
+
+.d-header {
+  background-color: #0f172a;
+  border-bottom: 1px solid #1e293b;
+}
+
+.d-header .title a {
+  color: #e2e8f0;
+  font-family: 'Newsreader', Georgia, serif;
+}

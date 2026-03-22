@@ -1,0 +1,80 @@
+---
+title: "Nabla Ambient AI Copilot"
+slug: nabla
+vendor: "Nabla"
+rating: 4
+verdict: "Privacy-first defaults with no audio storage and short retention windows"
+pricing: "Enterprise pricing (contact vendor)"
+hasBaa: true
+categories: [note-writing, general]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Overview
+
+Nabla is an ambient clinical documentation tool built with a privacy-first design philosophy. Its most distinguishing feature: audio is not stored by default. The encounter is processed in real time, a note is generated, and the audio is discarded. Medical data is retained for 14 days by default, though this window is configurable per organization.
+
+The platform integrates with EHR systems via SMART on FHIR and supports enterprise identity management through SSO, SAML, and SCIM. Nabla claims compliance with both HIPAA and ISO 27001, with SOC 2 certification also referenced in their security documentation.
+
+For organizations that prioritize data minimization (storing less data for less time) Nabla's default configuration is among the most conservative in the ambient documentation space.
+
+Nabla's approach reflects a European privacy-by-design sensibility applied to the U.S. healthcare market. The defaults are conservative, the retention windows are short, and the platform avoids storing data types (like audio) that many competitors retain as a matter of course.
+
+---
+
+## Clinical Strengths
+
+Nabla's privacy-first approach comes with practical clinical benefits:
+
+- **No audio storage by default**: encounter audio is processed and discarded, significantly reducing the data footprint and associated risk
+- **Explicit retention defaults**: medical data retained for 14 days by default, with organizational configuration available for shorter or longer windows
+- **Published security documentation**: dedicated security pages describe encryption, access controls, and compliance certifications
+- **Enterprise IAM options**: SSO, SAML, and SCIM support enables integration with existing identity management infrastructure
+- **Epic integration via SMART on FHIR**: standards-based EHR integration rather than proprietary connectors
+- **Claims no model training on customer data**: Nabla states it does not use customer data to train its models
+- **Multi-language support**: Nabla supports encounters in multiple languages, which can be valuable for clinicians serving diverse patient populations
+
+<Callout type="tip">
+  If data minimization is a priority for your organization, Nabla's default settings (no audio storage, 14-day medical data retention) provide a strong starting position. During procurement, confirm these defaults are reflected in your specific contract and cannot be silently changed.
+</Callout>
+
+---
+
+## Weaknesses
+
+Evaluate these factors carefully:
+
+- **Retention is configurable, not fixed**: the 14-day default is a starting point. Verify your organization's actual configured retention window and whether it can be modified without your knowledge.
+- **"No model training" claim needs contract verification**: while Nabla states it does not train on customer data, confirm this is reflected in your BAA or data processing agreement, not just marketing materials
+- **Optional feedback sharing**: Nabla may offer opt-in feedback mechanisms. Verify whether shared feedback data is truly de-identified and what "de-identified" means in their methodology.
+- **Enterprise procurement required**: no individual clinician tier. Organizational deployment and contracting are necessary.
+- **Relatively newer entrant**: compared to established players like Nuance/Microsoft, Nabla has a shorter track record in large-scale enterprise deployments
+- **Specialty depth unknown**: documentation on specialty-specific note customization is limited. Confirm that note templates meet the requirements of your specific clinical specialties before committing.
+
+<Callout type="pitfall">
+  "No audio storage" is a strong default, but verify it applies to your deployment. Some configurations or features (such as quality review or dispute resolution) may temporarily retain audio. Confirm the complete data lifecycle for your specific contract.
+</Callout>
+
+---
+
+## HIPAA & Privacy
+
+<Callout type="hipaa">
+  Nabla's terms include a BAA. Audio is not stored by default, and medical data is retained for 14 days (configurable). The platform claims HIPAA and ISO 27001 compliance, with SOC 2 also referenced. Nabla states it does not train models on customer data. Verify all of these claims are reflected in your executed contract. Public marketing statements are not enforceable compliance guarantees.
+</Callout>
+
+Key compliance details:
+
+- **BAA**: included in standard terms
+- **Audio retention**: not stored by default; verify for your deployment
+- **Medical data retention**: 14 days by default, configurable per organization
+- **Certifications**: claims HIPAA compliance, ISO 27001, SOC 2 referenced
+- **Model training**: states no training on customer data; verify via contract
+- **EHR integration**: SMART on FHIR (standards-based)
+- **Identity management**: SSO, SAML, SCIM supported
+
+For compliance teams: Nabla's default data minimization posture is a differentiator. Focus your due diligence on confirming that marketing claims about no audio storage and no model training are contractually binding in your specific agreement, and understand the full data lifecycle including any edge cases where data may be temporarily retained.
+
+If your organization values short retention windows and minimal data storage as core requirements, Nabla's defaults align well. The verification step is ensuring those defaults are contractually locked, not just product defaults that could change with a software update.

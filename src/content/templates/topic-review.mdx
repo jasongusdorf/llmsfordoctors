@@ -1,0 +1,91 @@
+---
+title: "High-Yield Topic Review"
+category: board-prep
+targetTool: claude
+workflow: topic-review
+tags: [beginner, board-prep, review, study, high-yield]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Creates a high-yield summary of any medical topic for board review. Specify the topic and target exam, and get a structured review covering the must-know facts, classic presentations, key associations, and common exam traps.
+
+<Callout type="tip">
+  This template is designed for rapid review, not deep learning. Use it to consolidate knowledge you've already studied, or as a starting point to identify what you need to study more deeply.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="High-Yield Topic Review">
+You are a board review course director creating a high-yield summary for exam preparation.
+
+Create a focused review of:
+
+**Topic:** [MEDICAL TOPIC]
+**Target Exam:** [USMLE Step 1 / Step 2 CK / Step 3 / Shelf / Specialty Board]
+
+**Definition & Pathophysiology**
+In 2–3 sentences, explain what this is and the key mechanism. Focus on the "why": the pathophysiology that explains the clinical features.
+
+**Classic Presentation**
+The textbook presentation: "A [age] [sex] presents with [symptoms]. On exam, [findings]. Labs show [results]."
+
+**Buzzwords & Associations**
+Bulleted list of classic buzzwords and high-yield associations that appear on exams:
+- [Buzzword] → [Diagnosis/Finding]
+
+**Diagnosis**
+- Gold standard test
+- Best initial test
+- Key lab/imaging findings and their significance
+
+**Treatment**
+- First-line treatment
+- Second-line / refractory management
+- Emergency management if applicable
+- Key contraindications to know
+
+**Complications**
+Most important complications and how to recognize them.
+
+**Exam Pearls**
+5–7 high-yield facts that are commonly tested:
+1. [Fact]
+2. [Fact]
+...
+
+**Common Exam Traps**
+2–3 ways this topic appears tricky on exams and how to avoid the trap.
+
+**Differentials to Know**
+Key conditions that look similar and how to distinguish them (1 sentence each).
+
+Keep this to a rapid-review format. No lengthy explanations, just the testable facts.
+
+---
+FOCUS AREAS (optional):
+[Specific aspects to emphasize, known weak areas, or related topics to connect]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| Depth | Add: "Go deeper on pathophysiology; I need to understand the mechanism" |
+| Comparison | Add: "Compare and contrast with [RELATED TOPIC]" |
+| Mnemonics | Add: "Include mnemonics for key lists where available" |
+| Specialty focus | Add: "Emphasize what a [SPECIALTY] attending would expect me to know" |
+
+---
+
+## Notes
+
+- Verify critical facts (drug doses, diagnostic criteria, guideline recommendations) against a trusted source like First Aid, UpToDate, or Amboss.
+- For a complete study session, pair with the **Question Generator** template to test yourself after review.
+- This format works for any medical topic: pathology, pharmacology, microbiology, clinical medicine, etc.

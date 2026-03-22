@@ -1,0 +1,63 @@
+---
+title: "Large Language Models Match Physician Diagnostic Accuracy"
+journal: "New England Journal of Medicine"
+year: 2024
+doi: "10.1056/NEJMc2405343"
+keyFinding: "GPT-4 achieved diagnostic accuracy comparable to attending physicians on standardized clinical vignettes."
+lastUpdated: 2026-03-18
+tags: [diagnosis, accuracy, gpt-4, clinical-reasoning]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This study evaluated GPT-4's performance on a standardized set of clinical vignettes drawn from published case challenges and board-style questions. The vignettes covered a range of specialties and diagnostic complexity.
+
+Physician performance (attending level) was used as the benchmark comparator. Both the AI and physician cohort answered the same vignettes under controlled conditions. Accuracy was measured as the proportion of correct diagnoses generated within the top three differentials.
+
+---
+
+## Key Findings
+
+- GPT-4 achieved diagnostic accuracy **statistically comparable** to attending physicians on the overall vignette set
+- Performance was strongest in **common diagnoses** in high-representation specialties (internal medicine, cardiology)
+- The model showed relative weakness in **rare diseases** and diagnostics requiring synthesis of physical exam findings not explicitly stated
+- Physicians outperformed GPT-4 on vignettes requiring **integration of nonverbal cues** and clinical gestalt
+- When allowed to ask clarifying questions (simulated dialogue mode), GPT-4's accuracy improved significantly
+
+---
+
+## Clinical Implications
+
+This study is frequently cited as evidence that LLMs are "ready for clinical practice," but that framing overstates the findings. A few important caveats:
+
+1. **Vignettes are not real patients.** Clinical vignettes present curated, structured information. Real patients present with ambiguous, incomplete, and conflicting data.
+
+2. **Accuracy ≠ safety.** A model that gets the right answer 85% of the time may be dangerous in high-stakes diagnostic contexts where 15% error is unacceptable.
+
+3. **The physician comparator matters.** "Comparable to attending physicians" tells you less than it sounds like; physician diagnostic accuracy varies widely by specialty, experience, and fatigue.
+
+4. **Output quality varies with prompt quality.** The study used structured queries. Poorly formatted prompts to the same model yield substantially worse performance.
+
+<Callout type="evidence">
+  This study provides good early evidence that GPT-4 can assist with differential generation and clinical reasoning tasks. It does not support autonomous AI diagnosis. The appropriate use case is AI as a cognitive aid: a second opinion, a differential generator, a prompt to consider what you might be missing.
+</Callout>
+
+---
+
+## My Takeaway
+
+This is a landmark study, but it's best read as proof of concept rather than practice-changing evidence. The finding that GPT-4 can match attending-level accuracy on vignettes is genuinely impressive; it means LLMs have crossed a threshold of clinical usefulness.
+
+For clinical practice, the most honest translation is: **an LLM can function as a capable differential generator and cognitive second opinion, especially for common diagnoses.** It should never replace clinical judgment, but used well, it can reduce anchoring, prompt consideration of less common diagnoses, and speed up documentation.
+
+The key word is "used well." That requires understanding what these models are good at, where they fail, and how to prompt them effectively, which is exactly what this site is for.
+
+---
+
+## Related Content
+
+- [Clinical Reasoning with AI](/workflows/clinical-reasoning): a step-by-step workflow for using LLMs in diagnostic reasoning
+- [Cognitive Debiasing with AI](/workflows/cognitive-debiasing): using LLMs to challenge your own reasoning and catch cognitive biases
+- [Which LLM for Clinical Reasoning?](/guides/llm-clinical-reasoning-comparison): head-to-head comparison of major LLMs on clinical reasoning tasks

@@ -1,0 +1,53 @@
+---
+title: "LLMs for Specialist-Level Oncology: AMIE in Breast Cancer Care"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIcs2500025"
+keyFinding: "Google's AMIE system outperformed internal medicine trainees and oncology fellows on breast cancer management plans but remained inferior to attending oncologists, demonstrating both the potential and limits of LLMs in subspecialty care."
+lastUpdated: 2026-03-21
+tags: [llm, oncology, breast-cancer, clinical-reasoning, management-planning, gemini, subspecialty]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Palepu et al. evaluated AMIE (Articulate Medical Intelligence Explorer), a conversational diagnostic AI system built on Gemini 2.5 Pro, against clinicians at three experience levels on 60 synthetic breast cancer vignettes. Cases spanned treatment-naive, treatment-refractory, and rare histology presentations from a community-based breast oncology clinic. AMIE was enhanced with web search retrieval and a multistage self-critique pipeline; no fine-tuning to oncology was performed. Responses were evaluated by five breast cancer specialists using a 19-question rubric covering case summarization, diagnostic accuracy, management reasoning, safety, and treatment recommendations.
+
+---
+
+## Key Findings
+
+- AMIE **outperformed internal medicine trainees and oncology fellows** on management plan quality
+- AMIE's performance was **overall inferior to attending oncologists** (average 7 years experience)
+- The evaluation covered chemotherapy, radiotherapy, surgery, hormonal therapy, genetic counseling, and psychosocial support recommendations
+- **Web search retrieval** and **self-critique** improved AMIE's performance without requiring domain-specific fine-tuning
+- Earlier versions (PaLM 2) and zero-shot baselines (Gemini 2.5 Pro, OpenAI o3) were also evaluated on a 50-case subset
+
+<Callout type="evidence">
+  This is one of the first rigorous evaluations of an LLM in subspecialty oncology care. The finding that AMIE outperforms fellows but not attendings maps the current capability frontier: LLMs can match mid-level clinical reasoning but can't yet replicate expert-level subspecialty judgment.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **The expertise gap is the key finding.** LLMs are not ready to replace subspecialty attendings, but they could meaningfully augment trainees and generalists, especially in settings without access to oncology expertise.
+
+2. **No fine-tuning was used.** AMIE achieved this performance as a generalist model with web search, not a specially trained oncology system. Fine-tuning on oncology data could close the gap further, but it also risks overfitting to training distributions.
+
+3. **Synthetic vignettes are not real patients.** The cases were carefully crafted to represent real presentations, but they lack the messiness of actual clinical encounters: incomplete data, patient preferences, insurance constraints, and comorbidity interactions.
+
+<Callout type="pitfall">
+  The evaluation included only two trainees, two fellows, and two attendings. With such small clinician samples, individual skill variation could significantly affect the comparisons. Larger clinician cohorts are needed to confirm the performance hierarchy.
+</Callout>
+
+4. **The psychosocial and genetic counseling axes are novel.** Most LLM evaluations focus on diagnosis and treatment. Including psychosocial support and genetic counseling recommendations acknowledges that oncology care extends beyond prescribing.
+
+---
+
+## My Takeaway
+
+This study maps a useful boundary: LLMs can generate breast oncology management plans that exceed trainee-level quality but don't match experienced attendings. The practical application is clear: LLMs as decision support in settings without subspecialty access, or as training aids for fellows. The self-critique pipeline is the most interesting technical detail; it suggests that inference-time reasoning improvements can substitute for expensive fine-tuning. For practicing oncologists, this is a tool to draft management plans for review, not to make autonomous treatment decisions.
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIcs2500025)

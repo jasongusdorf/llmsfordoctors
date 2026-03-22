@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+
+const workflows = await getCollection('workflows');
+
+const categories = [
+  { slug: 'note-writing',       label: 'Note Writing',       icon: '📝' },
+  { slug: 'clinical-reasoning', label: 'Clinical Reasoning', icon: '🧠' },
+  { slug: 'patient-education',  label: 'Patient Education',  icon: '🗣️' },
+  { slug: 'literature-review',  label: 'Literature Review',  icon: '📚' },
+  { slug: 'admin-billing',      label: 'Admin & Billing',    icon: '📋' },
+  { slug: 'board-prep',         label: 'Board Prep',         icon: '🎓' },
+] as const;
+
+const countByCategory = Object.fromEntries(
+  categories.map((cat) => [
+    cat.slug,
+    workflows.filter((w) => w.data.category === cat.slug).length,
+  ])
+);
+---
+
+<section>
+  <h2 class="font-heading text-2xl font-bold text-clinical-900 dark:text-clinical-50 mb-6">
+    Browse by Workflow
+  </h2>
+  <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+    {categories.map((cat) => (
+      <a
+        href={`/workflows?category=${cat.slug}`}
+        class="group flex flex-col items-center justify-center p-5 rounded-xl border border-clinical-200 dark:border-clinical-700 bg-white dark:bg-clinical-800 hover:border-blue-400 hover:shadow-md dark:hover:border-blue-500 transition-all text-center"
+      >
+        <span class="text-3xl mb-2" aria-hidden="true">{cat.icon}</span>
+        <span class="font-medium text-clinical-800 dark:text-clinical-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 text-sm leading-tight">
+          {cat.label}
+        </span>
+        <span class="mt-1 text-xs text-clinical-400 dark:text-clinical-500">
+          {countByCategory[cat.slug]} workflow{countByCategory[cat.slug] !== 1 ? 's' : ''}
+        </span>
+      </a>
+    ))}
+  </div>
+</section>

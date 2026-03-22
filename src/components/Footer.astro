@@ -1,0 +1,87 @@
+---
+const year = new Date().getFullYear();
+
+const footerLinks = [
+  { href: '/workflows', label: 'Workflows' },
+  { href: '/guides',    label: 'Guides' },
+  { href: '/tools',     label: 'Tools' },
+  { href: '/templates', label: 'Templates' },
+  { href: '/trials',    label: 'Trials' },
+  { href: '/community', label: 'Community' },
+  { href: '/about',     label: 'About' },
+  { href: '/donate',    label: 'Donate' },
+];
+---
+
+<footer class="no-print bg-clinical-900 text-clinical-300 mt-auto">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+      <!-- Brand + tagline -->
+      <div>
+        <a href="/" class="font-heading font-semibold text-lg text-clinical-50 hover:text-clinical-200 transition-colors">
+          LLMs for Doctors
+        </a>
+        <p class="mt-2 text-sm text-clinical-400 leading-relaxed">
+          Practical AI workflows, tools, and templates for clinicians. Evidence-based, privacy-aware, specialty-specific.
+        </p>
+      </div>
+
+      <!-- Nav links -->
+      <div>
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-clinical-500 mb-3">Explore</h3>
+        <ul class="space-y-2">
+          {footerLinks.map(({ href, label }) => (
+            <li>
+              <a
+                href={href}
+                class="text-sm text-clinical-400 hover:text-clinical-100 transition-colors"
+              >
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Newsletter signup -->
+      <div>
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-clinical-500 mb-3">Stay Updated</h3>
+        <p class="text-sm text-clinical-400 mb-4">Get new workflows and tool reviews delivered to your inbox.</p>
+        <p class="text-sm text-clinical-400 mb-4">
+          <a href="https://community.llmsfordoctors.com" class="text-clinical-300 hover:text-clinical-100 underline transition-colors">Join the Community</a>
+          - Connect with verified physicians using AI in clinical practice.
+        </p>
+        <form
+          name="newsletter"
+          method="POST"
+          class="flex flex-col gap-2"
+        >
+          <input type="hidden" name="form-name" value="newsletter" />
+          <label for="footer-email" class="sr-only">Email address</label>
+          <input
+            id="footer-email"
+            type="email"
+            name="email"
+            placeholder="you@hospital.org"
+            required
+            class="px-3 py-2 rounded-md bg-clinical-800 border border-clinical-700 text-clinical-100 placeholder-clinical-500 text-sm focus:outline-none focus:ring-2 focus:ring-clinical-400 focus:border-transparent"
+          />
+          <button
+            type="submit"
+            class="px-4 py-2 bg-clinical-600 hover:bg-clinical-500 text-white text-sm font-medium rounded-md transition-colors"
+          >
+            Subscribe
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="mt-10 pt-6 border-t border-clinical-800 text-xs text-clinical-500 flex flex-col sm:flex-row justify-between gap-2">
+      <span>&copy; {year} LLMs for Doctors. All rights reserved.</span>
+      <span>Not medical advice. Use clinical judgment.</span>
+    </div>
+  </div>
+</footer>

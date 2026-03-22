@@ -1,0 +1,74 @@
+---
+title: "Case Vignette Analysis"
+category: board-prep
+targetTool: claude
+workflow: vignette-analysis
+tags: [intermediate, board-prep, case-vignette, reasoning, study]
+lastUpdated: 2026-03-18
+---
+
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Walks you through a clinical vignette step-by-step, teaching the reasoning process for board-style questions. Paste in a question vignette and get a structured analysis of how to identify the key clues, build a differential, and arrive at the answer.
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Case Vignette Analysis">
+You are a board review tutor walking a student through a clinical vignette step by step.
+
+Analyze the following vignette using a systematic approach:
+
+**Step 1: Identify the Key Clues**
+List each clinically significant piece of information in the vignette:
+- Demographics clues (age, sex, ethnicity, when epidemiologically relevant)
+- Symptom clues (timing, quality, severity, aggravating/alleviating factors)
+- Exam clues (vital signs, physical findings)
+- Lab/imaging clues (abnormal values, patterns)
+- Medication/exposure clues
+
+**Step 2: Pattern Recognition**
+What classic patterns or associations do these clues suggest? List each pattern and the diagnosis it points to.
+
+**Step 3: Build the Differential**
+Based on the clues and patterns:
+1. Most likely diagnosis, and why
+2. Runner-up diagnosis, and what would make it more likely
+3. Must-not-miss diagnosis, and what rules it out here
+
+**Step 4: Answer the Question**
+- What is being asked? (Diagnosis / Next step / Mechanism / Treatment / Complication)
+- The correct answer and reasoning
+- Why each distractor is wrong
+
+**Step 5: Teaching Points**
+- The core concept being tested
+- A one-sentence rule to remember for similar questions
+- Related topics that might come up on the same exam
+
+Show your reasoning at each step. The goal is to teach the thought process, not just give the answer.
+
+---
+VIGNETTE:
+[Paste the full clinical vignette and question stem here. Include answer choices if available.]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| No answer choices | Add: "I don't have answer choices. Work through the vignette and tell me the most likely answer" |
+| Wrong answer review | Add: "I chose [X] and it was wrong. The correct answer is [Y]. Explain why I was wrong and how to avoid this mistake." |
+| Speed practice | Add: "Walk me through this in under 60 seconds of reading. How would you solve this quickly on exam day?" |
+| Series | Add: "After this analysis, generate 2 more vignettes testing the same concept with different presentations" |
+
+---
+
+## Notes
+
+- This is most valuable when you've already attempted the question and want to understand the reasoning, not as a shortcut to skip thinking.
+- For best results, include the answer choices, as this allows the AI to explain why each distractor is designed to trap you.
+- Pair with the **Question Generator** template to create vignettes on your weak areas, then analyze them with this template.

@@ -1,0 +1,95 @@
+---
+title: "Prompting 101 for Clinicians"
+description: "A practical introduction to getting useful clinical outputs from LLMs."
+tags: [prompting, beginner, getting-started]
+lastUpdated: 2026-03-18
+featured: true
+---
+
+import Callout from '../../components/Callout.astro';
+
+Getting good output from an AI isn't magic; it's a skill. And like most clinical skills, it improves with deliberate practice. This guide covers the four core principles that separate a useful AI interaction from a frustrating one.
+
+---
+
+## 1. Set the Role
+
+The single most effective thing you can do is tell the AI who it is and what it's doing. LLMs are trained on enormous amounts of text and can adopt many personas, so give it the right one.
+
+**Instead of:** "Summarize this note."
+
+**Try:** "You are an experienced hospitalist physician. Summarize the following progress note in 3 bullet points suitable for a rapid team handoff."
+
+The role shapes vocabulary, level of detail, and clinical judgment in the output. A "second-year medical student" will explain more; an "attending cardiologist" will be more terse and technical.
+
+<Callout type="tip">
+  Use specific roles. "Experienced hospitalist" produces better clinical output than just "doctor." Speciality context matters: "cardiologist" and "general internist" will frame the same clinical scenario differently.
+</Callout>
+
+---
+
+## 2. Provide Context
+
+AI has no memory of your patient, your institution, or your clinical setting. Every interaction starts fresh. Give it what it needs.
+
+Useful context to provide:
+- The clinical question or goal
+- Relevant history (age, major diagnoses, current medications if relevant)
+- What output format you need
+- Who the audience is (patient, specialist, med student, etc.)
+
+**Example:**
+> "The patient is a 72-year-old man with HFrEF (EF 30%), CKD stage 3, and type 2 diabetes. He was admitted for acute decompensated heart failure. Draft a discharge instruction sheet in plain language (8th grade reading level) covering fluid restriction, daily weights, and when to call the doctor."
+
+The more specific your context, the less editing you'll need to do.
+
+<Callout type="evidence">
+  Studies consistently show that prompt specificity is one of the strongest predictors of output quality. Vague prompts produce vague responses. Clinical precision in the prompt yields clinical precision in the output.
+</Callout>
+
+---
+
+## 3. Be Specific About Format
+
+Tell the AI exactly how you want the output structured. Common formats that work well in clinical contexts:
+
+- **Bullet points**: great for rapid review, handoffs, clinical reasoning lists
+- **Numbered steps**: good for procedures, protocols, and patient instructions
+- **Table**: useful for medication comparisons, differential diagnoses
+- **Paragraph narrative**: best for letters, referrals, summaries for patients or families
+- **SOAP format**: familiar structure for progress notes
+
+**Example format instruction:**
+> "Provide your response as a table with three columns: Diagnosis, Supporting Evidence, Against. Limit to 5 rows."
+
+If you don't specify format, you'll get whatever format the AI defaults to, which may or may not be what you need.
+
+---
+
+## 4. Iterate
+
+Your first prompt is rarely your best prompt. Treat AI interactions like a conversation: follow up, redirect, and refine.
+
+Useful follow-up patterns:
+- **"Make this more concise"**: if the output is too long
+- **"Explain your reasoning"**: if you want to audit the AI's clinical logic
+- **"Reformat as bullet points"**: if the structure isn't what you need
+- **"Add a section on [X]"**: if something's missing
+- **"The patient also has [X]. How does that change your recommendations?"**: to add context mid-conversation
+
+<Callout type="tip">
+  You don't have to start over when an output is wrong. A correction like "That's too technical for a patient letter; simplify the language" will often fix it in one follow-up. Build on what's working rather than rewriting from scratch.
+</Callout>
+
+---
+
+## Putting It Together
+
+Here's a before/after example:
+
+**Weak prompt:** "Write a note."
+
+**Strong prompt:**
+> "You are an experienced hospitalist. Write a brief hospital course section for a discharge summary. The patient is a 65-year-old woman admitted for community-acquired pneumonia treated with ceftriaxone and azithromycin for 5 days with good clinical response. She was afebrile for 48 hours prior to discharge. She has a follow-up chest X-ray ordered in 6 weeks. Write in concise, professional prose suitable for a primary care physician."
+
+The strong prompt takes 30 extra seconds to write and will save you 5 minutes of editing.

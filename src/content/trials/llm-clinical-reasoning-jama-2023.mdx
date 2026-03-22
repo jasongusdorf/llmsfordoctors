@@ -1,0 +1,59 @@
+---
+title: "Accuracy of a Generative AI Model in a Complex Diagnostic Challenge"
+journal: "JAMA Internal Medicine"
+year: 2023
+doi: "10.1001/jamainternmed.2023.3982"
+keyFinding: "LLMs matched or exceeded physician performance on standardized diagnostic reasoning tasks, but with different error patterns: AI misses atypical presentations while physicians miss rare diseases."
+lastUpdated: 2026-03-19
+tags: [clinical-reasoning, diagnostic-accuracy, AI-comparison]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This study evaluated a large language model on a series of NEJM Clinical Problem-Solving cases, one of the most demanding diagnostic reasoning formats in published medicine. These cases are intentionally complex, multi-step, and designed to challenge even experienced clinicians. They require synthesizing history, exam findings, laboratory data, and imaging in sequence, without presenting the final diagnosis until the end.
+
+The LLM was scored on both final diagnosis accuracy and the quality of intermediate reasoning steps. Physician performance on the same cases served as the benchmark comparator. Cases spanned a wide range of specialties and included a deliberate mix of rare diseases, common diseases with atypical presentations, and diagnostic red herrings.
+
+---
+
+## Key Findings
+
+- The LLM achieved diagnostic accuracy **comparable to or exceeding attending physicians** across the NEJM case series
+- Error patterns were **systematically different** between AI and physicians:
+  - AI performed well on **rare diseases**, unconstrained by availability bias, it considers low-probability diagnoses that physicians may not surface
+  - AI performed poorly on **atypical presentations of common diseases**; it pattern-matches to typical presentations and fails when familiar diseases behave unusually
+  - Physicians showed the inverse: stronger on atypical presentations of common conditions, weaker on rare disease recognition
+- LLM errors tended to be **confident**; the model expressed high certainty even when wrong, with little calibrated uncertainty
+- Performance was notably stronger when the model was given the full case narrative upfront versus a stepwise presentation
+
+---
+
+## Clinical Implications
+
+The headline finding (comparable accuracy) is real, but the more important finding is the complementary error structure. AI and physicians are not failing in the same ways. That asymmetry is clinically significant.
+
+1. **Availability bias is the physician's vulnerability.** Physicians over-index on diagnoses they have recently seen or commonly encounter. LLMs have no recency bias; they draw from the full training distribution equally.
+
+2. **Pattern matching is the AI's vulnerability.** LLMs are extraordinarily good at matching presentations to prototypical disease templates. When a patient's presentation deviates from the prototype, the model may not recognize the deviation as meaningful.
+
+3. **Confidence without calibration is dangerous.** An LLM that says "this is almost certainly X" when it is actually wrong provides false reassurance. Physicians should treat LLM certainty expressions with skepticism.
+
+4. **The workflow implication is specific.** The value of LLMs is highest in situations where you want to pressure-test your differential, particularly for rare disease consideration and cognitive debiasing against anchoring errors.
+
+<Callout type="evidence">
+  This study provides the strongest published evidence that LLMs function as effective cognitive complements to physician reasoning. The finding is not that AI is as good as doctors; it is that AI and doctors are wrong about different things, which makes them genuinely useful in combination.
+</Callout>
+
+---
+
+## My Takeaway
+
+The real finding here is simple: **AI and physicians are wrong about different things.**
+
+That sentence should change how you think about LLMs in clinical practice. The question is not "can AI replace me?" but "can AI catch what I am likely to miss?" Based on this study, the answer is yes, in a specific and predictable way: LLMs are strongest where physicians are most vulnerable (rare diseases, availability bias) and weakest where physicians are strongest (atypical presentations, clinical gestalt).
+
+This is the empirical basis for using LLMs as a **second opinion** rather than a primary reasoner. You bring clinical judgment, physical exam interpretation, and pattern recognition for common-disease variants. The LLM brings breadth, no recency bias, and structured consideration of rare diagnoses you might not have surfaced.
+
+For a structured approach to applying these findings clinically, see the [cognitive debiasing workflow](/workflows/cognitive-debiasing) and the [clinical reasoning workflow](/workflows/clinical-reasoning).

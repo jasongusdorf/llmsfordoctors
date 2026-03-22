@@ -1,0 +1,53 @@
+---
+title: "AI-Guided Surgical Blood Readiness: Smart Match Outperforms Legacy Protocols"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIoa2401198"
+keyFinding: "Smart Match, an ML model for predicting perioperative transfusion needs, achieved 0.94 AUROC in prospective validation and outperformed both legacy blood ordering schedules and clinician behavior."
+lastUpdated: 2026-03-21
+tags: [blood-transfusion, perioperative, machine-learning, clinical-decision-support, resource-optimization, surgery]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Bishara et al. developed Smart Match, a custom XGBoost model using 82 variables and 1,921 features from UCSF Health's EMR to predict perioperative red blood cell transfusion needs before adult elective surgeries. The model was trained on 235,054 retrospective cases (3.04% transfusion rate), then silently deployed for prospective validation on 24,003 cases. Predictions were compared with the legacy maximum surgical blood order schedule (MSBOS, created in 1976 and updated in 2015 based on surgeon opinions) and real-world clinician preordering behavior at multiple time points before surgery.
+
+---
+
+## Key Findings
+
+- Prospective validation maintained **0.94 AUROC** (matching retrospective performance) and **0.55 AUPRC**
+- Model sensitivity: **0.72**; positive predictive value: **0.34**, surpassing both MSBOS and clinician orders
+- A hybrid model for daily blood bank needs outperformed MSBOS with **MAE 12.86 vs 13.34** on the test set
+- The model uses medical history, lab results, demographics, surgery details, medications, transfusion history, and MSBOS recommendations as inputs
+- Smart Match was selected from 21 submissions to UCSF's first AI/ML demonstration project
+
+<Callout type="evidence">
+  The fact that a machine learning model trained on institutional data outperforms a 1976-era protocol based on surgeon opinions is unsurprising but important. The 0.94 AUROC holding in prospective validation is the more meaningful finding; many models degrade significantly in real-world deployment.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **MSBOS is 50 years old.** Procedure-based blood ordering ignores individual patient risk factors, leading to unnecessary crossmatching and occasional shortages. Personalized, data-driven ordering is long overdue.
+
+2. **Over-preparation wastes resources.** High crossmatch-to-transfusion ratios mean blood products are being prepared and held for patients who don't need them, tying up inventory and increasing costs.
+
+3. **Silent validation is the right first step.** Running the model alongside clinical care without influencing decisions lets you detect data quality issues and calibration drift before going live. Smart Match found real-world data quality challenges during silent deployment.
+
+<Callout type="pitfall">
+  The model is institution-specific, trained on UCSF's patient population, surgeons, and workflows. It would need retraining or fine-tuning for deployment at other centers. The 3.04% transfusion rate means class imbalance is a persistent challenge.
+</Callout>
+
+4. **The next step is an RCT.** The model works technically, but the question of whether it changes clinical behavior and improves outcomes requires a randomized trial where clinicians actually see and act on predictions.
+
+---
+
+## My Takeaway
+
+Smart Match is a solid example of institutional AI: a model built specifically for one health system's data and workflows. It outperforms a legacy system that everyone knows is outdated but nobody has replaced. The prospective validation matching retrospective performance is encouraging. The practical impact depends entirely on whether clinicians trust and use the predictions, which is the RCT they're planning next. For other institutions, the lesson is: your legacy protocols are probably outdated too, and your data can power something better.
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2401198)

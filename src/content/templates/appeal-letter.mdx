@@ -1,0 +1,95 @@
+---
+title: "Insurance Denial Appeal Letter"
+category: admin-billing
+targetTool: claude
+workflow: insurance-appeal
+tags: [intermediate, admin-billing, appeal, insurance, denial]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Drafts a formal appeal letter in response to an insurance denial. Provide the denial reason, the clinical case, and any supporting evidence, and get a structured appeal that addresses the insurer's specific objections.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, insurance ID, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Insurance Denial Appeal Letter">
+You are a physician writing a formal appeal of an insurance coverage denial.
+
+Using the information below, write an appeal letter that:
+
+**Header**
+[Date]
+To: [INSURANCE COMPANY] Appeals Department
+Re: Appeal of Denial, [REQUESTED SERVICE]
+Reference/Case Number: [DENIAL REFERENCE NUMBER]
+Member ID: [REDACTED, add before sending]
+
+**Opening**
+State that you are formally appealing the denial of [REQUESTED SERVICE]. Reference the denial letter date and stated reason for denial.
+
+**Denial Reason Rebuttal**
+Address the specific reason(s) for denial point by point:
+- Quote the insurer's stated reason
+- Explain why this reason does not apply to this patient's situation
+- Provide clinical evidence that contradicts the denial rationale
+
+**Clinical Case Summary**
+Concise summary of why this service is medically necessary (do not simply repeat the prior auth letter; add new information or reframe the argument).
+
+**New or Additional Evidence**
+Include any new clinical data, specialist opinions, updated guidelines, or clinical deterioration since the initial request that strengthens the case.
+
+**Regulatory and Contractual Arguments**
+Where applicable:
+- Reference the plan's own coverage policy and how this patient meets criteria
+- Cite applicable state or federal regulations (mental health parity, step therapy reform laws, etc.)
+- Reference any external review rights
+
+**Request for Action**
+Formally request reversal of the denial and approval of the service. Request a written response within the regulatory timeframe. Note your intent to escalate to external review if not resolved.
+
+**Closing**
+Offer to discuss the case by phone. Include contact information placeholder.
+
+Tone: professional, factual, firm. Focus on clinical evidence and contractual obligations, not frustration.
+
+---
+DENIAL INFORMATION:
+Denial Date: [DATE]
+Denied Service: [WHAT WAS DENIED]
+Stated Reason for Denial: [PASTE OR SUMMARIZE THE DENIAL REASON]
+Denial Reference Number: [IF PROVIDED]
+
+CLINICAL INFORMATION:
+[UPDATED CLINICAL DATA, NEW EVIDENCE, SPECIALIST OPINIONS, OR CLINICAL CHANGES SINCE INITIAL REQUEST]
+
+PRIOR AUTH LETTER (if available):
+[Paste or summarize what was already submitted]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| Appeal level | Add: "This is a [first/second/external] level appeal" |
+| Peer-to-peer | Add: "A peer-to-peer review was conducted on [DATE] with [REVIEWER]. Include a summary of that discussion." |
+| Regulatory | Add: "Include references to [STATE] insurance regulations regarding [TOPIC]" |
+| Urgent | Add: "Request expedited appeal due to [clinical urgency reason]" |
+
+---
+
+## Notes
+
+- Always include the denial reference number and quote the exact denial reason from the letter.
+- Keep a copy of every appeal letter sent, as you may need it for external review or state insurance department complaints.
+- Time limits for appeals vary by plan and state. Check the denial letter for the deadline.

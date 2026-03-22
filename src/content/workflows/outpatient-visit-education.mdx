@@ -1,0 +1,84 @@
+---
+title: "Creating Outpatient Visit Education Materials"
+category: patient-education
+tools: [claude]
+templates: [condition-explainer, new-medication-guide, lifestyle-modification-plan, follow-up-visit-prep]
+tags: [patient-education, outpatient, clinic, education-materials]
+timeToRead: 5
+lastUpdated: 2026-03-18
+specialty: [general-medicine]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## The Problem
+
+A typical outpatient visit is 15–20 minutes. In that time, you may deliver a new diagnosis, start a new medication, and recommend lifestyle changes. Patients leave with a lot of information and limited ability to retain it. Written education materials improve recall, adherence, and patient satisfaction, but creating them from scratch takes time you don't have.
+
+This workflow shows you how to generate a complete set of patient education materials after an outpatient visit using prompt templates and any LLM.
+
+<Callout type="hipaa">
+  Never paste identifiable patient information (name, DOB, MRN) into a consumer AI tool. Use a de-identified summary or ensure your organization has a BAA in place with the vendor before using patient data.
+</Callout>
+
+---
+
+## Step 1: Identify What the Patient Needs
+
+After the visit, decide which education materials this patient needs. Not every patient needs all four templates. Common scenarios:
+
+| Scenario | Templates to Use |
+|---|---|
+| New diagnosis | Condition Explainer |
+| New medication | New Medication Guide |
+| Lifestyle counseling | Lifestyle Modification Plan |
+| Any follow-up needed | Follow-Up Visit Prep |
+| New diagnosis + new medication + lifestyle changes | All four |
+
+---
+
+## Step 2: Explain the Diagnosis
+
+For any new or poorly understood diagnosis, use the **[Condition Explainer](/templates/condition-explainer)** template. Paste in the diagnosis and relevant clinical context. The output explains the condition in plain language, including what it is, what causes it, what to expect, and when to seek emergency care.
+
+<Callout type="tip">
+  Even for conditions the patient has had for years, a Condition Explainer can be helpful if they don't seem to understand their disease well. "I've had diabetes for 10 years" doesn't mean they understand what A1c means.
+</Callout>
+
+---
+
+## Step 3: Explain New Medications
+
+For any new prescriptions, use the **[New Medication Guide](/templates/new-medication-guide)** template. Provide the medication name, dose, frequency, and indication. The output covers how to take it, side effects, interactions, and what to do about missed doses.
+
+---
+
+## Step 4: Create a Lifestyle Plan
+
+If you discussed lifestyle modifications (diet, exercise, weight loss, smoking cessation, stress management), use the **[Lifestyle Modification Plan](/templates/lifestyle-modification-plan)** template.
+
+For the best output, include the patient's **current habits** in the clinical information, not just the diagnosis. "Patient with hypertension who eats fast food daily and does not exercise" produces a much more actionable plan than "patient with hypertension."
+
+---
+
+## Step 5: Prepare for the Next Visit
+
+Use the **[Follow-Up Visit Preparation](/templates/follow-up-visit-prep)** template to give the patient a guide for their next appointment. This includes what to track, questions to ask, and what to bring.
+
+---
+
+## Step 6: Review and Deliver
+
+Before giving materials to the patient:
+
+- [ ] **Verify all medical information** is accurate for this patient
+- [ ] **Check medication details** against the prescription
+- [ ] **Review lifestyle recommendations** for safety (especially for patients with comorbidities)
+- [ ] **Confirm the reading level** is appropriate for the patient
+- [ ] **Remove or adjust** any sections that don't apply
+
+<Callout type="pitfall">
+  AI-generated lifestyle recommendations may not account for all comorbidities. A "healthy diet" recommendation for a diabetic patient is very different from one for a patient with chronic kidney disease. Review carefully.
+</Callout>
+
+Deliver via patient portal, print, or hand to the patient before they leave the office.

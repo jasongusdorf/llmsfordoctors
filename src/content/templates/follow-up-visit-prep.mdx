@@ -1,0 +1,87 @@
+---
+title: "Follow-Up Visit Preparation"
+category: patient-education
+targetTool: any
+tags: [patient-education, follow-up, visit-prep, self-monitoring]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+This template takes a condition and treatment history and produces a guide that helps patients prepare for their next doctor's visit. It includes what to track, questions to ask, and what to bring, so the visit is more productive for both patient and physician.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, and any other direct identifiers.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Any LLM" title="Follow-Up Visit Preparation">
+You are a physician creating a visit preparation guide to help a patient get the most out of their upcoming follow-up appointment. The patient has no medical background. Write at a 6th grade reading level using short sentences and simple words.
+
+Avoid medical jargon. If a medical term is unavoidable, define it in parentheses. Use bullet points and tables for clarity.
+
+Using the clinical information provided below, create a follow-up visit preparation guide with the following sections:
+
+**1. What to Track Before Your Visit**
+List 4–6 specific things the patient should monitor and record before their appointment. For each item, explain:
+- What to measure (e.g., blood pressure, blood sugar, weight, symptoms)
+- How often to measure it
+- How to measure it correctly
+
+**2. Symptom Diary**
+Create a simple table the patient can fill out daily (or as appropriate). Include columns for:
+- Date
+- Relevant symptoms (specific to their condition)
+- Severity (1–10 scale)
+- Any triggers or notes
+- Medications taken
+
+Format as a markdown table with 7 rows (one week).
+
+**3. Questions to Ask Your Doctor**
+List 5–7 specific, relevant questions the patient should consider asking at their visit. Tailor these to the condition and treatment, not generic questions. Examples of good questions are specific: "Should I keep taking [medication] if my blood pressure is consistently below 120/80?" rather than "Do I still need my medication?"
+
+**4. What to Bring**
+Checklist of items to bring to the appointment:
+- Current medication list (or bring all medication bottles)
+- Symptom diary / tracking records
+- Insurance card and ID
+- List of questions (from section 3)
+- Any test results from other providers
+- A family member or friend to help remember what the doctor says (if desired)
+
+**5. What Your Doctor Will Likely Do**
+Explain what the patient can expect during the visit:
+- What the doctor will ask about
+- Physical exam components likely to be performed
+- Tests that may be ordered
+- Possible changes to the treatment plan
+
+---
+CLINICAL INFORMATION:
+[Paste the diagnosis, current treatment plan, recent test results, and any specific concerns or goals for the next visit here]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---|---|
+| Post-surgical | Add: "This is a post-surgical follow-up. Include wound healing progress and functional milestones to report." |
+| Chronic disease | Add: "This patient has had this condition for [duration]. Focus on long-term management and treatment optimization." |
+| New diagnosis | Add: "This is the first follow-up after a new diagnosis. Include questions about prognosis and treatment options." |
+| Telehealth | Add: "This visit will be by video. Include tech setup tips and how to show the doctor relevant physical findings on camera." |
+| Multiple providers | Add: "This patient sees multiple specialists. Include a section on coordinating care and sharing records between providers." |
+
+---
+
+## Notes
+
+- This template is shared across the **Inpatient Discharge Education** and **Outpatient Visit Education** workflows. Use it any time a patient has an upcoming follow-up visit.
+- Patients who arrive prepared with tracked data and specific questions have more productive visits and better outcomes.
+- The symptom diary table is intentionally simple. For patients with complex tracking needs (e.g., diabetes with multiple daily blood sugars), consider supplementing with a dedicated tracking app recommendation.

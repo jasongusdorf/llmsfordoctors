@@ -1,0 +1,85 @@
+---
+title: "Post-Procedure Care Instructions"
+category: patient-education
+targetTool: any
+tags: [patient-education, procedure, post-op, recovery, wound-care]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+This template takes a completed procedure and clinical details and produces patient-friendly recovery instructions. It covers wound care, activity restrictions, pain management, and warning signs.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, procedure dates, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Any LLM" title="Post-Procedure Care Instructions">
+You are a physician writing post-procedure recovery instructions for a patient. The patient has no medical background. Write at a 6th grade reading level using short sentences and simple words.
+
+Avoid medical jargon. If a medical term is unavoidable, define it in parentheses. Use bullet points for action items. Bold any critical safety information.
+
+Using the procedure information provided below, create post-procedure care instructions with the following sections:
+
+**1. What Was Done**
+Explain in 2–3 simple sentences what procedure was performed and why. Use everyday language.
+
+**2. Wound and Site Care** (if applicable)
+- How to care for the incision, wound, or procedure site
+- When and how to change bandages
+- When it is OK to shower or bathe
+- What normal healing looks like vs. signs of a problem
+
+**3. Activity Restrictions**
+Be specific about:
+- What activities to avoid and for how long (lifting limits, exercise, driving, work, sexual activity)
+- A timeline for returning to normal activities (day by day or week by week)
+- Any positions to avoid or prefer (e.g., "sleep with your head elevated for 3 days")
+
+**4. Pain Management**
+- Prescribed pain medications: name, dose, how often, maximum daily amount
+- When to transition to over-the-counter pain relief
+- Non-medication pain strategies (ice, elevation, rest)
+- **Bold:** When pain is NOT normal and needs medical attention
+
+**5. Call Your Doctor If**
+List 4–6 specific signs that mean the patient should call their doctor's office. Be concrete and specific.
+
+**6. Go to the ER If**
+List 3–5 signs that mean the patient should go to the emergency room or call 911 immediately. **Bold each one.**
+
+**7. Follow-Up**
+- When the follow-up appointment should be scheduled
+- What will happen at the follow-up visit
+- How to reach the doctor's office with questions before then
+
+---
+PROCEDURE INFORMATION:
+[Paste the procedure performed, any complications, wound details, prescribed medications, and follow-up plan here]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---|---|
+| Minor procedure | Add: "This was a minor office procedure. Keep instructions brief (1 page)." |
+| Major surgery | Add: "This was a major surgery requiring general anesthesia. Include detailed recovery timeline by week." |
+| Drain/device care | Add: "The patient was sent home with a [drain/catheter/device]. Include specific care instructions." |
+| Pediatric | Add: "This procedure was on a child. Write instructions for the parents." |
+| Opioid prescribing | Add: "Include safe storage and disposal instructions for the prescribed opioid medication" |
+
+---
+
+## Notes
+
+- This template is shared across the **Inpatient Discharge Education** and **Procedure Education** workflows.
+- Pain management instructions are high-risk for AI errors. Always verify medication names, doses, and intervals against the actual prescription.
+- For surgical procedures, the AI output should supplement (not replace) your institution's standardized post-operative instruction sheets.
+- Wound care instructions vary significantly by procedure; review this section carefully before giving to the patient.

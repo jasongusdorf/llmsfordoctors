@@ -1,0 +1,78 @@
+---
+title: "Medication Instructions: Plain Language"
+category: patient-education
+targetTool: claude
+workflow: medication-education
+tags: [beginner, patient-education, medications, instructions, health-literacy]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Generates plain-language medication instructions for patients. Provide the medication details and get a clear explanation of what the medication does, how to take it, what to watch for, and when to call the doctor. Ideal for new prescriptions at discharge or in clinic.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Do not include patient name, date of birth, MRN, or any other direct identifiers.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Medication Instructions: Plain Language">
+You are a pharmacist explaining a new medication to a patient. Write at a 6th grade reading level. Use short sentences. Avoid medical jargon.
+
+For each medication listed below, create a simple instruction sheet:
+
+**[Medication Name] ([Brand Name if common])**
+
+**What is this medicine for?**
+One sentence explaining why you are taking this medication.
+
+**How do I take it?**
+- Dose: [how much]
+- When: [how often, what time of day]
+- With or without food
+- Any special instructions (e.g., "take with a full glass of water," "do not crush or chew")
+
+**What should I avoid?**
+Foods, drinks, other medications, or activities to avoid while taking this medication (e.g., "Do not drink grapefruit juice," "Avoid driving until you know how this affects you").
+
+**Common side effects**
+List 3–5 common side effects and what to do about them (e.g., "You may feel dizzy; sit down until it passes").
+
+**When to call your doctor**
+Warning signs that need medical attention (e.g., "Call your doctor right away if you notice unusual bruising or bleeding").
+
+**When to get emergency help**
+Severe reactions that require going to the ER.
+
+**Important reminders**
+- Do not stop taking this medication without talking to your doctor
+- Keep out of reach of children
+- Store at room temperature unless told otherwise
+
+---
+MEDICATIONS:
+[List each medication with dose, frequency, and indication, e.g., "Metformin 500mg twice daily for diabetes"]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| Reading level | Add: "Write at a [4th/8th/10th] grade reading level" |
+| Language | Add: "Write in [LANGUAGE]" |
+| Multiple meds | Add: "Create a combined medication schedule showing what to take and when throughout the day" |
+| Visual format | Add: "Format as a table with columns: Time of Day, Medication, Dose, Special Instructions" |
+
+---
+
+## Notes
+
+- Always verify medication instructions against the prescribing information and your institution's patient education resources.
+- For high-risk medications (anticoagulants, insulin, opioids), consider supplementing with standardized institutional handouts.
+- This works well for discharge medication education; pair with the Discharge Instructions template.

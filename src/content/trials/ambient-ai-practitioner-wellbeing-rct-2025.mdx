@@ -1,0 +1,55 @@
+---
+title: "Ambient AI Reduces Practitioner Burnout: A Stepped-Wedge Randomized Trial"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIoa2500945"
+keyFinding: "In a 24-week stepped-wedge RCT, ambient AI scribes significantly reduced work exhaustion (−0.44 points, P&lt;0.001) and decreased documentation time by 0.36 hours/day, without compromising note quality or billing accuracy."
+lastUpdated: 2026-03-21
+tags: [ambient-ai, burnout, documentation, rct, clinical-workflow, well-being, ehr]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Afshar et al. conducted a 24-week, stepped-wedge, individually randomized pragmatic trial across ambulatory clinics in Wisconsin and Illinois. 66 health care practitioners (physicians and APPs) were randomized 1:1:1 into three 6-week waves, sequentially transitioning from practice-as-usual to ambient AI (Abridge). Coprimary outcomes were professional fulfillment and work exhaustion/interpersonal disengagement from the Stanford Professional Fulfillment Index. Secondary measures included time on notes, work outside work (WoW), documentation quality (PDSQI-9), and billing diagnostic codes. Over 71,487 notes were authored, with 27,092 (38%) generated using ambient AI.
+
+---
+
+## Key Findings
+
+- **Work exhaustion/interpersonal disengagement decreased by −0.44 points** (95% CI, −0.62 to −0.25; P&lt;0.001) on a 5-point scale
+- Professional fulfillment increased by +0.14 points but **did not reach statistical significance** (P=0.04, below the adjusted threshold)
+- Time spent on notes **decreased by 0.36 hours/day** (95% CI, −0.55 to −0.17)
+- Reduction in work outside work: **−0.50 hours/day** (though sensitive to exclusion of extreme values)
+- **Billing diagnostic codes improved** with ambient AI (P&lt;0.001)
+- Documentation quality scores ranged from **3.97 to 4.99** across domains on a 5-point scale
+- **No drift in software performance** detected over the 24-week study period
+
+<Callout type="evidence">
+  This is the most methodologically rigorous ambient AI trial to date: a stepped-wedge RCT with 24 weeks of follow-up, objective EHR metrics, and validated well-being instruments. The burnout reduction is statistically significant and clinically meaningful.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Burnout reduction is real but partial.** The tool significantly reduces work exhaustion but doesn't significantly increase professional fulfillment. This makes sense; removing a source of frustration isn't the same as adding sources of meaning. Ambient AI addresses one contributor to burnout, not all of them.
+
+2. **Time savings are meaningful.** 0.36 hours per day on notes translates to roughly 90 hours per year per practitioner. That's time that can be redirected to patient care, education, or personal well-being.
+
+3. **Billing codes improved.** This is an underappreciated finding. Better documentation quality translates directly to more accurate billing, which can partially offset the cost of ambient AI deployment through increased revenue capture.
+
+<Callout type="pitfall">
+  The 38% AI-assisted note rate means practitioners chose not to use the tool for 62% of encounters. Understanding why (workflow friction, patient preferences, or tool limitations for certain visit types) is critical for maximizing adoption and impact.
+</Callout>
+
+4. **The work-outside-work finding is fragile.** The 0.50 hour/day reduction in after-hours work was sensitive to extreme values and lost significance when the top 3% of observations were removed. This is the metric practitioners care most about, and it needs more robust confirmation.
+
+---
+
+## My Takeaway
+
+This trial provides the strongest evidence yet that ambient AI scribes reduce clinician burnout, specifically the exhaustion and disengagement components. The stepped-wedge design controls for secular trends and the 24-week duration provides more follow-up than any prior study. The practical takeaway for health systems: ambient AI is a legitimate intervention for practitioner well-being, not just a convenience tool. But it's not a silver bullet; it addresses documentation burden specifically, and the broader drivers of burnout (workload, autonomy, meaning) require different solutions.
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2500945)

@@ -1,0 +1,74 @@
+---
+title: "PICO Research Question Builder"
+category: literature-review
+targetTool: claude
+workflow: research-question
+tags: [beginner, literature-review, pico, research, search-strategy]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Turns a clinical question into a structured PICO format and generates a literature search strategy. Describe your clinical question in plain language and get a formatted PICO, MeSH terms, and a ready-to-use PubMed search string. Perfect for evidence-based medicine assignments, research projects, or answering clinical questions systematically.
+
+<Callout type="tip">
+  PICO stands for Population, Intervention, Comparison, Outcome. It's the standard framework for formulating searchable clinical questions. This template handles therapy, diagnosis, prognosis, and etiology question types.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="PICO Research Question Builder">
+You are a medical librarian helping a clinician formulate a research question and search strategy.
+
+Given the clinical question below, provide:
+
+**PICO Breakdown**
+- **P (Population):** Who are the patients? (age, sex, condition, setting)
+- **I (Intervention/Exposure):** What is being done or studied?
+- **C (Comparison):** What is the alternative? (placebo, standard care, another intervention)
+- **O (Outcome):** What do we want to know? (mortality, symptom relief, diagnosis accuracy, etc.)
+
+**Question Type**
+Classify as: Therapy / Diagnosis / Prognosis / Etiology / Prevention
+
+**Formatted Clinical Question**
+"In [P], does [I] compared to [C] improve [O]?"
+
+**Search Strategy**
+- **MeSH Terms:** List relevant MeSH headings for each PICO element
+- **Keywords:** Alternative text words and synonyms for each element
+- **PubMed Search String:** A ready-to-paste Boolean search query combining MeSH and keywords with AND/OR operators
+- **Filters to Consider:** Study type, date range, language, human subjects
+
+**Suggested Study Designs**
+What types of studies would best answer this question? (RCT, systematic review, cohort, etc.)
+
+**Alternative PICO Formulations**
+Suggest 1–2 alternative framings of the question that might yield additional relevant results.
+
+---
+CLINICAL QUESTION:
+[Describe your clinical question in plain language, e.g., "Is apixaban better than warfarin for preventing stroke in elderly patients with atrial fibrillation?"]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| Database | Add: "Also generate search strings for [Embase / CINAHL / Cochrane Library]" |
+| Scope | Add: "Narrow the search to [systematic reviews and meta-analyses only]" |
+| Teaching | Add: "Explain each step of the PICO process as if teaching a medical student" |
+| Multiple questions | Add: "I have several related questions; group them and create a combined search strategy" |
+
+---
+
+## Notes
+
+- The generated PubMed search string is a starting point. You'll likely need to iterate, broadening or narrowing based on the number of results.
+- MeSH terms may not be perfectly matched; verify against the MeSH Browser at nlm.nih.gov/mesh/.
+- For systematic reviews, the search strategy needs to be more comprehensive (multiple databases, hand-searching references). This template is designed for clinical question-answering, not formal systematic review protocols.

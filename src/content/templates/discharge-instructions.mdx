@@ -1,0 +1,81 @@
+---
+title: "Patient Discharge Instructions"
+category: patient-education
+targetTool: claude
+workflow: discharge-education
+tags: [beginner, patient-education, discharge, instructions]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Generates plain-language discharge instructions for patients leaving the hospital or ED. Covers diagnosis summary, medication changes, activity restrictions, follow-up appointments, and return precautions. Designed to complement (not replace) your institution's standard discharge paperwork.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Patient Discharge Instructions">
+You are a nurse writing discharge instructions for a patient. Write at a 6th grade reading level. Use short sentences. Be specific and actionable.
+
+Create discharge instructions based on the information below:
+
+**Why you were in the hospital**
+In 2–3 simple sentences, explain the reason for the visit and what was found/treated.
+
+**What we did**
+Brief summary of tests, treatments, or procedures performed during the stay.
+
+**Your medications**
+For each medication change:
+- **New medications:** Name, dose, how often, what it's for, and key instructions
+- **Stopped medications:** Name and why it was stopped
+- **Changed medications:** Name, what changed, and why
+
+**Activity and diet**
+- What you can and cannot do (lifting, driving, exercise, work)
+- Dietary changes or restrictions
+- For how long each restriction applies
+
+**Follow-up appointments**
+- Who to see, when, and what it's for
+- Phone numbers to call for scheduling if not yet scheduled
+- Any tests that need to happen before the follow-up
+
+**Wound care** (if applicable)
+Specific instructions for any incisions, drains, or wounds.
+
+**When to call your doctor**
+List specific symptoms that should prompt a call to the doctor's office.
+
+**When to go to the emergency room**
+List specific symptoms that need emergency care. Be concrete (e.g., "chest pain that does not go away after 5 minutes," not just "chest pain").
+
+---
+DISCHARGE INFORMATION:
+[Paste: reason for visit, diagnoses, treatments given, medication changes, activity restrictions, follow-up appointments, and any special instructions]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| Reading level | Change to "4th grade" for low health literacy or "8th grade" for more detail |
+| Language | Add: "Write in [LANGUAGE]" |
+| Caregiver | Add: "Address instructions to the patient's caregiver rather than the patient directly" |
+| Pediatric | Add: "This is for a child's parent/guardian" |
+
+---
+
+## Notes
+
+- This is a supplement to your institution's standard AVS (After Visit Summary), not a replacement.
+- Pair with the **Medication Instructions** template for detailed med-by-med education.
+- For surgical discharges, add wound care and activity restriction details to the input.

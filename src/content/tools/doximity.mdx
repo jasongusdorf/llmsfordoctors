@@ -1,0 +1,81 @@
+---
+title: "Doximity for Clinical Documentation"
+slug: doximity
+vendor: "Doximity"
+rating: 4
+verdict: "Solid clinician tool with verified BAA, but know which features are HIPAA-designated"
+pricing: "Free with Doximity membership"
+hasBaa: true
+categories: [note-writing, patient-education, admin-billing, general]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Overview
+
+Doximity is one of the largest verified clinician networks in the United States, and its AI tools (including DoXGPT) are embedded directly within that network. For physicians already using Doximity for faxing, messaging, and professional networking, the addition of AI-assisted note drafting and patient communication tools is a natural extension.
+
+Doximity publishes a member-facing Business Associate Agreement, and enterprise BAAs are available for organizational deployments. The platform states that users can include PHI in prompts within designated secure features, with data encrypted both in transit and at rest.
+
+The key detail: not every Doximity feature carries BAA coverage. Understanding which tools are designated as HIPAA-secure versus which are general-purpose is essential before entering patient data.
+
+For clinicians who already live inside the Doximity ecosystem, the AI tools are conveniently accessible. For those evaluating Doximity purely as an AI documentation tool, the question is whether its drafting and communication capabilities justify the platform commitment.
+
+Doximity's primary advantage is convenience: if you already use it for faxing and messaging, adding AI-assisted letter drafting requires no new software, no new login, and no new procurement process. That low friction is both a benefit and a risk: it makes it easy to start using AI features without fully understanding which ones carry BAA coverage.
+
+---
+
+## Clinical Strengths
+
+Doximity brings practical advantages for day-to-day clinical workflows:
+
+- **Established clinician network**: over 80% of U.S. physicians have a Doximity account, reducing onboarding friction
+- **Verified BAA**: member-facing BAA is published and available for review, with enterprise agreements also described
+- **Letter and note drafting**: AI-assisted generation of referral letters, patient instructions, and clinical correspondence
+- **Fax integration**: HIPAA-compliant fax capability integrated with AI tools, useful for referral workflows
+- **Patient communication tools**: draft patient-facing educational content adapted to appropriate reading levels
+- **No additional cost**: AI features are included with standard Doximity membership
+
+<Callout type="tip">
+  Doximity's strength is in the communication layer: referral letters, patient instructions, and prior authorization language. If your primary need is ambient documentation or structured notes, look at dedicated scribing tools instead.
+</Callout>
+
+---
+
+## Weaknesses
+
+Be aware of these limitations before relying on Doximity for PHI-containing workflows:
+
+- **Not all features are HIPAA-designated**: Doximity offers both secure and general-purpose tools. Using the wrong mode for PHI-containing work creates compliance risk.
+- **Feature boundaries can be unclear**: knowing exactly which tool mode you are in requires attention. There is no universal "safe mode" that covers everything.
+- **BAA retention language**: the BAA describes data retention when return or destruction is not feasible, which may not align with your organization's data minimization expectations
+- **Chart volume risk**: avoid uploading entire charts when only a specific section is needed. More data in the prompt means more data subject to the platform's retention and processing terms.
+- **Limited clinical reasoning depth**: DoXGPT is useful for drafting and communication but is not positioned as a clinical decision support tool
+- **No ambient documentation**: Doximity does not offer encounter recording or ambient scribing. For that workflow, you need a dedicated ambient tool.
+
+<Callout type="pitfall">
+  Before entering PHI into any Doximity tool, confirm you are using a feature explicitly designated as HIPAA-secure. The BAA does not blanket-cover every feature on the platform. When in doubt, check Doximity's current documentation or ask your compliance team.
+</Callout>
+
+---
+
+## HIPAA & Privacy
+
+<Callout type="hipaa">
+  Doximity publishes a member-facing BAA and describes enterprise BAAs for organizational deployments. Data is stated to be encrypted in transit and at rest. However, BAA coverage applies only to features explicitly designated as HIPAA-secure, not to every tool within the Doximity ecosystem. Confirm which features carry coverage before entering patient data.
+</Callout>
+
+Key compliance details:
+
+- **Member-facing BAA**: published and available for individual clinicians to review and accept
+- **Enterprise BAAs**: available for organizational deployments with additional terms
+- **Encryption**: data encrypted in transit and at rest
+- **Retention**: BAA describes retention when return or destruction of data is not feasible; review these terms against your organization's policies
+- **Scope limitations**: only designated secure features are covered under the BAA
+
+For individual physicians: the member-facing BAA is a meaningful step, but verify that the specific features you are using fall within its scope. For organizations: pursue an enterprise BAA that explicitly names covered products and features.
+
+Bottom line: Doximity's BAA is real and accessible, which puts it ahead of many competitors. The critical step is confirming feature-level coverage so that you are using the right tool within the platform for PHI-containing work.
+
+If you are already a Doximity member, the AI tools are worth exploring for communication and drafting tasks. Just take five minutes to understand which features are covered before you start entering patient information.

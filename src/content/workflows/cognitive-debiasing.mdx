@@ -1,0 +1,91 @@
+---
+title: "Cognitive Debiasing with AI"
+category: clinical-reasoning
+tools: [claude]
+templates: [bias-check]
+trials: [llm-clinical-reasoning-jama-2023]
+tags: [debiasing, cognitive-bias, second-opinion, clinical-reasoning]
+timeToRead: 4
+lastUpdated: 2026-03-19
+specialty: [general-medicine]
+---
+
+import Callout from '../../components/Callout.astro';
+import ToolCard from '../../components/ToolCard.astro';
+
+## The Problem
+
+Cognitive biases kill patients. Anchoring, premature closure, availability bias: these aren't junior doctor problems. They're documented causes of diagnostic error across all experience levels, responsible for an estimated **40,000–80,000 deaths per year** in the US. Experience doesn't eliminate bias. In some cases it amplifies it: the more pattern recognition you have, the faster you can commit to the wrong pattern.
+
+The standard debiasing tools (checklists, second opinions, Bayesian thinking) all share a limitation: they require another human with their own anchoring history, their own fatigue, their own investment in not contradicting the attending.
+
+LLMs don't have any of that. No ego. No fatigue. No memory of what you said ten minutes ago. When you ask an LLM to argue against your working diagnosis, it will, without social friction, without deference, without caring whether you're a medical student or a department chief. That's the use case.
+
+This is a focused tool for specific situations, not a reasoning framework to apply to every patient.
+
+<Callout type="hipaa">
+  Never paste identifiable patient information (name, DOB, MRN, dates of service) into a consumer AI tool. De-identify all data or confirm your organization has a BAA in place with the vendor before entering any clinical details.
+</Callout>
+
+---
+
+## Step 1: State Your Current Thinking
+
+Before prompting the AI, articulate your position clearly. This isn't busywork; the quality of the devil's advocate output depends entirely on how precisely you state your reasoning.
+
+Write out:
+
+- **Working diagnosis**: what you believe is most likely
+- **Key evidence supporting it**: the findings that drove you here
+- **Confidence level**: how certain you are and why
+- **Diagnoses you've already considered and rejected**: with your reasons for rejecting them
+
+That last item is important. If you don't tell the AI what you've already worked through, it will raise those possibilities as if they're new, which wastes your time and erodes trust in the output. Documenting what you've dismissed forces the AI to find something you actually haven't considered.
+
+<Callout type="tip">
+  Write this out before opening the chat. The act of articulating your reasoning in writing is itself a debiasing intervention. It forces you to make your assumptions explicit.
+</Callout>
+
+---
+
+## Step 2: Run the Devil's Advocate
+
+Use the [Bias Check template](/templates/bias-check) to structure your prompt. The template instructs the model to:
+
+1. **Argue against your working diagnosis**: find the evidence that cuts against it
+2. **Identify cognitive biases that may be operating**: anchoring, availability, framing, premature closure
+3. **Name the single test or question that would most change the picture**: the one thing you'd want to know if your working diagnosis is wrong
+
+**Recommended model: Claude.** Claude's tendency toward nuance and hedging (sometimes criticized in other contexts) is a genuine strength here. It is less likely to rubber-stamp your reasoning and more likely to identify where your evidence is weaker than you've represented it. It will tell you "this finding is also consistent with X" when other models might simply validate your framing.
+
+<ToolCard
+  name="Claude for Clinical Practice"
+  slug="claude"
+  rating={5}
+  verdict="Tendency toward epistemic hedging makes it less likely to validate flawed reasoning"
+  hasBaa={true}
+/>
+
+<Callout type="tip" title="For Trainees">
+  This is the AI equivalent of your attending asking "what else could it be?", except it will ask every time, without judgment, at 3 AM. Use it as a structured habit when you're uncertain, not as a crutch to avoid thinking first.
+</Callout>
+
+---
+
+## Step 3: Evaluate and Adjust
+
+Read the counterarguments critically. Not all of them will be relevant; the AI doesn't know everything about your patient, your institutional context, or the clinical details that didn't make it into the prompt. Some objections will be generic or miss nuances you're already aware of.
+
+Dismiss what doesn't apply. That's expected and appropriate.
+
+What you're looking for is the one argument you don't have a ready answer for. The diagnosis the AI raises that you can't quickly explain away. The test it identifies that you hadn't considered. That's the signal.
+
+The goal is not to change your diagnosis on most cases. The goal is to catch the **one case in twenty** where your first impression was wrong and you needed someone (or something) to push back.
+
+<Callout type="pitfall">
+  Don't use this on every patient. That's cognitive offloading, not debiasing. This workflow is for uncertain cases, high-stakes presentations, atypical features, and situations where something feels off but you can't articulate why. If you use it indiscriminately, you'll stop reading it carefully.
+</Callout>
+
+<Callout type="evidence">
+  A 2023 JAMA Internal Medicine study found that LLMs and physicians make different kinds of errors; they are complementary reasoners, not competing ones. LLMs were more likely to include the correct diagnosis in a generated differential; physicians were better at integrating contextual factors that weren't captured in text. See the [full trial summary](/trials/llm-clinical-reasoning-jama-2023) for methodology and limitations.
+</Callout>

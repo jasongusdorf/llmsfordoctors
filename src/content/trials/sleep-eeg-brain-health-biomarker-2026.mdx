@@ -1,0 +1,54 @@
+---
+title: "Brain Health from Sleep EEG: A Deep Learning Biomarker for Cognition, Disease, and Mortality"
+journal: "NEJM AI"
+year: 2026
+doi: "10.1056/AIoa2500487"
+keyFinding: "A deep learning model trained on 36,000 sleep EEG recordings derived a brain health score that predicted cognition, disease, and mortality, with a 31-35% reduced mortality risk per standard deviation increase."
+lastUpdated: 2026-03-21
+tags: [deep-learning, eeg, biomarker, cognition, mortality, neurology, sleep-medicine]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Ganglberger et al. assembled 36,000 polysomnography recordings from 27,000 subjects across six cohorts (MGH, Framingham, MESA, MrOS, SOF, KoGES). They trained an end-to-end multitask deep neural network on raw overnight sleep EEG (no expert-defined features) to jointly predict cognitive performance, disease status, and sleep metrics. The model learned a 1024-dimensional latent representation of brain health and distilled it into a single composite score. Performance was compared against demographic baselines, conventional EEG metrics (REM fraction, spindle density), and classic multivariate machine learning approaches.
+
+---
+
+## Key Findings
+
+- Deep learning brain health scores **consistently surpassed** demographic and expert-defined EEG feature models across all outcomes
+- Cognitive outcome correlations rose from small (demographic-only) to **moderate (up to r=0.40)**
+- Disease classification AUC improved from **0.50–0.55 at baseline to 0.65–0.75**
+- A one-standard-deviation increase in brain health score was associated with a **31–35% reduced risk of mortality** (HR 0.65–0.69, P&lt;0.0001)
+- The model outperformed conventional EEG metrics for mortality prediction
+- Latent space visualization confirmed that both established physiological markers and novel EEG features drove enhanced performance
+
+<Callout type="evidence">
+  This is the largest multicohort deep learning study of sleep EEG to date. The mortality association (a 31-35% risk reduction per SD) is comparable in magnitude to well-established cardiovascular biomarkers, suggesting sleep EEG contains clinically actionable information that current practice ignores.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Sleep EEG is underexploited.** Most sleep studies focus on apnea diagnosis. This work demonstrates that routine polysomnography data contains rich information about brain health, cognition, and mortality risk that goes entirely unreported.
+
+2. **End-to-end learning beats expert features.** The deep learning model outperformed handcrafted EEG metrics, suggesting that expert-defined sleep staging and feature extraction miss important signal in the raw data.
+
+3. **A single score is powerful but opaque.** Distilling 1024 dimensions into one number makes the biomarker clinically usable but limits interpretability. Clinicians need to understand what drives a "low" brain health score to act on it.
+
+<Callout type="pitfall">
+  The cohorts span different demographics, protocols, and temporal gaps between EEG and cognitive testing (days to years). The biomarker's predictive value may vary substantially depending on when and how it's measured relative to clinical outcomes.
+</Callout>
+
+4. **Path to clinical use is unclear.** There's no established workflow for reporting a "brain health score" from a sleep study. Translating this into clinical action requires consensus on thresholds, referral criteria, and longitudinal monitoring protocols.
+
+---
+
+## My Takeaway
+
+This is a genuinely novel biomarker, one that extracts clinically meaningful information from data that's already being collected but underutilized. The mortality signal is striking and replicates across six independent cohorts, which is rare in biomarker studies. The practical question is whether health systems will invest in the infrastructure to compute and report brain health scores from existing sleep studies, and whether clinicians will know what to do with the results. The science is ahead of the clinical workflow, but the foundation is strong.
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2500487)

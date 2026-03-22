@@ -1,0 +1,54 @@
+---
+title: "AI Triage of Chest X-Rays Halves Time to Lung Cancer Diagnosis"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIcs2500539"
+keyFinding: "AI-triaged chest x-rays reduced time from x-ray to CT diagnosis for suspected lung cancer from 6.0 to 3.6 days across five NHS hospitals, without increasing the proportion of CTs performed."
+lastUpdated: 2026-03-21
+tags: [lung-cancer, chest-xray, triage, radiology, nhs, cancer-diagnosis, implementation]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Storey et al. conducted a 3-year pre-post evaluation (1 year pre, 2 years post) across five hospitals in South West London's NHS trust. A commercial AI tool (Annalise Enterprise CXR, trained on >800,000 CXRs) triaged chest x-rays for 14 predetermined cancer-suspicious findings. When flagged, patients were kept in the department and sent for same-day CT via a radiographer-led pathway, bypassing the standard workflow of reporting, recalling the patient from home, and scheduling CT later. The study included 56,257 chest x-rays from GP-referred outpatients.
+
+---
+
+## Key Findings
+
+- Time from chest x-ray to CT report for suspected lung cancer **reduced from 6.0 to 3.6 days**
+- **No significant increase** in the proportion of CTs performed relative to chest x-rays; the tool didn't generate excess imaging
+- AI sensitivity for detecting suspected cancer: **82.5%**; specificity: **90.5%**
+- Negative predictive value was **99.6%**; when the AI said "no cancer," it was almost always right
+- Positive predictive value was **14.6%**; most flagged cases were false positives, but this is expected for a screening-level tool
+- **Focal airspace opacity and single pulmonary nodule** had the highest false-positive rates; pulmonary and mediastinal masses had the highest diagnostic yield
+
+<Callout type="evidence">
+  This is one of the most practical medical AI implementation studies published: real patients, real workflow change, real time savings. Reducing time-to-diagnosis by 2.4 days without increasing unnecessary CT scans is a clean win.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Same-day CT pathways are the key innovation.** The AI tool's real value isn't just flagging abnormalities; it's triggering an immediate workflow change (keeping the patient in department for same-day CT) that eliminates the delay of patient recall.
+
+2. **14.6% PPV is acceptable for cancer screening.** This means roughly 1 in 7 flagged patients has cancer. For a screening pathway, this is reasonable, similar to mammography callback rates.
+
+3. **Results varied by hospital.** The most significant time reductions occurred at centers with colocated CT and x-ray facilities. Hospitals without colocated scanners saw smaller gains, highlighting that AI tools need supporting infrastructure to deliver full benefit.
+
+<Callout type="pitfall">
+  The 82.5% sensitivity means the AI missed roughly 1 in 6 cancers. The standard radiographer/radiologist reporting pathway must remain as the safety net; the AI triage pathway accelerates diagnosis for most but cannot replace comprehensive human review.
+</Callout>
+
+4. **This is the UK's NOLCP target in action.** The National Optimal Lung Cancer Pathway recommends CXR-to-CT within 72 hours. The post-intervention median of 3.6 days is close to this target, compared with 6.0 days before.
+
+---
+
+## My Takeaway
+
+This is how medical AI should work: a focused tool solving a specific bottleneck in a well-defined clinical pathway. The AI doesn't make the diagnosis; it triages urgency and triggers a faster workflow. The fact that CT volume didn't increase proves the AI is genuinely identifying the right patients to fast-track rather than just adding imaging volume. For health systems struggling with cancer diagnosis timelines, this is a replicable model, provided they have the same-day CT infrastructure to support it.
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIcs2500539)

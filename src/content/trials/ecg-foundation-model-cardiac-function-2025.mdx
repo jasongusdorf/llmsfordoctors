@@ -1,0 +1,51 @@
+---
+title: "ECG Foundation Model: Self-Supervised Learning for Cardiac and Coronary Assessment"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIoa2500164"
+keyFinding: "A self-supervised ECG foundation model pretrained on 800,000 unlabeled ECGs improved diagnostic accuracy in 11 of 12 cardiac prediction tasks compared with conventional training, including detection of myocardial ischemia and coronary microvascular dysfunction."
+lastUpdated: 2026-03-21
+tags: [ecg, foundation-model, self-supervised-learning, cardiac, ischemia, coronary-disease, transformer]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Moody et al. developed a modified vision transformer pretrained using self-supervised learning (SSL) on 800,035 unlabeled ECG waveforms from MIMIC-IV-ECG. The model was then fine-tuned on smaller labeled databases, including high-quality labels from PET imaging (N=3,126) and clinical reports (N=13,704), for 12 clinical, demographic, and ECG prediction tasks. Performance was evaluated across five additional cohorts including the publicly available PTB-XL and UK Biobank databases, with cross-modality validation against cardiac MRI and SPECT.
+
+---
+
+## Key Findings
+
+- AUROC ranged from **0.763** (impaired myocardial flow reserve, MFR&lt;2) to **0.955** (impaired LVEF&lt;35%) across tasks
+- SSL pretraining **improved diagnostic accuracy in 11 of 12 prediction tasks** compared with conventional supervised training from scratch
+- Strong cross-database generalizability: AUROC ranged from **0.771 for impaired MFR to 0.949 for impaired LVEF** across five validation cohorts
+- The model can detect **myocardial ischemia and coronary microvascular dysfunction** from a standard 12-lead ECG, conditions that typically require expensive PET imaging
+- Foundation model approach enables effective learning from **limited labeled data** for complex diagnostic tasks
+
+<Callout type="evidence">
+  The ability to detect coronary microvascular dysfunction from a routine ECG is potentially transformative. PET MPI costs thousands of dollars and is unavailable in most settings. If an ECG can reliably screen for these conditions, it could change how chest pain is evaluated.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **ECG as a gateway diagnostic.** Nearly 14 million chest pain encounters happen annually in the US. If a standard ECG could screen for conditions that currently require PET, SPECT, or cardiac MRI, the diagnostic pathway could be dramatically shortened and cheapened.
+
+2. **Self-supervised pretraining is the key innovation.** The model learned useful representations from 800,000 unlabeled ECGs, then needed only 3,126 PET-labeled examples to learn ischemia detection. This "pretrain broadly, fine-tune narrowly" approach unlocks diagnostic tasks where labeled data is scarce.
+
+3. **Cross-modality validation builds confidence.** The model maintained performance when validated against cardiac MRI and SPECT labels, not just the PET data it was trained on. This suggests it's learning genuine cardiac physiology rather than artifacts of one modality.
+
+<Callout type="pitfall">
+  The 0.763 AUROC for myocardial flow reserve detection, while promising, is not yet sufficient for clinical screening. A substantial number of patients with coronary microvascular dysfunction would be missed. This is a screening aid, not a diagnostic replacement.
+</Callout>
+
+---
+
+## My Takeaway
+
+Foundation models have transformed NLP and computer vision, and this paper makes the case that they should transform clinical time-series data too. The self-supervised pretraining on unlabeled ECGs (the most abundant medical signal in the world) creates a versatile base model that can be fine-tuned for diverse cardiac tasks with minimal labeled data. The clinical promise of detecting ischemia and microvascular dysfunction from a $20 ECG instead of a $3,000 PET scan is enormous. The performance isn't quite there yet for standalone diagnosis, but as a screening tool to determine who needs advanced imaging, this could change practice.
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2500164)

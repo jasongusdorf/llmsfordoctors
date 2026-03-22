@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ComparisonTable from '../../components/ComparisonTable.tsx';
+
+const allTools = await getCollection('tools');
+
+const toolsData = allTools.map((t) => ({
+  name: t.data.title,
+  slug: t.id,
+  rating: t.data.rating,
+  hasBaa: t.data.hasBaa,
+  pricing: t.data.pricing,
+  verdict: t.data.verdict,
+  categories: t.data.categories,
+}));
+
+const allCategories = [...new Set(allTools.flatMap((t) => t.data.categories))].sort();
+---
+
+<BaseLayout
+  title="AI Tools for Clinicians - LLMs for Doctors"
+  description="Compare AI tools for clinical use. Filter by category, BAA availability, and rating."
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Tools' }]} />
+
+    <header class="mb-10">
+      <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mb-3">
+        AI Tools for Clinicians
+      </h1>
+      <p class="text-lg text-clinical-600 dark:text-clinical-400">
+        Compare AI tools for clinical practice. Filter by use case, check BAA availability, and read our in-depth reviews.
+      </p>
+    </header>
+
+    {toolsData.length === 0 ? (
+      <div class="text-center py-20 text-clinical-500 dark:text-clinical-400">
+        <p class="text-xl font-medium">Tool reviews coming soon.</p>
+        <p class="mt-2 text-sm">We're evaluating AI tools for clinical use. Check back soon.</p>
+      </div>
+    ) : (
+      <ComparisonTable tools={toolsData} categories={allCategories} client:load />
+    )}
+  </div>
+</BaseLayout>

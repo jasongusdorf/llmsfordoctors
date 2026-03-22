@@ -1,0 +1,102 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import RelatedContent from '../components/RelatedContent.astro';
+
+interface RelatedWorkflow {
+  title: string;
+  href: string;
+}
+
+interface Props {
+  title: string;
+  vendor: string;
+  rating: number;
+  verdict: string;
+  pricing: string;
+  hasBaa: boolean;
+  lastUpdated: Date;
+  relatedWorkflows?: RelatedWorkflow[];
+}
+
+const {
+  title,
+  vendor,
+  rating,
+  verdict,
+  pricing,
+  hasBaa,
+  lastUpdated,
+  relatedWorkflows = [],
+} = Astro.props;
+
+const formattedDate = lastUpdated.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const stars = Math.round(rating);
+const relatedItems = relatedWorkflows.map((wf) => ({
+  title: wf.title,
+  href: wf.href,
+  type: 'workflow' as const,
+}));
+---
+
+<BaseLayout title={`${title} Review - LLMs for Doctors`} description={verdict}>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Tools', href: '/tools' }, { label: title }]} />
+
+    <header class="mb-8">
+      <p class="text-sm font-medium text-clinical-500 dark:text-clinical-400 uppercase tracking-wide mb-1">
+        {vendor}
+      </p>
+
+      <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mb-4">
+        {title}
+      </h1>
+
+      <!-- Star rating -->
+      <div class="flex items-center gap-2 mb-4">
+        <span aria-label={`${rating} out of 5 stars`} class="text-xl">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <span class={i < stars ? 'text-amber-400' : 'text-clinical-200'}>★</span>
+          ))}
+        </span>
+        <span class="text-sm text-clinical-500">{rating.toFixed(1)}/5</span>
+      </div>
+
+      <!-- Pricing & BAA badges -->
+      <div class="flex flex-wrap gap-3 mb-4">
+        <span class="px-3 py-1 rounded-full text-sm bg-clinical-100 text-clinical-700 dark:bg-clinical-700 dark:text-clinical-200">
+          {pricing}
+        </span>
+        <span
+          class={`px-3 py-1 rounded-full text-sm font-semibold ${
+            hasBaa
+              ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300'
+              : 'bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-300'
+          }`}
+        >
+          BAA: {hasBaa ? 'Available' : 'Not Available'}
+        </span>
+      </div>
+
+      <!-- Verdict -->
+      <blockquote class="border-l-4 border-blue-400 pl-4 italic text-clinical-700 dark:text-clinical-300 text-lg">
+        {verdict}
+      </blockquote>
+
+      <p class="mt-4 text-xs text-clinical-400">
+        Last updated: <time datetime={lastUpdated.toISOString()}>{formattedDate}</time>
+      </p>
+    </header>
+
+    <article class="prose prose-clinical dark:prose-invert max-w-none">
+      <slot />
+    </article>
+
+    {relatedItems.length > 0 && <RelatedContent items={relatedItems} />}
+  </div>
+</BaseLayout>

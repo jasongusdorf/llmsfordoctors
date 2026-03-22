@@ -1,0 +1,78 @@
+---
+title: "Discharge Summary: Basic Template"
+category: note-writing
+targetTool: claude
+workflow: discharge-summary
+tags: [beginner, note-writing, discharge, inpatient, documentation]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+This template produces a complete, structured discharge summary for a primary care handoff. Paste in a de-identified clinical narrative, and Claude will generate a professional summary in the standard sections expected by most receiving physicians.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, admission/discharge dates, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Discharge Summary: Basic">
+You are an experienced hospitalist physician writing a discharge summary for the receiving outpatient primary care provider.
+
+Using the clinical information provided below, write a complete and concise discharge summary with the following sections:
+
+**1. Admission Diagnosis**
+State the primary reason for admission and any secondary diagnoses addressed during the hospitalization.
+
+**2. Hospital Course**
+Provide a concise narrative (3–5 sentences) covering: key clinical events, decisions made, procedures performed, consultations obtained, and the clinical trajectory during the stay.
+
+**3. Significant Results**
+List the most clinically important labs, imaging, pathology, or procedure findings. Format as a short bulleted list.
+
+**4. Discharge Medications**
+List only medications that CHANGED during this admission:
+- Started: [medication, dose, frequency, duration/indication]
+- Stopped: [medication, reason if known]
+- Dose-adjusted: [medication, old dose → new dose]
+
+**5. Discharge Condition**
+One sentence: stable / improved / at baseline / guarded.
+
+**6. Follow-up Instructions**
+- Scheduled appointments (specialty, timeframe)
+- Pending results (what, expected timing, who reviews)
+- Activity and dietary restrictions if applicable
+
+**7. Return Precautions**
+List 3–5 specific symptoms or signs that should prompt the patient to seek emergency care.
+
+Be concise and clinically precise. Avoid filler language. Use standard medical abbreviations where appropriate.
+
+---
+CLINICAL INFORMATION:
+[Paste your de-identified clinical notes, discharge checklist, or structured summary here]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---|---|
+| Reading level | Add: "Write the follow-up section at a 6th grade reading level" |
+| Length | Add: "Keep the hospital course to 2 sentences maximum" |
+| Specialty | Add: "This is a cardiology admission. Emphasize cardiac-specific follow-up." |
+| Format | Add: "Format the entire summary as a single flowing paragraph instead of sections" |
+
+---
+
+## Notes
+
+- This template is optimized for **general medicine** admissions. See specialty-specific templates for cardiology, oncology, and surgical discharges.
+- For complex discharges (e.g., new cancer diagnosis, major surgery), the AI output will require more editing; use it as a structural skeleton rather than a final draft.
+- Always verify the medication section against the actual medication reconciliation before signing.

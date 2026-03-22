@@ -1,0 +1,95 @@
+---
+title: "Lifestyle Modification Plan"
+category: patient-education
+targetTool: any
+workflow: outpatient-visit-education
+tags: [patient-education, lifestyle, diet, exercise, behavioral-health]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+This template takes a condition, the patient's current habits, and clinical goals and produces an actionable, personalized lifestyle modification plan. The output includes specific diet, exercise, and behavioral recommendations, not generic "eat healthy and exercise" advice.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, and any other direct identifiers.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Any LLM" title="Lifestyle Modification Plan">
+You are a physician creating a personalized lifestyle modification plan for a patient. The patient has no medical background. Write at a 6th grade reading level using short sentences and simple words.
+
+Be specific and actionable, not vague. Instead of "eat a healthy diet," say "eat 2 servings of vegetables at lunch and dinner." Instead of "exercise more," say "walk for 20 minutes after dinner, 5 days a week."
+
+Avoid medical jargon. If a medical term is unavoidable, define it in parentheses. Use bullet points for action items.
+
+Using the clinical information provided below, create a lifestyle modification plan with the following sections:
+
+**1. Why These Changes Matter**
+Explain in 2–3 simple sentences how these lifestyle changes will help the patient's specific condition. Connect the changes to outcomes the patient cares about (feeling better, avoiding medication, preventing hospitalization).
+
+**2. Diet**
+Provide specific, actionable dietary recommendations:
+- Foods to eat more of (with examples and serving sizes)
+- Foods to eat less of or avoid (with specific examples)
+- Meal timing or frequency guidance if relevant
+- A sample day of meals (breakfast, lunch, dinner, snacks)
+- Practical tips (meal prep, grocery shopping, eating out)
+
+**3. Exercise**
+Provide specific, actionable exercise recommendations:
+- Type of exercise (walking, swimming, strength training, etc.)
+- How often (days per week)
+- How long (minutes per session)
+- How hard (use simple descriptions: "you should be able to talk but not sing")
+- A beginner starting point if the patient is currently sedentary
+- Safety considerations or restrictions
+
+**4. Other Changes**
+Address other relevant behavioral modifications:
+- Sleep (specific habits, target hours)
+- Stress management (specific techniques, not just "reduce stress")
+- Smoking or alcohol cessation if applicable (specific first steps)
+- Weight management goals if applicable (realistic, time-bound)
+
+**5. Your Weekly Starter Plan**
+Create a simple Monday-through-Sunday starter plan that incorporates the above recommendations. Keep it realistic: small changes that build over time. Format as a table.
+
+**6. How to Track Your Progress**
+- What to measure or track (weight, blood pressure, blood sugar, symptoms, exercise minutes)
+- How often to check
+- A simple tracking method (app, notebook, calendar)
+
+**7. When to Check In With Your Doctor**
+- When the next follow-up should be
+- What progress to report
+- When to call sooner (if symptoms worsen or new symptoms appear)
+
+---
+CLINICAL INFORMATION:
+[Paste the diagnosis, current lifestyle habits, clinical goals (e.g., target blood pressure, A1c goal), current medications, and any exercise restrictions here]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---|---|
+| Diabetes | Add: "Focus on carbohydrate counting and blood sugar monitoring. Include a carb-counting guide." |
+| Heart failure | Add: "Include fluid restriction and daily weight monitoring. Emphasize sodium limits with specific gram targets." |
+| Obesity | Add: "Focus on sustainable caloric deficit. Avoid language about dieting; frame as long-term habits." |
+| Elderly | Add: "Account for mobility limitations. Focus on fall prevention and balance exercises." |
+| Budget constraints | Add: "The patient has limited food budget. Recommend affordable, accessible foods." |
+
+---
+
+## Notes
+
+- The quality of the output depends heavily on the specificity of the input. Include current habits, not just the diagnosis: "patient currently eats fast food 5x/week and does not exercise" produces a much better plan than "patient has hypertension."
+- AI-generated diet plans should be reviewed for safety, especially for patients with diabetes, kidney disease, food allergies, or eating disorders.
+- This template pairs well with the **Follow-Up Visit Prep** template to help the patient track and report their progress.

@@ -1,0 +1,75 @@
+---
+title: "Clinical Risk Stratification"
+category: clinical-reasoning
+targetTool: claude
+workflow: risk-stratification
+tags: [advanced, clinical-reasoning, risk-assessment, decision-support]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+Applies validated clinical scoring tools to a patient presentation to support risk stratification and disposition decisions. Provide the clinical data and specify which scoring tools to apply.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+<Callout type="evidence">
+  Risk scores are decision-support tools, not decision-making tools. They are validated at the population level and may not apply to every individual patient. Clinical judgment always supersedes a calculated score.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Claude" title="Clinical Risk Stratification">
+You are an experienced clinician applying validated risk stratification tools to a clinical presentation.
+
+Given the clinical data below, calculate and interpret the requested scoring tools:
+
+For each score:
+
+**[Score Name]**
+- Show each component criterion and whether it is met (with the point value)
+- **Total Score:** [X] points
+- **Risk Category:** [Low / Intermediate / High]
+- **Interpretation:** What this score means clinically (expected event rate, recommended disposition, guideline-based next step)
+- **Caveat:** Any population in which this score is not validated or should be used with caution
+
+**Comparison & Synthesis**
+If multiple scores are calculated, compare the risk stratifications and note any discordance. Recommend which score is most applicable to this clinical scenario and why.
+
+Do not fabricate score criteria, cutoff values, or validation data. Use the published scoring criteria. If a required data point for a score is missing, note it and calculate the range of possible scores.
+
+---
+CLINICAL DATA:
+Age/Sex: [AGE AND SEX]
+Presentation: [CHIEF COMPLAINT AND KEY FINDINGS]
+Vitals: [HEART RATE, BP, RR, O2 SAT, TEMP]
+Labs: [RELEVANT LAB VALUES]
+History: [RELEVANT PAST HISTORY AND RISK FACTORS]
+
+SCORES TO CALCULATE:
+[List the specific scoring tools, e.g., HEART score, Wells criteria for PE, CHA₂DS₂-VASc, CURB-65, MELD, Child-Pugh, qSOFA, NEWS2, PERC, Ottawa ankle rules]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---------|---------------|
+| Score selection | Add: "Only calculate [SPECIFIC SCORE]" or "Recommend the most appropriate score for this presentation" |
+| Population | Add: "This is a [pediatric/geriatric/pregnant] patient; note any validation limitations" |
+| Serial scoring | Add: "Here are prior scores/data from [DATE]: [DATA]. Compare trend." |
+| Disposition | Add: "I need to make a disposition decision; emphasize score-based disposition recommendations" |
+
+---
+
+## Notes
+
+- Common scoring tools this works well with: HEART, Wells (PE and DVT), CHA₂DS₂-VASc, HAS-BLED, CURB-65, qSOFA, NEWS2, MELD, Child-Pugh, PERC, Glasgow-Blatchford, ABCD², CRB-65, APACHE II.
+- If you're unsure which score to use, paste the clinical scenario and ask: "What validated risk scores apply to this presentation?"
+- For serial assessments, paste both time points and ask for trend comparison.

@@ -1,0 +1,54 @@
+---
+title: "From Advice to Action: AI Symptom Assessment Changes Real-World Patient Care Pathways"
+journal: "NEJM AI"
+year: 2026
+doi: "10.1056/AIoa2500833"
+keyFinding: "AI-powered symptom assessment changed 59.1% of patients' care pathways, increased appropriate care from 29.8% to 64.4%, and 38.5% of planned ED visits were redirected to lower-acuity care."
+lastUpdated: 2026-03-21
+tags: [symptom-assessment, triage, patient-behavior, digital-health, emergency-department, primary-care]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+The ESSENCE study was a prospective real-world evaluation embedded in Portugal's largest private health care network (CUF). 1,470 adults used the Ada Health diagnostic decision support system through the myCUF app, reporting their care intent before and after symptom assessment. Actual behavior was tracked through EHR encounters within 14 days and follow-up surveys. A panel of three senior physicians, blinded to the AI recommendations, retrospectively assessed the appropriateness of both intended and observed care. This is one of the first studies to track the full pathway: stated intent, AI recommendation, actual behavior, and clinical appropriateness.
+
+---
+
+## Key Findings
+
+- **33.0% revised their planned care level** immediately after AI assessment
+- Patient uncertainty decreased from **12.6% to 5.0%** (P&lt;0.001)
+- Among 721 participants with observed behavior, **59.1% changed their care pathway**: 28.9% de-escalated, 17.2% escalated, 13.0% resolved prior uncertainty
+- Primary care consultations **increased from 16.3% to 42.1%** (P&lt;0.001); specialist visits **decreased from 49.7% to 29.8%** (P&lt;0.001)
+- Appropriate care increased from **29.8% pre-assessment to 64.4% post-behavior** (P&lt;0.001)
+- Of 96 patients who planned an ED visit, **38.5% selected lower-acuity care** after assessment; 93% of those were judged to have appropriately avoided unnecessary ED visits
+
+<Callout type="evidence">
+  This is the most complete evidence to date that AI symptom assessment doesn't just generate accurate recommendations; it actually changes real-world patient behavior in clinically appropriate directions. The increase in appropriate care from 29.8% to 64.4% is a meaningful system-level improvement.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Behavior change, not just accuracy.** Most AI triage studies stop at recommendation quality. This study follows through to actual patient behavior, and shows that patients do change course when given structured guidance.
+
+2. **Shifting to primary care is the right move.** The dramatic increase in primary care utilization (16.3% to 42.1%) and decrease in specialist visits suggests the tool is correcting a common pattern: patients bypassing primary care to self-refer to specialists.
+
+3. **ED diversion is safe and substantial.** 38.5% of planned ED visits were redirected, and 93% of those redirections were judged appropriate by blinded physicians. This has significant cost and capacity implications.
+
+<Callout type="pitfall">
+  This was conducted in a single private health care network in Portugal. The patient population (mean age 38.5, digitally engaged, privately insured) may not represent populations with lower health literacy, older patients, or public health systems with different care access patterns.
+</Callout>
+
+4. **Only 29.8% of care was appropriate before the assessment.** This baseline is strikingly low and highlights how poorly patients self-triage without support. It also means the AI had a lot of room for improvement; effect sizes may be smaller in populations with better baseline health literacy.
+
+---
+
+## My Takeaway
+
+This study answers the question that has dogged digital triage tools: "Do patients actually follow the advice?" The answer is yes: a majority change their behavior, and those changes are overwhelmingly appropriate. The shift from specialist-heavy to primary-care-first pathways is exactly what health systems need. The ED diversion numbers alone could justify deployment costs. The main limitation is generalizability; this population is younger, more digitally literate, and more engaged than the average patient. The next step is replication in public health systems and older populations.
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2500833)

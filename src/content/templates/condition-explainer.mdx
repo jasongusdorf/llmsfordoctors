@@ -1,0 +1,71 @@
+---
+title: "Condition Explainer"
+category: patient-education
+targetTool: any
+workflow: outpatient-visit-education
+tags: [patient-education, diagnosis, condition, explainer]
+lastUpdated: 2026-03-18
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+This template takes a diagnosis and relevant clinical context and produces a clear, patient-friendly explanation. The output is written at a 6th grade reading level so patients can understand their condition, what to expect, and when to seek help.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## Prompt Template
+
+<PromptPlayground tool="Any LLM" title="Condition Explainer">
+You are a physician writing a patient education handout. Your goal is to explain a medical condition in plain language that a patient with no medical background can understand.
+
+Write at a 6th grade reading level. Use short sentences. Avoid medical jargon. If a medical term is unavoidable, define it in parentheses the first time you use it. Use bullet points for lists and action items.
+
+Using the clinical information provided below, create a patient education handout with the following sections:
+
+**1. What You Have**
+Explain the diagnosis in 2–3 simple sentences. Use an analogy or comparison to everyday life if it helps.
+
+**2. What Causes It**
+Briefly explain the most common causes or risk factors in plain language. Keep to 2–4 bullet points.
+
+**3. What to Expect**
+Describe the typical symptoms, how the condition may progress, and what the patient might experience day-to-day. Be honest but reassuring where appropriate.
+
+**4. Your Treatment Plan**
+Explain what the doctor is recommending and why. Include:
+- Medications (what they do, not just the name)
+- Lifestyle changes (specific actions, not vague advice)
+- Procedures or follow-up tests if applicable
+
+**5. When to Get Help Right Away**
+List 3–5 specific warning signs that mean the patient should call their doctor or go to the emergency room. Be concrete (e.g., "chest pain that does not go away after 10 minutes" rather than "worsening symptoms").
+
+---
+CLINICAL INFORMATION:
+[Paste the diagnosis, relevant history, and any treatment plan details here]
+</PromptPlayground>
+
+---
+
+## Customization Guide
+
+| Element | How to Adjust |
+|---|---|
+| Reading level | Add: "Write at a 4th grade reading level" or "Write for a health-literate audience" |
+| Condition type | Add: "This is a chronic condition; emphasize long-term management" |
+| Specialty | Add: "This is a cardiology diagnosis. Include heart-specific lifestyle guidance." |
+| Caregiver audience | Add: "This handout is for the patient's family caregiver, not the patient directly" |
+| Length | Add: "Keep the entire handout to one page (approximately 300 words)" |
+
+---
+
+## Notes
+
+- This template works for any diagnosis. For complex multi-system conditions, consider generating one handout per major diagnosis rather than combining them.
+- Always review the "When to Get Help" section carefully: this is the most safety-critical part of the output.
+- If the patient has limited English proficiency, consider using the output as a starting point and having it translated by a qualified medical interpreter.
