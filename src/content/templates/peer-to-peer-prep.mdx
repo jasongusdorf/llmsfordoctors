@@ -4,13 +4,17 @@ category: admin-billing
 targetTool: claude
 workflow: peer-to-peer
 tags: [intermediate, admin-billing, peer-to-peer, insurance, utilization-review]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-03-22
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
 
-Prepares talking points and a structured argument for a peer-to-peer phone call with an insurance reviewer. Provide the denied service, denial reason, and clinical case, and get a concise set of talking points organized for a 5–10 minute phone call.
+## When to use this
+
+Use this template when you have a scheduled or anticipated peer-to-peer phone call with an insurance medical director to argue for authorization of a denied service.
+
+Prepares talking points and a structured argument for a peer-to-peer phone call with an insurance reviewer. Provide the denied service, denial reason, and clinical case, and get a concise set of talking points organized for a 5-10 minute phone call.
 
 <Callout type="hipaa">
   De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, insurance ID, provider names, and any other direct identifiers.
@@ -18,12 +22,12 @@ Prepares talking points and a structured argument for a peer-to-peer phone call 
 
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Claude" title="Peer-to-Peer Review Preparation">
 You are a physician preparing for a peer-to-peer review call with an insurance medical director.
 
-Using the case details below, prepare a structured set of talking points for a 5–10 minute phone call:
+Using the case details below, prepare a structured set of talking points for a 5-10 minute phone call:
 
 **Opening (30 seconds)**
 - Introduce yourself: specialty and role
@@ -76,7 +80,7 @@ Relevant Guidelines: [ANY GUIDELINES THAT SUPPORT YOUR CASE]
 
 ---
 
-## Customization Guide
+## How to customize
 
 | Element | How to Adjust |
 |---------|---------------|
@@ -87,8 +91,186 @@ Relevant Guidelines: [ANY GUIDELINES THAT SUPPORT YOUR CASE]
 
 ---
 
-## Notes
+## Variations
 
-- Print the talking points and keep them in front of you during the call. The structure prevents rambling.
-- Document the date, time, reviewer name, and outcome of every P2P call in the chart.
-- If the reviewer is not in your specialty, be prepared to explain specialty-specific reasoning in general terms.
+### Insurance peer-to-peer for medication denial
+
+<PromptPlayground tool="Claude" title="Peer-to-Peer Prep – Medication Denial">
+You are a physician preparing for a peer-to-peer call specifically about a medication denial.
+
+Prepare structured talking points for a 5-10 minute call:
+
+**Opening**
+Introduce yourself, state the denied medication and denial reference number.
+
+**The 60-Second Pitch**
+In plain language: what the drug is, why this patient needs it, and why the alternatives won't work. Practice this as your elevator pitch -- if you only get one minute, this is what you say.
+
+**Step Therapy Defense**
+For each prior medication tried, prepare:
+- Drug name, dose, duration of adequate trial
+- Specific reason for failure (with objective data: lab values, scores, adverse event details)
+- Why this was a true adequate trial (not subtherapeutic dose, not insufficient duration)
+
+**Why Not the Formulary Alternative?**
+For each alternative the reviewer might suggest:
+- Why it is clinically inappropriate for THIS patient (drug interactions, comorbidities, contraindications, prior failure)
+- If the patient hasn't tried it, why it should be skipped (clinical rationale)
+
+**Guideline Support**
+Name the specific guideline, organization, and year that supports your choice. Be ready to quote the relevant recommendation.
+
+**Anticipated Questions**
+- "Has the patient tried [FORMULARY DRUG]?" -- Your answer
+- "What's the dose and duration of the prior trial?" -- Your exact numbers
+- "Is there a less costly alternative?" -- Your clinical rationale
+
+**Key Numbers**
+List every lab value, score, date, dose, and duration you might be asked about.
+
+---
+CASE DETAILS:
+Denied Medication: [DRUG NAME, DOSE, FREQUENCY]
+Denial Reason: [STATED REASON]
+Step Therapy History: [EACH PRIOR DRUG WITH DOSE, DURATION, AND OUTCOME]
+Formulary Alternatives: [WHAT THE INSURER WANTS YOU TO USE INSTEAD]
+Clinical Summary: [RELEVANT CLINICAL DATA]
+Guidelines: [SUPPORTING GUIDELINES]
+</PromptPlayground>
+
+### Utilization review defense (inpatient)
+
+<PromptPlayground tool="Claude" title="Peer-to-Peer Prep – Utilization Review Defense">
+You are a physician preparing for a utilization review call to defend inpatient admission or continued stay.
+
+Prepare structured talking points:
+
+**Opening**
+State your name, role, the patient's admission date, and that you are calling to discuss medical necessity for [admission / continued inpatient stay].
+
+**Why Inpatient, Not Observation or Outpatient**
+Address the InterQual or Milliman criteria directly:
+- What clinical parameters place this patient at inpatient level of care
+- What active interventions require inpatient monitoring (IV medications, telemetry, frequent reassessment)
+- Why outpatient management or observation status would be unsafe
+
+**Clinical Trajectory**
+- Current clinical status (vital signs, labs from today)
+- What has changed since admission
+- What is still being actively managed
+- What needs to happen before safe discharge
+
+**Discharge Barriers**
+If the reviewer pushes for discharge, be prepared to explain:
+- Outstanding test results that will change management
+- Clinical instability markers
+- Safety concerns with early discharge (fall risk, social situation, medication management)
+- Pending consults that are necessary before discharge
+
+**Anticipated Pushback**
+- "The patient seems stable for discharge" -- Your response with specific clinical data
+- "Could this be done as observation?" -- Why inpatient criteria are met
+- "What's the expected discharge date?" -- Your realistic timeline
+
+**Key Numbers**
+Vital signs, WBC trend, relevant labs, intake/output, pain scores, oxygen requirements -- anything you might be asked.
+
+---
+CASE DETAILS:
+Admission Date: [DATE]
+Admitting Diagnosis: [DIAGNOSIS]
+Current Clinical Status: [TODAY'S VITALS, LABS, CLINICAL PICTURE]
+Active Treatments: [IV MEDS, MONITORING, INTERVENTIONS]
+Discharge Barriers: [WHAT NEEDS TO HAPPEN BEFORE DISCHARGE]
+Denial/Review Reason: [WHAT UR IS QUESTIONING]
+</PromptPlayground>
+
+### Step therapy exception request
+
+<PromptPlayground tool="Claude" title="Peer-to-Peer Prep – Step Therapy Exception">
+You are a physician preparing for a peer-to-peer call to request a step therapy exception.
+
+Prepare structured talking points:
+
+**Opening**
+State that you are requesting a step therapy exception under [applicable state step therapy reform law if your state has one] for [MEDICATION/SERVICE].
+
+**Legal Framework (if applicable)**
+Many states have step therapy reform laws that require insurers to grant exceptions when:
+- The required step therapy drug is contraindicated
+- The patient previously failed the step therapy drug under another plan
+- The step therapy drug is expected to be ineffective based on the patient's clinical characteristics
+- The step therapy requirement would cause irreversible harm due to delay
+State which exception category applies.
+
+**Clinical Rationale**
+- Why the required step therapy drug is inappropriate for this patient
+- Specific clinical factors (comorbidities, drug interactions, organ function, prior adverse reactions) that make the exception warranted
+- If the patient failed the step therapy drug under a prior plan, provide details
+
+**What You're Asking For**
+State the specific medication/service you want authorized and the clinical basis.
+
+**Anticipated Pushback**
+- "The patient hasn't tried [STEP THERAPY DRUG] on THIS plan" -- Your response
+- "Can you try it at a different dose?" -- Your clinical rationale
+- "The protocol requires X weeks" -- Why waiting would be harmful
+
+---
+CASE DETAILS:
+Requested Service: [WHAT YOU WANT AUTHORIZED]
+Required Step Therapy: [WHAT THE INSURER WANTS TRIED FIRST]
+Exception Reason: [CONTRAINDICATION / PRIOR FAILURE / EXPECTED INEFFICACY / HARM FROM DELAY]
+Clinical Details: [SUPPORTING CLINICAL INFORMATION]
+State Law (if applicable): [STATE STEP THERAPY REFORM STATUTE]
+</PromptPlayground>
+
+---
+
+## Example output
+
+> **Peer-to-Peer Talking Points: Denial of Cardiac MRI**
+> Denial Reference: UR-2026-77432
+>
+> **Opening**
+> "Good morning, I'm Dr. [NAME], a cardiologist at [INSTITUTION]. I'm calling regarding the denial of a cardiac MRI with gadolinium for my patient, reference number UR-2026-77432."
+>
+> **The Ask**
+> "I'm requesting authorization for a cardiac MRI to evaluate suspected cardiac sarcoidosis. This patient has new heart block and ventricular arrhythmia, and echocardiography alone cannot rule out infiltrative disease."
+>
+> **Clinical Summary (keep to 2 minutes)**
+> "This is a 45-year-old patient who presented 3 weeks ago with new complete heart block requiring temporary pacing, now with a permanent pacemaker. During the admission, telemetry captured runs of non-sustained ventricular tachycardia. Echo shows preserved EF at 50% but there is unexplained mild LV wall thickening. The patient also has bilateral hilar lymphadenopathy on chest CT. The combination of conduction disease, ventricular arrhythmia, and hilar adenopathy in a middle-aged patient raises high concern for cardiac sarcoidosis."
+>
+> **Rebuttal of Denial Reason**
+> The denial states that echocardiography is sufficient for evaluation. I respectfully disagree:
+> - Echo cannot detect myocardial inflammation or fibrosis, which are the hallmarks of cardiac sarcoidosis
+> - The 2014 Heart Rhythm Society expert consensus statement specifically recommends cardiac MRI with late gadolinium enhancement as a first-line diagnostic tool for suspected cardiac sarcoidosis
+> - Echo was already performed and is insufficient to make or exclude this diagnosis
+>
+> **Three Strongest Arguments**
+> 1. This patient has three independent findings (heart block, VT, hilar adenopathy) that together create a high pre-test probability for cardiac sarcoidosis -- a diagnosis that requires immunosuppression and has a mortality risk if untreated
+> 2. The HRS 2014 guidelines and the 2023 AHA/ACC/HRS guideline for ventricular arrhythmia management both recommend cardiac MRI for this clinical scenario
+> 3. If sarcoidosis is confirmed, the patient will need ICD evaluation and immunosuppressive therapy -- delaying diagnosis delays life-saving treatment
+>
+> **Anticipated Pushback**
+> - "Can you do a PET scan instead?" -- Cardiac MRI should be first-line; PET is complementary but does not replace MRI for tissue characterization. The patient has a pacemaker that is MRI-conditional, so MRI is feasible.
+> - "Is this truly urgent?" -- The patient has documented VT. Undiagnosed cardiac sarcoidosis with active arrhythmia carries a risk of sudden death. Yes, this is time-sensitive.
+>
+> **Key Numbers**
+> - EF: 50%, LV wall thickness: 13 mm (mildly increased)
+> - NSVT: 8-beat run at 180 bpm on telemetry
+> - ESR: 42, ACE level: 78 (elevated)
+> - Chest CT: bilateral hilar and mediastinal lymphadenopathy
+
+---
+
+## Tips & pitfalls
+
+- Print the talking points and keep them in front of you during the call. The structure prevents rambling and keeps you within the time window.
+- Document the date, time, reviewer name (and their specialty), and outcome of every peer-to-peer call in the chart. This documentation is critical if you escalate to external review.
+- If the reviewer is not in your specialty, be prepared to explain specialty-specific reasoning in general terms. Avoid jargon that a non-specialist reviewer won't know.
+- Insurance reviewers are often using InterQual or Milliman criteria. If you can, find out which criteria set the plan uses and familiarize yourself with the specific criteria for your service before the call.
+- Lead with your strongest argument, not a chronological history. Peer-to-peer calls often get cut short -- make sure your best point lands first.
+- If the reviewer offers a compromise (e.g., approving a different test or a shorter stay), consider whether it's clinically acceptable before agreeing on the call. You can always say "I need to review the patient's chart before I can agree to that."
+- Know your rights: in most states, you can request that the peer reviewer be in the same or a related specialty. If a general internist is reviewing your neurosurgery case, you can request a more appropriate reviewer.
+- If the call is unsuccessful, ask for the denial to be issued in writing with the specific clinical rationale, the reviewer's name and credentials, and the criteria used. This information is required for external appeal.

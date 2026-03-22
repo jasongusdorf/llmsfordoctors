@@ -4,11 +4,15 @@ category: admin-billing
 targetTool: claude
 workflow: prior-authorization
 tags: [beginner, admin-billing, prior-auth, insurance, documentation]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-03-22
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when you need to submit a letter of medical necessity to an insurance company to obtain prior authorization for a medication, procedure, imaging study, or equipment.
 
 Generates a medical necessity letter for prior authorization requests. Provide the patient's clinical information, the requested service, and the insurer's requirements, and get a professional letter citing clinical criteria and evidence. One of the most time-consuming physician tasks, this template helps draft it in minutes.
 
@@ -22,7 +26,7 @@ Generates a medical necessity letter for prior authorization requests. Provide t
 
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Claude" title="Prior Authorization Letter">
 You are a physician writing a letter of medical necessity to support a prior authorization request.
@@ -77,7 +81,7 @@ Insurer Coverage Criteria (if available): [PASTE RELEVANT POLICY LANGUAGE]
 
 ---
 
-## Customization Guide
+## How to customize
 
 | Element | How to Adjust |
 |---------|---------------|
@@ -88,8 +92,131 @@ Insurer Coverage Criteria (if available): [PASTE RELEVANT POLICY LANGUAGE]
 
 ---
 
-## Notes
+## Variations
+
+### Medication prior authorization
+
+<PromptPlayground tool="Claude" title="Medication Prior Authorization">
+You are a physician writing a letter of medical necessity for a medication prior authorization.
+
+Write a formal letter that:
+
+1. Identifies the requested medication by name, dose, route, and frequency
+2. States the diagnosis and ICD-10 code
+3. Documents complete step therapy history: each medication tried, dose, duration of adequate trial, and specific reason for failure (lack of efficacy with objective measures, adverse effects with details, contraindication with rationale)
+4. Explains pharmacologic rationale for why this specific medication is needed over formulary alternatives (mechanism of action, drug interactions, comorbidity considerations)
+5. Cites current clinical practice guidelines that recommend this medication for this indication (name the guideline, organization, and year)
+6. References the insurer's own formulary exception criteria if available and explains how the patient meets each criterion
+7. Includes relevant lab values, functional assessments, or clinical scores that support the request
+
+Tone: professional, evidence-based. Anticipate the reviewer's likely objection ("why not try X instead?") and address it proactively.
+
+---
+MEDICATION DETAILS:
+Requested Medication: [NAME, DOSE, ROUTE, FREQUENCY]
+Diagnosis: [DIAGNOSIS AND ICD-10 CODE]
+Duration of Condition: [TIMEFRAME]
+Step Therapy Completed: [LIST EACH PRIOR MEDICATION WITH DOSE, DURATION, AND OUTCOME]
+Why Alternatives Won't Work: [CLINICAL RATIONALE]
+Relevant Labs/Scores: [DATA]
+Insurer Formulary Criteria (if available): [PASTE POLICY LANGUAGE]
+</PromptPlayground>
+
+### Procedure / imaging prior authorization
+
+<PromptPlayground tool="Claude" title="Procedure or Imaging Prior Authorization">
+You are a physician writing a letter of medical necessity for prior authorization of a procedure or imaging study.
+
+Write a formal letter that:
+
+1. Identifies the requested procedure or imaging study with CPT code if known
+2. States the clinical indication and relevant diagnosis (with ICD-10 code)
+3. Documents the clinical workup completed to date and why it is insufficient to guide management without this study/procedure
+4. Explains why conservative management has been insufficient or is inappropriate (with specific details: duration of treatment, objective measures of failure)
+5. Describes the expected clinical impact: what clinical decision depends on this result, how it will change management
+6. Cites the relevant appropriateness criteria (ACR Appropriateness Criteria for imaging, society guidelines for procedures) by name and year
+7. Addresses urgency if applicable: what clinical risk exists from delaying this study/procedure
+8. References the insurer's medical policy for this procedure if available
+
+Tone: clinical and precise. Focus on the diagnostic or therapeutic gap that only this procedure/study can fill.
+
+---
+PROCEDURE/IMAGING DETAILS:
+Requested Study/Procedure: [NAME AND CPT CODE IF KNOWN]
+Clinical Indication: [DIAGNOSIS, ICD-10, AND CLINICAL QUESTION]
+Workup Completed: [PRIOR LABS, IMAGING, EVALUATIONS AND THEIR RESULTS]
+Conservative Management Tried: [TREATMENTS WITH DURATIONS AND OUTCOMES]
+Clinical Urgency: [ROUTINE / URGENT -- WITH RATIONALE IF URGENT]
+Insurer Medical Policy (if available): [PASTE RELEVANT CRITERIA]
+</PromptPlayground>
+
+### DME / equipment authorization
+
+<PromptPlayground tool="Claude" title="DME / Equipment Prior Authorization">
+You are a physician writing a letter of medical necessity for durable medical equipment (DME) or assistive device authorization.
+
+Write a formal letter that:
+
+1. Identifies the specific equipment requested (brand, model, HCPCS code if known)
+2. States the diagnosis requiring the equipment (with ICD-10 code)
+3. Documents the patient's current functional status using standardized measures (e.g., FIM scores, ADL assessment, mobility evaluation, pulmonary function tests for respiratory equipment)
+4. Explains why this specific equipment is needed over standard/less costly alternatives (clinical features of the patient that require the specific item)
+5. Documents any home assessment or fitting evaluation performed
+6. Includes a statement that the equipment is for use in the home setting (Medicare DME requirement)
+7. States the expected duration of need (rental vs. purchase rationale)
+8. Cites relevant coverage criteria (LCD/NCD for Medicare, or commercial policy criteria) and maps the patient's clinical data to each requirement
+
+Tone: systematic and documentation-heavy. DME denials are often based on missing specific documentation elements -- address every required data point explicitly.
+
+---
+DME DETAILS:
+Equipment Requested: [ITEM NAME, MODEL, HCPCS CODE]
+Diagnosis: [DIAGNOSIS AND ICD-10 CODE]
+Functional Status: [MOBILITY, ADL SCORES, RELEVANT ASSESSMENTS]
+Home Assessment: [COMPLETED? FINDINGS?]
+Duration of Need: [TEMPORARY / PERMANENT, RENTAL / PURCHASE]
+Why This Specific Item: [CLINICAL RATIONALE VS. STANDARD ALTERNATIVES]
+Coverage Criteria (if available): [PASTE LCD/NCD OR POLICY LANGUAGE]
+</PromptPlayground>
+
+---
+
+## Example output
+
+> **Re: Prior Authorization Request -- Adalimumab (Humira) 40 mg subcutaneous every 2 weeks**
+>
+> Dear Utilization Review Department,
+>
+> I am writing to request prior authorization for adalimumab (Humira) 40 mg subcutaneous injection every 2 weeks for my patient with moderate-to-severe rheumatoid arthritis (ICD-10: M05.79).
+>
+> **Clinical History**
+> This patient has a 3-year history of seropositive rheumatoid arthritis with progressive joint erosions documented on hand/wrist radiographs. Current disease activity: DAS28-CRP score of 5.1 (high disease activity), 8 swollen joints, 12 tender joints. Functional status has declined significantly, with the patient now unable to perform fine motor tasks required for their occupation.
+>
+> **Step Therapy Completed**
+> 1. Methotrexate 25 mg weekly (oral, then subcutaneous) -- 6-month adequate trial. Result: partial response (DAS28 decreased from 6.2 to 5.8) but persistent high disease activity. Currently maintained as combination therapy.
+> 2. Hydroxychloroquine 400 mg daily added to methotrexate -- 4-month trial. Result: no additional clinical improvement; DAS28 remained at 5.4.
+> 3. Sulfasalazine 2 g daily added as triple therapy -- 3-month trial. Result: discontinued due to hepatotoxicity (ALT elevated to 3x ULN).
+> 4. Leflunomide 20 mg daily -- contraindicated due to hepatotoxicity history with sulfasalazine.
+>
+> **Medical Necessity**
+> The patient has failed adequate trials of two conventional DMARDs and has a contraindication to a third. Per the 2021 American College of Rheumatology guidelines for rheumatoid arthritis, biologic DMARD therapy is recommended for patients with moderate-to-high disease activity despite adequate trial of conventional DMARD therapy. The ACR guideline conditionally recommends TNF inhibitors as first-line biologic therapy in this setting.
+>
+> Per your formulary, adalimumab is the preferred TNF inhibitor. The patient meets all coverage criteria: confirmed RA diagnosis, failure of methotrexate at adequate dose and duration, and continued moderate-to-high disease activity.
+>
+> I am available to discuss this case at [PHONE]. Thank you for your prompt review.
+>
+> Sincerely,
+> [PHYSICIAN SIGNATURE]
+
+---
+
+## Tips & pitfalls
 
 - Always verify citations and guideline references before sending, as AI may generate plausible-sounding but inaccurate citations.
 - Add the actual patient identifiers and your signature before submitting.
 - Save successful prior auth letters as templates for future patients with similar conditions.
+- Insurance reviewers check for specific documentation elements: exact dose and duration of prior medication trials, objective measures of treatment failure (not just "did not improve"), and specific guideline citations. Vague language is the top reason for denials.
+- If the insurer has published their coverage criteria (most do, often as medical policies on their website), download it and paste the relevant criteria into the prompt. Letters that mirror the insurer's own language back to them are substantially more effective.
+- For Medicare patients, reference the relevant Local Coverage Determination (LCD) or National Coverage Determination (NCD) rather than general guidelines.
+- Submit prior auth requests before the service whenever possible. Retroactive authorizations have much lower approval rates and some plans refuse them entirely.
+- Always confirm you're using the correct submission channel (fax, portal, phone) and include all required forms. Missing paperwork is a common cause of administrative (not clinical) denials.

@@ -4,11 +4,15 @@ category: admin-billing
 targetTool: claude
 workflow: mdm-coding
 tags: [advanced, admin-billing, mdm, coding, e-m, billing]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-03-22
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template after a clinical encounter when you need to organize your documentation to clearly support the medical decision-making complexity for E&M coding.
 
 Helps document medical decision-making (MDM) complexity to support E&M coding. Provide your clinical encounter details and get documentation organized by the three MDM elements: number and complexity of problems, data reviewed, and risk of management.
 
@@ -22,7 +26,7 @@ Helps document medical decision-making (MDM) complexity to support E&M coding. P
 
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Claude" title="Medical Decision-Making Documentation">
 You are a physician documentation specialist helping to structure medical decision-making for an encounter note.
@@ -79,8 +83,209 @@ Risk Factors: [RELEVANT RISKS]
 
 ---
 
-## Notes
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Setting | Add: "This is an [ED / inpatient / telehealth] encounter; use the appropriate E&M code range" |
+| Time-based billing | Add: "I spent [X] total minutes on this encounter. Document time-based billing elements instead of MDM." |
+| Resident involvement | Add: "A resident performed the initial evaluation. Document the attending's role per split/shared billing rules." |
+| Procedure same day | Add: "A procedure was also performed during this visit. Document the separately identifiable E&M with modifier -25 justification." |
+
+---
+
+## Variations
+
+### High-complexity ED visit
+
+<PromptPlayground tool="Claude" title="MDM – High-Complexity ED Visit">
+You are a physician documentation specialist helping structure MDM for a high-complexity emergency department encounter.
+
+Organize the documentation per 2021 CMS E&M guidelines, emphasizing elements that support high-complexity MDM (99285 or 99291 if critical care):
+
+**Element 1: Number and Complexity of Problems**
+For each problem addressed:
+- Problem name and status (acute, new, acute exacerbation of chronic condition)
+- Severity and threat to life or function
+- Diagnostic uncertainty: how many diagnoses are being considered, and which were ruled out during the encounter
+
+Document why the problems meet HIGH complexity: one or more acute or chronic illnesses that pose a threat to life or bodily function.
+
+**Element 2: Data Reviewed and Analyzed**
+Document extensively:
+- All tests ordered during this ED visit
+- Results reviewed during the encounter (labs, imaging, EKG)
+- Independent interpretation performed (e.g., personally reviewed CT images, interpreted EKG)
+- External records obtained and reviewed (EMS records, outside hospital records, pharmacy records)
+- Discussions with other physicians (consultants called, accepting physicians for transfer)
+
+Document why the data supports EXTENSIVE level.
+
+**Element 3: Risk**
+Document:
+- Risk of presenting problem(s): threat to life or bodily function
+- Risk of diagnostic procedures (contrast, sedation, invasive procedures)
+- Risk of management decisions (initiation of IV drugs, decision for emergent procedure, hospital admission)
+- Risk of NOT acting (what happens if the condition is untreated)
+
+Classify overall risk as HIGH.
+
+**Overall MDM**
+Map to E&M level: 99285 (high-complexity ED visit) or 99291 (critical care, if applicable). State the criteria that are met.
+
+If the encounter qualifies as critical care, document: total critical care time, nature of the life-threatening condition, and interventions requiring the provider's direct personal management.
+
+---
+ENCOUNTER DETAILS:
+Setting: Emergency Department
+Chief Complaint: [CC]
+Problems Addressed: [LIST WITH SEVERITY AND ACUITY]
+Tests Ordered and Results: [ALL LABS, IMAGING, PROCEDURES]
+Independent Interpretations: [IMAGING/TRACINGS YOU PERSONALLY REVIEWED]
+Consultations: [SPECIALISTS CONTACTED]
+Management Decisions: [MEDICATIONS, PROCEDURES, DISPOSITION]
+Risk Factors: [THREATS TO LIFE/FUNCTION]
+</PromptPlayground>
+
+### Moderate-complexity outpatient visit
+
+<PromptPlayground tool="Claude" title="MDM – Moderate-Complexity Outpatient Visit">
+You are a physician documentation specialist helping structure MDM for a moderate-complexity outpatient encounter.
+
+Organize the documentation per 2021 CMS E&M guidelines to support 99204 (new) or 99214 (established):
+
+**Element 1: Number and Complexity of Problems**
+For each problem addressed:
+- Problem name and status
+- Classify as: chronic stable condition (low), chronic worsening condition (moderate), new problem requiring workup (moderate), acute uncomplicated illness (low), acute illness with systemic symptoms (moderate)
+
+For moderate complexity: document at least one chronic illness with worsening, a new problem requiring additional workup, or two or more chronic stable conditions with medication management.
+
+**Element 2: Data Reviewed and Analyzed**
+Document:
+- Tests ordered (each category counts: labs, imaging, other)
+- Review of prior external records or test results
+- Ordering and reviewing of each unique test (each counts as a data point)
+- Any independent interpretation of tests
+
+For moderate complexity: document at least 3 data categories, OR ordering and reviewing a test, OR independent interpretation, OR discussion with external physician.
+
+**Element 3: Risk**
+Document:
+- Prescription drug management (moderate risk)
+- Decisions about minor surgery with identified risk factors
+- Decisions about elective major surgery with risk factor assessment
+- Diagnosis or treatment significantly limited by social determinants
+
+Classify risk as MODERATE.
+
+**Overall MDM and Code**
+Confirm 2 of 3 elements support moderate complexity. Map to 99204 (new) or 99214 (established).
+
+---
+ENCOUNTER DETAILS:
+Setting: Office/Outpatient
+Visit Type: [New / Established]
+Problems Addressed: [LIST WITH STATUS]
+Tests Ordered: [LIST]
+Data Reviewed: [PRIOR RESULTS, EXTERNAL RECORDS]
+Management Decisions: [MEDICATIONS CHANGED, REFERRALS, COUNSELING]
+Risk Factors: [PRESCRIPTION MANAGEMENT, PROCEDURE RISKS, SDOH]
+</PromptPlayground>
+
+### Inpatient daily MDM
+
+<PromptPlayground tool="Claude" title="MDM – Inpatient Subsequent Care">
+You are a physician documentation specialist helping structure MDM for a subsequent inpatient encounter (daily rounding note).
+
+Organize the documentation per 2021 CMS E&M guidelines to support 99231, 99232, or 99233:
+
+**Element 1: Number and Complexity of Problems**
+For each active problem being managed today:
+- Problem name, status today (improving, stable, worsening, new complication)
+- Changes from yesterday
+- Decisions made today for each problem
+
+Note: for subsequent care, document what has CHANGED and what decisions were made TODAY, not a recapitulation of the admission history.
+
+**Element 2: Data Reviewed and Analyzed Today**
+Document data reviewed or ordered TODAY:
+- New lab results reviewed (with clinical significance noted)
+- Imaging reviewed today
+- Consultant notes reviewed today
+- Discussions with consultants or other providers today
+- New external information received
+
+**Element 3: Risk of Today's Management**
+Document risks specific to today's decisions:
+- Medication changes (new drugs started, dose adjustments)
+- Procedure decisions
+- Escalation or de-escalation of care level
+- Discharge planning risks (safe discharge assessment)
+
+**Overall MDM and Code**
+- 99231: Straightforward or low complexity
+- 99232: Moderate complexity (most common for daily rounding)
+- 99233: High complexity (ICU-level decisions, acute deterioration, multiple active problems worsening)
+
+Map today's encounter to the appropriate code with documentation support.
+
+---
+ENCOUNTER DETAILS:
+Hospital Day: [#]
+Active Problems Today: [LIST WITH TODAY'S STATUS AND CHANGES]
+New Data Today: [LABS, IMAGING, CONSULT NOTES FROM TODAY]
+Today's Decisions: [MEDICATION CHANGES, PROCEDURES, CARE LEVEL CHANGES]
+Disposition Planning: [DISCHARGE TIMELINE, BARRIERS, NEXT STEPS]
+Risk Factors Today: [NEW RISKS, CLINICAL INSTABILITY, MANAGEMENT CHANGES]
+</PromptPlayground>
+
+---
+
+## Example output
+
+> **Medical Decision-Making Documentation**
+> Setting: Office/Outpatient | Visit Type: Established
+>
+> **Element 1: Number and Complexity of Problems Addressed**
+>
+> | Problem | Status | Complexity |
+> |---------|--------|------------|
+> | Type 2 diabetes mellitus (E11.65) | Chronic, worsening -- A1c increased from 7.2% to 8.9% over 6 months despite current regimen | Moderate |
+> | Hypertension (I10) | Chronic, stable -- BP at goal on current medications | Low |
+> | Chronic kidney disease stage 3a (N18.31) | Chronic, stable -- eGFR stable at 52 | Low |
+>
+> Summary: One chronic worsening condition (diabetes with deteriorating glycemic control) and two chronic stable conditions. This supports **MODERATE** complexity of problems.
+>
+> **Element 2: Amount and Complexity of Data Reviewed**
+> - Reviewed today: A1c 8.9% (drawn 1 week ago), BMP with eGFR 52 (stable), urine albumin-to-creatinine ratio 82 mg/g (new microalbuminuria)
+> - Reviewed external records: endocrinology consultation note from 2 months ago recommending GLP-1 agonist if A1c remained above 8%
+> - Ordered today: lipid panel, repeat urine ACR in 3 months
+>
+> Summary: Review of prior external consultation, review of lab results, and ordering of new tests. This supports **MODERATE** data complexity.
+>
+> **Element 3: Risk of Complications and/or Morbidity**
+> - Prescription drug management: initiating semaglutide (new medication with GI side effects, dose titration required, pancreatitis risk counseled)
+> - Risk of presenting problem: worsening diabetes with new microalbuminuria indicates progressive end-organ damage if not addressed
+> - CKD limits metformin dose adjustment options and contraindicates certain agents
+>
+> Overall risk: **MODERATE** (prescription drug management with identified risks)
+>
+> **Overall MDM Level**
+> Problems: Moderate | Data: Moderate | Risk: Moderate
+> 3 of 3 elements support **MODERATE** complexity.
+> **Suggested Code: 99214** (Established patient, moderate complexity)
+
+---
+
+## Tips & pitfalls
 
 - The 2021 CMS E&M guidelines determine level by MDM complexity OR total time; this template addresses MDM only. If billing by time, document total time instead.
 - This is a documentation aide, not a billing tool. Always have your coder or compliance team review for accuracy.
-- For inpatient E&M (99221–99223, 99231–99233), the same MDM framework applies but the code ranges differ.
+- For inpatient E&M (99221-99223, 99231-99233), the same MDM framework applies but the code ranges differ.
+- The most common coding error is documenting problems that were not actually addressed during the encounter. Only count problems you discussed, evaluated, or made management decisions about today.
+- For the data element, "ordering a test" and "reviewing a test" count as two separate data points. Document both explicitly: "Ordered CBC" and "Reviewed CBC results showing..."
+- Independent interpretation of imaging or tracings (e.g., personally reading an EKG or X-ray rather than just reviewing the radiologist's report) counts as a higher-level data element. Document that you performed the interpretation and state your findings.
+- Auditors look for consistency between the documented MDM level and the clinical content of the note. A 99215 note that describes a stable chronic condition with no medication changes will be flagged.
+- Social determinants of health that affect management (housing instability affecting medication storage, transportation barriers limiting follow-up, health literacy affecting self-management) count toward risk under the 2021 guidelines. Document them when relevant.
+- Always document clinical decision-making, not just what you did. "Started metformin" is an action; "Initiated metformin after considering patient's renal function (eGFR 62, above threshold), patient preference, and ADA first-line recommendation" is documentation of decision-making.
