@@ -10,6 +10,10 @@ lastUpdated: 2026-03-22
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
 
+## When to use this
+
+Use this template when you have an undifferentiated clinical presentation and need a structured, ranked differential diagnosis with supporting and opposing evidence for each entry.
+
 Generates a structured, ranked differential diagnosis from a clinical vignette. Provide the chief complaint, key history, physical exam findings, and available data, and get an organized DDx with supporting and opposing evidence for each entry.
 
 <Callout type="hipaa">
@@ -22,7 +26,7 @@ Generates a structured, ranked differential diagnosis from a clinical vignette. 
 
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Any LLM (GPT-4o, Claude, etc.)" title="Differential Diagnosis Generator">
 You are a senior internal medicine physician acting as a diagnostic reasoning consultant.
@@ -62,7 +66,7 @@ Available Data: [ANY LABS, IMAGING, ECG, OR OTHER RESULTS]
 
 ---
 
-## Customization Guide
+## How to customize
 
 | Element | How to Adjust |
 |---------|---------------|
@@ -74,7 +78,184 @@ Available Data: [ANY LABS, IMAGING, ECG, OR OTHER RESULTS]
 
 ---
 
-## Notes
+## Variations
+
+### Pediatric DDx
+
+<PromptPlayground tool="Any LLM (GPT-4o, Claude, etc.)" title="Pediatric Differential Diagnosis Generator">
+You are a senior pediatrician acting as a diagnostic reasoning consultant.
+
+Given the clinical presentation of a pediatric patient below, generate a structured differential diagnosis. Prioritize age-appropriate diagnoses, congenital and developmental conditions, and pediatric-specific presentations of common diseases.
+
+**Ranked Differential Diagnoses** (top 5–7, ordered by likelihood)
+
+For each diagnosis, provide:
+1. **Diagnosis**: name, category, and typical age range of onset
+2. **Likelihood**: High / Moderate / Low, with a brief rationale
+3. **Supporting features**: specific elements from the case that favor this diagnosis
+4. **Against**: findings that argue against it, or classic features that are absent
+5. **Clinching test**: the single best next test or finding that would confirm or exclude this diagnosis. Note if the test requires pediatric-specific interpretation or reference ranges.
+
+**Must-Not-Miss Diagnoses**
+List any high-acuity diagnoses that must be actively ruled out in a child of this age, even if currently less likely. For each, specify the test or evaluation required.
+
+**Developmental and Growth Considerations**
+Note any implications for growth, development, or vaccination status that are relevant to the differential.
+
+**Synthesis**
+In 2–3 sentences, state your leading diagnosis, your key reasoning, and the initial workup priority.
+
+Rules:
+- Use pediatric reference ranges for all lab and vital sign interpretation.
+- Do not infer history, labs, or exam findings not explicitly stated below.
+- If critical information is missing (e.g., vaccination status, growth curve, birth history), state what you need and why it matters.
+
+---
+CLINICAL PRESENTATION:
+Chief Complaint: [CHIEF COMPLAINT]
+Age / Sex: [AGE AND SEX]
+Duration of symptoms: [DURATION AND ONSET]
+Key History: [RELEVANT HISTORY, ASSOCIATED SYMPTOMS, PERTINENT NEGATIVES]
+Birth and Developmental History: [GESTATIONAL AGE, BIRTH COMPLICATIONS, DEVELOPMENTAL MILESTONES]
+Vaccination Status: [UP TO DATE / INCOMPLETE / UNKNOWN]
+Exam Findings: [VITAL SIGNS AND PERTINENT PHYSICAL EXAM FINDINGS]
+Available Data: [ANY LABS, IMAGING, OR OTHER RESULTS]
+</PromptPlayground>
+
+### Emergency / Time-Critical DDx
+
+<PromptPlayground tool="Any LLM (GPT-4o, Claude, etc.)" title="Emergency Differential Diagnosis Generator">
+You are an emergency medicine attending acting as a rapid diagnostic reasoning consultant.
+
+Given the acute presentation below, generate a time-critical differential diagnosis. Prioritize emergent and life-threatening diagnoses that require action within minutes to hours.
+
+**Immediately Life-Threatening Diagnoses** (must rule out first)
+For each:
+1. **Diagnosis**: name and mechanism of death/deterioration if missed
+2. **Key supporting or concerning features** in this case
+3. **Rule-out test or action**: the single fastest way to confirm or exclude — and the decision point (e.g., "If troponin negative x2 and HEART score ≤3, low risk")
+
+**Likely Diagnoses** (top 3–5, ordered by probability)
+For each:
+1. **Diagnosis**: name and category
+2. **Supporting features** from this case
+3. **Against**: findings that argue against, or classic features absent
+4. **Next step**: the single most important test or intervention right now
+
+**Disposition-Driving Questions**
+List 2–3 clinical questions whose answers will determine whether this patient needs admission, observation, or can be safely discharged.
+
+**Synthesis**
+In 2–3 sentences: What is the most dangerous possibility? What is the most likely diagnosis? What single action do you take first?
+
+Rules:
+- Time matters. Prioritize ruling out the most dangerous diagnoses before pursuing the most likely.
+- Do not infer findings not explicitly stated.
+- If critical information is missing, state what you need immediately.
+
+---
+CLINICAL PRESENTATION:
+Chief Complaint: [CHIEF COMPLAINT]
+Age / Sex: [AGE AND SEX]
+Onset: [ACUTE / SUDDEN / GRADUAL, WITH TIMELINE]
+Key History: [RELEVANT HISTORY, ASSOCIATED SYMPTOMS, PERTINENT NEGATIVES]
+Past Medical History: [RELEVANT PMH, MEDICATIONS, ALLERGIES]
+Vitals: [HR, BP, RR, O2 SAT, TEMP]
+Exam Findings: [PERTINENT PHYSICAL EXAM FINDINGS]
+Available Data: [ANY LABS, IMAGING, ECG ALREADY OBTAINED]
+</PromptPlayground>
+
+### Rare Disease Focus DDx
+
+<PromptPlayground tool="Any LLM (GPT-4o, Claude, etc.)" title="Rare Disease Differential Diagnosis Generator">
+You are a diagnostician specializing in rare and atypical presentations, similar to a diagnostic medicine consultation service.
+
+The common diagnoses have already been considered. Given the clinical presentation below, generate a differential focused on uncommon, rare, or atypical diagnoses that might explain this presentation.
+
+**Rare or Atypical Diagnoses to Consider** (5–7 diagnoses)
+For each:
+1. **Diagnosis**: name, estimated prevalence, and disease category
+2. **Why it fits this case**: specific findings that are consistent
+3. **Classic features to look for**: what additional findings, if present, would increase suspicion
+4. **Diagnostic pathway**: the specific test or referral needed (genetic testing, specialized labs, biopsy, etc.)
+5. **Red flag if missed**: what happens if this diagnosis is delayed
+
+**Atypical Presentations of Common Diseases**
+List 2–3 common diagnoses that can present atypically in a way that mimics this case. Describe the atypical features.
+
+**Diagnostic Strategy for the Undifferentiated Rare Case**
+Suggest 2–3 broad screening tests or approaches (e.g., autoimmune panels, metabolic screens, genetic referral) that might help narrow the field when the diagnosis remains elusive.
+
+**Synthesis**
+In 2–3 sentences: What rare diagnosis is most worth pursuing? What single next step would you recommend?
+
+Rules:
+- Focus on diagnoses that a general clinician might not consider.
+- Do not infer findings not stated below.
+- Cite disease prevalence where known.
+
+---
+CLINICAL PRESENTATION:
+Chief Complaint: [CHIEF COMPLAINT]
+Age / Sex: [AGE AND SEX]
+Duration: [DURATION AND ONSET]
+Key History: [RELEVANT HISTORY, ASSOCIATED SYMPTOMS, PERTINENT NEGATIVES]
+Past Medical History: [RELEVANT PMH, MEDICATIONS, ALLERGIES, FAMILY HISTORY]
+Exam Findings: [VITAL SIGNS AND PERTINENT PHYSICAL EXAM FINDINGS]
+Available Data: [LABS, IMAGING, PRIOR WORKUP]
+Already Considered and Excluded: [DIAGNOSES ALREADY RULED OUT AND HOW]
+</PromptPlayground>
+
+---
+
+## Example output
+
+> **Prompt used:** DDx Generator with a 58-year-old male presenting with acute chest pain.
+>
+> **Clinical presentation provided:** 58M, hypertension, type 2 diabetes, 40-pack-year smoking history. Acute substernal chest pressure for 2 hours, radiating to left arm, with diaphoresis and nausea. BP 158/94, HR 102, RR 20, O2 98%. Exam: diaphoretic, no murmurs or rubs, lungs clear. ECG shows ST depression in V4-V6. Troponin pending.
+
+**Ranked Differential Diagnoses**
+
+1. **Acute Coronary Syndrome (NSTEMI)** — Cardiovascular
+   - **Likelihood:** High — Classic presentation with multiple cardiac risk factors, ST depression, and typical symptoms.
+   - **Supporting:** Substernal pressure with radiation, diaphoresis, ST depression in lateral leads, age, smoking, HTN, DM.
+   - **Against:** No ST elevation (makes STEMI less likely, but NSTEMI remains high on the list). Lungs are clear (arguing against acute decompensation).
+   - **Clinching test:** Serial troponins at 0 and 3 hours. A rise-and-fall pattern confirms myocardial injury.
+
+2. **Unstable Angina** — Cardiovascular
+   - **Likelihood:** High — If troponins return negative, this remains the leading diagnosis given the ECG changes and symptom profile.
+   - **Supporting:** Same features as NSTEMI without biochemical confirmation yet.
+   - **Against:** ST depression suggests true ischemia with likely positive troponin.
+   - **Clinching test:** Negative serial troponins with resolution of symptoms and ECG changes.
+
+3. **Aortic Dissection** — Vascular
+   - **Likelihood:** Low-Moderate — Hypertension is a risk factor. Must be excluded given catastrophic consequences.
+   - **Supporting:** Hypertension, acute chest pain, diaphoresis.
+   - **Against:** Pain described as pressure rather than tearing, no pulse differential or back pain reported, no mediastinal widening mentioned.
+   - **Clinching test:** CT angiography of chest if clinical suspicion rises. Check bilateral arm BPs.
+
+4. **Pulmonary Embolism** — Vascular
+   - **Likelihood:** Low — No dyspnea at rest, O2 sat normal, no leg swelling or immobilization history mentioned.
+   - **Supporting:** Tachycardia, acute onset.
+   - **Against:** Lack of dyspnea, normal O2 sat, ECG findings more consistent with ischemia than right heart strain.
+   - **Clinching test:** D-dimer (if Wells score low) or CTPA.
+
+5. **Hypertensive Emergency with End-Organ Injury** — Cardiovascular
+   - **Likelihood:** Low — BP is elevated but not in the severe range (>180/120). ECG changes could represent demand ischemia from hypertension.
+   - **Supporting:** Elevated BP, ST depression, symptoms.
+   - **Against:** BP 158/94 is not typically in the hypertensive emergency range.
+   - **Clinching test:** Troponin trend and BP response to treatment.
+
+**Must-Not-Miss Diagnoses**
+- **Aortic dissection:** Check bilateral arm blood pressures, obtain CT angiography if any asymmetry or widened mediastinum on CXR.
+- **STEMI equivalent:** Repeat ECG in 15 minutes to assess for evolving ST changes. Posterior leads (V7-V9) if isolated ST depression in V4-V6.
+
+**Synthesis**
+The leading diagnosis is NSTEMI given the classic presentation with multiple risk factors, lateral ST depression, and ongoing symptoms. Initial workup priority is serial troponins at 0 and 3 hours, aspirin and heparin per ACS protocol, cardiology notification, and repeat ECG. Aortic dissection should be excluded with bilateral BPs and clinical reassessment before initiating anticoagulation.
+
+---
+
+## Tips & pitfalls
 
 - This prompt works well with both **GPT-4o** and **Claude**. Both models handle DDx generation effectively when the case is clearly presented with pertinent negatives.
 - This template is optimized for **undifferentiated presentations**: chest pain, dyspnea, altered mental status, fever, and similar common chief complaints where the diagnosis is not yet clear.
@@ -82,3 +263,6 @@ Available Data: [ANY LABS, IMAGING, ECG, OR OTHER RESULTS]
 - Include pertinent negatives explicitly, as they significantly improve output quality -- not just positive findings.
 - For specialty-specific differentials (e.g., neurology localization, rheumatologic workup), consider adding specialty-specific framing in the customization section.
 - This template is for clinical reasoning support, not board prep. For practice differentials, see the **Differential Diagnosis Drill** template under Board Prep.
+- **AI models tend to anchor on common diagnoses.** If the presentation is atypical or the patient has not responded to standard treatment, use the Rare Disease Focus variation or the Bias Check template to challenge the AI's output.
+- **Never accept an AI-generated differential as complete.** Models can miss rare diagnoses, pediatric-specific presentations, and context-dependent diagnoses (e.g., immunocompromised hosts, post-procedural complications).
+- **Verify all "clinching tests" against current evidence.** AI may recommend outdated or low-sensitivity tests. Cross-check with UpToDate or current guidelines.

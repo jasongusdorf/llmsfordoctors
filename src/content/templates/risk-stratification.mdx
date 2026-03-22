@@ -4,11 +4,15 @@ category: clinical-reasoning
 targetTool: claude
 workflow: risk-stratification
 tags: [advanced, clinical-reasoning, risk-assessment, decision-support]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-03-22
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when you need to apply one or more validated clinical scoring tools to a patient presentation to support risk stratification, disposition decisions, or treatment thresholds.
 
 Applies validated clinical scoring tools to a patient presentation to support risk stratification and disposition decisions. Provide the clinical data and specify which scoring tools to apply.
 
@@ -22,7 +26,7 @@ Applies validated clinical scoring tools to a patient presentation to support ri
 
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Claude" title="Clinical Risk Stratification">
 You are an experienced clinician applying validated risk stratification tools to a clinical presentation.
@@ -57,7 +61,7 @@ SCORES TO CALCULATE:
 
 ---
 
-## Customization Guide
+## How to customize
 
 | Element | How to Adjust |
 |---------|---------------|
@@ -68,8 +72,212 @@ SCORES TO CALCULATE:
 
 ---
 
-## Notes
+## Variations
+
+### Surgical Risk Assessment
+
+<PromptPlayground tool="Claude" title="Pre-Operative Risk Stratification">
+You are a perioperative medicine consultant performing a pre-operative risk assessment.
+
+Given the patient data and planned surgery below, calculate and interpret the relevant perioperative risk scores:
+
+**Scores to Calculate:**
+Apply each of the following that is appropriate for this case:
+- **Revised Cardiac Risk Index (RCRI / Lee Index)** — cardiac risk
+- **ACS NSQIP Surgical Risk Calculator** — overall morbidity and mortality (describe the inputs needed)
+- **Caprini Score** — VTE risk
+- **STOP-BANG** — obstructive sleep apnea screening
+- **ASA Physical Status Classification** — overall fitness for anesthesia
+
+For each score:
+- Show each component and whether it is met
+- **Total Score** and **Risk Category**
+- **Clinical Implication**: What this score means for perioperative planning (need for further cardiac testing, level of post-op monitoring, VTE prophylaxis intensity, etc.)
+- **Caveat**: Limitations of this score for this specific patient or procedure
+
+**Perioperative Risk Synthesis**
+In 3–4 sentences: What is the overall perioperative risk profile? Are there any risk factors that warrant further optimization before surgery? What is the recommended level of post-operative monitoring?
+
+**Pre-Operative Optimization Checklist**
+Bulleted list of specific actions to take before surgery based on the risk assessment (e.g., cardiology clearance, medication adjustments, beta-blocker consideration, glycemic optimization).
+
+Rules:
+- Use the published, validated criteria for each score.
+- Do not fabricate event rates or risk percentages. Cite the validation source if possible.
+- If data needed for a score is missing, state what is needed.
+
+---
+PATIENT DATA:
+Age/Sex: [AGE AND SEX]
+Past Medical History: [FULL PMH INCLUDING CARDIAC, PULMONARY, RENAL, HEPATIC DISEASE]
+Medications: [CURRENT MEDICATIONS]
+Functional Capacity: [METs ESTIMATE OR DESCRIPTION OF ACTIVITY LEVEL]
+Vitals: [HR, BP, RR, O2 SAT]
+Labs: [RELEVANT LABS: CBC, BMP, COAGS, HbA1c, ECG FINDINGS]
+BMI: [BMI]
+
+PLANNED SURGERY:
+Procedure: [PROCEDURE NAME AND TYPE]
+Urgency: [ELECTIVE / URGENT / EMERGENT]
+Anesthesia: [GENERAL / REGIONAL / LOCAL + SEDATION]
+Expected Duration: [HOURS]
+Expected Blood Loss: [MINIMAL / MODERATE / SIGNIFICANT]
+</PromptPlayground>
+
+### Cardiovascular Risk Assessment
+
+<PromptPlayground tool="Claude" title="Cardiovascular Risk Stratification">
+You are a cardiologist applying cardiovascular risk stratification tools to a clinical presentation.
+
+Given the patient data below, calculate and interpret the requested cardiovascular risk scores:
+
+**Scores to Calculate:**
+Apply each of the following that is relevant:
+- **HEART Score** (for chest pain evaluation)
+- **TIMI Risk Score** (for ACS risk)
+- **CHA₂DS₂-VASc** (for stroke risk in atrial fibrillation)
+- **HAS-BLED** (for bleeding risk on anticoagulation)
+- **ASCVD 10-Year Risk** (Pooled Cohort Equations, for primary prevention)
+- **Wells Score for PE** (if pulmonary embolism is in the differential)
+
+For each score applied:
+- Show each criterion and whether it is met (with point value)
+- **Total Score** and **Risk Category**
+- **Guideline-Based Recommendation**: What current ACC/AHA or ESC guidelines recommend at this risk level (e.g., statin initiation threshold, anticoagulation indication, safe discharge criteria)
+- **Caveat**: Populations or scenarios where this score may overestimate or underestimate risk
+
+**Net Risk-Benefit Analysis**
+If both a treatment-benefit score (e.g., CHA₂DS₂-VASc) and a treatment-risk score (e.g., HAS-BLED) are calculated, explicitly weigh the benefit vs. risk and state the recommendation.
+
+**Synthesis**
+In 2–3 sentences: What is the patient's overall cardiovascular risk profile? What is the single most important risk-modifying intervention?
+
+Rules:
+- Use current published scoring criteria.
+- Reference current guideline recommendations (ACC/AHA, ESC) where applicable.
+- Do not fabricate event rates. If citing a risk percentage, state the source.
+
+---
+PATIENT DATA:
+Age/Sex: [AGE AND SEX]
+Presentation: [CHIEF COMPLAINT AND KEY FINDINGS]
+Cardiac History: [CAD, MI, CHF, VALVULAR DISEASE, ARRHYTHMIA]
+Risk Factors: [HTN, DM, HYPERLIPIDEMIA, SMOKING, FAMILY HISTORY, OBESITY]
+Vitals: [HR, BP, RR, O2 SAT]
+Labs: [TROPONIN, BNP, LIPID PANEL, HBA1C, CREATININE]
+ECG: [KEY FINDINGS]
+Imaging: [ECHO, STRESS TEST, CATHETERIZATION RESULTS IF AVAILABLE]
+
+SCORES TO CALCULATE:
+[List specific scores, or state "Calculate all applicable cardiovascular risk scores"]
+</PromptPlayground>
+
+### Readmission Risk Assessment
+
+<PromptPlayground tool="Claude" title="Readmission Risk Assessment">
+You are a hospital medicine physician assessing a patient's risk of 30-day readmission prior to discharge.
+
+Given the patient data below, perform a structured readmission risk assessment:
+
+**HOSPITAL Score** (if applicable)
+Calculate the HOSPITAL score for 30-day readmission:
+- Show each component and its point value
+- **Total Score** and **Risk Category** (low / intermediate / high)
+- **Expected readmission rate** for this risk category
+
+**LACE Index** (if applicable)
+Calculate the LACE index:
+- Length of stay, Acuity of admission, Comorbidities (Charlson), Emergency department visits in prior 6 months
+- **Total Score** and **Risk Category**
+
+**Disease-Specific Risk Factors**
+For the primary discharge diagnosis, list the known disease-specific readmission risk factors that apply to this patient (e.g., HF: EF <25%, renal dysfunction, prior HF admission within 6 months).
+
+**Modifiable Risk Factors**
+Identify factors that can be addressed before or immediately after discharge:
+- Medication access and adherence barriers
+- Follow-up appointment scheduling
+- Social determinants (housing, transportation, caregiver support)
+- Health literacy and discharge understanding
+- Transitional care needs (home health, SNF, telehealth)
+
+**Discharge Risk Mitigation Plan**
+For each modifiable risk factor identified, recommend a specific intervention with responsible team member and timeline.
+
+**High-Risk Flag Summary**
+In 2–3 sentences: Is this patient high-risk for readmission? What is the single most impactful intervention to reduce that risk?
+
+Rules:
+- Use validated scoring criteria.
+- Focus on actionable, modifiable risk factors — not just risk quantification.
+- Do not fabricate readmission statistics.
+
+---
+PATIENT DATA:
+Age/Sex: [AGE AND SEX]
+Primary Discharge Diagnosis: [DIAGNOSIS]
+Length of Stay: [DAYS]
+Admission Source: [ED / DIRECT ADMIT / TRANSFER]
+Comorbidities: [FULL LIST WITH CHARLSON-RELEVANT CONDITIONS]
+ED Visits in Past 6 Months: [NUMBER]
+Prior Admissions in Past 12 Months: [NUMBER AND DIAGNOSES]
+Discharge Medications: [NUMBER OF MEDICATIONS, ANY NEW MEDICATIONS]
+Social Situation: [LIVES ALONE / WITH FAMILY, CAREGIVER SUPPORT, TRANSPORTATION, INSURANCE]
+Functional Status: [INDEPENDENT / REQUIRES ASSISTANCE / SNF CANDIDATE]
+Follow-Up Plan: [SCHEDULED APPOINTMENTS, PENDING RESULTS]
+</PromptPlayground>
+
+---
+
+## Example output
+
+> **Prompt used:** Clinical Risk Stratification for a patient with chest pain.
+>
+> **Clinical data provided:** 52M presenting with 4 hours of substernal chest pain, dull, non-radiating, onset at rest. PMH: HTN, hyperlipidemia, former smoker (quit 5 years ago). Vitals: HR 88, BP 142/88, RR 16, O2 99% RA, Temp 36.8C. Labs: troponin I 0.04 ng/mL (ULN 0.04), creatinine 1.0. ECG: no ST changes, normal sinus rhythm. Scores to calculate: HEART score, TIMI risk score.
+
+**HEART Score**
+
+| Component | Finding | Points |
+|-----------|---------|--------|
+| **H**istory | Moderately suspicious (chest pain at rest, dull, non-radiating, no classic radiation or diaphoresis) | 1 |
+| **E**CG | Normal | 0 |
+| **A**ge | 52 years (45–64) | 1 |
+| **R**isk factors | HTN, hyperlipidemia, former smoker (3 or more risk factors) | 2 |
+| **T**roponin | At the upper limit of normal (0.04, equals ULN) | 1 |
+
+- **Total Score:** 5 points
+- **Risk Category:** Moderate risk
+- **Interpretation:** A HEART score of 5 places this patient in the moderate-risk category (score 4–6), with an estimated 30-day MACE rate of approximately 12–17%. Guidelines suggest observation, serial troponins, and further risk stratification (stress testing or coronary CTA) rather than immediate discharge.
+- **Caveat:** The HEART score was validated primarily in ED chest pain populations. Troponin assay cutoffs vary by institution — confirm that 0.04 is your lab's 99th percentile.
+
+**TIMI Risk Score for UA/NSTEMI**
+
+| Component | Finding | Points |
+|-----------|---------|--------|
+| Age ≥65 | No (52 years) | 0 |
+| ≥3 CAD risk factors | Yes (HTN, hyperlipidemia, former smoker) | 1 |
+| Known CAD (≥50% stenosis) | No known CAD | 0 |
+| ASA use in past 7 days | Not stated | 0 |
+| ≥2 anginal episodes in 24h | Not stated (only 1 episode described) | 0 |
+| ST deviation ≥0.5mm | No | 0 |
+| Positive cardiac marker | Borderline (troponin at ULN, not clearly positive) | 0 |
+
+- **Total Score:** 1 point
+- **Risk Category:** Low risk
+- **Interpretation:** A TIMI score of 1 suggests a low risk of 14-day all-cause mortality, new or recurrent MI, or urgent revascularization (approximately 5%). This would suggest a less aggressive strategy may be appropriate.
+- **Caveat:** The TIMI score was derived from clinical trial populations with confirmed ACS, not undifferentiated ED chest pain. It may underperform in the initial ED evaluation compared to the HEART score.
+
+**Comparison & Synthesis**
+There is discordance between the two scores: the HEART score places this patient at moderate risk (score 5), while the TIMI score suggests low risk (score 1). This discordance is expected — the HEART score was designed for undifferentiated ED chest pain and captures this patient's risk factor burden and borderline troponin more effectively. In this clinical scenario, the HEART score is more applicable, and the moderate-risk classification should guide management: serial troponins at 3 and 6 hours, observation, and further risk stratification with stress testing or coronary CTA before discharge.
+
+---
+
+## Tips & pitfalls
 
 - Common scoring tools this works well with: HEART, Wells (PE and DVT), CHA₂DS₂-VASc, HAS-BLED, CURB-65, qSOFA, NEWS2, MELD, Child-Pugh, PERC, Glasgow-Blatchford, ABCD², CRB-65, APACHE II.
 - If you're unsure which score to use, paste the clinical scenario and ask: "What validated risk scores apply to this presentation?"
 - For serial assessments, paste both time points and ask for trend comparison.
+- **AI models can confabulate score criteria and cutoff values.** Always verify the calculated score against a trusted source like MDCalc. A single incorrect criterion point can shift the risk category.
+- **Risk scores do not replace clinical judgment.** A patient can have a low risk score and still have a life-threatening diagnosis. Use scores as one input, not the sole decision driver.
+- **Be aware of score validation populations.** Many scores were validated in specific populations (e.g., HEART in ED chest pain, CURB-65 in community-acquired pneumonia). Applying a score outside its validated population may give misleading results.
+- **AI may not account for patient-specific factors that override a score** (e.g., a low HEART score in a patient with known severe CAD and prior stent thrombosis). Integrate the score with the full clinical picture.

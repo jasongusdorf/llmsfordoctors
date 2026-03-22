@@ -4,11 +4,15 @@ category: clinical-reasoning
 targetTool: claude
 workflow: medication-reconciliation
 tags: [intermediate, clinical-reasoning, medications, reconciliation, safety]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-03-22
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when you need to review a medication list for interactions, duplications, dosing concerns, and reconciliation issues, particularly during transitions of care, admission, or discharge.
 
 Reviews a medication list for interactions, duplications, dosing concerns, and reconciliation issues. Paste in the current medication list along with relevant clinical context (diagnoses, renal/hepatic function) and get a structured safety review.
 
@@ -22,7 +26,7 @@ Reviews a medication list for interactions, duplications, dosing concerns, and r
 
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Claude" title="Medication Reconciliation Review">
 You are a clinical pharmacist reviewing a medication list for safety and appropriateness.
@@ -71,7 +75,7 @@ CURRENT MEDICATION LIST:
 
 ---
 
-## Customization Guide
+## How to customize
 
 | Element | How to Adjust |
 |---------|---------------|
@@ -79,3 +83,237 @@ CURRENT MEDICATION LIST:
 | Geriatric focus | Add: "Focus on Beers Criteria and anticholinergic burden" |
 | Specific concern | Add: "I am specifically concerned about [QTc prolongation / bleeding risk / serotonin syndrome]" |
 | Formulary | Add: "Check for therapeutic substitutions on the [INSTITUTION] formulary" |
+
+---
+
+## Variations
+
+### Admission Medication Reconciliation
+
+<PromptPlayground tool="Claude" title="Admission Medication Reconciliation">
+You are a clinical pharmacist performing medication reconciliation for a patient being admitted to the hospital.
+
+Given the patient's home medication list, the admission orders, and the clinical context below, perform a structured admission medication reconciliation:
+
+**Discrepancy Analysis**
+Compare the home medication list to the admission orders. For each discrepancy:
+- **Medication**: name and dose
+- **Home regimen**: what the patient was taking
+- **Admission order**: what was ordered (or "not ordered")
+- **Discrepancy type**: Omission / Dose change / Frequency change / Therapeutic substitution / Intentional hold
+- **Assessment**: Is this discrepancy intentional and appropriate, or does it need clarification?
+
+**Intentional Holds**
+For medications appropriately held on admission:
+- Medication name
+- Reason for hold (e.g., NPO status, renal function, contrast administration, surgical planning)
+- When to reassess or restart
+
+**Medications to Continue Without Change**
+List medications that should be continued at home doses with no adjustment needed.
+
+**Dose Adjustments Needed on Admission**
+For each medication requiring adjustment:
+- Medication and home dose
+- Recommended inpatient dose and why (renal function change, IV conversion, formulary substitution)
+
+**Critical Omissions**
+Flag any home medications that were not ordered on admission and that could cause withdrawal or rebound if abruptly discontinued (e.g., beta-blockers, clonidine, benzodiazepines, SSRIs, chronic opioids, antiepileptics).
+
+**Summary**
+2–3 sentences: What are the highest-priority reconciliation issues that need to be addressed before the patient receives the next scheduled dose?
+
+Rules:
+- Never recommend abruptly discontinuing medications with withdrawal potential without explicit tapering guidance.
+- Flag any medication that requires a specific administration time (e.g., levothyroxine, immunosuppressants).
+- If uncertain whether a discrepancy is intentional, flag it for clarification rather than assuming.
+
+---
+CLINICAL CONTEXT:
+Age/Sex: [AGE AND SEX]
+Admission Diagnosis: [REASON FOR ADMISSION]
+Key Diagnoses: [ACTIVE DIAGNOSES]
+Renal Function: [CREATININE AND/OR GFR]
+Hepatic Function: [RELEVANT LFTS IF KNOWN]
+Allergies: [DRUG ALLERGIES]
+NPO Status: [YES/NO AND REASON]
+
+HOME MEDICATION LIST:
+[Paste home medications with doses and frequencies]
+
+ADMISSION ORDERS:
+[Paste current admission medication orders]
+</PromptPlayground>
+
+### Discharge Medication Reconciliation
+
+<PromptPlayground tool="Claude" title="Discharge Medication Reconciliation">
+You are a clinical pharmacist performing discharge medication reconciliation to ensure a safe transition from inpatient to outpatient.
+
+Given the home medication list, the current inpatient medications, and the discharge medication list below, perform a structured discharge reconciliation:
+
+**Changes Summary**
+Organize all medication changes into clear categories:
+- **New medications started during admission**: name, dose, indication, intended duration (short-course vs. ongoing)
+- **Medications discontinued**: name, reason for discontinuation, any taper required
+- **Dose changes**: medication, old dose, new dose, reason for change
+- **Medications unchanged**: confirm these are being continued at the correct dose
+
+**IV-to-Oral Conversions**
+Flag any inpatient IV medications that need to be converted to oral equivalents for discharge. Provide the appropriate oral dose and confirm bioequivalence.
+
+**Timing and Administration**
+Flag any medications that require specific administration instructions for the patient:
+- Time-sensitive medications (e.g., immunosuppressants, anticoagulants)
+- Food interactions (take with/without food)
+- Separation requirements (e.g., levothyroxine, calcium, antacids)
+
+**High-Risk Medications at Discharge**
+Flag medications that commonly cause post-discharge adverse events:
+- New anticoagulants (bleeding risk, monitoring needs)
+- New insulin or oral hypoglycemics (hypoglycemia risk)
+- New opioids (respiratory depression, constipation)
+- Diuretic changes (electrolyte monitoring needs)
+
+**Patient Education Priorities**
+List the top 3 medication changes the patient needs to understand before leaving, with a plain-language explanation for each.
+
+**Follow-Up Lab Monitoring**
+List any labs needed after discharge related to medication changes, with timing and who should review.
+
+Rules:
+- Every new medication must have a clear indication and intended duration.
+- Flag any medication that the patient may not be able to afford or access (specialty medications, high-cost).
+- Prioritize safety: the highest risk for medication errors is at transitions of care.
+
+---
+CLINICAL CONTEXT:
+Age/Sex: [AGE AND SEX]
+Admission Diagnosis: [REASON FOR ADMISSION]
+Key Diagnoses: [ACTIVE DIAGNOSES]
+Renal Function at Discharge: [CREATININE AND/OR GFR]
+Allergies: [DRUG ALLERGIES]
+
+HOME MEDICATION LIST (pre-admission):
+[Paste home medications]
+
+CURRENT INPATIENT MEDICATIONS:
+[Paste current inpatient medication orders]
+
+DISCHARGE MEDICATION LIST (as written):
+[Paste the discharge prescriptions]
+</PromptPlayground>
+
+### Polypharmacy Simplification
+
+<PromptPlayground tool="Claude" title="Polypharmacy Simplification Review">
+You are a clinical pharmacist specializing in geriatric medicine and deprescribing, reviewing a patient with polypharmacy (10 or more medications) for opportunities to simplify the medication regimen.
+
+Given the medication list and clinical context below, provide:
+
+**Medication Burden Assessment**
+- Total number of medications
+- Total daily pill count
+- Number of different dosing times per day
+- Anticholinergic burden score (ACB) if calculable from the medication list
+
+**Beers Criteria Review** (for patients ≥65)
+For each medication on the Beers Criteria list:
+- Medication name
+- Beers category (avoid / use with caution / avoid in certain conditions)
+- Specific risk in this patient
+- Recommended alternative or action
+
+**Deprescribing Candidates** (prioritized)
+Rank medications from highest to lowest deprescribing priority. For each:
+- **Medication**: name and dose
+- **Reason to consider deprescribing**: no clear indication, risk outweighs benefit, duplicative therapy, cascade prescribing, or exceeded recommended duration
+- **Deprescribing approach**: stop abruptly (if safe) vs. taper schedule
+- **Monitoring after deprescribing**: what to watch for after stopping
+
+**Regimen Simplification**
+Without changing medications, suggest ways to simplify the regimen:
+- Combination products that could replace multiple pills
+- Dose consolidation (e.g., twice-daily to once-daily formulations)
+- Synchronizing dosing times to reduce complexity
+
+**Cascade Prescribing Check**
+Identify any medications that may have been prescribed to treat the side effect of another medication. Flag the original offending medication and recommend whether it can be adjusted instead.
+
+**Priority Actions**
+Numbered list of the top 3 medication changes to make first, with the expected benefit of each.
+
+Rules:
+- Deprescribing is a clinical decision. Present the evidence and rationale, but do not unilaterally recommend stopping medications without noting that the prescribing physician should be consulted.
+- For each deprescribing recommendation, explicitly state whether the medication can be stopped abruptly or requires a taper.
+- Consider the patient's life expectancy, goals of care, and symptom burden when prioritizing.
+
+---
+CLINICAL CONTEXT:
+Age/Sex: [AGE AND SEX]
+Key Diagnoses: [FULL PROBLEM LIST]
+Functional Status: [INDEPENDENT / ASSISTED / DEPENDENT]
+Cognitive Status: [INTACT / MCI / DEMENTIA]
+Goals of Care: [IF KNOWN: FULL CODE / COMFORT-FOCUSED / LIFE-PROLONGING WITH LIMITS]
+Renal Function: [CREATININE AND/OR GFR]
+Recent Falls: [YES/NO AND FREQUENCY]
+
+CURRENT MEDICATION LIST:
+[Paste full medication list with doses, frequencies, and indications if known]
+</PromptPlayground>
+
+---
+
+## Example output
+
+> **Prompt used:** Medication Reconciliation Review for a 78-year-old female.
+>
+> **Clinical context provided:** 78F with atrial fibrillation, HFrEF (EF 30%), type 2 DM, CKD stage 3b (GFR 38), GERD, osteoarthritis, insomnia. Allergies: sulfa (rash). Cr 1.6, K 4.8.
+>
+> **Medication list provided:** Apixaban 5mg BID, metoprolol succinate 50mg daily, lisinopril 20mg daily, furosemide 40mg daily, metformin 1000mg BID, atorvastatin 40mg daily, omeprazole 40mg daily, ibuprofen 400mg TID, diphenhydramine 25mg QHS, acetaminophen 500mg TID.
+
+**Drug-Drug Interactions**
+
+1. **Ibuprofen + Apixaban** — **Major**
+   - *Clinical consequence:* Significantly increased risk of GI and other bleeding. NSAIDs impair platelet function and cause GI mucosal injury; combined with anticoagulation, the bleeding risk is substantially elevated.
+   - *Recommendation:* Discontinue ibuprofen. Use acetaminophen for osteoarthritis pain (already on the list — consider optimizing dose to 650mg TID). If additional analgesia needed, consider topical diclofenac gel for localized joint pain.
+
+2. **Ibuprofen + Furosemide + Lisinopril** — **Major (Triple Whammy)**
+   - *Clinical consequence:* The combination of an NSAID, diuretic, and ACE inhibitor ("triple whammy") significantly increases the risk of acute kidney injury, particularly in a patient with CKD stage 3b.
+   - *Recommendation:* Discontinue ibuprofen. This combination is one of the most well-established nephrotoxic drug interactions.
+
+3. **Ibuprofen + Lisinopril** — **Moderate**
+   - *Clinical consequence:* NSAIDs blunt the antihypertensive and cardioprotective effects of ACE inhibitors and can worsen renal function.
+   - *Recommendation:* Another reason to discontinue ibuprofen.
+
+**Therapeutic Duplications**
+- **Ibuprofen + Acetaminophen**: Not a true duplication (different drug classes), but both are being used for pain. Acetaminophen alone at optimized dose (650mg TID or 1000mg TID, max 3g/day in elderly) is the preferred monotherapy given her risk profile.
+
+**Dosing Concerns**
+- **Apixaban 5mg BID**: Review dose. In atrial fibrillation, dose reduction to 2.5mg BID is indicated if the patient meets 2 of 3 criteria: age ≥80, weight ≤60kg, or creatinine ≥1.5. She is 78 (not ≥80) and Cr is 1.6 (≥1.5). If she also weighs ≤60kg, the dose should be reduced. Verify weight.
+- **Metformin 1000mg BID**: GFR 38 requires dose reduction. Guidelines recommend reducing metformin to a maximum of 1000mg/day (500mg BID) when GFR is 30–45. At GFR <30, metformin should be discontinued.
+- **Diphenhydramine 25mg QHS**: Beers Criteria — strongly avoid in patients ≥65. High anticholinergic burden, risk of confusion, urinary retention, constipation, and falls. This is especially concerning in a 78-year-old.
+
+**Missing Medications**
+- **SGLT2 inhibitor (e.g., dapagliflozin or empagliflozin)**: Guideline-recommended for HFrEF with or without diabetes. Provides mortality benefit in HFrEF independent of glycemic effect. Should be considered unless contraindicated by GFR (both are approved down to GFR 20-25 for HF indication).
+- **Spironolactone or eplerenone**: Guideline-recommended for HFrEF with EF ≤35%. However, K is 4.8 with CKD — would need close monitoring. Consider starting at 12.5-25mg with weekly potassium monitoring.
+
+**Deprescribing Opportunities**
+- **Diphenhydramine**: Beers Criteria — should be discontinued. For insomnia, consider sleep hygiene counseling, melatonin 1-3mg, or trazodone 25-50mg if a medication is needed.
+- **Omeprazole 40mg daily**: Assess whether long-term PPI is still indicated. If GERD is well-controlled, consider stepping down to 20mg or trialing an H2 blocker (famotidine 20mg). Long-term high-dose PPI is associated with increased fracture risk, hypomagnesemia, and C. difficile infection in the elderly.
+- **Ibuprofen**: Should be discontinued entirely given the interactions described above.
+
+**Summary**
+The highest-priority safety concern is ibuprofen, which should be discontinued immediately: it creates major bleeding risk with apixaban, a "triple whammy" nephrotoxic combination with her diuretic and ACEi, and is particularly dangerous given her CKD stage 3b. The second priority is replacing diphenhydramine with a safer sleep aid. Third, metformin should be dose-reduced to 500mg BID for her GFR of 38, and the team should consider adding an SGLT2 inhibitor for its HFrEF mortality benefit.
+
+---
+
+## Tips & pitfalls
+
+- **AI-generated interaction checks are not a substitute for Lexicomp, Micromedex, or your institution's clinical decision support.** AI models can miss interactions, cite incorrect severity levels, or fabricate interaction mechanisms. Always verify flagged interactions against an authoritative drug database.
+- **Always verify medication dosing against current references.** AI may cite outdated dosing guidelines or incorrect renal/hepatic adjustment thresholds. This is especially critical for narrow therapeutic index drugs (warfarin, digoxin, lithium, aminoglycosides).
+- **The "Missing Medications" section requires clinical context.** AI may flag guideline-recommended medications that have been intentionally omitted for valid reasons (e.g., allergy, intolerance, patient preference, prior adverse reaction). Do not blindly add medications based on AI recommendations.
+- **Deprescribing is a conversation, not a unilateral action.** Use the AI output to identify candidates for deprescribing, then discuss with the patient and prescribing physician. Abrupt discontinuation of some medications (beta-blockers, clonidine, benzodiazepines, chronic opioids, antiepileptics) can cause dangerous withdrawal syndromes.
+- **This template is most valuable at transitions of care** (admission, discharge, transfer, new provider visit), where medication errors are most common. Run it whenever you are inheriting a medication list from another setting.
+- **For complex polypharmacy (15+ medications), run this template twice**: once focused on safety (interactions, dosing) and once focused on optimization (deprescribing, missing medications). A single pass may miss issues in a long list.
+- **AI models do not have access to your patient's full history.** They cannot know about prior adverse reactions, patient preferences, or specialist recommendations that explain current medication choices. Use the output as a checklist to review, not a list of orders to execute.

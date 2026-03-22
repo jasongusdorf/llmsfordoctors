@@ -4,11 +4,15 @@ category: clinical-reasoning
 targetTool: claude
 workflow: lab-interpretation
 tags: [beginner, clinical-reasoning, labs, interpretation]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-03-22
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when you have a set of lab results that you want interpreted in clinical context, whether to identify patterns, flag critical values, or generate a prioritized list of next steps.
 
 Interprets a set of lab results in clinical context. Paste in the lab values and a brief clinical scenario, and get a structured interpretation highlighting abnormalities, likely causes, and suggested next steps. Designed for anyone who wants a second look at a complex panel.
 
@@ -22,7 +26,7 @@ Interprets a set of lab results in clinical context. Paste in the lab values and
 
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Claude" title="Lab Panel Interpretation">
 You are an experienced internist interpreting laboratory results.
@@ -59,7 +63,7 @@ LAB VALUES:
 
 ---
 
-## Customization Guide
+## How to customize
 
 | Element | How to Adjust |
 |---------|---------------|
@@ -70,8 +74,192 @@ LAB VALUES:
 
 ---
 
-## Notes
+## Variations
+
+### Critical Value Interpretation
+
+<PromptPlayground tool="Claude" title="Critical Lab Value Interpretation">
+You are an experienced physician who has just been called by the lab with one or more critical values. You need to rapidly interpret the results and determine immediate management.
+
+Given the critical lab value(s) and clinical context below, provide:
+
+**Critical Value Assessment**
+For each critical value:
+- **Value**: The result with units and the critical threshold it exceeds
+- **Immediate danger**: What clinical harm this value can cause right now (e.g., cardiac arrhythmia, bleeding, seizure)
+- **Most likely cause** in this clinical context (1–2 sentences)
+- **Immediate action**: What to do in the next 15–30 minutes (specific orders, not general advice)
+
+**Confirm or Repeat?**
+For each value, state whether it should be repeated or acted on immediately. Consider:
+- Specimen handling artifacts (hemolysis, clotting, delayed processing)
+- Clinical plausibility (does the value make sense given the patient's condition?)
+- Risk of delay (can you afford to wait for a repeat?)
+
+**Monitoring Plan**
+- When to recheck the value
+- What clinical parameters to monitor at the bedside
+- Threshold for escalation (ICU transfer, specialist call, code team)
+
+**Notification Requirements**
+Who else needs to know about this result right now (attending, specialist, nursing, pharmacy)?
+
+Rules:
+- Prioritize speed and safety. This is a time-critical interpretation.
+- Be specific about doses, rates, and timing for any interventions.
+- If the clinical context is insufficient to act, state exactly what information you need before intervening.
+
+---
+CLINICAL CONTEXT:
+Age/Sex: [AGE AND SEX]
+Location: [ED / FLOOR / ICU / OUTPATIENT]
+Key Diagnoses: [ACTIVE DIAGNOSES]
+Current Medications: [RELEVANT MEDICATIONS, ESPECIALLY THOSE THAT AFFECT THE CRITICAL VALUE]
+Recent Events: [ANYTHING THAT HAPPENED IN THE PAST 6-12 HOURS]
+
+CRITICAL VALUE(S):
+[Paste the critical lab result(s) with units]
+</PromptPlayground>
+
+### Trending Analysis
+
+<PromptPlayground tool="Claude" title="Lab Trend Interpretation">
+You are an experienced physician interpreting a series of lab results over time to assess clinical trajectory and guide management.
+
+Given the serial lab values and clinical context below, provide:
+
+**Trend Summary Table**
+Create a table showing each tracked value across time points. Flag values that are worsening, improving, or at a critical inflection point.
+
+**Trajectory Analysis**
+For each trended value:
+- **Direction**: Improving / Worsening / Stable / Fluctuating
+- **Rate of change**: Is the change clinically significant or within normal variation?
+- **Clinical interpretation**: What the trend suggests about the patient's clinical trajectory (e.g., resolving AKI, worsening sepsis, recovering liver function)
+
+**Inflection Points**
+Identify any time point where a significant change occurred. Correlate with clinical events if provided (e.g., medication change, procedure, fluid bolus).
+
+**Predicted Trajectory**
+Based on the current trend, where do you expect these values to be in 24–48 hours? Flag any values that are on a trajectory toward a critical threshold.
+
+**Management Implications**
+- What medication or management changes does this trend support?
+- When should the next labs be drawn?
+- At what threshold value should the current plan change?
+
+Rules:
+- Analyze trends, not just individual values. A normal value on a worsening trend is still concerning.
+- Correlate changes with clinical events when possible.
+- Do not fabricate data points or extrapolate beyond what the data supports.
+
+---
+CLINICAL CONTEXT:
+Age/Sex: [AGE AND SEX]
+Key Diagnoses: [ACTIVE DIAGNOSES]
+Relevant Medications: [CURRENT MEDICATIONS WITH ANY RECENT CHANGES]
+Clinical Events Timeline: [KEY EVENTS: surgeries, medication changes, transfusions, fluid resuscitation]
+
+SERIAL LAB VALUES:
+[Day 1 / Time]: [Values]
+[Day 2 / Time]: [Values]
+[Day 3 / Time]: [Values]
+[Continue as needed]
+</PromptPlayground>
+
+### Pre-Operative Lab Review
+
+<PromptPlayground tool="Claude" title="Pre-Operative Lab Review">
+You are a perioperative medicine physician reviewing pre-operative lab work for surgical clearance.
+
+Given the pre-operative labs and clinical context below, provide:
+
+**Abnormal Values with Surgical Implications**
+For each abnormal result:
+- **Value** and whether it is high or low
+- **Surgical risk**: How this abnormality affects surgical or anesthetic risk (e.g., bleeding risk, cardiac risk, airway management, wound healing)
+- **Action required**: Whether this needs to be corrected pre-operatively and how
+
+**Anesthesia-Relevant Findings**
+Flag any results relevant to anesthesia planning:
+- Electrolyte abnormalities that affect cardiac rhythm or neuromuscular blockade
+- Coagulation abnormalities and implications for regional vs. general anesthesia
+- Renal or hepatic dysfunction affecting drug metabolism
+- Hemoglobin level and transfusion threshold planning
+
+**Medication Implications**
+Based on these labs, flag any current medications that need to be:
+- Held pre-operatively (with timing)
+- Dose-adjusted based on renal/hepatic function
+- Bridged (e.g., anticoagulation)
+
+**Clearance Assessment**
+In 2–3 sentences: Are these labs acceptable for proceeding with surgery? If not, what needs to be corrected first and what is the expected timeline?
+
+**Additional Pre-Op Labs Needed**
+List any labs that should be obtained before surgery that are missing from this panel, with the clinical rationale.
+
+Rules:
+- Assess each abnormality specifically in the context of the planned procedure.
+- Do not clear a patient for surgery — that is a clinical decision. Provide the data interpretation to inform that decision.
+- If a value is borderline, state the risk of proceeding vs. the risk of delay.
+
+---
+CLINICAL CONTEXT:
+Age/Sex: [AGE AND SEX]
+Key Diagnoses: [PMH RELEVANT TO SURGICAL RISK]
+Current Medications: [INCLUDE ANTICOAGULANTS, ANTIPLATELETS, INSULIN, STEROIDS]
+Planned Procedure: [PROCEDURE, URGENCY, EXPECTED DURATION AND BLOOD LOSS]
+Anesthesia Type: [GENERAL / REGIONAL / MAC]
+
+PRE-OPERATIVE LAB VALUES:
+[Paste labs: CBC, BMP/CMP, coags, type and screen, HbA1c, ECG, urinalysis, etc.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+> **Prompt used:** Lab Panel Interpretation for a 54-year-old male with fatigue.
+>
+> **Clinical context provided:** 54M with type 2 DM, HTN. Presenting to clinic with 3 months of progressive fatigue and exertional dyspnea. On metformin 1000mg BID, lisinopril 20mg daily. Labs drawn to evaluate fatigue.
+>
+> **Lab values provided:** WBC 6.2, Hgb 8.4, MCV 68, RDW 18.2%, platelets 410, iron 28 (NL 60-170), TIBC 450 (NL 250-370), ferritin 8 (NL 30-400), reticulocyte count 1.8%, BMP normal, TSH 2.1, B12 680.
+
+**Abnormal Values**
+
+- **Hemoglobin 8.4 g/dL** (low; normal 13.5–17.5 for adult males) — Moderate anemia explaining his fatigue and exertional dyspnea.
+- **MCV 68 fL** (low; normal 80–100) — Microcytosis, strongly suggesting iron deficiency or thalassemia trait.
+- **RDW 18.2%** (high; normal 11.5–14.5%) — Elevated, indicating anisocytosis consistent with iron deficiency anemia (thalassemia trait typically has a normal RDW).
+- **Iron 28 mcg/dL** (low; normal 60–170) — Reduced serum iron.
+- **TIBC 450 mcg/dL** (high; normal 250–370) — Elevated, indicating the body is upregulating transferrin in response to iron deficiency.
+- **Ferritin 8 ng/mL** (low; normal 30–400) — Severely depleted iron stores. Ferritin <15 is essentially diagnostic of iron deficiency.
+- **Platelets 410 K/uL** (high-normal to mildly elevated; normal 150–400) — Reactive thrombocytosis is common in iron deficiency anemia.
+
+**Pattern Recognition**
+This is a classic **iron deficiency anemia** pattern: low hemoglobin, low MCV (microcytic), high RDW (anisocytosis), low iron, high TIBC, and critically low ferritin. The reticulocyte count of 1.8% is inappropriately normal for this degree of anemia (expected >2.5% if the marrow is responding), confirming the marrow lacks the iron to mount an adequate response. Reactive thrombocytosis completes the picture.
+
+**Most Likely Explanation**
+This is iron deficiency anemia. In a 54-year-old male with no obvious dietary cause, the most important clinical question is the source of iron loss. The most common cause in adult men is occult gastrointestinal blood loss (colon cancer, gastric ulcer, angiodysplasia, or NSAID-related erosive disease). Metformin does not cause iron deficiency, and his B12 and TSH are normal, excluding other common causes of fatigue.
+
+**Recommended Next Steps**
+- **Urgent: Colonoscopy** — In any adult male with unexplained iron deficiency anemia, colon cancer must be excluded. This should be scheduled promptly.
+- **EGD** — Consider upper endoscopy, especially if colonoscopy is unrevealing. Celiac serologies (tTG-IgA) should be sent as well.
+- **Stool guaiac or FIT test** — Can be done immediately but does not replace endoscopy.
+- **Start oral iron supplementation** — Ferrous sulfate 325mg (65mg elemental iron) on an empty stomach every other day for optimal absorption. Recheck CBC and reticulocyte count in 4–6 weeks.
+- **Peripheral blood smear** — If thalassemia trait is a consideration based on ethnicity, a hemoglobin electrophoresis can be obtained, though the iron studies here are conclusive for iron deficiency.
+
+**Critical Values**
+No immediately life-threatening critical values. However, hemoglobin 8.4 in a patient with exertional dyspnea warrants close follow-up and prompt workup. If symptoms worsen or hemoglobin drops further, transfusion may be needed.
+
+---
+
+## Tips & pitfalls
 
 - Reference ranges vary by institution, assay, and patient population. Always verify against your own lab's reference ranges.
 - For trending results, paste multiple time points; the AI will comment on the trajectory.
 - This template works for any lab panel: BMP, CMP, CBC, coag studies, LFTs, iron studies, thyroid, etc.
+- **AI may use standard adult reference ranges that do not apply to your patient.** Pediatric, pregnancy, and elderly-specific ranges differ significantly. Specify the population when relevant.
+- **Specimen handling artifacts can produce spurious results.** Hemolyzed samples falsely elevate potassium and LDH. Clotted samples affect coagulation studies. If a result does not fit the clinical picture, consider repeating before acting.
+- **AI-generated reference ranges should be verified.** Models occasionally cite incorrect normal values, especially for less common assays. Cross-check against your institution's lab reference.
+- **Pattern recognition is the highest-value output of this template.** If the AI identifies a pattern (e.g., DIC labs, anion gap acidosis, iron deficiency), verify each component value individually before accepting the pattern diagnosis.

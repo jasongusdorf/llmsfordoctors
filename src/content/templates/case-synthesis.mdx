@@ -10,6 +10,10 @@ lastUpdated: 2026-03-22
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
 
+## When to use this
+
+Use this template when you need to organize a complex patient case into a polished summary statement and problem-based assessment and plan, whether for rounds preparation, documentation drafting, or clinical reasoning practice.
+
 Synthesizes a complex inpatient or outpatient case into a polished one-liner summary statement and a problem-based assessment and plan. Designed for attending-level synthesis: leading with conclusions, explicitly stating reasoning, and connecting findings to management.
 
 <Callout type="hipaa">
@@ -22,7 +26,7 @@ Synthesizes a complex inpatient or outpatient case into a polished one-liner sum
 
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Claude" title="Case Synthesis: Assessment & Plan">
 You are an experienced attending physician synthesizing a complex patient case for rounds or for documentation.
@@ -63,7 +67,7 @@ CLINICAL INFORMATION:
 
 ---
 
-## Customization Guide
+## How to customize
 
 | Element | How to Adjust |
 |---------|---------------|
@@ -77,10 +81,174 @@ CLINICAL INFORMATION:
 
 ---
 
-## Notes
+## Variations
+
+### Simplified / Brief Case Synthesis
+
+<PromptPlayground tool="Claude" title="Brief Case Synthesis">
+You are an experienced attending physician generating a concise case synthesis for a straightforward patient case. This is for rapid rounding, not a complex multi-system case.
+
+Using the clinical information provided, generate:
+
+**One-Liner**
+One sentence: "[Age] [sex] with [PMH] presenting with [CC], likely [diagnosis]."
+
+**Problem List with Brief A/P**
+For each active problem (limit to the top 3–5):
+- **Problem Name**: One-sentence assessment stating your conclusion. Plan: 2–3 bullet points maximum covering the key next steps (diagnostics, therapeutics, monitoring).
+
+**Disposition**
+One sentence: anticipated discharge timing and the single gate-keeping issue.
+
+Rules:
+- Maximum 3 lines per problem.
+- Lead with conclusions, not data.
+- Do not infer or fabricate information not provided.
+
+---
+CLINICAL INFORMATION:
+[Paste clinical data here]
+</PromptPlayground>
+
+### ICU Case Synthesis
+
+<PromptPlayground tool="Claude" title="ICU Case Synthesis">
+You are a critical care attending synthesizing a complex ICU patient case for morning rounds.
+
+Using the clinical information provided, generate:
+
+**Summary Statement**
+One sentence: "[Age] [sex] with [PMH], ICU day [#], admitted for [reason], currently on [key life support: ventilator settings, vasopressors, CRRT, etc.]."
+
+**Active Problem List** (numbered by organ system and clinical priority)
+
+For each active problem:
+
+**Problem #[N]: [Problem Name]**
+- **Assessment:** Lead with your clinical conclusion. Synthesize overnight events, trends (improving, stable, or worsening), and the current trajectory. Explicitly state the data supporting your conclusion.
+- **Plan:**
+  - *Interventions:* Specific changes to ventilator settings, vasopressor titration, medication adjustments. Include current settings/doses and target parameters.
+  - *Monitoring:* Frequency of labs, imaging, or assessments. State trigger values for escalation.
+  - *Goals for today:* 1–2 specific, measurable goals for this problem in the next 12–24 hours (e.g., "wean FiO2 to <50%," "MAP >65 off norepinephrine").
+
+**24-Hour Trajectory**
+In 2–3 sentences: Is this patient getting better, staying the same, or getting worse? What is the single most important issue to resolve today? What would trigger a change in the level of care (escalation or de-escalation)?
+
+**Family Communication Summary**
+One sentence on the key message for family update today, including prognosis framing and any decisions pending.
+
+Rules:
+- Use ICU-specific language: ventilator modes, vasopressor doses, sedation scales (RASS), delirium screening (CAM-ICU).
+- Lead each assessment with trajectory (improving/stable/worsening), then data.
+- Do not infer clinical data not provided.
+
+---
+CLINICAL INFORMATION:
+[Paste full ICU clinical data: HPI, PMH, medications/drips/infusions, ventilator settings, vitals trends, exam, labs, imaging, overnight events, nursing notes, consultant recommendations]
+</PromptPlayground>
+
+### Multidisciplinary Team Presentation
+
+<PromptPlayground tool="Claude" title="Multidisciplinary Team Case Presentation">
+You are an attending physician preparing a case summary for a multidisciplinary team meeting (e.g., tumor board, complex care conference, discharge planning meeting).
+
+Using the clinical information provided, generate a case presentation structured for a multidisciplinary audience (physicians, nursing, social work, pharmacy, case management, PT/OT):
+
+**Case Overview**
+3–4 sentences covering: who the patient is, why they are here, what has happened so far, and what the current clinical status is. Use plain medical language accessible to all team members.
+
+**Key Clinical Issues for Team Discussion**
+Numbered list (2–4 issues). For each:
+- **Issue**: The clinical or operational question
+- **Current status**: What has been done so far
+- **Decision needed**: What the team needs to decide or coordinate
+
+**Barriers to Discharge / Goals of Care**
+- Medical barriers (what clinical milestones must be met)
+- Functional barriers (PT/OT goals, mobility, ADLs)
+- Social/logistical barriers (insurance, placement, home support, equipment)
+- Patient/family factors (understanding, preferences, goals of care discussions needed)
+
+**Recommended Actions by Discipline**
+- Medicine: [next clinical steps]
+- Nursing: [monitoring, patient education]
+- Pharmacy: [medication reconciliation, dose adjustments, teaching]
+- Social Work / Case Management: [disposition planning, insurance, placement]
+- PT/OT: [functional goals, equipment needs]
+
+**Timeline**
+Estimated discharge date and the critical path items that determine it.
+
+Rules:
+- Use language accessible to non-physician team members.
+- Focus on coordination and decision-making, not detailed medical reasoning.
+- Do not infer information not provided.
+
+---
+CLINICAL INFORMATION:
+[Paste clinical data, hospital course, current functional status, social situation, insurance/disposition information]
+</PromptPlayground>
+
+---
+
+## Example output
+
+> **Prompt used:** Case Synthesis: Assessment & Plan for a complex inpatient case.
+>
+> **Clinical information provided:** 67M with HFrEF (EF 25%), CKD stage 3b, type 2 DM, atrial fibrillation on apixaban. Admitted 3 days ago for progressive dyspnea and lower extremity edema. Found to have 15-lb weight gain over 2 weeks, BNP 2,400, creatinine 2.8 (baseline 1.9), potassium 5.4. CXR: bilateral pleural effusions. Echo: EF 20-25%, moderate MR, no pericardial effusion. Started on IV furosemide 80mg BID, I/Os roughly even on day 1, then -1.5L on day 2. Today: creatinine 3.1, potassium 5.2, weight down 3 lbs. HR 82 irregularly irregular, BP 104/68, O2 94% on 2L NC. JVP 12cm, 1+ pitting edema bilaterally, bibasilar crackles improved.
+
+**Summary Statement**
+67-year-old male with HFrEF (EF 25%), CKD stage 3b, atrial fibrillation, and type 2 DM presenting with 2 weeks of progressive dyspnea and edema with 15-lb weight gain, found to have decompensated heart failure with volume overload and worsening renal function, most likely representing cardiorenal syndrome in the setting of acute-on-chronic systolic heart failure.
+
+**Active Problem List**
+
+**Problem #1: Acute Decompensated Heart Failure**
+- **Assessment:** This is an acute exacerbation of his chronic systolic heart failure with clear volume overload (15-lb weight gain, bilateral pleural effusions, elevated JVP, peripheral edema, BNP 2,400). He is beginning to respond to IV diuresis with 3-lb weight loss and improving crackles, though he remains volume-overloaded. The trigger for decompensation is not yet clear — medication non-adherence, dietary indiscretion, atrial fibrillation with rapid ventricular response, or progressive cardiomyopathy should all be considered.
+- **Plan:**
+  - *Diagnostics:* Daily weights, strict I/Os. Recheck BNP when approaching euvolemia to establish a new baseline. TSH if not recent. Iron studies for potential IV iron candidacy.
+  - *Therapeutics:* Continue IV furosemide 80mg BID. If diuresis plateaus, consider adding metolazone 5mg 30 min prior to furosemide. Target net negative 1-2L/day. Hold ACEi/ARB given rising creatinine; restart when renal function stabilizes.
+  - *Monitoring:* Daily BMP, daily weight. Reassess volume status and diuretic response every 12 hours. If creatinine rises above 3.5 or urine output drops below 0.5 mL/kg/hr, consider reducing diuretic dose.
+  - *Disposition:* Not ready for discharge. Needs to reach dry weight (approximately 8-10 lbs more to lose), transition to oral diuretics, and demonstrate stable renal function on oral regimen for 24 hours before discharge.
+
+**Problem #2: Acute Kidney Injury on CKD (Cardiorenal Syndrome)**
+- **Assessment:** Creatinine has risen from baseline 1.9 to 3.1, most consistent with type 1 cardiorenal syndrome (AKI driven by venous congestion and reduced cardiac output in the setting of decompensated HF). The continued rise despite diuresis is concerning but not unexpected in the first 48-72 hours; diuresis should still be continued as long as the patient is clearly volume-overloaded, since the AKI is driven by congestion, not hypovolemia.
+- **Plan:**
+  - *Diagnostics:* Renal ultrasound if creatinine continues to rise despite adequate diuresis to exclude obstruction. Urine sodium and FeNa if diagnostic uncertainty arises.
+  - *Therapeutics:* Hold nephrotoxins (NSAIDs, contrast). Hold ACEi/ARB until creatinine trends down. Continue diuresis — "permissive" creatinine rise is acceptable if the patient is clearly congested and producing urine.
+  - *Monitoring:* BMP every 12-24 hours. If creatinine exceeds 3.5 or potassium exceeds 5.8, discuss with nephrology.
+  - *Disposition:* Creatinine must be trending down or stable before discharge.
+
+**Problem #3: Hyperkalemia**
+- **Assessment:** Potassium 5.4 on admission, now 5.2. Likely multifactorial: CKD, AKI, possible contribution from ACEi/ARB (if was taking one). Not at a dangerous level but requires monitoring in the setting of ongoing renal dysfunction.
+- **Plan:**
+  - *Diagnostics:* Continue monitoring with daily BMP.
+  - *Therapeutics:* Low-potassium diet. If K rises above 5.5, start sodium polystyrene sulfonate or patiromer. Ensure ACEi/ARB remains held.
+  - *Monitoring:* Trend with each BMP. ECG if K exceeds 5.8.
+  - *Disposition:* Must be below 5.5 and stable on oral regimen before discharge.
+
+**Problem #4: Atrial Fibrillation**
+- **Assessment:** Irregularly irregular at HR 82, rate-controlled. On apixaban for anticoagulation. No evidence this was the trigger for decompensation (no documented tachycardia), but rate control should be confirmed across the admission.
+- **Plan:**
+  - *Therapeutics:* Continue current rate control agent. Continue apixaban (verify dose is appropriate for renal function — CrCl may be approaching the threshold for dose adjustment).
+  - *Monitoring:* Telemetry for rate and rhythm. If creatinine continues to rise, recheck CrCl and assess apixaban dose (2.5mg BID if CrCl <25, or consider transition).
+
+**Disposition Summary**
+This patient is improving but remains volume-overloaded with worsening renal function. He is not ready for discharge. The most important outstanding issue is achieving adequate diuresis while stabilizing renal function — if creatinine continues to rise despite clinical improvement in volume status, nephrology consultation is warranted.
+
+**Outstanding Questions**
+1. What triggered this decompensation? Medication non-adherence, dietary indiscretion, or progressive cardiomyopathy — this determines the post-discharge plan and whether advanced HF therapies need to be discussed.
+2. Is the rising creatinine acceptable diuresis-related cardiorenal syndrome, or is there an additional renal insult? If creatinine does not plateau in the next 24-48 hours, nephrology input would be valuable.
+3. Should this patient be referred to advanced heart failure / transplant clinic given EF 20-25% and recurrent decompensations?
+
+---
+
+## Tips & pitfalls
 
 - This template is for **clinical synthesis**, not documentation formatting. The goal is to help organize your reasoning, not to generate a note you paste directly into the EMR.
 - Works best when you paste **raw, unprocessed clinical data** (nursing notes, lab results, dictated HPI) rather than a pre-written note. Claude provides the synthesis layer.
 - For patients with more than 8–10 active problems, group related problems (e.g., "Cardiorenal syndrome" instead of separate CHF and AKI entries).
-- For a simpler version with less structure, use the "Simplified version" customization option above. This is useful for straightforward cases or when you want a quick draft rather than a full assertion-based synthesis.
+- For a simpler version with less structure, use the "Brief Case Synthesis" variation. This is useful for straightforward cases or when you want a quick draft rather than a full assertion-based synthesis.
 - Always verify that the AI's assessment matches your actual clinical reasoning. The output is a draft that must reflect your thinking.
+- **AI models can fabricate medication doses and monitoring parameters.** Always verify dosing recommendations against Lexicomp or your institution's pharmacy resources before accepting any therapeutic plan.
+- **The assessment section should lead with conclusions, not data restatement.** If the AI output reads like a list of findings rather than an interpretation, re-prompt with: "Lead each assessment with your clinical conclusion, then cite the supporting data."
+- **AI may miss subtle clinical connections** (e.g., drug-drug interactions contributing to a problem, or a unifying diagnosis that explains multiple problems). Apply your own clinical reasoning to identify links the model may have missed.

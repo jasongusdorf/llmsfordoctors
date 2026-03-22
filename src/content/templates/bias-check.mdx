@@ -4,11 +4,15 @@ category: clinical-reasoning
 targetTool: claude
 workflow: cognitive-debiasing
 tags: [advanced, clinical-reasoning, cognitive-bias, diagnostic-error, patient-safety]
-lastUpdated: 2026-03-19
+lastUpdated: 2026-03-22
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when something about a case does not feel right, when a patient is not improving as expected, or when you want a structured second opinion on your own clinical reasoning to check for cognitive biases.
 
 Challenges your working diagnosis and clinical reasoning by systematically applying a devil's advocate lens. Provide your current assessment and the case, and Claude will identify specific cognitive biases that may be operating, stress-test your reasoning, and flag diagnoses you may have anchored away from.
 
@@ -22,7 +26,7 @@ Challenges your working diagnosis and clinical reasoning by systematically apply
 
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Claude" title="Devil's Advocate: Cognitive Bias Check">
 You are a cognitive debiasing consultant reviewing a physician's clinical reasoning for diagnostic errors.
@@ -69,7 +73,7 @@ WHAT I'VE ALREADY CONSIDERED:
 
 ---
 
-## Customization Guide
+## How to customize
 
 | Element | How to Adjust |
 |---------|---------------|
@@ -81,10 +85,168 @@ WHAT I'VE ALREADY CONSIDERED:
 
 ---
 
-## Notes
+## Variations
+
+### Team-Based Debiasing
+
+<PromptPlayground tool="Claude" title="Team-Based Cognitive Debiasing Exercise">
+You are a cognitive debiasing facilitator leading a structured team debiasing exercise. The goal is to help a clinical team challenge their collective reasoning on a difficult case.
+
+Given the case, the team's working diagnosis, and each team member's perspective below, facilitate a structured debiasing exercise:
+
+**Step 1: Identify the Team's Shared Mental Model**
+In 2–3 sentences, describe the dominant narrative the team has built around this case. What assumptions is the team operating under? What framing has shaped the discussion?
+
+**Step 2: Individual Bias Scan**
+For each team member perspective provided, identify the specific cognitive bias most likely influencing their reasoning. Be specific to their stated reasoning, not generic.
+
+**Step 3: Devil's Advocate Round**
+Assign a specific devil's advocate challenge for each team member:
+- **[Team member role]**: "Your challenge: argue the case for [alternative diagnosis]. What evidence supports it?"
+- Structure 2–3 specific challenges for different team members.
+
+**Step 4: Pre-Mortem Analysis**
+"Assume the working diagnosis is wrong and the patient deteriorates in 48 hours. What diagnosis did we miss, and what should we have done differently?" Answer this question in 3–4 sentences.
+
+**Step 5: Consensus Check**
+List 2–3 specific actions the team should take before closing the diagnostic discussion:
+- One test to order
+- One question to ask the patient or family
+- One consultant to call
+
+**Teaching Debrief**
+In 2–3 sentences, summarize the key cognitive debiasing lesson from this case that applies beyond this specific patient.
+
+Rules:
+- Be constructive, not adversarial. The goal is team learning, not blame.
+- Be specific to this case and these team members' reasoning.
+- Frame each bias identification as a normal cognitive pattern, not a personal failure.
+
+---
+CASE:
+[Paste the clinical presentation]
+
+TEAM'S WORKING DIAGNOSIS:
+[State the working diagnosis and consensus reasoning]
+
+TEAM MEMBER PERSPECTIVES:
+- Attending: [Their reasoning in 2-3 sentences]
+- Senior Resident: [Their reasoning in 2-3 sentences]
+- Intern: [Their reasoning in 2-3 sentences]
+- Consulting Service (if applicable): [Their input]
+</PromptPlayground>
+
+### Retrospective Case Review Bias Check
+
+<PromptPlayground tool="Claude" title="Retrospective Diagnostic Error Analysis">
+You are a patient safety and diagnostic error analyst conducting a retrospective review of a case where the initial diagnosis was incorrect or significantly delayed.
+
+Given the case timeline and the final confirmed diagnosis below, perform a structured retrospective cognitive bias analysis:
+
+**Timeline of Diagnostic Reasoning**
+Using the clinical events provided, reconstruct the key decision points where the diagnostic trajectory could have changed. For each decision point:
+- **Time/Event**: What happened
+- **What was thought at the time**: The working diagnosis or clinical reasoning
+- **What was missed or under-weighted**: The finding or data point that, in retrospect, pointed toward the correct diagnosis
+- **Cognitive bias operating**: The specific bias that may have contributed to the error at this point
+
+**Root Cause Bias Analysis**
+Identify the 2–3 primary cognitive biases that drove the diagnostic delay or error. For each:
+- **Bias name and definition**
+- **How it operated in this case** (specific, not generic)
+- **When the bias took hold**: The specific moment in the clinical timeline where the bias became dominant
+- **What could have interrupted it**: A specific action, question, or process that might have caught the error earlier
+
+**System vs. Cognitive Factors**
+Distinguish between:
+- **Cognitive factors**: Biases in individual or team reasoning
+- **System factors**: Handoff failures, information not available, time pressure, workload, EHR design issues
+- **Interaction effects**: How system factors amplified cognitive biases
+
+**Lessons Learned**
+- **For individual clinicians**: 2–3 specific debiasing strategies to apply in similar future cases
+- **For the system/institution**: 1–2 process changes that could reduce the likelihood of this error pattern recurring
+
+**Teaching Summary**
+In 3–4 sentences, summarize this case as a teaching vignette: What happened, what went wrong in the reasoning, and what is the take-home message?
+
+Rules:
+- This is a learning exercise, not a blame exercise. Frame all analysis as systemic and cognitive, not personal.
+- Be specific to this case. Avoid generic patient safety platitudes.
+- Hindsight bias applies to you too — acknowledge when the correct diagnosis was genuinely difficult to make prospectively.
+
+---
+CASE TIMELINE:
+[Paste the chronological clinical events: presentations, assessments, tests ordered, results, consultations, handoffs, and eventual diagnosis]
+
+INITIAL WORKING DIAGNOSIS:
+[What was initially thought and why]
+
+FINAL CONFIRMED DIAGNOSIS:
+[The correct diagnosis and how it was confirmed]
+
+TIME TO CORRECT DIAGNOSIS:
+[Duration of diagnostic delay]
+</PromptPlayground>
+
+---
+
+## Example output
+
+> **Prompt used:** Cognitive Bias Check for a 45-year-old woman with recurrent abdominal pain.
+>
+> **Case provided:** 45F with history of anxiety, IBS, and 3 prior ED visits in the past year for episodic epigastric pain. Current visit: 6 hours of severe epigastric pain radiating to the back, nausea, vomiting. Vitals: HR 104, BP 138/86, RR 18, O2 99%, Temp 37.2C. Exam: epigastric tenderness, no rebound or guarding, bowel sounds present. Labs: WBC 11.2, lipase 180 (ULN 60), ALT 68, AST 54, alkaline phosphatase 142, bilirubin 1.8. CT abdomen: mild peripancreatic stranding.
+>
+> **Working diagnosis:** "Acute pancreatitis, likely alcohol-related or idiopathic. Plan for IV fluids, NPO, pain management. She has anxiety and a history of functional pain, so her pain perception may be amplified."
+>
+> **Already considered:** "Gallstone pancreatitis was considered but she has no gallstones on CT. Peptic ulcer disease was considered but lipase elevation makes pancreatitis more likely."
+
+**Cognitive Bias Analysis**
+
+1. **Diagnostic Momentum**
+   - *Definition:* Once a diagnostic label is attached, it tends to persist through subsequent encounters and providers, even when new data should prompt reconsideration.
+   - *How it may be operating here:* This patient has been labeled with IBS and anxiety across 3 prior ED visits. The current team may be inheriting those labels and unconsciously discounting the severity of her current presentation. The statement "her pain perception may be amplified" due to anxiety is a direct manifestation of diagnostic momentum — prior labels are coloring the interpretation of new, objective data.
+   - *How to counter it:* Ask: "If this were the first time I had ever seen this patient, with no prior chart, how would I interpret these labs and imaging?" Strip the prior labels and evaluate the data de novo.
+
+2. **Affective Bias (Attribution Bias)**
+   - *Definition:* Clinical reasoning is influenced by emotional reactions to the patient, including frustration with frequent ED visits or assumptions about patients with psychiatric diagnoses.
+   - *How it may be operating here:* A patient with 3 ED visits in a year, an anxiety diagnosis, and IBS is at risk of being labeled a "frequent flier" or having her symptoms attributed to a functional etiology. The phrase "pain perception may be amplified" suggests the team is discounting objective findings (lipase 3x ULN, elevated LFTs, CT findings) because of a psychiatric label.
+   - *How to counter it:* Separate the objective data from the psychosocial narrative. Lipase 180, ALT 68, alk phos 142, bilirubin 1.8, and peripancreatic stranding are objective findings that demand the same workup regardless of the patient's psychiatric history.
+
+3. **Search Satisficing**
+   - *Definition:* The tendency to stop searching for additional diagnoses once one acceptable diagnosis is found.
+   - *How it may be operating here:* The team has found acute pancreatitis and stopped the diagnostic search. But the elevated ALT, alk phos, and bilirubin suggest a biliary etiology that has not been fully evaluated. "No gallstones on CT" does not exclude choledocholithiasis — CT misses common bile duct stones in up to 25% of cases.
+   - *How to counter it:* Ask: "I have the diagnosis (pancreatitis), but do I have the etiology? What is causing the pancreatitis, and does the cause change my management?"
+
+**Alternative Diagnoses Stress Test**
+
+1. **Gallstone pancreatitis with choledocholithiasis**
+   - *Why it might be getting under-weighted:* The team noted "no gallstones on CT" and moved on. However, CT has poor sensitivity for choledocholithiasis (50–75%). The ALT 68, alk phos 142, and bilirubin 1.8 form a cholestatic pattern strongly suggestive of biliary obstruction.
+   - *Key test:* Right upper quadrant ultrasound looking for gallstones, CBD dilation (>6mm), and intrahepatic ductal dilation. If positive, MRCP or ERCP is indicated.
+
+2. **Pancreatic mass / malignancy**
+   - *Why it might be getting under-weighted:* Recurrent episodes of epigastric pain over the past year attributed to IBS could represent recurrent pancreatitis from a small pancreatic tumor or IPMN. A 45-year-old with recurrent pancreatitis warrants evaluation for structural causes.
+   - *Key test:* If the CT did not include a pancreatic-protocol contrast phase, consider MRCP or endoscopic ultrasound after the acute episode resolves.
+
+3. **Common bile duct stone with ascending cholangitis**
+   - *Why it might be getting under-weighted:* Temp is only 37.2C and she does not look toxic, so Charcot's triad is incomplete. But early cholangitis can present subtly, and the biliary pattern labs with tachycardia should raise concern.
+   - *Key test:* Repeat temperature checks q4h, blood cultures if fever develops, urgent RUQ ultrasound to assess CBD diameter.
+
+**The Worst-Case Scenario**
+The most dangerous diagnosis consistent with these findings is **ascending cholangitis from choledocholithiasis**, which can progress to sepsis and requires urgent biliary decompression (ERCP). The team has not ordered an RUQ ultrasound to assess the biliary tree, has not drawn blood cultures, and the low-grade temperature with tachycardia may represent early sepsis. A CT without a dedicated biliary assessment is insufficient to rule this out.
+
+**Forcing Question**
+Before finalizing "idiopathic pancreatitis," ask yourself: **"Have I adequately evaluated the biliary tree?"** Order an RUQ ultrasound and, if the CBD is dilated, proceed to MRCP or GI consult for ERCP. The cholestatic lab pattern demands biliary imaging regardless of the CT findings.
+
+---
+
+## Tips & pitfalls
 
 - This template works best after you've already formed a strong working diagnosis: the stronger the conviction, the more useful the challenge.
 - The **Forcing Question** is often the most actionable output: one question you need to answer before you can confidently close the case.
 - Use this in high-stakes scenarios: patients not improving as expected, complex multi-system presentations, cases with diagnostic momentum built up from prior providers, and any case that "doesn't quite fit."
 - Cognitive bias is not about blaming the physician; it is a predictable property of human cognition under uncertainty and time pressure. This tool makes the bias explicit so you can act on it.
 - For a deeper exploration of diagnostic error in medicine, see the **Cognitive Debiasing** workflow.
+- **AI itself is subject to anchoring bias.** If you provide a strong working diagnosis in the prompt, the AI may anchor on it despite being asked to challenge it. For maximum debiasing value, provide the raw case data and ask the AI to form its own assessment before revealing your working diagnosis.
+- **The bias check is only as good as the information you provide.** Include pertinent negatives, prior workup, and the reasoning behind why you moved away from alternatives. Omitting this information limits the AI's ability to identify meaningful biases.
+- **Use this template prospectively, not just retrospectively.** The greatest value is catching biases before they lead to errors, not after a missed diagnosis is discovered.

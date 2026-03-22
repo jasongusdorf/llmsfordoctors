@@ -4,11 +4,15 @@ category: clinical-reasoning
 targetTool: openai
 workflow: clinical-reasoning
 tags: [intermediate, clinical-reasoning, workup, diagnostics, test-ordering]
-lastUpdated: 2026-03-19
+lastUpdated: 2026-03-22
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when you have a working differential diagnosis and need to build a prioritized, rationale-driven diagnostic workup plan organized by urgency and yield.
 
 Converts a clinical impression and differential diagnosis into a prioritized, rationale-driven diagnostic workup plan. Provide your leading diagnoses and the clinical context, and get a structured list of tests organized by urgency and diagnostic yield.
 
@@ -22,7 +26,7 @@ Converts a clinical impression and differential diagnosis into a prioritized, ra
 
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="ChatGPT (GPT-4o)" title="Diagnostic Workup Planner">
 You are an experienced attending physician helping to plan a diagnostic workup for an undifferentiated clinical presentation.
@@ -73,7 +77,7 @@ Must-not-miss: [ANY HIGH-ACUITY DIAGNOSES TO RULE OUT]
 
 ---
 
-## Customization Guide
+## How to customize
 
 | Element | How to Adjust |
 |---------|---------------|
@@ -85,9 +89,207 @@ Must-not-miss: [ANY HIGH-ACUITY DIAGNOSES TO RULE OUT]
 
 ---
 
-## Notes
+## Variations
+
+### Resource-Limited Setting Workup
+
+<PromptPlayground tool="Any LLM (GPT-4o, Claude, etc.)" title="Resource-Limited Workup Planner">
+You are an experienced physician planning a diagnostic workup in a resource-limited setting (rural clinic, community hospital without advanced imaging, or international setting with constrained lab availability).
+
+Given the clinical scenario and differential below, generate a workup plan that prioritizes widely available, low-cost, high-yield tests. Assume you may NOT have access to: MRI, CT angiography, interventional radiology, specialized send-out labs, or subspecialty consultation on the same day.
+
+**Available Now (bedside and basic lab)**
+For each test:
+- Test name (e.g., point-of-care ultrasound, CBC, BMP, urinalysis, ECG, plain radiograph)
+- What diagnosis it addresses
+- Key finding that would change management
+
+**Available with Delay (send-out labs or transfer for imaging)**
+For each:
+- Test name
+- Turnaround time expectation
+- What you do while waiting for the result
+
+**Transfer Criteria**
+Describe the specific clinical findings or test results that should trigger transfer to a higher level of care. Be explicit about what constitutes "too sick to manage here."
+
+**Clinical Reasoning Without Advanced Testing**
+In 3–4 sentences, describe how you would synthesize the available bedside and basic lab data to make a working management decision without advanced imaging or specialty labs.
+
+Rules:
+- Prioritize tests by availability, cost, and yield in this order.
+- Do not recommend tests that require resources you may not have.
+- State explicitly when clinical observation over time is more valuable than additional testing.
+
+---
+CLINICAL SCENARIO:
+Age / Sex: [AGE AND SEX]
+Presentation: [CHIEF COMPLAINT, DURATION, KEY FINDINGS]
+Vital Signs: [HR, BP, RR, O2 SAT, TEMP]
+Exam: [PERTINENT PHYSICAL EXAM]
+Available Resources: [LIST WHAT YOU HAVE: basic labs, X-ray, ultrasound, etc.]
+Setting: [RURAL CLINIC / COMMUNITY HOSPITAL / INTERNATIONAL]
+
+DIFFERENTIAL DIAGNOSES:
+1. [MOST LIKELY DIAGNOSIS]
+2. [SECOND DIAGNOSIS]
+3. [THIRD DIAGNOSIS]
+Must-not-miss: [HIGH-ACUITY DIAGNOSES TO RULE OUT]
+</PromptPlayground>
+
+### Outpatient Workup Planner
+
+<PromptPlayground tool="Any LLM (GPT-4o, Claude, etc.)" title="Outpatient Workup Planner">
+You are an experienced primary care physician planning a diagnostic workup for a stable outpatient presentation where the diagnosis is uncertain.
+
+Given the clinical scenario and differential below, generate a structured outpatient workup plan. The patient will be going home today; all tests will be ordered as outpatient labs or scheduled imaging.
+
+**Initial Outpatient Labs (order today)**
+For each test:
+- Test name
+- What diagnosis or question it addresses
+- When to expect results and how to follow up
+
+**Imaging to Schedule**
+For each study:
+- Modality and body area
+- What you're looking for
+- Urgency (routine vs. expedited) and why
+
+**Referrals**
+List any specialty referrals needed, with the specific clinical question for each.
+
+**Safety Net Plan**
+- Specific symptoms or signs that should prompt the patient to go to the emergency department before follow-up
+- Timeline for follow-up visit to review results
+- What to do if results are inconclusive
+
+**What NOT to Order Yet**
+List 1–2 tests that are commonly ordered in this scenario but should wait until initial results return. Explain why ordering them now would be premature or wasteful.
+
+Rules:
+- All tests must be obtainable in an outpatient setting.
+- Include a clear safety net for the patient between now and follow-up.
+- Do not infer clinical information not provided below.
+
+---
+CLINICAL SCENARIO:
+Age / Sex: [AGE AND SEX]
+Presentation: [CHIEF COMPLAINT, DURATION, KEY FINDINGS]
+Vital Signs: [HR, BP, RR, O2 SAT, TEMP]
+Exam: [PERTINENT PHYSICAL EXAM]
+Already Obtained: [ANY PRIOR WORKUP]
+Setting: Outpatient clinic
+
+DIFFERENTIAL DIAGNOSES:
+1. [MOST LIKELY DIAGNOSIS]
+2. [SECOND DIAGNOSIS]
+3. [THIRD DIAGNOSIS]
+</PromptPlayground>
+
+### Urgent Inpatient Workup
+
+<PromptPlayground tool="Any LLM (GPT-4o, Claude, etc.)" title="Urgent Inpatient Workup Planner">
+You are a hospital medicine attending planning the diagnostic workup for a newly admitted patient with an urgent but not immediately emergent presentation.
+
+Given the clinical scenario and differential below, generate a workup plan for the first 24 hours of admission. The patient is hemodynamically stable but requires inpatient-level evaluation.
+
+**Admission Orders (first 2 hours)**
+For each test:
+- Test name and timing (stat vs. routine)
+- What diagnosis it addresses
+- Action threshold (the result that changes management tonight)
+
+**Overnight Monitoring Plan**
+- Specific vitals frequency and parameters to watch
+- Nursing call criteria (what findings should prompt you to be called)
+- Repeat labs if indicated (which labs, when, and why)
+
+**Morning Workup Plan (hours 6–24)**
+For each test:
+- Test name
+- What it addresses
+- How the overnight data changes whether you order it
+
+**Consultations to Place**
+For each:
+- Service to consult
+- Specific question
+- Urgency (tonight vs. morning)
+
+**24-Hour Decision Point**
+In 2–3 sentences, describe what clinical picture at the 24-hour mark would make you (a) escalate care, (b) continue the current plan, or (c) transition toward discharge.
+
+Rules:
+- Organize by time: what happens now, overnight, and in the morning.
+- Be explicit about overnight monitoring parameters.
+- Do not infer clinical information not provided.
+
+---
+CLINICAL SCENARIO:
+Age / Sex: [AGE AND SEX]
+Presentation: [CHIEF COMPLAINT, DURATION, KEY FINDINGS]
+Vital Signs: [HR, BP, RR, O2 SAT, TEMP]
+Exam: [PERTINENT PHYSICAL EXAM]
+ED Workup Already Done: [LABS, IMAGING, INTERVENTIONS IN THE ED]
+Admission Diagnosis: [WORKING DIAGNOSIS]
+
+DIFFERENTIAL DIAGNOSES TO WORK UP:
+1. [MOST LIKELY DIAGNOSIS]
+2. [SECOND DIAGNOSIS]
+3. [THIRD DIAGNOSIS]
+Must-not-miss: [HIGH-ACUITY DIAGNOSES STILL ON THE TABLE]
+</PromptPlayground>
+
+---
+
+## Example output
+
+> **Prompt used:** Diagnostic Workup Planner for a 72-year-old female with new-onset confusion.
+>
+> **Clinical scenario provided:** 72F with HTN, type 2 DM, CKD stage 3. Brought in by family for 2 days of progressive confusion and decreased oral intake. No fever at home. Vitals: HR 98, BP 102/64, RR 18, O2 96% RA, Temp 37.8C. Exam: oriented to person only, dry mucous membranes, no focal neuro deficits, lungs clear, abdomen soft. No labs or imaging yet. Setting: Emergency department. DDx: UTI/urosepsis, hypovolemia/AKI on CKD, metabolic encephalopathy, stroke.
+
+**Tier 1: Immediate (order now, results needed within hours)**
+- **CBC with differential** — Addresses infection/sepsis. WBC >12 or <4 with bandemia supports infectious etiology.
+- **BMP (Chem-8)** — Addresses AKI, electrolyte derangement, hyperglycemia. Creatinine above her baseline (likely >1.8-2.0) confirms AKI. Sodium <125 or >155 could explain encephalopathy.
+- **Urinalysis with culture** — Addresses UTI/urosepsis. Positive nitrites, leukocyte esterase, or bacteria on micro supports urinary source.
+- **Lactate** — Addresses sepsis severity. Lactate >2 mmol/L in the setting of hypotension raises concern for septic shock.
+- **Blood cultures x2** — Addresses bacteremia. Must be drawn before antibiotics if sepsis is suspected.
+- **CT head without contrast** — Addresses stroke or intracranial pathology. Any acute hemorrhage, mass effect, or large territory infarct changes management immediately.
+- **Point-of-care glucose** — Addresses hypoglycemia or DKA. Glucose <60 or >400 requires immediate intervention.
+
+**Tier 2: Early (order now, results within 24-48 hours)**
+- **TSH** — Addresses myxedema or thyroid storm as a cause of encephalopathy, particularly in older women.
+- **Ammonia level** — Addresses hepatic encephalopathy if liver disease is a possibility.
+- **Chest X-ray** — Addresses pneumonia as an occult infectious source causing confusion in the elderly.
+- **LFTs** — Baseline hepatic function, especially relevant with altered mental status.
+
+**Tier 3: Deferred (pending Tier 1/2 results)**
+- **MRI brain** — If CT head is negative and confusion does not resolve with metabolic correction, MRI is warranted to evaluate for acute ischemic stroke (CT misses early and small infarcts).
+- **Lumbar puncture** — If no clear metabolic or infectious source is identified and fever persists, LP should be performed to evaluate for meningitis/encephalitis.
+- **EEG** — If altered mental status persists without clear explanation, non-convulsive status epilepticus should be considered.
+
+**Procedures / Consultations**
+- **Neurology consult** (if CT head abnormal or AMS persists >24h without clear metabolic cause): "72F with new-onset progressive confusion, no focal deficits, CT pending — concern for stroke vs. metabolic encephalopathy."
+
+**Decision Branch Points**
+- If **creatinine is significantly above baseline** and BUN/Cr ratio is elevated → aggressive IV hydration, hold nephrotoxins, recheck in 12 hours. If no improvement, consider renal ultrasound for obstruction.
+- If **UA is positive and lactate is elevated** → start empiric antibiotics for urosepsis (adjust for CKD), repeat lactate in 4–6 hours to assess response.
+- If **CT head shows acute infarct** → activate stroke pathway, neurology consult, hold anticoagulation pending further characterization.
+
+**What to Avoid**
+- **MRI brain on arrival** — Low yield as the first test when metabolic causes are more likely and faster to diagnose. CT head is sufficient to exclude hemorrhage and mass effect urgently.
+- **Empiric broad-spectrum antibiotics before cultures** — Unless she meets sepsis criteria with hemodynamic instability, draw cultures and UA first. Her temp is only 37.8C and she is not in shock.
+- **CT angiography head/neck** — Not indicated without focal neurological deficits or a positive CT head finding.
+
+---
+
+## Tips & pitfalls
 
 - Works best when paired with the **DDx Generator** template: first generate your differential, then paste it here to build the workup plan.
 - The **Decision Branch Points** section is the highest-value output: it makes your clinical reasoning explicit and helps anticipate what you'll do before results return.
 - The **What to Avoid** section helps with both test stewardship and patient safety (e.g., avoiding contrast in AKI, avoiding LP before CT in certain cases).
 - For complex multi-system presentations, run this template once per major diagnostic question rather than trying to cover everything in a single prompt.
+- **AI may recommend tests that are not available at your institution or that have long turnaround times.** Always verify test availability and expected turnaround at your facility.
+- **Test sensitivity and specificity values cited by AI should be verified.** Models sometimes confabulate performance characteristics of diagnostic tests. Cross-reference with UpToDate or primary literature.
+- **Cost and patient burden matter.** AI tends to recommend comprehensive workups. Apply clinical judgment about which tests are truly necessary and which can wait for initial results.
