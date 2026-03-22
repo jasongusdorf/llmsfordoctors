@@ -3,13 +3,17 @@ title: "New Medication Guide"
 category: patient-education
 targetTool: any
 tags: [patient-education, medication, prescription, pharmacy]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-03-22
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
 
 This template takes a medication name, dose, and indication and produces a patient-friendly medication guide. It covers what the medication does, how to take it, side effects to watch for, and when to call the doctor.
+
+## When to use this
+
+Use this template when a patient is starting a new medication or has a significant dose change and needs a comprehensive, plain-language medication guide.
 
 <Callout type="hipaa">
   De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, and any other direct identifiers. Medication names and doses alone are generally not identifiable.
@@ -21,7 +25,7 @@ This template takes a medication name, dose, and indication and produces a patie
 
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Any LLM" title="New Medication Guide">
 You are a physician creating a medication guide for a patient who has just been prescribed a new medication. The patient has no medical background. Write at a 6th grade reading level using short sentences and simple words.
@@ -66,7 +70,138 @@ MEDICATION INFORMATION:
 
 ---
 
-## Customization Guide
+## Variations
+
+### Injectable medication guide
+
+<PromptPlayground tool="Any LLM" title="Injectable Medication Guide">
+You are a physician creating a medication guide for a patient who has just been prescribed an injectable medication. The patient has no medical background and has never given themselves an injection before. Write at a 6th grade reading level. Use short sentences and simple words.
+
+Using the medication information provided below, create a patient guide with:
+
+**1. What This Medication Is For**
+2–3 simple sentences explaining what the medication does and why injection is needed instead of a pill.
+
+**2. How to Give Yourself the Injection**
+Step-by-step instructions with numbered steps:
+1. Wash your hands with soap and water
+2. Gather your supplies: [medication, syringe/pen, alcohol swab, sharps container]
+3. Choose an injection site: [describe where — belly, thigh, back of arm — with clear instructions on rotating sites]
+4. Clean the skin with an alcohol swab and let it dry
+5. Prepare the medication: [pen or syringe specific instructions]
+6. Pinch the skin, insert the needle at [angle], inject slowly
+7. Remove the needle, apply gentle pressure with a cotton ball
+8. Dispose of the needle in your sharps container — never recap or throw in the trash
+
+**3. Injection Schedule**
+- How often: [frequency]
+- Best time of day
+- How to keep track (calendar, app, alarm)
+- What to do if you miss a dose
+
+**4. Common Side Effects**
+3–5 side effects with what to do about each one. Include injection site reactions (redness, swelling, bruising) and note that these are normal.
+
+**5. Serious Side Effects: Call Your Doctor**
+3–5 serious warning signs, bolded.
+
+**6. Storage**
+Refrigeration requirements, how to transport, what to do if left out.
+
+**7. Sharps Disposal**
+Where to get a sharps container and how to dispose of it when full.
+
+---
+MEDICATION INFORMATION:
+[Paste the injectable medication name, dose, frequency, indication, and any relevant details]
+</PromptPlayground>
+
+### Controlled substance guide
+
+<PromptPlayground tool="Any LLM" title="Controlled Substance Medication Guide">
+You are a physician creating a medication guide for a patient who has been prescribed a controlled substance. The patient has no medical background. Write at a 6th grade reading level. Use short sentences. Be direct and clear about safety without being judgmental.
+
+Using the medication information provided below, create a patient guide with:
+
+**1. What This Medication Is For**
+2–3 simple sentences explaining what the medication does and why the doctor prescribed it.
+
+**2. How to Take It**
+- Exact dose and frequency
+- Maximum amount per day
+- Take with food or on an empty stomach
+- What to do if you miss a dose (NOT: "take a double dose")
+- **Important:** Take this medication exactly as prescribed. Do not take more than directed.
+
+**3. Safety Rules**
+- **Do not drive or operate machinery** until you know how this medication affects you
+- **Do not drink alcohol** while taking this medication — the combination can be dangerous
+- **Do not share this medication** with anyone else, even if they have similar symptoms
+- **Keep this medication locked up** and away from children, visitors, and anyone who might misuse it
+- **Do not stop suddenly** without talking to your doctor (if applicable — some medications require gradual tapering)
+
+**4. Common Side Effects**
+3–5 side effects with what to do about each. Include constipation, drowsiness, nausea if applicable.
+
+**5. Serious Side Effects: Call 911**
+Warning signs of overdose or serious reaction, bolded:
+- **Extreme drowsiness or you cannot stay awake**
+- **Very slow or shallow breathing**
+- **Blue or gray lips or fingertips**
+- **You cannot be woken up**
+
+**6. Safe Storage and Disposal**
+- Store in a locked cabinet or lockbox
+- Keep a count of your pills
+- When you are done: do NOT flush or throw in trash. Return unused medication to a pharmacy drop-off or use a drug disposal kit.
+
+**7. Refills**
+How refills work for controlled substances (may require a new prescription each time, no phone-in refills, etc.).
+
+---
+MEDICATION INFORMATION:
+[Paste the controlled substance name, dose, frequency, indication, and duration of treatment]
+</PromptPlayground>
+
+---
+
+## Example output
+
+**Amlodipine (Norvasc) 5 mg — Your New Medication Guide**
+
+**1. What This Medication Is For**
+Amlodipine is a blood pressure medicine. It relaxes your blood vessels so blood can flow more easily. This lowers your blood pressure and reduces the strain on your heart. Think of it like loosening a tight garden hose so water flows through more smoothly.
+
+**2. How to Take It**
+- Take 1 tablet (5 mg) by mouth once a day
+- You can take it with or without food
+- Take it at the same time each day (many people choose the morning)
+- If you miss a dose: take it as soon as you remember. If it is almost time for your next dose, skip the missed one. Do not take two tablets at once.
+- You will likely need to take this medication long-term. Do not stop taking it without talking to your doctor, even if you feel fine.
+
+**3. Common Side Effects**
+- Swollen ankles or feet — this happens because the medicine relaxes your blood vessels. It is usually mild. Put your feet up when you can. Tell your doctor if it gets worse.
+- Headache — usually goes away after the first week or two. Over-the-counter Tylenol is OK.
+- Feeling flushed or warm — this is because your blood vessels are opening up. It is not dangerous.
+- Dizziness — especially when you stand up quickly. Stand up slowly. Sit back down if you feel unsteady.
+
+**4. Serious Side Effects: Call Your Doctor**
+- **Your heart feels like it is racing or pounding**
+- **You faint or nearly faint**
+- **Severe swelling of your face, lips, or tongue** (this is rare but could be an allergic reaction — call 911)
+- **Chest pain that is new or worse than usual**
+
+**5. Things to Avoid**
+- Grapefruit and grapefruit juice — these can increase the amount of medication in your blood
+- Limit alcohol — it can lower your blood pressure too much and make you dizzy
+- Be careful with OTC cold medicines that contain pseudoephedrine — they can raise your blood pressure
+
+**6. Storage**
+Store at room temperature. Keep the bottle closed and away from moisture and heat.
+
+---
+
+## How to customize
 
 | Element | How to Adjust |
 |---|---|
@@ -78,8 +213,11 @@ MEDICATION INFORMATION:
 
 ---
 
-## Notes
+## Tips & pitfalls
 
 - This template is shared across the **Inpatient Discharge Education** and **Outpatient Visit Education** workflows. Use it whenever a patient starts a new medication or has a significant dose change.
 - For high-risk medications (anticoagulants, insulin, opioids, chemotherapy), the AI output should be considered a starting draft; pair it with institution-specific medication education resources.
 - Always cross-reference side effects and interactions against a current drug reference before giving to the patient.
+- The AI may generate technically correct but overly alarming side effect lists. Trim rare side effects if they would cause more anxiety than benefit for the patient.
+- For patients on many medications, consider using this template for the most important 1–2 new medications and using the **Medication Instructions** template for a combined daily schedule.
+- Pay special attention to the "Things to Avoid" section. Drug-food and drug-drug interactions are one of the most actionable parts of the guide and also one of the most error-prone for AI.

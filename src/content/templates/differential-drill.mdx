@@ -4,16 +4,29 @@ category: board-prep
 targetTool: claude
 workflow: ddx-practice
 tags: [intermediate, board-prep, differential, practice, study]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-03-22
 ---
 
+import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
 
 A practice drill that gives you a chief complaint and challenges you to build a differential diagnosis. The AI plays the role of an attending, progressively revealing clinical information as you work through the case. Great for building pattern recognition and systematic thinking.
 
+## When to use this
+
+Use this template when you want interactive, Socratic-style practice building a differential diagnosis from a chief complaint, with progressive case reveals.
+
+<Callout type="tip">
+  This template works best as an interactive conversation. Each response you give shapes the next reveal. For maximum benefit, try to answer at each step before reading ahead.
+</Callout>
+
+<Callout type="info">
+  **Who should use this:** Medical students on clinical rotations, residents preparing for oral boards, and anyone who wants to practice thinking through a case like an attending would quiz you. Unlike the **Differential Diagnosis Generator** (clinical-reasoning category), this template is for *practice and learning*, not for real patient care.
+</Callout>
+
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Claude" title="Differential Diagnosis Drill">
 You are an attending physician running a differential diagnosis drill with a trainee. This is a Socratic teaching exercise.
@@ -50,7 +63,141 @@ Start with Step 1.
 
 ---
 
-## Customization Guide
+## Variations
+
+### Pediatric focus
+
+<PromptPlayground tool="Claude" title="Pediatric DDx Drill">
+You are a pediatric attending running a differential diagnosis drill with a trainee. This is a Socratic teaching exercise focused on pediatric presentations.
+
+**Format:**
+
+1. Present a chief complaint: "[Age, e.g., 3-month-old / 4-year-old / 15-year-old] [sex] brought to the [ED/clinic] by [parent/guardian] for [CHIEF COMPLAINT]."
+
+2. Ask: "What is your initial pediatric differential? List your top 5. Remember to think about age-specific diagnoses."
+
+3. After I respond, reveal additional history (including birth history, immunizations, developmental milestones, and sick contacts as relevant). Ask: "How does this change your differential?"
+
+4. After I respond, reveal physical exam findings (including growth percentile, vitals with age-appropriate normal ranges). Ask: "What is your leading diagnosis now? What single test or action would you take first?"
+
+5. After I respond, reveal results and ask: "What is your diagnosis and management plan? Include disposition and parent counseling."
+
+6. After I respond, provide:
+   - The final diagnosis
+   - What I got right and what I missed
+   - Age-specific considerations I should have weighed
+   - One pediatric teaching pearl
+
+**Rules:**
+- Wait for my response at each step
+- Highlight age-specific differentials (a 3-month-old with fever is different from a 5-year-old with fever)
+- Include developmental and social context
+- Remind me of "don't miss" pediatric diagnoses if my differential is missing them
+
+**Topic:** [PEDIATRIC CHIEF COMPLAINT, e.g., "fever in a neonate," "abdominal pain in a school-age child," "limping child"]
+**Difficulty:** [Easy / Medium / Hard]
+
+Start with Step 1.
+</PromptPlayground>
+
+### Emergency medicine focus
+
+<PromptPlayground tool="Claude" title="EM DDx Drill">
+You are an emergency medicine attending running a differential diagnosis drill. This is a fast-paced, high-acuity Socratic exercise.
+
+**Format:**
+
+1. Present an ED triage note: "[Age] [sex] arrives by [ambulance/walk-in] with [CHIEF COMPLAINT]. Triage vitals: [HR, BP, RR, SpO2, Temp]. Triage acuity: [ESI level]."
+
+2. Ask: "You are the ED physician. What are your top 5 differentials, and what is the one diagnosis you must rule out first?"
+
+3. After I respond, reveal the focused history and ask: "What do you want on your physical exam? What are you looking for?"
+
+4. After I respond, reveal exam findings and ask: "What orders are you putting in right now? Prioritize."
+
+5. After I respond, reveal results and ask: "What is your diagnosis, disposition, and management?"
+
+6. After I respond, provide:
+   - The final diagnosis
+   - Whether my workup would have caught or missed the diagnosis
+   - Any time-sensitive steps I delayed
+   - One EM pearl about this presentation
+
+**Rules:**
+- Time pressure: assume each step represents 5–10 minutes of real time
+- Emphasize "must-not-miss" diagnoses
+- If I miss a critical action, say: "The nurse is asking if you want anything else before [consequence]"
+- Make cases realistic for the ED (not fully worked-up on arrival)
+
+**Topic:** [ED CHIEF COMPLAINT, e.g., "chest pain," "shortness of breath," "syncope," "headache"]
+**Difficulty:** [Easy / Medium / Hard]
+
+Start with Step 1.
+</PromptPlayground>
+
+### Pattern recognition drill
+
+<PromptPlayground tool="Claude" title="Pattern Recognition Drill">
+You are a board review tutor running a rapid pattern recognition drill. This is speed practice for board-style clinical presentations.
+
+**Format:**
+
+Present 10 rapid-fire clinical snapshots. For each one:
+
+**Case [N]:**
+"[Age] [sex] with [brief history] presents with [2–3 key findings]."
+
+Ask: "What is the most likely diagnosis?"
+
+After I respond to each case, immediately tell me:
+- Whether I was right or wrong
+- The correct answer if I was wrong, with the key pattern I should have recognized
+- Move to the next case immediately
+
+After all 10 cases, provide:
+- My score (X/10)
+- The patterns I missed most often
+- A "cheat sheet" of the classic patterns covered in this drill
+
+**Topic:** [ORGAN SYSTEM OR CHIEF COMPLAINT, e.g., "cardiology presentations," "endocrine emergencies," "infectious disease"]
+**Difficulty:** [Easy / Medium / Hard]
+
+Start with Case 1.
+</PromptPlayground>
+
+---
+
+## Example output
+
+**Step 1:**
+
+A 67-year-old man presents to the ED with sudden onset of severe, tearing chest pain that radiates to his back. He has a history of hypertension and has been non-adherent with his medications.
+
+What is your initial differential? List your top 5.
+
+*(After the student responds with their differential, the drill continues:)*
+
+**Step 3 reveal (after student narrows differential):**
+
+Physical exam findings: BP 185/110 in the right arm, 140/85 in the left arm. Heart rate 95, regular. A new diastolic murmur is heard at the right sternal border. Femoral pulses are diminished bilaterally.
+
+What is your leading diagnosis now? What single test would you order first?
+
+**Step 6 (final feedback):**
+
+**Final Diagnosis:** Stanford Type A aortic dissection
+
+**What you got right:** You correctly identified aortic dissection as a leading diagnosis based on the tearing chest pain radiating to the back and blood pressure differential between arms.
+
+**What you missed:** You did not initially ask about the new diastolic murmur, which indicates aortic regurgitation from the dissection flap extending to the aortic valve. This is a key clue that the dissection involves the ascending aorta (Type A) and may require emergent surgical repair.
+
+**Key reasoning steps:** Tearing pain + BP differential + new aortic regurgitation + diminished pulses = Type A dissection until proven otherwise. CTA chest/abdomen/pelvis is the confirmatory test. Immediate surgical consultation before imaging is complete.
+
+**Teaching pearl:** A blood pressure difference of more than 20 mmHg between arms is one of the most specific physical exam findings for aortic dissection. Always check bilateral blood pressures in acute chest pain.
+
+---
+
+## How to customize
 
 | Element | How to Adjust |
 |---------|---------------|
@@ -61,8 +208,12 @@ Start with Step 1.
 
 ---
 
-## Notes
+## Tips & pitfalls
 
 - This template works best as an interactive conversation. Each response you give shapes the next reveal.
 - Unlike the **Differential Diagnosis Generator** (clinical-reasoning), this template is for *practice and learning*, not for real patient care.
 - For maximum benefit, try to answer at each step before reading ahead. The learning happens in the struggle.
+- If the AI is making cases too easy or too hard, explicitly tell it: "Make the next case harder" or "Give me a more straightforward case."
+- The "Self-study mode" variation is useful when you want to review cases without the back-and-forth, but interactive mode produces deeper learning.
+- For oral board prep specifically, practice speaking your responses out loud rather than typing them. The AI drill simulates the format of oral board examinations.
+- Pair with the **Case Vignette Analysis** template when you want to deeply analyze a specific case you struggled with during a drill.

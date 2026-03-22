@@ -4,7 +4,7 @@ category: board-prep
 targetTool: claude
 workflow: board-questions
 tags: [beginner, board-prep, questions, study, usmle]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-03-22
 ---
 
 import Callout from '../../components/Callout.astro';
@@ -12,13 +12,17 @@ import PromptPlayground from '../../components/PromptPlayground.astro';
 
 Generates board-style multiple choice questions on any medical topic. Specify the topic, difficulty level, and question style, and get practice questions with detailed explanations for each answer choice. Great for self-study or for attendings creating teaching questions.
 
+## When to use this
+
+Use this template when you want to generate custom board-style practice questions on any medical topic, tailored to a specific exam format and difficulty level.
+
 <Callout type="tip">
   For the most realistic practice, ask for questions in the style of your specific exam (USMLE Step 1/2/3, COMLEX, shelf exams, specialty boards). Each has different question formats and emphasis areas.
 </Callout>
 
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Claude" title="Board-Style Question Generator">
 You are a medical education expert writing board-style exam questions.
@@ -57,7 +61,105 @@ ADDITIONAL PREFERENCES:
 
 ---
 
-## Customization Guide
+## Variations
+
+### Rapid-fire format
+
+<PromptPlayground tool="Claude" title="Rapid-Fire Board Questions">
+You are a medical education expert writing rapid-fire board review questions.
+
+Generate 10 rapid-fire questions on:
+
+**Topic:** [MEDICAL TOPIC]
+**Exam Style:** [USMLE Step 1 / Step 2 CK / Shelf]
+
+Format each question as:
+**Q[N].** One-sentence clinical stem → What is the [diagnosis / next step / mechanism]?
+**A:** [One-sentence answer] | **Pearl:** [One high-yield fact]
+
+Keep each question to 1–2 sentences maximum. No vignettes. These are speed-drill questions designed for last-minute review. Cover the breadth of the topic rather than going deep on one subtopic.
+</PromptPlayground>
+
+### Clinical vignette with imaging descriptions
+
+<PromptPlayground tool="Claude" title="Image-Based Board Questions">
+You are a medical education expert writing board-style questions that incorporate imaging and visual findings.
+
+Generate [NUMBER, e.g., 5] multiple choice questions on:
+
+**Topic:** [MEDICAL TOPIC, e.g., "chest X-ray findings," "ECG interpretation," "dermatologic lesions"]
+**Exam Style:** [USMLE Step 2 CK / Step 3 / Specialty Board]
+**Difficulty:** [Medium / Hard]
+
+For each question:
+
+**Question [N]**
+Present a clinical vignette (3–5 sentences). Then describe an image finding in a boxed section:
+
+> **Image Description:** [Describe exactly what the image would show, e.g., "Chest X-ray shows bilateral hilar lymphadenopathy with reticulonodular opacities in the upper lobes" or "ECG shows ST elevation in leads II, III, and aVF with reciprocal changes in I and aVL"]
+
+Then ask: "What is the most likely [diagnosis / next step / underlying mechanism]?"
+
+**Answer Choices:** A–E
+**Correct Answer:** [Letter]
+**Explanation:** Why the correct answer is right, why each distractor is wrong, and one high-yield imaging pearl.
+
+Focus on classic image findings that are commonly tested on boards.
+</PromptPlayground>
+
+### Step-through explanation format
+
+<PromptPlayground tool="Claude" title="Step-Through Board Questions">
+You are a medical education expert writing board questions with detailed step-through explanations.
+
+Generate [NUMBER, e.g., 3] multiple choice questions on:
+
+**Topic:** [MEDICAL TOPIC]
+**Exam Style:** [USMLE Step 1 / Step 2 CK]
+**Difficulty:** [Hard]
+
+For each question, present the vignette and 5 answer choices, then provide:
+
+**Step-Through Explanation:**
+1. **Identify the key clues:** List the 3–4 most important pieces of information in the vignette and what each one suggests.
+2. **Build the differential:** Based on the clues, which 2–3 diagnoses are in the running?
+3. **Narrow it down:** What piece of information eliminates the distractors?
+4. **Arrive at the answer:** Why is the correct answer the best choice?
+5. **Why each distractor is designed to trap you:** For each wrong answer, explain the reasoning error that would lead a student to pick it.
+6. **High-yield takeaway:** One sentence to remember for similar questions.
+
+This format is designed to teach test-taking strategy, not just content.
+</PromptPlayground>
+
+---
+
+## Example output
+
+**Question 1**
+
+A 58-year-old man with a history of type 2 diabetes and hypertension presents to the emergency department with sudden onset of crushing substernal chest pain radiating to his left arm, accompanied by diaphoresis and nausea. He takes metformin and lisinopril daily. Vital signs: BP 90/60, HR 110, RR 22, SpO2 94% on room air. ECG shows ST elevation in leads II, III, and aVF.
+
+Which of the following is the most appropriate next step in management?
+
+A. CT angiography of the chest
+B. Emergent percutaneous coronary intervention
+C. IV metoprolol
+D. Thrombolytic therapy
+E. Transthoracic echocardiography
+
+**Correct Answer:** B
+
+**Explanation**
+- **Why B is correct:** This patient presents with an ST-elevation myocardial infarction (STEMI) of the inferior wall. The standard of care for STEMI is emergent PCI (percutaneous coronary intervention) when available within 90 minutes of first medical contact. PCI is superior to thrombolytics when timely access is available.
+- **Why A is wrong:** CT angiography is used for suspected aortic dissection or pulmonary embolism, not STEMI with clear ECG findings.
+- **Why C is wrong:** IV metoprolol is contraindicated here due to hypotension (BP 90/60) and signs of cardiogenic shock.
+- **Why D is wrong:** Thrombolytics are second-line for STEMI and only used when PCI cannot be performed within 120 minutes.
+- **Why E is wrong:** Echocardiography may be useful but should not delay definitive reperfusion therapy.
+- **High-yield point:** In inferior STEMI, always check a right-sided ECG (V4R) to evaluate for right ventricular involvement, which changes fluid management strategy.
+
+---
+
+## How to customize
 
 | Element | How to Adjust |
 |---------|---------------|
@@ -68,8 +170,11 @@ ADDITIONAL PREFERENCES:
 
 ---
 
-## Notes
+## Tips & pitfalls
 
 - AI-generated questions may not perfectly match the nuance of real board questions. Use them as a supplement to, not a replacement for, question banks (UWorld, Amboss, etc.).
 - For Step 1-style questions, emphasize basic science mechanisms. For Step 2-style, emphasize clinical management.
 - Verify key facts in the explanations against a trusted reference, as AI can occasionally state incorrect pharmacology or physiology details.
+- If you want questions targeting your weak areas, be specific: "I keep missing acid-base compensation questions" produces better results than just "acid-base."
+- Questions generated at "Hard" difficulty tend to be the most board-realistic. "Easy" questions are useful for initial learning but may give false confidence.
+- For shelf exam prep, specify the clerkship (e.g., "Medicine shelf" vs. "Surgery shelf") as question emphasis differs significantly.

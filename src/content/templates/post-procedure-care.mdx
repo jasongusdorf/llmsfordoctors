@@ -3,7 +3,7 @@ title: "Post-Procedure Care Instructions"
 category: patient-education
 targetTool: any
 tags: [patient-education, procedure, post-op, recovery, wound-care]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-03-22
 ---
 
 import Callout from '../../components/Callout.astro';
@@ -11,13 +11,17 @@ import PromptPlayground from '../../components/PromptPlayground.astro';
 
 This template takes a completed procedure and clinical details and produces patient-friendly recovery instructions. It covers wound care, activity restrictions, pain management, and warning signs.
 
+## When to use this
+
+Use this template when a patient has just had a procedure and needs clear, plain-language recovery and care instructions to take home.
+
 <Callout type="hipaa">
   De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, procedure dates, provider names, and any other direct identifiers.
 </Callout>
 
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Any LLM" title="Post-Procedure Care Instructions">
 You are a physician writing post-procedure recovery instructions for a patient. The patient has no medical background. Write at a 6th grade reading level using short sentences and simple words.
@@ -65,7 +69,161 @@ PROCEDURE INFORMATION:
 
 ---
 
-## Customization Guide
+## Variations
+
+### Post-biopsy care
+
+<PromptPlayground tool="Any LLM" title="Post-Biopsy Care Instructions">
+You are a physician writing post-biopsy care instructions for a patient. The patient has no medical background. Write at a 6th grade reading level. Use short sentences. Bold any critical safety information.
+
+Using the biopsy information below, create care instructions:
+
+**1. What Was Done**
+2–3 sentences explaining the biopsy in plain language: what was sampled, where, and why.
+
+**2. Biopsy Site Care**
+- Keep the bandage on for [DURATION]
+- After removing the bandage: keep the area clean and dry
+- When you can shower (typically 24 hours after; no soaking — no baths, pools, or hot tubs for [DURATION])
+- What normal healing looks like: mild bruising, tenderness, small amount of oozing is OK
+- What is NOT normal: increasing redness, swelling, warmth, pus, or bleeding that does not stop with pressure
+
+**3. Activity After a Biopsy**
+- Avoid strenuous exercise or heavy lifting for [DURATION]
+- Avoid blood thinners or aspirin for [DURATION] if instructed
+- You can return to normal light activities [WHEN]
+
+**4. Pain Management**
+- Mild soreness is normal for 1–3 days
+- Use Tylenol (acetaminophen) as directed for discomfort
+- Avoid aspirin and ibuprofen for [DURATION] unless your doctor says otherwise (these can increase bruising)
+- Ice the area for 10–15 minutes at a time if there is swelling
+
+**5. Your Results**
+- Biopsy results typically take [TIMEFRAME, e.g., 5–7 business days]
+- Your doctor's office will contact you with results by [phone/portal/appointment]
+- If you have not heard back within [TIMEFRAME], call the office
+
+**6. Call Your Doctor If**
+4–6 specific warning signs.
+
+**7. Go to the ER If**
+3 critical warning signs, bolded.
+
+---
+BIOPSY INFORMATION:
+[Paste: type of biopsy, site, technique, and any specific post-procedure instructions]
+</PromptPlayground>
+
+### Post-catheterization care
+
+<PromptPlayground tool="Any LLM" title="Post-Catheterization Care Instructions">
+You are a cardiologist writing post-cardiac catheterization care instructions for a patient. The patient has no medical background. Write at a 6th grade reading level. Use short sentences. Bold any critical safety information.
+
+Using the procedure information below, create care instructions:
+
+**1. What Was Done**
+2–3 sentences explaining cardiac catheterization in plain language: a thin tube was placed through a blood vessel (in the wrist or groin) to look at the arteries in your heart.
+
+**2. Catheter Site Care**
+If groin (femoral) access:
+- Keep the bandage on for [DURATION]
+- Keep your leg straight for [DURATION] after the procedure
+- Do not bend at the waist or strain
+- After bandage removal: keep the area clean and dry
+- A small bruise is normal; a large or growing bruise is not
+
+If wrist (radial) access:
+- Keep the wrist band on for [DURATION]
+- The nurse will slowly release the pressure
+- You can use your hand for light activities but avoid gripping or lifting for [DURATION]
+
+**3. Activity Restrictions**
+- **No heavy lifting (more than 10 pounds) for [DURATION]**
+- **No driving for [DURATION]**
+- No strenuous exercise for [DURATION]
+- Climb stairs slowly
+- You can walk around the house and do light activities
+- Return to work: [TIMEFRAME, depending on job type]
+
+**4. Medications**
+- Continue all heart medications as prescribed
+- If a stent was placed: **Do not stop your blood thinner (e.g., clopidogrel/Plavix) without talking to your cardiologist. Stopping this medication too early can cause a blood clot in the stent.**
+- Aspirin: continue as directed
+
+**5. Call Your Cardiologist If**
+- Increasing bruising, swelling, or tenderness at the catheter site
+- Numbness, tingling, or color change in the leg or hand used for access
+- Mild bleeding that stops with pressure
+- Fever above 100.4 degrees F
+- New or worsening chest pain
+
+**6. Go to the ER or Call 911 If**
+- **Sudden, heavy bleeding from the catheter site that does not stop with 10 minutes of firm pressure**
+- **Your leg or hand becomes cold, pale, or numb**
+- **Severe chest pain or shortness of breath**
+- **You feel lightheaded or faint**
+- **A large, hard lump forms at the catheter site**
+
+**7. Follow-Up**
+When to schedule your follow-up, what will happen at the visit, and how to reach the office with questions.
+
+---
+PROCEDURE INFORMATION:
+[Paste: catheterization details, access site, findings, stent placement if applicable, medications, and follow-up plan]
+</PromptPlayground>
+
+---
+
+## Example output
+
+**What Was Done**
+
+You had a procedure called an upper endoscopy (also called an EGD). The doctor used a thin, flexible tube with a camera to look at the inside of your food pipe (esophagus), stomach, and the first part of your small intestine. This was done to find out what has been causing your stomach pain and heartburn. The doctor took a few small tissue samples (biopsies) to test.
+
+**Wound and Site Care**
+
+There is no incision or wound to care for. The procedure was done through your mouth. Your throat may feel scratchy or sore for the rest of today — this is normal and will go away on its own. Gargle with warm salt water or suck on throat lozenges if it helps.
+
+**Activity Restrictions**
+
+- **Do not drive for 24 hours** — you received sedation and your reaction time is still affected
+- Do not sign any legal documents or make important decisions today
+- Do not drink alcohol for 24 hours
+- You can walk around the house and do light activities
+- No heavy exercise today; you can resume normal activities tomorrow
+
+**Pain Management**
+
+- A mild sore throat is expected and usually lasts less than 24 hours
+- You may feel mildly bloated from the air that was used during the procedure; this will pass
+- Warm tea with honey can help with throat discomfort
+- **If you have severe throat pain, difficulty swallowing, chest pain, or abdominal pain that gets worse, this is NOT normal — call your doctor right away**
+
+**Call Your Doctor If**
+
+- Sore throat that lasts more than 2 days
+- Difficulty swallowing that does not improve
+- Nausea or vomiting that lasts more than a few hours
+- Black or bloody stools
+- Fever above 100.4 degrees F
+- Abdominal pain that is getting worse instead of better
+
+**Go to the ER If**
+
+- **Vomiting blood or material that looks like coffee grounds**
+- **Severe chest or abdominal pain**
+- **Difficulty breathing**
+- **Black, tarry stools**
+- **Fever with chills and shaking**
+
+**Follow-Up**
+
+Your biopsy results will be ready in about 5 to 7 business days. The doctor's office will call you with the results. Your follow-up appointment is in 2 weeks to discuss the results and next steps. If you have questions before then, call the office at [phone number placeholder].
+
+---
+
+## How to customize
 
 | Element | How to Adjust |
 |---|---|
@@ -77,9 +235,12 @@ PROCEDURE INFORMATION:
 
 ---
 
-## Notes
+## Tips & pitfalls
 
 - This template is shared across the **Inpatient Discharge Education** and **Procedure Education** workflows.
 - Pain management instructions are high-risk for AI errors. Always verify medication names, doses, and intervals against the actual prescription.
 - For surgical procedures, the AI output should supplement (not replace) your institution's standardized post-operative instruction sheets.
 - Wound care instructions vary significantly by procedure; review this section carefully before giving to the patient.
+- The "Go to the ER" section is the most safety-critical part of the output. Make sure warning signs are specific to the procedure that was performed, not generic.
+- For patients who had sedation, emphasize the 24-hour restrictions prominently. Patients often feel fine after sedation wears off and underestimate the residual cognitive effects.
+- Pair with the **Procedure Preparation Guide** template to provide a complete pre-and-post pair.

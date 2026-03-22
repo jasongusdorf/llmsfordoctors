@@ -4,16 +4,29 @@ category: board-prep
 targetTool: claude
 workflow: vignette-analysis
 tags: [intermediate, board-prep, case-vignette, reasoning, study]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-03-22
 ---
 
+import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
 
 Walks you through a clinical vignette step-by-step, teaching the reasoning process for board-style questions. Paste in a question vignette and get a structured analysis of how to identify the key clues, build a differential, and arrive at the answer.
 
+## When to use this
+
+Use this template when you have a board-style question vignette (from a question bank, practice exam, or the Question Generator template) and want a step-by-step breakdown of the reasoning process.
+
+<Callout type="tip">
+  This template is most valuable when you have already attempted the question and want to understand the reasoning, not as a shortcut to skip thinking. Try the question first, then paste it here.
+</Callout>
+
+<Callout type="info">
+  **Who should use this:** Medical students preparing for USMLE, COMLEX, or shelf exams. Also valuable for residents reviewing cases before specialty boards. If you are looking for practice cases rather than analysis of existing ones, use the **Differential Diagnosis Drill** template instead.
+</Callout>
+
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Claude" title="Case Vignette Analysis">
 You are a board review tutor walking a student through a clinical vignette step by step.
@@ -56,7 +69,108 @@ VIGNETTE:
 
 ---
 
-## Customization Guide
+## Variations
+
+### Timed exam simulation
+
+<PromptPlayground tool="Claude" title="Timed Vignette Analysis">
+You are a board review tutor helping a student practice vignette analysis under time pressure.
+
+I am going to paste a clinical vignette. Analyze it in two passes:
+
+**PASS 1: The 90-Second Approach (Exam Day Strategy)**
+- Read the last sentence first: What is being asked?
+- Scan for buzzwords: List any classic associations in the vignette
+- Gut answer: Based on pattern recognition alone, what is the most likely answer?
+- Confidence check: High / Medium / Low
+
+**PASS 2: Full Analysis (Study Mode)**
+Now do the complete step-by-step analysis:
+1. Key clues identified
+2. Pattern recognition
+3. Differential (top 3)
+4. Correct answer with reasoning
+5. Why each distractor is wrong
+
+**COMPARISON:**
+- Did the 90-second approach get the right answer?
+- If not, what clue was missed and how to catch it next time?
+- Time-saving tip for similar questions on exam day
+
+---
+VIGNETTE:
+[Paste the full clinical vignette and question stem here. Include answer choices if available.]
+</PromptPlayground>
+
+### Teaching case with learning objectives
+
+<PromptPlayground tool="Claude" title="Teaching Case Analysis">
+You are a medical education faculty member preparing a teaching case for a small group session.
+
+Take the following clinical vignette and transform it into a structured teaching case:
+
+**Learning Objectives** (3–4 objectives this case can teach)
+1. [Objective]
+2. [Objective]
+...
+
+**Case Presentation** (rewrite the vignette as a progressive disclosure case)
+- Part 1: Chief complaint and initial history — PAUSE for discussion
+- Part 2: Physical exam and vitals — PAUSE for discussion
+- Part 3: Initial labs and imaging — PAUSE for discussion
+- Part 4: Diagnosis and management
+
+**Discussion Questions** for each part:
+- What is on your differential at this point?
+- What additional information do you want?
+- What is the most important next step?
+
+**Key Teaching Points** (5–7 points the facilitator should cover)
+
+**Common Student Mistakes** (2–3 errors students typically make with this case)
+
+**Board-Relevant Connections** (how this case connects to commonly tested material)
+
+---
+VIGNETTE:
+[Paste the full clinical vignette here.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+**VIGNETTE:** A 22-year-old woman presents with 3 days of fatigue, sore throat, and fever. On exam, she has posterior cervical lymphadenopathy, pharyngeal erythema with exudates, and splenomegaly. CBC shows lymphocytosis with atypical lymphocytes. A rapid strep test is negative. What is the most likely diagnosis?
+
+**Step 1: Key Clues**
+- Demographics: 22-year-old woman (young adult — classic age for mono)
+- Symptoms: Fatigue, sore throat, fever x 3 days (acute infectious presentation)
+- Exam: Posterior cervical lymphadenopathy (characteristic of EBV, not anterior like bacterial pharyngitis), pharyngeal exudates, splenomegaly (classic triad of mono)
+- Labs: Lymphocytosis with atypical lymphocytes (reactive T cells responding to EBV-infected B cells), negative rapid strep
+
+**Step 2: Pattern Recognition**
+- Young adult + sore throat + fatigue + posterior cervical LAD + splenomegaly = infectious mononucleosis (EBV)
+- Atypical lymphocytes = reactive T cells, classic for EBV
+- Negative rapid strep eliminates Group A Strep pharyngitis
+
+**Step 3: Differential**
+1. **Most likely: Infectious mononucleosis (EBV)** — Classic age, symptom triad, posterior cervical LAD, splenomegaly, atypical lymphocytes
+2. **Runner-up: CMV mononucleosis** — Can look identical but typically has less pharyngitis; would need specific serology to distinguish
+3. **Must-not-miss: Acute HIV** — Can present with mono-like syndrome; ruled in/out with HIV RNA or 4th-gen Ag/Ab test
+
+**Step 4: Answer**
+- The question asks for the most likely diagnosis
+- **Answer: Infectious mononucleosis (EBV)**
+- The combination of young age, classic triad, posterior cervical lymphadenopathy, and atypical lymphocytes is textbook EBV mono
+
+**Step 5: Teaching Points**
+- Core concept: Recognizing the classic presentation of EBV mononucleosis
+- Rule to remember: Posterior cervical LAD + atypical lymphocytes in a young adult = think EBV until proven otherwise
+- Related: Do NOT give amoxicillin/ampicillin to suspected mono patients (causes characteristic maculopapular rash); advise against contact sports due to splenic rupture risk
+
+---
+
+## How to customize
 
 | Element | How to Adjust |
 |---------|---------------|
@@ -67,8 +181,11 @@ VIGNETTE:
 
 ---
 
-## Notes
+## Tips & pitfalls
 
-- This is most valuable when you've already attempted the question and want to understand the reasoning, not as a shortcut to skip thinking.
+- This is most valuable when you have already attempted the question and want to understand the reasoning, not as a shortcut to skip thinking.
 - For best results, include the answer choices, as this allows the AI to explain why each distractor is designed to trap you.
 - Pair with the **Question Generator** template to create vignettes on your weak areas, then analyze them with this template.
+- If you got a question wrong, use the "Wrong answer review" customization: telling the AI what you chose and what was correct produces the most targeted feedback on your reasoning error.
+- The "Pattern Recognition" step is where most of the learning happens. If you can identify the pattern, you can often skip directly to the answer on exam day.
+- For multi-step questions (diagnose, then manage), ask the AI to break Step 4 into sub-steps so you can see where your reasoning diverged.

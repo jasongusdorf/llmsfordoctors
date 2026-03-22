@@ -4,16 +4,29 @@ category: board-prep
 targetTool: claude
 workflow: pharm-review
 tags: [beginner, board-prep, pharmacology, flashcards, study]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-03-22
 ---
 
+import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
 
 Generates pharmacology flashcard sets for any drug class or topic. Get structured cards covering mechanism, indications, side effects, contraindications, and high-yield board facts. Output formatted for easy import into Anki or other flashcard apps.
 
+## When to use this
+
+Use this template when you need to create pharmacology flashcards for a drug class or set of drugs, especially for board prep or clinical rotation review.
+
+<Callout type="tip">
+  Focus on one drug class at a time for the highest-quality flashcards. Requesting "all cardiology drugs" will produce shallow cards; requesting "loop diuretics" will produce cards with the detail you actually need.
+</Callout>
+
+<Callout type="pitfall">
+  AI can mix up side effect profiles between similar drugs in the same class (e.g., which statin is most likely to cause myopathy, which ACE inhibitor has the longest half-life). Always verify drug-specific facts against a pharmacology reference before memorizing.
+</Callout>
+
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Claude" title="Pharmacology Flashcard Generator">
 You are a pharmacology professor creating flashcard sets for medical students.
@@ -53,8 +66,158 @@ PREFERENCES:
 
 ---
 
-## Notes
+## Variations
 
-- Verify drug facts against a pharmacology reference (Pharmacology by Katzung, First Aid, or UpToDate). AI may occasionally mix up side effect profiles between similar drugs.
-- The output can be pasted directly into Anki using the Basic card type with `---` as a separator.
-- For the most useful flashcards, focus on one drug class at a time rather than requesting too many at once.
+### By organ system
+
+<PromptPlayground tool="Claude" title="Organ System Pharm Flashcards">
+You are a pharmacology professor creating organ-system-based flashcard sets for board review.
+
+Generate flashcards for all major drugs acting on:
+
+**Organ System:** [e.g., "cardiovascular system," "respiratory system," "renal system"]
+**Exam Focus:** [USMLE Step 1 / Step 2 CK / Shelf]
+
+Organize the cards by drug category within the system. For each drug:
+
+**Front:** [Drug Name] — [One-sentence clinical scenario where this drug is the answer]
+**Back:**
+- **Class:** [Pharmacologic class]
+- **Mechanism:** [One sentence]
+- **Why it's the answer:** [What makes this drug the right choice in the scenario]
+- **Key side effect to remember:** [The one side effect most likely to be tested]
+- **Board Pearl:** [One high-yield fact]
+
+After all individual cards, create 5 "which drug?" cards:
+**Front:** "A patient with [clinical scenario]. Which drug from this system is indicated / contraindicated?"
+**Back:** [Drug name and one-sentence reasoning]
+
+Format all cards as:
+```
+Q: [Front]
+A: [Back]
+---
+```
+</PromptPlayground>
+
+### Drug interactions focus
+
+<PromptPlayground tool="Claude" title="Drug Interaction Flashcards">
+You are a pharmacology professor creating flashcards focused specifically on drug interactions for board review.
+
+Generate 15–20 drug interaction flashcards for:
+
+**Drug Class or Topic:** [e.g., "anticoagulants," "antiarrhythmics," "psychiatric medications," "CYP450 interactions"]
+
+For each card:
+
+**Front:** "[Drug A] + [Drug B] — What happens?"
+**Back:**
+- **Interaction:** [What occurs, e.g., "increased bleeding risk," "serotonin syndrome"]
+- **Mechanism:** [Why it happens, e.g., "CYP3A4 inhibition increases serum levels"]
+- **Clinical consequence:** [What you would see in the patient]
+- **What to do:** [Monitor, avoid combination, adjust dose]
+- **Board Pearl:** [How this appears on exams]
+
+After the individual cards, create 3 "danger combo" cards with the most commonly tested dangerous combinations.
+
+Format all cards as:
+```
+Q: [Front]
+A: [Back]
+---
+```
+</PromptPlayground>
+
+### Rapid-fire format
+
+<PromptPlayground tool="Claude" title="Rapid-Fire Pharm Flashcards">
+You are a pharmacology professor creating rapid-fire, minimal flashcards for last-minute board review.
+
+Generate 25 rapid-fire pharmacology flashcards for:
+
+**Topic:** [DRUG CLASS, ORGAN SYSTEM, or "random high-yield pharm"]
+**Exam:** [USMLE Step 1 / Step 2 CK]
+
+Each card should be ultra-concise:
+
+**Front:** [Drug name] — MOA?
+**Back:** [One sentence mechanism] | SE: [Top side effect] | CI: [Top contraindication]
+
+Then 10 "reverse" cards:
+
+**Front:** [Mechanism or side effect description] — Which drug?
+**Back:** [Drug name] | Pearl: [One fact]
+
+These are speed cards for rapid review. No lengthy explanations. One line per card side.
+
+Format as:
+```
+Q: [Front]
+A: [Back]
+---
+```
+</PromptPlayground>
+
+---
+
+## Example output
+
+```
+Q: Lisinopril — MOA, indications, and key side effects?
+A:
+- Class: ACE inhibitor
+- Mechanism: Blocks angiotensin-converting enzyme, preventing
+  conversion of angiotensin I to angiotensin II. Reduces
+  aldosterone secretion and decreases systemic vascular resistance.
+- Indications:
+  - Hypertension
+  - Heart failure (reduces mortality)
+  - Diabetic nephropathy (slows progression)
+  - Post-MI (reduces remodeling)
+- Key Side Effects: Dry cough (due to bradykinin accumulation),
+  hyperkalemia, angioedema (rare but serious)
+- Contraindications: Pregnancy (teratogenic — causes renal
+  agenesis), bilateral renal artery stenosis, history of
+  ACE inhibitor-induced angioedema
+- Board Pearl: ACE inhibitor cough is caused by bradykinin
+  accumulation, NOT by angiotensin. Switching to an ARB
+  resolves the cough because ARBs do not affect bradykinin.
+- Interactions: NSAIDs (reduce effectiveness and increase
+  renal risk), potassium-sparing diuretics (hyperkalemia risk),
+  lithium (increased lithium levels)
+---
+Q: Compare Lisinopril vs Losartan: key difference?
+A: Both block the RAAS, but lisinopril (ACE inhibitor) causes
+   dry cough via bradykinin accumulation; losartan (ARB) does
+   not affect bradykinin and is the go-to switch for patients
+   who develop ACE inhibitor cough.
+---
+```
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Detail level | Add: "Make these cards detailed with 2–3 sentences per field" or "Make these ultra-concise, one line per field" |
+| Anki import | Add: "Format with TAB separating front and back so I can import directly into Anki as a TSV file" |
+| Comparison focus | Add: "Focus on cards that compare drugs within the class rather than individual drug cards" |
+| Clinical scenarios | Add: "Make the front of each card a clinical scenario rather than just the drug name" |
+| Exam target | Add: "Focus on [Step 1 mechanisms / Step 2 clinical management / shelf exam presentations]" |
+| Specific drugs | Add: "Only include [LIST OF DRUGS]" or "Exclude [DRUGS] — I already know those" |
+| Reverse cards | Add: "Also create reverse cards where the front is the mechanism/side effect and the back is the drug name" |
+
+---
+
+## Tips & pitfalls
+
+- **Verify every drug fact.** This is the single most important warning for this template. AI-generated pharmacology cards can contain subtle errors: wrong CYP enzymes, mixed-up side effects between drugs in the same class, outdated indications, or incorrect contraindications. Always cross-check against Katzung, First Aid, UpToDate, or Lexicomp before committing cards to your study deck.
+- **One class at a time.** Requesting "all drugs for Step 1" will produce shallow, generic cards. Requesting "beta-blockers" or "fluoroquinolones" produces cards with the specificity you need.
+- **The output can be pasted directly into Anki** using the Basic card type with `---` as a separator. For tab-separated import, ask for TSV format in the prompt.
+- **Comparison cards are often the highest yield.** Boards love "which drug in the class" questions. If you only have time for a few cards, prioritize the comparison cards.
+- **Add clinical context to the fronts.** Cards that say "Metoprolol — MOA?" are less effective for board prep than "Post-MI patient with EF 35% — which beta-blocker, and why?" Customize the prompt to use clinical scenario fronts for better exam preparation.
+- **Watch for outdated guidelines.** AI training data may not reflect the most current prescribing guidelines, especially for rapidly evolving fields like oncology, infectious disease, and cardiology.
+- **Supplement with side-effect mnemonics.** If the AI-generated cards don't include mnemonics, ask: "Add a mnemonic for the side effects of [drug class] if one exists."
+- **For high-yield pharm review,** combine this template with the **Question Generator** template: generate flashcards to learn the material, then generate questions to test yourself on it.

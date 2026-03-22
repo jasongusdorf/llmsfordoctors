@@ -4,7 +4,7 @@ category: patient-education
 targetTool: any
 workflow: procedure-education
 tags: [patient-education, procedure, preparation, pre-op]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-03-22
 ---
 
 import Callout from '../../components/Callout.astro';
@@ -12,13 +12,17 @@ import PromptPlayground from '../../components/PromptPlayground.astro';
 
 This template takes a procedure name and relevant details and produces a patient-friendly "what to expect" preparation guide. It covers how to prepare, what happens during the procedure, and what to expect immediately after.
 
+## When to use this
+
+Use this template when a patient has an upcoming procedure and needs a plain-language guide explaining how to prepare and what to expect.
+
 <Callout type="hipaa">
   De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, scheduled dates, provider names, and any other direct identifiers.
 </Callout>
 
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Any LLM" title="Procedure Preparation Guide">
 You are a physician writing a preparation guide for a patient who has an upcoming medical procedure. The patient has no medical background. Write at a 6th grade reading level using short sentences and simple words.
@@ -66,7 +70,185 @@ PROCEDURE INFORMATION:
 
 ---
 
-## Customization Guide
+## Variations
+
+### Pediatric procedure (for parents)
+
+<PromptPlayground tool="Any LLM" title="Pediatric Procedure Prep">
+You are a pediatric physician writing a procedure preparation guide for the parents of a child who has an upcoming procedure. Write at a 6th grade reading level. Use short sentences. Be honest but reassuring.
+
+Using the procedure information provided below, create a parent guide:
+
+**1. What This Procedure Is**
+2–3 sentences explaining the procedure in plain language and why the doctor recommended it for your child.
+
+**2. How to Prepare Your Child**
+- Fasting instructions (when to stop food and drinks, including breastmilk/formula for infants)
+- Medications to give or skip the morning of the procedure
+- What to dress your child in (comfortable, easy-to-remove clothing)
+- What to bring: comfort items (favorite toy, blanket, pacifier), insurance card, medication list
+- Transportation: will you need another adult to help?
+
+**3. How to Talk to Your Child About the Procedure**
+Age-appropriate tips:
+- For toddlers (1–3 years): Keep explanations simple and close to the event. "The doctor is going to help your tummy feel better."
+- For preschoolers (3–5 years): Explain the day before. Use simple, honest words. Avoid saying "it won't hurt" if it might.
+- For school-age children (6–12 years): Explain a few days ahead. Answer questions honestly. Let them bring a comfort item.
+- For teens (13+): Include them in the conversation. Give them privacy. Let them ask the doctor questions directly.
+
+**4. What Will Happen on Procedure Day**
+Walk through the day from the parent's perspective:
+- Arrival and check-in
+- Pre-procedure area (what your child will wear, IV placement, monitors)
+- Separation: when the parent can and cannot be present
+- During the procedure: where the parent waits, how long it takes
+- Recovery: when you can see your child, what they might look and act like after anesthesia
+
+**5. After the Procedure**
+- What to expect: your child may be groggy, fussy, or nauseous
+- Pain management for children
+- When you can go home
+- Activity restrictions for your child
+
+**6. Questions to Ask the Doctor**
+5 specific questions for parents.
+
+---
+PROCEDURE INFORMATION:
+[Paste: procedure name, child's age, indication, anesthesia type, and any special considerations]
+</PromptPlayground>
+
+### Sedation procedure
+
+<PromptPlayground tool="Any LLM" title="Sedation Procedure Prep">
+You are a physician writing a preparation guide for a patient who will have a procedure done under sedation (not general anesthesia). The patient has no medical background. Write at a 6th grade reading level. Use short sentences.
+
+Using the procedure information below, create a sedation procedure guide:
+
+**1. What This Procedure Is**
+2–3 sentences explaining the procedure and why sedation is used (so you are relaxed and comfortable, but not fully asleep).
+
+**2. What Sedation Means**
+Explain the difference between sedation and general anesthesia in simple terms:
+- Sedation: you will feel drowsy and relaxed; you may not remember the procedure; you can still breathe on your own
+- You will NOT be "put to sleep" like in surgery
+- The doctor and nurse will monitor you the entire time
+
+**3. How to Prepare**
+- Fasting: do not eat or drink anything for [X] hours before the procedure (clear liquids may be OK until [Y] hours before — confirm with your doctor)
+- Medications: bring your list; the doctor will tell you which to take and which to skip
+- Arrange a ride home: **you cannot drive for 24 hours after sedation**
+- Wear comfortable, loose clothing
+- Leave valuables at home
+
+**4. What Will Happen**
+- Check-in and preparation
+- An IV will be placed in your hand or arm
+- The sedation medicine will be given through the IV
+- You may feel warm, relaxed, or sleepy within a minute or two
+- During the procedure: what the patient will or will not feel
+- The procedure typically takes [DURATION]
+
+**5. After the Procedure**
+- You will rest in a recovery area for 30–60 minutes
+- You may feel groggy, dizzy, or mildly nauseous
+- **You must have someone drive you home**
+- For the rest of the day: no driving, no signing legal documents, no operating machinery, no drinking alcohol
+- You may not remember the procedure or parts of the day — this is normal
+
+**6. Questions to Ask**
+5 specific questions about sedation and the procedure.
+
+---
+PROCEDURE INFORMATION:
+[Paste: procedure name, sedation type, indication, and any relevant patient details]
+</PromptPlayground>
+
+### Same-day surgery
+
+<PromptPlayground tool="Any LLM" title="Same-Day Surgery Prep">
+You are a surgeon writing a preparation guide for a patient who will have outpatient (same-day) surgery. The patient has no medical background. Write at a 6th grade reading level. Use short sentences. Bold critical instructions.
+
+Using the surgical information below, create a same-day surgery guide:
+
+**1. What This Surgery Is**
+2–3 sentences explaining the surgery and why the doctor recommended it. Note that the patient will go home the same day.
+
+**2. Before Surgery Day**
+- Pre-op testing: any labs, EKG, or imaging that need to be done before surgery and when
+- Pre-op appointment: what happens and when to schedule it
+- Medications to stop before surgery (blood thinners, aspirin, supplements — with specific timelines)
+- **Do not take any herbal supplements for 2 weeks before surgery** (they can affect bleeding and anesthesia)
+
+**3. The Night Before**
+- **Do not eat anything after midnight** (or [X] hours before your arrival time)
+- You may drink clear liquids until [Y] hours before arrival
+- Shower with antibacterial soap if instructed
+- Lay out comfortable, loose-fitting clothing for after surgery
+- Confirm your ride home
+
+**4. Day of Surgery**
+- When to arrive (typically 1–2 hours before the procedure)
+- What to bring: ID, insurance card, medication list, a responsible adult to drive you home
+- What NOT to bring: jewelry, contact lenses, valuables
+- Pre-surgery area: changing, IV placement, meeting the anesthesia team, marking the surgical site
+- The surgery itself: duration, what happens, what type of anesthesia
+
+**5. Going Home**
+- Recovery room: how long, what to expect
+- Discharge criteria: you must be alert, able to drink fluids, and have someone to drive you home
+- What you will receive: prescriptions, wound care instructions, follow-up appointment
+- **You must have a responsible adult stay with you for the first 24 hours**
+
+**6. The First 24 Hours at Home**
+- Rest, ice, elevation as applicable
+- Pain management plan
+- Diet: start with clear liquids, advance as tolerated
+- What is normal: mild pain, grogginess, nausea
+- **What is NOT normal: heavy bleeding, fever above 101.5, severe pain not relieved by medication**
+
+**7. Questions to Ask Before Surgery**
+5 specific questions.
+
+---
+SURGICAL INFORMATION:
+[Paste: procedure name, anesthesia type, indication, and any relevant patient details]
+</PromptPlayground>
+
+---
+
+## Example output
+
+**What This Procedure Is**
+
+You are going to have a colonoscopy. This is a test that lets the doctor look inside your large intestine (colon) using a thin, flexible tube with a tiny camera on the end. The doctor recommended this to check for polyps (small growths) and to look for the cause of your symptoms. If the doctor finds any polyps, they can remove them during the procedure.
+
+**How to Prepare**
+
+- **Diet changes:** 3 days before your procedure, stop eating seeds, nuts, and popcorn. The day before your procedure, eat only clear liquids all day (broth, Jell-O, apple juice, water, tea — nothing red or purple).
+- **Bowel prep:** The evening before, you will drink a special liquid that cleans out your colon. Follow the instructions on the prep kit exactly. You will have frequent diarrhea — this is normal and expected. Stay near a bathroom.
+- **Medications:** Take your regular blood pressure and heart medications the morning of the procedure with a small sip of water. Do NOT take diabetes medication or blood thinners the morning of the procedure (check with your doctor about blood thinners).
+- **Arrange a ride home:** You will receive sedation and cannot drive for 24 hours after the procedure. You need someone to drive you home and stay with you.
+- **What to wear:** Comfortable, loose clothing. Leave jewelry and valuables at home.
+
+**What Will Happen**
+
+- You will check in and change into a hospital gown
+- A nurse will place an IV in your arm and connect monitors
+- The doctor will give you sedation medication through the IV — you will feel relaxed and drowsy
+- The procedure takes about 20 to 30 minutes — most people do not remember it
+- If the doctor finds polyps, they will be removed painlessly during the procedure
+
+**Right After the Procedure**
+
+- You will rest in a recovery area for about 30 to 45 minutes
+- You may feel bloated or have mild cramping — this is normal and will pass
+- The doctor will give you a brief summary of what they found
+- You will receive written results and any biopsy results will come in 5 to 7 days
+
+---
+
+## How to customize
 
 | Element | How to Adjust |
 |---|---|
@@ -78,8 +260,11 @@ PROCEDURE INFORMATION:
 
 ---
 
-## Notes
+## Tips & pitfalls
 
 - This template works for any procedure from office-based biopsies to major surgery. The AI will adapt the detail level based on the procedure information you provide.
 - Always verify preparation instructions against your institution's specific protocols, as fasting guidelines, medication holds, and arrival times vary by institution and procedure.
 - For procedures requiring bowel prep, anticoagulation bridging, or complex medication management, use the AI output as a starting point and add institution-specific details.
+- The most common source of patient confusion is medication management before a procedure (what to take, what to skip, when to stop blood thinners). Double-check this section carefully.
+- For anxious patients, consider adding the "Anxiety" customization and also recommending they bring a family member or friend for support.
+- Pair with the **Post-Procedure Care** template to provide a complete pre-and-post guide.

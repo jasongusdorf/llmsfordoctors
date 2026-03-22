@@ -4,7 +4,7 @@ category: board-prep
 targetTool: claude
 workflow: topic-review
 tags: [beginner, board-prep, review, study, high-yield]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-03-22
 ---
 
 import Callout from '../../components/Callout.astro';
@@ -12,13 +12,17 @@ import PromptPlayground from '../../components/PromptPlayground.astro';
 
 Creates a high-yield summary of any medical topic for board review. Specify the topic and target exam, and get a structured review covering the must-know facts, classic presentations, key associations, and common exam traps.
 
+## When to use this
+
+Use this template when you need a rapid, structured review of a medical topic before an exam or to consolidate knowledge you have already studied.
+
 <Callout type="tip">
   This template is designed for rapid review, not deep learning. Use it to consolidate knowledge you've already studied, or as a starting point to identify what you need to study more deeply.
 </Callout>
 
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Claude" title="High-Yield Topic Review">
 You are a board review course director creating a high-yield summary for exam preparation.
@@ -73,7 +77,133 @@ FOCUS AREAS (optional):
 
 ---
 
-## Customization Guide
+## Variations
+
+### Exam-focused rapid review
+
+<PromptPlayground tool="Claude" title="Exam-Focused Rapid Review">
+You are a board review course director creating an ultra-condensed rapid review sheet.
+
+Create a one-page rapid review for:
+
+**Topic:** [MEDICAL TOPIC]
+**Exam:** [USMLE Step 1 / Step 2 CK / Shelf]
+
+Format as a single reference card:
+
+**QUICK ID:** [One-sentence "buzzword" presentation]
+**MECHANISM:** [One sentence]
+**DX:** Best initial test → Gold standard
+**TX:** First-line → Second-line → Emergency
+**PEARLS:** 5 bullet points, one line each
+**TRAPS:** 3 common wrong-answer patterns
+**ASSOCIATIONS:** 5 classic buzzword → diagnosis pairs
+
+Keep the entire output under 300 words. This is a last-day-before-the-exam review sheet. No explanations, just facts.
+</PromptPlayground>
+
+### Deep-dive pathophysiology
+
+<PromptPlayground tool="Claude" title="Pathophysiology Deep Dive">
+You are a pathophysiology professor explaining a disease mechanism in detail for a medical student who wants to truly understand the "why."
+
+Create a detailed pathophysiology review of:
+
+**Topic:** [MEDICAL TOPIC]
+**Level:** [Preclinical / Clinical / Both]
+
+Structure your explanation as a causal chain:
+
+**1. Normal Physiology (Baseline)**
+How the system normally works (2–3 sentences).
+
+**2. What Goes Wrong**
+The specific defect, mutation, insult, or dysregulation that initiates the disease process.
+
+**3. Pathophysiologic Cascade**
+Walk through the chain of events step by step:
+Normal → [First change] → [Consequence] → [Next consequence] → ... → [Clinical manifestation]
+
+Use arrows (→) to show causality. Number each step.
+
+**4. Why Each Symptom Occurs**
+For each major clinical feature, trace it back to a specific step in the cascade.
+
+**5. Why the Treatment Works**
+For each major treatment, explain which step in the cascade it interrupts and why that helps.
+
+**6. What Boards Want You to Know**
+The 3–5 pathophysiology facts most commonly tested on exams about this topic.
+
+Use diagrams described in text if helpful (e.g., "Imagine a flowchart where...").
+</PromptPlayground>
+
+### Clinical pearls format
+
+<PromptPlayground tool="Claude" title="Clinical Pearls Review">
+You are a seasoned attending sharing your best clinical pearls with a resident preparing for boards.
+
+Create a "clinical pearls" review of:
+
+**Topic:** [MEDICAL TOPIC]
+**Target audience:** [MS3 on clerkship / Intern / Senior resident / Board prep]
+
+Format as 10–15 numbered clinical pearls. Each pearl should be:
+- One practical insight that connects textbook knowledge to real-world clinical practice
+- Written in a conversational, memorable tone (as if an attending is teaching on rounds)
+- Tagged with relevance: [BOARDS], [CLINICAL], or [BOTH]
+
+Example format:
+**Pearl 1** [BOARDS]: "If you see a young woman with episodic hypertension, headache, and palpitations, think pheochromocytoma — but the real board answer is measuring plasma free metanephrines, not urine VMA."
+
+After the pearls, include:
+**The 3 things I'd tell you the night before the exam about this topic:**
+1. [One sentence]
+2. [One sentence]
+3. [One sentence]
+</PromptPlayground>
+
+---
+
+## Example output
+
+**Topic: Pulmonary Embolism — USMLE Step 2 CK Review**
+
+**Definition & Pathophysiology**
+Pulmonary embolism (PE) is a blood clot that travels to the lungs and blocks a pulmonary artery. Most PEs originate from deep vein thrombosis (DVT) in the legs. The obstruction increases right ventricular afterload and, in massive PE, can cause right heart failure and cardiovascular collapse.
+
+**Classic Presentation**
+A 45-year-old woman 10 days post-knee surgery presents with sudden-onset dyspnea, pleuritic chest pain, and tachycardia. On exam, she is tachycardic (HR 115), tachypneic (RR 24), and has an SpO2 of 91% on room air. She has unilateral left calf swelling.
+
+**Buzzwords & Associations**
+- Sudden dyspnea + pleuritic chest pain + tachycardia → PE
+- Post-surgical immobilization → DVT/PE risk
+- Wedge-shaped infarct on CT → pulmonary infarction
+- S1Q3T3 on ECG → right heart strain (not specific but classic board answer)
+- Hampton's hump on CXR → pulmonary infarction
+
+**Diagnosis**
+- Best initial test: CT pulmonary angiography (CTPA)
+- Use Wells criteria to risk-stratify; low-risk patients get D-dimer first
+- Gold standard: pulmonary angiography (rarely used in practice)
+- ABG: respiratory alkalosis with hypoxemia and increased A-a gradient
+
+**Treatment**
+- First-line: Anticoagulation with heparin (unfractionated or LMWH), then transition to warfarin or DOAC
+- Massive PE with hemodynamic instability: systemic thrombolytics (tPA)
+- Contraindication to anticoagulation: IVC filter
+- Long-term: anticoagulation for 3–6 months minimum (longer if unprovoked)
+
+**Exam Pearls**
+1. Wells criteria: the most commonly tested clinical prediction rule for PE
+2. D-dimer rules out PE only in low-risk patients; a positive D-dimer is not diagnostic
+3. CTPA is the best initial test for a hemodynamically stable patient with suspected PE
+4. In hemodynamically unstable patients who cannot go to CT, bedside echo showing RV dilation supports empiric thrombolytics
+5. Heparin before confirmatory imaging if clinical suspicion is high
+
+---
+
+## How to customize
 
 | Element | How to Adjust |
 |---------|---------------|
@@ -84,8 +214,11 @@ FOCUS AREAS (optional):
 
 ---
 
-## Notes
+## Tips & pitfalls
 
 - Verify critical facts (drug doses, diagnostic criteria, guideline recommendations) against a trusted source like First Aid, UpToDate, or Amboss.
 - For a complete study session, pair with the **Question Generator** template to test yourself after review.
 - This format works for any medical topic: pathology, pharmacology, microbiology, clinical medicine, etc.
+- The "Common Exam Traps" section is often the most valuable part of the output. Pay special attention to it.
+- For topics you know well, use the "Exam-focused rapid review" variation instead of the full template to save time.
+- If the AI output contains a fact you are unsure about, flag it and verify it. The output is most reliable for well-established, commonly tested concepts and less reliable for nuanced or recently updated guidelines.

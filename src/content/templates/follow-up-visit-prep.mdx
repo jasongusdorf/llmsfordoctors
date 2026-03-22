@@ -3,7 +3,7 @@ title: "Follow-Up Visit Preparation"
 category: patient-education
 targetTool: any
 tags: [patient-education, follow-up, visit-prep, self-monitoring]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-03-22
 ---
 
 import Callout from '../../components/Callout.astro';
@@ -11,13 +11,17 @@ import PromptPlayground from '../../components/PromptPlayground.astro';
 
 This template takes a condition and treatment history and produces a guide that helps patients prepare for their next doctor's visit. It includes what to track, questions to ask, and what to bring, so the visit is more productive for both patient and physician.
 
+## When to use this
+
+Use this template when a patient has an upcoming follow-up visit and needs a guide for what to track, what to bring, and what questions to ask.
+
 <Callout type="hipaa">
   De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, and any other direct identifiers.
 </Callout>
 
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Any LLM" title="Follow-Up Visit Preparation">
 You are a physician creating a visit preparation guide to help a patient get the most out of their upcoming follow-up appointment. The patient has no medical background. Write at a 6th grade reading level using short sentences and simple words.
@@ -68,7 +72,136 @@ CLINICAL INFORMATION:
 
 ---
 
-## Customization Guide
+## Variations
+
+### Post-surgical follow-up
+
+<PromptPlayground tool="Any LLM" title="Post-Surgical Follow-Up Prep">
+You are a surgeon's office creating a visit preparation guide for a patient coming in for their post-surgical follow-up. The patient has no medical background. Write at a 6th grade reading level. Use short sentences.
+
+Using the surgical information provided below, create a post-surgical follow-up guide:
+
+**1. What to Track Before Your Visit**
+- Wound appearance (redness, swelling, drainage — what to look for)
+- Pain level each day (1–10 scale)
+- Temperature (once a day)
+- Activity milestones reached (walking distance, stairs, return to daily activities)
+- Medications taken and any side effects
+
+**2. Wound Photo Log**
+Ask the patient to take a photo of their incision site every 2–3 days (same lighting and angle) and bring the photos to the visit. This helps the surgeon see how healing has progressed.
+
+**3. Questions to Ask Your Surgeon**
+5–7 specific questions, for example:
+- When can I shower / bathe / swim?
+- When can I drive?
+- When can I return to work?
+- Do my stitches/staples need to be removed at this visit?
+- Are there any activity restrictions still in place?
+- When is my next follow-up after this one?
+
+**4. What to Bring**
+- List of current medications (including pain medications and how much you have been taking)
+- Wound photos
+- Questions list
+- Insurance card
+- A family member or friend if helpful
+
+**5. What Will Happen at This Visit**
+Explain what the surgeon will likely do: examine the wound, remove stitches/staples if applicable, review imaging if applicable, update activity restrictions, and discuss next steps.
+
+---
+SURGICAL INFORMATION:
+[Paste: procedure performed, date, current recovery status, any concerns]
+</PromptPlayground>
+
+### Chronic disease management visit
+
+<PromptPlayground tool="Any LLM" title="Chronic Disease Follow-Up Prep">
+You are a physician creating a visit preparation guide for a patient with a chronic condition who has a routine follow-up appointment. The patient has no medical background. Write at a 6th grade reading level. Use short sentences.
+
+Using the clinical information provided below, create a chronic disease follow-up guide:
+
+**1. What to Track for 2 Weeks Before Your Visit**
+For each relevant metric, provide:
+- What to measure
+- How often
+- How to record it (simple log format)
+
+Create a 2-week tracking table specific to the condition (e.g., blood pressure log for hypertension, blood sugar log for diabetes, symptom log for asthma, joint pain log for arthritis).
+
+**2. Medication Review Prep**
+Before your visit, review your medications and note:
+- Any medications you stopped taking and why
+- Any medications causing side effects
+- Any medications you are running low on
+- Any new medications from other doctors
+- Any over-the-counter medicines or supplements you started
+
+**3. Lifestyle Check-In**
+Things to think about before the visit:
+- How well have you been following your diet plan?
+- How much exercise have you been getting?
+- How has your sleep been?
+- Have you been under more stress than usual?
+- Any new symptoms or changes in how you feel?
+
+**4. Questions to Ask**
+5–7 specific questions tailored to long-term management, for example:
+- Is my [condition] getting better, worse, or staying the same?
+- Do I need any changes to my medications?
+- When is my next [lab test / imaging / screening] due?
+- Are there any new treatments I should know about?
+- What is my goal for [relevant metric] at the next visit?
+
+**5. What to Bring**
+Checklist tailored to chronic disease visits.
+
+**6. What to Expect**
+What the doctor will likely review, examine, and order at a routine follow-up for this condition.
+
+---
+CLINICAL INFORMATION:
+[Paste: condition, duration, current treatment plan, recent labs/tests, and any specific concerns]
+</PromptPlayground>
+
+---
+
+## Example output
+
+**What to Track Before Your Visit**
+
+Your appointment is coming up. Here is what to track starting now:
+
+- **Blood pressure:** Check it at the same time every morning before taking your medications. Sit quietly for 5 minutes first. Write down both numbers (e.g., 135/85).
+- **Weight:** Weigh yourself every morning after using the bathroom, before eating. Use the same scale each time.
+- **Swelling:** Look at your ankles and feet each evening. Note if they are more swollen than usual.
+- **Symptoms:** Write down any days you felt short of breath, tired, or dizzy. Note what you were doing when it happened.
+- **Medications:** Check off each day that you took all your medications. Note if you missed any doses and why.
+
+**Symptom Diary**
+
+| Date | Shortness of breath (1–10) | Swelling (none/mild/moderate/severe) | Fatigue (1–10) | Notes | Meds taken? |
+|---|---|---|---|---|---|
+| ___ | ___ | ___ | ___ | ___ | Yes / No |
+| ___ | ___ | ___ | ___ | ___ | Yes / No |
+| ___ | ___ | ___ | ___ | ___ | Yes / No |
+| ___ | ___ | ___ | ___ | ___ | Yes / No |
+| ___ | ___ | ___ | ___ | ___ | Yes / No |
+| ___ | ___ | ___ | ___ | ___ | Yes / No |
+| ___ | ___ | ___ | ___ | ___ | Yes / No |
+
+**Questions to Ask Your Doctor**
+1. My blood pressure has been running around 145/90 most mornings. Should my medication dose be changed?
+2. I have been getting dizzy when I stand up. Could this be from my blood pressure medicine?
+3. My ankles are more swollen in the evenings. Is this something to worry about?
+4. Am I due for any blood tests at this visit?
+5. Should I be checking my blood pressure more or less often?
+6. Are there any foods I should be avoiding that I might not know about?
+
+---
+
+## How to customize
 
 | Element | How to Adjust |
 |---|---|
@@ -80,8 +213,11 @@ CLINICAL INFORMATION:
 
 ---
 
-## Notes
+## Tips & pitfalls
 
 - This template is shared across the **Inpatient Discharge Education** and **Outpatient Visit Education** workflows. Use it any time a patient has an upcoming follow-up visit.
 - Patients who arrive prepared with tracked data and specific questions have more productive visits and better outcomes.
 - The symptom diary table is intentionally simple. For patients with complex tracking needs (e.g., diabetes with multiple daily blood sugars), consider supplementing with a dedicated tracking app recommendation.
+- Start tracking at least 1–2 weeks before the visit. A single day of data is much less useful than a trend over time.
+- The "Questions to Ask" section should be tailored to the patient's specific concerns. Generic questions like "How am I doing?" are less useful than specific ones like "My blood sugar has been above 200 every morning — should we change my insulin dose?"
+- For patients who see multiple specialists, include a reminder to bring records or summaries from other providers.

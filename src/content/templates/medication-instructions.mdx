@@ -4,7 +4,7 @@ category: patient-education
 targetTool: claude
 workflow: medication-education
 tags: [beginner, patient-education, medications, instructions, health-literacy]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-03-22
 ---
 
 import Callout from '../../components/Callout.astro';
@@ -12,13 +12,17 @@ import PromptPlayground from '../../components/PromptPlayground.astro';
 
 Generates plain-language medication instructions for patients. Provide the medication details and get a clear explanation of what the medication does, how to take it, what to watch for, and when to call the doctor. Ideal for new prescriptions at discharge or in clinic.
 
+## When to use this
+
+Use this template when you need to create simple, patient-friendly medication instruction sheets for one or more medications, especially at discharge or when starting a new prescription.
+
 <Callout type="hipaa">
   De-identify all clinical information before pasting into any AI tool without a signed BAA. Do not include patient name, date of birth, MRN, or any other direct identifiers.
 </Callout>
 
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Claude" title="Medication Instructions: Plain Language">
 You are a pharmacist explaining a new medication to a patient. Write at a 6th grade reading level. Use short sentences. Avoid medical jargon.
@@ -60,7 +64,121 @@ MEDICATIONS:
 
 ---
 
-## Customization Guide
+## Variations
+
+### Elderly patient (large text, simple language)
+
+<PromptPlayground tool="Claude" title="Medication Instructions: Elderly Patient">
+You are a pharmacist explaining medications to an older adult patient. Write at a 4th grade reading level. Use very short sentences. Use large, clear formatting. Avoid all medical jargon.
+
+For each medication listed below, create a simple instruction sheet:
+
+**[Medication Name]**
+
+**What is it for?**
+One very simple sentence.
+
+**How to take it:**
+- Take [NUMBER] pill(s)
+- Take it in the [MORNING / EVENING / WITH MEALS]
+- Take it [WITH FOOD / ON AN EMPTY STOMACH]
+
+**Do NOT:**
+- List 2–3 things to avoid, one per line
+
+**Watch for these problems:**
+- List 2–3 side effects in everyday language (e.g., "feeling dizzy when you stand up" not "orthostatic hypotension")
+
+**Call your doctor if:**
+- 2–3 specific warning signs in bold
+
+Keep each medication to half a page maximum. Use numbered steps. One instruction per line. No paragraphs.
+
+---
+MEDICATIONS:
+[List each medication with dose, frequency, and indication]
+</PromptPlayground>
+
+### Pediatric dosing for parents
+
+<PromptPlayground tool="Claude" title="Medication Instructions: For Parents">
+You are a pediatric pharmacist explaining a child's medication to their parent or caregiver. Write at a 6th grade reading level. Use short sentences. Avoid medical jargon.
+
+For each medication listed below, create a parent instruction sheet:
+
+**[Medication Name] for your child**
+
+**What is this medicine for?**
+One sentence explaining why the doctor prescribed this for your child.
+
+**How to give it:**
+- Dose: [EXACT AMOUNT — use mL for liquids, include syringe markings]
+- When: [How often and what time of day]
+- With or without food
+- How to give it to a child who resists (mix with applesauce, follow with a drink, etc.)
+- What to do if your child spits it out or vomits within 30 minutes
+
+**What to watch for:**
+- 3–5 common side effects and what they look like in a child
+- What is normal vs. what needs a doctor's call
+
+**Call your child's doctor if:**
+- 3–4 specific warning signs
+
+**Go to the ER if:**
+- 2–3 serious reactions
+
+**Storage:**
+- Where to keep the medicine
+- Whether it needs refrigeration
+- When it expires after opening (if applicable)
+
+**Reminders:**
+- Give the full course even if your child feels better (if applicable)
+- Keep out of reach of all children
+- Use the measuring syringe provided, not a kitchen spoon
+
+---
+MEDICATIONS:
+[List each medication with the child's weight/age, dose, frequency, and indication]
+</PromptPlayground>
+
+---
+
+## Example output
+
+**Metformin (Glucophage)**
+
+**What is this medicine for?**
+Metformin helps lower your blood sugar. It makes your body use insulin better so sugar does not build up in your blood.
+
+**How do I take it?**
+- Take 1 tablet (500 mg) two times a day
+- Take it with breakfast and with dinner
+- Always take it with food to avoid an upset stomach
+- Swallow the tablet whole with a full glass of water — do not crush or chew it
+
+**What should I avoid?**
+- Limit alcohol. Drinking too much alcohol while taking metformin can cause a dangerous drop in blood sugar.
+- Tell your doctor before having any scan that uses contrast dye (the kind where they inject something into your vein). You may need to stop metformin for a few days.
+
+**Common side effects**
+- Upset stomach or nausea — this usually gets better after the first week or two. Taking it with food helps.
+- Diarrhea — eat smaller meals and drink plenty of water. Tell your doctor if it does not improve.
+- Metallic taste in your mouth — this usually goes away on its own.
+
+**When to call your doctor**
+- Nausea, vomiting, or diarrhea that does not go away after 2 weeks
+- You feel very tired or weak for no clear reason
+- You have muscle pain or cramping that is unusual for you
+
+**When to get emergency help**
+- **You feel very cold, dizzy, or have trouble breathing** — this could be a rare but serious reaction called lactic acidosis
+- **Your blood sugar drops very low** (shaking, sweating, confusion) — eat or drink something with sugar and call 911 if it does not improve in 15 minutes
+
+---
+
+## How to customize
 
 | Element | How to Adjust |
 |---------|---------------|
@@ -71,8 +189,11 @@ MEDICATIONS:
 
 ---
 
-## Notes
+## Tips & pitfalls
 
 - Always verify medication instructions against the prescribing information and your institution's patient education resources.
 - For high-risk medications (anticoagulants, insulin, opioids), consider supplementing with standardized institutional handouts.
-- This works well for discharge medication education; pair with the Discharge Instructions template.
+- This works well for discharge medication education; pair with the **Discharge Instructions** template.
+- The AI may list side effects that are technically possible but very rare. Review the list and keep only the most common and most clinically important side effects to avoid overwhelming the patient.
+- For patients on multiple medications, use the "combined medication schedule" customization to create a single daily schedule rather than separate sheets. Patients are more likely to follow a single schedule than to cross-reference 5 separate handouts.
+- Verify drug interactions carefully. The AI may miss interactions with the patient's other medications or supplements if those are not listed in the input.
