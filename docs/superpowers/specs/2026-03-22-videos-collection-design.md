@@ -43,6 +43,7 @@ const videos = defineCollection({
     title: z.string(),
     url: z.string().url(),
     channel: z.string(),
+    summary: z.string(),
     category: z.enum(videoCategories),
     llm: z.array(z.string()),
     topic: z.array(z.string()),
@@ -51,6 +52,8 @@ const videos = defineCollection({
   }),
 });
 ```
+
+Note: `summary` is a frontmatter field (not body content) to match the pattern used by `keyFinding` in trials. This avoids the complexity of calling `.render()` on every entry in the index page.
 
 Export in `collections` object alongside existing collections.
 
@@ -65,17 +68,16 @@ Each video is a short MDX file in `src/content/videos/`:
 title: "Video Title"
 url: "https://www.youtube.com/watch?v=..."
 channel: "Channel Name"
+summary: "2-3 sentence summary written by Claude after receiving the link and rating from the site owner."
 category: tutorial
 llm: [claude]
 topic: [prompting, automation]
 priority: 2
 dateAdded: 2026-03-22
 ---
-
-2-3 sentence summary written by Claude after receiving the link and rating from the site owner.
 ```
 
-The body content IS the summary. No components needed.
+The summary is a frontmatter field, not body content. Body content is empty (no individual pages to render it on).
 
 ---
 
@@ -99,11 +101,9 @@ Display at the top:
 
 ### Sort Controls
 
-Three sort buttons using the Preact interactive component pattern (like `ComparisonTable.tsx`). Create `src/components/VideoList.tsx` as a client-side Preact component that handles sorting.
+The site uses `output: 'static'` -- no server-side query param handling. Use a client-side Preact component (`src/components/VideoList.tsx`) with `client:load` to handle sorting, following the same pattern as the existing `ComparisonTable` component on the tools page.
 
-Alternatively, since Astro can do static sorting and the page is small, use simple anchor-based sorting with query params or just default to one sort order and skip client-side interactivity for now. Recommend starting with the simpler static approach and adding interactive sorting later if the list grows.
-
-**Recommended approach:** Static page sorted by dateAdded (newest first). Add sort links that reload with a query param (`?sort=priority`, `?sort=alpha`). Handle in the Astro frontmatter -- no client-side JS needed.
+The Astro page passes all video data as props to the Preact component. The component renders the list and handles sort toggling (date, priority, A-Z) via local state -- no page reloads needed.
 
 ### List Item Layout
 
@@ -119,7 +119,7 @@ Each row:
 - Title: bold, prominent
 - Tags: small inline pills (same style as trial tags)
 - YouTube link: small external link at right, opens in new tab
-- Summary: rendered from MDX body content
+- Summary: from frontmatter `summary` field
 - Channel + date: small gray text below summary
 
 ---
@@ -158,6 +158,7 @@ Place between "Templates" and "Community" in the nav order.
 | Create | `src/content/videos/claude-code-animated-sites.mdx` |
 | Create | `src/content/videos/claude-code-full-course-2026.mdx` |
 | Create | `src/content/videos/bernie-vs-claude.mdx` |
+| Create | `src/components/VideoList.tsx` -- Preact sort component |
 | Create | `src/pages/videos/index.astro` -- videos index page |
 
 ---
@@ -165,7 +166,7 @@ Place between "Templates" and "Community" in the nav order.
 ## Success Criteria
 
 - `/videos/` page renders with all 4 initial videos
-- Sorting works via query params (date, priority, alphabetical)
+- Client-side sorting works (date, priority, alphabetical)
 - Videos link opens YouTube in a new tab
 - Nav bar includes "Videos" link
 - Site builds without errors
