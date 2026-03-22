@@ -4,11 +4,15 @@ category: note-writing
 targetTool: claude
 workflow: consult-note
 tags: [intermediate, note-writing, consult, documentation]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-03-22
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when you need to write a formal specialty consultation note in response to a consult request from a primary or referring team.
 
 Generates a structured consultation note from the requesting team's question and your clinical findings. Follows the standard consult format: reason for consult, HPI, relevant history, exam, data review, assessment, and recommendations.
 
@@ -18,7 +22,7 @@ Generates a structured consultation note from the requesting team's question and
 
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Claude" title="Specialty Consultation Note">
 You are a [SPECIALTY] consultant writing a formal consultation note in response to a consult request.
@@ -66,7 +70,7 @@ CLINICAL INFORMATION:
 
 ---
 
-## Customization Guide
+## How to customize
 
 | Element | How to Adjust |
 |---------|---------------|
@@ -77,8 +81,187 @@ CLINICAL INFORMATION:
 
 ---
 
-## Notes
+## Variations
+
+### Urgent/emergent consult
+
+Use this when you are responding to an urgent or emergent consult where the primary team needs immediate actionable recommendations. This format leads with recommendations and is structured for rapid communication.
+
+<PromptPlayground tool="Claude" title="Urgent Consultation Note">
+You are a [SPECIALTY] consultant responding to an URGENT consultation. The primary team needs immediate recommendations.
+
+Using the clinical information below, write an urgent consultation note. Lead with recommendations, then provide supporting data:
+
+**URGENT CONSULTATION — [SPECIALTY]**
+
+**Reason for Consultation**
+The specific urgent clinical question.
+
+**Immediate Recommendations** (listed first for rapid access)
+Numbered list of time-sensitive recommendations. For each:
+- What to do
+- Why (one-line rationale)
+- Timeframe (e.g., "within 1 hour," "before morning labs")
+
+**Brief Clinical Summary**
+3–5 sentence summary of relevant history, current presentation, and key data supporting your recommendations.
+
+**Key Data Reviewed**
+Bulleted list of critical labs, imaging, or exam findings driving your recommendations.
+
+**Assessment**
+Your clinical impression in 2–3 sentences. State the working diagnosis and severity.
+
+**Contingency Plan**
+"If [scenario A] → [action]"
+"If [scenario B] → [action]"
+"Call us back if [threshold or event]"
+
+This consultation was discussed with the primary team by [phone/in person] at [TIME].
+
+Do not fabricate clinical information. Flag assumptions.
+
+---
+CONSULT QUESTION:
+[Urgent clinical question]
+
+CLINICAL INFORMATION:
+[Key clinical data]
+</PromptPlayground>
+
+### Curbside consult response
+
+Use this for documenting a brief informal ("curbside") consultation when a colleague asks for your specialty opinion without a formal consult order. Useful for creating a record of your advice.
+
+<PromptPlayground tool="Claude" title="Curbside Consult Response">
+You are a [SPECIALTY] physician documenting a brief curbside consultation. This is an informal opinion, not a formal consultation.
+
+Using the information below, write a concise curbside consult note:
+
+**Curbside Consultation — [SPECIALTY]**
+
+**Question Asked:**
+The clinical question posed by the requesting provider.
+
+**Clinical Context Provided:**
+Brief summary of the information you were given (2–3 sentences). Note that you did NOT independently examine the patient or review the chart.
+
+**Assessment:**
+Your clinical impression based on the information provided. 2–3 sentences.
+
+**Recommendations:**
+3–5 specific, actionable recommendations.
+
+**Limitations:**
+"This is an informal curbside opinion based on limited clinical information provided verbally. I have not examined the patient or independently reviewed the medical record. If the clinical picture changes or does not improve as expected, please place a formal consultation order."
+
+**Discussed with:** [Requesting provider role]
+
+Do not fabricate clinical information. Keep the entire note under 200 words.
+
+---
+QUESTION:
+[What the colleague asked]
+
+CONTEXT PROVIDED:
+[Brief clinical details shared with you]
+</PromptPlayground>
+
+### Follow-up consult note
+
+Use this for subsequent follow-up visits after your initial consultation, when you are continuing to follow the patient and providing updated recommendations.
+
+<PromptPlayground tool="Claude" title="Follow-Up Consultation Note">
+You are a [SPECIALTY] consultant writing a follow-up note on a patient you are already following.
+
+Using the clinical information below, write a concise follow-up consult note:
+
+**[SPECIALTY] Follow-Up Consultation — Day [X] of involvement**
+
+**Reason for Initial Consultation**
+One-line reminder of the original consult question.
+
+**Interval Update**
+What has changed since your last note: new symptoms, response to your recommendations, new data.
+
+**Relevant New Data**
+Only new labs, imaging, or findings since your last assessment. Format as a brief bulleted list.
+
+**Updated Assessment**
+Your current clinical impression. Has the diagnosis changed? Is the patient responding to treatment?
+
+**Updated Recommendations**
+Numbered list of current recommendations. Clearly indicate:
+- What is NEW (not previously recommended)
+- What should CONTINUE unchanged
+- What should be STOPPED or CHANGED from your prior recommendations
+
+**Disposition from [SPECIALTY]**
+- "Will continue to follow daily" / "Will see PRN" / "Signing off — call back if [specific criteria]"
+
+Do not fabricate clinical data. Flag assumptions.
+
+---
+INTERVAL CLINICAL INFORMATION:
+[New data since last consult note: events, labs, imaging, response to treatment]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+Infectious disease consult requested for a 52-year-old male with persistent fever and positive blood cultures. Admitted 3 days ago for cholangitis, s/p ERCP with stent placement on day 1. Started on piperacillin-tazobactam empirically. Blood cultures from admission growing gram-negative rods, speciation pending. Continues to spike fevers to 38.9°C despite 72 hours of antibiotics. WBC 15.2 (down from 22.1). Cr 1.4 (baseline 1.0). Hepatic panel improving. CT abdomen yesterday showed resolved biliary dilation, no abscess.
+
+**LLM output:**
+
+**Reason for Consultation**
+Infectious disease consultation for persistent fever and bacteremia despite 72 hours of piperacillin-tazobactam in the setting of recent cholangitis and ERCP.
+
+**History of Present Illness**
+52-year-old male admitted 3 days ago with acute cholangitis, managed with ERCP and biliary stent placement on hospital day 1. Started empirically on piperacillin-tazobactam. Blood cultures from admission are growing gram-negative rods (speciation and sensitivities pending). Despite 72 hours of appropriate empiric therapy, patient continues to spike fevers to 38.9°C. He denies rigors, new abdominal pain, or urinary symptoms. No recent travel or animal exposures.
+
+**Relevant Past Medical/Surgical History**
+Cholelithiasis (cholecystectomy planned as outpatient), type 2 diabetes mellitus, hypertension.
+
+**Medications**
+Piperacillin-tazobactam 3.375g IV Q6H (day 3), metformin 1000mg BID (held), insulin sliding scale, amlodipine 5mg daily.
+
+**Examination**
+T 38.9°C, HR 98, BP 128/72, RR 16, SpO2 97% RA. Alert, nontoxic-appearing. Abdomen soft, mild RUQ tenderness without rebound or guarding. No jaundice. ERCP site clean. No peripheral stigmata of endocarditis. No indwelling lines other than peripheral IV x2.
+
+**Data Review**
+- Blood cultures (day 0): 2/2 bottles growing gram-negative rods, speciation pending
+- WBC: 22.1 → 18.4 → 15.2 (downtrending)
+- Cr: 1.4 (baseline 1.0), stable
+- AST/ALT: 180/210 → 95/120 (improving), TBili 3.2 → 1.8
+- CT abdomen (day 2): Biliary stent in place, resolved intrahepatic ductal dilation, no hepatic abscess, no new collections
+
+**Assessment**
+52-year-old male with biliary-source gram-negative bacteremia in the setting of cholangitis, with persistent fever at 72 hours despite empiric pip-tazo and successful biliary decompression. The downtrending WBC and improving hepatic panel are reassuring. Persistent fever may represent slow clearance of biliary-source bacteremia vs inadequate source control vs resistant organism (ESBL). No evidence of abscess or secondary source on imaging.
+
+**Recommendations**
+1. Repeat blood cultures x2 (peripheral) today to assess for clearance
+2. Continue piperacillin-tazobactam pending speciation and sensitivities — adjust based on final culture data
+3. If cultures speciate to E. coli or Klebsiella, check ESBL status; if ESBL-positive, transition to meropenem 1g IV Q8H
+4. No indication for TTE at this time given biliary source and no endocarditis risk factors; reconsider if cultures remain positive >5 days
+5. Obtain hepatobiliary surgery input for interval cholecystectomy planning
+6. Target 14 days total antibiotic therapy for bacteremia (may narrow to PO fluoroquinolone or TMP-SMX based on sensitivities for the final 7 days if clinically improving)
+7. Recheck Cr daily given nephrotoxic potential; adjust antibiotic dosing if Cr rises
+
+Thank you for this consultation. We will continue to follow.
+
+---
+
+## Tips & pitfalls
 
 - The "Thank you for this consultation" closing is a convention. Remove it if your institution doesn't use it.
 - For procedural consults (e.g., GI for EGD), add the procedure indication and risk discussion to the recommendations.
 - Always verify that your recommendations match what you actually discussed with the primary team.
+- **Common AI failure mode:** The model may generate overly broad differentials instead of committing to a focused assessment. Edit the assessment to reflect your actual clinical impression.
+- **Recommendation specificity:** AI sometimes writes vague recommendations like "consider further workup." Replace these with specific orders: which lab, which imaging study, which dose of medication.
+- **Specialty jargon:** The model defaults to general medicine language. For subspecialty consults, review that specialty-specific terminology and grading systems are used correctly (e.g., MELD score for hepatology, NYHA class for cardiology).
+- **Follow-up language:** Verify the sign-off matches your actual plan. "Will continue to follow" implies daily notes. If you are signing off, state the criteria for re-consultation.
+- **Medicolegal note:** Consult notes carry significant medicolegal weight. Always review the AI-generated recommendations to ensure they reflect your independent clinical judgment.

@@ -4,11 +4,15 @@ category: note-writing
 targetTool: claude
 workflow: discharge-summary
 tags: [beginner, note-writing, discharge, inpatient, documentation]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-03-22
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when discharging a patient from an inpatient admission and you need a structured summary for the receiving outpatient provider.
 
 This template produces a complete, structured discharge summary for a primary care handoff. Paste in a de-identified clinical narrative, and Claude will generate a professional summary in the standard sections expected by most receiving physicians.
 
@@ -18,7 +22,7 @@ This template produces a complete, structured discharge summary for a primary ca
 
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Claude" title="Discharge Summary: Basic">
 You are an experienced hospitalist physician writing a discharge summary for the receiving outpatient primary care provider.
@@ -60,7 +64,7 @@ CLINICAL INFORMATION:
 
 ---
 
-## Customization Guide
+## How to customize
 
 | Element | How to Adjust |
 |---|---|
@@ -71,8 +75,189 @@ CLINICAL INFORMATION:
 
 ---
 
-## Notes
+## Variations
+
+### Brief discharge summary for short stays
+
+Use this for straightforward 1-2 day admissions (e.g., observation stays, uncomplicated cellulitis, simple CHF exacerbation) where a full discharge summary is unnecessarily lengthy.
+
+<PromptPlayground tool="Claude" title="Brief Discharge Summary (Short Stay)">
+You are a hospitalist writing a brief discharge summary for a short (1–2 day) uncomplicated hospital stay.
+
+Using the clinical information below, write a concise discharge summary in this abbreviated format:
+
+**Admission Diagnosis:** One line.
+
+**Brief Hospital Course:** 2–3 sentences maximum. What happened, what was done, why the patient is being discharged.
+
+**Key Results:** Only results that the outpatient provider needs to know about (abnormal or pending). Omit if all results were unremarkable.
+
+**Medication Changes:**
+- New: [med, dose, frequency, duration]
+- Stopped: [med, reason]
+(Only list changes. If no changes, write "No medication changes.")
+
+**Follow-up:** Appointments and pending results on one to two lines.
+
+**Return if:** 3 specific return precautions, one line each.
+
+Keep the entire summary under 200 words. This is for a straightforward admission; do not over-document.
+
+---
+CLINICAL INFORMATION:
+[Paste brief clinical summary for a short-stay patient]
+</PromptPlayground>
+
+### Complex multi-problem discharge
+
+Use this for patients with multiple active diagnoses, medication changes across several drug classes, and complex follow-up needs (e.g., new cancer diagnosis, post-cardiac surgery, multi-organ failure recovery).
+
+<PromptPlayground tool="Claude" title="Complex Discharge Summary">
+You are a hospitalist writing a detailed discharge summary for a complex patient with multiple active medical problems and extensive medication changes.
+
+Using the clinical information below, write a comprehensive discharge summary:
+
+**1. Admission Diagnoses**
+Primary and all secondary diagnoses addressed during the stay, listed.
+
+**2. Hospital Course by Problem**
+Organize the hospital course by problem rather than chronologically. For each major problem:
+- What was found
+- What was done (procedures, consults, treatments)
+- Current status at discharge
+- Outstanding issues
+
+**3. Procedures Performed**
+List all procedures with dates and key findings.
+
+**4. Significant Results**
+Organized by category: labs, imaging, pathology, microbiology. Include pending results with expected timeframes and responsible provider.
+
+**5. Discharge Medications — Complete Reconciliation**
+Full medication list organized by category:
+- NEW medications: [drug, dose, route, frequency, indication, duration if applicable]
+- CHANGED medications: [drug, old dose → new dose, reason]
+- DISCONTINUED medications: [drug, reason]
+- UNCHANGED home medications: [list for completeness]
+
+**6. Discharge Condition & Functional Status**
+Clinical condition, ambulatory status, O2 needs, weight-bearing status, diet.
+
+**7. Follow-up Plan**
+Table format: | Provider/Specialty | Timeframe | Reason |
+Include all pending results with expected dates and who is responsible for follow-up.
+
+**8. Patient/Family Education**
+Key points discussed with patient/family, new diagnosis education, medication teaching.
+
+**9. Return Precautions**
+5–7 specific symptoms or signs organized by urgency (call PCP vs go to ED).
+
+Be thorough. This patient has complex needs and the discharge summary serves as the primary communication tool for the outpatient team.
+
+---
+CLINICAL INFORMATION:
+[Paste comprehensive clinical data for a complex multi-problem patient]
+</PromptPlayground>
+
+### Patient-facing discharge instructions
+
+Use this to generate a plain-language discharge summary that can be given directly to the patient or family, written at an accessible reading level.
+
+<PromptPlayground tool="Claude" title="Patient-Facing Discharge Instructions">
+You are a physician writing discharge instructions for a patient and their family. Write at a 6th grade reading level. Avoid medical jargon; use plain language.
+
+Using the clinical information below, write patient-friendly discharge instructions:
+
+**Why You Were in the Hospital**
+1–2 sentences in simple language explaining the diagnosis and what happened.
+
+**What We Did**
+Brief, plain-language summary of treatments, procedures, and tests.
+
+**Your Medicines**
+For each new or changed medication:
+- Name of medicine
+- What it's for (in plain language)
+- How to take it (dose, time of day, with/without food)
+- How long to take it
+- Side effects to watch for
+
+**What to Do at Home**
+- Activity level (what you can and can't do)
+- Diet instructions
+- Wound care or other self-care tasks
+
+**Your Follow-up Appointments**
+- Who to see, when, and why (in plain terms)
+- Any tests that are still pending and what will happen with results
+
+**When to Call Your Doctor**
+List 3–4 warning signs that mean "call your doctor's office."
+
+**When to Go to the Emergency Room**
+List 3–4 warning signs that mean "go to the ER right away."
+
+Use short sentences. Use "you" and "your." Avoid abbreviations.
+
+---
+CLINICAL INFORMATION:
+[Paste clinical summary to convert into patient-friendly instructions]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+A 74-year-old female admitted for 4 days with acute decompensated heart failure (EF 35%), triggered by dietary indiscretion and medication nonadherence. Treated with IV furosemide, diuresed 4.5L over admission. Echo showed EF 35% (prior 40%), moderate MR, no WMA. BNP 1840 on admission, down to 620 at discharge. Cr stable at 1.2. Started on entresto 24/12.5mg BID (replacing lisinopril 10mg), increased furosemide from 20mg to 40mg daily. K+ supplemented. Cardiology consult recommended ICD evaluation as outpatient. Discharged on room air, weight 78kg (dry weight ~76kg).
+
+**LLM output:**
+
+**1. Admission Diagnosis**
+Primary: Acute decompensated heart failure (HFrEF, EF 35%)
+Secondary: Medication nonadherence, dietary indiscretion
+
+**2. Hospital Course**
+Patient presented with 3 days of progressive dyspnea, orthopnea, and lower extremity edema in the setting of dietary indiscretion and missed doses of lisinopril. She was admitted and started on IV furosemide with a net diuresis of 4.5L over 4 days. Echocardiogram showed a decline in EF from 40% to 35% with moderate mitral regurgitation. Cardiology was consulted and recommended transition to sacubitril-valsartan and outpatient ICD evaluation. She was transitioned to oral diuretics with stable renal function and discharged on room air.
+
+**3. Significant Results**
+- BNP: 1840 pg/mL (admission) → 620 pg/mL (discharge)
+- TTE: EF 35% (prior 40%), moderate MR, no wall motion abnormalities
+- Cr: Stable at 1.2 mg/dL throughout admission
+- K+: 3.4 on admission, supplemented, 4.1 at discharge
+
+**4. Discharge Medications**
+- Started: Sacubitril-valsartan (Entresto) 24/12.5 mg PO BID (replacing lisinopril for HFrEF)
+- Stopped: Lisinopril 10 mg daily (switched to Entresto)
+- Dose-adjusted: Furosemide 20 mg → 40 mg PO daily
+
+**5. Discharge Condition**
+Improved; ambulating independently on room air with residual 2 kg above dry weight.
+
+**6. Follow-up Instructions**
+- Cardiology: 2 weeks for ICD evaluation and Entresto uptitration
+- PCP: 1 week for weight check, BMP, and volume reassessment
+- Pending: None
+- Restrictions: 2g sodium diet, daily weight monitoring, fluid restriction 1.5L/day
+
+**7. Return Precautions**
+- Weight gain >3 lbs in 24 hours or >5 lbs in one week
+- Worsening shortness of breath at rest or with minimal activity
+- New or worsening lower extremity swelling
+- Chest pain or palpitations
+- Dizziness or near-syncope (may indicate hypotension from new medication)
+
+---
+
+## Tips & pitfalls
 
 - This template is optimized for **general medicine** admissions. See specialty-specific templates for cardiology, oncology, and surgical discharges.
-- For complex discharges (e.g., new cancer diagnosis, major surgery), the AI output will require more editing; use it as a structural skeleton rather than a final draft.
+- For complex discharges (e.g., new cancer diagnosis, major surgery), the AI output will require more editing; use the complex variation above or treat the output as a structural skeleton rather than a final draft.
 - Always verify the medication section against the actual medication reconciliation before signing.
+- **Common AI failure mode:** The model may omit medications that were continued unchanged but are clinically important (e.g., anticoagulants, immunosuppressants). Always cross-reference the full med list.
+- **Pending results:** AI often writes "no pending results" even when there are outstanding cultures, pathology, or outpatient labs. Double-check this section.
+- **Date sensitivity:** The model has no access to real dates. Verify all follow-up timeframes against actual scheduled appointments.
+- **Medication interactions:** The model will not reliably flag new drug interactions introduced by medication changes. Use your pharmacy system for interaction checking.

@@ -4,11 +4,15 @@ category: note-writing
 targetTool: claude
 workflow: progress-note
 tags: [beginner, note-writing, progress-note, outpatient, documentation]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-03-22
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when you need to write a structured daily progress note from raw clinical data (vitals, labs, exam findings, and your assessment).
 
 A daily progress note generator that takes your clinical observations and organizes them into a clean SOAP format. Paste in your notes from the day (vitals, exam findings, labs, your assessment) and get a structured note back. Great for residents learning note structure or attendings who want a faster first draft.
 
@@ -18,7 +22,7 @@ A daily progress note generator that takes your clinical observations and organi
 
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Claude" title="SOAP Progress Note">
 You are an experienced attending physician writing a daily progress note in SOAP format.
@@ -57,7 +61,7 @@ CLINICAL INFORMATION:
 
 ---
 
-## Customization Guide
+## How to customize
 
 | Element | How to Adjust |
 |---------|---------------|
@@ -68,8 +72,139 @@ CLINICAL INFORMATION:
 
 ---
 
-## Notes
+## Variations
+
+### ICU systems-based note
+
+Use this when writing progress notes on critically ill patients where a systems-based format (cardiovascular, pulmonary, renal, etc.) is more appropriate than a problem-based SOAP note.
+
+<PromptPlayground tool="Claude" title="ICU Systems-Based Progress Note">
+You are an ICU attending physician writing a daily progress note in systems-based format.
+
+Using the clinical information provided below, write a structured ICU progress note:
+
+**24-Hour Events**
+Brief summary of overnight events, interventions, and clinical trajectory.
+
+**Current Assessment by System:**
+
+For each system, include relevant subjective data, objective findings, assessment, and plan:
+
+1. **Neurologic** — Mental status, sedation (RASS), pain (CPOT/NRS), neuro exam
+2. **Cardiovascular** — Hemodynamics, vasopressors (with doses), rhythm, lines/access
+3. **Pulmonary** — Ventilator settings (mode, FiO2, PEEP, TV, RR), ABG, respiratory status, airway plan
+4. **Renal/FEN** — UOP, creatinine trend, electrolytes, IVF, nutrition (enteral vs parenteral), glucose management
+5. **GI/Hepatic** — Abdomen exam, LFTs if relevant, bowel function, feeds tolerance
+6. **Heme** — CBC, coagulation, anticoagulation, blood products
+7. **Infectious Disease** — Temp curve, WBC trend, cultures, current antibiotics (with day count)
+8. **Endocrine** — Glucose management, thyroid, adrenal if relevant
+9. **Prophylaxis** — DVT prophylaxis, GI prophylaxis, HOB elevation
+10. **Disposition** — Goals of care, family communication, anticipated trajectory
+
+Use exact values for all vitals, vent settings, drip rates, and lab results. Do not fabricate any data. Write "[Verify before signing]" for any missing sections.
+
+---
+CLINICAL INFORMATION:
+[Paste ICU patient data: vitals, vent settings, drips, I/Os, labs, exam, overnight events]
+</PromptPlayground>
+
+### Brief sign-out note
+
+Use this for a concise end-of-day note when a full SOAP is not needed, such as a stable patient with minimal interval changes.
+
+<PromptPlayground tool="Claude" title="Brief Sign-Out Progress Note">
+You are a physician writing a brief daily progress note for a clinically stable patient with minimal overnight changes.
+
+Using the clinical information below, write a concise progress note (aim for 8–12 lines total):
+
+**Interval Summary:** One to two sentences covering overnight events and current status.
+
+**Vitals:** Key vitals on one line (T, HR, BP, RR, SpO2).
+
+**Key Objective Data:** Only new or changed labs, imaging, or exam findings. Skip unchanged findings.
+
+**Active Problems & Plan:**
+Numbered list. One line per problem: [Problem] — [plan action today].
+
+**Disposition:** Expected discharge date or barriers to discharge.
+
+This is a draft note. Do not infer clinical data not provided. Write "[Update before signing]" for missing data.
+
+---
+CLINICAL INFORMATION:
+[Paste brief update: vitals, any new labs or events, plan changes]
+</PromptPlayground>
+
+### Teaching note with learning points
+
+Use this when supervising trainees and you want the note to double as a teaching document with clinical reasoning and evidence references.
+
+<PromptPlayground tool="Claude" title="SOAP Note with Teaching Points">
+You are an academic attending physician writing a progress note that includes teaching points for a resident or medical student.
+
+Using the clinical information below, write a SOAP note with the standard sections (Subjective, Objective, Assessment, Plan). After each problem in the Assessment & Plan, add a clearly labeled teaching point:
+
+**Teaching Point:** A brief (2–3 sentence) clinical pearl relevant to the problem. Reference a guideline, landmark trial, or evidence-based practice when possible (e.g., "Per IDSA guidelines..." or "The SAFE trial showed...").
+
+The teaching points should be:
+- Relevant to the clinical decision being made
+- Concise enough to read during rounds
+- Appropriate for PGY-1 to PGY-3 level learners
+
+Write the clinical note first, then embed the teaching points. Do not fabricate clinical data. Flag assumptions.
+
+---
+CLINICAL INFORMATION:
+[Paste your clinical notes, vitals, labs, exam findings, and plan items here]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+A 68-year-old male, hospital day 3, admitted for COPD exacerbation. Overnight he reported improved dyspnea, slept well. Vitals: T 37.1, HR 82, BP 134/78, RR 18, SpO2 94% on 2L NC. Lungs with scattered expiratory wheezes bilaterally, improved from admission. BMP stable, WBC trending down from 14.2 to 10.8. On prednisone 40mg daily (day 3 of 5), albuterol/ipratropium nebs Q4H, azithromycin day 3 of 5.
+
+**LLM output:**
+
+**Subjective**
+Patient reports improved breathing compared to yesterday. Able to sleep through the night without supplemental nebulizer treatments. No chest pain, no hemoptysis. Pain score 0/10. No overnight nursing concerns.
+
+**Objective**
+- Vitals: T 37.1°C, HR 82, BP 134/78, RR 18, SpO2 94% on 2L NC
+- Pulmonary: Scattered expiratory wheezes bilaterally, improved air movement compared to prior exam. No accessory muscle use. Speaking in full sentences.
+- Cardiovascular: RRR, no murmurs. No lower extremity edema.
+- Labs: WBC 10.8 (down from 14.2), BMP within normal limits.
+- Medications: Prednisone 40mg daily (day 3/5), azithromycin 250mg daily (day 3/5), albuterol/ipratropium nebs Q4H.
+
+**Assessment**
+68-year-old male with severe COPD (GOLD stage III) admitted for acute exacerbation, now clinically improving on hospital day 3.
+
+1. **COPD exacerbation** — Improving. Decreased wheezing, downtrending WBC, reduced O2 requirement from 4L to 2L NC.
+2. **Leukocytosis** — Resolving. Likely steroid-related and infection-related. WBC trending down appropriately.
+
+**Plan**
+1. COPD exacerbation
+   - Continue prednisone 40mg daily (2 days remaining)
+   - Continue azithromycin (2 days remaining)
+   - Wean nebs to Q6H if tolerating
+   - Pursue room air trial this afternoon; if SpO2 >90%, plan discharge tomorrow
+2. Leukocytosis
+   - Continue to monitor; no antibiotics escalation indicated
+   - Recheck CBC in AM
+
+*Draft note — physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
 
 - This template works best when you paste in **raw data** (vitals, labs, exam findings) rather than a pre-formatted note. The AI adds the structure.
-- For ICU notes, consider switching to a systems-based format; add that instruction to the prompt.
+- For ICU notes, consider switching to a systems-based format; add that instruction to the prompt or use the ICU variation above.
 - Always verify vital signs and lab values against the actual chart before signing.
+- **Common AI failure mode:** The model may "round" or normalize lab values or vitals. Always cross-check exact numbers against your source data.
+- **Medication doses:** AI may infer standard doses if you provide a drug name without a dose. Verify all medication doses before signing.
+- **Assessment language:** The model sometimes writes overly optimistic or overly cautious trajectory language ("improving nicely" vs "clinically decompensating"). Adjust the clinical trajectory to match your actual assessment.
+- **Billing considerations:** Ensure your note supports the level of service billed. AI-generated notes may under-document complexity or miss time-based billing elements.

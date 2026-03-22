@@ -4,11 +4,15 @@ category: note-writing
 targetTool: claude
 workflow: procedure-note
 tags: [intermediate, note-writing, procedure, documentation]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-03-22
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template immediately after completing a procedure to generate a structured post-procedure note from your procedural details and findings.
 
 Generates a structured post-procedure note from your procedure details. Covers indication, consent, technique, findings, specimens, complications, and post-procedure plan.
 
@@ -18,7 +22,7 @@ Generates a structured post-procedure note from your procedure details. Covers i
 
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Claude" title="Post-Procedure Note">
 You are a physician writing a post-procedure note for the medical record.
@@ -71,7 +75,7 @@ PROCEDURE DETAILS:
 
 ---
 
-## Customization Guide
+## How to customize
 
 | Element | How to Adjust |
 |---------|---------------|
@@ -79,3 +83,236 @@ PROCEDURE DETAILS:
 | Brevity | Add: "Keep the technique section to 3–4 sentences maximum" |
 | Teaching | Add: "Note the trainee's level of participation in each step" |
 | Billing | Add: "Include time start/stop for procedures billed by time" |
+
+---
+
+## Variations
+
+### Minor bedside procedure
+
+Use this for quick bedside procedures (e.g., central line placement, paracentesis, thoracentesis, lumbar puncture, arthrocentesis) where a shorter, focused format is appropriate.
+
+<PromptPlayground tool="Claude" title="Bedside Procedure Note">
+You are a physician writing a brief post-procedure note for a bedside procedure.
+
+Using the details below, write a concise procedure note:
+
+**Procedure:** [Name]
+**Date/Time:** [DATE/TIME]
+**Operator:** [Role and supervision level]
+**Indication:** One sentence.
+
+**Consent:** [Obtained from patient / emergency waiver / surrogate]
+**Timeout:** Performed per protocol.
+
+**Technique:**
+- Position: [patient positioning]
+- Sterile prep and drape: [site]
+- Anesthesia: [local anesthetic, dose]
+- Ultrasound guidance: [Yes/No; if yes, note real-time vs landmark-assisted]
+- Access: [needle/catheter size, number of attempts, approach]
+- Procedure: [key steps in 3–5 sentences]
+- Secured/dressed: [how the site was secured]
+
+**Findings:** [What was obtained — fluid appearance, opening pressure for LP, etc.]
+**Specimens sent:** [Lab tests ordered on fluid/tissue, or "None"]
+**EBL:** [Minimal / amount]
+**Complications:** [None / describe]
+
+**Post-Procedure:**
+- Monitoring: [e.g., "CXR ordered post-central line to confirm placement"]
+- Restrictions: [e.g., "Flat for 1 hour post-LP"]
+- Follow-up: [Pending results]
+
+Do not fabricate details. Write "[Complete before signing]" for missing information.
+
+---
+PROCEDURE DETAILS:
+[Paste: procedure performed, site, technique used, findings, specimens, complications]
+</PromptPlayground>
+
+### Complex surgical/OR procedure
+
+Use this for operative procedures performed in the OR that require detailed documentation of surgical technique, including trainee participation, implants, and operative findings.
+
+<PromptPlayground tool="Claude" title="Operative/Surgical Procedure Note">
+You are a surgeon writing a detailed operative note for a procedure performed in the operating room.
+
+Using the operative details below, write a comprehensive procedure note:
+
+**Operation Performed:** [Full procedure name with CPT-relevant detail]
+**Date:** [DATE]
+**Surgeon:** [Attending surgeon]
+**Assistant(s):** [Residents, fellows, PA — with level of participation]
+**Anesthesia:** [General / MAC / Regional / Spinal — with anesthesiologist name if provided]
+**Anesthesia time:** [Start to end if provided]
+
+**Pre-Operative Diagnosis:** [Diagnosis prior to surgery]
+**Post-Operative Diagnosis:** [Diagnosis after surgery — may differ from pre-op]
+
+**Indication**
+Brief clinical justification for the operative intervention.
+
+**Consent**
+Informed consent obtained. Risks discussed included: [bleeding, infection, nerve injury, anesthetic risks, procedure-specific risks].
+
+**Timeout**
+Surgical timeout performed per institutional protocol. Correct patient, correct site, correct procedure confirmed. Antibiotics: [drug, dose, timing]. DVT prophylaxis: [SCDs / pharmacologic].
+
+**Operative Technique**
+Detailed step-by-step narrative:
+1. Patient positioning, skin prep, and draping
+2. Incision (type, location, length)
+3. Dissection and exposure
+4. Key operative steps (in order performed)
+5. Hemostasis technique
+6. Implants or hardware placed (if applicable — include manufacturer, size, lot number if provided)
+7. Irrigation and closure (layer by layer, suture type and size)
+8. Dressing applied
+9. Trainee participation: describe which steps the trainee performed and level of supervision
+
+**Operative Findings**
+Describe intraoperative findings, including normal and abnormal anatomy.
+
+**Specimens**
+- Specimens sent: [pathology, culture, frozen section]
+- Laterality confirmed on specimen: [Yes/No]
+
+**Drains:** [Type, location, output if known]
+**EBL:** [amount in mL]
+**Fluids:** [Crystalloid, colloid, blood products given]
+**UOP:** [if relevant]
+
+**Complications:** [None / describe intraoperative complications and management]
+
+**Disposition:** Patient transferred to [PACU / ICU / floor] in [stable / guarded] condition.
+
+**Post-Operative Orders:**
+- Diet, activity, DVT prophylaxis
+- Pain management plan
+- Monitoring (drains, neurovascular checks, etc.)
+- Labs to obtain
+- Follow-up plan
+
+Do not fabricate any operative details. Write "[Dictate/complete before signing]" for any missing information.
+
+---
+OPERATIVE DETAILS:
+[Paste: procedure performed, operative findings, technique, specimens, complications, implants]
+</PromptPlayground>
+
+### Image-guided interventional procedure
+
+Use this for procedures performed under fluoroscopy, CT, or ultrasound guidance (e.g., IR procedures, biopsies, drain placements, joint injections) that require documentation of imaging modality and radiation exposure.
+
+<PromptPlayground tool="Claude" title="Image-Guided Procedure Note">
+You are a physician writing a post-procedure note for an image-guided interventional procedure.
+
+Using the details below, write a structured procedure note:
+
+**Procedure:** [Name of procedure]
+**Date:** [DATE]
+**Operator:** [Name, role]
+**Imaging Modality:** [Fluoroscopy / CT / Ultrasound / combination]
+
+**Indication**
+Clinical indication and relevant prior imaging findings.
+
+**Consent**
+Informed consent obtained after discussion of risks including: bleeding, infection, damage to adjacent structures, radiation exposure (if fluoroscopy/CT), contrast reaction (if applicable), procedural failure.
+
+**Timeout:** Performed per protocol.
+
+**Technique**
+- Patient positioning and prep
+- Imaging guidance: [modality, approach, real-time vs intermittent]
+- Access: [needle type/size, approach, target]
+- Key procedural steps
+- Contrast used: [type, volume] or "None"
+- Devices placed: [catheter/drain type, size, position]
+- Final imaging confirmation: [describe post-procedure images]
+
+**Findings:** [What was seen on imaging, aspirate appearance, etc.]
+**Specimens:** [Sent to pathology/micro/cytology, or "None"]
+
+**Radiation Exposure** (if applicable)
+- Fluoroscopy time: [minutes]
+- Dose: [mGy or DAP if available]
+
+**EBL:** [Minimal / amount]
+**Complications:** [None / describe]
+
+**Post-Procedure Plan**
+- Monitoring: [duration, parameters]
+- Imaging: [post-procedure CXR, CT, etc.]
+- Activity: [restrictions]
+- Drain care: [if applicable — flush instructions, output monitoring]
+- Follow-up: [clinic visit, pending results]
+
+Do not fabricate details. Write "[Complete before signing]" for missing data.
+
+---
+PROCEDURE DETAILS:
+[Paste: procedure, imaging modality, technique, findings, specimens, complications]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+Ultrasound-guided right thoracentesis performed at bedside for a large right pleural effusion causing dyspnea. 1.5L of straw-colored fluid removed. Fluid sent for cell count, chemistry, cultures, cytology. No complications. Attending with intern performing under direct supervision.
+
+**LLM output:**
+
+**Procedure:** Ultrasound-guided right thoracentesis
+**Date:** [DATE OF PROCEDURE]
+**Operator(s):** Intern performing under direct attending supervision
+**Assistant(s):** None
+
+**Indication**
+Large right-sided pleural effusion causing progressive dyspnea and hypoxia, requiring diagnostic and therapeutic drainage.
+
+**Consent**
+Informed consent obtained from the patient after discussion of risks (pneumothorax, bleeding, infection, re-accumulation), benefits (symptomatic relief, diagnostic information), and alternatives (observation, chest tube).
+
+**Timeout**
+Timeout performed per institutional protocol. Correct patient, correct side (right), correct procedure confirmed.
+
+**Technique**
+Patient positioned sitting upright, leaning forward over a bedside table. Right posterior thorax prepped with chlorhexidine and draped in sterile fashion. Point-of-care ultrasound used to identify the largest fluid pocket in the right posterior lower hemithorax, approximately 4 cm in depth at the 8th intercostal space, posterior axillary line. Site marked under real-time ultrasound guidance. Local anesthesia with 10 mL of 1% lidocaine infiltrated to the skin, subcutaneous tissue, and parietal pleura. An 8-French catheter-over-needle thoracentesis kit was advanced into the pleural space under real-time ultrasound guidance. Straw-colored fluid was aspirated. A total of 1,500 mL of serous, straw-colored fluid was drained by gravity and gentle aspiration. The catheter was removed, and a sterile occlusive dressing was applied. The patient tolerated the procedure well without cough, chest pain, or dyspnea during drainage.
+
+**Findings**
+1,500 mL of straw-colored, non-bloody, non-purulent pleural fluid.
+
+**Specimens**
+- Cell count and differential — sent to hematology lab
+- Protein, LDH, glucose — sent to chemistry lab
+- Gram stain and culture — sent to microbiology
+- Cytology — sent to pathology
+
+**Estimated Blood Loss:** Minimal (< 5 mL)
+**Complications:** None
+
+**Post-Procedure Plan**
+- Post-procedure upright CXR ordered to evaluate for pneumothorax and residual effusion
+- Monitor SpO2 and respiratory status for 2 hours
+- No activity restrictions
+- Pending: fluid analysis results (cell count, chemistry, cultures, cytology)
+- Follow-up: reassess respiratory status and review fluid results; consider repeat imaging if symptoms recur
+
+*Draft note — physician review required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **Always include laterality.** AI will not always specify left vs right; verify and correct this before signing. Incorrect laterality in a procedure note is a serious documentation error.
+- **Consent documentation:** AI defaults to "informed consent obtained." If consent was obtained by a different provider, from a surrogate, or waived in an emergency, update this section to reflect reality.
+- **Technique specificity:** The model may write generic procedural steps. Add specific details that were unique to your case (e.g., number of attempts, unexpected anatomy, technique modifications).
+- **Common AI failure mode:** The model may fabricate plausible-sounding procedural details (e.g., specific needle gauges, anesthetic doses) that you did not provide. Verify every technical detail.
+- **Specimens:** Always confirm that the specimens listed in the note match what was actually sent from the lab. Missing a specimen in the note can lead to lost results.
+- **EBL accuracy:** AI defaults to "minimal" for EBL. If there was significant bleeding, update with the actual estimated amount.
+- **Billing:** For time-based procedure billing, you must include start and stop times. Add these manually if not included in the AI output.

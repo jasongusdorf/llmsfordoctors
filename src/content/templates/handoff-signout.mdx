@@ -4,11 +4,15 @@ category: note-writing
 targetTool: claude
 workflow: shift-handoff
 tags: [intermediate, note-writing, handoff, signout, patient-safety]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-03-22
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when preparing a structured patient handoff at shift change, using the evidence-based I-PASS framework to reduce handoff-related errors.
 
 Generates a structured patient handoff using the I-PASS framework (Illness severity, Patient summary, Action list, Situation awareness, Synthesis by receiver). Paste in your patient's current status and get a concise, safety-focused signout.
 
@@ -18,7 +22,7 @@ Generates a structured patient handoff using the I-PASS framework (Illness sever
 
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Claude" title="Shift Handoff: I-PASS">
 You are a physician preparing a structured shift handoff for the incoming team using the I-PASS framework.
@@ -57,7 +61,7 @@ PATIENT INFORMATION:
 
 ---
 
-## Customization Guide
+## How to customize
 
 | Element | How to Adjust |
 |---------|---------------|
@@ -68,8 +72,166 @@ PATIENT INFORMATION:
 
 ---
 
-## Notes
+## Variations
+
+### Night float handoff
+
+Use this for evening-to-night handoff when the night float team is covering a large census and needs the most concise, action-oriented signout possible. Emphasizes illness severity triage and overnight to-do items over background history.
+
+<PromptPlayground tool="Claude" title="Night Float Handoff">
+You are a day team physician handing off your patient list to the night float team. The night team is covering a large census and needs rapid, action-focused handoffs.
+
+For each patient below, generate a night float handoff in this format:
+
+**[Patient identifier] — [STABLE / WATCHER / UNSTABLE]**
+**Code status:** [Full code / DNR-DNI / other]
+
+**One-liner:** [Age] [sex] with [key history] admitted for [reason], HD [X]. [Current trajectory in <10 words].
+
+**Overnight Action Items:**
+- [ ] [Task with specific timeframe — e.g., "Recheck K+ at 22:00, replete if <3.5"]
+- [ ] [Task]
+- [ ] [Task]
+
+**Anticipatory Guidance:**
+- If [scenario] → [action]
+- If [scenario] → [action]
+
+**Do NOT need to be called for:** [Things that are expected/already addressed — e.g., "Patient's family may call; they are aware of the plan and no update needed overnight"]
+
+---
+
+Separate each patient with a horizontal rule. Sort patients by illness severity: UNSTABLE first, then WATCHER, then STABLE. Keep each patient to 8 lines maximum.
+
+Do not fabricate clinical information. Flag assumptions.
+
+---
+PATIENT LIST:
+[Paste each patient's current status, active issues, overnight tasks, and anticipated problems]
+</PromptPlayground>
+
+### Weekend coverage handoff
+
+Use this for Friday-to-weekend handoff when the covering team may not know the patients and needs more clinical context, including the overall plan and goals of care for each patient.
+
+<PromptPlayground tool="Claude" title="Weekend Coverage Handoff">
+You are a primary team physician preparing a handoff for weekend coverage. The covering physician does not know these patients and will need enough context to manage them independently for 48–72 hours.
+
+For each patient below, generate a weekend handoff:
+
+**[Patient identifier] — [STABLE / WATCHER / UNSTABLE]**
+**Code status:** [Full / DNR-DNI / MOLST details]
+**Anticipated discharge:** [Expected date or "Not before Monday because..."]
+
+**Summary:**
+3–4 sentence clinical summary including: why admitted, hospital course highlights, current status, overall trajectory. Include enough context for a physician who has never seen this patient.
+
+**Active Problems & Current Plan:**
+Numbered list. For each problem:
+- Current status
+- What is being done
+- What to watch for over the weekend
+
+**Weekend To-Do List:**
+- [ ] [Specific tasks with dates/times]
+- [ ] [Pending results and what to do with them]
+- [ ] [Consult follow-ups expected]
+
+**Contingency Plans:**
+- If [worsens] → [specific action, who to call]
+- If [improves as expected] → [next step, e.g., "advance diet, check ambulation, can d/c Sunday if tolerating PO"]
+- If [family concern] → [context and who to contact]
+
+**Key Contacts:**
+- Primary attending: [name/pager]
+- Consulting services following: [service, last recs]
+
+---
+
+Separate each patient with a horizontal rule. Include more background than a standard overnight handoff; the covering physician needs to understand the full clinical picture.
+
+Do not fabricate clinical information. Flag assumptions.
+
+---
+PATIENT LIST:
+[Paste comprehensive patient data for each patient on your service]
+</PromptPlayground>
+
+### Multi-patient batch handoff
+
+Use this when you need to hand off a large number of stable patients quickly. Produces an ultra-compact format suitable for printing or a shared document.
+
+<PromptPlayground tool="Claude" title="Batch Handoff: Compact Format">
+You are a physician preparing a compact, printable handoff sheet for a large patient census.
+
+For each patient below, generate an ultra-compact handoff entry. Each patient should fit in 4–5 lines:
+
+**[Patient ID] | [STABLE/WATCHER/UNSTABLE] | [Code status] | HD [X]**
+Dx: [Primary diagnosis], [Key secondary diagnosis]
+Status: [One-sentence current status]
+To-do: [Overnight tasks, separated by semicolons]
+If-then: [Most important contingency, one line]
+
+---
+
+Rules:
+- Use abbreviations freely (HTN, DM2, CKD, SOB, etc.)
+- STABLE patients: 3–4 lines max
+- WATCHER patients: 4–5 lines, include the specific concern
+- UNSTABLE patients: 5–6 lines, include current interventions and escalation plan
+- Sort by severity: UNSTABLE → WATCHER → STABLE
+
+Do not fabricate clinical information.
+
+---
+PATIENT LIST:
+[Paste brief data for each patient: diagnosis, status, overnight tasks, contingencies]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+72-year-old female, hospital day 2, admitted for community-acquired pneumonia. PMH: COPD, type 2 DM, CKD stage 3. Currently on ceftriaxone 1g IV daily and azithromycin 500mg IV daily (day 2). Vitals stable: T 37.8, HR 88, BP 118/72, RR 20, SpO2 93% on 2L NC (improved from 89% on RA at admission). WBC 13.4 (down from 18.1). Cr 1.6 (baseline 1.4). Blood cultures pending. Chest CT showed RLL consolidation with small parapneumonic effusion. Patient is full code. Family (daughter) has been updated daily and is asking about discharge timeline.
+
+**LLM output:**
+
+**I: Illness Severity**
+WATCHER
+
+**P: Patient Summary**
+72-year-old female with COPD, type 2 DM, and CKD stage 3, admitted for community-acquired pneumonia with RLL consolidation and small parapneumonic effusion, now hospital day 2. Currently improving on ceftriaxone/azithromycin with downtrending WBC and improving oxygenation, though still requiring 2L supplemental O2.
+
+**A: Action List**
+- Follow up blood cultures (drawn on admission, still pending — check daily)
+- Recheck BMP in AM (Cr 1.6, up from baseline 1.4 — monitor for further rise given IV antibiotics and CKD)
+- Continue ceftriaxone 1g IV daily + azithromycin 500mg IV daily
+- Fingerstick glucose AC and HS per sliding scale — patient's home metformin is held given Cr elevation
+- Incentive spirometry Q1H while awake
+- Reassess O2 requirement in AM — trial wean to 1L if SpO2 >92%
+
+**S: Situation Awareness & Contingency Planning**
+- If SpO2 drops below 90% on 2L NC → increase to 4L NC, obtain ABG, consider repeat CXR to evaluate for worsening effusion or new process. If not improving on 4L, call respiratory for high-flow assessment.
+- If fever spikes >38.5°C → obtain blood cultures x2, UA with culture, recheck CBC/lactate. Continue current antibiotics unless clinically deteriorating. If septic-appearing, broaden to piperacillin-tazobactam 3.375g IV Q8H (renally dose for CKD).
+- If Cr rises >2.0 → hold vancomycin if added, reassess fluid status, consider renal dosing adjustment of ceftriaxone. Avoid nephrotoxins.
+- If daughter calls → she is aware of the pneumonia diagnosis and current treatment plan. Earliest anticipated discharge is hospital day 4–5 if the patient transitions to PO antibiotics and weans off O2. No goals-of-care concerns at this time.
+
+**S: Synthesis by Receiver**
+[To be completed verbally during handoff]
+
+---
+
+## Tips & pitfalls
 
 - I-PASS has been shown to reduce medical errors during handoffs by up to 30% (Starmer et al., NEJM 2014).
 - The "Synthesis by Receiver" section is intentionally left blank; it's meant to be completed during the live verbal handoff as a read-back.
 - For cross-cover signout, prioritize anticipatory guidance over background history.
+- **Common AI failure mode:** The model tends to write generic contingency plans ("if patient worsens, escalate care"). Replace these with patient-specific, actionable if-then statements with exact thresholds and specific interventions.
+- **Medication timing:** AI may not correctly calculate next medication doses or trough timing. Always verify against the MAR (medication administration record).
+- **Illness severity classification:** The model may default to "STABLE" for most patients. Review the severity tag critically — a patient who is clinically stable but has a high-risk pending result (e.g., troponin trend) may warrant "WATCHER" status.
+- **Code status accuracy:** If you include code status in the prompt, verify it against the actual orders. AI cannot check the medical record.
+- **Multiple patients:** When handing off multiple patients, verify that the AI has not mixed up clinical details between patients. This is a known failure mode when batch-processing several patients in a single prompt.
+- **Print formatting:** If printing handoff sheets, review for truncation. AI output may exceed one page per patient despite instructions.
