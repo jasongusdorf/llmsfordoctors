@@ -4,16 +4,25 @@ category: literature-review
 targetTool: claude
 workflow: journal-club
 tags: [advanced, literature-review, journal-club, critique, teaching]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-03-22
 ---
 
 import PromptPlayground from '../../components/PromptPlayground.astro';
+import Callout from '../../components/Callout.astro';
+
+## When to use this
+
+Use this template when you are preparing to present or lead a journal club discussion. It produces a complete critical appraisal package including a structured summary, methods critique, discussion questions, and clinical bottom line. Best suited for articles you plan to discuss with a group, not just read yourself (for solo reading, use the **Article Summary** template instead).
 
 Prepares a structured journal club presentation and critical appraisal. Paste in the article and get a ready-to-present summary with methodological critique, discussion questions, and clinical applicability assessment.
 
+<Callout type="hipaa">
+  De-identify any patient-specific information before pasting clinical text into any AI tool without a signed BAA.
+</Callout>
+
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Claude" title="Journal Club Preparation">
 You are a faculty member preparing a journal club presentation with critical appraisal.
@@ -62,8 +71,205 @@ ARTICLE TEXT:
 
 ---
 
-## Notes
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Audience level | Add: "Tailor the methods critique for [medical students / residents / faculty]" |
+| Time limit | Add: "Limit the summary section to a 3-minute presentation" or "Expand to a 15-minute presentation" |
+| Focus area | Add: "Spend extra time on the statistical analysis; our group struggles with [NNT / forest plots / hazard ratios]" |
+| Specialty lens | Add: "Evaluate from a [emergency medicine / primary care / surgical] perspective" |
+| Comparison | Add: "Compare this article's findings and methods against [OTHER STUDY CITATION]" |
+| Format | Add: "Format the output as presentation slides with speaker notes" |
+
+---
+
+## Variations
+
+### Resident-level discussion
+
+Use this for a teaching-focused journal club aimed at residents, with emphasis on learning critical appraisal skills and understanding fundamental study design concepts.
+
+<PromptPlayground tool="Claude" title="Resident Journal Club Prep">
+You are a faculty member preparing a teaching-oriented journal club for medical residents (PGY-1 to PGY-3).
+
+Given the article below, produce a journal club package designed to teach critical appraisal:
+
+**Quick Summary** (3 minutes)
+One paragraph: what was studied, how, and what was found.
+
+**Study Design Teaching Point**
+Explain the study design in plain language. Why did the authors choose this design? What are its inherent strengths and weaknesses? Briefly compare to an alternative design that could have been used.
+
+**Critical Appraisal Walkthrough**
+Walk through each domain step by step, explaining what to look for and what you find:
+1. **Was the study question clearly defined?** (PICO breakdown)
+2. **Was the assignment randomized?** How? Was allocation concealed?
+3. **Were groups similar at baseline?** (Table 1 check)
+4. **Was follow-up complete?** Dropout rate and its impact
+5. **Was the outcome clinically meaningful?** Surrogate vs. patient-centered
+6. **How large was the treatment effect?** Absolute numbers, not just p-values
+
+**Statistics in Plain Language**
+For each key result, explain: what the number is, what it means clinically, and whether it matters. Calculate NNT if applicable. Explain the confidence interval in one sentence.
+
+**Discussion Questions** (5 questions, scaffolded for learners)
+1. [Knowledge: identify the study design and primary outcome]
+2. [Comprehension: explain what the main result means]
+3. [Analysis: identify the most important methodological limitation]
+4. [Application: would you change your practice based on this?]
+5. [Synthesis: how does this fit with what we already know?]
+
+**Take-Home Message**
+One sentence a resident should remember.
+
+Do not fabricate data or statistics. Base all critique on the provided text.
+
+---
+ARTICLE TEXT:
+[Paste the article text here]
+</PromptPlayground>
+
+### Faculty deep-dive
+
+Use this when presenting to a research-oriented faculty audience that expects a rigorous methodological critique, including statistical nuances and comparison to the broader literature.
+
+<PromptPlayground tool="Claude" title="Faculty Deep-Dive Journal Club">
+You are a clinical researcher preparing a rigorous journal club presentation for a faculty audience with strong research backgrounds.
+
+Given the article below, produce a detailed critical appraisal:
+
+**Executive Summary**
+3–4 sentences: question, design, key finding, and your overall assessment of the evidence quality.
+
+**Methodological Deep Dive**
+For each domain, provide a detailed critique (not just a checklist):
+- **Design & Causal Inference:** Is the design sufficient to support causal claims? What threats to causal inference remain?
+- **Selection & Sampling:** How were participants selected? Is there selection bias? How does the sample compare to the target population?
+- **Measurement:** Are the outcome measures valid and reliable? Were they assessed consistently across groups?
+- **Confounding & Bias:** What confounders were adjusted for? What residual confounding is likely? Were sensitivity analyses adequate?
+- **Statistical Approach:** Was the analytic strategy pre-specified? Were multiplicity adjustments made? Is the model specification appropriate?
+- **Reporting Quality:** Does the paper follow CONSORT/STROBE/PRISMA guidelines? What is missing from the report?
+
+**Statistical Critique**
+- Primary analysis: effect size, precision, clinical significance vs. statistical significance
+- Were the assumptions of the statistical tests met?
+- Sensitivity analyses: what was tested and what should have been tested?
+- Subgroup analyses: pre-specified or exploratory? Risk of false discovery?
+- Missing data handling: MCAR/MAR/MNAR assessment
+
+**Positioning in the Literature**
+How does this study relate to prior work? Does it confirm, contradict, or extend existing evidence? What specific studies should be compared?
+
+**Discussion Questions** (5 questions for faculty-level debate)
+1. [Methodological: the single most important design decision and whether it was correct]
+2. [Statistical: the most important analytic choice and its impact on conclusions]
+3. [Interpretive: are the authors' conclusions supported by their data?]
+4. [Comparative: how does this change the evidence landscape?]
+5. [Future: what study would you design next?]
+
+**Verdict**
+Rate the study: How much should this change our confidence in the intervention/exposure? (Substantially / Modestly / Minimally / Not at all). Justify in 2–3 sentences.
+
+Do not fabricate data, statistics, or citations.
+
+---
+ARTICLE TEXT:
+[Paste the full text here]
+</PromptPlayground>
+
+### Multidisciplinary format
+
+Use this when your journal club includes members from different specialties or disciplines (e.g., medicine, nursing, pharmacy, PT/OT), and the discussion needs to address implementation from multiple perspectives.
+
+<PromptPlayground tool="Claude" title="Multidisciplinary Journal Club Prep">
+You are a clinical educator preparing a journal club for a multidisciplinary team (physicians, nurses, pharmacists, social workers, therapists).
+
+Given the article below, produce a journal club package that addresses the study from multiple professional perspectives:
+
+**Article Overview** (accessible to all disciplines)
+Plain-language summary: what was studied, what was found, and why it matters. Avoid jargon; define technical terms when first used.
+
+**Methods Summary**
+Brief, accessible methods critique: study design, sample size, key strengths, key limitations. Skip statistical minutiae; focus on whether we can trust the results and for whom.
+
+**Implications by Discipline**
+For each relevant discipline, describe how this study's findings affect their practice:
+- **Physicians:** Diagnostic or management changes
+- **Nursing:** Patient assessment, monitoring, or care delivery implications
+- **Pharmacy:** Medication selection, dosing, interaction, or safety implications
+- **Rehabilitation (PT/OT):** Functional outcome or recovery implications
+- **Social Work / Case Management:** Discharge planning, resource, or psychosocial implications
+
+**Implementation Discussion**
+- What would need to change in our workflow to act on these findings?
+- What barriers to implementation exist?
+- What resources or training would be needed?
+
+**Discussion Questions** (designed for cross-disciplinary dialogue)
+1. [For everyone: Does this study address a problem we see in our practice?]
+2. [For clinicians: Would you change your approach based on this?]
+3. [For nursing/pharmacy: What safety or implementation concerns do you see?]
+4. [For the team: What barriers would we face in implementing this?]
+5. [For everyone: What question would we want answered next?]
+
+**One-Line Summary**
+A single sentence the entire team should take away.
+
+Do not fabricate data or statistics.
+
+---
+ARTICLE TEXT:
+[Paste the article text here]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what the main prompt produces when given a realistic article:
+
+**Input provided:**
+The SPRINT trial (NEJM 2015): a multicenter RCT of intensive vs. standard blood pressure control in 9,361 patients at high cardiovascular risk, comparing SBP target <120 mmHg vs. <140 mmHg.
+
+**LLM output:**
+
+**Article Summary**
+Wright JT et al. "A Randomized Trial of Intensive versus Standard Blood-Pressure Control" (SPRINT). NEJM 2015. Multicenter RCT of 9,361 adults (>=50 years) with SBP 130-180 and increased CV risk (but no diabetes or prior stroke). Patients randomized to intensive (SBP <120) vs. standard (SBP <140) blood pressure targets. Trial stopped early: the intensive arm showed a 25% relative risk reduction in the primary composite cardiovascular outcome (HR 0.75, 95% CI 0.64-0.89) and a 27% reduction in all-cause mortality (HR 0.73, 95% CI 0.60-0.90). NNT for the primary outcome over 3.3 years: approximately 61.
+
+**Methods Critique**
+- **Study Design:** Open-label RCT with blinded endpoint adjudication (PROBE design). Appropriate for this question; blinding of BP targets is impractical. Limitation: clinicians and patients knew their assignment, which could influence co-interventions.
+- **Randomization & Blinding:** Computer-generated randomization with concealed allocation. Blinded outcome adjudication mitigates ascertainment bias.
+- **Sample Size & Power:** Well-powered. Trial actually stopped early for benefit, which can overestimate effect sizes.
+- **Outcome Selection:** Primary composite (MI, ACS, stroke, heart failure, CV death) is clinically meaningful. All-cause mortality as a secondary outcome is the gold standard.
+- **Analysis:** Intention-to-treat. Missing data handled appropriately. Early termination is the most important analytic limitation.
+- **Funding & Conflicts:** NIH-funded. No industry involvement. Low conflict-of-interest risk.
+
+**Validity Assessment**
+- **Internal validity:** Strong. Well-conducted, adequate randomization, blinded adjudication.
+- **External validity:** Moderate. Excluded diabetes and prior stroke (two large hypertensive populations). Office BP measurement protocol (unattended automated readings) yields lower values than typical clinic measurements, so the targets may not directly translate to standard office practice.
+
+**Statistics Decoded**
+The primary composite outcome occurred in 5.2% of the intensive group vs. 6.8% of the standard group. This is an absolute risk reduction of 1.6% over 3.3 years. The NNT is approximately 61, meaning you would treat 61 patients to the intensive target for 3.3 years to prevent one primary event. The 95% CI for the HR (0.64-0.89) excludes 1.0, so the result is statistically significant. The confidence interval is also clinically meaningful: even the upper bound (0.89) suggests a meaningful benefit. All-cause mortality was also significantly reduced (HR 0.73), which is a hard endpoint and strengthens the finding.
+
+**Discussion Questions**
+1. The trial was stopped early for benefit. How does early termination affect our confidence in the effect size? (Studies stopped early tend to overestimate treatment effects.)
+2. The absolute risk reduction was 1.6% over 3.3 years. Is this clinically meaningful given the increased rates of hypotension, syncope, AKI, and electrolyte abnormalities in the intensive arm?
+3. SPRINT excluded patients with diabetes and prior stroke. How should we approach BP targets in these populations based on other available evidence?
+4. SPRINT used unattended automated office BP measurements, which run ~10 mmHg lower than typical attended readings. If our clinic uses standard attended measurements, what SBP target is equivalent to SPRINT's <120?
+5. How do SPRINT results compare to ACCORD-BP (which found no benefit of intensive control in diabetics)? What explains the discrepancy?
+
+**Clinical Bottom Line**
+SPRINT provides strong evidence that targeting SBP <120 mmHg reduces cardiovascular events and all-cause mortality in non-diabetic adults over 50 with increased CV risk. The benefit must be weighed against increased rates of adverse events (hypotension, syncope, AKI). Implementation requires awareness that SPRINT's BP measurement protocol yields lower readings than standard office practice.
+
+---
+
+## Tips & pitfalls
 
 - For the richest critique, paste the full text including methods and results sections, not just the abstract.
-- Pair with the **Article Summary** template for a quicker, less critical overview.
-- The discussion questions are designed to fill 20–30 minutes of group discussion.
+- Pair with the **Article Summary** template for a quicker, less critical overview when full journal club prep is not needed.
+- The discussion questions are designed to fill 20-30 minutes of group discussion. Cut to 3 questions if your session is shorter.
+- **Common AI failure mode:** The model may generate overly generous validity assessments. Push back by adding "Be critical; identify weaknesses, not just strengths" to the prompt.
+- **Statistics decoded section:** Always verify any calculated NNTs, ARRs, or converted effect sizes against the original data. AI may miscalculate, especially with survival analysis data.
+- **Conflict of interest:** The model may miss industry ties that are disclosed in footnotes rather than the main text. Always check the original paper's disclosures independently.
+- **Early termination bias:** If the trial was stopped early, the model may not adequately flag this as a source of effect size inflation. Add "Was this trial stopped early? If so, discuss the implications" to your input.

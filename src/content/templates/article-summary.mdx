@@ -4,16 +4,25 @@ category: literature-review
 targetTool: claude
 workflow: article-review
 tags: [beginner, literature-review, journal, summary, evidence]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-03-22
 ---
 
 import PromptPlayground from '../../components/PromptPlayground.astro';
+import Callout from '../../components/Callout.astro';
+
+## When to use this
+
+Use this template when you need a quick, structured summary of a single journal article for your own review or to share with colleagues. It works best when you have an abstract or full text and want to extract the key findings, limitations, and clinical bottom line without reading the entire paper.
 
 Summarizes a journal article into a structured, clinician-friendly format. Paste in the abstract (or full text) and get a concise summary covering study design, population, key findings, limitations, and clinical takeaway. Great for staying current with the literature efficiently.
 
+<Callout type="hipaa">
+  De-identify any patient-specific information before pasting clinical case reports or case series into any AI tool without a signed BAA.
+</Callout>
+
 ---
 
-## Prompt Template
+## The prompt
 
 <PromptPlayground tool="Claude" title="Journal Article Summary">
 You are a clinical researcher summarizing a journal article for a busy physician audience.
@@ -53,7 +62,7 @@ ARTICLE TEXT:
 
 ---
 
-## Customization Guide
+## How to customize
 
 | Element | How to Adjust |
 |---------|---------------|
@@ -64,8 +73,182 @@ ARTICLE TEXT:
 
 ---
 
-## Notes
+## Variations
+
+### RCT summary
+
+Use this when summarizing a randomized controlled trial, with emphasis on randomization quality, blinding, and effect sizes.
+
+<PromptPlayground tool="Claude" title="RCT Summary">
+You are a clinical researcher summarizing a randomized controlled trial for a busy physician audience.
+
+Given the RCT article text below, produce a structured summary:
+
+**Citation**
+Authors, title, journal, year, DOI.
+
+**Trial Registration**
+Registry and ID number (e.g., NCT number) if available.
+
+**Study Design**
+Type of RCT (parallel, crossover, cluster, non-inferiority, etc.), single-center vs. multicenter.
+
+**Population**
+Sample size (with power calculation if reported), key inclusion/exclusion criteria, setting, enrollment period.
+
+**Randomization & Blinding**
+Method of randomization, allocation concealment, blinding (single / double / open-label), and whether blinding was assessed or maintained.
+
+**Intervention & Comparator**
+What was done in each arm, including dosing, duration, and any co-interventions.
+
+**Primary Outcome**
+Outcome definition, result with effect size (HR, OR, RR, ARR), 95% CI, p-value, NNT/NNH if calculable.
+
+**Secondary Outcomes**
+2–3 most clinically important secondary outcomes with results.
+
+**Safety**
+Key adverse events, discontinuation rates, serious adverse events.
+
+**Limitations**
+3–5 key methodological limitations (e.g., open-label bias, attrition, underpowered subgroups, generalizability).
+
+**Clinical Bottom Line**
+In 2–3 sentences: Should this change practice? For whom? How strong is the evidence?
+
+Do not fabricate data, statistics, or citations. If information is not reported, state that explicitly.
+
+---
+ARTICLE TEXT:
+[Paste the RCT abstract or full text here]
+</PromptPlayground>
+
+### Systematic review summary
+
+Use this when summarizing a systematic review or meta-analysis, with emphasis on search strategy, heterogeneity, and pooled effect sizes.
+
+<PromptPlayground tool="Claude" title="Systematic Review / Meta-Analysis Summary">
+You are a clinical epidemiologist summarizing a systematic review or meta-analysis for a busy physician audience.
+
+Given the review text below, produce a structured summary:
+
+**Citation**
+Authors, title, journal, year, DOI.
+
+**Review Question**
+The clinical question in PICO format.
+
+**Search Strategy**
+Databases searched, date range, number of studies screened vs. included. Was the search comprehensive?
+
+**Included Studies**
+Number of studies, total patients, study designs included, geographic and clinical settings.
+
+**Quality Assessment**
+Tool used (GRADE, Cochrane Risk of Bias, Newcastle-Ottawa, etc.) and overall quality of included evidence.
+
+**Pooled Results**
+Primary pooled outcome with effect size, 95% CI, p-value. Include forest plot interpretation if described (direction and magnitude of effect, heterogeneity I-squared).
+
+**Heterogeneity**
+I-squared value, sources of heterogeneity identified (subgroup analyses, meta-regression), and clinical significance of any variation.
+
+**Key Subgroup Findings**
+2–3 most important subgroup or sensitivity analyses.
+
+**Limitations**
+Publication bias assessment (funnel plot, Egger's test), gaps in the evidence, limitations of included studies.
+
+**Clinical Bottom Line**
+In 2–3 sentences: What is the overall conclusion? How confident should we be? What are the key caveats?
+
+Do not fabricate data or statistics. State explicitly when information is not reported.
+
+---
+REVIEW TEXT:
+[Paste the systematic review abstract or full text here]
+</PromptPlayground>
+
+### Case report summary
+
+Use this when summarizing a case report or small case series, with emphasis on the clinical presentation, diagnostic reasoning, and the teaching point.
+
+<PromptPlayground tool="Claude" title="Case Report Summary">
+You are a clinical educator summarizing a case report for a physician audience.
+
+Given the case report text below, produce a structured summary:
+
+**Citation**
+Authors, title, journal, year, DOI.
+
+**Patient Presentation**
+Age, sex, chief complaint, relevant history, key exam and lab findings at presentation.
+
+**Diagnostic Workup**
+Key tests ordered, timeline of results, the diagnostic reasoning pathway.
+
+**Final Diagnosis**
+The confirmed or most likely diagnosis, and how it was established.
+
+**Management & Outcome**
+Treatment provided, clinical response, follow-up status, and any complications.
+
+**Why This Case Matters**
+The teaching point: Is this a rare disease, an unusual presentation of a common disease, a diagnostic pitfall, or a novel treatment approach?
+
+**Clinical Pearl**
+One sentence a clinician should remember from this case.
+
+Do not fabricate clinical details. If information is unclear or incomplete in the source, note it.
+
+---
+CASE REPORT TEXT:
+[Paste the case report text here]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what the main prompt produces when given a realistic abstract:
+
+**Input provided:**
+An abstract describing a multicenter RCT of early goal-directed therapy for sepsis in 1,341 patients across 31 EDs, comparing EGDT protocol vs. usual care, published in NEJM 2014.
+
+**LLM output:**
+
+**Citation**
+Yealy DM et al. "A Randomized Trial of Protocol-Based Care for Early Septic Shock." *N Engl J Med*. 2014;370(18):1683-1693. DOI: 10.1056/NEJMoa1401602
+
+**Study Design**
+Multicenter, pragmatic RCT (ProCESS trial)
+
+**Population**
+1,341 patients with septic shock across 31 US emergency departments. Inclusion: suspected infection, refractory hypotension or lactate >=4 mmol/L, within 2 hours of meeting criteria. Exclusion: imminent death, contraindication to central line.
+
+**Intervention & Comparator**
+Three arms: (1) protocol-based EGDT (per Rivers 2001), (2) protocol-based standard therapy without ScvO2 monitoring, (3) usual care at physician discretion.
+
+**Primary Outcome**
+60-day in-hospital mortality: EGDT 21.0% vs. protocol-based standard 18.2% vs. usual care 18.9% (P=0.83 for overall comparison). No significant difference between groups.
+
+**Secondary Outcomes**
+No significant differences in 90-day mortality, organ failure scores, or need for organ support across groups.
+
+**Limitations**
+1. Usual care in 2014 may already incorporate elements of EGDT, diluting the treatment effect. 2. Sicker patients may have been excluded by enrollment criteria. 3. Unblinded by necessity. 4. Limited generalizability to resource-limited settings without central line capability.
+
+**Clinical Bottom Line**
+Protocol-based EGDT does not improve survival over usual care in early septic shock, as long as baseline care includes timely antibiotics and adequate fluid resuscitation. Clinicians should prioritize the fundamentals (early antibiotics, fluids, source control) rather than rigid EGDT protocols.
+
+---
+
+## Tips & pitfalls
 
 - This works best with abstracts or full-text PDFs pasted as text. For studies behind paywalls, the abstract alone produces a useful (if less detailed) summary.
 - Always verify extracted statistics against the original article, as AI may misread tables or confidence intervals.
-- For systematic reviews and meta-analyses, consider using the **Evidence Comparison** template instead.
+- For systematic reviews and meta-analyses, consider using the **Systematic review summary** variation above or the **Evidence Comparison** template for multi-study comparison.
+- **Common AI failure mode:** The model may infer results that are not in the provided text (e.g., calculating NNT from data not provided). If you see a statistic you did not provide, verify it before citing it.
+- **Citation accuracy:** AI sometimes generates plausible but incorrect DOIs or author lists. Always verify citations against PubMed or the original source.
+- **Pre-print vs. peer-reviewed:** The model does not distinguish between preprints and peer-reviewed publications unless told. If summarizing a preprint, add "This is a preprint, not yet peer-reviewed" to your input.
