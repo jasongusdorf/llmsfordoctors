@@ -1,16 +1,16 @@
 ---
 title: "Patient Discharge Instructions"
 category: patient-education
-targetTool: claude
+targetTool: any
 workflow: discharge-education
-tags: [beginner, patient-education, discharge, instructions]
-lastUpdated: 2026-03-18
+tags: [beginner, patient-education, discharge, instructions, inpatient]
+lastUpdated: 2026-03-22
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
 
-Generates plain-language discharge instructions for patients leaving the hospital or ED. Covers diagnosis summary, medication changes, activity restrictions, follow-up appointments, and return precautions. Designed to complement (not replace) your institution's standard discharge paperwork.
+Generates plain-language discharge instructions for patients leaving the hospital or ED. Covers diagnosis summary, what was done during the stay, medication changes, activity restrictions, follow-up appointments, and return precautions. Unlike the clinician-facing discharge summary template, this output is written directly for the patient at a 6th grade reading level. Designed to complement (not replace) your institution's standard discharge paperwork.
 
 <Callout type="hipaa">
   De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
@@ -20,8 +20,8 @@ Generates plain-language discharge instructions for patients leaving the hospita
 
 ## Prompt Template
 
-<PromptPlayground tool="Claude" title="Patient Discharge Instructions">
-You are a nurse writing discharge instructions for a patient. Write at a 6th grade reading level. Use short sentences. Be specific and actionable.
+<PromptPlayground tool="Any LLM" title="Patient Discharge Instructions">
+You are a physician writing discharge instructions for a patient who is leaving the hospital. The patient has no medical background. Write at a 6th grade reading level. Use short sentences. Be specific and actionable. Avoid medical jargon. If a medical term is unavoidable, define it in parentheses. Use bullet points for action items. Bold any critical safety information.
 
 Create discharge instructions based on the information below:
 
@@ -71,11 +71,17 @@ DISCHARGE INFORMATION:
 | Language | Add: "Write in [LANGUAGE]" |
 | Caregiver | Add: "Address instructions to the patient's caregiver rather than the patient directly" |
 | Pediatric | Add: "This is for a child's parent/guardian" |
+| Surgical discharge | Add: "Include a wound care section with specific instructions" |
+| Length | Add: "Keep the entire document to 2 pages maximum" |
+| Medication detail | Add: "For each new medication, also list the most common side effects" |
 
 ---
 
 ## Notes
 
+- This template is distinct from the **Discharge Summary: Basic Template**, which produces a clinician-facing document for the receiving PCP. This template is for the patient themselves.
 - This is a supplement to your institution's standard AVS (After Visit Summary), not a replacement.
 - Pair with the **Medication Instructions** template for detailed med-by-med education.
+- Always verify the medication section against the actual medication reconciliation, as this is the highest-risk section for AI errors.
+- For complex discharges (e.g., new cancer diagnosis, ICU stay), the output will need significant review and may benefit from being paired with an in-person explanation.
 - For surgical discharges, add wound care and activity restriction details to the input.

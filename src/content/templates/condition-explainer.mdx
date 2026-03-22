@@ -4,7 +4,7 @@ category: patient-education
 targetTool: any
 workflow: outpatient-visit-education
 tags: [patient-education, diagnosis, condition, explainer]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-03-22
 ---
 
 import Callout from '../../components/Callout.astro';
@@ -14,6 +14,10 @@ This template takes a diagnosis and relevant clinical context and produces a cle
 
 <Callout type="hipaa">
   De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+<Callout type="tip">
+  Adjust the reading level to your patient. The default is 6th grade (average US health literacy). For patients with higher literacy, you can raise this. For patients with limited English proficiency, simplify further and consider having the output translated by a qualified medical interpreter.
 </Callout>
 
 ---
@@ -45,7 +49,15 @@ Explain what the doctor is recommending and why. Include:
 **5. When to Get Help Right Away**
 List 3–5 specific warning signs that mean the patient should call their doctor or go to the emergency room. Be concrete (e.g., "chest pain that does not go away after 10 minutes" rather than "worsening symptoms").
 
+**6. Questions to Ask Your Doctor**
+Suggest 3–5 questions the patient can bring to their next appointment about this condition.
+
+Use "you" and "your" to address the patient directly. Avoid abbreviations.
+
 ---
+PATIENT CONTEXT (optional):
+[AGE, RELEVANT BACKGROUND, LANGUAGE PREFERENCES, ANY SPECIFIC CONCERNS THE PATIENT HAS RAISED]
+
 CLINICAL INFORMATION:
 [Paste the diagnosis, relevant history, and any treatment plan details here]
 </PromptPlayground>
@@ -61,6 +73,9 @@ CLINICAL INFORMATION:
 | Specialty | Add: "This is a cardiology diagnosis. Include heart-specific lifestyle guidance." |
 | Caregiver audience | Add: "This handout is for the patient's family caregiver, not the patient directly" |
 | Length | Add: "Keep the entire handout to one page (approximately 300 words)" |
+| Language | Add: "Write the explanation in [LANGUAGE]" (works well for Spanish, French, and other common languages) |
+| Chronic vs. acute | Add: "This is a chronic condition; emphasize long-term management" or "This is an acute episode; emphasize recovery timeline" |
+| Pediatric | Add: "This is for the parent/guardian of a child. Use 'your child' instead of 'you'." |
 
 ---
 
@@ -68,4 +83,4 @@ CLINICAL INFORMATION:
 
 - This template works for any diagnosis. For complex multi-system conditions, consider generating one handout per major diagnosis rather than combining them.
 - Always review the "When to Get Help" section carefully: this is the most safety-critical part of the output.
-- If the patient has limited English proficiency, consider using the output as a starting point and having it translated by a qualified medical interpreter.
+- Consider printing or sharing digitally as a take-home resource alongside the verbal conversation. For complex diagnoses (e.g., cancer), the conversation itself matters more than the handout.

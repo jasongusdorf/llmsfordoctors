@@ -4,7 +4,7 @@ category: clinical-reasoning
 targetTool: claude
 workflow: clinical-reasoning
 tags: [advanced, clinical-reasoning, assessment, plan, synthesis, inpatient]
-lastUpdated: 2026-03-19
+lastUpdated: 2026-03-22
 ---
 
 import Callout from '../../components/Callout.astro';
@@ -72,6 +72,8 @@ CLINICAL INFORMATION:
 | Teaching rounds | Add: "After each problem, include a one-sentence teaching pearl or clinical reasoning principle" |
 | Outpatient | Add: "This is an outpatient case. Replace inpatient disposition with follow-up planning." |
 | Focus | Add: "Focus the synthesis on [SPECIFIC PROBLEM]; the other problems are stable and established" |
+| Simplified version | Add: "Use a brief style: one-line assessment per problem, limit each problem to 3 lines maximum, and omit the Outstanding Questions section" |
+| Brevity | Add: "Limit each problem to 3 lines maximum" |
 
 ---
 
@@ -80,5 +82,5 @@ CLINICAL INFORMATION:
 - This template is for **clinical synthesis**, not documentation formatting. The goal is to help organize your reasoning, not to generate a note you paste directly into the EMR.
 - Works best when you paste **raw, unprocessed clinical data** (nursing notes, lab results, dictated HPI) rather than a pre-written note. Claude provides the synthesis layer.
 - For patients with more than 8–10 active problems, group related problems (e.g., "Cardiorenal syndrome" instead of separate CHF and AKI entries).
-- Compare this template to the **Case Summary & Assessment/Plan** template: this version uses a more explicit, assertion-based reasoning structure suited for complex cases with unclear etiology.
+- For a simpler version with less structure, use the "Simplified version" customization option above. This is useful for straightforward cases or when you want a quick draft rather than a full assertion-based synthesis.
 - Always verify that the AI's assessment matches your actual clinical reasoning. The output is a draft that must reflect your thinking.

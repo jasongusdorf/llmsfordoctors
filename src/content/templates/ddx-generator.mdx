@@ -1,16 +1,16 @@
 ---
 title: "Differential Diagnosis Generator"
 category: clinical-reasoning
-targetTool: openai
+targetTool: any
 workflow: clinical-reasoning
-tags: [intermediate, clinical-reasoning, diagnosis, differential, gpt-4]
-lastUpdated: 2026-03-19
+tags: [intermediate, clinical-reasoning, diagnosis, differential]
+lastUpdated: 2026-03-22
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
 
-Generates a structured, ranked differential diagnosis from a clinical vignette using GPT-4. Provide the chief complaint, key history, physical exam findings, and available data, and get an organized DDx with supporting and opposing evidence for each entry.
+Generates a structured, ranked differential diagnosis from a clinical vignette. Provide the chief complaint, key history, physical exam findings, and available data, and get an organized DDx with supporting and opposing evidence for each entry.
 
 <Callout type="hipaa">
   De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
@@ -24,7 +24,7 @@ Generates a structured, ranked differential diagnosis from a clinical vignette u
 
 ## Prompt Template
 
-<PromptPlayground tool="ChatGPT (GPT-4o)" title="Differential Diagnosis Generator">
+<PromptPlayground tool="Any LLM (GPT-4o, Claude, etc.)" title="Differential Diagnosis Generator">
 You are a senior internal medicine physician acting as a diagnostic reasoning consultant.
 
 Given the clinical presentation below, generate a structured differential diagnosis. Your output should include:
@@ -76,8 +76,9 @@ Available Data: [ANY LABS, IMAGING, ECG, OR OTHER RESULTS]
 
 ## Notes
 
+- This prompt works well with both **GPT-4o** and **Claude**. Both models handle DDx generation effectively when the case is clearly presented with pertinent negatives.
 - This template is optimized for **undifferentiated presentations**: chest pain, dyspnea, altered mental status, fever, and similar common chief complaints where the diagnosis is not yet clear.
 - The **must-not-miss** section is often the most clinically valuable output. Use it as a rapid safety checklist.
-- GPT-4o performs well on DDx generation when the case is clearly presented. Include pertinent negatives explicitly, as they significantly improve output quality.
+- Include pertinent negatives explicitly, as they significantly improve output quality -- not just positive findings.
 - For specialty-specific differentials (e.g., neurology localization, rheumatologic workup), consider adding specialty-specific framing in the customization section.
-- For board prep differentials, see the **Differential Diagnosis Drill** template under Board Prep.
+- This template is for clinical reasoning support, not board prep. For practice differentials, see the **Differential Diagnosis Drill** template under Board Prep.
