@@ -8,7 +8,7 @@
 
 ## Problem Statement
 
-The site has 101 content files across 5 collections (guides, templates, tools, workflows, trials). Two key issues:
+The site has 91 content files across 5 collections (5 guides, 40 templates, 12 tools, 6 workflows, 28 trials). Two key issues:
 
 1. **Guides are too dense, not actionable, and hard to navigate** - physicians skim and bounce rather than learning and doing
 2. **Templates need improvement across the board** - prompt quality, instructions, organization, coverage gaps, and consistency all need work
@@ -75,18 +75,33 @@ Dispatch parallel agents to read each content file and score it against the rubr
 | Agent | Scope | Files |
 |-------|-------|-------|
 | Agent 1 | All guides | 5 |
-| Agent 2 | Templates: note-writing | 14 |
-| Agent 3 | Templates: clinical-reasoning + board-prep | 12 |
-| Agent 4 | Templates: patient-education + literature-review | 14 |
-| Agent 5 | Templates: admin-billing | 5 |
-| Agent 6 | Tools + workflows + trials (shared criteria only) | 51 |
+| Agent 2 | Templates: note-writing + admin-billing | 10 |
+| Agent 3 | Templates: clinical-reasoning + board-prep | 14 |
+| Agent 4 | Templates: patient-education + literature-review | 16 |
+| Agent 5 | Tools + workflows (shared criteria only) | 18 |
+| Agent 6 | Trials (shared criteria only) | 28 |
+
+**Agent output format:** Each agent produces a markdown table per file with these columns:
+
+```
+| File | Dimension | Score (1-5) | Issues |
+```
+
+Plus a summary section listing any cross-file observations (duplicates, patterns, gaps). This format ensures reports are directly mergeable in Phase 2.
+
+**Overlap detection:** Agents 2-4 are each responsible for flagging overlapping templates within their scope. Cross-scope overlaps are identified during Phase 2 consolidation by comparing template titles and descriptions across agent reports. "Significant overlap" means two templates that serve the same clinical scenario and would confuse a reader choosing between them.
 
 ### Phase 2: Consolidate & Rank
 
 - Merge all agent reports into a single audit report
-- Calculate composite scores per file
-- Rank by priority: lowest-scoring files first, weighted toward guides and templates
+- Calculate composite scores per file: simple average of all applicable dimension scores (shared + collection-specific), rounded to one decimal
+- Rank by priority: lowest composite scores first; when scores tie, guides rank above templates, templates above all others
 - Group issues by type (e.g., "15 templates missing example output", "3 guides have no TL;DR")
+
+**Scoring notes for reference-style content (tools, workflows, trials):** Interpret shared criteria contextually:
+- **Actionability** for trials = does the summary help a clinician decide whether this evidence changes their practice? For tools = does the review help them decide whether to try/buy?
+- **Navigation** for short entries (< 200 words) = score 5 by default (no navigation problem possible)
+- **Audience Fit** for trials = is it readable by a non-researcher clinician?
 
 ### Phase 3: Produce Deliverables
 
@@ -94,7 +109,12 @@ Dispatch parallel agents to read each content file and score it against the rubr
 |-------------|------|----------|
 | Content Standards | `docs/content-standards.md` | The rubric as a living style guide |
 | Audit Report | `docs/audit-report.md` | Full scores and issues per file, sorted by priority |
-| Punch List | `docs/audit-punch-list.md` | Prioritized fixes grouped by issue type with effort estimates |
+| Punch List | `docs/audit-punch-list.md` | Prioritized fixes grouped by issue type with effort estimates (S/M/L) |
+
+**Effort scale:**
+- **S (Small)** - Mechanical fix, < 15 min. Examples: adding a missing cross-link, fixing a stale tool name, adding a one-line "When to use this" section
+- **M (Medium)** - Requires thought or writing, 15-60 min. Examples: adding example output to a template, rewriting a dense section of a guide, adding variations
+- **L (Large)** - Substantial rewrite or creation, 1+ hours. Examples: restructuring an entire guide, re-engineering a prompt that produces poor output, consolidating duplicate templates
 
 ---
 
@@ -103,7 +123,7 @@ Dispatch parallel agents to read each content file and score it against the rubr
 ### Prioritization Order
 
 1. **Guides first** - 5 files, front door to the site, high-impact
-2. **Template consistency pass** - establish canonical structure, align all 45
+2. **Template consistency pass** - establish canonical structure, align all 40
 3. **Template prompt quality** - re-engineer low-scoring prompts, add missing example outputs
 4. **Cross-linking gaps** - wire up templates, workflows, tools, trials connections
 5. **Tools/workflows/trials** - lighter touch, fix freshness or clarity issues
