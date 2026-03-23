@@ -34,7 +34,7 @@ function PriorityStars({ priority }: { priority: number }) {
 }
 
 export default function VideoList({ videos }: Props) {
-  const [sortKey, setSortKey] = useState<SortKey>('date');
+  const [sortKey, setSortKey] = useState<SortKey>('priority');
 
   const sorted = [...videos].sort((a, b) => {
     if (sortKey === 'date') {
