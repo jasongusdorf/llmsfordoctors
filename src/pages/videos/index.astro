@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import VideoList from '../../components/VideoList.tsx';
+
+const allVideos = await getCollection('videos');
+
+const videosData = allVideos.map((v) => ({
+  title: v.data.title,
+  url: v.data.url,
+  channel: v.data.channel,
+  summary: v.data.summary,
+  category: v.data.category,
+  llm: v.data.llm,
+  topic: v.data.topic,
+  priority: v.data.priority,
+  dateAdded: v.data.dateAdded.toISOString(),
+}));
+---
+
+<BaseLayout
+  title="Videos - LLMs for Doctors"
+  description="Curated videos on AI in clinical practice. Every video here is worth watching."
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Videos' }]} />
+
+    <header class="mb-8">
+      <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mb-3">
+        Videos
+      </h1>
+      <p class="text-lg text-clinical-600 dark:text-clinical-400">
+        Curated videos on LLMs and AI in clinical practice.
+      </p>
+      <p class="text-sm text-clinical-500 dark:text-clinical-400 mt-2 italic">
+        Every video here is worth watching. Stars indicate impact — 5 means drop everything, 1 means save for a quiet afternoon.
+      </p>
+    </header>
+
+    <VideoList client:load videos={videosData} />
+  </div>
+</BaseLayout>
