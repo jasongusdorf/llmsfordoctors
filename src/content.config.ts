@@ -92,6 +92,28 @@ const courses = defineCollection({
   }),
 });
 
+const videoCategories = [
+  'tutorial',
+  'lecture',
+  'demo',
+  'interview',
+] as const;
+
+const videos = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/videos' }),
+  schema: z.object({
+    title: z.string(),
+    url: z.string().url(),
+    channel: z.string(),
+    summary: z.string(),
+    category: z.enum(videoCategories),
+    llm: z.array(z.string()),
+    topic: z.array(z.string()),
+    priority: z.number().min(1).max(5),
+    dateAdded: z.date(),
+  }),
+});
+
 export const collections = {
   workflows,
   guides,
@@ -99,4 +121,5 @@ export const collections = {
   templates,
   trials,
   courses,
+  videos,
 };
