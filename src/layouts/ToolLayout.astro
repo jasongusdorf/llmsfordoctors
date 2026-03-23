@@ -37,6 +37,7 @@ const formattedDate = lastUpdated.toLocaleDateString('en-US', {
 });
 
 const stars = Math.round(rating);
+const isWarning = rating === 0;
 const relatedItems = relatedWorkflows.map((wf) => ({
   title: wf.title,
   href: wf.href,
@@ -61,10 +62,10 @@ const relatedItems = relatedWorkflows.map((wf) => ({
       <div class="flex items-center gap-2 mb-4">
         <span aria-label={`${rating} out of 5 stars`} class="text-xl">
           {Array.from({ length: 5 }).map((_, i) => (
-            <span class={i < stars ? 'text-amber-400' : 'text-clinical-200'}>★</span>
+            <span class={i < stars ? 'text-amber-400' : isWarning ? 'text-red-400/50' : 'text-clinical-200'}>★</span>
           ))}
         </span>
-        <span class="text-sm text-clinical-500">{rating.toFixed(1)}/5</span>
+        <span class={`text-sm ${isWarning ? 'text-red-500 font-semibold' : 'text-clinical-500'}`}>{rating.toFixed(1)}/5</span>
       </div>
 
       <!-- Pricing & BAA badges -->
@@ -93,7 +94,7 @@ const relatedItems = relatedWorkflows.map((wf) => ({
       </p>
     </header>
 
-    <article class="prose prose-clinical dark:prose-invert max-w-none">
+    <article class={`prose prose-clinical dark:prose-invert max-w-none ${isWarning ? 'border border-red-500/40 rounded-lg p-6 -mx-2' : ''}`}>
       <slot />
     </article>
 

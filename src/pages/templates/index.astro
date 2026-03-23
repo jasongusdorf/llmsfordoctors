@@ -21,7 +21,15 @@ const categoryLabels: Record<string, string> = {
   'board-prep': 'Board Prep',
 };
 
-const categories = Object.keys(grouped).sort();
+const categoryOrder = [
+  'note-writing',
+  'clinical-reasoning',
+  'patient-education',
+  'literature-review',
+  'admin-billing',
+  'board-prep',
+];
+const categories = categoryOrder.filter((cat) => grouped[cat]);
 ---
 
 <BaseLayout
@@ -40,6 +48,19 @@ const categories = Object.keys(grouped).sort();
       </p>
     </header>
 
+    {categories.length > 0 && (
+      <nav class="mb-8 flex flex-wrap gap-2">
+        {categories.map((cat) => (
+          <a
+            href={`#${cat}`}
+            class="px-3 py-1.5 rounded-full text-sm font-medium bg-clinical-100 text-clinical-600 hover:bg-blue-100 hover:text-blue-700 dark:bg-clinical-700 dark:text-clinical-300 dark:hover:bg-blue-900 dark:hover:text-blue-300 transition-colors"
+          >
+            {categoryLabels[cat] ?? cat}
+          </a>
+        ))}
+      </nav>
+    )}
+
     {categories.length === 0 ? (
       <div class="text-center py-20 text-clinical-500 dark:text-clinical-400">
         <p class="text-xl font-medium">Templates coming soon.</p>
@@ -48,7 +69,7 @@ const categories = Object.keys(grouped).sort();
     ) : (
       <div class="space-y-12">
         {categories.map((cat) => (
-          <section>
+          <section id={cat}>
             <h2 class="font-heading text-xl font-semibold text-clinical-800 dark:text-clinical-200 mb-4 pb-2 border-b border-clinical-200 dark:border-clinical-700">
               {categoryLabels[cat] ?? cat}
             </h2>

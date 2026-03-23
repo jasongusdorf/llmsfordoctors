@@ -1,0 +1,59 @@
+---
+title: "Epic Integrated AI"
+slug: epic-ai
+vendor: "Epic Systems"
+rating: 0
+verdict: "Azure OpenAI buried under legacy architecture — too slow, too shallow, and physicians are not using it"
+pricing: "Included with Epic EHR licensing (enterprise)"
+hasBaa: true
+categories: [note-writing, clinical-reasoning, general]
+lastUpdated: 2026-03-23
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Overview
+
+Epic has been integrating AI features directly into its EHR, including in-basket message drafting, note summarization, and patient-facing reply generation, powered by GPT-4 through Microsoft Azure OpenAI. The appeal is obvious: AI that lives where you already work, covered under your existing BAA, with no copy-paste workflow needed.
+
+The reality is deeply disappointing — and the reasons are structural. Epic's AI inherits all of Microsoft's model constraints via the Azure OpenAI pipeline, then adds its own orchestration, guardrails, and EHR-specific system prompts on top. Each layer degrades output quality. The result is a tool that real-world data shows physicians largely ignore: only 19.4% of AI-drafted messages are actually used, and research has confirmed the current implementation has not yet resulted in measurable time savings.
+
+---
+
+## Clinical Strengths
+
+- **EHR-native**: no context switching, no copy-paste, no de-identification workflow — the AI reads the chart directly
+- **Covered under existing BAA**: no additional compliance hurdles for organizations already on Epic
+- **Patient message drafting**: addresses a genuine pain point — physicians receive 150+ in-basket messages per day, with 30% annual volume growth
+
+---
+
+## Weaknesses
+
+- **Azure OpenAI with extra layers**: Epic runs GPT-4 through Microsoft Azure, inheriting Microsoft's model constraints, then wraps additional system prompts and guardrails around it. By the time the output reaches you, it has been filtered through multiple abstraction layers that strip away the model's reasoning capability
+- **Slow response times**: draft generation takes up to 4 minutes per message — long enough to break clinical flow entirely. In most cases, faster to type it yourself
+- **Poor output quality**: AI drafts are longer and more verbose than what physicians want. Summaries miss critical details, replies are generic, and clinical reasoning is superficial
+- **80% wasted generation**: the system generates AI drafts for all incoming messages, including the 80% that receive no response, creating a review burden rather than reducing workload
+- **Total black box**: Epic does not disclose which model version powers which feature, how prompts are constructed, or what parameters are used. You cannot troubleshoot, optimize, or understand why the output is poor
+- **Track record of algorithmic failure**: before generative AI, Epic's sepsis prediction algorithm was found to routinely fail to identify the condition while triggering frequent false alarms. Epic reportedly paid health systems up to $1 million to encourage adoption of these algorithms rather than letting quality drive uptake
+- **Legacy architecture**: Epic's EHR was built decades before LLMs existed. Bolting AI onto this architecture means the model operates within the constraints of Epic's data model, API surface, and UI framework — none designed for real-time generative AI
+
+<Callout type="pitfall">
+  Epic has over 125 AI projects in motion. The platform will evolve. But as of early 2026, the current implementation actively wastes more physician time than it saves. Revisit when Epic publishes utilization data showing meaningful adoption.
+</Callout>
+
+---
+
+## HIPAA & Privacy
+
+<Callout type="hipaa">
+  Epic's AI features operate within the existing Epic BAA and institutional data governance framework. PHI stays within the Epic environment. This is the one genuine advantage — no additional compliance work required for organizations already on Epic.
+</Callout>
+
+---
+
+## Bottom Line
+
+Epic's AI is a case study in what happens when you bury a capable model under legacy architecture and institutional inertia. GPT-4 can reason — but not after passing through Azure's constraints, Epic's orchestration layer, and a UI built for checkbox medicine. The 19.4% utilization rate tells the real story: physicians tried it and stopped.
+
+The compliance story is clean, but compliance alone does not make a tool worth using. Physicians who need real AI-assisted reasoning should use a standalone LLM with a proper de-identification workflow until Epic demonstrates meaningful improvements in speed, quality, and transparency.

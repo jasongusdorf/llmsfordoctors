@@ -19,17 +19,18 @@ type SortKey = 'name' | 'rating' | 'pricing';
 type SortDir = 'asc' | 'desc';
 
 function StarRating({ rating }: { rating: number }) {
+  const isWarning = rating === 0;
   return (
     <span aria-label={`${rating} out of 5 stars`}>
       {[1, 2, 3, 4, 5].map((star) => (
         <span
           key={star}
-          class={star <= Math.round(rating) ? 'text-amber-400' : 'text-clinical-200'}
+          class={star <= Math.round(rating) ? 'text-amber-400' : isWarning ? 'text-red-400/50' : 'text-clinical-200'}
         >
           ★
         </span>
       ))}
-      <span class="ml-1 text-xs text-clinical-500">{rating.toFixed(1)}</span>
+      <span class={`ml-1 text-xs ${isWarning ? 'text-red-500 font-semibold' : 'text-clinical-500'}`}>{rating.toFixed(1)}</span>
     </span>
   );
 }
@@ -143,7 +144,7 @@ export default function ComparisonTable({ tools, categories }: Props) {
               sorted.map((tool, i) => (
                 <tr
                   key={tool.slug}
-                  class={i % 2 === 0 ? 'bg-white' : 'bg-clinical-50'}
+                  class={`${i % 2 === 0 ? 'bg-white' : 'bg-clinical-50'} ${tool.rating === 0 ? 'border-l-2 border-l-red-500' : ''}`}
                 >
                   <td class="px-4 py-3 font-medium">
                     <a

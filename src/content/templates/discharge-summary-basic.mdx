@@ -1,10 +1,10 @@
 ---
-title: "Discharge Summary: Basic Template"
+title: "Discharge Summary: Comprehensive Template"
 category: note-writing
 targetTool: claude
 workflow: discharge-summary
-tags: [beginner, note-writing, discharge, inpatient, documentation]
-lastUpdated: 2026-03-22
+tags: [note-writing, discharge, inpatient, documentation, abbreviations]
+lastUpdated: 2026-03-23
 ---
 
 import Callout from '../../components/Callout.astro';
@@ -12,9 +12,9 @@ import PromptPlayground from '../../components/PromptPlayground.astro';
 
 ## When to use this
 
-Use this template when discharging a patient from an inpatient admission and you need a structured summary for the receiving outpatient provider.
+Use this template when discharging a patient from an inpatient admission and you need a detailed, professional discharge summary for the receiving outpatient provider. This template is designed for real hospitalist workflow: it produces thorough, abbreviation-rich prose organized by problem, with a structured transitional issues section for clean PCP handoff.
 
-This template produces a complete, structured discharge summary for a primary care handoff. Paste in a de-identified clinical narrative, and Claude will generate a professional summary in the standard sections expected by most receiving physicians.
+Paste in your clinical notes organized by problem (using `#` for each problem heading). The LLM will generate a complete discharge summary and patient discharge instructions.
 
 <Callout type="hipaa">
   De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, admission/discharge dates, provider names, and any other direct identifiers.
@@ -24,42 +24,94 @@ This template produces a complete, structured discharge summary for a primary ca
 
 ## The prompt
 
-<PromptPlayground tool="Claude" title="Discharge Summary: Basic">
-You are an experienced hospitalist physician writing a discharge summary for the receiving outpatient primary care provider.
+<PromptPlayground tool="Claude" title="Discharge Summary: Comprehensive">
+You are an excellent physician who efficiently summarizes medical information in past tense using medical abbreviations without using their expansion. After receiving the clinical information below, produce both a **DISCHARGE SUMMARY** and **PATIENT DISCHARGE INSTRUCTIONS**.
 
-Using the clinical information provided below, write a complete and concise discharge summary with the following sections:
+### Rules
 
-**1. Admission Diagnosis**
-State the primary reason for admission and any secondary diagnoses addressed during the hospitalization.
+- Write thorough, complete, and detailed summaries. Include time course, dates, objective data, diagnoses, and treatment plans with associated dates. Write as if you were an encyclopedia.
+- Write in paragraph prose format. Do not use bullet points in the summary sections.
+- Include specific numbers (lab values, vitals, doses, dates) whenever available.
+- Use medical abbreviations throughout. Never spell out what an abbreviation stands for.
+- When reporting radiology findings, always use the verb "show."
+- Use direct, concise language. No hedging or filler.
+- For each problem section (designated by `#`), write one single paragraph.
+- If multiple problem titles appear together, keep their summaries together.
+- All summaries must be entirely in past tense.
+- Include all medication details: name, dose, route, frequency, and date started or ended.
+- The symbols `TI` or `[]` indicate transitional issues — items requiring outpatient follow-up.
+- Change all provided text to professional medical prose in past tense. Do not add information or commentary.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Include all objective lab values, radiology tests, and data mentioned, with their date in parentheses.
 
-**2. Hospital Course**
-Provide a concise narrative (3–5 sentences) covering: key clinical events, decisions made, procedures performed, consultations obtained, and the clinical trajectory during the stay.
+### Vocabulary
 
-**3. Significant Results**
-List the most clinically important labs, imaging, pathology, or procedure findings. Format as a short bulleted list.
+- Use "patient" instead of "pt"
+- "s/p" = status post — use "s/p"
+- "pmhx" = past medical history — use "pmhx"
+- Use all abbreviations provided without expanding them
 
-**4. Discharge Medications**
-List only medications that CHANGED during this admission:
-- Started: [medication, dose, frequency, duration/indication]
-- Stopped: [medication, reason if known]
-- Dose-adjusted: [medication, old dose → new dose]
+### Output format
 
-**5. Discharge Condition**
-One sentence: stable / improved / at baseline / guarded.
+```
+DISCHARGE SUMMARY
+══════════════════════════════════════════
 
-**6. Follow-up Instructions**
-- Scheduled appointments (specialty, timeframe)
-- Pending results (what, expected timing, who reviews)
-- Activity and dietary restrictions if applicable
+TRANSITIONAL ISSUES
+───────────────────
 
-**7. Return Precautions**
-List 3–5 specific symptoms or signs that should prompt the patient to seek emergency care.
+  Major Medication Changes
+  ─────────────────────────
+  -
+  -
 
-Be concise and clinically precise. Avoid filler language. Use standard medical abbreviations where appropriate.
+  Labs / Imaging to Follow Up
+  ────────────────────────────
+  -
+  -
+
+  Other
+  ─────
+  -
+  -
+
+BRIEF HOSPITAL COURSE OVERVIEW
+───────────────────────────────
+The patient is a [age]-year-old [male/female] with pmhx of [...]
+who presented for [...], hospital course complicated by [...],
+now stable for discharge.
+
+[Thorough overview mentioning all acute problems, assessments,
+and plans in detailed paragraph form.]
+
+ACTIVE ISSUES BY PROBLEM
+─────────────────────────
+
+  # Problem 1
+  [Detailed paragraph with all relevant vitals, labs, imaging,
+  medications, and follow-up plans.]
+
+  # Problem 2
+  [Detailed paragraph...]
+
+  # Problem 3
+  [Detailed paragraph...]
+
+
+PATIENT DISCHARGE INSTRUCTIONS
+══════════════════════════════════════════
+[Plain-language instructions for the patient covering:
+medications, follow-up appointments, activity restrictions,
+diet, and when to return to the ED.]
+```
+
+Provide complete and detailed transitional issues to communicate to the patient's PCP or specialty services. These are important items to follow up as outpatient. Include specific recommendations (e.g., "check a BMP in 1 week to assess K and Cr").
+
+Format the note in a clean and readable way.
 
 ---
 CLINICAL INFORMATION:
-[Paste your de-identified clinical notes, discharge checklist, or structured summary here]
+[Paste your de-identified clinical notes here. Use # before each problem heading.]
 </PromptPlayground>
 
 ---
@@ -68,199 +120,22 @@ CLINICAL INFORMATION:
 
 | Element | How to Adjust |
 |---|---|
-| Reading level | Add: "Write the follow-up section at a 6th grade reading level" |
-| Length | Add: "Keep the hospital course to 2 sentences maximum" |
-| Specialty | Add: "This is a cardiology admission. Emphasize cardiac-specific follow-up." |
-| Format | Add: "Format the entire summary as a single flowing paragraph instead of sections" |
-
----
-
-## Variations
-
-### Brief discharge summary for short stays
-
-Use this for straightforward 1-2 day admissions (e.g., observation stays, uncomplicated cellulitis, simple CHF exacerbation) where a full discharge summary is unnecessarily lengthy.
-
-<PromptPlayground tool="Claude" title="Brief Discharge Summary (Short Stay)">
-You are a hospitalist writing a brief discharge summary for a short (1–2 day) uncomplicated hospital stay.
-
-Using the clinical information below, write a concise discharge summary in this abbreviated format:
-
-**Admission Diagnosis:** One line.
-
-**Brief Hospital Course:** 2–3 sentences maximum. What happened, what was done, why the patient is being discharged.
-
-**Key Results:** Only results that the outpatient provider needs to know about (abnormal or pending). Omit if all results were unremarkable.
-
-**Medication Changes:**
-- New: [med, dose, frequency, duration]
-- Stopped: [med, reason]
-(Only list changes. If no changes, write "No medication changes.")
-
-**Follow-up:** Appointments and pending results on one to two lines.
-
-**Return if:** 3 specific return precautions, one line each.
-
-Keep the entire summary under 200 words. This is for a straightforward admission; do not over-document.
-
----
-CLINICAL INFORMATION:
-[Paste brief clinical summary for a short-stay patient]
-</PromptPlayground>
-
-### Complex multi-problem discharge
-
-Use this for patients with multiple active diagnoses, medication changes across several drug classes, and complex follow-up needs (e.g., new cancer diagnosis, post-cardiac surgery, multi-organ failure recovery).
-
-<PromptPlayground tool="Claude" title="Complex Discharge Summary">
-You are a hospitalist writing a detailed discharge summary for a complex patient with multiple active medical problems and extensive medication changes.
-
-Using the clinical information below, write a comprehensive discharge summary:
-
-**1. Admission Diagnoses**
-Primary and all secondary diagnoses addressed during the stay, listed.
-
-**2. Hospital Course by Problem**
-Organize the hospital course by problem rather than chronologically. For each major problem:
-- What was found
-- What was done (procedures, consults, treatments)
-- Current status at discharge
-- Outstanding issues
-
-**3. Procedures Performed**
-List all procedures with dates and key findings.
-
-**4. Significant Results**
-Organized by category: labs, imaging, pathology, microbiology. Include pending results with expected timeframes and responsible provider.
-
-**5. Discharge Medications — Complete Reconciliation**
-Full medication list organized by category:
-- NEW medications: [drug, dose, route, frequency, indication, duration if applicable]
-- CHANGED medications: [drug, old dose → new dose, reason]
-- DISCONTINUED medications: [drug, reason]
-- UNCHANGED home medications: [list for completeness]
-
-**6. Discharge Condition & Functional Status**
-Clinical condition, ambulatory status, O2 needs, weight-bearing status, diet.
-
-**7. Follow-up Plan**
-Table format: | Provider/Specialty | Timeframe | Reason |
-Include all pending results with expected dates and who is responsible for follow-up.
-
-**8. Patient/Family Education**
-Key points discussed with patient/family, new diagnosis education, medication teaching.
-
-**9. Return Precautions**
-5–7 specific symptoms or signs organized by urgency (call PCP vs go to ED).
-
-Be thorough. This patient has complex needs and the discharge summary serves as the primary communication tool for the outpatient team.
-
----
-CLINICAL INFORMATION:
-[Paste comprehensive clinical data for a complex multi-problem patient]
-</PromptPlayground>
-
-### Patient-facing discharge instructions
-
-Use this to generate a plain-language discharge summary that can be given directly to the patient or family, written at an accessible reading level.
-
-<PromptPlayground tool="Claude" title="Patient-Facing Discharge Instructions">
-You are a physician writing discharge instructions for a patient and their family. Write at a 6th grade reading level. Avoid medical jargon; use plain language.
-
-Using the clinical information below, write patient-friendly discharge instructions:
-
-**Why You Were in the Hospital**
-1–2 sentences in simple language explaining the diagnosis and what happened.
-
-**What We Did**
-Brief, plain-language summary of treatments, procedures, and tests.
-
-**Your Medicines**
-For each new or changed medication:
-- Name of medicine
-- What it's for (in plain language)
-- How to take it (dose, time of day, with/without food)
-- How long to take it
-- Side effects to watch for
-
-**What to Do at Home**
-- Activity level (what you can and can't do)
-- Diet instructions
-- Wound care or other self-care tasks
-
-**Your Follow-up Appointments**
-- Who to see, when, and why (in plain terms)
-- Any tests that are still pending and what will happen with results
-
-**When to Call Your Doctor**
-List 3–4 warning signs that mean "call your doctor's office."
-
-**When to Go to the Emergency Room**
-List 3–4 warning signs that mean "go to the ER right away."
-
-Use short sentences. Use "you" and "your." Avoid abbreviations.
-
----
-CLINICAL INFORMATION:
-[Paste clinical summary to convert into patient-friendly instructions]
-</PromptPlayground>
-
----
-
-## Example output
-
-Here is what this template produces when given realistic (fictional) clinical input:
-
-**Input provided:**
-A 74-year-old female admitted for 4 days with acute decompensated heart failure (EF 35%), triggered by dietary indiscretion and medication nonadherence. Treated with IV furosemide, diuresed 4.5L over admission. Echo showed EF 35% (prior 40%), moderate MR, no WMA. BNP 1840 on admission, down to 620 at discharge. Cr stable at 1.2. Started on entresto 24/12.5mg BID (replacing lisinopril 10mg), increased furosemide from 20mg to 40mg daily. K+ supplemented. Cardiology consult recommended ICD evaluation as outpatient. Discharged on room air, weight 78kg (dry weight ~76kg).
-
-**LLM output:**
-
-**1. Admission Diagnosis**
-Primary: Acute decompensated heart failure (HFrEF, EF 35%)
-Secondary: Medication nonadherence, dietary indiscretion
-
-**2. Hospital Course**
-Patient presented with 3 days of progressive dyspnea, orthopnea, and lower extremity edema in the setting of dietary indiscretion and missed doses of lisinopril. She was admitted and started on IV furosemide with a net diuresis of 4.5L over 4 days. Echocardiogram showed a decline in EF from 40% to 35% with moderate mitral regurgitation. Cardiology was consulted and recommended transition to sacubitril-valsartan and outpatient ICD evaluation. She was transitioned to oral diuretics with stable renal function and discharged on room air.
-
-**3. Significant Results**
-- BNP: 1840 pg/mL (admission) → 620 pg/mL (discharge)
-- TTE: EF 35% (prior 40%), moderate MR, no wall motion abnormalities
-- Cr: Stable at 1.2 mg/dL throughout admission
-- K+: 3.4 on admission, supplemented, 4.1 at discharge
-
-**4. Discharge Medications**
-- Started: Sacubitril-valsartan (Entresto) 24/12.5 mg PO BID (replacing lisinopril for HFrEF)
-- Stopped: Lisinopril 10 mg daily (switched to Entresto)
-- Dose-adjusted: Furosemide 20 mg → 40 mg PO daily
-
-**5. Discharge Condition**
-Improved; ambulating independently on room air with residual 2 kg above dry weight.
-
-**6. Follow-up Instructions**
-- Cardiology: 2 weeks for ICD evaluation and Entresto uptitration
-- PCP: 1 week for weight check, BMP, and volume reassessment
-- Pending: None
-- Restrictions: 2g sodium diet, daily weight monitoring, fluid restriction 1.5L/day
-
-**7. Return Precautions**
-- Weight gain >3 lbs in 24 hours or >5 lbs in one week
-- Worsening shortness of breath at rest or with minimal activity
-- New or worsening lower extremity swelling
-- Chest pain or palpitations
-- Dizziness or near-syncope (may indicate hypotension from new medication)
+| Specialty focus | Add: "This is a cardiology admission. Emphasize cardiac-specific follow-up and transitional issues." |
+| Length | Add: "Keep each problem paragraph to 3–4 sentences maximum" |
+| Transitional issues depth | Add: "Include specific lab timeframes, imaging follow-up intervals, and medication titration schedules in transitional issues" |
+| Patient instructions reading level | Add: "Write patient discharge instructions at a 5th grade reading level" |
 
 ---
 
 ## Tips & pitfalls
 
-- This template is optimized for **general medicine** admissions. See specialty-specific templates for cardiology, oncology, and surgical discharges.
-- For complex discharges (e.g., new cancer diagnosis, major surgery), the AI output will require more editing; use the complex variation above or treat the output as a structural skeleton rather than a final draft.
-- Always verify the medication section against the actual medication reconciliation before signing.
-- **Common AI failure mode:** The model may omit medications that were continued unchanged but are clinically important (e.g., anticoagulants, immunosuppressants). Always cross-reference the full med list.
-- **Pending results:** AI often writes "no pending results" even when there are outstanding cultures, pathology, or outpatient labs. Double-check this section.
-- **Date sensitivity:** The model has no access to real dates. Verify all follow-up timeframes against actual scheduled appointments.
-- **Medication interactions:** The model will not reliably flag new drug interactions introduced by medication changes. Use your pharmacy system for interaction checking.
+- **Problem headings matter**: Use `#` before each problem in your input. The LLM uses these to structure the output into one paragraph per problem.
+- **Transitional issues are the handoff**: This section is what the PCP reads first. Be specific — "check BMP in 1 week" is actionable; "follow up labs" is not.
+- **Abbreviation consistency**: The prompt enforces abbreviation use. If the LLM expands an abbreviation, re-run or edit the output.
+- **Date format**: The prompt uses M/D/YY. Verify dates against the actual chart — the model has no access to real calendar data.
+- **Medication verification**: Always cross-reference the medication section against the actual medication reconciliation before signing.
+- **Common AI failure mode**: The model may omit unchanged home medications that are clinically relevant (e.g., anticoagulants, immunosuppressants). Cross-reference the full med list.
+- **Pending results**: AI often writes "no pending results" even when cultures, pathology, or outpatient labs are outstanding. Double-check.
 
 ---
 
@@ -269,4 +144,4 @@ Improved; ambulating independently on room air with residual 2 kg above dry weig
 - [SOAP Progress Note](/templates/progress-note-soap) — the daily notes that feed into this summary
 - [Handoff / Sign-Out](/templates/handoff-signout) — structured handoff for the covering team before discharge
 - [Discharge Summary Workflow](/workflows/discharge-summary) — step-by-step workflow for building the discharge summary
-- [Discharge Instructions](/templates/discharge-instructions) — patient-facing counterpart to this clinician-facing document
+- [Discharge Instructions](/templates/discharge-instructions) — standalone patient-facing discharge instructions template
