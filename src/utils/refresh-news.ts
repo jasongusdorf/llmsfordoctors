@@ -50,6 +50,7 @@ async function fetchPubMed(): Promise<{ items: NewsItem[]; priority: number }> {
       signal: AbortSignal.timeout(FEED_TIMEOUT_MS),
       headers: { 'User-Agent': 'LLMsForDoctors-NewsFetcher/1.0' },
     });
+    if (!searchRes.ok) throw new Error(`PubMed search HTTP ${searchRes.status}`);
     const searchData = (await searchRes.json()) as {
       esearchresult: { idlist: string[] };
     };
@@ -65,6 +66,7 @@ async function fetchPubMed(): Promise<{ items: NewsItem[]; priority: number }> {
       signal: AbortSignal.timeout(FEED_TIMEOUT_MS),
       headers: { 'User-Agent': 'LLMsForDoctors-NewsFetcher/1.0' },
     });
+    if (!fetchRes.ok) throw new Error(`PubMed fetch HTTP ${fetchRes.status}`);
     const fetchData = (await fetchRes.json()) as {
       result: Record<
         string,
