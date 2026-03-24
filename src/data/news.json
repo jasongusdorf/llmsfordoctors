@@ -1,12 +1,5 @@
 [
   {
-    "title": "The regulation of artificial intelligence in intensive care units: from narrow tools to generalist systems",
-    "source": "NPJ Digit Med",
-    "url": "https://pubmed.ncbi.nlm.nih.gov/41865113/",
-    "date": "2026-03-21T00:00:00.000Z",
-    "summary": "Freyer O et al. Published in NPJ Digit Med."
-  },
-  {
     "title": "A practical framework for operationalising responsible and equitable artificial intelligence in health care: tackling bias, inequity, and implementation challenges",
     "source": "Lancet Digit Health",
     "url": "https://pubmed.ncbi.nlm.nih.gov/41864789/",
@@ -68,5 +61,12 @@
     "url": "https://pubmed.ncbi.nlm.nih.gov/41814060/",
     "date": "2026-03-11T00:00:00.000Z",
     "summary": "Ong AY et al. Published in NPJ Digit Med."
+  },
+  {
+    "title": "Comparing artificial intelligence and healthcare professional performance in surgical and interventional video analysis: a systematic review and meta-analysis",
+    "source": "NPJ Digit Med",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/41786868/",
+    "date": "2026-03-06T00:00:00.000Z",
+    "summary": "Rafati Fard A et al. Published in NPJ Digit Med."
   }
 ]
