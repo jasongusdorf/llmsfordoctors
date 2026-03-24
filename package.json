@@ -9,7 +9,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "fetch-news": "tsx src/utils/fetch-news.ts",
+    "test": "vitest run"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.1.2",
@@ -35,6 +37,8 @@
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
-    "@types/sharp": "^0.31.1"
+    "@types/sharp": "^0.31.1",
+    "tsx": "^4.21.0",
+    "vitest": "^4.1.1"
   }
 }
