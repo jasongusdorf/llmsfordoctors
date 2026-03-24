@@ -12,7 +12,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "deploy": "astro build && node scripts/post-build.mjs && wrangler deploy --config dist/server/wrangler.json",
-    "fetch-news": "tsx src/utils/fetch-news.ts",
+    "fetch-news": "echo 'News is now fetched via Cloudflare cron. Manual trigger: curl -X POST -H \"Authorization: Bearer <secret>\" https://llmsfordoctors.com/api/refresh-news'",
     "test": "vitest run"
   },
   "dependencies": {
@@ -30,7 +30,6 @@
     "clsx": "^2.1.1",
     "lucide-astro": "^0.556.0",
     "preact": "^10.29.0",
-    "rss-parser": "^3.13.0",
     "satori": "^0.25.0",
     "sharp": "^0.34.5",
     "stripe": "^20.4.1",
