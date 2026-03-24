@@ -1,0 +1,66 @@
+---
+title: "The Moment AI Arrived in the Clinic: SAIL 2025 Year in Review"
+description: "A synthesis of clinical AI developments from 2024–2025: ambient documentation hit near-universal adoption, AI-guided ECG alerts reduced mortality by 17%, but efficiency gains were mixed and hallucination risks persist. Based on the SAIL 2025 review published in NEJM AI."
+tags: [review, clinical-ai, ambient-documentation, decision-support, regulation, clinician-ai-interaction, insurance]
+lastUpdated: 2026-03-21
+featured: true
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+A committee of researchers and clinicians at the Symposium on AI for Learning Health Systems (SAIL) 2025 reviewed clinical AI developments from 2024 to 2025 across six themes: clinical documentation, clinical decision support, insurance denials, clinician-AI interaction, AI regulation, and healthcare economics.
+
+---
+
+## Key Findings
+
+- **Ambient documentation** is the most widely adopted clinical AI application, with universal adoption activities reported across 43 surveyed health systems
+- An AI ECG alert system demonstrated a **17% reduction in 90-day mortality** in hospitalized patients (3.6% vs 4.3%, HR 0.83)
+- Real-time wearable sensor data led to **38% fewer heart failure rehospitalizations** in 90 days
+- A multicenter AI intracranial hemorrhage triage trial showed **no improvement** in sensitivity, specificity, or turnaround times
+- AI-assisted mammography screening found **17.6% more breast cancers** without raising false recalls (PRAIM study)
+- Health insurers are **using AI to autodeny claims** with minimal human review, prompting lawsuits
+- Burnout dropped from **77% to 51%** in one multicenter cohort after AI scribe implementation
+- A large longitudinal study showed **no significant reduction in documentation time** from ambient AI despite user satisfaction
+
+<Callout type="evidence">
+  2024-2025 was the year AI moved from research to implementation at scale. Some applications deliver clear patient benefits (ECG mortality reduction). Others show no improvement (hemorrhage triage). The evidence demands nuance, not enthusiasm.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Documentation AI is adopted but unproven.** Near-universal adoption based on user satisfaction, despite inconsistent evidence of actual time savings or efficiency gains. Institutions are buying enthusiasm, not evidence.
+
+2. **Decision support has breakthrough results, sometimes.** The ECG mortality reduction and heart failure rehospitalization results change practice. The hemorrhage triage failure shows that retrospective accuracy doesn't guarantee real-world impact.
+
+3. **AI in insurance is a growing crisis.** AI-driven claim denials, patients flagged by AI but denied coverage, and the emerging "financial toxicity" of AI-enabled diagnosis are issues the clinical community needs to confront.
+
+<Callout type="pitfall">
+  The review highlights that AI-generated documentation hallucinations are a real safety concern, and that clinician automation bias (uncritically accepting AI output) compounds the risk. As AI notes become the norm, the medical record may become less trustworthy.
+</Callout>
+
+4. **Clinician-AI collaboration depends on context.** AI-assisted mammography shows clear synergy; AI-assisted diagnostic reasoning shows uncertain benefit. The "doctor plus AI" equation is task-dependent, not universally positive.
+
+---
+
+## My Takeaway
+
+The tools that work (ECG alerts, structured screening) are specific, well-defined, and integrated into clear clinical workflows. The tools that struggle (documentation time savings, hemorrhage triage) are broader, more ambiguous, or deployed without supporting workflow changes. Evaluate AI tools by rigorous outcomes, not adoption rates or user satisfaction.
+
+---
+
+## Related on this site
+
+- [Ambient AI Reduces Practitioner Burnout: A Stepped-Wedge Randomized Trial](/trials/ambient-ai-practitioner-wellbeing-rct-2025): the rigorous RCT behind the ambient AI burnout findings discussed here
+- [Ambient AI Scribes in Clinical Practice: DAX Copilot vs Nabla Randomized Trial](/trials/ambient-ai-scribes-dax-nabla-rct-2025): head-to-head comparison of the ambient AI tools this review covers
+- [First FDA-Cleared AI Device for Hemorrhage Risk Assessment in Trauma](/trials/appraise-hri-hemorrhage-fda-2025): the hemorrhage triage study noted in this review
+- [ECG Foundation Model: Self-Supervised Learning for Cardiac and Coronary Assessment](/trials/ecg-foundation-model-cardiac-function-2025): foundational work behind the ECG AI discussed here
+- [The Evidence Landscape: LLMs in Medicine, 2025-2026](/editorials/evidence-landscape-2025): our own evidence synthesis covering this period
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIp2500788)

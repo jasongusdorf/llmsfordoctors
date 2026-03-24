@@ -92,6 +92,17 @@ const courses = defineCollection({
   }),
 });
 
+const editorials = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/editorials' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    tags: z.array(z.string()),
+    lastUpdated: z.date(),
+    featured: z.boolean().default(false),
+  }),
+});
+
 const videoCategories = [
   'tutorial',
   'lecture',
@@ -117,6 +128,7 @@ const videos = defineCollection({
 export const collections = {
   workflows,
   guides,
+  editorials,
   tools,
   templates,
   trials,

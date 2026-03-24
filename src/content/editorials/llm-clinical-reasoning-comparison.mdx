@@ -11,12 +11,10 @@ import OutputComparison from '../../components/OutputComparison.tsx';
 import PerformanceMatrix from '../../components/PerformanceMatrix.tsx';
 
 <Callout type="tip">
-**TL;DR:** We ran the same clinical case through five LLMs. The results: **o3** wins for differential diagnosis and workup planning (most structured, auditable outputs). **Claude** wins for case synthesis and cognitive debiasing (best clinical judgment and actionable critique). **Perplexity** wins for literature-grounded reasoning (real citations with subgroup-level detail). **Gemini** wins for long medical records (largest context window). No single model dominates all tasks -- match the model to the job. <a href="#the-verdict">Jump to The Verdict</a> for full recommendations.
+**TL;DR:** We ran the same clinical case through five LLMs. The results: **o3** wins for differential diagnosis and workup planning (most structured, auditable outputs). **Claude** wins for case synthesis and cognitive debiasing (best clinical judgment and actionable critique). **Perplexity** wins for literature-grounded reasoning (real citations with subgroup-level detail). **Gemini** wins for long medical records (largest context window). No single model dominates all tasks. Match the model to the job. <a href="#the-verdict">Jump to The Verdict</a> for full recommendations.
 </Callout>
 
-Every vendor claims their LLM is the best at clinical reasoning. Marketing decks are full of benchmark scores and cherry-picked demos. We decided to test it ourselves: same clinical case, five models, five distinct reasoning tasks. No vendor sponsorship, no cherry-picking, just representative outputs from each model on the same prompts.
-
-The results were more nuanced than any single leaderboard can capture. Different models genuinely excel at different things.
+Every vendor claims their LLM is the best at clinical reasoning. Marketing decks are full of benchmark scores and cherry-picked demos. We tested it ourselves: same clinical case, five models, five distinct reasoning tasks. No vendor sponsorship, no cherry-picking, just representative outputs from each model on the same prompts.
 
 <Callout type="tip">
   Just want the bottom line? <a href="#the-verdict">Skip to The Verdict</a> for our opinionated recommendations by task.
@@ -38,7 +36,7 @@ We chose a case with a clear leading diagnosis but enough complexity to test whe
 >
 > **Labs:** D-dimer 2,400 ng/mL (normal &lt;500). Troponin I mildly elevated at 0.08 ng/mL. BNP 320 pg/mL.
 
-This case was selected because PE is the obvious leading diagnosis, but a thorough clinician should also consider pneumothorax, ACS, pericarditis, pneumonia, and aortic dissection in the differential. The mildly elevated troponin and BNP add layers that test whether the model can integrate findings rather than anchor on a single diagnosis. (Want to try a similar prompt yourself? Use our [DDx Generator template](/templates/ddx-generator) and apply the principles from [Prompting 101](/guides/prompting-101).)
+PE is the obvious leading diagnosis, but a thorough clinician should also consider pneumothorax, ACS, pericarditis, pneumonia, and aortic dissection in the differential. The mildly elevated troponin and BNP add layers that test whether the model can integrate findings rather than anchor on a single diagnosis. (Want to try a similar prompt yourself? Use our [DDx Generator template](/templates/ddx-generator) and apply the principles from [Prompting 101](/guides/prompting-101).)
 
 ---
 
@@ -68,13 +66,13 @@ This case was selected because PE is the obvious leading diagnosis, but a thorou
       model: "GPT-4o",
       dateTested: "2026-03-15",
       content: "Based on this clinical presentation, here is my differential diagnosis ranked by likelihood:\n\n1. **Pulmonary Embolism (PE)** - Most likely diagnosis\n   - Recent long-haul flight (prolonged immobilization)\n   - Right calf swelling and tenderness suggestive of DVT\n   - Progressive dyspnea with pleuritic chest pain\n   - Tachycardia, tachypnea, and hypoxia\n   - S1Q3T3 pattern on ECG\n   - Significantly elevated D-dimer\n   - Elevated troponin and BNP suggesting right heart strain\n\n2. **Acute Coronary Syndrome**\n   - Elevated troponin\n   - Risk factors: male, 55, HTN, DM\n   - Less likely given pleuritic nature of pain\n\n3. **Pneumonia**\n   - Can cause dyspnea and hypoxia\n   - Less likely: lungs clear, afebrile\n\n4. **Pericarditis**\n   - Pleuritic chest pain\n   - Less likely: no friction rub mentioned, ECG shows S1Q3T3 not diffuse ST changes\n\n5. **Heart Failure Exacerbation**\n   - Elevated BNP\n   - Less likely: no prior HF history, no JVD, lungs clear\n\n**Recommended next steps:** CT pulmonary angiography, lower extremity duplex ultrasound, serial troponins, echocardiogram.",
-      commentary: "GPT-4o arrives at the correct leading diagnosis and provides a reasonable list, but the output is notably shallow. There are no probability estimates, no systematic mapping of evidence for and against each diagnosis, and no mention of can't-miss diagnoses like aortic dissection. For a straightforward case like this one, the output is adequate, but it lacks the depth you'd want for complex or ambiguous presentations."
+      commentary: "GPT-4o arrives at the correct leading diagnosis and provides a reasonable list, but the output is shallow. There are no probability estimates, no systematic mapping of evidence for and against each diagnosis, and no mention of can't-miss diagnoses like aortic dissection. For a straightforward case like this one, the output is adequate, but it lacks the depth you'd want for complex or ambiguous presentations."
     },
     {
       model: "Gemini Advanced",
       dateTested: "2026-03-15",
       content: "This is a very concerning clinical presentation that warrants urgent evaluation. Let me walk through my differential diagnosis systematically.\n\nThe most striking features of this case are the combination of progressive dyspnea, pleuritic chest pain, and a recent long-haul flight in a patient with cardiovascular risk factors. The physical examination finding of a swollen, tender right calf is particularly important as it suggests a possible deep vein thrombosis, which when combined with the respiratory symptoms, raises significant concern for thromboembolic disease.\n\nThe ECG findings of sinus tachycardia with an S1Q3T3 pattern, while not specific (this pattern has a sensitivity of only about 10-20% for PE), is suggestive in this clinical context. The markedly elevated D-dimer at 2,400 ng/mL further supports this concern, though we should note that D-dimer can be elevated in many conditions.\n\nMy differential diagnosis, in order of likelihood:\n\n**Pulmonary Embolism** - This is by far the most likely diagnosis. The combination of recent prolonged immobilization, unilateral leg swelling, progressive dyspnea, pleuritic chest pain, hypoxia, tachycardia, the S1Q3T3 pattern, and markedly elevated D-dimer creates a very compelling clinical picture. The mildly elevated troponin and BNP suggest right ventricular strain, which is important for risk stratification.\n\n**Acute Coronary Syndrome** - The elevated troponin must be addressed, but in this context it is most likely due to right ventricular strain from PE rather than primary coronary disease. The pleuritic quality of the pain is atypical for ACS. Serial troponins should still be obtained.\n\n**Pneumonia with Parapneumonic Effusion** - Although the lungs are clear on auscultation and the patient is essentially afebrile, an early or atypical pneumonia cannot be completely excluded. A chest X-ray will help evaluate this.\n\n**Pericarditis** - Pleuritic chest pain with mild troponin elevation could suggest pericarditis, but the calf swelling, S1Q3T3, and hypoxia are not explained by this diagnosis.\n\n**Aortic Dissection** - While this must always be considered in a hypertensive patient with chest pain, the pleuritic quality, gradual onset over days, and the calf findings make this unlikely.\n\nImmediate next steps should include CT pulmonary angiography, which will be both diagnostic and help guide management, along with a lower extremity venous duplex ultrasound, chest X-ray, serial troponins, and an echocardiogram to assess right ventricular function and guide decisions regarding the need for more aggressive intervention such as systemic thrombolysis or catheter-directed therapy.",
-      commentary: "Gemini arrives at the correct diagnosis and mentions most of the relevant differentials, but takes considerably more text to convey less structured information. The output reads like a verbose clinical discussion rather than a scannable differential. A busy clinician would need to read through several paragraphs to extract the same information that o3 presents in a structured, glanceable format. The content is clinically sound, but the signal-to-noise ratio is lower."
+      commentary: "Gemini arrives at the correct diagnosis and mentions most of the relevant differentials, but takes more text to convey less structured information. The output reads like a verbose clinical discussion rather than a scannable differential. A busy clinician would need to read through several paragraphs to extract the same information that o3 presents in a structured, glanceable format. The content is clinically sound, but the signal-to-noise ratio is lower."
     },
     {
       model: "Perplexity Pro",
@@ -93,19 +91,19 @@ This case was selected because PE is the obvious leading diagnosis, but a thorou
 
 **Winner: o3** (slight edge over Claude)
 
-We asked each model to recommend a prioritized diagnostic workup for the same patient. Here's how they differed:
+We asked each model to recommend a prioritized diagnostic workup for the same patient.
 
 {/* TODO: Future improvement -- add OutputComparison component with full model outputs for Comparisons 2-5, matching the format of Comparison 1. */}
 
-**o3** produced the most actionable output: a tiered workup organized into "immediate" (CTPA, lower extremity duplex, type and screen, CBC/BMP/coags), "within 1 hour" (echocardiogram, serial troponins, ABG), and "if initial workup equivocal" (V/Q scan, CT aortography). Each test included a one-line justification tied to specific clinical findings. The tier structure reflected genuine ED workflow awareness.
+**o3** produced the most actionable output: a tiered workup organized into "immediate" (CTPA, lower extremity duplex, type and screen, CBC/BMP/coags), "within 1 hour" (echocardiogram, serial troponins, ABG), and "if initial workup equivocal" (V/Q scan, CT aortography). Each test included a one-line justification tied to specific clinical findings. The tier structure reflected ED workflow awareness.
 
-**Claude** was nearly as strong, organizing the workup by clinical question rather than time urgency: "Confirm PE" (CTPA, LE duplex), "Assess severity" (echo, serial troponins, BNP trend), "Exclude alternatives" (CXR, repeat ECG). Claude also flagged the decision point around thrombolysis, noting that if the echo showed RV dilation with hemodynamic stability, this would be submassive PE warranting ICU admission and consideration of catheter-directed therapy. This added clinical reasoning was valuable but came at the cost of immediate scannability.
+**Claude** was nearly as strong, organizing the workup by clinical question rather than time urgency: "Confirm PE" (CTPA, LE duplex), "Assess severity" (echo, serial troponins, BNP trend), "Exclude alternatives" (CXR, repeat ECG). Claude also flagged the decision point around thrombolysis, noting that if the echo showed RV dilation with hemodynamic stability, this would be submassive PE warranting ICU admission and consideration of catheter-directed therapy. That added clinical reasoning came at the cost of scannability.
 
-**GPT-4o** listed the correct tests but provided minimal justification. A bulleted list of "CTPA, duplex US, echo, serial troponins, CXR, CBC, BMP" with one-sentence explanations. Correct but not particularly insightful.
+**GPT-4o** listed the correct tests but provided minimal justification. A bulleted list of "CTPA, duplex US, echo, serial troponins, CXR, CBC, BMP" with one-sentence explanations. Correct but not insightful.
 
 **Gemini** provided thorough justifications but buried them in long paragraphs. The information was all there but required more effort to extract.
 
-**Perplexity** focused on citing guidelines for each test (ESC recommendations for CTPA in high-probability PE, ACEP guidelines for point-of-care echo) rather than tailoring the workup to this specific patient. Useful as a reference but not as a bedside planning tool.
+**Perplexity** focused on citing guidelines for each test (ESC recommendations for CTPA in high-probability PE, ACEP guidelines for point-of-care echo) rather than tailoring the workup to this specific patient. Useful as a reference, not as a bedside planning tool.
 
 ---
 
@@ -115,11 +113,11 @@ We asked each model to recommend a prioritized diagnostic workup for the same pa
 
 **Winner: Claude** (Try it yourself with our [Case Synthesis template](/templates/case-synthesis).)
 
-Claude organized the synthesis by problem: primary (acute submassive PE with confirmed bilateral pulmonary emboli and RV strain), secondary (confirmed right popliteal DVT as embolic source), and tertiary (hemodynamic status, tachycardic but normotensive, classify as intermediate-high risk per ESC). It explicitly stated the level of diagnostic confidence ("confirmed by CTPA and concordant with clinical, laboratory, and echocardiographic findings") and named the remaining clinical uncertainty: "The key decision point is whether this patient warrants escalation beyond anticoagulation alone given the RV strain. Recommend serial echocardiography and trending troponin/BNP to guide this decision."
+Claude organized the synthesis by problem: primary (acute submassive PE with confirmed bilateral pulmonary emboli and RV strain), secondary (confirmed right popliteal DVT as embolic source), and tertiary (hemodynamic status, tachycardic but normotensive, classify as intermediate-high risk per ESC). It stated the level of diagnostic confidence ("confirmed by CTPA and concordant with clinical, laboratory, and echocardiographic findings") and named the remaining clinical uncertainty: "The key decision point is whether this patient warrants escalation beyond anticoagulation alone given the RV strain. Recommend serial echocardiography and trending troponin/BNP to guide this decision."
 
 **o3** was structured and thorough but read more like a summary of findings than a clinical synthesis. It organized by data source (imaging, labs, ECG, echo) rather than by clinical problem, which made it less useful for the admitting team who needs to understand the clinical story, not re-read the test results.
 
-**GPT-4o** and **Gemini** both produced adequate summaries but neither explicitly addressed remaining uncertainty or framed the management decision point. They described what was found without interpreting what it meant for the patient's care trajectory.
+**GPT-4o** and **Gemini** both produced adequate summaries but neither addressed remaining uncertainty or framed the management decision point. They described what was found without interpreting what it meant for the patient's care trajectory.
 
 **Perplexity** cited risk stratification studies (PESI score, Bova score) but didn't actually synthesize the case. It provided a literature review on submassive PE management rather than a patient-specific synthesis.
 
@@ -133,21 +131,21 @@ Claude organized the synthesis by problem: primary (acute submassive PE with con
 
 We provided each model with the case plus a statement: "I'm confident this is PE. The D-dimer, S1Q3T3, and calf swelling all fit. I'm going to start heparin and order the CTPA to confirm."
 
-Claude raised two genuinely useful points that the others largely missed:
+Claude raised three points the others missed:
 
-1. **Anchoring bias with calf swelling:** Claude noted that a ruptured Baker's cyst can mimic DVT presentation and that the right calf swelling, while highly suggestive of DVT in this context, should ideally be confirmed with duplex ultrasound before assuming it's the embolic source. It pointed out that anchoring on DVT as the source could lead to missing an alternative cause of the calf finding.
+1. **Anchoring bias with calf swelling:** A ruptured Baker's cyst can mimic DVT presentation. The right calf swelling, while highly suggestive of DVT in this context, should be confirmed with duplex ultrasound before assuming it's the embolic source. Anchoring on DVT could mean missing an alternative cause of the calf finding.
 
-2. **S1Q3T3 over-reliance:** Claude emphasized that S1Q3T3 has low sensitivity (approximately 20%) and is present in many other conditions. It warned against using this as confirmatory evidence when it should be treated as weakly suggestive at best.
+2. **S1Q3T3 over-reliance:** S1Q3T3 has low sensitivity (approximately 20%) and is present in many other conditions. It should be treated as weakly suggestive at best, not as confirmatory evidence.
 
-3. **Premature closure:** Claude also flagged that starting heparin before CTPA is appropriate (and guideline-concordant for high clinical probability), but cautioned against treating the CTPA as purely confirmatory, recommending that the radiologist be asked to specifically evaluate for aortic pathology on the same study.
+3. **Premature closure:** Starting heparin before CTPA is appropriate and guideline-concordant for high clinical probability. But Claude cautioned against treating the CTPA as purely confirmatory, recommending that the radiologist evaluate for aortic pathology on the same study.
 
-**o3** identified anchoring bias and premature closure but in more generic terms, without the specific clinical examples (Baker's cyst, S1Q3T3 sensitivity) that made Claude's output actionable.
+**o3** identified anchoring bias and premature closure but in generic terms, without the clinical examples (Baker's cyst, S1Q3T3 sensitivity) that made Claude's output actionable.
 
 **GPT-4o** mentioned anchoring bias by name but didn't provide specific clinical examples relevant to this case.
 
 **Gemini** produced a lengthy discussion of cognitive biases in emergency medicine generally, with this case used as an illustration. Informative but not efficiently targeted.
 
-**Perplexity** cited studies on diagnostic error rates in PE (including the classic PIOPED data) but didn't engage meaningfully with the specific reasoning presented.
+**Perplexity** cited studies on diagnostic error rates in PE (including the classic PIOPED data) but didn't engage with the reasoning presented.
 
 <Callout type="pitfall">
   No model consistently identifies all cognitive biases. Use LLM debiasing as one layer of a broader strategy that includes structured checklists, team-based reasoning, and diagnostic timeouts.
@@ -159,9 +157,9 @@ Claude raised two genuinely useful points that the others largely missed:
 
 **Task:** This patient has submassive PE with RV strain. Should I use a DOAC or LMWH bridging to warfarin? What does the evidence say?
 
-**Winner: Perplexity**, and it wasn't close.
+**Winner: Perplexity.**
 
-This is the task where Perplexity's architecture genuinely shines. It was the only model that cited specific trials with sufficient detail to be actionable:
+This is where Perplexity's architecture pays off. It was the only model that cited specific trials with enough detail to be actionable:
 
 - **HOKUSAI-VTE (2013):** Edoxaban non-inferior to warfarin for VTE recurrence, including subgroup with RV dysfunction. Cited the specific finding that edoxaban had similar efficacy in patients with elevated NT-proBNP.
 - **EINSTEIN-PE (2012):** Rivaroxaban non-inferior to enoxaparin/warfarin for PE. Noted that the trial included patients with submassive PE but was not powered for the RV strain subgroup specifically.
@@ -169,7 +167,7 @@ This is the task where Perplexity's architecture genuinely shines. It was the on
 
 Perplexity also cited the 2019 ESC guidelines' position on DOACs in intermediate-risk PE and noted the ongoing PEITHO-3 trial investigating reduced-dose anticoagulation strategies.
 
-**Claude, o3, GPT-4o, and Gemini** all stated that DOACs are generally accepted for PE treatment and mentioned the major trials by name, but none provided the specific findings, subgroup analyses, or nuanced conclusions that Perplexity delivered. Their answers were directionally correct but lacked the evidentiary depth that a clinician would need to make a confident, evidence-based decision. When asked about specific trial data, the non-Perplexity models occasionally generated plausible-sounding but imprecise claims.
+**Claude, o3, GPT-4o, and Gemini** all stated that DOACs are generally accepted for PE treatment and mentioned the major trials by name, but none provided the specific findings, subgroup analyses, or nuanced conclusions that Perplexity delivered. Their answers were directionally correct but lacked the evidentiary depth a clinician needs for a confident, evidence-based decision. When asked about specific trial data, the other models occasionally generated plausible but imprecise claims.
 
 <Callout type="evidence">
   For questions that hinge on specific trial data, guideline recommendations, or recent publications, a search-augmented model like Perplexity provides meaningfully better output than pure reasoning models. Always verify citations independently; even Perplexity can occasionally hallucinate or misattribute findings.
@@ -179,7 +177,7 @@ Perplexity also cited the 2019 ESC guidelines' position on DOACs in intermediate
 
 ## Summary: Performance Matrix
 
-Here's how each model performed across all six reasoning tasks:
+Each model's performance across all six reasoning tasks:
 
 <PerformanceMatrix
   client:load
@@ -238,23 +236,19 @@ Here's how each model performed across all six reasoning tasks:
   }}
 />
 
-**Key takeaway:** No single model dominates across all tasks. The best approach is to match the model to the task, or use multiple models for high-stakes reasoning.
-
 ---
 
 <h2 id="the-verdict">The Verdict</h2>
 
-After running these comparisons, here are our opinionated recommendations:
+**If you pick one model for clinical reasoning: o3.** It produced the most structured, auditable outputs for core diagnostic tasks. The probability estimates, evidence mapping, and tiered workup planning reflect a model that has internalized clinical workflow patterns.
 
-**If you pick one model for clinical reasoning: o3.** It consistently produced the most structured, auditable outputs for core diagnostic tasks. The probability estimates, evidence mapping, and tiered workup planning reflect a model that has internalized clinical workflow patterns. For DDx generation and workup planning (the bread and butter of clinical reasoning), o3 had the edge.
+**For a second opinion or case synthesis: Claude.** Where o3 excels at structure, Claude excels at judgment. It organized case synthesis by clinical problem rather than data source. It named remaining uncertainties. Its cognitive debiasing raised specific, actionable points (Baker's cyst mimicking DVT, S1Q3T3 sensitivity limitations) that other models missed. Claude reads like a thoughtful consultant; o3 reads like a thorough checklist.
 
-**For a second opinion or case synthesis: Claude.** Where o3 excels at structure, Claude excels at judgment. Its case synthesis was organized by clinical problem rather than data source, it named remaining uncertainties explicitly, and its cognitive debiasing raised specific, actionable clinical points (Baker's cyst mimicking DVT, S1Q3T3 sensitivity limitations) that other models missed. Claude reads like a thoughtful consultant; o3 reads like a thorough checklist.
-
-**For evidence-based questions: Perplexity.** When you need specific trial data, guideline citations, or recent literature, Perplexity is the clear winner. Its search-augmented architecture means it can cite HOKUSAI-VTE subgroup analyses and ongoing trials that pure reasoning models cannot reliably provide. Use it for "What does the evidence say?" questions, not for clinical reasoning.
+**For evidence-based questions: Perplexity.** When you need specific trial data, guideline citations, or recent literature, Perplexity is the clear winner. Its search-augmented architecture lets it cite HOKUSAI-VTE subgroup analyses and ongoing trials that pure reasoning models cannot reliably provide. Use it for "What does the evidence say?" questions, not for clinical reasoning.
 
 **For long medical records: Gemini.** Gemini's large context window makes it the best current option for ingesting lengthy medical records, multi-page discharge summaries, or longitudinal chart reviews. We tested it with a 47-page medical record and it maintained coherence throughout; other models truncated or lost details from early in the document.
 
-**No model replaces clinical judgment.** Every model made at least one error or omission during our testing. LLMs are tools for augmenting clinical reasoning (generating differentials to consider, structuring workup plans, catching biases), not for making diagnostic decisions. The physician remains the decision-maker.
+**No model replaces clinical judgment.** Every model made at least one error or omission during testing. The physician remains the decision-maker.
 
 <Callout type="hipaa">
   Never paste identifiable patient information into any LLM that is not deployed within your institution's HIPAA-compliant infrastructure. De-identify all cases before using consumer-facing AI tools. See our <a href="/guides/hipaa-compliance">HIPAA compliance guide</a> for details.
@@ -273,21 +267,21 @@ After running these comparisons, here are our opinionated recommendations:
 - Gemini Advanced (via gemini.google.com)
 - Perplexity Pro (via perplexity.ai)
 
-**Protocol:** Each model received the identical prompt for each task. We used fresh conversations (no prior context) for every test. Temperature/sampling settings were left at each platform's defaults. Outputs shown in this guide are representative of each model's typical performance on this case; we ran each prompt three times and selected the most representative response (not the best or worst).
+**Protocol:** Each model received the identical prompt for each task. We used fresh conversations (no prior context) for every test. Temperature/sampling settings were left at each platform's defaults. Outputs shown are representative of each model's typical performance on this case; we ran each prompt three times and selected the most representative response (not the best or worst).
 
 **Limitations:** This is a single case study, not a systematic benchmark. Performance may vary across different clinical scenarios, specialties, and case complexity levels. Model capabilities change with updates; results here reflect the versions tested in March 2026.
 
-**Re-testing commitment:** We plan to re-run this comparison when any model receives a major update. Check the `lastUpdated` date in this guide's header for currency.
+**Re-testing commitment:** We plan to re-run this comparison when any model receives a major update. Check the `lastUpdated` date for currency.
 
 <Callout type="tip">
-  Disagree with our ratings? Have a case you'd like us to test? We welcome community feedback. The goal is to give clinicians honest, practical guidance on which tools work best for which tasks.
+  Disagree with our ratings? Have a case you'd like us to test? We welcome community feedback.
 </Callout>
 
 ---
 
 ## Related Guides
 
-- **[Prompting 101](/guides/prompting-101)** -- The four principles behind every prompt we used in this comparison.
-- **[The Evidence Landscape: LLMs in Medicine](/guides/evidence-landscape-2025)** -- The broader research base for clinical AI, including the trials that informed our methodology.
-- **[HIPAA Compliance Guide](/guides/hipaa-compliance)** -- How to use any of these models safely with clinical data.
+- **[Prompting 101](/guides/prompting-101)**: The four principles behind every prompt we used in this comparison.
+- **[The Evidence Landscape: LLMs in Medicine](/editorials/evidence-landscape-2025)**: The broader research base for clinical AI, including the trials that informed our methodology.
+- **[HIPAA Compliance Guide](/guides/hipaa-compliance)**: How to use any of these models safely with clinical data.
 - **Templates used in this comparison:** [DDx Generator](/templates/ddx-generator) | [Case Synthesis](/templates/case-synthesis)

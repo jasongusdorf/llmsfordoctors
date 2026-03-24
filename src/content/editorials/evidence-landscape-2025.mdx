@@ -8,9 +8,7 @@ featured: true
 
 import Callout from '../../components/Callout.astro';
 
-The evidence base for LLMs in medicine has gone from anecdotal to substantial in under two years. We now have randomized controlled trials, large-scale EHR analyses, deployment safety audits, and real-world cohort studies. The picture they paint is both more promising and more complicated than the early hype suggested.
-
-This guide surveys the major studies and themes from 2025 through early 2026. It is organized around five themes that emerged from the literature, not as a flat list of papers, but as a narrative of what the field has learned, where the evidence is strong, and where the gaps remain dangerous.
+The evidence base for LLMs in medicine has gone from anecdotal to substantial in under two years. We now have randomized controlled trials, large-scale EHR analyses, deployment safety audits, and real-world cohort studies.
 
 ## Contents
 
@@ -25,13 +23,9 @@ This guide surveys the major studies and themes from 2025 through early 2026. It
 - [Summary Table: Key Studies at a Glance](#summary-table-key-studies-at-a-glance)
 - [Bottom Line](#bottom-line)
 
-The publication arc itself tells a story: early 2025 was dominated by foundation-level medical QA benchmarks and clinician-in-the-loop RCTs. By late 2025, the field shifted to large-scale EHR cohort extraction and workflow automation. Early 2026 brought deployment safety audits, AI-literacy as a measurable intervention, and governance frameworks. The field is maturing, and the questions are getting harder.
+Early 2025 was dominated by foundation-level medical QA benchmarks and clinician-in-the-loop RCTs. By late 2025, the field shifted to large-scale EHR cohort extraction and workflow automation. Early 2026 brought deployment safety audits, AI-literacy as a measurable intervention, and governance frameworks. The questions are getting harder.
 
-A note on scope: this guide focuses on studies published in high-impact peer-reviewed journals (Nature Medicine, NEJM AI, JAMA, and their companion journals). These represent the most rigorously evaluated evidence. There is a much larger body of preprints, conference abstracts, and vendor-sponsored evaluations that we don't cover here. Some of that work is excellent; some is not. The peer-reviewed literature is the floor, not the ceiling, of what's known.
-
-We also deliberately excluded studies focused purely on medical education (LLMs for teaching and assessment), consumer health information (chatbots for patient self-triage), and administrative applications (scheduling, billing, coding), not because these aren't important, but because the clinical evidence landscape is large enough to warrant its own dedicated review.
-
-One more framing note: this guide uses citation counts as a rough proxy for influence, not as a measure of quality. A highly cited study isn't necessarily correct; it may be highly cited because it's controversial, or because it was first to address a topic. But citation counts do tell you which studies are shaping the conversation, which is useful context when evaluating the field.
+This review covers peer-reviewed studies from Nature Medicine, NEJM AI, JAMA, and their companion journals. It excludes medical education, consumer chatbots, and administrative applications. Citation counts appear as a rough proxy for influence, not quality: a highly cited study may be controversial rather than correct, but citation counts indicate which studies are shaping the conversation.
 
 ---
 
@@ -51,7 +45,7 @@ But benchmark performance is a necessary starting point, not a destination. The 
 
 ### Why benchmarks matter, and why they're not enough
 
-Before moving on, it's worth understanding what Med-PaLM 2 actually established. The three-layer evaluation framework (automated benchmark, clinician rubric, grounding strategy) gave the field a common language for comparing models. Before this, every research group evaluated clinical LLMs differently, making cross-study comparison nearly impossible.
+Med-PaLM 2 established a three-layer evaluation framework (automated benchmark, clinician rubric, grounding strategy) that gave the field a common language for comparing models. Before this, every research group evaluated clinical LLMs differently, making cross-study comparison nearly impossible.
 
 The benchmark layer (MedQA, MedMCQA, PubMedQA, etc.) tests factual medical knowledge in a controlled, reproducible format. The clinician rubric layer asks whether real physicians find the output useful, accurate, and safe. The grounding strategy asks how the model handles uncertainty: does it cite sources, flag low-confidence answers, or hallucinate with authority?
 
@@ -79,7 +73,7 @@ There's a deeper question here too: does the time cost decrease with experience?
 
 ### AI-literacy changes the equation
 
-The most provocative trial of early 2026 comes from Qazi et al. (Nature Health), which studied 60 physicians in a low- and middle-income country setting. The design included a 20-hour AI-literacy curriculum before the diagnostic accuracy trial.
+Qazi et al. (2026, Nature Health) studied 60 physicians in a low- and middle-income country setting. The design included a 20-hour AI-literacy curriculum before the diagnostic accuracy trial.
 
 The results were striking:
 - **Physician alone:** 42.6% diagnostic accuracy
@@ -90,14 +84,14 @@ The results were striking:
   The Qazi et al. trial makes two critical points. First, AI-literacy training is part of the intervention, not an optional add-on. Physicians who understood how the LLM works, where it fails, and how to evaluate its output got dramatically better results. Second, the finding that LLM-alone outperformed physician+LLM on average raises uncomfortable questions about whether human-in-the-loop always adds value, or whether it sometimes introduces noise.
 </Callout>
 
-That last finding (LLM-alone beating physician+LLM) deserves careful interpretation. It does not mean physicians should step aside. The average masks variation: physicians caught errors the LLM made confidently, and made errors the LLM would not have. The combination is most valuable at the tails of the distribution, not at the mean. But it does suggest that "just add a human" is not an automatic safety improvement.
+That last finding deserves careful interpretation. It does not mean physicians should step aside. The average masks variation: physicians caught errors the LLM made confidently, and made errors the LLM would not have. The combination is most valuable at the tails of the distribution, not at the mean. It does suggest that "just add a human" is not an automatic safety improvement.
 
 <Callout type="pitfall">
   Do not interpret "LLM-alone outperformed physician+LLM" as evidence that physicians are unnecessary. Average performance hides the cases where physician judgment catches catastrophic AI errors. The goal is calibrated collaboration: knowing when to trust the model and when to override it. That's exactly what AI-literacy training teaches.
 </Callout>
 
 <Callout type="tip">
-**What to do with this:** Start building your own AI-literacy now. Learn the basics of how LLMs generate text, practice recognizing hallucinations, and develop a habit of verifying AI output against your own clinical reasoning. Our [Prompting 101](/guides/prompting-101) guide is a practical starting point. For a head-to-head look at how different models handle the same clinical case, see [Which LLM for Clinical Reasoning?](/guides/llm-clinical-reasoning-comparison).
+**What to do with this:** Start building your own AI-literacy now. Learn the basics of how LLMs generate text, practice recognizing hallucinations, and develop a habit of verifying AI output against your own clinical reasoning. Our [Prompting 101](/guides/prompting-101) guide is a practical starting point. For a head-to-head look at how different models handle the same clinical case, see [Which LLM for Clinical Reasoning?](/editorials/llm-clinical-reasoning-comparison).
 </Callout>
 
 ---
@@ -110,7 +104,7 @@ Controlled trials are one thing. What happens when LLMs are embedded in producti
 
 Agweyu et al. (2026, Nature Health) audited an EMR-embedded clinical decision support system across 16 clinics in Kenya, reviewing 1,469 clinical records ([trial summary](/trials/emr-cds-safety-kenya-2026)). The headline numbers look encouraging: guideline alignment was 99%, and the hallucination rate was just 3.4%.
 
-But buried in the data: actively harmful recommendations appeared in 7.8% of encounters.
+Buried in the data: actively harmful recommendations appeared in 7.8% of encounters.
 
 <Callout type="pitfall">
   This is the study that crystallized a critical lesson: utility and harm don't "average out." A system can be 99% guideline-aligned and still produce dangerous output in nearly 1 in 13 patient encounters. In deployment, you need to evaluate the tails of the distribution, not just the mean.
@@ -239,7 +233,7 @@ The inbox burden problem is worth emphasizing for anyone who hasn't experienced 
 
 ### Large-scale EHR data extraction
 
-Pak et al. (2025, JAMA Network Open) used LLaMA 3 8B to extract sepsis symptoms from clinical notes across a cohort of 104,248 patients. The model achieved 99.3% accuracy on symptom extraction, effectively turning unstructured clinical text into structured research data at health-system scale.
+Pak et al. (2025, JAMA Network Open) used LLaMA 3 8B to extract sepsis symptoms from clinical notes across a cohort of 104,248 patients. The model achieved 99.3% accuracy on symptom extraction, turning unstructured clinical text into structured research data at health-system scale.
 
 <Callout type="evidence">
   The Pak et al. study represents a use case that gets less attention than clinical decision support but may be equally transformative: LLMs as research instrumentation. Manually abstracting symptoms from 104,000 patient records would require years of human effort. An LLM did it with 99.3% accuracy. This enables cohort studies, quality improvement analyses, and epidemiological research that were previously impractical.
@@ -258,11 +252,11 @@ To appreciate the scale: traditional manual chart abstraction for research studi
 
 Unlu et al. (2025, JAMA) evaluated the RECTIFIER system, a retrieval-augmented generation (RAG) approach to clinical trial eligibility prescreening. The AI group identified eligible patients more rapidly than the manual screening group.
 
-This is what the authors of the original study called a "quietly enormous" use case. Clinical trial recruitment is a bottleneck that delays medical research across every specialty. Most eligible patients are never identified because manual chart review can't keep pace with enrollment needs. An LLM that can prescreen patient records against eligibility criteria, flagging likely matches for human review, addresses a real and expensive problem.
+Clinical trial recruitment is a bottleneck that delays medical research across every specialty. Most eligible patients are never identified because manual chart review can't keep pace with enrollment needs. An LLM that can prescreen patient records against eligibility criteria, flagging likely matches for human review, addresses a real and expensive problem.
 
 The numbers in clinical trial recruitment are sobering: up to 80% of clinical trials fail to meet enrollment timelines, and 30% of trials fail entirely due to insufficient enrollment. Every month of delay in a clinical trial costs an average of $600,000 to $8 million depending on the therapeutic area. If RAG-based prescreening can accelerate enrollment even modestly (identifying eligible patients days or weeks earlier), the downstream impact on medical research timelines is substantial.
 
-The RECTIFIER system is particularly notable for its RAG architecture. Rather than relying solely on the LLM's training data (which may be outdated or incomplete on specific trial criteria), it retrieves relevant information from the trial protocol and the patient's medical record at query time. This grounds the eligibility assessment in the actual documents rather than the model's parametric knowledge, reducing hallucination risk on a task where accuracy matters enormously.
+RECTIFIER uses a RAG architecture worth examining. Rather than relying solely on the LLM's training data (which may be outdated or incomplete on specific trial criteria), it retrieves relevant information from the trial protocol and the patient's medical record at query time. This grounds the eligibility assessment in the actual documents rather than the model's parametric knowledge, reducing hallucination risk on a task where accuracy matters enormously.
 
 <Callout type="tip">
   Trial eligibility prescreening is a high-value application that doesn't require the model to make clinical decisions, just to match patient characteristics against inclusion/exclusion criteria. The human investigator still makes the enrollment decision. This makes it one of the lower-risk, higher-impact applications in the current landscape.
@@ -300,7 +294,7 @@ The key risk in report simplification is oversimplification, stripping away clin
 
 ### Pathology
 
-A 2025 study tested LLM analysis of 579 pathology reports, evaluating the model's ability to extract structured data (diagnosis, grade, stage, margin status) from narrative pathology text. Performance was generally strong for common cancer types and standard reporting formats but degraded on unusual histologic subtypes and non-standard report structures.
+A 2025 study tested LLM analysis of 579 pathology reports, evaluating the model's ability to extract structured data (diagnosis, grade, stage, margin status) from narrative pathology text. The model performed well on common cancer types and standard reporting formats, then degraded on unusual histologic subtypes and non-standard report structures.
 
 This degradation pattern is consistent across specialties: LLMs work best on common, well-represented conditions and struggle on rare ones. For pathology specifically, the challenge is that report formatting varies enormously between institutions. A model trained on one institution's pathology reports may struggle with another's, even when the clinical content is equivalent.
 
@@ -310,17 +304,17 @@ This degradation pattern is consistent across specialties: LLMs work best on com
 
 ### Oncology and mental health
 
-The GenAI mental health chatbot RCT (Heinz et al., 2025, NEJM AI) is perhaps the most boundary-pushing study of this period. It was the first RCT of a fully generative AI therapy chatbot for patients with clinical-level mental health symptoms, not a rule-based chatbot, not a guided self-help tool, but an LLM generating therapeutic responses in real time.
+The GenAI mental health chatbot RCT (Heinz et al., 2025, NEJM AI) was the first RCT of a fully generative AI therapy chatbot for patients with clinical-level mental health symptoms. Not a rule-based chatbot. Not a guided self-help tool. An LLM generating therapeutic responses in real time.
 
 <Callout type="evidence">
   The Heinz et al. trial, with over 260 citations, represents a conceptual shift: the LLM moves from "clinical assistant" to "therapeutic intervention." This carries fundamentally different regulatory, ethical, and safety implications. An assistant that helps a physician draft a note is a productivity tool. A chatbot that delivers therapy directly to patients is a medical device, and needs to be evaluated as one.
 </Callout>
 
-The trial showed promising results on symptom reduction measures, but the implications go beyond efficacy data. If a generative AI chatbot is delivering therapy, who is responsible when it says the wrong thing? How do you monitor for harmful outputs in a private conversation between a patient and a machine? What happens when a patient in crisis receives a response that is technically appropriate on average but catastrophically wrong for their specific situation?
+The trial showed promising results on symptom reduction measures, but the implications go beyond efficacy data. If a generative AI chatbot delivers therapy, who is responsible when it says the wrong thing? How do you monitor for harmful outputs in a private conversation between a patient and a machine? What happens when a patient in crisis receives a response that is technically appropriate on average but catastrophically wrong for their specific situation?
 
-Consider the failure mode: a patient with suicidal ideation interacts with a GenAI therapy chatbot. The chatbot generates a response that is generically appropriate for mild depression but catastrophically inadequate for acute suicidal crisis. There is no therapist reviewing the response before it reaches the patient. There is no clinical judgment mediating between the model's output and the patient's experience. The safety net that exists in every other clinical AI application (human review before action) is absent by design.
+Consider the failure mode: a patient with suicidal ideation interacts with a GenAI therapy chatbot. The chatbot generates a response appropriate for mild depression but catastrophically inadequate for acute suicidal crisis. No therapist reviews the response before it reaches the patient. No clinical judgment mediates between the model's output and the patient's experience. The safety net that exists in every other clinical AI application, human review before action, is absent by design.
 
-This doesn't mean GenAI therapy chatbots should never be developed. The mental health treatment gap is enormous, particularly in underserved communities. But it means the safety bar should be dramatically higher than for clinician-facing tools, and the monitoring infrastructure should be correspondingly more robust.
+This doesn't mean GenAI therapy chatbots should never be developed. The mental health treatment gap is real, especially in underserved communities. It means the safety bar should be higher than for clinician-facing tools, and the monitoring infrastructure more robust.
 
 <Callout type="pitfall">
   Direct-to-patient generative AI therapy is in a different risk category than clinician-facing tools. There is no human in the loop to catch errors. The patient is the least equipped person to evaluate whether the AI's therapeutic guidance is appropriate. Regulatory frameworks for this use case are still being developed; proceed with extreme caution.
@@ -334,7 +328,7 @@ This doesn't mean GenAI therapy chatbots should never be developed. The mental h
 
 ## The Open-Source Inflection Point
 
-One of the most consequential developments of 2025 was the demonstration that open-source models can match proprietary models on clinical benchmarks.
+Open-source models can now match proprietary models on clinical benchmarks.
 
 Sandmann et al. (2025, Nature Medicine) tested DeepSeek and other open-source models against proprietary models on 125 clinical cases. The finding: open-source models performed "equally well and in some cases better" than proprietary alternatives.
 
@@ -371,11 +365,11 @@ For institutions considering this path, a few practical realities:
 
 ## Cross-Cutting Lessons
 
-Stepping back from individual studies, several lessons cut across the entire 2025-2026 evidence base.
+Several lessons cut across the entire 2025-2026 evidence base.
 
 ### Benchmarks are not safety
 
-This is the single most important takeaway from the literature. A model can score 90% on MedQA and still:
+A model can score 90% on MedQA and still:
 - Reproduce poisoned medical knowledge with high confidence (Alber et al.)
 - Generate harmful recommendations in 7.8% of real clinical encounters (Agweyu et al.)
 - Exhibit demographic bias in treatment recommendations (retinal disease study)
@@ -388,15 +382,15 @@ Benchmarks measure average-case performance on a fixed set of questions. Safety 
 
 ### AI-literacy is part of the intervention
 
-The Qazi et al. trial didn't just give physicians LLM access; it gave them 20 hours of training on how LLMs work, where they fail, and how to evaluate their output. The dramatic improvement in diagnostic accuracy was a product of both the tool and the training.
+Qazi et al. didn't just give physicians LLM access; they gave them 20 hours of training on how LLMs work, where they fail, and how to evaluate their output. The improvement in diagnostic accuracy was a product of both the tool and the training.
 
 This has direct implications for implementation:
 - Rolling out clinical AI without AI-literacy training is like giving someone a scalpel without surgical training.
 - Training should cover: how LLMs generate text, common failure modes (hallucination, anchoring, demographic bias), how to verify AI output against clinical evidence, and when to override AI suggestions.
 - Training isn't a one-time event. As models change and new failure modes are discovered, training needs to be updated.
-- The training investment pays for itself. The Qazi et al. study showed a nearly 30-percentage-point improvement in diagnostic accuracy. No model upgrade alone is going to deliver that kind of gain; it required both a capable tool and a trained user.
+- The training investment pays for itself. Qazi et al. showed a nearly 30-percentage-point improvement in diagnostic accuracy. No model upgrade alone delivers that kind of gain; it required both a capable tool and a trained user.
 
-Think of it this way: we don't hand a new resident an ultrasound machine and say "figure it out." We provide structured training on image acquisition, interpretation, common pitfalls, and when the findings need to be confirmed by a specialist. Clinical AI tools deserve the same deliberate onboarding; the technology is different, but the principle is identical.
+We don't hand a new resident an ultrasound machine and say "figure it out." We provide structured training on image acquisition, interpretation, common pitfalls, and when the findings need to be confirmed by a specialist. Clinical AI tools deserve the same onboarding.
 
 <Callout type="tip">
   If your institution is deploying clinical AI tools, budget for AI-literacy training as a core component of the rollout, not as an optional add-on. The evidence suggests that the training may matter as much as the tool itself.
@@ -454,7 +448,7 @@ These share common features: the task is well-defined, the output is reviewed by
 
 ## What's Coming Next
 
-The trajectory of the evidence suggests several areas to watch in 2026 and beyond.
+Several areas to watch in 2026 and beyond.
 
 **Governance and controls.** The early deployment studies have made it clear that technical accuracy alone is insufficient. Expect a wave of research on governance frameworks: who approves model updates, how adverse events are reported and investigated, what monitoring is required in production, and how institutions audit AI-assisted clinical decisions. Several academic medical centers have already established AI governance committees, and the lessons from their early experiences will shape the field's best practices.
 
@@ -474,7 +468,7 @@ The trajectory of the evidence suggests several areas to watch in 2026 and beyon
 
 ## How to Read This Literature
 
-A few practical notes for clinicians evaluating AI studies.
+Practical notes for clinicians evaluating AI studies.
 
 **Look at the task, not just the model.** "GPT-4 for medicine" is too broad a claim. GPT-4 for medication interaction checking is a specific, evaluable application. The evidence is strong for some tasks and weak for others, even for the same model.
 
@@ -484,9 +478,9 @@ A few practical notes for clinicians evaluating AI studies.
 
 **Consider the workflow integration.** A technically accurate model that doesn't fit into existing clinical workflows won't be used. The best AI tool is the one that physicians actually adopt, and that requires thoughtful integration, not just high accuracy.
 
-**Distinguish between the model and the system.** Most deployment studies evaluate a complete system: model plus interface plus workflow integration plus human review process. A great model in a bad interface will underperform. A mediocre model in a well-designed workflow may outperform. When a study reports that "AI improved outcomes," ask what proportion of that improvement came from the model versus the workflow redesign that accompanied it.
+**Distinguish the model from the system.** Most deployment studies evaluate a complete system: model plus interface plus workflow integration plus human review process. A great model in a bad interface will underperform. A mediocre model in a well-designed workflow may outperform. When a study reports that "AI improved outcomes," ask how much of that improvement came from the model versus the workflow redesign that accompanied it.
 
-**Watch the denominator.** Studies that report accuracy on "cases where the model provided an answer" may be excluding cases where the model declined to answer, errored out, or produced unusable output. The real accuracy includes those failures. A model that's 95% accurate on the 80% of cases it handles, and useless on the other 20%, has an effective accuracy of 76%.
+**Watch the denominator.** Studies that report accuracy on "cases where the model provided an answer" may exclude cases where the model declined to answer, errored out, or produced unusable output. The real accuracy includes those failures. A model that's 95% accurate on the 80% of cases it handles, and useless on the other 20%, has an effective accuracy of 76%.
 
 <Callout type="evidence">
   The 2025-2026 evidence base contains over a dozen RCTs, multiple large-cohort EHR studies, deployment audits across high- and low-resource settings, and security analyses. This is no longer a field running on demos and anecdotes. The evidence is real, and so are the risks it has uncovered. The institutions that will benefit most from clinical AI are the ones that take both the promise and the evidence of harm seriously.
@@ -551,16 +545,14 @@ The evidence landscape for LLMs in medicine as of early 2026 can be summarized i
 
 5. **Open-source models reaching clinical parity** opens a path for regulated, privacy-preserving deployment that wasn't available a year ago.
 
-The field has moved past "can LLMs pass a medical exam?" to "how do we deploy them safely, train clinicians to use them effectively, and monitor them in production?" That's progress, and it's the right set of questions to be asking.
+The field has moved past "can LLMs pass a medical exam?" to "how do we deploy them safely, train clinicians to use them, and monitor them in production?"
 
-If you take one thing from this review, let it be this: the evidence supports using LLMs in clinical medicine, but only with the right infrastructure around them. AI-literacy training for clinicians. Thoughtful interface design that doesn't make acceptance the path of least resistance. Continuous monitoring in production. Bias audits. Incident reporting. And a healthy skepticism of any vendor who tells you their benchmark scores are all you need to know.
+The evidence supports using LLMs in clinical medicine, with the right infrastructure around them: AI-literacy training for clinicians, interface design that doesn't make acceptance the path of least resistance, continuous monitoring in production, bias audits, incident reporting. And a healthy skepticism of any vendor who tells you their benchmark scores are all you need to know.
 
-The tools are here. The evidence is accumulating. The question is whether institutions will deploy them wisely or rush to adopt without the safeguards the evidence says are necessary. The studies reviewed in this guide give you what you need to tell the difference.
-
-This evidence landscape will look different a year from now. Bookmark it, revisit it, and use it as a baseline for evaluating what comes next.
+This evidence landscape will look different a year from now. The question is whether institutions will deploy wisely or rush to adopt without the safeguards the evidence says are necessary.
 
 **Related guides and resources:**
-- [Which LLM for Clinical Reasoning?](/guides/llm-clinical-reasoning-comparison) -- Our head-to-head model comparison, grounded in the evidence discussed here.
-- [HIPAA Compliance Guide](/guides/hipaa-compliance) -- The practical compliance framework for using any LLM tool safely.
-- [Prompting 101](/guides/prompting-101) -- How to write effective prompts that produce clinically useful output.
-- [LLM Clinical Reasoning (JAMA 2023)](/trials/llm-clinical-reasoning-jama-2023) -- The foundational trial on LLM diagnostic reasoning.
+- [Which LLM for Clinical Reasoning?](/editorials/llm-clinical-reasoning-comparison): Our head-to-head model comparison, grounded in the evidence discussed here.
+- [HIPAA Compliance Guide](/guides/hipaa-compliance): The practical compliance framework for using any LLM tool safely.
+- [Prompting 101](/guides/prompting-101): How to write effective prompts that produce clinically useful output.
+- [LLM Clinical Reasoning (JAMA 2023)](/trials/llm-clinical-reasoning-jama-2023): The foundational trial on LLM diagnostic reasoning.
