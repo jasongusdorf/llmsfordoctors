@@ -1,6 +1,12 @@
 import type { NewsItem } from './types.js';
 
+function safeDate(pubDate: string): string {
+  const parsed = new Date(pubDate);
+  return isNaN(parsed.getTime()) ? new Date().toISOString() : parsed.toISOString();
+}
+
 export function extractTag(xml: string, tag: string): string {
+  if (xml.length > 50_000) xml = xml.slice(0, 50_000);
   const regex = new RegExp(`<${tag}[^>]*>(?:<!\\[CDATA\\[([\\s\\S]*?)\\]\\]>|([\\s\\S]*?))<\\/${tag}>`, 'i');
   const match = xml.match(regex);
   if (!match) return '';
@@ -43,7 +49,7 @@ export function parseRssFeed(xml: string, sourceName: string): NewsItem[] {
         title: title.trim(),
         source: sourceName,
         url,
-        date: pubDate ? new Date(pubDate).toISOString() : new Date().toISOString(),
+        date: pubDate ? safeDate(pubDate) : new Date().toISOString(),
         summary: stripHtml(description).slice(0, 200),
         imageUrl: extractEnclosure(block),
       };

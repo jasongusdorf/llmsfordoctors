@@ -47,6 +47,18 @@ describe('parseRssFeed', () => {
   it('returns empty array for malformed input', () => {
     expect(parseRssFeed(MALFORMED_RSS, 'Bad')).toEqual([]);
   });
+
+  it('handles invalid pubDate gracefully', () => {
+    const xml = `<rss><channel><item>
+      <title>Test</title>
+      <link>https://example.com/test</link>
+      <pubDate>not a date at all</pubDate>
+      <description>Summary</description>
+    </item></channel></rss>`;
+    const items = parseRssFeed(xml, 'Test');
+    expect(items).toHaveLength(1);
+    expect(items[0].date).toMatch(/^\d{4}-\d{2}-\d{2}T/); // valid ISO string, not a throw
+  });
 });
 
 describe('extractTag', () => {
