@@ -8,8 +8,10 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "post-build": "node scripts/post-build.mjs",
     "preview": "astro preview",
     "astro": "astro",
+    "deploy": "astro build && node scripts/post-build.mjs && wrangler deploy --config dist/server/wrangler.json",
     "fetch-news": "tsx src/utils/fetch-news.ts",
     "test": "vitest run"
   },
