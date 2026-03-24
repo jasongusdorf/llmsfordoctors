@@ -1,15 +1,27 @@
 ---
+export const prerender = false;
+
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import Sidebar from '../components/Sidebar.astro';
 import NewsSection from '../components/NewsSection.astro';
 import { getCollection } from 'astro:content';
-let newsData: any[] = [];
+import { env } from 'cloudflare:workers';
+import type { NewsItem } from '../utils/types';
+
+let newsData: NewsItem[] = [];
 try {
-  newsData = (await import('../data/news.json')).default;
+  const cached = await env.NEWS_CACHE.get('latest');
+  newsData = cached ? JSON.parse(cached) : [];
 } catch {
-  // news.json may not exist on fresh clones; degrade gracefully
+  // Local dev or KV unavailable — fall back to static JSON
+  try {
+    newsData = (await import('../data/news.json')).default;
+  } catch {
+    // No news at all — degrade gracefully
+  }
 }
+
 const allGuides = await getCollection('guides');
 const featuredGuides = allGuides
   .filter((g) => g.data.featured && g.id !== 'llms-in-clinical-care-101')
