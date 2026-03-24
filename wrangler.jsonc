@@ -1,5 +1,12 @@
 {
   "name": "llmsfordoctors",
   "compatibility_date": "2025-01-01",
-  "compatibility_flags": ["nodejs_compat"]
+  "compatibility_flags": ["nodejs_compat"],
+  "kv_namespaces": [
+    {
+      "binding": "NEWS_CACHE",
+      "id": "a2086760569f412bb14985596aa7bd36",
+      "preview_id": "f390c94fde424ef4a7e3c147e8c4e4d0"
+    }
+  ]
 }
