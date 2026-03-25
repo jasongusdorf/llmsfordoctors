@@ -10,9 +10,11 @@ import { env } from 'cloudflare:workers';
 import type { NewsItem } from '../utils/types';
 
 let newsData: NewsItem[] = [];
+let newsUpdatedAt: string | null = null;
 try {
   const cached = await env.NEWS_CACHE.get('latest');
   newsData = cached ? JSON.parse(cached) : [];
+  newsUpdatedAt = await env.NEWS_CACHE.get('latest-updated-at');
 } catch {
   // Local dev or KV unavailable — fall back to static JSON
   try {
@@ -59,7 +61,7 @@ const featuredGuides = allGuides
 
   <!-- News Section -->
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-    <NewsSection items={newsData} />
+    <NewsSection items={newsData} updatedAt={newsUpdatedAt} />
   </div>
 
   <!-- Physician Forum callout -->

@@ -18,6 +18,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (items.length > 0) {
       await env.NEWS_CACHE.put('latest', JSON.stringify(items));
+      await env.NEWS_CACHE.put('latest-updated-at', new Date().toISOString());
     }
 
     return new Response(

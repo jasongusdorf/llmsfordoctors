@@ -4,9 +4,13 @@ import type { NewsItem } from '../utils/fetch-news';
 
 interface Props {
   items: NewsItem[];
+  updatedAt?: string | null;
 }
 
-const { items } = Astro.props;
+const { items, updatedAt } = Astro.props;
+const formattedDate = updatedAt
+  ? new Date(updatedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+  : null;
 ---
 
 {items.length > 0 && (
@@ -24,5 +28,8 @@ const { items } = Astro.props;
         <NewsCard {...item} />
       ))}
     </div>
+    {formattedDate && (
+      <p class="mt-4 text-xs text-clinical-400 dark:text-clinical-500">Updated on {formattedDate}</p>
+    )}
   </section>
 )}
