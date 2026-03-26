@@ -1,0 +1,59 @@
+---
+title: "Not All Clinical AI Monitoring Systems Are Created Equal"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIra2400657"
+keyFinding: "A review of 13 published AI monitoring frameworks and case studies found significant variation in design choices, with most systems lacking transparency about how their monitoring criteria, data sources, and statistical methods affect the ability to detect performance drift."
+lastUpdated: 2026-03-25
+tags: [ai-monitoring, model-drift, post-deployment, safety, quality-management, clinical-decision-support]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Feng et al. conducted a narrative review of published works that either describe real-world monitoring systems for clinical AI algorithms or propose frameworks for building them. They searched PubMed, Embase, and Web of Science for studies published between January 1990 and August 2024, supplemented by a Google search for AI monitoring standards. Of 162 unique articles identified, 13 met inclusion criteria: 7 proposed frameworks, 8 described real-world case studies (with overlap), and deployment settings ranged from readmission-risk prediction to laboratory test classifiers. The review extracted each article's monitoring criteria, data sources, and statistical procedures, then proposed a six-step road map for designing monitoring systems, drawing on tools from quality management, clinical trials, and real-world evidence generation.
+
+---
+
+## Key Findings
+
+- **10 categories of monitoring criteria** were identified across the literature, from model inputs and outputs to clinical outcomes and user feedback, but real-world case studies typically monitored only 1 to 3 categories
+- **Framework articles recommended six or more monitoring criteria** on average; case studies were far more selective, often driven by practical constraints rather than performance optimization
+- **None of the reviewed case studies selected monitoring procedures based on their operating characteristics**, such as false alarm rates or time to detection
+- **Algorithmic confounding** (where the AI's own predictions alter the data it is later evaluated against) was acknowledged in only 3 of 13 articles, despite being present in all fully deployed systems
+- **Sample sizes varied enormously**: monthly accrual ranged from 250 patients to 18,000, and studies with small samples encountered standard errors of 0.2 or higher when estimating AUROC, making statistically meaningful drift detection impossible
+- **Statistical process control methods** (Shewhart charts, CUSUM) were the most commonly used approaches, but none of the implementations specified their control limits or justified them for health care settings
+- **A six-step road map** was proposed, covering risk identification, monitoring criteria, data sources, statistical methods, operating characteristics, and plan review
+
+<Callout type="evidence">
+  This is the first systematic examination of how design choices in AI monitoring systems affect their ability to detect real performance problems. The finding that no existing system selects monitoring procedures based on operating characteristics reveals a fundamental gap between what monitoring frameworks recommend and what gets implemented.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **A monitoring system's mere existence does not guarantee safety.** The review makes clear that poorly designed monitoring can create a false sense of security. A system that checks model performance monthly with 250 patients lacks the statistical power to detect clinically meaningful drift.
+
+2. **Risk-based monitoring beats comprehensive monitoring.** Rather than tracking every possible metric, the road map recommends identifying the highest-impact failure modes first (using tools like directed acyclic graphs and failure mode analysis), then selecting monitoring criteria that can detect those specific risks. This mirrors how clinical trials prioritize safety endpoints.
+
+3. **Model calibration may matter more than AUROC for drift detection.** AUROC is insensitive to small changes in the data. Calibration shifts can be detected faster and with smaller samples, making them better early-warning signals for performance decay.
+
+<Callout type="pitfall">
+  Algorithmic confounding is nearly universal in deployed clinical AI but was addressed in fewer than a quarter of reviewed studies. When an AI flags a patient as high-risk and that triggers an intervention, the outcome data no longer reflects what would have happened without the AI. Monitoring systems that ignore this will systematically misread their own performance.
+</Callout>
+
+4. **Shewhart chart defaults are borrowed from manufacturing, not medicine.** The standard three-sigma control limits were designed for industrial quality control. Whether those thresholds are appropriate for clinical AI, where the cost of missed drift is patient harm rather than a defective widget, remains unexamined.
+
+5. **Monitoring plans need scheduled review.** Only one of the case studies described a process for updating the monitoring system itself. The review recommends annual review at minimum, with triggers for ad hoc revision when unexpected adverse events occur or data collection falls behind.
+
+---
+
+## My Takeaway
+
+This review delivers a sobering message for anyone who has deployed a clinical AI tool and checked the "monitoring" box. Most real-world systems are monitoring too few things, with too little data, using borrowed statistical methods that nobody has validated for clinical settings. The road map is practical and well-grounded, but the deeper problem is organizational: monitoring requires sustained investment in people, infrastructure, and analytical rigor that most health systems have not budgeted for. If your institution runs a clinical AI tool, ask whether anyone can tell you the false alarm rate and average detection delay of your monitoring system. If the answer is no, you don't have a monitoring system. You have a dashboard.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIra2400657)

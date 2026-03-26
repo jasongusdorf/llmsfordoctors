@@ -1,0 +1,57 @@
+---
+title: "LLM-Anonymizer: Privacy-Preserving Deidentification of Medical Documents Using Local LLMs"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIdbp2400537"
+keyFinding: "Llama-3 70B running locally achieved 99.24% accuracy in redacting personal identifiers from 250 clinical letters, missing only 0.76% of identifiable characters while over-redacting just 2.43%, with zero missed identifiers in 230 of 250 documents."
+lastUpdated: 2026-03-25
+tags: [llm, deidentification, privacy, anonymization, open-source, llama, clinical-data, research-infrastructure]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Medical text deidentification is essential, tedious, and usually done badly. This study benchmarked an open-source, locally deployable LLM pipeline for anonymizing clinical documents. The investigators processed 250 German clinical letters from the University Hospital Carl Gustav Carus Dresden (2004 to 2023) through eight locally run LLMs, including Llama-3 (8B and 70B), Llama-2 (7B and 70B), Llama-2 Sauerkraut (7B and 70B, fine-tuned for German), Mistral 7B, and Phi-3 Mini. Each model was tasked with extracting six categories of personal identifiers: first name, last name, date of birth, street address, zip code, and patient ID. Two physicians independently annotated all 250 letters to establish a consensus ground truth. Performance was evaluated at the character level using exact string matching. The team released the full pipeline as an open-source web application requiring no programming skills.
+
+---
+
+## Key Findings
+
+- **Llama-3 70B achieved the best overall performance**: 99.24% of identifiable characters correctly redacted, 0.76% missed, 2.43% over-redacted
+- **Llama-3 70B left zero missed identifiers in 230 of 250 documents** (92%), the highest rate of any model tested
+- **Llama-3 8B performed nearly as well** with mean accuracy of 98.2% and sensitivity of 99.4%, matching the 70B model's sensitivity despite being 9 times smaller
+- **Dates of birth were the easiest identifiers to find**: perfectly redacted in 245 of 250 letters across the best-performing models
+- **Patient addresses and IDs were harder**: these appeared only once per document, making them more prone to being missed
+- **Reproducibility was strong**: three runs of Llama-3 70B yielded accuracy rates of 98.1%, 98.3%, and 98.3%
+- **Smaller models struggled**: Phi-3 Mini sensitivity dropped to 91.7%, and Llama-2 Sauerkraut 7B to 84.2%
+
+<Callout type="evidence">
+  Running deidentification locally, on consumer hardware, without sending patient data to a cloud API is a meaningful advance. The 0.76% miss rate for Llama-3 70B compares favorably with manual annotation, which is also imperfect and far slower.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Data stays on-site.** The entire pipeline runs on local hardware using quantized (4- or 5-bit) open-weight models. No patient data leaves the institution. For hospitals operating under GDPR, HIPAA, or institutional policies that prohibit cloud-based processing of clinical text, this removes the primary barrier to automated deidentification.
+
+2. **The 8B model is the practical sweet spot.** Llama-3 8B achieved 98.2% accuracy with sensitivity matching the 70B model (99.4% vs. 99.2%). It runs on a single consumer GPU. For institutions without high-performance compute infrastructure, this smaller model offers nearly identical protection at a fraction of the hardware cost.
+
+<Callout type="pitfall">
+  The 0.76% miss rate means roughly 1 in 130 identifiable characters was not redacted. In a letter containing a patient's full name five times, that could mean one instance slips through. Manual review of edge cases remains necessary, particularly for documents with unusual formatting or misspelled names.
+</Callout>
+
+3. **German-language performance was strong without German-specific models.** Llama-3 70B, trained primarily on English text, outperformed the German-fine-tuned Sauerkraut models on German clinical letters. This suggests the approach generalizes across languages without requiring language-specific fine-tuning.
+
+4. **The most common errors were spelling mistakes in the source text.** When the letter's author misspelled a patient's last name, the LLM sometimes failed to recognize it as an identifier. This is a limitation of exact string matching, not the model itself. The pipeline includes a fuzzy matching option that could address this.
+
+---
+
+## My Takeaway
+
+Deidentification is the unglamorous bottleneck of clinical research. Everyone agrees patient data should be anonymized before sharing. Almost nobody has the resources to do it manually at scale. This pipeline offers a credible, local-first solution. Llama-3 70B's performance is strong enough for a first pass, with human review catching the handful of residual identifiers. The open-source release, complete with a browser-based interface, means any hospital with a GPU and a motivated researcher can deploy it tomorrow. The real test will be whether institutions trust it enough to reduce (not eliminate) their manual review burden.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIdbp2400537)

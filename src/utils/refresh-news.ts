@@ -251,7 +251,10 @@ export async function refreshNews(): Promise<NewsItem[]> {
     })
     .sort((a, b) => b.score - a.score);
 
-  const topItems = scored.slice(0, MAX_ITEMS).map((s) => s.item);
+  const topItems = scored
+    .slice(0, MAX_ITEMS)
+    .map((s) => s.item)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   console.log(`[refresh-news] Returning ${topItems.length} items`);
   return topItems;

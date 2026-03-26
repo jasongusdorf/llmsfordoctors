@@ -1,0 +1,59 @@
+---
+title: "AI for Cancer Treatment Decisions: Promise Outpaces Evidence"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIra2401164"
+keyFinding: "AI diagnostic tools in oncology (radiology, pathology) show maturing performance, with digital pathology software reaching 96.6% sensitivity for prostate cancer, but LLMs for treatment recommendations remain unreliable: GPT-3.5 produced 34.3% nonconcordant treatment recommendations per NCCN guidelines, with 12.5% considered hallucinated."
+lastUpdated: 2026-03-25
+tags: [oncology, cancer, treatment-selection, llm, radiology, pathology, clinical-decision-support, clinical-trials]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Elemento, Khozin, and Sternberg reviewed the current and potential role of AI across the oncology treatment continuum: diagnosis (radiology and digital pathology), treatment selection (guideline adherence, clinical trial matching), and emerging applications (molecular biomarker interpretation, adverse event monitoring). The review synthesizes evidence from published studies, FDA clearances, and benchmark evaluations of LLMs on oncology-specific tasks. It covers foundation models for imaging, LLM performance on treatment questions, retrieval-augmented generation approaches, and proposes six strategic actions for effective AI integration in cancer care.
+
+---
+
+## Key Findings
+
+- **Paige digital pathology software achieved 96.6% sensitivity** in prostate biopsy readings; automated Gleason grading matched pathologist performance in separate studies
+- **AI-assisted breast cancer screening in Sweden** detected more cancers than double physician readings while reducing radiologist workload by 44.3%
+- **GPT-4 achieved 68.7% accuracy** on over 2,000 oncology questions, comparable to human performers but with significant overconfidence, hallucinations, and inaccuracies
+- **GPT-3.5 treatment recommendations were 34.3% nonconcordant** with NCCN guidelines, and 12.5% were hallucinated; GPT-3.5 and Copilot gave completely correct responses in only 36% of scenarios
+- **LLMs for clinical trial matching showed stronger results**: Ferber et al. achieved 92.7% accuracy matching patients to trials using GPT-4
+- **GPT-4 exaggerated known prevalence differences** when generating clinical vignettes, raising concerns about bias amplification in training and evaluation
+- **Outside radiology, prospective RCTs of AI in oncology are exceedingly rare**, creating a critical validation gap
+
+<Callout type="evidence">
+  The split in AI maturity within oncology is striking. Diagnostic imaging AI has cleared FDA review, achieved specialist-level performance, and begun prospective validation. Treatment decision support, the application with arguably greater clinical impact, remains stuck at benchmark evaluations with concerning error rates.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Diagnostic AI is ready for supervised deployment; treatment AI is not.** Digital pathology and radiology AI tools have accumulated enough evidence for clinical use with appropriate oversight. LLMs generating treatment recommendations still produce too many errors, some of them fabricated, for clinical reliance.
+
+2. **Trial matching may be the LLM sweet spot in oncology.** The 92.7% accuracy for patient-trial matching addresses a real bottleneck (only a small fraction of cancer patients enroll in trials, partly because systematic matching is labor-intensive) with a task that has clear verification steps before patient impact.
+
+3. **Retrieval-augmented generation improves accuracy but remains untested on real patients.** RAG approaches that ground LLM responses in NCCN or ESMO guidelines showed better performance than standalone LLMs in benchmark studies. Whether this translates to clinical settings with messy, incomplete EHR data is unknown.
+
+<Callout type="pitfall">
+  LLMs for oncology treatment selection have a hallucination problem that benchmark accuracy alone cannot capture. A 12.5% hallucination rate means roughly 1 in 8 treatment recommendations is fabricated, not merely wrong but invented. In oncology, where treatment decisions are often irreversible, this failure mode is qualitatively different from simple inaccuracy.
+</Callout>
+
+4. **The field needs prospective RCTs, and it needs to explain why it doesn't have them.** The authors note that outside radiology, almost no prospective randomized trials of AI in oncology exist. Adaptive trial designs and pragmatic trials using EHR data offer paths forward that accommodate AI's rapid development cycle.
+
+5. **Molecular biomarker interpretation is an emerging frontier.** As genomic testing becomes standard in oncology, AI tools that can interpret complex mutational signatures, distinguish variants of unknown significance, and suggest molecularly targeted therapies address a growing knowledge gap among oncologists.
+
+---
+
+## My Takeaway
+
+This review confirms what many oncologists suspect: AI can already help read scans and slides at specialist level, but asking it to recommend a treatment plan is a different order of complexity. The treatment recommendation data is genuinely alarming. One in three GPT-3.5 recommendations contradicted guidelines, and one in eight was made up entirely. The most immediately actionable AI application in oncology may not be diagnosis or treatment selection but trial matching, where the task is well-defined, the data is structured, and a human oncologist reviews the output before anything happens to the patient. That is also, not coincidentally, where the strongest results appeared.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIra2401164)

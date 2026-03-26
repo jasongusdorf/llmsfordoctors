@@ -1,0 +1,57 @@
+---
+title: "Longitudinal Risk Prediction for Pediatric Glioma with Temporal Deep Learning"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIoa2400703"
+keyFinding: "A temporal deep-learning model analyzing serial postoperative MRIs improved 1-year recurrence prediction for pediatric gliomas by up to 58.5% (F1 score) over traditional approaches, with AUROC of 0.83-0.89 across low- and high-grade tumors."
+lastUpdated: 2026-03-25
+tags: [pediatric-oncology, glioma, deep-learning, mri, longitudinal-imaging, temporal-learning, recurrence-prediction]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Tak, Garomsa, Kann, and colleagues developed a self-supervised temporal deep-learning approach for predicting 1-year recurrence in pediatric gliomas from serial postoperative MRI scans. The model was trained on 3,994 T2-FLAIR MRIs from 715 patients across three institutions: Dana-Farber/Boston Children's Hospital (345 patients with low-grade gliomas, 34 with high-grade), the Children's Brain Tumor Network (301 patients), and RadART (35 patients). The temporal pretraining task taught the model to identify whether a sequence of scans was in correct chronological order. The pretrained model was then fine-tuned to predict 1-year event-free survival from the time of each scan. Performance was compared against single-scan baselines, SimCLR pretraining, and standard longitudinal models without temporal learning on blinded holdout sets.
+
+---
+
+## Key Findings
+
+- **Temporal learning yielded AUROC of 0.83** (95% CI, 0.71-0.91) on the DFCI/BCH low-grade glioma holdout set, a 43% relative improvement over single time-point analysis
+- **On the CBTN dataset, AUROC reached 0.75** (95% CI, -0.58 to 0.90), with 53% relative improvement over single-scan and 41% over standard longitudinal training
+- **High-grade gliomas showed AUROC of 0.89** (95% CI, 0.75-0.98) with temporal learning, representing a 43% improvement over single-scan models
+- **External validation on RadART yielded AUROC of 0.84** (95% CI, -0.68 to 0.95), with 95% relative improvement over single-scan analysis
+- **Performance improved incrementally with more historical scans**, plateauing between 3 and 7 scans depending on the dataset
+- **F1 score improvements ranged from 6.6% to 58.5%** across all datasets compared with standard longitudinal training
+- **Sensitivity gains drove most improvement**, with temporal learning substantially increasing detection of true recurrences
+
+<Callout type="evidence">
+  This is the first application of temporal self-supervised learning to longitudinal medical imaging. The approach borrows from self-driving car research (learning temporal sequences from video) and adapts it to serial surveillance MRIs, a genuinely novel cross-domain transfer.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Earlier identification of children at high risk for recurrence.** Pediatric glioma surveillance involves frequent MRIs, often every 3-6 months for years. A model that flags rising recurrence risk from serial scans could trigger more intensive monitoring or earlier salvage therapy in patients who would otherwise be followed on a standard schedule.
+
+2. **Temporal context improves prediction in a clinically intuitive way.** Radiologists already compare current scans to prior studies. This model formalizes that practice, extracting patterns from the trajectory of change across multiple scans rather than interpreting each scan in isolation. The finding that performance plateaus at 3-7 scans aligns with clinical intuition: the most recent trajectory matters more than the full history.
+
+<Callout type="pitfall">
+  Confidence intervals are wide, particularly on smaller cohorts (CBTN: 0.35-0.70 for longitudinal baseline). The RadART external validation included only 35 patients. These results need replication in larger, prospective cohorts before changing surveillance protocols.
+</Callout>
+
+3. **Applicability beyond pediatric gliomas.** The temporal learning framework is tumor-agnostic. Any cancer with serial imaging surveillance (low-grade gliomas in adults, treated lymphoma, hepatocellular carcinoma on transplant lists) could benefit from this approach. The pretraining task (chronological ordering) requires no labels at all.
+
+4. **The model works across tumor grades.** Temporal learning improved prediction for both low-grade and high-grade pediatric gliomas, despite their fundamentally different biology. This suggests the model captures general features of tumor progression rather than grade-specific patterns.
+
+---
+
+## My Takeaway
+
+The elegant insight here is that temporal ordering, a pretext task that needs no labels, teaches a model something genuinely useful about disease progression. A network trained to recognize whether MRI scans are in the right order learns, as a side effect, what progressive disease looks like. For pediatric neuro-oncologists managing children on surveillance protocols, this could eventually inform when to scan more often, when to biopsy, and when to initiate salvage therapy. The performance gains are real and clinically meaningful, but the small sample sizes (particularly 34 high-grade glioma patients) demand caution. I would want to see prospective validation before incorporating this into clinical decision-making.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2400703)

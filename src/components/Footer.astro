@@ -2,14 +2,16 @@
 const year = new Date().getFullYear();
 
 const footerLinks = [
-  { href: '/workflows', label: 'Workflows' },
-  { href: '/guides',    label: 'Guides' },
-  { href: '/tools',     label: 'Tools' },
-  { href: '/templates', label: 'Templates' },
-  { href: '/trials',    label: 'Trials' },
-  { href: '/community', label: 'Community' },
-  { href: '/about',     label: 'About' },
-  { href: '/donate',    label: 'Donate' },
+  { href: '/workflows',  label: 'Workflows' },
+  { href: '/guides',     label: 'Guides' },
+  { href: '/editorials', label: 'Editorials' },
+  { href: '/tools',      label: 'Tools' },
+  { href: '/templates',  label: 'Templates' },
+  { href: '/trials',     label: 'Trials' },
+  { href: '/videos',     label: 'Videos' },
+  { href: '/community',  label: 'Community' },
+  { href: '/about',      label: 'About' },
+  { href: '/donate',     label: 'Donate' },
 ];
 ---
 
@@ -53,11 +55,9 @@ const footerLinks = [
           - Connect with verified physicians using AI in clinical practice.
         </p>
         <form
-          name="newsletter"
-          method="POST"
+          id="newsletter-form"
           class="flex flex-col gap-2"
         >
-          <input type="hidden" name="form-name" value="newsletter" />
           <label for="footer-email" class="sr-only">Email address</label>
           <input
             id="footer-email"
@@ -73,7 +73,40 @@ const footerLinks = [
           >
             Subscribe
           </button>
+          <p id="newsletter-status" class="text-xs mt-1 hidden"></p>
         </form>
+        <script>
+          document.getElementById('newsletter-form')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target as HTMLFormElement;
+            const email = (form.querySelector('input[name="email"]') as HTMLInputElement).value;
+            const status = document.getElementById('newsletter-status')!;
+            const btn = form.querySelector('button')!;
+            btn.disabled = true;
+            btn.textContent = 'Subscribing...';
+            try {
+              const res = await fetch('/api/newsletter', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+              });
+              if (res.ok) {
+                status.textContent = 'Subscribed. Thank you!';
+                status.className = 'text-xs mt-1 text-green-400';
+                form.reset();
+              } else {
+                const data = await res.json();
+                status.textContent = data.error || 'Something went wrong.';
+                status.className = 'text-xs mt-1 text-red-400';
+              }
+            } catch {
+              status.textContent = 'Network error. Please try again.';
+              status.className = 'text-xs mt-1 text-red-400';
+            }
+            btn.disabled = false;
+            btn.textContent = 'Subscribe';
+          });
+        </script>
       </div>
 
     </div>

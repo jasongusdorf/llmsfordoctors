@@ -1,0 +1,59 @@
+---
+title: "AI-Assisted Spirometry Interpretation in Primary Care: The SPIRO-AID Trial"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIoa2400804"
+keyFinding: "Primary care clinicians using AI decision support software (ArtiQ.Spiro) achieved 9 percentage points higher diagnostic accuracy in spirometry interpretation compared with controls (58.7% vs. 49.7%, P=0.001), with a 15.9-point improvement in COPD cases."
+lastUpdated: 2026-03-25
+tags: [rct, spirometry, copd, primary-care, decision-support, pulmonology, diagnostic-accuracy]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+SPIRO-AID is the first randomized controlled trial to test whether AI decision support improves spirometry interpretation by primary care clinicians. This parallel-group superiority trial recruited 234 UK primary care clinicians (42% GPs, 50% nurses) through an online platform and randomized them 1:1 to interpret 50 real-world patient spirometry records with or without AI software reports (ArtiQ.Spiro). The AI provided three outputs: technical quality grading, a brief interpretation summary with pattern classification, and a graphical probability estimate across six disease categories (asthma, COPD, other obstructive disease, normal, interstitial lung disease, unidentified). The primary outcome was preferred diagnosis prediction performance, the percentage of cases where the clinician's most likely diagnosis matched the reference diagnosis established by expert pulmonologists. A preplanned subgroup analysis focused on COPD cases. Of 234 randomized, 133 completed all 50 records (67 intervention, 66 control).
+
+---
+
+## Key Findings
+
+- **Preferred diagnosis accuracy: 58.7% (SD 7.0%) with AI vs. 49.7% (16.6%) without** (mean difference 9.0; 95% CI, 4.5-13.3; P=0.001)
+- **COPD cases showed the largest effect: 78.0% vs. 62.1%** (mean difference 15.9; 95% CI, 9.0-22.7; P&lt;0.001)
+- **Differential diagnosis performance also improved**: 74.1% vs. 66.8% (treatment effect 7.3; 95% CI, 3.0-11.7)
+- **Technical quality grading of FEV1 improved by 5.0 percentage points** (68.3% vs. 63.3%; 95% CI, 3.1-7.0) and FVC by 10.8 points (54.7% vs. 43.9%; 95% CI, 7.5-13.9)
+- **No effect on pattern interpretation** (64.9% vs. 65.8%) or self-rated confidence in diagnosis, technical grading, or pattern identification
+- **AI software alone achieved 60% accuracy** (30/50 all cases) and 90% (18/20 COPD cases)
+- **Treatment effects were consistent** across job roles (GP vs. non-GP) and National Spirometry Register membership
+
+<Callout type="evidence">
+  Spirometry is the most accessible lung function test in primary care, yet interpretation quality varies widely and contributes to chronic underdiagnosis of COPD and asthma. Expert pulmonologists with full clinical histories achieve about 61% diagnostic accuracy on spirometry alone. The AI-assisted primary care clinicians reached 58.7%, essentially matching specialist performance without access to the same clinical detail.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **The COPD improvement is the headline.** A 15.9 percentage point gain in COPD diagnostic accuracy is the largest treatment effect in the trial. Given that COPD is the condition where spirometry is most decisive and underdiagnosis most prevalent (exceeding 90% in some low-resource settings), this is precisely where AI support adds the most value.
+
+2. **Primary care clinicians reached specialist-level performance.** With AI support, GPs and nurses interpreting spirometry achieved diagnostic accuracy comparable to expert pulmonologists (58.7% vs. 61% in published benchmarks). The AI effectively compressed the expertise gap between primary and specialist care for this specific task.
+
+3. **Confidence did not change, which is actually interesting.** The AI improved diagnostic accuracy without improving clinicians' self-rated confidence. This suggests clinicians may not have trusted the AI enough to internalize its guidance, or that the "black box" nature of the software limited its educational impact. A more explainable AI component might close this gap.
+
+<Callout type="pitfall">
+  The 43% noncompletion rate raises questions about real-world uptake. Interpreting 50 spirometry records over 8 weeks is a substantial commitment for busy primary care clinicians, and those who completed the study may represent a more motivated, engaged subset. The trial also used an online platform rather than integration with clinical workflows, so the translation to point-of-care practice remains unproven.
+</Callout>
+
+4. **Quality grading may be as valuable as diagnosis.** The AI improved FVC technical quality assessment by nearly 11 percentage points. Poor-quality spirometry is pervasive in primary care and leads to misdiagnosis. AI that flags inadequate technique before interpretation even begins could prevent errors at their source.
+
+5. **Real-world implementation needs workflow integration.** The trial demonstrated efficacy on a research platform. For clinical impact, AI spirometry support must be embedded in the electronic health record and spirometry equipment, not presented as a separate tool requiring additional steps.
+
+---
+
+## My Takeaway
+
+Spirometry interpretation in primary care is a known weak point, and this trial demonstrates that AI can strengthen it meaningfully. The 9-point improvement across all cases and the 16-point improvement for COPD are clinically relevant, especially for a condition where delayed diagnosis leads to preventable exacerbations and hospitalizations. What concerns me is the confidence finding: clinicians got better answers but did not feel more confident giving them. That disconnect suggests the AI functioned as a crutch rather than a teacher. The ideal tool would improve both accuracy and understanding. Still, for a primary care nurse interpreting spirometry at 3 PM on a Friday, an AI report that shifts diagnostic accuracy from coin-flip territory to specialist range is a meaningful clinical advance.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2400804)

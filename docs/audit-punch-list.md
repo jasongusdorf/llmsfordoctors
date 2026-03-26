@@ -10,32 +10,39 @@
 
 | Metric | Count |
 |--------|-------|
-| **Total fix items** | 30 |
-| **S (Small, < 15 min)** | 15 |
-| **M (Medium, 15-60 min)** | 10 |
+| **Total fix items** | 45 |
+| **S (Small, < 15 min)** | 23 |
+| **M (Medium, 15-60 min)** | 17 |
 | **L (Large, 1+ hours)** | 5 |
+| **Resolved since original audit** | ~15 items (P2 mostly done, P3 done, P6 done) |
 
-### Breakdown by Collection
+### Breakdown by Area
 
-| Collection | Fix Items |
-|------------|-----------|
-| Templates (all 40) | 16 |
-| Guides (5) | 5 |
-| Trials (28) | 3 |
-| Tools (12) | 2 |
-| Workflows (6) | 2 |
-| Cross-collection (overlaps) | 2 |
+| Area | Open Items |
+|------|-----------|
+| Guides/Editorials (8 files) | 5 |
+| Templates (35 files) | ~5 (was 16; most of P2 resolved, 1 template remains) |
+| Trials (27 files) | 3 |
+| Tools (14 files) | 2 |
+| Workflows (6 files) | 2 |
+| Cross-collection (overlaps) | ~~2~~ 0 (P6 merges complete) |
+| Bugs & broken functionality (new) | 8 |
+| Content & style (new) | 4 |
+| Site polish (new) | 3 |
 
 ### Breakdown by Priority Tier
 
-| Priority | Items | Description |
-|----------|-------|-------------|
-| P1: Guide Fixes | 5 | Guide issues scoring below 4 |
-| P2: Template Consistency | 5 | Templates missing canonical sections |
-| P3: Template Prompt Quality | 2 | Templates with Prompt Quality < 4 |
-| P4: Cross-Linking Gaps | 8 | Files with Cross-linking < 4, across all collections |
-| P5: Tools/Workflows/Trials | 5 | Remaining reference content issues |
-| P6: Overlap Resolutions | 5 | Merge/differentiation recommendations |
+| Priority | Items | Status |
+|----------|-------|--------|
+| P1: Guide Fixes | 5 | Open (paths need updating for 2 files moved to editorials) |
+| P2: Template Consistency | 5 | **Mostly resolved.** 34/35 templates updated. 1 remains (discharge-summary-basic, moved to P9). |
+| P3: Template Prompt Quality | 2 | **Resolved.** Both referenced templates were merged. |
+| P4: Cross-Linking Gaps | 8 | Open (references to deleted templates need adjustment) |
+| P5: Tools/Workflows/Trials | 5 | Open |
+| P6: Overlap Resolutions | 5 | **Resolved.** All 5 merges complete. |
+| **P7: Bugs & Broken Functionality** | **8** | **New** |
+| **P8: Content & Style** | **4** | **New** |
+| **P9: Site Polish** | **3** | **New** |
 
 ---
 
@@ -355,14 +362,144 @@ Duplicate/overlap recommendations from the audit. Completing all 5 merges would 
 
 ---
 
+## Stale Items & Corrections (March 25 review)
+
+The original audit was generated March 22. The following changes have occurred since then and affect items above.
+
+### Template merges complete (P6 resolved)
+
+All 5 recommended merges have been executed. Template count is now **35**, not 40. The following files no longer exist:
+
+- `differential-diagnosis.mdx` — merged into `ddx-generator.mdx`
+- `case-summary-assessment.mdx` — merged into `case-synthesis.mdx`
+- `diagnosis-explainer.mdx` — merged into `condition-explainer.mdx`
+- `discharge-instructions-patient.mdx` — merged into `discharge-instructions.mdx`
+- `lifestyle-modification.mdx` — merged into `lifestyle-modification-plan.mdx`
+
+**Impact on other items:** P3 (both items referenced merged files) is resolved. P4 cross-linking tables that reference deleted templates need adjustment: replace `templates/differential-diagnosis` with `templates/ddx-generator`, `templates/case-summary-assessment` with `templates/case-synthesis`, etc. P6 is complete.
+
+### Two guides moved to editorials (affects P1)
+
+`llm-clinical-reasoning-comparison.mdx` and `evidence-landscape-2025.mdx` are now in `src/content/editorials/`, not `src/content/guides/`. All P1 cross-linking items that point to `guides/llm-clinical-reasoning-comparison` or `guides/evidence-landscape-2025` should use `/editorials/` paths. Guide count is now **3**; editorial count is **5**.
+
+### P2 template consistency mostly resolved
+
+34 of 35 templates now have all canonical sections with canonical names. No instances of old names ("Prompt Template", "Customization Guide", "Notes") remain. The sole exception:
+
+- `src/content/templates/discharge-summary-basic.mdx` — missing **Example Output** and **Variations** sections (has: When to use this, The prompt, How to customize, Tips & pitfalls, Related).
+
+### SAIL trial moved to editorials
+
+`sail-2025-ai-year-in-review-2025.mdx` no longer exists as a trial. The content is now at `src/content/editorials/sail-2025-ai-year-in-review.mdx`. P5 cross-linking references to this trial should point to the editorial instead.
+
+### Two new editorials unaudited
+
+The following editorials were added after the original audit and have not been scored against the content standards:
+
+- `src/content/editorials/epic-integrations-for-llms.mdx` (2026-03-25)
+- `src/content/editorials/sail-2025-ai-year-in-review.mdx` (2026-03-21)
+
+---
+
+## 8. Priority 7: Bugs & Broken Functionality
+
+Issues that break site functionality or produce visible errors for visitors.
+
+### Font file corrupt (every page affected)
+
+- [ ] **[S]** `public/fonts/Quadraat-Regular.woff2` — triggers "OTS parsing error: invalid sfntVersion: 1852861728" on every page load. The body text falls back to the Cormorant Garamond/Newsreader/Georgia stack. If the design depends on Quadraat as the display font, re-export or re-encode the .woff2 from the source .otf/.ttf file.
+
+### Broken import path
+
+- [ ] **[S]** `src/components/NewsSection.astro` line 3 — imports `NewsItem` type from `'../utils/fetch-news'`, which does not exist. The type is defined in `../utils/types.ts` and re-exported from `../utils/refresh-news.ts`. Change the import path.
+
+### ToolCard rating-0 display bug
+
+- [ ] **[S]** `src/components/ToolCard.astro` line 13 — clamps rating to 1-5 with `Math.min(5, Math.max(1, Math.round(rating)))`, which prevents rating 0 (the warning/red-border state) from displaying on tool cards. The ComparisonTable component correctly handles rating 0 as a special red-border warning case. The two components are inconsistent: tools rated 0 (Epic AI, Microsoft Copilot) display their warning state in the comparison table but show as 1-star on tool cards.
+
+### HTML entity in trial frontmatter
+
+- [ ] **[S]** `src/content/trials/ambient-ai-practitioner-wellbeing-rct-2025.mdx` line 6 — `keyFinding` field contains `P&lt;0.001` (HTML entity) instead of `P<0.001`. Renders as literal escaped HTML on the trials listing page.
+
+### External links missing noreferrer
+
+- [ ] **[S]** `src/components/NewsCard.astro` line 22 — `rel="noopener"` on `target="_blank"` links should be `rel="noopener noreferrer"`.
+
+### Newsletter form has no backend
+
+- [ ] **[M]** `src/components/Footer.astro` lines 55-76 — Newsletter signup form submits via POST with `name="newsletter"` but has no `action` URL and no API handler. Submissions go nowhere. Either implement a backend endpoint (Cloudflare Worker API route), integrate a third-party service (Buttondown, ConvertKit), or remove the form and the "Get new workflows and tool reviews delivered to your inbox" copy until a backend exists.
+
+### Contact form has no backend
+
+- [ ] **[M]** `src/pages/about.astro` lines 65-68 — Contact form with `method="POST"` and `name="contact"` has no submission handler. Same options as the newsletter form: implement a backend, use a third-party service, or remove the form.
+
+### No Stripe webhook handler
+
+- [ ] **[M]** Payment API routes exist (`src/pages/api/create-payment-intent.ts`, `src/pages/api/create-subscription.ts`) but there is no webhook endpoint to handle Stripe events (payment_intent.succeeded, invoice.payment_succeeded, customer.subscription.updated, etc.). One-time donations may work (Stripe Checkout handles the payment flow), but subscription lifecycle management (failed renewals, cancellations) has no server-side handling.
+
+---
+
+## 9. Priority 8: Content & Style
+
+Content quality issues outside the content-collection audit.
+
+### About page uses banned phrases
+
+- [ ] **[S]** `src/pages/about.astro` lines 44 and 47 — Two phrases from the banned list in the writing style guide:
+  - Line 44: "navigate the rapidly evolving landscape of AI tools" (banned: "rapidly evolving")
+  - Line 47: "the intersection of technology, medicine, and privacy" (banned: "the intersection of X and Y")
+  - Line 44 also uses "cutting through hype" (close to the banned "game-changer" register)
+
+  Rewrite the bio to comply with the style guide. The bio section also reads as a list of attributes rather than showing the reader who this person is. Per the style guide's "About / Bio Pages" examples, it should be first-person, conversational, and specific.
+
+### Videos collection is off-brand
+
+- [ ] **[M]** 3 of 5 videos are developer-focused coding tutorials with no clinical relevance for the stated physician audience:
+  - `claude-code-full-course-2026.mdx` (priority 4) — 4-hour software engineering course
+  - `autoresearch-claude-skills.mdx` (priority 2) — developer automation tool
+  - `claude-code-animated-sites.mdx` (priority 1) — web animation tutorial
+  - `bernie-vs-claude.mdx` (priority 1) — tangentially relevant policy video
+
+  Only `3blue1brown-transformers.mdx` (priority 5) has clear educational value for a clinician audience. The collection needs clinical AI content: ambient scribe demos, clinical decision-support walkthroughs, physician workflow tutorials. Replace or supplement the developer-focused entries.
+
+### Donate page lacks transparency
+
+- [ ] **[S]** `src/pages/donate.astro` — Single paragraph of copy above the donation widget. No information about where funds go, no cost breakdown (hosting, tools, research time), no tax-deductibility statement, no mention of the site's independence or what donors are supporting beyond "hosting, research time, and tool reviews." Donors who scroll past the one sentence see only the payment form. Add a brief "Where your money goes" section.
+
+### New editorials need audit scoring
+
+- [ ] **[M]** Score the two post-audit editorials against the content standards rubric (6 shared dimensions):
+  - `src/content/editorials/epic-integrations-for-llms.mdx` (added 2026-03-25)
+  - `src/content/editorials/sail-2025-ai-year-in-review.mdx` (added 2026-03-21)
+
+---
+
+## 10. Priority 9: Site Polish
+
+Minor issues that affect consistency or code quality but are not user-visible bugs.
+
+### Footer nav inconsistent with top nav
+
+- [ ] **[S]** `src/components/Footer.astro` lines 4-13 — Footer links include 8 items (Workflows, Guides, Tools, Templates, Trials, Community, About, Donate) but omit Videos and Editorials, which are in the top nav (`src/components/Nav.astro`).
+
+### Unused import
+
+- [ ] **[S]** `src/pages/index.astro` line 6 — `Sidebar` component is imported but never used in the page template. Remove the dead import.
+
+### discharge-summary-basic still missing canonical sections
+
+- [ ] **[M]** `src/content/templates/discharge-summary-basic.mdx` — The only template of 35 still missing **Example Output** and **Variations** sections. All other templates have been updated to the full canonical structure.
+
+---
+
 ## Verification Checklist
 
 All sub-4 scores from the audit report are accounted for:
 
-- **Guides:** Cross-linking (1, 2, 3, 3), Summary/TL;DR (1, 3), Practical Examples (3, 3), Actionability (3), Navigation (4, 4 — addressed for 887-line and 502-line guides), Structure (4 — addressed) -- all covered in P1
-- **Templates (all 40):** Example Output (1 x 40), Variations (1-2 x 40), Cross-linking (1-3 x 40), Instructions (2-3 x 40), Consistency (3 x 40), Navigation (3 x 40), Audience Fit (3 on 5 files), Prompt Quality (3 on 2 files) -- covered in P2, P3, P4, P5
+- **Guides:** Cross-linking (1, 2, 3, 3), Summary/TL;DR (1, 3), Practical Examples (3, 3), Actionability (3), Navigation (4, 4 — addressed for 887-line and 502-line guides), Structure (4 — addressed) -- all covered in P1. **Note:** 2 of 5 files are now in editorials; paths updated in Stale Items section.
+- **Templates (35, was 40):** Example Output resolved for 34/35 (only discharge-summary-basic remains — P9). Variations, section naming, "When to use this", "Tips & pitfalls" — all resolved for 34/35. Cross-linking (1-3 x 35) — still open in P4 (with path corrections for merged templates). Prompt Quality — P3 resolved (both referenced files merged).
 - **Tools:** Cross-linking (3 on 4 tools) -- covered in P4
 - **Workflows:** Cross-linking (1, 2, 2, 2, 3) -- covered in P4
-- **Trials:** Cross-linking (3 on 1, 4 on 26), Actionability (3 on 1), Freshness (3 on 1), missing DOI (10 files) -- covered in P4, P5
+- **Trials (27, was 28):** Cross-linking (3 on 1, 4 on 26), Actionability (3 on 1), Freshness (3 on 1), missing DOI (10 files) -- covered in P4, P5. **Note:** SAIL trial moved to editorials.
 
-No issues silently dropped.
+New issues from March 25 review: 8 bug/functionality items (P7), 4 content/style items (P8), 3 polish items (P9).

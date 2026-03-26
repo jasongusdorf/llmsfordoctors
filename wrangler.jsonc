@@ -7,6 +7,10 @@
       "binding": "NEWS_CACHE",
       "id": "a2086760569f412bb14985596aa7bd36",
       "preview_id": "f390c94fde424ef4a7e3c147e8c4e4d0"
+    },
+    {
+      "binding": "FORM_STORE",
+      "id": "cd9c5e26f2324bdb980b9878faae1760"
     }
   ]
 }

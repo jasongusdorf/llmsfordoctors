@@ -1,0 +1,55 @@
+---
+title: "AI Disagreement Increases Perceived Legal Liability for Radiologists"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIoa2400785"
+keyFinding: "When AI detected a pathology that a radiologist missed, mock jurors found the radiologist liable 72.9% of the time (brain bleed) and 78.7% (lung cancer), compared with 56.3% and 65.2% when no AI was used, but disclosing AI error rates reduced perceived culpability."
+lastUpdated: 2026-03-25
+tags: [radiology, legal-liability, malpractice, ai-perception, vignette-study]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Radiologists who ignore AI may face harsher juries than those who never used it. This randomized vignette study recruited 1,334 U.S. adults through the Prolific platform (652 for a brain bleed scenario, 682 for lung cancer) to act as mock jurors evaluating a malpractice case against a radiologist who missed a finding. Participants were randomly assigned to one of five conditions: no AI (control), AI agrees with radiologist (both miss the finding), AI disagrees (AI catches what the radiologist missed), AI disagrees with the AI's false discovery rate disclosed, or AI agrees with the AI's false omission rate disclosed. The primary measure was whether participants sided with the plaintiff (finding the radiologist liable) or the defense.
+
+---
+
+## Key Findings
+
+- **AI disagree condition increased liability judgments**: 72.9% sided with the plaintiff for brain bleeds (vs. 56.3% in no-AI control, P=0.01) and 78.7% for lung cancer (vs. 65.2%, P=0.04)
+- **AI agree condition showed no effect**: 50.0% (brain bleed) and 63.5% (cancer) sided with the plaintiff, statistically indistinguishable from the no-AI control
+- **Disclosing the AI's 50% false discovery rate reduced liability** in the AI disagree condition: brain bleed dropped from 72.9% to 48.8% (P=0.001); cancer showed a similar but nonsignificant trend (78.7% to 73.1%)
+- **Disclosing the AI's 1% false omission rate also helped** in the AI agree condition: brain bleed dropped from 50.0% to 34.0% (P=0.01); cancer showed a nonsignificant decrease
+- **No demographic moderators** (sex, age, education, race, income) reached statistical significance
+
+<Callout type="evidence">
+  This study provides the first experimental evidence for what legal scholars have theorized: AI creates a one-way ratchet on radiologist liability. Disagreeing with AI that correctly flags a finding increases liability, but agreeing with AI that correctly misses nothing offers no protective benefit. Transparency about AI error rates is the only demonstrated countermeasure.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **The "AI penalty" is real and asymmetric.** When AI catches something a radiologist misses, juries punish the radiologist more than they would have without AI. When AI confirms a radiologist's (correct) negative read, juries give no credit. This asymmetry creates perverse incentives: radiologists may feel pressure to agree with every AI flag, even when clinical judgment says otherwise, driving overdiagnosis and overtesting.
+
+2. **Error rate disclosure is a practical defense strategy.** Telling mock jurors that 50% of AI-positive cases were false alarms cut liability judgments nearly in half. Radiology practices deploying AI should document and disclose performance metrics. This data does not just serve quality improvement; it may function as a legal shield.
+
+<Callout type="pitfall">
+  This was an online vignette study with simplified scenarios, not an actual courtroom. Real jurors deliberate collectively, receive detailed evidence, and are influenced by expert testimony. The magnitude of these effects could be larger or smaller in practice. The directional finding, however, is consistent with prior work and legal theory.
+</Callout>
+
+3. **Institutional AI governance matters for liability.** Hospitals and practices deploying radiology AI need clear documentation of when AI is used, what its known error rates are, and how discordant findings are handled. The absence of such documentation could be as damaging in litigation as the missed finding itself.
+
+4. **Radiologists need to understand this dynamic before AI becomes standard of care.** If AI radiology tools become ubiquitous, the legal question shifts from "did the radiologist miss the finding?" to "did the radiologist ignore the AI that found it?" That is a fundamentally different standard of care, and the profession should be preparing for it now.
+
+---
+
+## My Takeaway
+
+This study quantifies a fear that many radiologists already have: that AI will be used against them in court. The data confirms the intuition, but it also points to a solution. Disclosing AI error rates, specifically the false discovery rate, substantially reduced perceived liability. The practical takeaway is not to avoid AI but to document its imperfections transparently. A radiologist who can explain that the AI flags 50% false positives has a better legal position than one who simply overrode an opaque system. For departments adopting AI, error rate documentation should be treated as a medicolegal requirement, not an afterthought.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2400785)

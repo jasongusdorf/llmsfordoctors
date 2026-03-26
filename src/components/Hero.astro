@@ -48,5 +48,30 @@ import AuroraBackground from './ui/aurora-background.astro';
     <div class="max-w-xl mx-auto">
       <SearchBar />
     </div>
+
+    <!-- Physician Forum callout -->
+    <a
+      href="https://community.llmsfordoctors.com"
+      class="group block max-w-2xl mx-auto mt-8"
+    >
+      <div class="relative px-8 py-6 border border-clinical-600/40 rounded-sm bg-clinical-800/40 hover:bg-clinical-800/60 hover:border-clinical-500/50 transition-all duration-300">
+        <div class="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-clinical-500/40 to-transparent"></div>
+        <div class="flex items-center justify-center mb-3">
+          <svg class="w-5 h-5 text-clinical-400 group-hover:text-clinical-300 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 2v20M9 5c0-1 1.5-2 3-2s3 1 3 2-1.5 2-3 2-3-1-3-2zM9 9c0-1 1.5-2 3-2s3 1 3 2-1.5 2-3 2-3-1-3-2zM9 13c0-1 1.5-2 3-2s3 1 3 2-1.5 2-3 2-3-1-3-2z" />
+          </svg>
+        </div>
+        <p class="font-display text-xs font-semibold uppercase tracking-[0.3em] text-clinical-400 group-hover:text-clinical-300 transition-colors mb-2 text-center">
+          Physician Forum
+        </p>
+        <p class="font-display text-xl sm:text-2xl font-medium italic text-clinical-200 group-hover:text-white transition-colors leading-snug text-center">
+          Join the conversation with verified colleagues
+        </p>
+        <p class="font-body text-xs text-clinical-400 mt-3 tracking-wide text-center">
+          NPI-verified &ensp;&middot;&ensp; Ad-free &ensp;&middot;&ensp; Physician-moderated
+        </p>
+        <div class="absolute bottom-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-clinical-500/40 to-transparent"></div>
+      </div>
+    </a>
   </div>
 </AuroraBackground>

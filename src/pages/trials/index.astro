@@ -2,9 +2,22 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
+import TrialList from '../../components/TrialList.tsx';
 
 const allTrials = await getCollection('trials');
-const sorted = allTrials.sort((a, b) => b.data.year - a.data.year);
+
+const trialsData = allTrials.map((t) => ({
+  id: t.id,
+  title: t.data.title,
+  journal: t.data.journal,
+  year: t.data.year,
+  keyFinding: t.data.keyFinding,
+  tags: t.data.tags,
+  lastUpdated: t.data.lastUpdated.toISOString(),
+}));
+
+const allJournals = [...new Set(allTrials.map((t) => t.data.journal))].sort();
+const allTags = [...new Set(allTrials.flatMap((t) => t.data.tags))].sort();
 ---
 
 <BaseLayout
@@ -23,51 +36,13 @@ const sorted = allTrials.sort((a, b) => b.data.year - a.data.year);
       </p>
     </header>
 
-    {sorted.length === 0 ? (
+    {trialsData.length === 0 ? (
       <div class="text-center py-20 text-clinical-500 dark:text-clinical-400">
         <p class="text-xl font-medium">Trial reviews coming soon.</p>
         <p class="mt-2 text-sm">We're reviewing key clinical trials on AI in medicine. Check back soon.</p>
       </div>
     ) : (
-      <ul class="space-y-5">
-        {sorted.map((trial) => (
-          <li>
-            <a
-              href={`/trials/${trial.id}`}
-              class="block p-5 rounded-lg border border-clinical-200 dark:border-clinical-700 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-sm transition-all group bg-white dark:bg-clinical-800"
-            >
-              <div class="flex items-start gap-4">
-                <div class="shrink-0 text-center min-w-[3.5rem]">
-                  <span class="block text-2xl font-bold text-clinical-800 dark:text-clinical-200 leading-none">
-                    {trial.data.year}
-                  </span>
-                  <span class="block text-xs text-clinical-500 dark:text-clinical-400 truncate max-w-[5rem]">
-                    {trial.data.journal.split(' ').slice(0, 2).join(' ')}
-                  </span>
-                </div>
-                <div class="flex-1 min-w-0">
-                  <h2 class="font-semibold text-clinical-900 dark:text-clinical-50 group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-1">
-                    {trial.data.title}
-                  </h2>
-                  <p class="text-sm text-clinical-600 dark:text-clinical-400 mb-2 line-clamp-2">
-                    {trial.data.keyFinding}
-                  </p>
-                  {trial.data.tags.length > 0 && (
-                    <div class="flex flex-wrap gap-1">
-                      {trial.data.tags.slice(0, 4).map((tag) => (
-                        <span class="px-2 py-0.5 rounded text-xs bg-clinical-100 dark:bg-clinical-700 text-clinical-600 dark:text-clinical-300">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <span class="text-clinical-400 group-hover:text-blue-500 transition-colors shrink-0 mt-1">→</span>
-              </div>
-            </a>
-          </li>
-        ))}
-      </ul>
+      <TrialList trials={trialsData} journals={allJournals} tags={allTags} client:load />
     )}
   </div>
 </BaseLayout>

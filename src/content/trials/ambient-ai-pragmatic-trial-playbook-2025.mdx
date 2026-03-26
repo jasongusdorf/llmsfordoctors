@@ -1,0 +1,57 @@
+---
+title: "A Playbook for Deploying and Evaluating Ambient AI in Clinical Practice"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIdbp2401267"
+keyFinding: "A structured implementation playbook achieved a weighted median ambient AI utilization rate of 65.4% across 20 providers, with an LLM-based ICD-10 coding review system correlating at r=0.97 with professional coders."
+lastUpdated: 2026-03-25
+tags: [ambient-ai, implementation, clinical-documentation, pragmatic-trial, EHR-integration, workflow]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Deploying ambient AI is easy. Deploying it well is not. This study from the University of Wisconsin describes both the implementation framework and the embedded pragmatic trial design used to evaluate Abridge ambient AI software integrated into Epic. The work unfolded in two phases: an implementation phase (June to October 2024) with 20 providers across 5 specialties and 12 clinic locations, followed by a 24-week stepped-wedge randomized clinical trial enrolling 66 providers across 8 specialties, powered at 90% to detect changes in provider well-being (Professional Fulfillment Index). The framework, which the authors call the Pragmatic Trial Operations (PTOps) Playbook, covers five domains: governance, user experience, technical integration, documentation compliance, and analytics. A real-time dashboard monitored utilization, documentation accuracy, and workflow drift using difference-in-differences analysis. All protocols and code are publicly available.
+
+---
+
+## Key Findings
+
+- **Weighted median daily utilization reached 65.4%** (interquartile range, 50.6 to 84.0%) during the implementation phase, higher than rates reported in prior ambient AI studies
+- **Average time spent on notes decreased by 0.35 hours** (95% CI, 0.05 to 0.64) over the first two weeks of use
+- **A note template change temporarily dropped ICD-10 documentation accuracy from 79% to 35%** (95% CI, 28 to 42%), demonstrating how EHR workflow changes can disrupt AI performance
+- **Accuracy recovered to 80%** (95% CI, 76 to 84%) after template redesign and targeted retraining
+- **An internally developed LLM-based ICD-10 coder achieved macro-averaged precision of 0.88** (95% CI, 0.87 to 0.88) and recall of 0.66 (95% CI, 0.65 to 0.67) against professional coders
+- **Pearson's correlation between LLM and professional coder compliance scores was 0.97** (95% CI, 0.97 to 0.98), validating automated monitoring at scale
+- **Professional coders spent 598 hours on manual review** during the implementation phase alone, underscoring why automated compliance monitoring is necessary
+
+<Callout type="evidence">
+  This is one of the first papers to describe a complete, open-source operational framework for evaluating ambient AI in clinical practice. The playbook approach, with its bidirectional governance model and real-time monitoring, offers a template that other health systems can adapt rather than build from scratch.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Ambient AI adoption requires active governance, not just installation.** The note template incident illustrates the point: a routine EHR change, unrelated to the AI itself, cut diagnostic coding accuracy in half. Without real-time monitoring, this would have gone undetected. The dashboard and difference-in-differences analysis caught it within weeks.
+
+2. **Automated compliance monitoring is not optional at scale.** Manual professional coder review consumed nearly 600 hours for just 20 providers. The LLM-based ICD-10 coder, with its 0.97 correlation to human coders, makes ongoing monitoring feasible for the 66-provider trial and beyond.
+
+<Callout type="pitfall">
+  The implementation phase involved only 20 providers, and participation may skew toward early adopters with higher technology literacy. The stepped-wedge trial results for the primary well-being outcome have not yet been reported. Whether utilization rates and workflow improvements persist over months, rather than weeks, remains unknown.
+</Callout>
+
+3. **Workflow integration matters more than model quality.** The biggest threat to documentation accuracy was not the AI model itself but the way its outputs interacted with EHR note templates and coding workflows. Health systems deploying ambient AI should plan for iterative template design, not treat it as a one-time configuration task.
+
+4. **The open-source playbook is the most actionable contribution.** Protocols, randomization code, survey instruments, onboarding materials, and analytics code are all available in a public GitLab repository. For health systems planning ambient AI deployments, this saves months of groundwork.
+
+---
+
+## My Takeaway
+
+Most ambient AI studies tell you whether the tool works. This one tells you how to make it work, and what happens when the surrounding systems change. The note template incident is the most instructive finding in the paper: a perfectly good AI product can fail not because of its own limitations but because an EHR change upstream breaks the workflow downstream. The 0.97 correlation for the LLM coder is equally significant. If you can automate compliance monitoring at that fidelity, you can scale ambient AI oversight without scaling your coding workforce. For any CMIO or informatics lead planning an ambient AI deployment, this playbook belongs on the reading list before the vendor demo.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIdbp2401267)

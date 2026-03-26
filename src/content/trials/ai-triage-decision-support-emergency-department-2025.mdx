@@ -1,0 +1,57 @@
+---
+title: "AI-Based Triage Decision Support Improves ED Performance across Three Emergency Departments"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIoa2400296"
+keyFinding: "An AI triage clinical decision support tool deployed across three EDs (174,648 visits) improved sensitivity for identifying critical care patients from 78.8% to 83.1% and reduced median time from arrival to treatment area by 33% (12.0 to 8.0 minutes)."
+lastUpdated: 2026-03-25
+tags: [emergency-medicine, triage, clinical-decision-support, machine-learning, patient-flow]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+A multisite quality improvement study using a preintervention and postintervention design across three EDs within a large regional health system in Connecticut, encompassing 174,648 visits (83,404 preintervention, 91,244 postintervention). The AI triage clinical decision support (CDS) tool, embedded in the EHR (Epic), used site-specific machine learning models trained on demographics, vital signs, chief complaint, arrival mode, and comorbidities to predict three outcomes: critical care need, emergency surgery, and hospitalization. Predicted probabilities were translated into recommended triage levels (1-5) with individualized natural-language explanations generated via SHAP values. Nurses received the recommendation in real time but retained full autonomy over the final triage assignment. Data collection spanned from November 2020 through October 2023, with staggered intervention rollouts across sites.
+
+---
+
+## Key Findings
+
+- **Low-acuity visits increased 48.2%** (23.9% to 35.4%) postintervention while mid-acuity visits decreased 18.7% (48.8% to 39.7%), reflecting deliberate redistribution by the AI CDS recommendations.
+- **Sensitivity for identifying critical care patients improved** from 78.8% (nurse alone) to 83.1% (nurse + AI; 95% CI, 80.9-85.0%; P&lt;0.001).
+- **Median time from arrival to treatment area dropped 33%** (12.0 to 8.0 minutes), with the largest reductions among critically ill patients.
+- **Time to ED departure fell 6.1%** (median 311.0 to 292.0 minutes), with critically ill patients seeing a 21.5% adjusted reduction (median difference 58 minutes).
+- **Hospitalization rates among low-acuity patients remained below 4%,** confirming that downtriaging did not compromise safety.
+- **Nurse agreement varied substantially.** High-agreement nurses (median 79.1% concordance) outperformed the AI alone on critical care sensitivity (85.4% vs. 82.8%), while low-agreement nurses underperformed (69.2%).
+- **AI alone achieved AUROCs of 0.87-0.90 for critical care** across all three sites, with consistent performance for hospitalization (0.80-0.82) and emergency surgery (0.76-0.81).
+
+<Callout type="evidence">
+  This is the first multisite study to demonstrate real-world improvements in both triage accuracy and ED patient flow from an AI-informed CDS tool, with data from over 174,000 visits across three distinct ED settings.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **AI triage redistributes acuity, not just labels.** The tool did not simply change triage numbers. It restructured which patients received which care pathways, moving a substantial proportion out of the ambiguous mid-acuity group and into clearer high- or low-acuity tracks. For crowded EDs, that differentiation translates directly into faster throughput.
+
+2. **The nurse-AI relationship determines performance.** Nurses who agreed with AI recommendations more often produced better outcomes than either the AI or nurses working alone. Nurses who frequently overrode the AI performed worse. This suggests the CDS works best when nurses engage with its reasoning rather than reflexively accepting or rejecting it.
+
+<Callout type="pitfall">
+  Low-agreement nurses (bottom quartile, median concordance 57.2%) had worse triage performance postintervention than preintervention nurse-alone baselines. AI decision support does not uniformly improve care; how clinicians interact with it determines the outcome.
+</Callout>
+
+3. **Patient flow gains are clinically meaningful.** A 4-minute reduction in time to initial care area and a 58-minute reduction in ED departure time for critically ill patients represent real operational improvements, particularly given an 8.1% increase in patient volume during the study period.
+
+4. **Single health system limits generalizability.** All three EDs were in Connecticut within one organization. Triage practices, nurse training, and patient populations vary substantially across regions. The staggered implementation helps, but external validation remains necessary.
+
+---
+
+## My Takeaway
+
+This study offers something rare in the AI-in-medicine literature: a real-world deployment with enough patients and enough time to demonstrate operational impact. The triage redistribution pattern is smart, pulling patients out of the murky ESI level 3 middle ground where most variability lives and most delays accumulate. What makes the finding actionable is the nurse agreement analysis. The AI works well as a decision support tool for nurses who engage with it thoughtfully. It does not work as an override button, and it does not work when ignored. That distinction should shape how health systems introduce AI triage: not as a replacement for clinical judgment, but as a structured second opinion that rewards engagement.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2400296)

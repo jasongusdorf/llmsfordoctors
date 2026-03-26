@@ -1,6 +1,6 @@
 ---
 import NewsCard from './NewsCard.astro';
-import type { NewsItem } from '../utils/fetch-news';
+import type { NewsItem } from '../utils/types';
 
 interface Props {
   items: NewsItem[];
@@ -15,21 +15,18 @@ const formattedDate = updatedAt
 
 {items.length > 0 && (
   <section>
-    <div class="flex items-baseline justify-between mb-6">
-      <div>
-        <h2 class="font-heading text-2xl font-bold text-clinical-900 dark:text-clinical-50">
-          Latest AI in Medicine Research
-        </h2>
-        <p class="mt-1 text-sm text-clinical-500 dark:text-clinical-400">Top journal articles, updated daily</p>
-      </div>
+    <div class="border-t border-clinical-200 dark:border-clinical-700 pt-8 mb-6">
+      <h2 class="font-heading text-2xl font-bold text-clinical-900 dark:text-clinical-50">
+        Latest AI in Medicine Research
+      </h2>
+      {formattedDate && (
+        <p class="mt-1 text-sm text-clinical-400 dark:text-clinical-500">Updated {formattedDate}</p>
+      )}
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {items.map((item) => (
         <NewsCard {...item} />
       ))}
     </div>
-    {formattedDate && (
-      <p class="mt-4 text-xs text-clinical-400 dark:text-clinical-500">Updated on {formattedDate}</p>
-    )}
   </section>
 )}

@@ -1,0 +1,57 @@
+---
+title: "GPT-4 Plain Language Translation of Discharge Summaries Improves Patient Comprehension, Especially in Underserved Populations"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIoa2400402"
+keyFinding: "GPT-4 translation of discharge summary notes improved objective comprehension by 1.2 of 4 points (P&lt;0.001), subjective comprehension by 2.4 of 16 points (P&lt;0.001), and self-reported confidence by 2.0 of 8 points (P&lt;0.001) among 553 patients, with larger gains in Black and Hispanic patients."
+lastUpdated: 2026-03-25
+tags: [health-literacy, GPT-4, discharge-summaries, patient-comprehension, equity, clinical-notes]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+A cross-sectional study enrolled 553 patients from Duke University Health System (three inpatient hospitals and multiple outpatient clinics) between December 2023 and February 2024. Patients read four discharge summary notes (DSNs) covering common admission diagnoses: community-acquired pneumonia, congestive heart failure, diabetic ketoacidosis, and acute ischemic stroke. For each patient, two DSNs were randomly selected for GPT-4 plain language translation; the other two remained as original clinician-written text. After reading each note, patients completed questionnaire items measuring objective comprehension (0-4 points via multiple-choice questions), subjective comprehension (0-16 points via Likert scales), self-reported confidence (0-8 points), and reading time. Enrollment was enriched for Black and Hispanic patients. The study used generalized estimating equations to quantify translation effects and differential impacts across demographics.
+
+---
+
+## Key Findings
+
+- **Objective comprehension improved by 1.2 points** (from 1.9 to 3.1 out of 4; 95% CI, 1.09-1.26; P&lt;0.001), a 63% relative increase.
+- **Subjective comprehension rose by 2.4 points** (from 12.6 to 15.0 out of 16; 95% CI, 2.15-2.71; P&lt;0.001).
+- **Self-reported confidence increased by 2.0 points** (from 4.3 to 6.3 out of 8; 95% CI, 1.82-2.13; P&lt;0.001).
+- **Black patients gained an additional 0.35 points** on objective comprehension beyond the baseline translation effect (95% CI, 0.17-0.53); Hispanic patients gained an additional 0.81 points (95% CI, 0.29-1.34).
+- **Patients with low health knowledge saw the largest subjective comprehension gains,** with an additional 2.81 points beyond the baseline effect (95% CI, 1.88-3.75).
+- **Reading speed decreased** from 412.3 to 328.1 words per minute, but total reading time also decreased (319.1 to 170.9 seconds), as the translated notes were substantially shorter.
+- **Improvements were consistent across all four diagnoses,** with statistically significant gains in both objective and subjective comprehension for each condition.
+
+<Callout type="evidence">
+  This is the first large-scale study to demonstrate that GPT-4 plain language translation of clinical notes improves both objectively measured and self-reported comprehension. The emphasis on objective measurement (multiple-choice testing, not just self-assessment) is a critical methodological strength, since patients are known to overestimate their understanding of health information.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **The comprehension gap is real, and GPT-4 narrows it.** Patients scored 1.9 out of 4 on objective comprehension of untranslated discharge summaries. That is a failing grade. Translation nearly doubled the score. For a health system mandated by the 21st Century Cures Act to share notes with patients, the question is no longer whether patients can access their records but whether they can understand them.
+
+2. **The equity signal is the most important finding.** GPT-4 translation disproportionately helped Black patients, Hispanic patients, older adults, and those with limited health knowledge. These are the populations most likely to be readmitted, least likely to follow up correctly, and most likely to misunderstand their medication regimens. An intervention that narrows health literacy gaps across demographics is rare.
+
+<Callout type="pitfall">
+  Patients read standardized DSNs, not their own discharge summaries. Real-world implementation would require automated systems to locate, extract, and translate individual patients' notes securely within the EHR. Translation accuracy and completeness for personalized, complex notes with multiple comorbidities remain unvalidated.
+</Callout>
+
+3. **Slower reading, faster finishing.** Patients read translated notes more slowly per word but finished faster overall because the translations were shorter. That pattern suggests more careful engagement with the content, not just faster scanning. Comprehension gains confirm this interpretation.
+
+4. **Education level did not predict differential benefit.** The translation helped patients regardless of formal education, but patients with low self-reported health knowledge benefited more. That distinction matters: health literacy and education level are correlated but not synonymous, and this study suggests health knowledge is the better predictor of who benefits most.
+
+---
+
+## My Takeaway
+
+Nine in ten U.S. adults struggle with health literacy, and the average discharge summary reads at a college level. This study shows GPT-4 can close that gap in a measurable, meaningful way, particularly for the patients who need it most. The equity findings are what set this apart. An intervention that helps everyone but helps Black, Hispanic, and low-health-literacy patients more is doing exactly what the health system needs. The next step is clear: validate this with patients' own discharge notes, not standardized ones, and build the infrastructure to do it automatically within the EHR.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2400402)

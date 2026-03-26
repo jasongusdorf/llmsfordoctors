@@ -1,0 +1,56 @@
+---
+title: "ECGFounder: A Foundation Model Built on Over 10 Million ECG Recordings"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIoa2401033"
+keyFinding: "A foundation model trained on 10.7 million expert-annotated ECGs from 1.8 million patients achieved AUROC above 0.95 for 80 of 150 cardiac diagnoses, outperformed cardiologists on a 20-category consensus test set (F1 0.677 vs. 0.640), and generalized across three external databases and multiple downstream tasks including single-lead wearable ECG analysis."
+lastUpdated: 2026-03-25
+tags: [ecg, foundation-model, deep-learning, cardiac, arrhythmia, wearable, transfer-learning]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Li, Aguirre, and colleagues built ECGFounder, a general-purpose ECG foundation model trained on the Harvard-Emory ECG Database (HEEDB), which contains 10,771,552 expert-annotated 12-lead ECGs from 1,818,247 patients with 150 diagnostic labels. The architecture is a RegNet-based encoder (Net1D) designed to handle variable-length, multilead ECG data. To address the problem of incomplete annotations (cardiologists typically label only a subset of findings per ECG), the team introduced a positive-unlabeled learning approach that dynamically adjusts loss weights. The model was validated internally on a committee-annotated test set (523 ECGs reviewed by three cardiologists), and externally on three databases: CODE-test (827 patients, Brazil), PTB-XL (18,885 patients, Germany), and PhysioNet Challenge 2017 (3,658 single-lead recordings). Fine-tuning experiments used MIMIC-IV-ECG for downstream tasks including age, sex, LVEF, CKD, CHD, and NT-proBNP detection.
+
+---
+
+## Key Findings
+
+- **AUROC exceeded 0.95 for 80 of 150 diagnostic categories** on internal validation of 12-lead ECGs
+- **Outperformed cardiologists** on a 20-category consensus test set: average F1 of 0.677 (95% CI, 0.480 to 0.802) vs. cardiologists' 0.640, with AUROC of 0.968 (95% CI, 0.955 to 0.982)
+- **External validation on CODE-test** yielded an average AUROC of 0.981 (95% CI, 0.979 to 0.984), surpassing three baseline models (S12L-ECG, CTN, ECG-SE-ResNet) by 1 to 2 points
+- **Single-lead ECG performance** remained competitive with 12-lead on the PhysioNet 2017 dataset, enabling wearable device applications
+- **Fine-tuned models surpassed baselines by 3 to 5 AUROC points** on downstream tasks including LVEF detection, CKD screening, and NT-proBNP prediction
+- **Cross-modality transfer**: fine-tuned on PPG (photoplethysmography) data for atrial fibrillation detection, demonstrating generalization beyond ECG
+
+<Callout type="evidence">
+  ECGFounder is trained on approximately 10 times more ECGs than any prior foundation model, with expert annotations across 150 categories rather than the 5 to 30 typical of earlier work. The positive-unlabeled learning approach addresses a real problem in ECG databases: cardiologists annotate what they see, but absence of a label does not mean absence of the finding.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **A single model for 150 diagnoses.** Current commercial ECG algorithms typically address 10 to 30 conditions with separate, purpose-built models. ECGFounder handles morphology, rhythm, conduction, and infarction patterns in one architecture. For health systems evaluating AI-ECG solutions, this breadth matters: one model to validate, one model to maintain.
+
+2. **Wearable ECG analysis becomes viable.** The lead augmentation strategy allows the model to maintain diagnostic accuracy on single-lead recordings. With consumer devices from Apple, AliveCor, and others generating millions of single-lead ECGs daily, a foundation model that can interpret them with near-clinical accuracy would change remote monitoring from rhythm detection to comprehensive cardiac screening.
+
+3. **Fine-tuning unlocks non-ECG diagnoses.** The model detected chronic kidney disease, estimated LVEF, and predicted NT-proBNP levels from ECG tracings alone. These are conditions that currently require blood tests or echocardiography. A fine-tuned ECGFounder running on a standard 12-lead could flag patients who need further workup before laboratory results return.
+
+<Callout type="pitfall">
+  The HEEDB training data comes from a single U.S. health system (Emory), and the patient demographics skew older and male. Although external validation on Brazilian and German datasets is encouraging, performance in underrepresented populations (particularly younger women and non-Western demographics) remains underexplored. The model is also not validated for critical time-sensitive diagnoses like acute STEMI, where seconds matter and false negatives carry catastrophic risk.
+</Callout>
+
+4. **Positive-unlabeled learning is a methodological advance.** ECG databases are not cleanly labeled; the absence of a diagnosis annotation often reflects incomplete documentation rather than true absence. ECGFounder's loss function accounts for this, reducing the problem of training on noisy negatives. Other medical AI domains with similar labeling challenges (radiology reports, pathology) could adopt this approach.
+
+---
+
+## My Takeaway
+
+Scale matters in foundation models, and ECGFounder has more of it than anything before: 10.7 million ECGs, 150 diagnostic labels, 1.8 million patients. The results confirm what smaller studies have suggested: pretrained ECG models generalize well, fine-tune efficiently, and can match or exceed cardiologist performance on structured diagnostic tasks. The single-lead capability is the finding with the most immediate practical impact. Wearable ECGs are already ubiquitous, but their diagnostic value is limited to atrial fibrillation detection because that is all current algorithms handle. A foundation model that brings 150-diagnosis capability to a wristwatch sensor would represent a genuine shift in how cardiac disease is detected outside the hospital.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2401033)

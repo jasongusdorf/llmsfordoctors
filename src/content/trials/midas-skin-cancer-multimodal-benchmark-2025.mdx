@@ -1,0 +1,59 @@
+---
+title: "MIDAS: A Multimodal Benchmark Dataset for AI-Based Skin Cancer Diagnosis"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIdbp2400732"
+keyFinding: "Four published dermatology AI models showed significant performance declines when tested on MIDAS's 3,830 prospectively collected real-world images from 796 patients, with ADAE's AUROC dropping from 0.857 to 0.82 and all models underperforming their original benchmarks."
+lastUpdated: 2026-03-25
+tags: [dermatology, skin-cancer, benchmark-dataset, melanoma, multimodal, dermoscopy, clinical-images, ai-evaluation]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Dermatology AI models report impressive numbers, then stumble on real patients. MIDAS was built to measure exactly how much they stumble. The Melanoma Research Alliance Multimodal Image Dataset for AI-based Skin Cancer enrolled 796 patients prospectively across Stanford (734) and Cleveland Clinic (62) between August 2020 and April 2023. Each lesion was photographed three ways: dermoscopy, 15-cm clinical, and 30-cm clinical images, producing 3,830 total images across 1,290 unique lesions. A total of 1,046 lesions (81.1%) were biopsied with histopathologic confirmation by board-certified dermatopathologists. The investigators tested four published models (ADAE, HCI, ModelDerm, DeepDerm) on their original classification tasks using their original thresholds, then compared AI performance with dermatologists' clinical impressions. Clinicians achieved 79.4% accuracy at top-one diagnosis for differentiating malignant from benign lesions.
+
+---
+
+## Key Findings
+
+- **ADAE's AUROC dropped from 0.857 to 0.82** (95% CI, 0.78 to 0.86) on MIDAS, with specificity falling from the original 96.8% to 13.1%
+- **ModelDerm's AUROC dropped from its retrospective 0.86 to 0.68** (95% CI, 0.66 to 0.71) for malignancy classification on clinical images
+- **DeepDerm's overall accuracy fell from 72.1% to 60.4%** on the three-category classification task, with malignancy sensitivity of just 28%
+- **HCI maintained a relatively stable AUROC of 0.79** (95% CI, 0.77 to 0.80), closest to its original performance
+- **Dermatologists achieved 79.4% accuracy** at top-one diagnosis for malignant vs. benign, rising to 91.1% when considering top three diagnoses
+- **15-cm photography outperformed 30-cm** for both DeepDerm and ModelDerm on accuracy and sensitivity for benign and malignant lesions
+- **A multimodal ensemble (ADAE + ModelDerm)** achieved an AUROC of 0.86 (95% CI, 0.76 to 0.94) with specificity of 0.96 and precision of 0.82
+
+<Callout type="evidence">
+  MIDAS is the largest publicly available, prospectively recruited dataset with paired dermoscopic and clinical images and biopsy-confirmed diagnoses. Its value lies less in the model results than in providing a standardized, real-world benchmark against which future models can be honestly evaluated.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Published accuracy numbers do not transfer to your patients.** Every model tested showed performance degradation compared with its original validation data. The most dramatic example: ADAE maintained 97% sensitivity but saw specificity collapse from 96.8% to 13.1%, meaning it flagged nearly everything as melanoma. An algorithm that calls almost every lesion malignant is not a diagnostic tool; it is a biopsy generator.
+
+2. **Dermoscopy consistently outperformed clinical photography for AI models.** DeepDerm showed improved sensitivity for malignant lesions when moving from 15-cm clinical images to dermoscopic images (0.30 to 0.37). For AI-assisted triage, dermoscopic input appears preferable when available.
+
+<Callout type="pitfall">
+  The dataset is 82.5% White patients with 77.8% Fitzpatrick skin types I-II. Performance on darker skin tones cannot be assessed from MIDAS alone, and models trained or validated on this distribution may perform poorly in more diverse populations.
+</Callout>
+
+3. **Multimodal ensembles show promise.** Combining ADAE (dermoscopy) with ModelDerm (clinical images) in a weighted ensemble produced an AUROC of 0.86, better than either model alone. This mirrors clinical practice, where dermatologists integrate multiple visual inputs with metadata. Future models should be designed for multimodal input from the start.
+
+4. **Camera distance matters more than expected.** Both DeepDerm and ModelDerm performed better with 15-cm images than 30-cm images. For clinics deploying AI-assisted photography, standardizing capture distance is a practical step that improves model performance without any algorithmic change.
+
+5. **Twenty-seven lesions defeated every model and the clinicians.** All four algorithms and the dermatologists misclassified these cases at top-one diagnosis (clinician accuracy: 51.9%). Basal cell carcinoma and squamous cell carcinoma in situ comprised 20 of 27. Some lesions are genuinely hard for everyone.
+
+---
+
+## My Takeaway
+
+MIDAS confirms what skeptics of dermatology AI have long suspected: models trained on curated retrospective datasets do not perform as advertised on real clinic populations. The specificity collapse is the most clinically relevant finding. A melanoma detector that maintains 97% sensitivity by sacrificing specificity to 13% will generate an avalanche of unnecessary biopsies. The dataset itself, freely available, with paired modalities and biopsy confirmation, is arguably more valuable than any single model result. It gives the field an honest mirror. Any new dermatology AI claiming clinical readiness should now be tested against MIDAS as a minimum standard.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIdbp2400732)

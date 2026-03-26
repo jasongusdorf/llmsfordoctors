@@ -19,6 +19,16 @@ import DonateForm from '../components/DonateForm.tsx';
         <p class="text-lg leading-relaxed">
           LLMs for Doctors is free, ad-free, and independent. Your donation helps cover hosting, research time, and tool reviews so every clinician can access trustworthy AI guidance without a paywall.
         </p>
+        <h3>Where your money goes</h3>
+        <ul>
+          <li><strong>Hosting and infrastructure:</strong> Cloudflare Workers, domain, search indexing, and the live PubMed research feed.</li>
+          <li><strong>Tool reviews:</strong> Purchasing subscriptions to clinical AI tools so we can test them honestly, not rely on vendor demos.</li>
+          <li><strong>Research time:</strong> Reading, summarizing, and scoring new trials as they publish. The trials section updates weekly.</li>
+          <li><strong>Content development:</strong> New workflows, templates, and guides written by a physician, reviewed for accuracy.</li>
+        </ul>
+        <p class="text-sm text-clinical-500 dark:text-clinical-400">
+          LLMs for Doctors is a personal project, not a registered nonprofit. Donations are not tax-deductible.
+        </p>
       </div>
 
       <DonateForm client:load stripeKey={import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY} />

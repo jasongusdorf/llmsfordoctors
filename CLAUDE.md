@@ -2,6 +2,8 @@
 
 Clinical AI education site — Astro 6 + Cloudflare Workers + Preact + Tailwind CSS 4.
 
+**Audience:** Clinicians. All content follows the writing style guide in `~/.claude/CLAUDE.md`. Technical subjects get the "Technical and Infrastructure Topics" treatment: plain language, anchored in clinical experience, zero jargon by default.
+
 ## Build & Deploy
 
 - `npm run dev` — local dev server

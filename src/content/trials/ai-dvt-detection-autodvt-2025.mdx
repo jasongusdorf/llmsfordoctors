@@ -1,0 +1,57 @@
+---
+title: "AI-Guided Ultrasound for Proximal DVT Detection by Nonradiology Staff"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIoa2400741"
+keyFinding: "An AI-guided handheld ultrasound device (AutoDVT) achieved 68% sensitivity and 80% specificity for proximal DVT when used by nonradiology staff, falling short of the prespecified 90% sensitivity target needed for clinical safety."
+lastUpdated: 2026-03-25
+tags: [dvt, ultrasound, point-of-care, diagnostic-accuracy, vascular, multicenter]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+AutoDVT missed a third of proximal DVTs. That single statistic defines the ADVENT trial, a multicenter, prospective, double-blind pilot study across 11 UK hospital DVT diagnostic clinics. The trial enrolled 414 adults referred for suspected DVT. Before each patient's standard compression ultrasound, nonradiology-trained staff performed a two-point AI-guided scan using a handheld Clarius L7 HD device paired with ThinkSono's AutoDVT software. The primary outcome was AutoDVT's sensitivity for proximal DVT detection; the prespecified target was 90% or higher. Secondary outcomes included specificity, predictive values, image quality, and a remote radiologist review pathway (AutoDVT+review). Operators received a single 60-minute training session. Of 294 participants analyzed, proximal DVT prevalence was 10.5%.
+
+---
+
+## Key Findings
+
+- **68% sensitivity (95% CI, 49-83%)** for proximal DVT detection by AutoDVT alone, well below the 90% target
+- **80% specificity (95% CI, 74-85%)** with a 28% positive predictive value and 95% negative predictive value
+- **10 of 31 DVT-positive cases were missed** by AutoDVT; 6 of those 10 were in larger proximal veins, not just distal popliteal
+- **AutoDVT+review by remote radiologists** improved sensitivity to 85% but reduced specificity to 73%
+- **81% of scans required repeating** (median 3 attempts) due to failures in the scanning procedure
+- **21% of discrepant results** (63/294) between AutoDVT and standard ultrasound
+- **Average scan time was under 4 minutes**, and 95% of scans successfully recorded data
+
+<Callout type="evidence">
+  This is the first prospective, double-blind, multicenter trial of an AI-guided ultrasound device for DVT diagnosis by nonradiology staff. The concept is sound: 80% of DVT referrals are negative, and the UK spends 175 million pounds annually on DVT diagnostics. But 68% sensitivity is not clinically viable for a condition where missed diagnosis risks pulmonary embolism.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **The sensitivity gap is clinically dangerous.** Missing one in three proximal DVTs is unacceptable when the downstream risk is pulmonary embolism. The two-point compression technique, which assesses only the common femoral and popliteal veins, likely contributed to this shortfall; operators at participating sites reported that standard ultrasound compresses the vein every 10-15 cm along its length. A more comprehensive scanning protocol might improve detection.
+
+2. **Remote radiologist review partially compensates.** Adding expert review of AutoDVT images raised sensitivity to 85%, closer to the clinical threshold but still below it. This hybrid model (AI-guided acquisition plus remote expert interpretation) may represent a more realistic deployment pathway than fully autonomous diagnosis.
+
+<Callout type="pitfall">
+  AutoDVT alone cannot safely rule out proximal DVT. The 95% negative predictive value sounds reassuring, but it reflects the low prevalence (10.5%) in this population, not diagnostic precision. At higher prevalence, the miss rate would be even more consequential.
+</Callout>
+
+3. **Operator experience and scan reliability need work.** The 81% repeat scan rate and 24% indeterminate remote review rate suggest the software and hardware are not yet mature enough for routine clinical deployment. User-friendliness scored at the minimum acceptable threshold.
+
+4. **The resource argument remains compelling.** If the technology can be refined, the potential to reduce unnecessary specialist ultrasound referrals in a system where 80% of DVT scans are negative is substantial. The question is whether iterative improvement can close the sensitivity gap.
+
+---
+
+## My Takeaway
+
+I want this device to work. The clinical need is real: long waits for DVT scans, overstretched sonography departments, and a condition where delayed diagnosis kills. But 68% sensitivity is not a foundation to build on; it is a warning. The interesting finding is that remote radiologist review of AI-acquired images pushed sensitivity to 85%, suggesting the bottleneck is interpretation, not image acquisition. Future iterations should focus on expanding beyond two-point compression and integrating real-time expert triage. The trial did exactly what a pilot study should: it identified the failure modes before anyone got hurt.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2400741)

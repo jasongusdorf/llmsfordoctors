@@ -1,0 +1,59 @@
+---
+title: "Therabot: First RCT of a Generative AI Chatbot for Depression, Anxiety, and Eating Disorders"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIoa2400802"
+keyFinding: "A fine-tuned generative AI chatbot (Therabot) reduced depression symptoms by 6.13 points on the PHQ-9 at 4 weeks versus 2.63 in controls (d=0.845, P&lt;0.001), with comparable effects on anxiety and eating disorder symptoms, and therapeutic alliance ratings matching outpatient psychotherapy norms."
+lastUpdated: 2026-03-25
+tags: [rct, mental-health, chatbot, depression, anxiety, eating-disorders, digital-therapeutics, generative-ai]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Therabot is the first fully generative AI chatbot tested in a randomized controlled trial for treating clinical-level mental health symptoms. This national RCT enrolled 210 U.S. adults screening positive for major depressive disorder (MDD), generalized anxiety disorder (GAD), or clinically high-risk feeding and eating disorders (CHR-FED). Participants were randomized 1:1 to 4 weeks of Therabot (a text-based app fine-tuned on expert-written CBT dialogues using Falcon-7B and LLaMA-2-70B) or a waitlist control. Primary outcomes were symptom changes on the PHQ-9 (depression), GAD-Q-IV (anxiety), and Weight Concerns Scale (eating disorders) at 4 weeks and 8 weeks. Secondary outcomes included therapeutic alliance (Working Alliance Inventory), user engagement, and satisfaction. Comorbidity was permitted; participants were analyzed within their most severe symptom group.
+
+---
+
+## Key Findings
+
+- **Depression (PHQ-9)**: mean change of -6.13 (SD 6.12) in Therabot group vs. -2.63 (6.03) in controls at 4 weeks; effect size d=0.845 (P&lt;0.001), sustained at 8 weeks (d=0.903)
+- **Anxiety (GAD-Q-IV)**: mean change of -2.32 (3.55) vs. -0.13 (4.00) at 4 weeks; d=0.840 (P=0.001), sustained at 8 weeks (d=0.794)
+- **Eating disorder symptoms (WCS)**: mean change of -9.83 (14.37) vs. -1.66 (14.29) at 4 weeks; d=0.819 (P=0.008), sustained at 8 weeks (d=0.627)
+- **95% of intervention participants used Therabot**, sending a mean of 260 messages over a mean of 24 days of engagement (total average use: 6.18 hours)
+- **Therapeutic alliance scores matched outpatient norms**: mean WAI score 3.59 (SD 1.27), comparable to published psychotherapy benchmarks
+- **User satisfaction was high**: mean 5.30/7 overall; rated 4.90/7 for similarity to a real therapist
+- **Safety interventions were rare but necessary**: 15 instances of post-transmission staff contact for safety concerns (suicidal ideation), 13 for inappropriate chatbot responses (medical advice)
+
+<Callout type="evidence">
+  This is the first RCT of a fully generative (not rule-based) AI chatbot for clinical-level mental health symptoms. Prior chatbot trials (Woebot, Wysa) tested scripted, rule-based systems. The moderate-to-large effect sizes (d=0.63-0.90) across three symptom domains, sustained through follow-up, represent a meaningful advance for digital therapeutics.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Effect sizes are clinically meaningful.** A 6-point PHQ-9 reduction exceeds the 5-point threshold for clinically meaningful change. For context, SSRI trials typically produce PHQ-9 improvements of 2-4 points over placebo. The Therabot effect size of 0.845 falls in the range of face-to-face CBT trials, though direct comparison requires caution given the waitlist control design.
+
+2. **Engagement was remarkably high.** Digital mental health tools are plagued by dropout. Here, 95% of randomized participants actually used the chatbot, averaging 260 messages over 24 days. The generative AI's ability to produce personalized, conversational responses likely explains why engagement exceeded that of rule-based predecessors.
+
+3. **Therapeutic alliance with a chatbot is possible.** Participants rated their bond with Therabot comparably to published norms for human outpatient psychotherapy. This finding challenges the assumption that therapeutic alliance, a consistent predictor of psychotherapy outcomes, requires a human relationship.
+
+<Callout type="pitfall">
+  The waitlist control design inflates effect sizes; participants knew whether they received treatment. Seventy-two percent of participants were receiving no mental health treatment at baseline, making this a test of "Therabot vs. nothing" rather than "Therabot vs. standard care." The 28 safety interventions across 106 participants (15 for suicidal ideation, 13 for inappropriate responses) underscore that generative AI in mental health requires active human monitoring.
+</Callout>
+
+4. **Safety infrastructure is non-negotiable.** Therabot included a crisis classification model, post-transmission human review, and emergency contact protocols. Even with these safeguards, 13 inappropriate responses required correction. Any deployment of generative AI in mental health must budget for continuous human oversight, not as an optional add-on, but as a core operational requirement.
+
+5. **The scalability argument is strong but conditional.** About 73% of participants were not receiving any mental health treatment. If Therabot can safely serve people who would otherwise go untreated, the public health impact is substantial. The condition is that safety monitoring scales alongside adoption.
+
+---
+
+## My Takeaway
+
+The effect sizes here are striking, and the engagement data even more so. Rule-based chatbots have always struggled with the uncanny valley of therapeutic conversation: scripted enough to feel artificial, rigid enough to frustrate. Therabot's generative approach apparently clears that bar for most users. But I keep returning to the 28 safety interventions across 106 users. That is roughly one safety event per four participants. In a research setting with dedicated monitors, these were caught and handled. In a commercial deployment serving millions, the ratio of safety events to monitors would look very different. The clinical promise is real. The safety infrastructure to realize it at scale does not yet exist.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2400802)

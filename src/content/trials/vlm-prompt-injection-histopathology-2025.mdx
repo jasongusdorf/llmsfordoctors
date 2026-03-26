@@ -1,0 +1,56 @@
+---
+title: "Incidental Prompt Injections: Pen Labels on Pathology Slides Fool Vision-Language Models"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIcs2500078"
+keyFinding: "Vision-language models (Claude 3, Claude 3.5, GPT-4o) achieved 90-100% accuracy when histopathology slides carried correct labels but 0-10% accuracy with misleading labels, ignoring tissue morphology entirely. Prompt engineering did not mitigate this effect."
+lastUpdated: 2026-03-25
+tags: [vision-language-model, histopathology, prompt-injection, patient-safety, pathology, ai-safety, gpt-4o, claude]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Pathologists write on slides. They always have. Now those handwritten labels can hijack AI. This study tested whether routine annotations on histopathological images act as incidental prompt injections for vision-language models (VLMs). The investigators designed four clinically relevant tasks across 72 patient cases: T-staging of colorectal cancer (14 cases), lymph node infiltration in breast cancer (13 cases), mutational status prediction in thyroid cancer (15 cases), and tissue-of-origin classification for ovarian and prostate cancer (30 cases). Each case was presented to three VLMs (Claude 3 Opus, Claude 3.5 Sonnet, and GPT-4o) under three conditions: no label, correct label, or deliberately misleading label. This yielded 3,888 total observations, each run in triplicate. Separately, the team surveyed real-world label prevalence across nine TCGA cohorts (3,795 slides) and five German pathology institutions.
+
+---
+
+## Key Findings
+
+- **Misleading labels reduced accuracy to 0-10%** across all models and tasks, compared with 30-65% baseline accuracy without labels
+- **Correct labels boosted accuracy to 90-100%**, confirming the models read the labels rather than analyze the tissue
+- **Approximately 25% of real-world pathology slides contain pen marks**, based on screening of TCGA cohorts and German pathology centers
+- **Misleading watermarks also manipulated tissue-of-origin predictions**: a "National Ovarian Cancer Center" watermark on prostate cancer slides led models to predict ovarian cancer, with accuracy near zero for the correct diagnosis
+- **Prompt engineering failed as mitigation**: instructing models to "focus exclusively on the tissue" did not significantly reduce reliance on misleading labels (P=0.57, n=3,888)
+- **Models did not flag discrepancies** between label content and tissue morphology, except for a modest increase in flagging for mutational status (P=0.015)
+
+<Callout type="evidence">
+  This is a Clever Hans demonstration for medical AI. The models are not analyzing tissue; they are reading the answer written on the slide. The fact that prompt engineering cannot override this behavior suggests the vulnerability is architectural, not superficial.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Routine clinical practice creates adversarial inputs.** Prompt injection attacks are usually discussed as deliberate sabotage. This study shows the threat is more mundane: pathologists annotating slides with staging information, lymph node counts, or institutional watermarks inadvertently steer VLM outputs. The 25% prevalence of pen marks in real-world slides means this is not a theoretical concern.
+
+2. **VLMs cannot be trusted for independent histopathological analysis.** If a model achieves perfect accuracy only when told the answer, it is not performing diagnosis. Clinicians and pathology labs considering VLM-assisted workflows should understand that current models fundamentally lack robustness to text-in-image artifacts.
+
+<Callout type="pitfall">
+  The most dangerous scenario is not outright failure but confident, wrong answers. These models produced plausible pathophysiological explanations for their incorrect diagnoses when misled by labels. A clinician reviewing the output without seeing the original slide might find the AI's reasoning persuasive.
+</Callout>
+
+3. **Preprocessing may help where prompt engineering does not.** Background removal, label masking, or optical character recognition followed by selective blurring could reduce the influence of incidental text. The study did not test these approaches, but they represent the most promising mitigation path.
+
+4. **Pathology-specific VLMs may be more resistant.** The study tested only generalist models (Claude, GPT-4o). Models trained exclusively on histopathological images without text annotations might learn to rely on morphology rather than labels. This remains untested.
+
+---
+
+## My Takeaway
+
+This paper should unsettle anyone deploying VLMs near diagnostic pathology. The finding is clean and disturbing: every model tested, across every task, abandoned tissue analysis in favor of reading whatever text happened to be on the slide. A handwritten "pT1" on a pT3 tumor produced a confident pT1 classification with a histological explanation that sounded reasonable. The 25% prevalence of labeled slides in real-world datasets means this is not a contrived attack scenario. It is Tuesday in a pathology lab. Until VLMs can be made reliably indifferent to incidental text, any clinical deployment in histopathology requires either rigorous image preprocessing or a fundamental architectural change in how these models weight visual information.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIcs2500078)

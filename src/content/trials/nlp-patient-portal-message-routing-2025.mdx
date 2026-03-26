@@ -1,0 +1,56 @@
+---
+title: "NLP-Based Automated Routing of Patient Portal Messages Reduces Response Times and Staff Burden"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIoa2400354"
+keyFinding: "A fine-tuned BERT model prospectively routing 469 patient portal conversations at four outpatient clinics reduced median time-to-first-interaction by 1 hour, time-to-conversation-completion by 22.5 hours, and total staff message interactions by 2.0 per conversation, with 97.8% classification accuracy."
+lastUpdated: 2026-03-25
+tags: [patient-portal, NLP, BERT, EHR, inbox-management, clinician-burnout, message-triage]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+A prospective, open-label feasibility study deployed a fine-tuned BERT-based NLP classifier across four outpatient sites at Emory Healthcare in Atlanta: two primary care clinics, one oncology clinic, and one cardiovascular clinic. The model was trained on 40,000 retrospectively annotated patient messages classified into five categories (urgent, clinician, refill, schedule, form) and fine-tuned with clinician feedback. After a 1-week passive observation phase, the model was fully activated for 2 weeks, automatically routing incoming messages to appropriate staff pools. A propensity-matched control group of 402 unrouted conversations from the same period served as the comparator. Primary endpoints were time-to-first-message interaction, time-to-conversation completion, and total staff message interactions.
+
+---
+
+## Key Findings
+
+- **Time-to-first-interaction dropped by 1 hour** in medians (0.2 vs. 1.2 hours; 95% CI for difference, -1.42 to -0.5).
+- **Time-to-conversation-completion fell by 22.5 hours** (4.2 vs. 26.7 hours; 95% CI, -36.3 to -17.7).
+- **Total staff message interactions decreased by 2.0 per conversation** (3.0 vs. 5.0; 95% CI, -2.9 to -1.4).
+- **Classification accuracy reached 97.8%** across all five message classes, with precision, recall, and F1 scores all exceeding 95% for every category.
+- **Schedule and refill messages performed best,** with F1 scores of 98.1% and 99.0% and accuracies of 99.4% and 99.7%, respectively.
+- **Message interactions peaked earlier in the day** for routed conversations and tapered by mid-afternoon, compared to unrouted conversations that extended into evening hours.
+
+<Callout type="evidence">
+  This is one of the first prospective studies to demonstrate that NLP-based message routing in a live clinical environment can measurably reduce both response latency and overall staff messaging burden. The 22.5-hour reduction in conversation completion time represents a meaningful change in the patient communication experience.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Routing, not generating, may be the practical first step for AI in the inbox.** Rather than drafting replies (which raise accuracy and liability concerns), this model simply ensures the right message reaches the right person. That alone cut resolution time by nearly a full day. For systems drowning in portal messages, this is a low-risk, high-yield intervention.
+
+2. **The model runs locally, with no external data transmission.** Built on an open-source BERT architecture fine-tuned on-site within Emory's protected computing environment, the system avoids the privacy and security concerns of cloud-based LLMs. That matters for institutions with strict data governance requirements.
+
+<Callout type="pitfall">
+  The study was conducted at a single institution over just 2 weeks with 469 routed conversations. There was no randomized control group; the comparator was a propensity-matched observational cohort. The urgent message class showed relative underperformance compared to other categories, with most misclassified urgent messages labeled as "clinician," which still routes them to a provider but without the urgency flag.
+</Callout>
+
+3. **Staff workflow patterns changed in a positive direction.** Routed conversations concentrated interactions earlier in the workday with near-complete resolution by afternoon, while unrouted conversations extended into evening hours. That pattern suggests the model helped clinicians process their inbox during protected time rather than after hours.
+
+4. **Generalizability needs testing.** The model was trained on Emory's message patterns and routing preferences. Different institutions with different workflows, EHR platforms, and patient populations would need their own training data and routing rules.
+
+---
+
+## My Takeaway
+
+The inbox crisis is real: a single patient message can generate seven or more staff interactions before resolution. This study attacks the problem at its root, not by generating AI responses, but by making sure messages land in the right hands immediately. The results are modest in scale but clinically credible. A 22-hour reduction in conversation completion time, with 97.8% accuracy and no false-negative safety events, represents the kind of practical AI application that health systems can adopt without agonizing over hallucination risk. The model classifies and routes. A human still acts. That division of labor is exactly right for the current moment.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2400354)

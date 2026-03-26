@@ -1,0 +1,56 @@
+---
+title: "Machine Learning Achieves Pathologist-Level Celiac Disease Diagnosis"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIoa2400738"
+keyFinding: "A machine learning model diagnosed celiac disease from duodenal biopsy whole-slide images with 97.5% accuracy, 95.5% sensitivity, and 97.8% specificity on an independent test set from a previously unseen hospital, matching the agreement level among four specialist pathologists."
+lastUpdated: 2026-03-25
+tags: [digital-pathology, celiac-disease, machine-learning, whole-slide-imaging, diagnostic-ai, gastroenterology]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Jaeckle, Denholm, Schreiber, and colleagues trained a deep-learning classifier on 3,383 H&E-stained whole-slide images (WSIs) of duodenal biopsies from four hospitals using five different scanners. The dataset included 756 celiac cases, 2,083 normal biopsies, and 544 "other" diagnoses. The model used a ResNet-18 architecture trained with a multiple-instance learning paradigm and fivefold cross-validation, with stain normalization to handle interlaboratory variability. It was independently tested on 644 WSIs from a fifth hospital (Edinburgh) not included in training. A concordance study compared the model's diagnoses with those of four specialist pathologists on a subset of 30 cases.
+
+---
+
+## Key Findings
+
+- **97.5% accuracy on the independent test set** from a previously unseen hospital, with sensitivity of 95.5% and specificity of 97.8%
+- **AUROC exceeded 99%** across the five cross-validation folds (range 99.2-99.7%)
+- **Cross-validation achieved 96.8% mean accuracy**, with sensitivity of 95.4% and specificity of 97.2%, positive predictive value of 91.4%, and negative predictive value of 98.5%
+- **Model-pathologist agreement (90.5%) was statistically indistinguishable from pathologist-pathologist agreement (90.3%)**, with kappa coefficients of 0.813 and 0.810, respectively (P=0.965 for pairwise agreement comparison)
+- **Consistent performance across demographics**: accuracy exceeded 94% for all subgroups by age (above 19), sex, and source hospital
+- **Heatmaps confirmed clinically appropriate decision-making**: the model focused on biopsy edges where villous atrophy and raised intraepithelial lymphocyte counts are most visible, mirroring pathologist behavior
+
+<Callout type="evidence">
+  Interpathologist agreement for celiac disease diagnosis ranges from 70% to 80% in published studies. This model's agreement with specialist pathologists (90.5%) matches what specialists achieve with each other, meeting the bar for clinical-grade performance on a genuinely representative, multi-center dataset.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Addressing the pathologist shortage for a common diagnosis.** Celiac disease affects roughly 1% of the global population, and duodenal biopsy remains the gold standard for diagnosis. Pathologist shortages in both developing and developed countries create diagnostic delays. A model that handles this high-volume, relatively straightforward diagnosis could free pathologist time for more complex cases.
+
+2. **Generalization across hospitals and scanners is the headline finding.** Many AI pathology studies train and test on data from the same institution. This model trained on four hospitals with five scanners and performed at 97.5% accuracy on a completely unseen fifth hospital with different equipment. That level of generalization is rare and clinically necessary.
+
+<Callout type="pitfall">
+  The concordance study included only 30 cases, too few to reliably detect small but clinically meaningful differences between model and pathologist performance. Ground truth labels come from clinical diagnoses that themselves have known error rates. The model's accuracy is bounded by the accuracy of its training labels.
+</Callout>
+
+3. **Multiple-instance learning handles real-world label noise.** In clinical practice, a biopsy labeled "celiac" may contain many normal-appearing patches. The weakly supervised approach, which learns to identify the most diagnostic patches rather than requiring every patch to be labeled, makes the model robust to this reality.
+
+4. **Screening, not replacement.** The model classifies biopsies as celiac versus non-celiac. It does not grade severity (Marsh-Oberhuber classification), identify other duodenal pathologies in detail, or handle the clinical integration of biopsy results with serology. It is a screening tool that could triage biopsies, flagging likely celiac cases for pathologist confirmation.
+
+---
+
+## My Takeaway
+
+This is one of the more convincing AI pathology papers I have seen, primarily because of what the authors did not do: they did not test on data from their own hospital. The independent test set from Edinburgh, with different scanners, different staining protocols, and different patient demographics, is the right way to evaluate a diagnostic AI system. The concordance study, though small, answers the question clinicians actually care about: is this model as reliable as a specialist? For celiac disease, the answer appears to be yes. The practical path forward is clear: deploy this as a screening layer that flags likely celiac cases, with pathologist review for positive results and borderline cases. For the majority of normal duodenal biopsies, this could meaningfully reduce pathologist workload.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2400738)

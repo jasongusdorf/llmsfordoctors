@@ -1,0 +1,56 @@
+---
+title: "CathEF: Real-Time Ejection Fraction Estimation from Coronary Angiography Using Deep Learning"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIcs2401008"
+keyFinding: "A deep learning algorithm estimated left ventricular ejection fraction directly from routine coronary angiograms in ACS patients with an AUROC of 0.84 for detecting LVEF ≤50% and 0.90 for LVEF ≤40%, without requiring additional contrast or catheterization."
+lastUpdated: 2026-03-25
+tags: [cardiology, deep-learning, ejection-fraction, coronary-angiography, acute-coronary-syndrome, point-of-care]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+CathEF estimates something you already have the data for but never thought to measure: left ventricular function from coronary angiography videos. This prospective, multicenter, observational study enrolled 207 patients presenting with acute coronary syndrome at two Canadian academic centers (Montreal Heart Institute and University of Ottawa Heart Institute) between July 2022 and July 2023. A deep learning algorithm analyzed routine left coronary angiograms, averaging predictions across two to four selective injections per exam, to classify LVEF as preserved or reduced. The primary outcome was AUROC for detecting LVEF ≤50% compared with transthoracic echocardiography performed within 7 days. Ventriculography served as a secondary reference standard in a 63-patient subgroup. The algorithm ran in real time via a web-based PACS-AI platform, with predictions concealed from treating clinicians to prevent bias.
+
+---
+
+## Key Findings
+
+- **AUROC of 0.84** (95% CI, 0.79 to 0.89) at the exam level for detecting LVEF ≤50% on TTE
+- **AUROC of 0.90** (95% CI, 0.86 to 0.96) for detecting LVEF ≤40%, the threshold for moderate or worse systolic dysfunction
+- **Comparable to ventriculography** in the 63-patient subgroup: CathEF AUROC 0.90 vs. ventriculography AUROC 0.90 (P=0.91) for the ≤50% threshold
+- **96% negative predictive value** for LVEF ≤40%, suggesting the algorithm reliably rules out significant systolic dysfunction
+- **Performance dropped in STEMI patients** (AUROC 0.76) and those with RCA culprit lesions (AUROC 0.73), likely because the algorithm relies on left coronary injections
+- **Processing averaged 6 seconds per video** with real-time deployment at the point of care
+
+<Callout type="evidence">
+  This is the first prospective validation of AI-derived LVEF estimation from coronary angiograms in an ACS-specific population. The AUROC for detecting moderate or worse dysfunction (≤40%) matches ventriculography, without the contrast load or procedural risk.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Screening during the procedure you're already doing.** Every ACS patient undergoes coronary angiography. CathEF extracts LVEF from those images in real time, potentially flagging systolic dysfunction before the echocardiogram that may not happen for another day or two. For patients headed to the ICU, that information changes monitoring intensity.
+
+2. **A practical alternative to left ventriculography.** Ventriculography requires additional contrast and carries risks (nephropathy, arrhythmia, conduction block). CathEF achieves similar diagnostic performance using images already acquired. In patients with borderline renal function or contrast concerns, that tradeoff matters.
+
+<Callout type="pitfall">
+  Performance degrades meaningfully in STEMI (AUROC 0.76) and when the RCA is the culprit vessel (AUROC 0.73). The algorithm was trained on left coronary angiograms, so it struggles when the pathology is primarily in RCA territory. Clinicians should not rely on CathEF to rule out dysfunction in these subgroups.
+</Callout>
+
+3. **Decision curve analysis supports real-world use.** CathEF showed net clinical benefit over universal TTE screening for threshold probabilities above 5%. For clinicians who would act on a 5% or greater probability of LV dysfunction, the algorithm adds value beyond ordering echocardiograms on everyone.
+
+4. **Time-sensitivity matters.** When TTE was obtained more than 2 days after angiography, CathEF performance dropped substantially (AUROC 0.58 for LVEF ≤50%). This likely reflects genuine changes in systolic function during the intervening period rather than algorithmic failure.
+
+---
+
+## My Takeaway
+
+CathEF solves a narrow, specific problem well: it tells you whether your ACS patient has significant systolic dysfunction while you're still in the cath lab, using data you've already collected. The 0.90 AUROC for moderate or worse dysfunction is clinically actionable, and the 96% NPV means a reassuring CathEF result can justifiably reduce urgency around obtaining a formal echo. The STEMI performance gap is the main limitation, and it's precisely the population where early LVEF assessment matters most. Still, this is a clean example of AI adding value without adding workflow burden: no extra contrast, no extra radiation, no extra procedure, 6 seconds of compute time.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIcs2401008)

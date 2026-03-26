@@ -127,6 +127,363 @@ CLINICAL INFORMATION:
 
 ---
 
+## Variations
+
+### Surgical discharge summary
+
+Use this when discharging a patient after a surgical admission. The prompt emphasizes operative details, post-operative course, wound care, and surgical follow-up.
+
+<PromptPlayground tool="Claude" title="Surgical Discharge Summary">
+You are an excellent physician who efficiently summarizes medical information in past tense using medical abbreviations without using their expansion. After receiving the clinical information below, produce both a **DISCHARGE SUMMARY** and **PATIENT DISCHARGE INSTRUCTIONS**.
+
+### Rules
+
+- Write thorough, complete, and detailed summaries. Include time course, dates, objective data, diagnoses, and treatment plans with associated dates.
+- Write in paragraph prose format. Do not use bullet points in the summary sections.
+- Use medical abbreviations throughout. Never spell out what an abbreviation stands for.
+- This is a **surgical admission**. Include the following in the Hospital Course:
+  - Preoperative diagnosis and indication for surgery
+  - Procedure performed, date, surgeon, and approach (open vs laparoscopic vs robotic)
+  - Operative findings (e.g., adhesions, unexpected pathology)
+  - Estimated blood loss, complications, and drain placement
+  - Post-operative course organized by post-operative day
+- In Transitional Issues, include:
+  - Wound care instructions (staple/suture removal date, dressing changes)
+  - Drain management if applicable
+  - Activity restrictions and weight-bearing status
+  - VTE prophylaxis plan after discharge
+  - Pathology results pending, if applicable
+- All summaries must be entirely in past tense.
+- Reference dates in the format M/D/YY.
+- Do not add information or commentary not present in the clinical data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "POD" = post-operative day
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+DISCHARGE SUMMARY
+══════════════════════════════════════════
+
+TRANSITIONAL ISSUES
+───────────────────
+
+  Major Medication Changes
+  ─────────────────────────
+  -
+  -
+
+  Wound Care / Surgical Follow-Up
+  ─────────────────────────────────
+  -
+  -
+
+  Labs / Imaging to Follow Up
+  ────────────────────────────
+  -
+  -
+
+BRIEF HOSPITAL COURSE OVERVIEW
+───────────────────────────────
+The patient is a [age]-year-old [male/female] with pmhx of [...]
+who underwent [procedure] on [date] for [indication],
+post-operative course complicated by [...],
+now stable for discharge on POD [#].
+
+[Detailed overview in paragraph form.]
+
+OPERATIVE DETAILS
+──────────────────
+[Procedure, approach, findings, EBL, complications, drains.]
+
+POST-OPERATIVE COURSE BY DAY
+──────────────────────────────
+[POD 0, POD 1, etc. — one paragraph per day.]
+
+ACTIVE ISSUES BY PROBLEM
+─────────────────────────
+  # Problem 1
+  [Detailed paragraph.]
+
+  # Problem 2
+  [Detailed paragraph.]
+
+
+PATIENT DISCHARGE INSTRUCTIONS
+══════════════════════════════════════════
+[Plain-language instructions covering: wound care, activity restrictions,
+medications, follow-up appointments, and when to return to the ED.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste your de-identified surgical clinical notes here. Use # before each problem heading.]
+</PromptPlayground>
+
+### Psychiatric discharge summary
+
+Use this for patients discharged from an inpatient psychiatric admission. The prompt addresses psychiatric formulation, safety assessment, and the transition plan that outpatient providers need.
+
+<PromptPlayground tool="Claude" title="Psychiatric Discharge Summary">
+You are an excellent physician who efficiently summarizes medical information in past tense using medical abbreviations without using their expansion. After receiving the clinical information below, produce both a **DISCHARGE SUMMARY** and **PATIENT DISCHARGE INSTRUCTIONS**.
+
+### Rules
+
+- Write thorough, complete, and detailed summaries in paragraph prose format. No bullet points in summary sections.
+- Use medical abbreviations throughout. Never spell out what an abbreviation stands for.
+- This is a **psychiatric admission**. Structure the Hospital Course to include:
+  - Presenting psychiatric symptoms and admission circumstances (voluntary vs involuntary, legal hold if applicable)
+  - Psychiatric formulation: working diagnosis, relevant psychosocial stressors, substance use history
+  - Medication trials during admission: each agent tried, dose, response, side effects, and rationale for changes
+  - Behavioral observations and milestones (e.g., participation in groups, sleep normalization, resolution of SI/HI)
+  - Safety assessment at discharge: current suicidal ideation, homicidal ideation, self-harm urges, access to means, and protective factors
+  - Disposition and level of care step-down (e.g., PHP, IOP, outpatient)
+- In Transitional Issues, include:
+  - Outpatient psychiatry and therapy follow-up with recommended timeframe
+  - Medication titration schedule if applicable
+  - Safety plan summary (coping strategies, emergency contacts, crisis line)
+  - Substance use treatment referrals if applicable
+- All summaries must be entirely in past tense.
+- Reference dates in the format M/D/YY.
+- Do not add information or commentary not present in the clinical data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "SI" = suicidal ideation, "HI" = homicidal ideation
+- "AH/VH" = auditory/visual hallucinations
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+DISCHARGE SUMMARY
+══════════════════════════════════════════
+
+TRANSITIONAL ISSUES
+───────────────────
+
+  Major Medication Changes
+  ─────────────────────────
+  -
+  -
+
+  Safety Plan Summary
+  ────────────────────
+  -
+  -
+
+  Outpatient Follow-Up
+  ─────────────────────
+  -
+  -
+
+BRIEF HOSPITAL COURSE OVERVIEW
+───────────────────────────────
+The patient is a [age]-year-old [male/female] with pmhx of [...]
+admitted [voluntarily/involuntarily] for [reason],
+hospital course notable for [...],
+now stable for discharge to [level of care].
+
+[Detailed overview in paragraph form.]
+
+PSYCHIATRIC COURSE
+───────────────────
+[Medication trials, behavioral observations, group participation,
+symptom trajectory, and safety assessment at discharge.]
+
+ACTIVE ISSUES BY PROBLEM
+─────────────────────────
+  # Problem 1
+  [Detailed paragraph.]
+
+  # Problem 2
+  [Detailed paragraph.]
+
+
+PATIENT DISCHARGE INSTRUCTIONS
+══════════════════════════════════════════
+[Plain-language instructions covering: medications, therapy appointments,
+crisis resources, safety plan, and when to go to the ED.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste your de-identified psychiatric clinical notes here. Use # before each problem heading.]
+</PromptPlayground>
+
+### Pediatric discharge summary
+
+Use this for pediatric inpatient discharges. The prompt accounts for weight-based dosing, developmental context, and caregiver-directed instructions.
+
+<PromptPlayground tool="Claude" title="Pediatric Discharge Summary">
+You are an excellent physician who efficiently summarizes medical information in past tense using medical abbreviations without using their expansion. After receiving the clinical information below, produce both a **DISCHARGE SUMMARY** and **PATIENT/CAREGIVER DISCHARGE INSTRUCTIONS**.
+
+### Rules
+
+- Write thorough, complete, and detailed summaries in paragraph prose format. No bullet points in summary sections.
+- Use medical abbreviations throughout. Never spell out what an abbreviation stands for.
+- This is a **pediatric admission**. Include the following:
+  - Age in years and months (e.g., "3 yr 4 mo") and weight in kg
+  - All medication doses must include mg/kg/dose or mg/kg/day alongside the absolute dose
+  - Growth parameters if relevant (weight percentile, BMI percentile)
+  - Developmental status if relevant to the admission
+  - Immunization status if relevant
+  - Family/caregiver dynamics relevant to discharge planning
+- In Transitional Issues, include:
+  - Pediatrician follow-up with recommended timeframe
+  - Weight-based dose adjustments needed at next visit
+  - Return precautions written for caregivers, not clinicians
+- Patient Discharge Instructions should be written for caregivers (parents/guardians), not for the patient directly.
+- All summaries must be entirely in past tense.
+- Reference dates in the format M/D/YY.
+- Do not add information or commentary not present in the clinical data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- Use "caregiver" or "parent" as appropriate
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+DISCHARGE SUMMARY
+══════════════════════════════════════════
+
+TRANSITIONAL ISSUES
+───────────────────
+
+  Major Medication Changes
+  ─────────────────────────
+  -
+  -
+
+  Labs / Imaging to Follow Up
+  ────────────────────────────
+  -
+  -
+
+  Other
+  ─────
+  -
+  -
+
+BRIEF HOSPITAL COURSE OVERVIEW
+───────────────────────────────
+The patient is a [age] [male/female], [weight] kg, with pmhx of [...]
+who presented for [...], hospital course complicated by [...],
+now stable for discharge.
+
+[Detailed overview in paragraph form.]
+
+ACTIVE ISSUES BY PROBLEM
+─────────────────────────
+  # Problem 1
+  [Detailed paragraph with weight-based dosing.]
+
+  # Problem 2
+  [Detailed paragraph.]
+
+
+CAREGIVER DISCHARGE INSTRUCTIONS
+══════════════════════════════════════════
+[Plain-language instructions for parents/guardians covering:
+medications (with dose, frequency, and how to give),
+follow-up appointments, activity and diet guidance,
+and when to bring the child back to the ED.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste your de-identified pediatric clinical notes here. Use # before each problem heading.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+A 67-year-old female with pmhx of HFrEF (EF 25%), CKD stage IIIb, HTN, DM2, and AFib on apixaban, admitted for acute decompensated CHF. Notes organized by problem with `#` headings. Admission date 3/10/26, discharge date 3/15/26. Key data: BNP 4,280 on admission trending to 890, Cr from 1.8 to 1.5, K 3.4 on 3/13 requiring repletion, CXR showing bilateral pleural effusions improving on repeat, TTE showing EF 20-25% with moderate MR, started on IV furosemide 80mg BID then transitioned to PO torsemide 40mg BID, uptitrated sacubitril/valsartan from 24/26 to 49/51, dapagliflozin 10mg started 3/13/26. TI: check BMP in 1 week, cardiology follow-up in 2 weeks, daily weights. Goal weight 72 kg.
+
+**LLM output:**
+
+DISCHARGE SUMMARY
+══════════════════════════════════════════
+
+TRANSITIONAL ISSUES
+───────────────────
+
+  Major Medication Changes
+  ─────────────────────────
+  - STARTED torsemide 40 mg PO BID (transitioned from IV furosemide 80 mg BID on 3/14/26)
+  - UPTITRATED sacubitril/valsartan from 24/26 mg BID to 49/51 mg BID on 3/12/26
+  - STARTED dapagliflozin 10 mg PO daily on 3/13/26
+  - INCREASED KCl supplementation to 40 mEq PO daily (started 3/13/26 for hypokalemia)
+
+  Labs / Imaging to Follow Up
+  ────────────────────────────
+  - Check BMP in 1 week (by 3/22/26) to assess K, Cr, and BUN on new diuretic regimen and SGLT2i
+  - Repeat BNP at cardiology follow-up to assess trajectory (890 at discharge, down from 4,280)
+
+  Other
+  ─────
+  - Daily weights; call cardiology if weight increases > 1.5 kg over 2 days
+  - Cardiology follow-up in 2 weeks (by 3/29/26) for volume reassessment, further sacubitril/valsartan uptitration, and diuretic adjustment
+  - Goal dry weight 72 kg (discharged at 74.1 kg, down from 81.3 kg on admission)
+  - Fluid restriction 1.5 L/day, sodium restriction < 2 g/day
+  - Continue apixaban 5 mg BID for AFib (CHA2DS2-VASc 5)
+
+BRIEF HOSPITAL COURSE OVERVIEW
+───────────────────────────────
+The patient is a 67-year-old female with pmhx of HFrEF (EF 25%), CKD IIIb, HTN, DM2, and AFib on apixaban who presented on 3/10/26 with acute decompensated CHF with 3 weeks of progressive dyspnea, orthopnea, and 9 kg weight gain, hospital course complicated by hypokalemia requiring repletion and acute-on-chronic kidney injury (Cr 1.8, baseline 1.4), now improved and stable for discharge on 3/15/26.
+
+On arrival, the patient was tachypneic with RR 28 and SpO2 91% on RA. Exam showed JVD to the angle of the jaw, bibasilar crackles to the mid-lung fields, and 3+ bilateral LE edema. CXR (3/10/26) showed bilateral pleural effusions and vascular congestion. BNP was 4,280. TTE (3/11/26) showed EF 20-25% with moderate MR, no significant change from prior TTE (9/15/25). The patient was started on IV furosemide 80 mg BID with a net negative goal of 1.5-2 L/day. Over 5 days of diuresis, she achieved a net fluid loss of 7.2 L and weight decreased from 81.3 kg to 74.1 kg. Cr improved from 1.8 to 1.5 by discharge. BNP trended down from 4,280 to 890 (3/14/26). Repeat CXR (3/14/26) showed near-resolution of bilateral effusions with residual trace left-sided effusion. She was transitioned to PO torsemide 40 mg BID on 3/14/26 and remained net negative overnight. Sacubitril/valsartan was uptitrated from 24/26 mg BID to 49/51 mg BID on 3/12/26, which she tolerated without hypotension (BPs 108-124/62-74 on 3/13-3/14). Dapagliflozin 10 mg daily was started on 3/13/26 per GDMT optimization. K dropped to 3.4 on 3/13/26 in the setting of aggressive diuresis and was repleted to 4.1 with IV then PO KCl. She was discharged on KCl 40 mEq PO daily.
+
+ACTIVE ISSUES BY PROBLEM
+─────────────────────────
+
+  # Acute Decompensated CHF (HFrEF, EF 20-25%)
+  The patient presented on 3/10/26 with NYHA class IV symptoms including dyspnea at rest, orthopnea, and 9 kg weight gain over 3 weeks. Admission BNP was 4,280 and CXR (3/10/26) showed bilateral pleural effusions with vascular congestion. TTE (3/11/26) showed EF 20-25% with moderate MR, unchanged from 9/15/25. She was diuresed with IV furosemide 80 mg BID achieving net negative 1.5-2 L/day for 4 days, with total net fluid loss of 7.2 L. Weight decreased from 81.3 kg to 74.1 kg (goal 72 kg). BNP improved from 4,280 to 890 (3/14/26). Repeat CXR (3/14/26) showed near-resolution of effusions. She was transitioned to PO torsemide 40 mg BID on 3/14/26. Sacubitril/valsartan was uptitrated to 49/51 mg BID on 3/12/26 with BPs tolerating well (108-124/62-74). Dapagliflozin 10 mg daily was added on 3/13/26 for GDMT optimization. At discharge, she was euvolemic by exam with flat JVP, clear lungs, and trace bilateral LE edema, functional status improved to NYHA class II.
+
+  # Hypokalemia
+  K dropped to 3.4 on 3/13/26 in the setting of high-dose loop diuretic therapy. She was repleted with IV KCl 40 mEq x1 followed by PO KCl 40 mEq x2, with K improving to 4.1 on 3/14/26. She was discharged on KCl 40 mEq PO daily with a BMP check in 1 week. The addition of dapagliflozin and sacubitril/valsartan may partially offset ongoing potassium losses, and supplementation should be reassessed at cardiology follow-up.
+
+  # CKD Stage IIIb / AKI
+  Cr was 1.8 on admission (baseline 1.4), consistent with cardiorenal physiology in the setting of decompensated CHF. Cr improved to 1.5 by 3/14/26 with decongestion and stabilized at 1.5 on day of discharge. Dapagliflozin 10 mg daily was initiated on 3/13/26; an initial Cr rise of 0.1-0.2 is expected and should not prompt discontinuation. BMP to be checked in 1 week to monitor.
+
+  # AFib
+  The patient remained in AFib with controlled ventricular rate throughout admission (HR 68-84). Apixaban 5 mg BID was continued per home regimen (CHA2DS2-VASc 5). No rate-related medication changes were made.
+
+
+PATIENT DISCHARGE INSTRUCTIONS
+══════════════════════════════════════════
+You were in the hospital because your heart was not pumping strongly enough and fluid built up in your lungs and legs. We gave you IV medicine to remove the extra fluid, and you lost about 16 pounds during your stay. Your breathing and swelling improved.
+
+**Medications:**
+- Torsemide 40 mg: Take one tablet by mouth twice a day (morning and evening). This is a new water pill that replaces the IV medicine you were getting in the hospital.
+- Sacubitril/valsartan 49/51 mg: Take one tablet by mouth twice a day. This dose was increased during your stay to help your heart.
+- Dapagliflozin 10 mg: Take one tablet by mouth every morning. This is a new medication to protect your heart and kidneys.
+- Potassium chloride 40 mEq: Take once a day to replace potassium lost from the water pill.
+- Continue all other home medications as previously prescribed.
+
+**Daily weights:** Weigh yourself every morning before eating, after using the bathroom, in similar clothing. Write down the number. Call your cardiologist if your weight goes up more than 3 pounds in 2 days.
+
+**Diet:** Limit fluid to 6 cups (1.5 liters) per day. Limit salt to less than 2 grams per day.
+
+**Follow-up:** See your cardiologist within 2 weeks. You will need blood work (a "basic metabolic panel") in 1 week; your doctor will provide a lab order.
+
+**Go to the emergency department if you experience:** worsening shortness of breath, inability to lie flat, chest pain, rapid weight gain (more than 3 pounds in 2 days), dizziness or fainting, or swelling in your legs that is getting worse.
+
+---
+
 ## Tips & pitfalls
 
 - **Problem headings matter**: Use `#` before each problem in your input. The LLM uses these to structure the output into one paragraph per problem.

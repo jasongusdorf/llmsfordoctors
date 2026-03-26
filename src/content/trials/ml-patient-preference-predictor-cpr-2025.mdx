@@ -1,0 +1,56 @@
+---
+title: "Machine Learning Predicts Patient CPR Preferences More Accurately Than Surrogate Decision-Makers"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIoa2500265"
+keyFinding: "An XGBoost-based patient preference predictor achieved 70.6% cross-validated accuracy in predicting CPR preferences among 1,811 adults, outperforming both surrogate partners (58.7% accuracy) and a majority-class baseline (60.6%)."
+lastUpdated: 2026-03-25
+tags: [patient preferences, surrogate decision-making, end-of-life care, machine learning, bioethics, advance care planning]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Surrogate decision-makers get it wrong about 40% of the time. This proof-of-concept study asked whether a machine learning model could do better. Using data from 1,811 Swiss participants (ages 50-99, mean 70) in the Survey of Health, Ageing and Retirement in Europe (SHARE), researchers built three increasingly detailed patient preference predictors (PPPs) to classify whether individuals would want cardiopulmonary resuscitation attempted in the event of cardiorespiratory arrest. The basic model used 9 demographic features; the clinical model added 27 health-related variables from data typically available in electronic health records (36 total); the personalized model incorporated 25 additional features reflecting end-of-life preferences and personality traits (61 total). All models were trained using XGBoost with L2 regularization on an 80/20 train-test split, evaluated via fivefold cross-validation, and benchmarked against both a dummy classifier (predicting the majority class) and the actual predictive accuracy of 872 partners who participated in the study.
+
+---
+
+## Key Findings
+
+- **The personalized model achieved 70.6% cross-validated accuracy** (SD 1.3%), outperforming the basic model (66.2%), clinical model (66.2%), partner predictions (58.7%), and majority-class baseline (60.6%)
+- **Partners predicted their spouse's CPR preference correctly only 58.7% of the time** among 872 individuals in 436 couples; 29.4% were wrong and 11.9% answered "don't know"
+- **Adding clinical data to demographics did not improve accuracy.** Both the basic (9 features) and clinical (36 features) models reached 66.2%, suggesting that health records alone do not meaningfully predict end-of-life preferences
+- **End-of-life preference data and personality traits drove the personalized model's advantage.** SHAP analysis identified the importance of avoiding overtreatment, desire for all available treatments, prior advance directive discussions, and extraversion as top predictive features
+- **The clinical model had the highest true-positive rate for CPR attempts** (91.8%) but the worst F1 score (0.63), reflecting strong bias toward predicting the majority preference
+- **CPR preferences skewed 60.3% in favor of attempting resuscitation**, and younger age (r = -0.26, P < 0.001) and male sex (r = -0.13, P < 0.001) predicted pro-CPR preferences
+
+<Callout type="evidence">
+  This is the first empirical proof of concept for a machine-learning-based patient preference predictor, a tool that bioethicists have proposed theoretically but no one had built or tested until now. The benchmark against actual partner accuracy on the same population strengthens the comparison.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **The bar for surrogate decision-making is lower than clinicians assume.** Partners who know someone intimately still predicted CPR preferences correctly less than 60% of the time. A model trained on survey data outperforms this benchmark, though neither achieves the accuracy one would want for high-stakes decisions.
+
+2. **Demographics alone perform surprisingly well.** Nine basic variables (age, sex, children, marital status, work status, education, language, living area, partnership status) achieved the same accuracy as a 36-feature clinical model. This suggests that CPR preferences correlate more strongly with who someone is than with their medical history.
+
+<Callout type="pitfall">
+  This model predicts a binary CPR preference stripped of clinical context. Real CPR decisions depend heavily on the circumstances of the arrest: prognosis, comorbidities, expected quality of life afterward. A 70.6% accuracy rate means the model is wrong nearly one-third of the time on a life-or-death question. The Swiss, predominantly White, population-based sample limits generalizability to other cultural and demographic contexts.
+</Callout>
+
+3. **The personalized model raises its own ethical questions.** Adding personality traits and end-of-life attitudes improved accuracy, but this data is rarely available in clinical settings. Collecting it requires advance conversations that, if they happened routinely, might reduce the need for a predictor in the first place. The tool is most needed precisely when this information is absent.
+
+4. **A PPP should inform, not replace, surrogate judgment.** The authors are clear on this point: human surrogates provide contextual knowledge that no model can capture, and CPR preferences are neither static nor fully reducible to a binary choice. Any clinical implementation would need to position the tool as one input among several, not as an automated decision-maker.
+
+---
+
+## My Takeaway
+
+The most uncomfortable finding here is not about the model. It is about the partners. If the people closest to us predict our CPR preferences correctly barely more often than a coin flip, the foundation of surrogate decision-making is shakier than we acknowledge. The model's 70.6% accuracy is genuinely better, but still far from what anyone would want for a decision of this magnitude. I view this study less as a clinical tool and more as an empirical challenge to comfortable assumptions about substituted judgment. The practical path forward is not to deploy a PPP in isolation but to use the SHAP-identified features (advance directive completion, attitudes toward overtreatment, stated values) as a checklist for the conversations clinicians should be having with patients while they can still speak for themselves.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2500265)

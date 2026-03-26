@@ -8,6 +8,10 @@ featured: true
 
 import Callout from '../../components/Callout.astro';
 
+<Callout type="tip" title="TL;DR">
+  The SAIL 2025 review synthesizes one year of clinical AI evidence. Ambient documentation is everywhere but unproven on time savings. AI-guided ECG alerts reduced mortality by 17%. AI mammography found 17.6% more cancers without raising false recalls. AI hemorrhage triage showed no benefit. Insurers are using AI to autodeny claims. The pattern: narrow, well-defined AI tools work; broad, ambiguous ones don't.
+</Callout>
+
 ## Study Design
 
 A committee of researchers and clinicians at the Symposium on AI for Learning Health Systems (SAIL) 2025 reviewed clinical AI developments from 2024 to 2025 across six themes: clinical documentation, clinical decision support, insurance denials, clinician-AI interaction, AI regulation, and healthcare economics.
@@ -45,6 +49,14 @@ A committee of researchers and clinicians at the Symposium on AI for Learning He
 
 4. **Clinician-AI collaboration depends on context.** AI-assisted mammography shows clear synergy; AI-assisted diagnostic reasoning shows uncertain benefit. The "doctor plus AI" equation is task-dependent, not universally positive.
 
+<Callout type="tip" title="What to do with this">
+  **If your institution is adopting ambient AI:** Ask for time-savings data, not just satisfaction scores. The evidence shows clinicians like these tools but may not actually document faster. Demand before-and-after metrics on documentation time, note turnaround, and pajama time.
+
+  **If you're evaluating clinical decision support tools:** Prioritize tools with prospective trial evidence (like the ECG alert study) over retrospective accuracy claims (like the hemorrhage triage tool that failed in practice).
+
+  **If patients ask about AI-denied insurance claims:** Know that this is an active area of litigation. Document your clinical reasoning thoroughly; AI denial systems are pattern-matchers that struggle with atypical presentations.
+</Callout>
+
 ---
 
 ## My Takeaway
@@ -60,6 +72,9 @@ The tools that work (ECG alerts, structured screening) are specific, well-define
 - [First FDA-Cleared AI Device for Hemorrhage Risk Assessment in Trauma](/trials/appraise-hri-hemorrhage-fda-2025): the hemorrhage triage study noted in this review
 - [ECG Foundation Model: Self-Supervised Learning for Cardiac and Coronary Assessment](/trials/ecg-foundation-model-cardiac-function-2025): foundational work behind the ECG AI discussed here
 - [The Evidence Landscape: LLMs in Medicine, 2025-2026](/editorials/evidence-landscape-2025): our own evidence synthesis covering this period
+- [Why Putting an LLM Inside Epic Is Harder Than You Think](/editorials/epic-integrations-for-llms): the infrastructure challenges behind deploying AI in the EHR, relevant to every tool discussed in this review
+- [HIPAA Compliance for Clinicians Using LLMs](/guides/hipaa-compliance): practical compliance guidance for the AI tools this review covers
+- [Prior Authorization Appeal Letter Template](/templates/prior-authorization): a prompt template for drafting appeals when AI-driven claim denials hit your patients
 
 ---
 

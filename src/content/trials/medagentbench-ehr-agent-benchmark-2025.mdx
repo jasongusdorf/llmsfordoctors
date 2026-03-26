@@ -1,0 +1,57 @@
+---
+title: "MedAgentBench: Benchmarking LLM Agents on EHR Tasks"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIdbp2500144"
+keyFinding: "The best-performing LLM agent (Claude 3.5 Sonnet v2) achieved only a 69.67% success rate on 300 clinically derived EHR tasks, with most models performing significantly worse on action-based tasks than information retrieval."
+lastUpdated: 2026-03-25
+tags: [benchmark, agents, EHR, FHIR, clinical-workflow, LLM]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Answering medical questions is one thing. Navigating an electronic health record to actually do something about them is another. MedAgentBench, from Stanford, is the first benchmark that evaluates LLM agents on tasks requiring autonomous interaction with a simulated EHR environment. The benchmark includes 300 clinically derived tasks written by two internal medicine physicians, spanning 10 categories: patient information retrieval, lab result retrieval, data aggregation, recording patient data, test ordering, referral ordering, medication ordering, and others. The environment uses real (deidentified and jittered) patient data from 100 Stanford Hospital patients, comprising over 700,000 data elements served through a FHIR-compliant server. Tasks average 2.3 steps to complete. Twelve LLMs were evaluated using a simple agent orchestrator with access to 9 FHIR functions, limited to 8 interaction rounds per task and a single attempt (no retries). Success required exact correctness; partial credit was not given.
+
+---
+
+## Key Findings
+
+- **Claude 3.5 Sonnet v2 led all models at 69.67% overall success rate**, followed by GPT-4o at 64.00% and DeepSeek-V3 at 62.67%
+- **Query-based tasks (information retrieval) were substantially easier** than action-based tasks: Claude achieved 85.33% on queries versus 54.00% on actions
+- **Open-source models showed a meaningful gap**: Llama 3.3 (70B) achieved 46.33%, Gemma2 (27B) scored 19.33%, and Mistral v0.3 (7B) managed only 4.00%
+- **Gemini 2.0 Flash produced invalid actions in 54% of attempts**, typically by wrapping API calls in code blocks rather than following the specified output format
+- **A 30% failure rate persisted even for the best model**, meaning roughly 1 in 3 clinically relevant tasks would fail silently or produce incorrect results
+- **Common failure modes included format violations** (outputting natural language instead of structured data) **and incorrect value extraction** (returning "The last HbA1C value is 5.4%" when the system expected "[5.4]")
+- **Gemini 1.5 Pro showed the highest action success rate** (71.33%) despite lower overall performance (62.00%), suggesting that architecture matters differently for read versus write tasks
+
+<Callout type="evidence">
+  MedAgentBench is the first benchmark to test LLMs as agents interacting with a realistic EHR environment via standard FHIR APIs. By using real patient data and clinically grounded tasks, it evaluates capabilities that no knowledge-based benchmark can assess: the ability to plan a sequence of API calls, extract and transform data, and execute clinical actions correctly.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **LLM agents are not ready for autonomous EHR tasks.** A 30% failure rate on relatively simple, well-defined clinical tasks (averaging 2.3 steps) rules out unsupervised use. These are not edge cases; they are routine tasks like checking a potassium level and ordering replacement if it is low.
+
+2. **The gap between retrieval and action is the critical bottleneck.** Models retrieve information reasonably well but struggle to take the next step: writing an order, recording a value, or creating a referral. This pattern holds across nearly all models tested and points to a fundamental limitation in how current LLMs handle structured output and multi-step execution.
+
+<Callout type="pitfall">
+  All patient data comes from a single academic medical center (Stanford), and the EHR system context is hospital-specific. The benchmark does not include clinical notes, which are central to real-world EHR workflows. The simple agent orchestrator represents baseline performance; more sophisticated agent designs (with planning, memory, and error recovery) could perform significantly better.
+</Callout>
+
+3. **Format compliance is a surprisingly large source of errors.** Models frequently fail not because they lack clinical knowledge but because they cannot reliably produce the exact structured output that an API expects. This is a solvable engineering problem, and it is one that will likely improve rapidly with better function-calling training.
+
+4. **The benchmark reveals which tasks to automate first.** Information retrieval tasks (lab lookups, patient demographics) have success rates above 70% for top models. These are low-risk, high-frequency tasks where even imperfect automation could save time, provided there is a verification step before the result reaches the clinician.
+
+---
+
+## My Takeaway
+
+MedAgentBench quantifies what many of us suspect: LLMs can talk about medicine better than they can do medicine. The 30% failure rate for the best model on straightforward EHR tasks should anchor expectations for anyone planning agentic AI workflows in clinical settings. What struck me most was not the overall performance but the failure modes. These models are not failing because they lack medical knowledge. They are failing because they cannot reliably follow an API specification or format a structured response. That is both discouraging (it means current models are unreliable for autonomous use) and encouraging (it means the gap is largely an engineering problem, not a knowledge problem). Build the verification layer first, then hand the model the keys.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIdbp2500144)

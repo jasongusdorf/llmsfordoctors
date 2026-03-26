@@ -1,0 +1,57 @@
+---
+title: "PadChest-GR: A Bilingual Chest X-Ray Dataset for Grounded Radiology Report Generation"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIdbp2401120"
+keyFinding: "A manually curated bilingual dataset of 4555 chest X-ray studies with sentence-level bounding-box annotations enables training and evaluation of AI models that generate radiology reports grounded to specific image regions."
+lastUpdated: 2026-03-25
+tags: [radiology, dataset, chest-x-ray, grounded-reporting, benchmark, computer-vision]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Most AI radiology tools generate text without pointing to where they see the finding. PadChest-GR is a publicly available dataset designed to change that. Built from the PadChest chest X-ray collection (over 160,000 images from a single Spanish hospital, 2009 to 2017), the authors selected 4555 frontal CXR studies, 3099 abnormal and 1456 normal, and paired each report with sentence-level finding descriptions in both English and Spanish. For each positive finding, bounding boxes were drawn by 14 radiologists (9 senior, 5 junior) to localize the abnormality on the image. GPT-4 handled the extraction of individual finding sentences from free-text reports, their translation, and classification of temporal progression. Every study and finding underwent dual-reader quality control with arbitration by senior radiologists for disagreements. The dataset contains 7037 positive-finding sentences and 3422 negative-finding sentences, split 70/10/20 into training, validation, and test partitions.
+
+---
+
+## Key Findings
+
+- **4555 CXR studies with fully grounded reports** covering 24 finding categories, each annotated with bounding boxes, location labels, and progression status
+- **Bilingual coverage** in English and Spanish, with standardized finding and location terminology mapped to the Unified Medical Language System
+- **7037 positive-finding sentences** linked to bounding-box localizations, plus 3422 negative-finding sentences describing absent findings
+- **11.7% of positive findings were not localized** with boxes, primarily diffuse or global findings (osteopenia, hyperexpansion, bronchiectasis) where bounding boxes would cover more than half the image
+- **Dual-reader annotation** with two independent sets of bounding boxes per finding, enabling research into interobserver variability
+- **Baseline model (MAIRA-2) achieved 0.560 logical precision and 0.802 grounding precision**, establishing initial benchmarks on the RadFact evaluation framework
+- **Median patient age of 69 years** with balanced sex distribution and stratified sampling that preserves the original PadChest finding distribution
+
+<Callout type="evidence">
+  PadChest-GR is the first manually annotated chest X-ray dataset that links every finding sentence to a spatial localization on the image. This fills a critical gap: existing datasets provide either bounding boxes or text reports, but not both together for every clinically relevant finding.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Grounded reports make AI radiology more trustworthy.** When an AI system says "left basal atelectasis," a grounded report also draws a box around the finding on the image. Clinicians can verify the claim in seconds rather than re-reading the entire film. This is the difference between a tool that assists and one that merely asserts.
+
+2. **Spatial localization reduces hallucinations.** Prior work shows that requiring AI models to point to specific image regions when generating findings reduces the rate of fabricated observations. Training on PadChest-GR could improve accuracy for AI radiology report generators by forcing them to justify each claim with a spatial reference.
+
+<Callout type="pitfall">
+  All data comes from a single Spanish hospital, with images acquired between 2014 and 2017, many digitized from radiological films rather than natively digital. Image quality is lower than contemporary standards, and regional practice patterns may limit generalizability to other populations and clinical settings.
+</Callout>
+
+3. **Progression tracking is included but limited.** About 11% of findings have progression labels (stable, improving, worsening, new, resolved), enabling temporal analysis. The time intervals between prior and current studies are inconsistent, though, with a mean of 1223 days and wide variance.
+
+4. **The LLM-assisted curation pipeline is itself a contribution.** Using GPT-4 to extract, translate, and classify individual findings from free-text reports, followed by radiologist quality control, offers a reproducible template for building similar datasets in other imaging domains.
+
+---
+
+## My Takeaway
+
+This dataset matters because grounded reporting is where radiology AI needs to go. Generating a plausible-sounding report is no longer the hard part; the hard part is proving that the AI actually saw what it claims to see. PadChest-GR gives researchers the training data to build models that can do exactly that. The bilingual design, the dual-reader annotations, and the public availability make this a genuinely useful resource. The single-site, older-image limitations are real but acceptable for a training dataset. I expect this to become a standard benchmark for the grounded radiology report generation task within the next year.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIdbp2401120)

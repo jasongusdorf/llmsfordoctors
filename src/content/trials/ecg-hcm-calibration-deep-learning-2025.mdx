@@ -1,0 +1,56 @@
+---
+title: "Calibrating ECG Deep-Learning Scores Improves Interpretability for Hypertrophic Cardiomyopathy Screening"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIoa2400421"
+keyFinding: "Among 1,522 patients flagged by an FDA-cleared ECG deep-learning algorithm for suspected hypertrophic cardiomyopathy, the out-of-the-box positive predictive value was only 10.9%, but Platt calibration reduced the Brier score from 0.73 to 0.08 and probability score sorting increased PPV to 80% among the top 5 flagged patients."
+lastUpdated: 2026-03-25
+tags: [cardiology, ECG, deep-learning, hypertrophic-cardiomyopathy, model-calibration, FDA-cleared, screening]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+A prospective study at Mount Sinai (New York) screened 70,688 patients aged 18 and older who underwent a 12-lead ECG between March 2023 and January 2024. An FDA-cleared deep-learning algorithm (De Novo Class II) flagged 1,522 patients (2.15%) as high risk for hypertrophic cardiomyopathy (HCM). Cardiologists manually reviewed medical records and imaging for each flagged patient to classify them as HCM positive (166 patients) or HCM negative (1,356 patients). The flagged cohort was split into calibration (n=768) and holdout test (n=754) sets. Platt scaling via logistic regression was applied to transform raw model probability scores into calibrated probabilities reflecting the true likelihood of HCM within the flagged population. A clinician-facing mobile application delivered alerts and enabled probability-score-based sorting.
+
+---
+
+## Key Findings
+
+- **The out-of-the-box PPV was only 10.9%** (166/1,522), meaning roughly 9 of every 10 flagged patients did not have HCM.
+- **Platt calibration reduced the Brier score from 0.73 to 0.08** and calibration error from 0.81 to 0.03, indicating calibrated scores closely matched observed HCM probability.
+- **Probability score sorting dramatically improved clinical yield.** PPV among the top 5 patients by calibrated score was 80%; among the top 10, it was 70%. Default chronological sorting yielded a PPV of 20% for both groups.
+- **Calibrated probabilities mapped intuitively to disease likelihood.** PPV was 100% for calibrated scores above 0.8, 67% for scores 0.6-0.8, 57% for 0.5-0.6, 38% for 0.4-0.5, 35% for 0.3-0.4, 22% for 0.2-0.3, 13% for 0.1-0.2, and 6% for scores below 0.1.
+- **GradCAM analysis identified QRS complexes** (ventricular depolarization) as the most important ECG feature driving predictions, consistent with known HCM pathophysiology.
+- **The Spiegelhalter Z test confirmed no systemic discrepancy** between calibrated scores and observed HCM status (Z = -0.76, P = 0.29).
+
+<Callout type="evidence">
+  This is one of the first prospective studies validating model calibration for an FDA-cleared diagnostic AI algorithm in clinical practice. The gap between raw model output (PPV 10.9%) and calibrated, sorted output (PPV 80% for top 5) demonstrates that how clinicians receive AI predictions matters as much as the underlying model performance.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Raw scores from FDA-cleared algorithms can be misleading.** A PPV of 10.9% means nearly 9 false positives for every true positive. Clinicians reviewing flagged patients in chronological order would spend most of their time chasing alerts that do not represent disease. Calibration and sorting do not change the model; they change how clinicians interact with its output.
+
+2. **Sorting by probability score is a practical triage tool.** For busy cardiology teams receiving dozens of algorithm alerts, reviewing the highest-probability cases first transforms the clinical workflow from reactive (reviewing alerts as they arrive) to strategic (prioritizing patients most likely to benefit from evaluation).
+
+<Callout type="pitfall">
+  Calibration was performed only on the flagged subpopulation, not the full screening cohort. The study cannot assess performance for patients scored below the flagging threshold. Calibration may also need to be repeated at each deployment site, as local population prevalence affects the PPV-calibration relationship. Single-center design limits generalizability.
+</Callout>
+
+3. **Calibrated scores enable better patient conversations.** Telling a patient "the algorithm flagged you, and your estimated probability of HCM is 65%" is materially different from "the algorithm flagged you." Calibrated probabilities give clinicians a foundation for informed counseling about next steps, whether that is echocardiography, genetic testing, or watchful waiting.
+
+4. **Alert fatigue is a solvable problem.** The study demonstrates that the same underlying algorithm can produce either an overwhelming stream of low-yield alerts or a focused, high-yield worklist, depending entirely on post-processing decisions that are within the health system's control.
+
+---
+
+## My Takeaway
+
+This study exposes a gap that most health systems have not yet confronted: what happens after an AI algorithm clears the FDA and enters clinical practice. The raw model performed well at ordering risk, but its probability outputs were essentially uninterpretable. A score of 0.95 corresponded to a PPV of 27%; a score of 0.84 corresponded to a PPV of 4%. Calibration fixed this with a straightforward logistic regression, turning opaque scores into actionable probabilities. The practical lesson is clear. If your institution has deployed an FDA-cleared diagnostic algorithm and is reviewing flagged patients in the order they arrive, you are likely wasting clinician time on false positives while genuine cases sit further down the list.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2400421)

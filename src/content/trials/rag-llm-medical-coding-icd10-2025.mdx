@@ -1,0 +1,56 @@
+---
+title: "RAG-Enhanced LLMs for ICD-10 Medical Coding: Outperforming Human Coders in the ED"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIcs2401161"
+keyFinding: "RAG-enhanced GPT-4 produced more accurate ICD-10-CM codes than human providers in 447 of 690 evaluated cases (P&lt;0.001), and more specific codes in 509 of 690 cases (P&lt;0.001), as judged by masked physician reviewers."
+lastUpdated: 2026-03-25
+tags: [llm, medical-coding, icd-10, retrieval-augmented-generation, emergency-medicine, gpt-4, documentation]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Human ICD-10 coding in the emergency department is fast, imprecise, and rarely anyone's priority during a shift. This study tested whether retrieval-augmented generation (RAG) could make LLMs better at it. Investigators randomly selected 500 adult ED visits from six Mount Sinai Health System hospitals (January through April 2024, discharged home) and ran clinical notes through nine LLMs, both commercial (GPT-4, GPT-3.5) and open-source (Llama-3.1-70B, Qwen2-7B, and others). A two-stage pipeline first generated a candidate ICD-10-CM code via zero-shot prompting, then refined it against a RAG database of over 1 million prior ED visits containing 10,876 unique codes. Four physicians and two LLMs evaluated accuracy and specificity of RAG-enhanced GPT-4 codes against provider-assigned codes in a masked comparison.
+
+---
+
+## Key Findings
+
+- **RAG increased exact ICD-10 code matches dramatically**: GPT-4 jumped from 36 exact matches (7.2%) at zero-shot to 132 (26.4%) with RAG
+- **Physician reviewers preferred RAG-enhanced GPT-4 for accuracy** in 447 of 690 evaluated cases vs. 277 for provider codes (P&lt;0.001)
+- **Reviewers preferred RAG-enhanced GPT-4 for specificity** in 509 of 690 cases vs. 181 for provider codes (P&lt;0.001)
+- **Smaller open-source models also improved with RAG**: Qwen2-7B went from 4 exact matches (0.8%) to 88 (17.6%); Llama-3.1-70B rose from 111 (22.2%) to 124 (24.8%)
+- **RAG pushed valid code generation to near-perfect rates** across models, with even the worst-performing zero-shot model (Qwen2-7B, 43.4% valid codes) reaching 99.8% with RAG
+- **LLM-as-judge evaluations showed high agreement** between Llama-3.1-70B and Qwen2-7B, and moderate agreement with human reviewers
+
+<Callout type="evidence">
+  The head-to-head comparison is striking: physician reviewers, masked to code origin, chose the LLM-generated code as more accurate nearly twice as often as the human-assigned code. This suggests the bar for ED coding is low enough that even imperfect AI can clear it.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **ED coding accuracy is worse than most clinicians assume.** Providers in a busy ED assign ICD-10 codes under time pressure, often defaulting to "unspecified" variants. The study's qualitative examples are telling: a patient with epilepsy-driven seizures was coded as "sprain of right ankle," and a patient with pill impaction was coded as "dysphagia, unspecified." RAG-enhanced GPT-4 caught both.
+
+2. **RAG constrains LLM hallucination.** The core problem with LLMs and medical coding has been hallucinated codes that don't exist in ICD-10. By restricting output to a validated set of codes retrieved from a real clinical database, RAG eliminated this failure mode almost entirely.
+
+<Callout type="pitfall">
+  The study only evaluated primary diagnosis codes for discharged ED patients. Admitted patients, secondary diagnoses, and procedure codes (where coding complexity and financial stakes are highest) were not tested. The model's performance on billing-critical inpatient coding remains unknown.
+</Callout>
+
+3. **Open-source models close the gap with RAG.** Llama-3.1-70B and Qwen2-7B performed surprisingly well once RAG was added, suggesting hospitals could run this locally without sending patient data to commercial APIs. For institutions wary of cloud-based AI, that distinction matters.
+
+4. **LLMs as evaluators introduce their own bias.** A known limitation: LLM judges tend to prefer LLM-generated outputs even under masked conditions. The human physician evaluations are more reliable, but still showed a clear preference for RAG-enhanced codes.
+
+---
+
+## My Takeaway
+
+Medical coding is tedious, error-prone work that no ED physician wants to do carefully at 3 a.m. This study confirms what anyone who has glanced at an ED chart already suspects: provider-assigned codes are often vague or wrong, and an LLM with access to a good reference database can do better. The practical path forward is a system that suggests codes for physician review, not one that replaces human sign-off. RAG is the key insight; it transforms LLMs from unreliable code generators into constrained, database-grounded tools. The 26.4% exact match rate for GPT-4 still leaves room for improvement, but the accuracy and specificity advantages over human coders are consistent and large.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIcs2401161)

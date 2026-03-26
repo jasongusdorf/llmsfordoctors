@@ -1,0 +1,170 @@
+---
+title: "Why Putting an LLM Inside Epic Is Harder Than You Think"
+description: "The barriers to connecting AI tools to your EHR aren't about the AI. They're about Epic's architecture, data fragmentation, and compliance rules that were designed long before anyone imagined an AI assistant asking for the whole chart at once."
+tags: [epic, ehr, integration, fhir, hipaa, security, infrastructure, compliance]
+lastUpdated: 2026-03-25
+featured: true
+---
+
+import Callout from '../../components/Callout.astro';
+
+<Callout type="tip" title="TL;DR">
+  Connecting an AI tool to Epic is harder than building the AI itself. Each hospital runs its own Epic instance, patient data is scattered across five internal systems with different speeds and gaps, and Epic's APIs were designed to limit exactly the kind of broad data access LLMs need. The compliance, security, and audit-trail challenges are solvable, but only if you know what to ask. This piece gives you the questions.
+</Callout>
+
+## Contents
+
+- [Every Hospital Runs Its Own Epic](#every-hospital-runs-its-own-epic)
+- [The Data Is Scattered Across Five Different Places](#the-data-is-scattered-across-five-different-places)
+- [Epic Was Built to Limit Exactly What LLMs Need](#epic-was-built-to-limit-exactly-what-llms-need)
+- [Who Looked at What, and When](#who-looked-at-what-and-when)
+- [Privacy Is Harder Than It Sounds](#privacy-is-harder-than-it-sounds)
+- [Security Risks Specific to AI in the EHR](#security-risks-specific-to-ai-in-the-ehr)
+- [Four Ways to Connect an AI to Epic](#four-ways-to-connect-an-ai-to-epic)
+- [What Good Looks Like](#what-good-looks-like)
+- [Why This Matters to You](#why-this-matters-to-you)
+
+---
+
+You open a patient's chart in Epic. You see the problem list, the med list, the last three notes, the labs from this morning. It takes you maybe 15 seconds to orient.
+
+An LLM trying to do the same thing has to ask Epic for each piece separately, through a set of digital doorways that were designed to be narrow on purpose. Epic limits how much data any outside application can request, how fast it can request it, and what it's allowed to do with the answer. Those limits exist for good reasons: performance, security, patient privacy. They also make building a useful AI assistant inside Epic genuinely difficult.
+
+The obstacles aren't about the AI being bad at medicine. They're about the plumbing between the AI and the patient's data.
+
+---
+
+## Every Hospital Runs Its Own Epic
+
+This is the first thing most people don't realize. There is no single "Epic system." Each hospital or health system runs its own independent copy. The settings, the terminology, the way data fields are configured, the security rules: all of it varies.
+
+A company building an AI tool for Epic can't connect once and reach every hospital. It has to connect separately to each one, navigate each hospital's unique configuration, pass each hospital's security review, and maintain each connection independently. An AI feature that works at one institution may need significant rework to function at the next.
+
+This is why you don't see a single AI product that works seamlessly across every Epic installation. The problem isn't ambition. It's that "Epic" is not one system. It's hundreds of systems that share a common ancestor.
+
+---
+
+## The Data Is Scattered Across Five Different Places
+
+When you look at a patient's chart, Epic assembles information from multiple internal systems behind the scenes. For a clinician, this is invisible. For an AI tool trying to access that same information from the outside, it's a maze. Each system has different rules, different speeds, and different gaps.
+
+**The live clinical database** (called Chronicles) is where your real-time charting happens. It's fast and accurate, but it's built for one-patient-at-a-time clinical work, not for an AI pulling large amounts of data across a patient's entire history.
+
+**The API layer** (called Interconnect) is the main doorway for outside applications. Epic deliberately limits how much traffic this doorway can handle, because too many requests slow down the system for everyone. An AI that needs lots of context generates lots of requests. That's a problem.
+
+**The standardized data interface** (called FHIR) is the most modern and structured way to pull specific data points: a lab result, a medication, a diagnosis code. It works well for targeted queries. It works poorly when an AI needs to read broadly across the chart to understand the full clinical picture.
+
+**Records from other hospitals** (via Care Everywhere) arrive as documents: scanned PDFs, clinical summaries from outside systems, discharge paperwork from facilities with different templates. The structure is inconsistent. Dates may be ambiguous. An AI reading these documents may not be able to tell whether a diagnosis is from last week or six years ago.
+
+**Analytics databases** (Clarity and Caboodle) are copies of the clinical data, designed for reporting and research. They're updated on a delay: sometimes hourly, sometimes daily, sometimes weekly, depending on the institution. If an AI pulls a "current" potassium from a database that was last refreshed 12 hours ago, the recommendation it generates will be based on stale information. The AI doesn't know the data is old. It presents the result with full confidence.
+
+<Callout type="pitfall">
+  When an AI tool gives you a recommendation based on yesterday's labs while you're looking at this morning's results, that's not the AI hallucinating. That's the AI reading from the wrong copy of the data. The clinical risk is the same either way, but the fix is completely different: it's an infrastructure problem, not a model problem.
+</Callout>
+
+---
+
+## Epic Was Built to Limit Exactly What LLMs Need
+
+Here is the core tension. An AI assistant is most useful when it can see the whole picture: the full medication list, the recent notes, the trend in lab values, the imaging results, the social history. To assemble that picture, the AI has to make many separate requests to Epic's systems.
+
+Epic's own guidelines tell developers to do the opposite. Request as little as possible. Filter tightly. Don't run broad searches. Don't make too many calls in a row. These rules protect system performance for the thousands of clinicians using Epic simultaneously.
+
+The result: the AI either gets a narrow, incomplete view of the patient (safe for Epic's infrastructure, less useful clinically) or tries to gather a broad view (more useful clinically, potentially harmful to system performance). Every AI-in-Epic product is navigating this tradeoff, and there is no clean solution.
+
+Some tools handle this by pre-assembling a limited "context packet" of the most relevant data (recent encounter, active meds, last 48 hours of labs, problem list) and only showing the AI that packet. This is the safest approach. It also means the AI can't see anything outside that window, which limits what it can do.
+
+---
+
+## Who Looked at What, and When
+
+HIPAA requires that every access to patient data be logged and traceable to a specific person. When you open a chart in Epic, your name is attached to that access.
+
+When an AI tool accesses patient data, the question of "who" gets complicated. Many AI systems connect to Epic through a single technical account rather than through each individual clinician's credentials. This means the audit trail shows "AI system accessed chart" rather than "Dr. Smith used AI system to access chart." If something goes wrong, if data is accessed inappropriately, there may be no clear record of which clinician was involved.
+
+Well-designed systems pass the clinician's identity through to Epic so the audit trail remains intact. Poorly designed systems don't, and the compliance gap may not become visible until an incident forces an audit.
+
+<Callout type="hipaa">
+  If you're evaluating an AI tool that connects to Epic, ask how it handles audit logging. Specifically: when the AI accesses a patient's chart on your behalf, does your name appear in Epic's access log? If the answer is "no" or "we're not sure," that's a compliance problem.
+</Callout>
+
+There's another wrinkle. Epic restricts access to certain charts, such as employee health records or psychiatric notes, through a "break-the-glass" mechanism that requires explicit justification. If an AI tool is set up to prefetch data broadly (to give the model more context), it might trigger break-the-glass alerts, access partial records without realizing something was withheld, or inadvertently reveal that restricted data exists. All of these are problems.
+
+---
+
+## Privacy Is Harder Than It Sounds
+
+The obvious rule: patient data shouldn't leave the hospital's secure environment without proper agreements in place. If an AI tool sends any part of a patient's record to a cloud-based AI model (even a snippet of a note embedded in a prompt), the AI vendor is handling protected health information and needs a Business Associate Agreement.
+
+"Just remove the identifying information first" sounds reasonable. In practice, clinical text is full of identifying details: specific dates, rare diagnoses, family structures, geographic references. Stripping all of it often strips the clinical value along with it. A note that says "the patient" instead of naming a date of birth, a specific rare condition, and a referring physician may no longer contain enough detail for the AI to produce a useful response.
+
+This is why many health systems considering clinical AI are looking at running AI models on their own servers, inside their own network, rather than sending data to external cloud services. It's more expensive and harder to maintain, but it avoids the privacy problem entirely.
+
+<Callout type="pitfall">
+  Substance use disorder records have additional federal protections (42 CFR Part 2) beyond standard HIPAA rules. An AI tool that accidentally includes a note about substance use treatment in its data pull may violate these protections even if the system is otherwise HIPAA-compliant. Most AI tools are not built to detect and filter for this.
+</Callout>
+
+---
+
+## Security Risks Specific to AI in the EHR
+
+Beyond privacy, AI tools connected to clinical systems introduce a category of security risk that traditional software doesn't.
+
+**Prompt injection** is the most discussed. If an AI reads text from external sources (documents from other hospitals, patient messages, copied-and-pasted content in notes), that text could contain hidden instructions that manipulate the AI's behavior. In a clinical context, this could cause the AI to retrieve or display patient data it shouldn't, or to produce outputs that mislead the clinician.
+
+**Data leakage from the model itself** is a subtler risk. Research has shown that AI models can sometimes be tricked into revealing fragments of their training data. If a model was trained or fine-tuned on clinical notes, an attacker could potentially extract pieces of those notes. This is not theoretical; it has been demonstrated in peer-reviewed security research, though exploiting it in practice requires specific conditions.
+
+These risks don't mean clinical AI is too dangerous to use. They mean it requires the same security rigor that hospitals apply to any system touching patient data, plus additional safeguards specific to how AI models behave.
+
+---
+
+## Four Ways to Connect an AI to Epic
+
+Every AI-in-Epic product uses some variation of these four approaches:
+
+| Approach | What it means | Upside | Downside |
+|---|---|---|---|
+| **AI app runs inside Epic's interface** | Clinician launches an AI tool from within the EHR; it pulls data through Epic's standard APIs | Feels integrated; clear who is using it | Limited by how much data Epic's APIs will provide efficiently |
+| **A "middleman" server sits between Epic and the AI** | A separate system pulls data from Epic, cleans and filters it, then sends the relevant parts to the AI | Can cache data to reduce load on Epic; can strip sensitive details before they reach the AI | The middleman server becomes a high-value target for attackers; adds complexity |
+| **The AI model runs on the hospital's own servers** | Patient data never leaves the hospital's network | Strongest privacy protection | Expensive to operate; harder to use the most capable AI models |
+| **Cloud AI with a privacy filter** | Data passes through a filter that removes identifying information before reaching a cloud-hosted AI | Access to the best available AI models; fast iteration | Hardest to get right; the filter must catch everything, every time |
+
+No approach is risk-free. The right choice depends on what the AI is being asked to do, how sensitive the data is, and what the institution can support operationally.
+
+---
+
+## What Good Looks Like
+
+The AI tools most likely to succeed inside Epic share a few design principles:
+
+They **limit what the AI can see** to a pre-assembled, bounded set of clinical data rather than letting the AI request information freely. This protects Epic's performance and reduces the risk of accessing something it shouldn't.
+
+They **keep the AI away from the controls.** The AI can suggest an action ("consider ordering a CBC"), but it cannot execute one. A human reviews and acts. The AI never holds the credentials to access Epic directly.
+
+They **preserve the audit trail.** When the AI accesses data, the clinician's identity is attached so the access log reflects reality.
+
+They **treat AI output as unverified.** The system requires the AI to cite the specific data it used, and the clinician can check those citations against the chart. Nothing the AI produces goes directly into the medical record without review.
+
+<Callout type="tip">
+  The simplest way to think about it: a well-designed clinical AI tool operates like a medical student. It can read the chart (with supervision), suggest a plan (with citations), and draft a note (for your review). It cannot place orders, access restricted records without your involvement, or act on its own. The infrastructure should enforce that boundary, not rely on the AI to respect it.
+</Callout>
+
+---
+
+## Why This Matters to You
+
+Most of the work that determines whether a clinical AI tool is safe, useful, and compliant happens in the infrastructure layer that clinicians never see. That's by design. But when an AI tool gives you a recommendation based on stale data, or accesses a chart without proper logging, or fails to filter a sensitive record, the clinical and legal consequences land on you.
+
+Knowing that these problems exist doesn't mean you need to understand the engineering. It means you should ask better questions when your institution evaluates AI tools: Where does the data come from, and how current is it? Who shows up in the access log when the AI reads a chart? What happens if the AI reads something it shouldn't?
+
+The vendors who can answer those questions clearly are the ones building products worth trusting. The ones who can't, or who wave them off as "technical details," are the ones most likely to produce the kind of failure that becomes your problem.
+
+---
+
+## Related on this site
+
+- [HIPAA Compliance for Clinicians Using LLMs](/guides/hipaa-compliance): the practical compliance guide covering BAAs, PHI, and vendor evaluation, all of which apply directly when connecting AI tools to Epic
+- [Epic Integrated AI](/tools/epic-ai): our review of Epic's own built-in AI features and why they fall short
+- [LLMs in Clinical Care 101](/guides/llms-in-clinical-care-101): a beginner-friendly walkthrough of using LLMs in clinical practice, including de-identification
+- [Why Copilot Feels Bad: A Structural Diagnosis](/editorials/why-copilot-is-bad): a related analysis of how enterprise AI products fail clinicians when the architecture doesn't match the use case
+- [The Evidence Landscape: LLMs in Medicine, 2025-2026](/editorials/evidence-landscape-2025): a broader evidence synthesis covering clinical AI deployments and their outcomes

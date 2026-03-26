@@ -1,0 +1,56 @@
+---
+title: "TRIALSCOPE: Simulating Clinical Trials from Electronic Medical Records"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIoa2400859"
+keyFinding: "An LLM-powered framework extracted structured data from over 1 million cancer patient EMRs and reproduced hazard ratios from 9 of 11 published lung cancer RCTs, while simulating unconducted trials with a built-in validation suite."
+lastUpdated: 2026-03-25
+tags: [real-world-evidence, clinical-trials, oncology, lung-cancer, causal-inference, nlp, emr]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+TRIALSCOPE is a framework that converts unstructured clinical notes into structured trial-ready data, then simulates randomized controlled trials using causal inference. Gonzalez, Ueno, and colleagues applied biomedical language models (PubMedBERT, OncoBERT) to extract patient attributes from EMRs across a large U.S. health care network, covering over 1 million cancer patients. The pipeline includes a probabilistic latent variable model for data denoising and imputation, patient triaging against trial eligibility criteria, and a Cox proportional hazards model with inverse propensity score weighting. The team simulated 11 previously published advanced non-small cell lung cancer (aNSCLC) trials and one unconducted trial (EMPHASIS-lung), comparing simulated hazard ratios against published results.
+
+---
+
+## Key Findings
+
+- **9 of 11 simulated lung cancer trials** produced hazard ratios statistically equivalent to the original RCTs
+- **EMR curation accuracy exceeded 96.6% AUROC** for biomedical language model extraction, with precision and recall consistently above 87%
+- **18,038 aNSCLC patients** were identified from real-world data for trial simulation
+- **EMPHASIS-lung, a discontinued trial**, was simulated successfully, yielding a hazard ratio of 0.76 (95% CI, 0.61 to 0.95; n=1,009), suggesting treatment efficacy
+- **Pancreatic cancer simulation** demonstrated generalizability beyond lung cancer, producing a hazard ratio of 0.77 (95% CI, 0.48 to 1.24; n=131) that was statistically equivalent to the published result of 0.72
+- **20-fold speed improvement and 10-fold cost reduction** compared with manual chart abstraction (0.7 minutes and $0.68 per patient vs. 16 minutes and $7.80)
+
+<Callout type="evidence">
+  This is one of the first demonstrations that LLM-based EMR extraction paired with causal inference can reproduce known RCT results at scale, and then extend the approach to trials that were never completed. The validation suite (five diagnostic tests for robustness) adds rigor that most real-world evidence studies lack.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Evidence for drugs that lack RCTs.** More than 90% of rare diseases have no approved treatment. TRIALSCOPE could generate preliminary evidence from existing EMR data, particularly for diseases where enrollment is impossible or unethical. The EMPHASIS-lung simulation illustrates the concept: a trial discontinued for poor accrual still produced analyzable evidence.
+
+2. **Speed and cost change the calculus.** At $0.68 per patient record and under a minute of processing time, the framework could make real-world evidence generation routine rather than a multimillion-dollar undertaking. This matters for post-market surveillance, label expansion decisions, and comparative effectiveness research.
+
+<Callout type="pitfall">
+  Unmeasured confounding remains the fundamental limitation. The framework accounts for known confounders through propensity score weighting, but variables absent from the medical record (socioeconomic factors, patient preferences, care quality) can bias results. The LUX-Lung 6 simulation, which failed to match the RCT hazard ratio, may reflect exactly this problem.
+</Callout>
+
+3. **Eligibility criteria may be unnecessarily restrictive.** Simulations with and without original trial eligibility criteria produced similar hazard ratios for most trials, suggesting that broadening enrollment criteria might not compromise treatment effect estimates. This has direct implications for trial design.
+
+4. **Regulatory interest is real but validation gaps remain.** The FDA's Advancing Real-World Evidence Program explicitly encourages this type of work. Prospective validation against ongoing trials, rather than retrospective matching to published results, would substantially strengthen the case.
+
+---
+
+## My Takeaway
+
+TRIALSCOPE demonstrates something genuinely useful: the ability to extract structured, trial-grade data from messy clinical notes and run credible simulations against known results. The 9-of-11 replication rate is impressive, and the ability to simulate unconducted trials is the more important capability. I would not treat the outputs as equivalent to RCT evidence, but as a tool for hypothesis generation, trial design, and prioritization of expensive prospective studies, this is practical and ready for careful adoption. The 20-fold speed advantage makes it feasible for health systems to generate their own real-world evidence rather than waiting years for post-hoc analyses.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2400859)

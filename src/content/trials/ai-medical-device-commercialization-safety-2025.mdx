@@ -1,0 +1,60 @@
+---
+title: "950 FDA-Cleared AI Devices: Who Makes Them, and Which Ones Get Recalled"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIra2500061"
+keyFinding: "Public companies exhibit a 30-fold higher recall rate than private firms for FDA-cleared AI medical devices (14.4% vs. 1.3% for established public vs. private companies), and 61.7% of all cleared devices still lack detailed descriptions of their AI methodology."
+lastUpdated: 2026-03-25
+tags: [fda, medical-devices, regulation, safety, recalls, commercialization, deep-learning, transparency]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Lee et al. analyzed 950 FDA-cleared AI-enabled medical devices (AIMDs) from 331 manufacturers, spanning 1995 to 2024. For each device, they extracted the filing company, clearance year, regulatory code, device description, AI approach, and clinical service from the FDA database. Manufacturers were classified by ownership (public vs. private), market capitalization, and development model (in-house vs. acquisition). Recall data came from the FDA Medical Device Recalls database. The study used Fisher's exact tests, odds ratios, and multivariate logistic regression to compare recall rates across commercialization pathways. Corporate structure and acquisition history were verified through S&P Capital IQ, PrivCo, and corporate legal records.
+
+---
+
+## Key Findings
+
+- **FDA AI device clearances grew from 1.4 per year (1995-2014) to 146 per year (2020-2024)**, a roughly 100-fold increase over a decade
+- **Private companies make up 68.9% of manufacturers** but public companies average more devices per firm (5.1 vs. 2.0)
+- **General radiology accounts for 31.6% of all AIMDs**, followed by cardiovascular (17.9%) and neuropsychiatry (14.6%)
+- **Deep learning now powers over half of cleared devices** (50.5% of clearances from 2020-2024), up from 18.6% when DL approaches first appeared between 2015 and 2019
+- **61.7% of all cleared devices lack detailed AI methodology descriptions** in their clearance summaries, though this has improved from 62.4% (2015-2019) to 8.9% (2020-2024) for devices not explicitly mentioning AI
+- **Established public companies had a 14.4% recall rate** (99 recalls from 271 in-house developed devices); smaller public companies, 11.8% (64 of 93); private companies, 1.3% (10 of 449)
+- **Large-cap public firms had the highest recall odds** (OR 12.2; 95% CI, 4.7 to 37.1) compared to private companies, even after adjusting for clinical service, acquisition status, and AI architecture
+- **82.1% of recalls from established public companies remained unresolved**, compared to 66.6% for private companies
+
+<Callout type="evidence">
+  The 30-fold recall disparity between public and private AI device manufacturers is the most striking finding in the AI device regulatory literature to date. It suggests that the commercialization pressures facing publicly traded companies, including speed to market and portfolio breadth, may systematically compromise premarket validation.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Device manufacturer type predicts recall risk.** When evaluating an AI tool for clinical use, knowing whether it was developed in-house by a large public company versus a focused private firm is relevant safety information. The data show these are not equivalent risk profiles.
+
+2. **Transparency is improving but still inadequate.** One in three cleared AI devices still does not describe its AI approach in the clearance summary. For clinicians, this means the FDA clearance letter alone may not tell you what the device actually does or how it reaches its conclusions.
+
+3. **The 510(k) pathway dominates AI device clearance.** Most AIMDs demonstrate "substantial equivalence" to a previously cleared device rather than undergoing independent clinical validation. This means clearance signals regulatory acceptability, not clinical effectiveness.
+
+<Callout type="pitfall">
+  Public companies' higher recall rates correlate with larger portfolios and faster market entry, but the 82% unresolved recall rate for established public companies is the more concerning number. A recalled device that remains unresolved means the safety issue that triggered the recall has not been fully addressed.
+</Callout>
+
+4. **Radiology dominance is shifting.** While general radiology still accounts for the largest share of AI devices, the rapid growth in cardiovascular, neuropsychiatry, and surgical applications means clinicians across specialties will increasingly encounter AI-enabled devices. The regulatory infrastructure that developed around imaging AI may not transfer cleanly to these new domains.
+
+5. **Ask about the AI architecture.** Deep learning devices had the lowest recall rate (4.6%) among categories with explicit AI descriptions, while devices with nonexplicit AI approaches had the highest (9.2%). More specific technical disclosure correlates with better postmarket performance.
+
+---
+
+## My Takeaway
+
+This study reframes AI device safety as a corporate governance question, not just a technical one. The 30-fold recall gap between public and private companies is too large to attribute to chance or reporting differences alone. Public companies face quarterly earnings pressure, maintain larger device portfolios, and acquire devices they did not develop, all factors that can dilute the premarket rigor a focused startup applies to its single product. For clinicians choosing between competing AI tools, the manufacturer's corporate structure and development history deserve a place in the evaluation, right alongside accuracy metrics and clinical validation data. The FDA's current framework treats all 510(k) applicants equally. This data suggests it probably should not.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIra2500061)

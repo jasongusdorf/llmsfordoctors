@@ -1,0 +1,54 @@
+---
+title: "Smartphone Video Biomechanics Outperform Timed Function Tests for Neuromuscular Disease Classification"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIoa2401137"
+keyFinding: "Video-based biomechanical analysis using smartphone cameras classified neuromuscular diseases with 82% balanced accuracy, outperforming timed function tests (50%) and identifying disease-specific gait signatures invisible to standard clinical assessments."
+lastUpdated: 2026-03-25
+tags: [neuromuscular disease, biomechanics, video analysis, digital biomarkers, movement disorders, OpenCap]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Smartphone cameras captured what stopwatches could not. This observational study enrolled 129 individuals (28 with facioscapulohumeral muscular dystrophy [FSHD], 58 with myotonic dystrophy [DM], and 43 healthy controls) across five locations in 14 U.S. states. Participants performed nine upper- and lower-body movements recorded via the open-source OpenCap platform, which computed 3D joint kinematics from smartphone video in a median of 16 minutes per person. Researchers extracted 34 interpretable movement features and compared video-derived metrics against four standard timed function tests (TFTs): 10-meter walk, 10-meter run, timed up-and-go, and five-times sit-to-stand. The primary aims were to determine whether video analysis could reproduce TFTs and whether it could detect disease-specific movement patterns that TFTs miss.
+
+---
+
+## Key Findings
+
+- **Video-derived TFT surrogates reproduced clinician-graded times with Pearson's r > 0.98** across all four timed function tests, with similar test-retest reliability
+- **Disease classification accuracy reached 82%** (balanced accuracy) using video features from all nine activities, compared to 50% for TFTs alone and 72% for TFTs combined with Brooke scores (P = 0.021)
+- **Video analysis detected gait differences invisible to TFTs:** FSHD patients had shorter stride lengths (P = 0.037) and higher ankle heights during swing (P = 0.008) compared to DM patients, while walking speed did not differ
+- **FSHD and DM produced distinct feature importance profiles.** Upper-limb metrics (shoulder-elbow angle ratio) drove FSHD classification; lower-limb metrics (running ankle height, run speed) drove DM classification
+- **A video-derived upper-limb metric correlated with Brooke scores** (Spearman's r = 0.80) but revealed substantially more functional variability within each ordinal score
+- **Mean absolute errors for video-predicted TFTs fell below minimum clinically important differences** for DM in the 10-meter walk (MAE = 0.69 s vs. MCID = 0.31 s) and timed up-and-go (MAE = 0.92 s vs. MCID = 0.22 s)
+
+<Callout type="evidence">
+  This is the largest 3D kinematics study in these neuromuscular diseases, enrolling a cohort seven times the average laboratory-based biomechanics study. The open-source platform (OpenCap) and smartphone-only capture make the approach replicable at scale.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Digital outcome measures may be more sensitive than stopwatch-based TFTs.** For slowly progressing diseases like FSHD and DM, standard timed tests can miss compensatory gait patterns and reduced range of motion. Video-based metrics capture these changes, which matters when detecting subtle treatment effects or early progression in clinical trials.
+
+2. **Disease-specific movement signatures could inform differential assessment.** The FSHD gait signature (short strides, high ankle swing from foot drop) differs from DM patterns (lower-limb weakness affecting running and jumping). Video analysis quantifies these differences automatically, something an ordinal clinical score compresses away.
+
+<Callout type="pitfall">
+  This was a cross-sectional convenience sample with limited female FSHD representation (14%), and video-based metrics had variable test-retest reliability across features. Longitudinal validation against patient-reported outcomes and minimum clinically important differences is still needed.
+</Callout>
+
+3. **Scalable data collection changes the economics of rare disease research.** The median recording time was 16 minutes using two smartphones, compared to three or more hours for laboratory motion capture with specialized equipment. For conditions like DM, where the largest prior 3D kinematics study enrolled 18 participants, this kind of accessibility matters.
+
+---
+
+## My Takeaway
+
+I see two stories here. The first is practical: smartphone video can reproduce what a physical therapist does with a stopwatch, with comparable reliability. That alone is useful for remote monitoring and decentralized trials. The second story is more interesting. Video captures movement quality, not just movement speed. The fact that FSHD and DM patients walk at similar speeds but with entirely different biomechanical signatures means TFTs are genuinely losing information that clinicians need. For neuromuscular disease trials, where effect sizes are small and progression is slow, that lost information could be the difference between detecting a treatment response and missing it entirely.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2401137)

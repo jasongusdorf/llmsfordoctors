@@ -1,0 +1,57 @@
+---
+title: "People Overtrust AI-Generated Medical Advice despite Low Accuracy"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIoa2300015"
+keyFinding: "Nonexperts could not distinguish AI-generated medical responses from doctors' responses (50-53% accuracy, no better than chance) and rated even low-accuracy AI responses as equally valid, trustworthy, and complete as physician answers."
+lastUpdated: 2026-03-25
+tags: [patient-safety, trust, LLM, medical-advice, health-literacy, GPT-3]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Three hundred participants recruited via Prolific evaluated medical question-response pairs across three experiments, each with 100 participants. Responses came from three pools: 30 doctor-written answers from the HealthTap platform, 30 high-accuracy AI-generated responses (GPT-3, rated accurate by four physicians), and 30 low-accuracy AI-generated responses. Experiment 1 tested whether participants could identify the response source. Experiment 2 measured perceived validity, trustworthiness, and completeness when the source was unknown. Experiment 3 introduced randomized labels ("doctor," "AI," or "doctor assisted by AI") to probe bias. Four practicing physicians from Stanford and UCSF established ground truth accuracy ratings for all 150 AI-generated responses: 56% achieved high accuracy, 44% low accuracy.
+
+---
+
+## Key Findings
+
+- **Source detection was no better than chance.** Participants correctly identified whether a response came from a doctor or AI only 50-53% of the time (P=0.65), with high confidence in their incorrect guesses.
+- **AI responses rated more understandable than doctors' responses.** Both high-accuracy (mean 4.58) and low-accuracy (mean 4.48) AI responses scored significantly higher on understanding than doctor responses (mean 3.97; P&lt;0.0001).
+- **High-accuracy AI responses perceived as more valid and trustworthy.** Participants rated them significantly more valid (P=0.01) and trustworthy (P=0.005) than doctors' responses.
+- **Low-accuracy AI responses performed comparably to doctors' responses** on validity, trustworthiness, and completeness, with no significant differences detected.
+- **Participants were equally willing to follow the advice** from all three response types (P=0.094), including low-accuracy AI.
+- **Labeling responses as "doctor-written" inflated trust.** When AI responses were labeled as coming from a doctor, participants rated them significantly higher on trustworthiness (P=0.003) and completeness (P=0.006).
+- **Expert physicians also showed bias.** In blind evaluations, physicians rated AI responses higher on accuracy and completeness when the AI source was unknown.
+
+<Callout type="evidence">
+  This is one of the first studies to measure nonexpert perception of AI medical advice across multiple dimensions simultaneously, including trust, comprehension, and behavioral intent. The finding that low-accuracy AI responses are indistinguishable from doctor responses to lay users has direct implications for patient safety in consumer-facing AI health tools.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Patients cannot reliably filter bad AI medical advice.** The inability to distinguish AI from physician responses, combined with equal willingness to follow the advice, means patients using consumer health chatbots face real risk of acting on inaccurate recommendations without recognizing the danger.
+
+2. **AI fluency creates a false sense of quality.** Participants consistently rated their understanding of AI responses higher than doctor responses. Polished, well-structured language appears to function as a proxy for accuracy in lay evaluation, even when the underlying content is wrong.
+
+<Callout type="pitfall">
+  Low-accuracy AI responses were rated just as valid and trustworthy as real physician answers. Participants also indicated a high tendency to follow this advice and seek unnecessary medical attention based on it. Fluent language is not a reliable signal of medical accuracy.
+</Callout>
+
+3. **Source labeling matters more than content quality.** Telling participants a response came from a doctor increased trust scores independent of actual quality. Health systems deploying AI tools should consider how source disclosure shapes patient behavior.
+
+4. **Physician oversight remains essential.** Both expert and nonexpert evaluations show that AI responses are persuasive enough to bypass critical scrutiny. Any deployment of AI-generated medical content without physician review risks propagating confident, well-written misinformation.
+
+---
+
+## My Takeaway
+
+This study quantifies something clinicians have suspected: patients trust AI-generated health advice not because they can evaluate its accuracy, but because it sounds authoritative. The fluency problem is real. A polished paragraph from GPT-3 outperforms a terse doctor reply on every perception metric, even when the AI content is factually wrong. For any health system considering patient-facing AI, these results should be a guardrail, not a green light. The technology writes convincingly. That is precisely what makes it dangerous without clinical oversight.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2300015)

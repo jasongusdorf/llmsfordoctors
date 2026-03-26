@@ -1,0 +1,56 @@
+---
+title: "Screening for Parkinson's Disease from Smile Videos Using AI"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIoa2400950"
+keyFinding: "An ensemble machine learning model trained on webcam smile videos from 1,452 participants differentiated Parkinson's disease from controls with 87.9% accuracy and 89.3% AUROC, generalizing to external clinical (83.3% AUROC) and international (81.5% AUROC) test sets with no detectable bias by sex or ethnicity."
+lastUpdated: 2026-03-25
+tags: [parkinsons-disease, screening, facial-analysis, machine-learning, remote-monitoring, digital-biomarker, neurology]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Adnan, Islam, and colleagues collected facial expression videos from 1,452 participants across four cohorts: home-recorded videos worldwide (n=693), a U.S. research clinic (n=468), a PD wellness center (n=142), and homes in Bangladesh (n=149). Of the total, 391 had Parkinson's disease (300 clinically confirmed, 91 self-reported). Participants recorded three expressions (smile, disgust, surprise) via webcam. The system extracted 42 features per expression using facial action units (OpenFace) and facial landmarks (MediaPipe), quantifying hypomimia, the reduced facial expressiveness characteristic of PD. An ensemble of 18 HistGradientBoosting classifiers trained on smile features was selected through 10-fold cross-validation, then tested on two unseen external datasets: the Clinic cohort and a Bangladeshi cohort.
+
+---
+
+## Key Findings
+
+- **Smile-only models achieved 87.9% accuracy** and 89.3% AUROC on cross-validation, outperforming disgust (AUROC 0.76) and surprise (AUROC 0.72) features
+- **U.S. clinic external test set**: 80.3% accuracy, 83.3% AUROC, with 80.0% sensitivity and 80.5% specificity
+- **Bangladesh external test set**: 85.3% accuracy, 81.5% AUROC, with competitive sensitivity (71.4%) and high NPV (96.7%)
+- **No significant misclassification bias** by sex (P=0.60) or ethnicity (P=0.16) on the validation dataset
+- **Lip corner puller (AU12) and cheek raiser (AU06)** during smiling were the most discriminative features, consistent with the known hypomimia of PD
+- **PPV dropped to 35.7%** on the Bangladesh test set (where PD prevalence was 9.4%), highlighting the challenge of screening in low-prevalence populations
+
+<Callout type="evidence">
+  This is the largest and most demographically diverse facial video dataset for PD screening reported to date. Testing on a low-income South Asian cohort is particularly important: neurologist access in Bangladesh is roughly 1 per 1.6 million people, making remote screening tools most needed precisely where they have been least validated.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **A smile is a globally accessible biomarker.** The test requires only a standard webcam and a few seconds of video. No specialized hardware, no blood draw, no clinical visit. In regions with severe neurologist shortages, this could function as a first-pass screening tool to identify patients who need in-person evaluation.
+
+2. **Smile features outperform other expressions.** The finding that smile analysis alone surpasses disgust and surprise features simplifies the screening protocol to a single, intuitive task. A smile is also the most culturally universal and least ambiguous facial expression to elicit remotely.
+
+<Callout type="pitfall">
+  Self-reported PD cases (91 of 391 PD participants) may introduce diagnostic misclassification. The model also has not been tested in early, undiagnosed PD, which is the population where screening matters most. Patients in this study had a mean disease duration of 7.5 years; whether hypomimia is detectable earlier remains unknown.
+</Callout>
+
+3. **Low prevalence settings expose the PPV problem.** In Bangladesh (9.4% PD prevalence), the PPV fell to 35.7%, meaning roughly two out of three positive screens would be false alarms. For a screening tool deployed at population scale, this false-positive rate would generate substantial unnecessary referrals. Threshold optimization for the target population is essential.
+
+4. **Bias testing was thorough but incomplete.** The model performed equitably across sex and ethnicity on most datasets, with one exception: on the Bangladesh set, males were significantly more likely to be misclassified (19.4% vs. 4.3%; P=0.01). Whether this reflects cultural differences in facial expressiveness, demographic imbalance, or genuine model bias requires further study.
+
+---
+
+## My Takeaway
+
+The idea of screening for a neurodegenerative disease with a smartphone camera is compelling, and this study provides the strongest evidence yet that it can work. The cross-cultural validation is the paper's most important contribution; most prior facial analysis studies for PD were small, single-site, and demographically homogeneous. That said, two critical questions remain unanswered. First, can the model detect early PD, before a clinical diagnosis has already been made? Screening a population with a mean 7.5-year disease duration is not the same as early detection. Second, what happens when you deploy this at scale in a low-prevalence population? The PPV numbers suggest substantial overreferral. For now, this is best suited as a triage tool in settings where the alternative is no screening at all.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2400950)

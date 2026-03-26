@@ -1,0 +1,56 @@
+---
+title: "SpikeNet2 Achieves Expert-Level EEG Spike Detection While Cutting False Positives"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIoa2401221"
+keyFinding: "SpikeNet2, a deep-learning model trained on 17,812 EEGs from 13,523 patients, achieved an AUROC of 0.973 for event-level spike detection and 0.958 for EEG-level classification, surpassing 44% and 68% of expert neurologists, respectively, while reducing the false-positive rate to nine spikes per hour of EEG."
+lastUpdated: 2026-03-25
+tags: [epilepsy, EEG, spike detection, deep learning, neurology, diagnostic AI]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Most AI models for EEG interpretation do one thing well. SpikeNet2 does two. This diagnostic accuracy study developed and validated a ResNet-based deep-learning model for both event-level spike detection (identifying individual epileptiform discharges) and EEG-level classification (determining whether an EEG contains any spikes). Training used 17,812 EEGs from 13,523 patients at Massachusetts General Brigham (MGB) hospitals, with 32,433 events labeled by 24 experts from 18 institutions. A key methodological innovation was hard-negative mining: iteratively training the model on spike-free EEG segments that triggered false positives, teaching it to distinguish true epileptiform discharges from benign sharp transients like wicket waves and vertex waves. Validation used three independent test sets: an internal MGB holdout, the Human Epilepsy Project (HEP, 188 EEGs), and the SCORE-AI dataset (SAI, 100 EEGs from 11 institutions across three countries).
+
+---
+
+## Key Findings
+
+- **Event-level spike detection AUROC: 0.973** (95% CI, 0.961-0.982) with AUPRC of 0.995 on the MGB dataset, surpassing SpikeNet1 (AUROC 0.760) and the pre-mining version SpikeNet2a (AUROC 0.888)
+- **44% of expert neurologists fell below SpikeNet2's ROC curve** on event-level detection, and 6% fell below its precision-recall curve
+- **EEG-level classification AUROC ranged from 0.888 to 0.995** across three test datasets (MGB: 0.958; HEP: 0.888; SAI: 0.995), with 68% of experts scoring below the model on the SAI dataset
+- **Hard-negative mining cut false positives dramatically:** the modified AUC improved from 0.967 (SpikeNet2a) to 0.997 (SpikeNet2), producing an average of nine false positives per hour of EEG at 90% sensitivity
+- **Calibration error was 0.065** (95% CI, 0.053-0.078), outperforming both SpikeNet1 (0.186) and SpikeNet2a (0.067), meaning the model's confidence scores reliably reflect true spike probability
+- **Performance was consistent across demographic subgroups** including age, ethnicity, spike localization (focal vs. generalized), and neurodevelopmental state
+
+<Callout type="evidence">
+  This is the first AI model to demonstrate expert-level performance at both event-level spike detection and EEG-level classification. The 32,433 multi-expert-labeled events represent the largest expert-labeled EEG spike dataset assembled to date.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Reliable automated spike detection could extend epilepsy expertise to underserved settings.** Over 70 million people worldwide have epilepsy, and in many regions, EEGs are interpreted by physicians without specialty training in neurophysiology. A model that matches or exceeds expert performance on both event and EEG levels could provide decision support where specialist interpretation is unavailable.
+
+2. **The false-positive reduction matters as much as the sensitivity.** Previous models produced clinically impractical false-positive rates. SpikeNet2's nine false positives per hour at 90% sensitivity, achieved through hard-negative mining, approaches a level where automated screening becomes useful rather than burdensome. For continuous EEG monitoring in ICUs and epilepsy monitoring units, this reduces alert fatigue.
+
+<Callout type="pitfall">
+  External validation on the HEP dataset showed lower performance (AUROC 0.888 for EEG-level classification) compared to the MGB and SAI datasets, suggesting generalizability to outpatient focal epilepsy populations may require further tuning. The model also cannot replace clinical judgment about the significance of detected spikes in context.
+</Callout>
+
+3. **Dual-level output serves different clinical needs.** Event-level detection enables precise temporal localization of discharges for seizure focus mapping, spike morphology studies, and tracking trends. EEG-level classification answers the more common clinical question: does this patient have epileptiform activity? Combining both in one system makes it more practical than single-purpose tools.
+
+4. **Open-source availability invites independent validation.** Both the code and data for SpikeNet2 are publicly available, a notable choice for a clinical AI model. This facilitates external benchmarking and reproducibility in ways that proprietary tools cannot.
+
+---
+
+## My Takeaway
+
+The hard-negative mining approach is what distinguishes SpikeNet2 from its predecessors. Teaching a model what spikes look like is relatively straightforward. Teaching it what spikes do not look like, that wicket waves, vertex transients, and other benign sharp waveforms are not epileptiform despite their morphological similarity, is the harder problem and the one that has limited clinical adoption of prior tools. Nine false positives per hour is not perfect, but it is the first time I have seen an automated detector approach a rate where the signal-to-noise ratio becomes clinically acceptable for continuous monitoring. The open-source release makes this verifiable, which is exactly the standard clinical AI should be held to.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2401221)

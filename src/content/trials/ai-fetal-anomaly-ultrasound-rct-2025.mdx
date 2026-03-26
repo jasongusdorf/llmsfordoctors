@@ -1,0 +1,57 @@
+---
+title: "AI-Assisted Fetal Anomaly Ultrasound: The PROMETHEUS Randomized Trial"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIoa2400747"
+keyFinding: "AI-assisted fetal anomaly scans were noninferior to manual scans for detecting congenital heart disease (sensitivity 80.8% vs. 76.9%), while reducing scan time by 9.3 minutes and lowering sonographer cognitive load by 24%."
+lastUpdated: 2026-03-25
+tags: [rct, obstetrics, fetal-ultrasound, congenital-heart-disease, imaging, sonography]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+PROMETHEUS is the first randomized controlled trial of AI assistance during live fetal anomaly ultrasound scanning, and it was designed to answer a practical question: can AI help sonographers find congenital heart disease without slowing them down? This single-center, open-label trial at a large UK teaching hospital enrolled 78 pregnant participants (26 with fetal congenital heart disease, 52 with confirmed normal hearts) and 58 sonographers from diverse professional backgrounds. Each participant was scanned twice: once with AI assistance and once manually, with sonographers randomly assigned to scan method. The AI tool detected and labeled 13 standard image planes from the ultrasound video stream in real time and automatically measured four biometrics. It did not make diagnostic decisions. Primary outcome was sensitivity and specificity for CHD detection. Secondary outcomes included scan duration, cognitive load, and biometric measurement quality.
+
+---
+
+## Key Findings
+
+- **AI-assisted sensitivity for CHD: 80.8% (95% CI, 60.6-93.4%)** versus 76.9% (61.9-91.0%) for manual scans, meeting noninferiority criteria
+- **AI-assisted specificity: 100% (93.2-100%)** versus 92.3% (81.5-97.9%) for manual
+- **Scan duration dropped by 9.3 minutes** (median 11.4 vs. 19.7 minutes; 95% CI for difference, 7.4-11.1)
+- **Sonographer cognitive load fell significantly**: NASA-TLX median 35.3 vs. 46.5 (mean difference 10.0; 95% CI, 4.6-15.4)
+- **AI biometric measurements showed superior repeatability** compared with manual three-measurement protocols for all four parameters
+- **No adverse events** occurred during the trial
+- **Four suspected abnormalities detected only during AI-assisted scans** (three were minor, one had coexisting CHD)
+
+<Callout type="evidence">
+  No prior prospective randomized trial has examined real-time AI assistance during fetal anomaly scans. In a field where only 50.4% of UK infants requiring CHD surgery receive an antenatal diagnosis, any tool that maintains detection rates while reducing cognitive burden deserves serious attention.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Time savings are clinically meaningful.** Shaving 9 minutes off a scan that typically runs 20 minutes is not incremental. For departments performing dozens of anomaly scans daily, this translates to additional appointment slots, shorter wait times, and reduced staff fatigue. The AI handles image plane detection and biometric measurement, freeing the sonographer to focus on anatomy.
+
+2. **Cognitive load reduction matters for detection quality.** Sonographers performing repetitive scans experience fatigue that degrades vigilance. The 24% reduction in NASA-TLX scores suggests AI assistance preserves the sonographer's attention for the task that matters most: identifying structural abnormalities.
+
+3. **Automated biometrics could standardize measurement quality.** AI measurements were more repeatable than manual ones across all four biometric parameters. Given that biometric variability is a known source of clinical error in estimating gestational age and fetal growth, automated measurement could reduce downstream misclassification.
+
+<Callout type="pitfall">
+  This was a single-center trial with an enriched CHD population (33% prevalence versus approximately 1% in unselected pregnancies). The AI tool does not automate CHD diagnosis; sonographers still make the diagnostic call. Performance in routine screening populations, where prevalence is far lower and abnormalities subtler, remains unproven.
+</Callout>
+
+4. **The tool augments, not replaces.** The AI identified planes and measured biometrics. It did not read the scan, diagnose anomalies, or generate reports. This is a workflow accelerator, not an autonomous diagnostician, and the trial was designed around that distinction.
+
+---
+
+## My Takeaway
+
+This trial gets the deployment model right. Rather than asking AI to make the diagnosis (a task where the stakes of a false negative are devastating), it asks AI to handle the mechanical aspects of scanning: finding standard planes, saving images, measuring heads and femurs. The sonographer's expertise stays where it belongs, on pattern recognition and clinical judgment, but with less busywork and less fatigue. The 9-minute time savings and the cognitive load reduction are the headline findings, not the sensitivity numbers. If this tool can maintain these gains in unselected populations at scale, it changes how fetal screening departments operate.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2400747)

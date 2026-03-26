@@ -1,0 +1,56 @@
+---
+title: "EchoNet-Liver: Detecting Chronic Liver Disease from Routine Echocardiography"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIoa2400948"
+keyFinding: "A deep learning pipeline applied to subcostal echocardiography videos detected cirrhosis (AUROC 0.837) and steatotic liver disease (AUROC 0.799) from routine cardiac ultrasound, with consistent performance on external validation and MRI-confirmed cohorts."
+lastUpdated: 2026-03-25
+tags: [echocardiography, liver-disease, cirrhosis, steatosis, deep-learning, opportunistic-screening, computer-vision]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Sahashi, Vukadinovic, and colleagues built EchoNet-Liver, a three-stage computer vision pipeline that extracts liver disease signals from standard echocardiographic studies. The pipeline first identifies subcostal views (which incidentally visualize the liver), then filters for image quality, and finally classifies hepatic tissue texture for cirrhosis and steatotic liver disease (SLD). Training used 1,596,640 echocardiogram videos from 24,276 patients at Cedars-Sinai Medical Center (CSMC). The model was validated on a held-out CSMC test cohort (1,486 patients), an external Stanford Health Care (SHC) cohort (106 patients, 5,280 videos), and additional cohorts with paired abdominal MRI. Disease labels came from contemporaneous abdominal ultrasound or MRI reports.
+
+---
+
+## Key Findings
+
+- **Cirrhosis detection AUROC of 0.837** (95% CI, 0.828 to 0.848) on the CSMC held-out test set, with sensitivity of 0.696 and specificity of 0.846
+- **SLD detection AUROC of 0.799** (95% CI, 0.788 to 0.811) on the same test set
+- **External validation at Stanford** maintained performance: cirrhosis AUROC 0.830 (95% CI, 0.799 to 0.858) and SLD AUROC 0.769 (95% CI, 0.733 to 0.813)
+- **MRI-confirmed cohorts** yielded AUROC of 0.704 for cirrhosis and 0.725 for SLD, lower but still discriminative against a more stringent reference standard
+- **Only 9.1% of echocardiography patients** had abdominal imaging within 30 days, suggesting a large unscreened population
+- **Saliency maps confirmed** the model attends to hepatic parenchyma in subcostal views, not cardiac structures
+
+<Callout type="evidence">
+  This study repurposes an imaging modality already performed for cardiac indications to screen for an entirely different organ system. Among 125,293 echocardiography patients at CSMC, 2.17% had a prior cirrhosis diagnosis and 3.80% had a prior SLD diagnosis, but 91% had never received contemporaneous liver imaging. The unmet screening need is substantial.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Echocardiography already visualizes the liver.** Subcostal views are a standard part of every echocardiographic exam. Cardiologists see the liver in these images but are not trained to assess hepatic parenchyma. EchoNet-Liver fills that gap without requiring additional imaging, additional cost, or additional patient visits.
+
+2. **The overlap population is clinically coherent.** Patients who get echocardiograms carry high rates of metabolic disease: 28.8% had hypertension, 19.3% had diabetes, and 20.1% had dyslipidemia in this cohort. These are the same risk factors that drive chronic liver disease. Screening this population makes clinical sense, not just technical sense.
+
+<Callout type="pitfall">
+  The model's positive predictive value is modest (0.238 for cirrhosis, 0.275 for SLD on the CSMC test set), meaning most positive flags will be false alarms. This is a screening tool that requires confirmatory testing, not a standalone diagnostic. In a population with 6.4% cirrhosis prevalence, roughly three out of four positive results will be incorrect.
+</Callout>
+
+3. **Prospective validation and clinical workflow integration are the next steps.** The team applied EchoNet-Liver to 1,241 echocardiograms without contemporaneous liver imaging and predicted 1.1% as suspicious for cirrhosis and 8.0% for SLD. These numbers are plausible but unconfirmed. A prospective study that triggers confirmatory imaging based on model output would establish clinical value.
+
+4. **Distinguishing liver disease from cardiac congestion matters.** Hepatic congestion from heart failure can mimic chronic liver disease on ultrasound. The authors acknowledge this challenge; the model's ability to differentiate the two conditions in patients with concurrent cardiac disease needs further study.
+
+---
+
+## My Takeaway
+
+EchoNet-Liver belongs to the same family of ideas as opportunistic calcium scoring: extract clinically useful information from imaging that was ordered for a different reason. The concept is sound, and the execution is solid across multiple cohorts. The performance is good enough for screening but not for diagnosis, which is exactly the right framing. Chronic liver disease is massively underdiagnosed, and the patients getting echocardiograms are among those most likely to have it. If the model flags a patient and that flag leads to an abdominal ultrasound that catches early cirrhosis, the clinical value is real. The low positive predictive value is a legitimate concern, but for a disease that is currently missed in the majority of cases, generating some false positives is a reasonable trade.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2400948)

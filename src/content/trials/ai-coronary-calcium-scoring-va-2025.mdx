@@ -1,0 +1,56 @@
+---
+title: "AI Coronary Calcium Scoring from Nongated CT Scans Across 98 VA Medical Centers"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIoa2400937"
+keyFinding: "A deep learning model quantified coronary artery calcium on nongated chest CTs with 89.4% accuracy (zero vs. nonzero) across 98 VA hospitals, predicted 10-year mortality (HR 3.49 for CAC >400 vs. 0), and identified 38.4% of lung cancer screening patients as having high calcium scores warranting lipid-lowering therapy."
+lastUpdated: 2026-03-25
+tags: [coronary-artery-calcium, cardiovascular, ct-scan, deep-learning, screening, veterans-affairs, preventive-cardiology]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Hagopian and colleagues developed AI-CAC, a deep learning segmentation model that automatically quantifies coronary artery calcium on noncontrast, nongated CT scans. The model was trained on 446 expert-segmented nongated scans from 44 VA medical centers using a Swin-UNETR transformer architecture, then tuned on 102 additional segmentations. Performance was validated against paired ECG-gated CT calcium scores (the clinical gold standard) in 795 patients from 42 centers, and tested on 8,052 low-dose lung cancer screening CTs from 76 centers to simulate opportunistic screening. Unlike prior work, the study deliberately included patients with pacemakers, stents, and prostheses, and did not limit training to a single CT protocol.
+
+---
+
+## Key Findings
+
+- **89.4% accuracy** (F1 0.93) at differentiating zero vs. nonzero CAC on nongated scans, and **87.3% accuracy** (F1 0.89) at the clinically relevant threshold of less than 100 vs. 100 or greater
+- **CAC >400 predicted 10-year all-cause mortality** with a hazard ratio of 3.49 (25.4% vs. 60.2%; P&lt;0.005) on the paired test set
+- **Composite cardiovascular events** (death, MI, or stroke) showed a hazard ratio of 3.00 for CAC >400 vs. 0 (33.5% vs. 63.8%; P&lt;0.005)
+- **38.4% of 8,052 lung cancer screening patients** had AI-CAC scores above 400; of those, 30.6% were not on lipid-lowering therapy
+- **Cardiologists confirmed 99.2%** (527 of 531) of randomly sampled high-CAC LDCT patients would benefit from statin initiation
+- **Strong agreement** with gated reference standard: weighted kappa 0.72 on the Test-Paired dataset
+
+<Callout type="evidence">
+  This is the largest and most diverse validation of opportunistic AI calcium scoring to date: 98 medical centers, multiple scanner types, and real-world imaging heterogeneity. The model code and weights are publicly available, making independent validation feasible.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Millions of chest CTs already contain actionable cardiovascular data.** The VA alone performs vast numbers of nongated chest CTs for pulmonary, oncologic, and emergency indications. AI-CAC extracts cardiovascular risk information that already exists in these images but goes unreported because the scans are not gated.
+
+2. **Nearly 1 in 3 high-risk patients on lung cancer screening CTs were untreated.** Among patients with AI-CAC scores above 400, a third were not on lipid-lowering therapy. Cardiologist review confirmed that virtually all of them should have been. This is a concrete, measurable treatment gap that opportunistic screening could close.
+
+<Callout type="pitfall">
+  The model was developed exclusively in the VA population (predominantly male, older, with high cardiovascular burden). Generalizability to younger, female, or civilian populations is unvalidated. The authors have released model weights to enable external testing, but that work has not yet been done.
+</Callout>
+
+3. **Implementation could be passive.** The authors propose either automated radiology report addendums or notification systems rather than additional physician effort. If a nongated CT scan reveals a high calcium score, the finding gets flagged. No additional imaging is needed; no additional patient visit is required.
+
+4. **Misclassifications cluster in adjacent clinical categories.** When the model erred, it typically placed patients in neighboring risk bins (e.g., 101-400 classified as 1-100), which are often treated similarly in clinical practice. This matters: the model's errors are clinically forgiving.
+
+---
+
+## My Takeaway
+
+Opportunistic screening is the most underappreciated application of medical AI. Patients already had the scan. The data is already there. The only thing missing was someone (or something) to read it. This study makes a strong case that AI-CAC can fill that gap at enterprise scale. The 99.2% cardiologist agreement rate on treatment recommendations is the number that matters most: when the model says a patient needs a statin, cardiologists overwhelmingly agree. The VA setting is ideal for proving the concept, but civilian health systems should pay attention. If you are running a lung cancer screening program, you are sitting on a trove of unread cardiovascular data.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2400937)

@@ -1,0 +1,57 @@
+---
+title: "LLMs Struggle with Clinical Reasoning Under Uncertainty on Script Concordance Testing"
+journal: "NEJM AI"
+year: 2025
+doi: "10.1056/AIdbp2500120"
+keyFinding: "On a 750-question script concordance benchmark spanning 10 international datasets, even the best-performing LLM (OpenAI o3, 67.8%) consistently fell below the level of senior residents and attending physicians."
+lastUpdated: 2026-03-25
+tags: [clinical-reasoning, benchmark, LLM, script-concordance, medical-education, uncertainty]
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+LLMs crush medical licensing exams. They struggle when the answer is not certain. McCoy et al. built a 750-question script concordance testing (SCT) benchmark from 10 international datasets (9 previously unpublished), spanning emergency medicine, internal medicine, neurology, pediatrics, surgery, psychiatry, obstetrics, and physiotherapy. SCT measures a specific clinical skill: how well a clinician updates diagnostic or therapeutic judgments when presented with new, sometimes ambiguous, information. Each question presents a clinical vignette, a working hypothesis, a new data point, and asks whether the new information makes the hypothesis much less likely, slightly less likely, unchanged, slightly more likely, or much more likely. Answers are scored against expert reference panels. Ten LLMs were compared with 1070 medical students, 193 residents, and 300 attending physicians under zero-shot, few-shot, and chain-of-thought prompting conditions. The benchmark and leaderboard are publicly accessible at concor.dance.
+
+---
+
+## Key Findings
+
+- **OpenAI's o3 led all models at 67.8% (plus or minus 1.2%)**, followed by GPT-4o at 63.9% (plus or minus 1.3%); both significantly outperformed all other models tested
+- **Reasoning-optimized models underperformed expectations**: o1-preview scored 58.2%, DeepSeek R1 scored 55.5%, and Gemini 2.5 Pro scored lowest at 52.1%
+- **Models matched or exceeded medical student performance** on multiple examinations but consistently fell below senior residents and attending physicians
+- **All models underused the neutral (0) response**, failing to recognize when new information should not change a clinical hypothesis
+- **Reasoning-tuned models showed systematic overconfidence**, with marked bias toward extreme responses (+2 and -2) and avoidance of the neutral category
+- **Chain-of-thought prompting did not help**, consistent with prior work showing that explicit step-by-step reasoning can actually degrade performance on tasks requiring flexible probabilistic judgment
+- **Performance varied substantially across tests**, with models performing better on some specialty examinations than others, though no model reliably exceeded expert-level performance on any test
+
+<Callout type="evidence">
+  SCT addresses a blind spot in LLM evaluation. Standard medical benchmarks test factual recall; SCT tests the ability to adjust thinking in response to new, ambiguous information. That LLMs consistently fall short on this task, despite excelling at knowledge-based assessments, reveals a specific and clinically consequential limitation.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Knowledge recall and clinical reasoning are different skills, and LLMs have only one of them.** Passing USMLE-style exams reflects encoded knowledge and pattern matching. SCT performance reflects the capacity to hold uncertainty, weigh competing possibilities, and update probabilities in response to incomplete information. Current LLMs do the former well and the latter poorly.
+
+2. **Reasoning-optimized architectures may worsen clinical judgment under uncertainty.** The finding that chain-of-thought models (o1-preview, DeepSeek R1, Gemini 2.5) performed worse than general-purpose models (GPT-4o, Claude 3.5 Sonnet) on SCT suggests that structured step-by-step reasoning promotes premature commitment to hypotheses. Clinical uncertainty often requires holding multiple possibilities open, not resolving them into a chain of logic.
+
+<Callout type="pitfall">
+  SCT measures concordance with expert panels, not objective correctness. A model that reasons better than the experts could be penalized for departing from consensus. Performance is also prompt-sensitive; different prompting strategies might yield different results. These scores represent current default-setting performance, not hard ceilings on model capability.
+</Callout>
+
+3. **Overconfidence in AI clinical reasoning tools is a safety concern.** The systematic bias toward extreme responses means these models are not just wrong sometimes; they are confidently wrong. In clinical decision support, a tool that says "much more likely" when it should say "unchanged" can anchor a clinician's thinking in the wrong direction.
+
+4. **This benchmark fills a gap in how we evaluate medical AI.** The 750-question dataset is publicly available and spans multiple specialties, training levels, and countries. It provides a standardized, scalable way to test whether LLM improvements on knowledge benchmarks translate to improvements in clinical reasoning.
+
+---
+
+## My Takeaway
+
+This paper is a corrective to the triumphalism around medical AI benchmarks. Models that score above physicians on multiple-choice exams perform below residents on tasks requiring judgment under uncertainty. The overconfidence finding is the most concerning: reasoning-tuned models do not simply fail to calibrate; they actively overcommit to extreme positions. For anyone building clinical decision support, this means the models are weakest precisely where clinicians need them most, at the moment of ambiguity where the right answer is "I'm not sure yet." SCT should become a standard part of any medical AI evaluation toolkit. The fact that it is publicly available means there is no excuse for not using it.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIdbp2500120)
