@@ -110,7 +110,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (!result.success) {
       return new Response(
-        JSON.stringify({ error: result.error, item: selected.id, timestamp: new Date().toISOString() }),
+        JSON.stringify({ error: result.error, item: selected.id, collection: selected.collection, text: tweetText, timestamp: new Date().toISOString() }),
         { status: 502, headers: { 'Content-Type': 'application/json' } },
       );
     }

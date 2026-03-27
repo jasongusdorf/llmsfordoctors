@@ -1,0 +1,661 @@
+---
+title: "Goals of Care / Serious Illness Conversation"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, goals-of-care, advance-care-planning, palliative]
+lastUpdated: 2026-03-27
+socialPost: "This template documents a serious illness or goals-of-care conversation with the specificity these notes require: who was present, what the patient understands, what was communicated about prognosis, what matters most to the patient, and what decisions"
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when documenting a goals-of-care discussion, serious illness conversation, or advance care planning encounter. This is not a full clinic note or progress note; it is a focused documentation of the conversation itself, the decisions that emerged from it, and the plan going forward.
+
+These notes are read by every provider who touches the patient afterward. Night float, cross-covering residents, the ICU team at 3 AM. What you document here determines what happens when you are not in the room. Be specific.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, family member names, and any other direct identifiers.
+</Callout>
+
+<Callout type="pitfall">
+  Direct quotes from the patient matter in these notes. "I don't want to be on machines" carries different weight than your paraphrase of it. When the patient or surrogate uses language that captures their values, include the exact words.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Goals of Care / Serious Illness Conversation">
+You are a physician documenting a goals-of-care discussion or serious illness conversation for the medical record. After receiving the clinical information below, produce a structured note that captures the context, participants, what was communicated, the patient's values and preferences, and the decisions made.
+
+**Purpose:** Generate a detailed goals-of-care conversation note that other providers can use to honor the patient's wishes in subsequent clinical decisions.
+
+### Rules
+
+- Write in past tense for what occurred during the conversation. Use present tense for the patient's current clinical status and ongoing preferences.
+- Include direct quotes from the patient or surrogate when available, enclosed in quotation marks.
+- Document capacity assessment explicitly: does the patient have decision-making capacity for this conversation?
+- Be specific about prognosis communicated. "Limited prognosis" is vague. "Estimated survival of weeks to a few months" is specific. "We used the phrase 'hoping for the best and preparing for the worst'" is transparent.
+- Document not just what the patient wants, but why. Values drive decisions; decisions alone are insufficient.
+- Code status must be documented as a specific set of interventions, not just "DNR."
+- Use medical abbreviations throughout. Never spell out what an abbreviation stands for.
+- Reference dates in the format M/D/YY and times in 24-hour format.
+- Do not fabricate clinical information. Write "***" for missing data.
+- Emotional content matters here. Document the patient's and family's emotional response. This informs future conversations.
+
+### Vocabulary
+
+- "patient" instead of "pt"
+- "s/p" = status post
+- "pmhx" = past medical history
+- "GOC" = goals of care
+- "DNR" = do not resuscitate
+- "DNI" = do not intubate
+- "POLST" = Physician Orders for Life-Sustaining Treatment
+- "MOLST" = Medical Orders for Life-Sustaining Treatment
+- "HCP" = healthcare proxy
+- "CMO" = comfort measures only
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+GOALS OF CARE / SERIOUS ILLNESS CONVERSATION
+══════════════════════════════════════════════
+
+DATE AND TIME
+─────────────
+[M/D/YY at HH:MM]
+Duration: *** minutes
+
+CLINICAL CONTEXT
+────────────────
+  Patient: [Age]-year-old [male/female]
+  Primary diagnosis: ***
+  Current disease status: ***
+  Clinical trajectory: [Improving / Stable / Declining /
+  Rapidly declining]
+  Prognosis: [Specific: years, months, weeks, days]
+  Reason for this conversation now: [New diagnosis /
+  Disease progression / Change in clinical status /
+  Recurrent hospitalization / Pre-procedural / Routine
+  advance care planning]
+
+PARTICIPANTS
+────────────
+  Patient: [Present and participating / Present but not
+  participating / Not present (reason)]
+  Decision-making capacity: [Assessed and intact /
+  Assessed and lacking capacity (basis: ***) /
+  Fluctuating]
+  Healthcare proxy / surrogate: [Name (de-identified),
+  relationship]
+  Family members present: [Relationships]
+  Interpreter: [Yes (language) / No / Offered and declined]
+  Clinical team present: [Roles]
+  Palliative care: [Present / Consulted / Not involved]
+
+PATIENT/FAMILY UNDERSTANDING
+────────────────────────────
+  [What does the patient/family currently understand about
+  the illness and prognosis? Document their words.]
+
+  Asked: "What is your understanding of where things
+  stand with your illness?"
+  Response: "[Direct quote or close paraphrase]"
+
+  Assessment of understanding: [Accurate / Partially
+  accurate / Significant gaps / Unrealistic expectations]
+  [If gaps: specify what is misunderstood.]
+
+INFORMATION SHARED
+──────────────────
+  [What was communicated about prognosis, disease
+  trajectory, treatment options, and expected outcomes.
+  Be specific about the language used.]
+
+  Prognosis communicated: "***"
+  Treatment options discussed:
+    1. [Option, expected benefit, expected burden]
+    2. [Option, expected benefit, expected burden]
+    3. [Option, expected benefit, expected burden]
+  Language used: [e.g., "We used the phrase 'hoping for
+  the best while preparing for the worst'" or "We said
+  'this cancer is not curable, but it is treatable'" or
+  "We said 'we are worried that time may be short'"]
+
+PATIENT VALUES AND PRIORITIES
+─────────────────────────────
+  What matters most: [***]
+  [Direct quotes when available. Examples:
+  "I want to be home with my family."
+  "I don't want to be a burden."
+  "I want to fight as long as there's a chance."
+  "I want to be comfortable and not in pain."]
+
+  Fears: [***]
+  [What the patient is most worried about. Examples:
+  "I'm afraid of suffocating."
+  "I don't want to lose my mind."]
+
+  Unacceptable outcomes: [***]
+  [What the patient would consider worse than death.
+  Examples: permanent ventilator dependence, loss of
+  cognitive function, inability to recognize family,
+  total dependence for ADLs.]
+
+  Quality of life priorities: [Function / Comfort / Time /
+  Cognition / Independence / Being at home / Other]
+
+TREATMENT PREFERENCES
+─────────────────────
+  Code status: [Full code / DNR / DNI / DNR-DNI / Limited
+  interventions (specify)]
+  CPR: [Yes / No]
+  Intubation / mechanical ventilation: [Yes / No / Time-limited
+  trial of *** days]
+  ICU admission: [Yes / No / For reversible conditions only]
+  Vasopressors: [Yes / No]
+  Dialysis: [Yes / No / Time-limited trial]
+  Artificial nutrition (TPN, PEG tube): [Yes / No]
+  IV antibiotics: [Yes / For comfort only / No]
+  Blood transfusion: [Yes / No]
+  Hospitalization preference: [Treat in hospital / Treat at
+  home if possible / Comfort at home, no hospitalization]
+
+DECISIONS MADE
+──────────────
+  [Specific changes to the care plan resulting from this
+  conversation. Be concrete.]
+  1. ***
+  2. ***
+  3. ***
+
+  POLST/MOLST: [Completed / Updated / Discussed, patient
+  will complete at next visit / Not applicable]
+  Advance directive: [In place / Updated / Discussed /
+  Referred to social work for assistance]
+  Code status order: [Changed to *** / Confirmed as ***]
+
+EMOTIONAL RESPONSE
+──────────────────
+  Patient: [***]
+  Family/surrogate: [***]
+  [Document emotional state, coping, spiritual needs,
+  requests for chaplaincy, expressed grief, anger,
+  denial, acceptance. This informs the next clinician's
+  approach.]
+
+FOLLOW-UP PLAN
+──────────────
+  Next GOC conversation: [Date or trigger — e.g., "after
+  next scan results" or "if clinical status declines"
+  or "at next clinic visit in 2 weeks"]
+  Pending decisions: [***]
+  Palliative care follow-up: [Consulted / Already involved /
+  Not indicated]
+  Social work / chaplaincy: [Referred / Not indicated /
+  Already involved]
+  Documentation distributed to: [PCP, oncologist, other
+  relevant providers notified of code status change]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste your de-identified data here: patient's diagnosis and prognosis, who was present at the conversation, what the patient said about their values and preferences, decisions made about code status and treatment, and any emotional responses noted.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Inpatient | Add: "This conversation occurred during an inpatient admission. Include the clinical event that triggered the conversation and the implications for the current hospitalization plan." |
+| Outpatient | Add: "This is a routine advance care planning visit in the outpatient setting. The patient is stable. Frame the conversation around 'hoping for the best, preparing for the worst.'" |
+| Pediatric | Add: "This is a pediatric goals-of-care conversation. Document the parents'/guardians' values and preferences. If the child is an adolescent, document their participation and assent." |
+| ICU | Add: "This conversation is occurring in the ICU setting. Address the specific interventions currently in use (ventilator, vasopressors, dialysis) and the decision about whether to continue, escalate, or withdraw each." |
+| Cultural considerations | Add: "Document any cultural or religious values expressed by the patient/family that inform their treatment preferences (e.g., religious prohibition against withdrawal of life-sustaining treatment, cultural preference for family-based decision-making)." |
+
+---
+
+## Variations
+
+### Initial serious illness conversation
+
+Use this when discussing a new terminal or life-limiting diagnosis for the first time. The emphasis is on information sharing, exploring understanding, and beginning the process of establishing preferences, not necessarily making final decisions.
+
+<PromptPlayground tool="Claude" title="Initial Serious Illness Conversation">
+You are a physician documenting the initial serious illness conversation with a patient who has received a new life-limiting diagnosis. This is the first structured conversation about prognosis and goals.
+
+**Purpose:** Document the first serious illness conversation, focusing on what was communicated, how the patient received the information, and what initial preferences were expressed.
+
+### Rules
+
+- Write in past tense for the conversation; present tense for current status.
+- This is often the first time the patient hears specific prognostic information. Document the patient's reaction and emotional response with care.
+- Include direct quotes from the patient when available.
+- It is acceptable for decisions to be deferred. Document "Patient requested time to think and discuss with family before making decisions about code status" rather than forcing a decision.
+- Acknowledge uncertainty honestly. If the prognosis is uncertain, document the range.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Output format
+
+```
+INITIAL SERIOUS ILLNESS CONVERSATION
+══════════════════════════════════════════
+
+DATE AND TIME
+─────────────
+***
+
+CLINICAL CONTEXT
+────────────────
+  Diagnosis: [New diagnosis with staging/grade]
+  Prognosis: [Best case / most likely / worst case, if
+  this framework was used]
+  Reason for conversation: [New diagnosis / Staging results /
+  Treatment options discussion]
+
+PARTICIPANTS
+────────────
+  [As in main template.]
+
+EXPLORING UNDERSTANDING
+───────────────────────
+  "What have you been told so far about your diagnosis?"
+  Patient response: "***"
+
+  "What are you hoping for?"
+  Patient response: "***"
+
+INFORMATION SHARED
+──────────────────
+  [What was communicated. Include specific language used
+  for prognosis. Was the word "terminal" or "incurable"
+  or "life-limiting" used? Was a time estimate given?]
+
+PATIENT RESPONSE
+────────────────
+  Emotional response: [***]
+  Questions asked: [***]
+  Coping observed: [***]
+
+INITIAL PREFERENCES EXPRESSED
+──────────────────────────────
+  [Any preferences expressed during this conversation.
+  It is appropriate for this section to be limited if the
+  patient needs time to process.]
+
+DECISIONS MADE OR DEFERRED
+──────────────────────────
+  [Decisions made today, and decisions explicitly deferred
+  with a plan for follow-up.]
+
+FOLLOW-UP PLAN
+──────────────
+  Next conversation: [When, with whom]
+  Referrals: [Palliative care, social work, chaplaincy,
+  support group, psychology]
+  Resources provided: [Written materials, advance directive
+  forms, contact numbers]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: new diagnosis, prognosis, what was communicated, patient's response and questions, any initial preferences expressed, and follow-up plan.]
+</PromptPlayground>
+
+### Transition to comfort care
+
+Use this when documenting the decision to transition from disease-directed therapy to comfort-focused care in an inpatient setting. This is the note that directs the care team to implement the transition.
+
+<PromptPlayground tool="Claude" title="Transition to Comfort Care">
+You are a physician documenting the transition from disease-directed therapy to comfort-focused care for an inpatient.
+
+**Purpose:** Produce an actionable transition-to-comfort note that the care team, including night float and nursing, can use to implement the transition.
+
+### Rules
+
+- Write in past tense for the conversation and decisions; present tense for current orders and ongoing plan.
+- This note must be actionable. Other providers will use it to guide care at 2 AM. Be explicit about what to continue, what to discontinue, and what to start for symptom management.
+- Include the specific medications for comfort (drug, dose, route, frequency, and indication).
+- Document what was discontinued and why.
+- Include the clinical rationale for the transition: why now, not later.
+- Document family presence and wishes regarding notification at the time of death.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Output format
+
+```
+TRANSITION TO COMFORT CARE
+══════════════════════════════════════════
+
+DATE AND TIME OF TRANSITION
+───────────────────────────
+[M/D/YY at HH:MM]
+
+CLINICAL CONTEXT
+────────────────
+  Patient: [Age]-year-old [male/female]
+  Primary diagnosis: ***
+  Reason for transition: [Disease progression / Failed
+  treatment / Patient/family decision / Clinical futility]
+  Clinical trajectory: ***
+
+GOC CONVERSATION SUMMARY
+─────────────────────────
+  Participants: [***]
+  Decision-maker: [Patient / Surrogate (relationship)]
+  Key discussion points: [***]
+  Decision: Transition to comfort-focused care
+
+CODE STATUS
+───────────
+  Changed to: DNR / DNI
+  Order entered: [Y/N, date and time]
+
+ORDERS: DISCONTINUE
+───────────────────
+  [ ] Vital sign monitoring (except for comfort assessment)
+  [ ] Telemetry
+  [ ] Laboratory draws
+  [ ] Imaging
+  [ ] IV fluids
+  [ ] Vasopressors
+  [ ] Antibiotics
+  [ ] Tube feeds / TPN
+  [ ] Fingerstick glucose monitoring
+  [ ] DVT prophylaxis
+  [ ] Restraints
+  [ ] [Other disease-directed treatments: chemotherapy,
+      dialysis, etc.]
+
+ORDERS: CONTINUE FOR COMFORT
+─────────────────────────────
+  [ ] Supplemental O2 for dyspnea (titrate to comfort,
+      not SpO2)
+  [ ] Oral care
+  [ ] Repositioning for comfort
+  [ ] Foley catheter (for urinary retention comfort)
+  [ ] [Other comfort-directed interventions]
+
+SYMPTOM MANAGEMENT ORDERS
+─────────────────────────
+  Pain / Dyspnea:
+    Morphine *** mg [IV/SQ] Q*** PRN pain or dyspnea
+    [Or: hydromorphone *** mg IV/SQ Q*** PRN]
+
+  Anxiety / Agitation:
+    Lorazepam *** mg [IV/SQ/SL] Q*** PRN
+
+  Secretions:
+    Glycopyrrolate *** mg [IV/SQ] Q*** PRN
+    [Or: scopolamine patch *** applied]
+
+  Nausea:
+    Ondansetron *** mg IV Q*** PRN
+    [Or: haloperidol *** mg IV Q*** PRN]
+
+  Fever:
+    Acetaminophen *** mg [PO/PR] Q*** PRN
+
+  [Adjust doses based on prior opioid exposure, renal
+  function, and current symptom burden.]
+
+FAMILY COMMUNICATION PLAN
+─────────────────────────
+  Family present: [Y/N, who]
+  Wishes for notification at time of death: [Call
+  immediately regardless of hour / Call during daytime
+  hours only / Family plans to be at bedside]
+  Contact number: [***]
+
+SPIRITUAL / CULTURAL NEEDS
+──────────────────────────
+  [Chaplaincy consulted / Specific religious or cultural
+  practices requested / None identified]
+
+PROVIDER NOTIFICATION
+─────────────────────
+  Attending notified: [Y/N, date and time]
+  PCP notified: [Y/N]
+  Palliative care team: [Involved / Consulted / N/A]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: clinical context, GOC conversation details, decisions made, medications for comfort, what to discontinue, family wishes, and spiritual needs.]
+</PromptPlayground>
+
+### Surrogate decision-making
+
+Use this when the patient lacks decision-making capacity and a surrogate is making treatment decisions. This variation emphasizes the capacity assessment, surrogate identification, and the substituted judgment standard.
+
+<PromptPlayground tool="Claude" title="Surrogate Decision-Making GOC Note">
+You are a physician documenting a goals-of-care conversation conducted with a surrogate decision-maker because the patient lacks decision-making capacity.
+
+**Purpose:** Document the surrogate-based GOC discussion with explicit documentation of the capacity assessment, surrogate authority, and the decision-making standard used (substituted judgment vs. best interest).
+
+### Rules
+
+- Write in past tense for the conversation; present tense for current status.
+- Document the capacity assessment with specific clinical findings (not just "patient lacks capacity" but "patient is intubated and sedated" or "patient has severe dementia with inability to understand the nature of the decision, appreciate consequences, reason about options, or communicate a consistent choice").
+- Document the legal basis for surrogate authority: healthcare proxy document, next-of-kin hierarchy, court-appointed guardian.
+- Document which decision-making standard was used: substituted judgment (what the patient would have wanted, based on prior statements) or best interest (when the patient's wishes are unknown).
+- Include any prior statements by the patient about their wishes, with source.
+- If there is disagreement among family members, document this and the resolution process.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Output format
+
+```
+SURROGATE GOALS-OF-CARE CONVERSATION
+══════════════════════════════════════════
+
+DATE AND TIME
+─────────────
+***
+
+PATIENT STATUS
+──────────────
+  [Age]-year-old [male/female]
+  Diagnosis: ***
+  Current clinical status: ***
+
+CAPACITY ASSESSMENT
+───────────────────
+  Patient has decision-making capacity: No
+  Basis: [Specific clinical finding: intubated/sedated,
+  delirium (CAM positive), severe dementia (MMSE ***),
+  obtunded, encephalopathy, etc.]
+  Assessed by: [Physician role]
+  Date of assessment: [M/D/YY]
+
+SURROGATE DECISION-MAKER
+────────────────────────
+  Name (de-identified): [Relationship]
+  Legal basis: [Healthcare proxy document (dated ***) /
+  Next-of-kin per state hierarchy / Court-appointed
+  guardian (order dated ***)]
+  Surrogate has been informed of their role: [Yes / No]
+
+DECISION-MAKING STANDARD
+─────────────────────────
+  Standard used: [Substituted judgment / Best interest]
+  [If substituted judgment:]
+    Prior patient statements: "***"
+    Source: [Advance directive / Prior conversation with
+    surrogate / Prior conversation with clinical team /
+    POLST on file (dated ***)]
+  [If best interest:]
+    Reason patient's wishes are unknown: [***]
+    Best interest determination based on: [***]
+
+PARTICIPANTS
+────────────
+  [List all present, including any disagreeing parties.]
+
+CONVERSATION CONTENT
+────────────────────
+  [Information shared with surrogate about patient's
+  condition, prognosis, and options.]
+
+SURROGATE'S UNDERSTANDING
+─────────────────────────
+  [What the surrogate understands about the situation.]
+
+DECISIONS MADE
+──────────────
+  [Specific decisions, attributed to the surrogate.]
+
+FAMILY AGREEMENT
+────────────────
+  [All family members present agree / Disagreement exists
+  (document: who disagrees, the nature of the disagreement,
+  and the plan for resolution — ethics consult, family
+  meeting, legal involvement if necessary).]
+
+FOLLOW-UP
+─────────
+  [Next conversation, pending decisions, ethics consult
+  if indicated.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: patient's current status, basis for incapacity, surrogate information, prior statements of patient wishes, conversation content, and decisions made.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+76-year-old female with metastatic NSCLC (adenocarcinoma, EGFR-negative, PD-L1 50%), diagnosed 14 months ago. Progressed through first-line carboplatin/pemetrexed/pembrolizumab and second-line docetaxel. Now ECOG 3, bedbound most of the day. Admitted 3/20/26 for dyspnea, found to have malignant pleural effusion (drained 1.5L), new brain mets on MRI (3 lesions, largest 2.2 cm). Oncology recommends no further systemic therapy given functional status. GOC meeting held 3/22/26 with patient (capacity intact), her husband (HCP), and adult daughter. Patient was tearful but engaged. She said "I know I'm dying. I don't want to suffer." She wants to be comfortable and at home. She does not want CPR, intubation, or ICU. She does want IV antibiotics if she gets an infection and would accept a short hospitalization for symptom management. She is afraid of suffocating. Husband is supportive. Daughter initially wanted "everything done" but after hearing the patient's own words, agreed. Palliative care was present. Code status changed to DNR/DNI. Plan for hospice referral at discharge.
+
+**LLM output:**
+
+GOALS OF CARE / SERIOUS ILLNESS CONVERSATION
+══════════════════════════════════════════════
+
+DATE AND TIME
+─────────────
+3/22/26 at 14:00
+Duration: 45 minutes
+
+CLINICAL CONTEXT
+────────────────
+  Patient: 76-year-old female
+  Primary diagnosis: Metastatic NSCLC (adenocarcinoma, EGFR-negative, PD-L1 50%), diagnosed 14 months ago
+  Current disease status: Progressive disease. Failed first-line carboplatin/pemetrexed/pembrolizumab and second-line docetaxel. New brain metastases (3 lesions, largest 2.2 cm on MRI). Malignant pleural effusion requiring thoracentesis (1.5 L drained). Oncology recommends no further systemic therapy.
+  Clinical trajectory: Declining. ECOG 3, bedbound most of the day.
+  Prognosis: Weeks to a few months
+  Reason for this conversation now: Disease progression on second-line therapy, new brain metastases, declining functional status, oncology recommendation against further systemic therapy
+
+PARTICIPANTS
+────────────
+  Patient: Present and participating. Tearful but engaged throughout.
+  Decision-making capacity: Assessed and intact. Patient understands her diagnosis, prognosis, treatment options, and consequences of her decisions. She communicates consistent preferences.
+  Healthcare proxy: Husband (HCP document on file)
+  Family members present: Adult daughter
+  Interpreter: No (not needed)
+  Clinical team present: Attending physician, palliative care physician
+
+PATIENT/FAMILY UNDERSTANDING
+────────────────────────────
+  Asked: "What is your understanding of where things stand with your illness?"
+  Patient response: "I know the cancer has spread to my brain. I know the chemo didn't work. I know I'm dying."
+
+  Assessment of understanding: Accurate. Patient demonstrates clear understanding of her diagnosis, disease progression, and prognosis.
+
+INFORMATION SHARED
+──────────────────
+  Prognosis communicated: "Based on the progression of the cancer despite two lines of treatment, and your current functional status, we estimate that the time remaining is likely measured in weeks to a few months. We wish we had better news."
+  Treatment options discussed:
+    1. Whole-brain radiation for brain metastases: may improve headache and neurologic symptoms, would not change the overall trajectory. Would require daily visits for 2 weeks. Given ECOG 3, burden may outweigh benefit.
+    2. Comfort-focused care with hospice enrollment: focus on symptom management, support at home, no further disease-directed therapy.
+    3. Clinical trial: discussed and ruled out given ECOG 3 (most trials require ECOG 0-2).
+  Language used: "We used the words 'the cancer is no longer responding to treatment' and 'we believe the time remaining is short, likely weeks to a few months.' We explicitly asked what she is most afraid of and what matters most to her."
+
+PATIENT VALUES AND PRIORITIES
+─────────────────────────────
+  What matters most: Being comfortable and being at home with her family.
+  Patient stated: "I know I'm dying. I don't want to suffer."
+  Patient stated: "I want to be home. I want to sit in my garden."
+
+  Fears: Suffocation. Patient stated: "I'm afraid of not being able to breathe."
+  Team reassured that hospice has medications to manage the sensation of breathlessness and that she would not be left to suffocate.
+
+  Unacceptable outcomes: CPR, intubation, prolonged hospitalization, ICU admission, loss of awareness.
+
+  Quality of life priorities: Comfort, being at home, time with family, maintaining awareness for as long as possible.
+
+TREATMENT PREFERENCES
+─────────────────────
+  Code status: DNR / DNI
+  CPR: No
+  Intubation / mechanical ventilation: No
+  ICU admission: No
+  Vasopressors: No
+  Dialysis: No
+  Artificial nutrition: No
+  IV antibiotics: Yes, if an infection develops and treatment would improve comfort or buy meaningful time. Patient does not want antibiotics for the purpose of prolonging the dying process.
+  Blood transfusion: Deferred; would consider if symptomatic anemia is affecting quality of life
+  Hospitalization preference: Would accept a short hospitalization for symptom management that cannot be handled at home. Does not want to die in the hospital.
+
+DECISIONS MADE
+──────────────
+  1. Code status changed to DNR/DNI. Order entered 3/22/26 at 14:45.
+  2. No further disease-directed systemic therapy.
+  3. Whole-brain radiation deferred. Patient prefers not to pursue given treatment burden and limited expected benefit. She will reconsider if neurologic symptoms worsen significantly.
+  4. Hospice referral at discharge. Social work to arrange home hospice evaluation.
+  5. Pleural effusion management: if effusion reaccumulates, patient would consider repeat thoracentesis for symptom relief at home (via hospice) but does not want a PleurX catheter at this time.
+
+  POLST: To be completed prior to discharge.
+  Advance directive: On file. HCP confirmed.
+  Code status order: Changed to DNR/DNI, entered 3/22/26.
+
+EMOTIONAL RESPONSE
+──────────────────
+  Patient: Tearful throughout but composed. Expressed relief at making the decision. Stated: "I've been thinking about this for a while. I feel like a weight is off." She requested time with her family after the conversation.
+  Husband: Quiet, holding patient's hand. Tearful. Stated he supports whatever she wants. No questions at this time.
+  Daughter: Initially expressed desire to "do everything." After hearing the patient's own words about her wishes, the daughter became tearful and said: "I hear you, Mom. I just don't want to lose you." By the end of the conversation, the daughter expressed agreement with the patient's wishes and gratitude for the discussion.
+
+FOLLOW-UP PLAN
+──────────────
+  Next GOC conversation: At discharge, to finalize hospice plan and complete POLST
+  Pending decisions: Whole-brain radiation (patient may reconsider if neurologic symptoms worsen); PleurX catheter (deferred)
+  Palliative care follow-up: Will continue to follow inpatient and facilitate hospice transition
+  Social work: Consulted for hospice referral and community resources
+  Chaplaincy: Offered. Patient requested a visit from her parish priest. Arranged.
+  Documentation distributed to: Oncology team, PCP (notified by phone 3/22/26)
+
+---
+
+## Tips & pitfalls
+
+- Direct quotes are the most valuable element of this note. "I don't want to be on a breathing machine" is the patient's voice in the chart. Your paraphrase, no matter how accurate, is yours. When the patient uses clear language, capture it exactly.
+- Document capacity, not just decisions. A decision made without documented capacity can be challenged later. The four elements of capacity are understanding, appreciation, reasoning, and expressing a consistent choice. You do not need a formal capacity evaluation for every GOC conversation, but you need to note that the patient demonstrated these abilities (or did not).
+- "Full code" is not a single decision; it is a bundle. When documenting code status, specify each intervention individually (CPR, intubation, vasopressors, ICU, dialysis). Patients often want some but not all.
+- The AI may generate generic values language ("patient values quality over quantity"). Press for specifics in your input. What does quality mean to this patient? Being able to recognize family? Being at home? Being without pain? The specifics are what matter at 3 AM.
+- Avoid the phrase "patient is not a candidate for" as a substitute for documenting the patient's own decision. There is a significant difference between "oncology has no further treatment to offer" and "the patient has chosen to stop treatment." Document which occurred.
+- If family members disagree, document the disagreement, not just the resolution. "Daughter initially expressed desire for aggressive care but agreed with patient's wishes after discussion" is important context for future providers.
+- POLST and advance directive are not the same document. An advance directive states preferences; a POLST is a physician order. Both may need to be completed or updated after a GOC conversation. Document the status of each.
+
+---
+
+## Related
+
+- [Death Summary](/templates/death-summary) -- the documentation that follows if the patient dies during this hospitalization
+- [Discharge Summary](/templates/discharge-summary-basic) -- capture the GOC conversation in the discharge summary for receiving providers
+- [Referral Letter](/templates/referral-letter) -- referral to hospice or palliative care
+- [Handoff / Sign-Out](/templates/handoff-signout) -- communicate the GOC conversation to the covering team

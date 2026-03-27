@@ -1,0 +1,1197 @@
+---
+title: "Palliative Care Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, palliative-care, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "Generates structured palliative care notes with ESAS symptom scoring, opioid management with MEDD calculations, Palliative Performance Scale, goals-of-care documentation, advance directive status, psychosocial and spiritual assessment, and hospice"
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+The patient has stage IV pancreatic cancer and is still receiving palliative chemotherapy. Pain is the chief complaint, but the visit also involves nausea management, constipation from opioids, a goals-of-care conversation prompted by declining performance status, and a caregiver who is barely sleeping. A standard clinic note cannot hold all of this. This template produces a structured palliative care clinic note that tracks symptom burden via ESAS, manages opioid dosing with morphine equivalent daily dose calculations, documents functional trajectory, captures goals-of-care discussions with the specificity they require, and addresses the psychosocial and spiritual needs that palliative care exists to serve.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Palliative Care Clinic Visit Note">
+You are a palliative care physician writing an outpatient clinic visit note after seeing a patient for symptom management, goals-of-care discussion, or hospice evaluation. The patient has a serious illness (advanced cancer, heart failure, COPD, dementia, or another life-limiting condition) and may be receiving disease-directed treatment, comfort-focused care, or transitioning between the two.
+
+### Purpose
+
+Generate a complete, structured outpatient palliative care clinic note from the clinical data below. The note must capture a comprehensive symptom assessment with ESAS scores, opioid management with morphine equivalent daily dose calculations, functional status and trajectory, goals-of-care documentation, advance directive status, psychosocial and spiritual assessment, and caregiver needs. The plan must address each symptom and the patient's overall goals.
+
+### Rules
+
+- Write in past tense for history and interval events; present tense for current status, goals, and plan.
+- Use medical abbreviations with expansion on first use in the note (e.g., "Edmonton Symptom Assessment System (ESAS)"), then abbreviation only thereafter.
+- Include specific numbers for all values: pain scores, ESAS ratings, medication doses, MEDD, performance scale scores.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Pain assessment must include: location(s), severity (0-10), character, current regimen with both long-acting and breakthrough doses, number of breakthrough doses used in the past 24 hours and past week, and pain with activity vs. rest.
+- Calculate the morphine equivalent daily dose (MEDD) and document it explicitly.
+- Document functional status using the Palliative Performance Scale (PPS) or Karnofsky Performance Status (KPS), with comparison to prior visit and trajectory description.
+- Goals-of-care documentation must include: patient's understanding of illness and prognosis, stated values and priorities, code status, advance directive status (health care proxy, POLST/MOLST), and the substance of the discussion (not just "GOC discussed").
+- Address all nine ESAS domains: pain, tiredness, drowsiness, nausea, appetite, shortness of breath, depression, anxiety, and overall well-being.
+- Plan items must be specific: drug name, dose, route, frequency; non-pharmacologic intervention; referral; follow-up interval.
+- Do not infer or fabricate any clinical information not provided. Write "[Not provided; verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "ESAS" = Edmonton Symptom Assessment System
+- "MEDD" = morphine equivalent daily dose
+- "PPS" = Palliative Performance Scale
+- "KPS" = Karnofsky Performance Status
+- "ECOG" = Eastern Cooperative Oncology Group
+- "GOC" = goals of care
+- "HCP" = health care proxy
+- "POLST" = Physician Orders for Life-Sustaining Treatment
+- "MOLST" = Medical Orders for Life-Sustaining Treatment
+- "ACP" = advance care planning
+- "DNR/DNI" = do not resuscitate / do not intubate
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+PALLIATIVE CARE CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[Follow-up symptom management / Goals-of-care discussion /
+New patient evaluation / Hospice evaluation / Concurrent care]
+Interval since last visit: [duration]
+Visit participants: [Patient, family member(s) (relationship), interpreter]
+
+CHIEF CONCERN
+─────────────
+***
+
+PRIMARY DIAGNOSIS
+─────────────────
+  Disease: ***
+  Stage/severity: ***
+  Date of diagnosis: ***
+  Prognosis: [Estimated by primary team or palliative assessment]
+  Disease-directed treatment status:
+    [Active treatment (specify regimen) / Completed / Discontinued (date, reason) /
+    None pursued]
+  Primary oncologist/specialist: [specialty, role]
+  PCP: [Y/N, coordination status]
+
+FUNCTIONAL STATUS
+─────────────────
+  Palliative Performance Scale (PPS): ***% (prior: ***% on M/D/YY)
+    [100%=full activity; 70%=reduced activity; 50%=mainly sit/lie;
+    30%=bed-bound; 0%=death]
+  ECOG Performance Status: ***/4
+    [0=fully active; 1=restricted; 2=ambulatory, &lt;50% of day in bed;
+    3=limited self-care, &gt;50% of day in bed; 4=completely disabled]
+  Trajectory: [Stable / Slow decline / Rapid decline]
+  Functional detail: [Specific activities: ambulation (with or without
+    assistive device, distance), self-care ability, time in bed per day,
+    oral intake status]
+  Comparison to last visit: ***
+
+ESAS SYMPTOM ASSESSMENT
+───────────────────────
+  [0 = no symptom, 10 = worst possible]
+
+  Domain               Current    Prior (M/D/YY)    Trend
+  ──────               ───────    ──────────────    ─────
+  Pain                 ***/10     ***/10            [↑/↓/→]
+  Tiredness            ***/10     ***/10            [↑/↓/→]
+  Drowsiness           ***/10     ***/10            [↑/↓/→]
+  Nausea               ***/10     ***/10            [↑/↓/→]
+  Appetite (lack of)   ***/10     ***/10            [↑/↓/→]
+  Shortness of breath  ***/10     ***/10            [↑/↓/→]
+  Depression           ***/10     ***/10            [↑/↓/→]
+  Anxiety              ***/10     ***/10            [↑/↓/→]
+  Well-being (poor)    ***/10     ***/10            [↑/↓/→]
+
+  Total ESAS: ***/90 (prior: ***/90)
+  Symptom distress score (SDS): ***/10
+    (average of all 9 domains)
+
+PAIN ASSESSMENT
+───────────────
+  Pain 1:
+    Location: ***
+    Severity: ***/10 at rest, ***/10 with activity
+    Character: [Aching / Sharp / Burning / Pressure / Neuropathic]
+    Radiation: ***
+    Aggravating factors: ***
+    Alleviating factors: ***
+    Temporal pattern: [Constant / Intermittent / Incident / Breakthrough]
+
+  Pain 2: [if multiple pain sites]
+    [Same format]
+
+  Nociceptive vs. neuropathic: [Assessment]
+
+OPIOID MANAGEMENT
+─────────────────
+  Current Regimen
+  ───────────────
+  Long-acting: [Drug, dose, route, frequency]
+  Breakthrough: [Drug, dose, route, frequency PRN]
+    Breakthrough doses used: *** in past 24 hours, *** in past 7 days
+  Adjuvant analgesics: [NSAIDs, gabapentinoids, duloxetine,
+    corticosteroids, muscle relaxants — drug, dose]
+  Non-pharmacologic: [Heat, ice, PT, massage, TENS, acupuncture]
+
+  MEDD Calculation
+  ────────────────
+  Long-acting: [Calculation showing conversion]
+  Breakthrough: [Doses per day x conversion factor]
+  Total MEDD: *** mg oral morphine equivalents per day
+  (Prior MEDD: *** mg on M/D/YY)
+
+  Opioid Side Effects
+  ───────────────────
+  Constipation: [Y/N; current bowel regimen]
+  Nausea: [Y/N; antiemetic if needed]
+  Sedation: [Y/N; severity]
+  Pruritus: [Y/N]
+  Myoclonus: [Y/N]
+  Respiratory: [No concern / Monitor]
+  Cognitive: [Intact / Impaired]
+
+OTHER SYMPTOM MANAGEMENT
+─────────────────────────
+
+  Dyspnea (if applicable)
+  ───────────────────────
+  At rest: ***/10
+  With exertion: ***/10
+  Oxygen: [Y/N; flow rate, device, hours per day]
+  Current treatment: [Opioid, fan, breathing techniques, anxiolytics]
+
+  Nausea / Vomiting (if applicable)
+  ──────────────────────────────────
+  Frequency: ***
+  Likely etiology: [Opioid, disease, chemo, obstruction, constipation]
+  Current antiemetics: [Drug, dose, route, frequency]
+
+  Anorexia / Cachexia (if applicable)
+  ─────────────────────────────────
+  Weight: *** (trend: *** lbs over *** months)
+  Oral intake: [Good / Fair / Poor; describe]
+  Nutritional support: [Appetite stimulant (megestrol/dronabinol), dietary
+    counseling, supplements, no interventions]
+  Artificial nutrition discussed: [Y/N; patient preference]
+
+  Constipation
+  ────────────
+  Last BM: ***
+  Bowel regimen: [Senna, docusate, PEG, lactulose, methylnaltrexone —
+    drug, dose, frequency]
+  Adequacy: [Effective / Ineffective; adjustment needed]
+
+  Fatigue
+  ───────
+  Severity: ***/10
+  Contributing factors: [Anemia, deconditioning, depression, medication,
+    disease progression]
+  Current management: ***
+
+  Insomnia
+  ────────
+  Sleep quality: ***
+  Hours of sleep: ***
+  Contributing factors: [Pain, anxiety, nocturia, medications]
+  Sleep aids: [Drug, dose]
+
+GOALS OF CARE
+─────────────
+
+  Patient Understanding
+  ─────────────────────
+  Understanding of diagnosis: [Accurate / Partially accurate / Inaccurate /
+    Patient declines discussion]
+  Understanding of prognosis: [Acknowledges life-limiting illness /
+    Hopes for cure / Uncertain / Not discussed]
+  Information preferences: [Wants full information / Prefers limited
+    disclosure / Family-directed communication]
+
+  Values and Priorities
+  ─────────────────────
+  [Document in patient's own words when possible]
+  Most important to patient: ***
+  Unacceptable states: ***
+  Willingness to trade quality for quantity of life: ***
+  Important milestones or goals: ***
+
+  Code Status
+  ───────────
+  Current: [Full code / DNR / DNR-DNI / Comfort measures only]
+  Date documented: ***
+  Discussion today: [Confirmed / Changed from *** to *** / Deferred]
+  Rationale: ***
+
+  Advance Directives
+  ──────────────────
+  Health care proxy (HCP): [Named: Y/N; name, relationship]
+  HCP aware of role: [Y/N]
+  Living will: [On file: Y/N]
+  POLST/MOLST: [Completed: Y/N; date]
+    Resuscitation: [Attempt / DNR]
+    Medical interventions: [Full / Selective / Comfort-focused]
+    Artificially administered nutrition: [Long-term / Trial / None]
+  Copy in chart: [Y/N]
+
+  Previous GOC Conversations
+  ──────────────────────────
+  [Date, participants, key decisions, documented where]
+
+PSYCHOSOCIAL ASSESSMENT
+───────────────────────
+  Emotional state: ***
+  Coping: [Effective / Struggling; strategies used]
+  Depression screen: [PHQ-2 or clinical assessment]
+  Anxiety: [Severity, triggers]
+  Anticipatory grief: [Patient awareness and processing]
+  Social support: [Strong / Adequate / Limited; details]
+  Financial concerns: [Insurance, medication costs, disability, work status]
+  Legal: [Estate planning, guardianship if relevant]
+
+SPIRITUAL ASSESSMENT
+────────────────────
+  Faith/spiritual tradition: ***
+  Importance in coping: [Central / Important / Not important / Declined]
+  Spiritual distress: [None identified / Present: describe]
+  Chaplain involvement: [Active / Offered / Declined]
+  Spiritual needs: ***
+
+CAREGIVER ASSESSMENT
+────────────────────
+  Primary caregiver: [Relationship, availability]
+  Caregiver burden: [Low / Moderate / High]
+    Sleep: ***
+    Work impact: ***
+    Physical health: ***
+    Emotional state: ***
+  Respite: [Available / Needed / In place]
+  Caregiver support: [Support group, counseling, respite services]
+  Bereavement risk: [Low / Moderate / High; factors]
+
+CURRENT MEDICATIONS (complete)
+──────────────────────────────
+  [Drug, dose, route, frequency] — indication
+  [Continue for all medications]
+
+  Medication burden assessment: [Appropriate / Deprescribing opportunities
+    identified; specify]
+
+VITAL SIGNS
+───────────
+  BP: ***
+  HR: ***
+  Weight: *** (trend: ***)
+  SpO2: *** (on room air / on *** L O2)
+  Temperature: ***
+  Pain: ***/10
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: [Cachectic / Thin / Well-nourished; appearance, distress level]
+  [Focused exam relevant to symptoms and disease.]
+
+COORDINATION OF CARE
+────────────────────
+  Primary oncologist/specialist: [Last communication, M/D/YY]
+  PCP: [Last communication, M/D/YY]
+  Home health: [Active / Ordered / Not yet needed]
+  Hospice: [Not yet discussed / Discussed, patient not ready /
+    Referral being placed / Currently enrolled]
+  Social work: [Involved / Referral placed / Not needed]
+  Chaplain: [Involved / Offered / Declined]
+  Pharmacy: [For complex medication management]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [primary diagnosis, stage/severity]
+presenting for [visit type]. [One-sentence trajectory statement that
+captures the illness course and current direction.]
+
+  1. [Primary symptom or concern]
+     [Brief assessment with rationale.]
+
+  2. [Secondary symptom]
+     [Brief assessment.]
+
+  3. Functional status
+     PPS ***%, [trajectory]. [Clinical significance of trajectory.]
+
+  4. Goals of care
+     [Summary of current goals, any changes, advance directive status.]
+
+  5. Psychosocial / Spiritual
+     [Summary of needs identified.]
+
+  6. Caregiver
+     [Summary of caregiver status.]
+
+PLAN
+────
+  1. Pain management
+     - [Specific opioid adjustment: "Increase long-acting morphine from
+       30 mg q12h to 45 mg q12h" or "Rotate from oxycodone to
+       hydromorphone at 75% equianalgesic dose"]
+     - [Breakthrough dose adjustment]
+     - [Adjuvant therapy]
+     - [Non-pharmacologic]
+
+  2. [Second symptom: nausea / dyspnea / constipation / fatigue]
+     - [Specific medication with dose, route, frequency]
+     - [Non-pharmacologic intervention]
+
+  3. [Third symptom]
+     - [Specific action]
+
+  4. Bowel regimen
+     - [Titrate to *** BMs per day; specific laxative adjustment]
+
+  5. Goals of care
+     - [ACP document status: complete / update needed / to be completed]
+     - [POLST: complete / to be completed at next visit]
+     - [Family meeting: scheduled / not needed / recommended]
+
+  6. Psychosocial / Spiritual
+     - [Social work referral / chaplain involvement / support group /
+       counseling for patient or caregiver]
+
+  7. Hospice (if applicable)
+     - [Eligibility discussed / criteria reviewed / referral placed /
+       patient prefers to continue disease-directed treatment /
+       reassess at next visit]
+     - [Hospice criteria met: PPS ≤50%, declining function, recurrent
+       hospitalizations, weight loss, or disease-specific criteria]
+
+  8. Coordination
+     - [Communication to primary team: update on GOC, symptom changes]
+     - [Home health orders: nursing, aide, PT/OT]
+
+  9. Deprescribing
+     - [Medications to stop: drug, reason (no longer aligned with goals,
+       side effects outweigh benefit, pill burden)]
+
+  10. Follow-up
+      - Return in [interval; shorter if unstable symptoms or GOC pending]
+      - [Phone check in *** days for symptom reassessment]
+      - [Criteria for earlier contact: uncontrolled pain, dyspnea,
+        new symptoms, caregiver distress]
+      - After-hours: [Palliative care on-call / hospice nurse if enrolled]
+
+DISPOSITION
+───────────
+[Patient and (family member) counseled on medication changes,
+symptom management strategies, and advance care planning.
+Agrees with plan. After-hours contact information reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: primary diagnosis with stage and treatment status, interval history, current medications with doses, ESAS scores, pain assessment details, functional status, goals-of-care discussion content, advance directive status, psychosocial and spiritual concerns, caregiver assessment, vitals, exam findings, and any other relevant data.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| New patient evaluation | Change visit type to "New patient evaluation" and add: "Include a complete serious illness history: timeline from diagnosis through treatments, response, and disease trajectory. Document a full goals-of-care conversation using the Serious Illness Conversation Guide framework (understanding, information preferences, goals, fears, function, tradeoffs)." |
+| Pediatric palliative care | Add: "This patient is a child. Include developmental status, school participation, sibling impact, parental coping assessment (both parents individually), and age-appropriate goals discussion. Symptom scales should use MSAS 7-12 or parent-reported scales for younger children." |
+| Inpatient palliative consult | Change to: "You are writing an inpatient palliative care consultation note. Include the reason for consultation, referring team, patient's hospital course, and focus the goals-of-care section on the specific decision at hand (tracheostomy, long-term feeding tube, code status, discharge to hospice, etc.)." |
+| Hospice certification | Add: "This visit includes a hospice certification or recertification. Document disease-specific hospice eligibility criteria met (per LCD/NCD guidelines), clinical indicators of terminal prognosis (&lt;6 months), and the physician's narrative supporting the certification." |
+| Telehealth | Add: "This visit was conducted via telehealth. Note patient's location, who is present, identity verification, and limitations of remote symptom assessment. Document that the pain assessment relies on patient self-report without physical exam findings." |
+
+---
+
+## Variations
+
+### Cancer symptom management (pain focus)
+
+Use this for the patient with advanced cancer whose visit centers on pain control. The note is built around a detailed pain assessment, opioid titration with MEDD calculations, and management of opioid side effects.
+
+<PromptPlayground tool="Claude" title="Cancer Pain Management">
+You are a palliative care physician writing a clinic note focused on pain management for a patient with advanced cancer. Structure the note around comprehensive pain assessment, opioid optimization with MEDD calculations, adjuvant therapy, and side effect management.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document each pain site separately with severity, character, and temporal pattern.
+- Calculate MEDD explicitly with conversion factors shown.
+- Document breakthrough dose utilization (doses per day) as the key indicator of whether the long-acting dose is adequate.
+- Bowel regimen must be documented for every patient on opioids.
+- If rotating opioids, show the equianalgesic calculation and document the 25-50% dose reduction for incomplete cross-tolerance.
+- Plan must include specific dose, not "increase as needed."
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+CANCER PAIN MANAGEMENT VISIT
+══════════════════════════════════════════
+
+DISEASE STATUS
+──────────────
+  Diagnosis: ***
+  Stage: ***
+  Current disease-directed treatment: ***
+  Known pain-generating sites: [Bone metastases, liver capsule distension,
+    nerve involvement, surgical site, etc.]
+
+PAIN ASSESSMENT
+───────────────
+  Pain 1: [Location]
+    Severity: rest ***/10, activity ***/10, worst in past week ***/10
+    Character: ***
+    Temporal: [Constant / Intermittent / Incident]
+    Nociceptive / Neuropathic / Mixed: ***
+    Radiologic correlate: ***
+
+  Pain 2: [Location, same format]
+
+  Overall pain control: [Well controlled / Partially controlled / Poorly controlled]
+  Sleep disruption from pain: [Y/N; hours of sleep]
+  Functional impact: [What pain prevents the patient from doing]
+  PEG score: Pain ***/10, Enjoyment ***/10, General activity ***/10
+
+CURRENT OPIOID REGIMEN
+──────────────────────
+  Long-acting:
+    [Drug, dose, route, frequency, start date]
+  Breakthrough:
+    [Drug, dose, route, frequency PRN]
+    Doses used: *** per 24 hours (avg over past week: ***)
+    Time to onset: *** minutes
+    Duration of relief: *** hours
+    Adequacy: [Effective / Partially effective / Ineffective]
+
+  MEDD Calculation
+  ────────────────
+  Long-acting:
+    [Drug, daily dose] x [conversion factor] = *** mg morphine equivalents
+  Breakthrough (average daily):
+    [Drug, average doses/day x dose] x [conversion factor] = *** mg morphine equiv
+  Total MEDD: *** mg/day
+  Prior MEDD: *** mg/day (M/D/YY)
+  Trend: [Stable / Escalating slowly / Escalating rapidly]
+
+  Adjuvant Analgesics
+  ───────────────────
+  [Drug, dose, indication for each]
+    Neuropathic: [gabapentin/pregabalin/duloxetine, dose]
+    Anti-inflammatory: [NSAID/corticosteroid, dose]
+    Muscle relaxant: [if applicable]
+    Other: [lidocaine patch, ketamine, methadone for adjuvant use]
+
+  Non-Pharmacologic
+  ─────────────────
+  [PT, heat/ice, TENS, massage, acupuncture, radiation for bone mets,
+  nerve block/neuraxial analgesia referral]
+
+OPIOID SIDE EFFECTS
+────────────────────
+  Constipation: [Last BM, regimen, adequacy]
+  Nausea: [Y/N, treatment]
+  Sedation: [None / Mild / Moderate / Dose-limiting]
+  Pruritus: [Y/N]
+  Myoclonus: [Y/N; if present, suggests consider rotation]
+  Cognitive changes: [Y/N; delirium screen if applicable]
+  Respiratory: [RR, SpO2; no concern / monitor]
+
+ESAS (abbreviated)
+──────────────────
+  Pain: ***/10  Tiredness: ***/10  Nausea: ***/10
+  Appetite: ***/10  Dyspnea: ***/10  Depression: ***/10
+  Anxiety: ***/10  Well-being: ***/10
+
+FUNCTIONAL STATUS
+─────────────────
+  PPS: ***% (prior: ***%)
+  ECOG: ***/4
+
+ASSESSMENT
+──────────
+[Summary: cancer type, pain sites, current control level,
+opioid utilization, MEDD trend, side effect burden,
+functional status trajectory.]
+
+PLAN
+────
+  1. Pain management
+     Long-acting adjustment:
+     - [Specific dose change: e.g., "Increase extended-release morphine
+       from 30 mg q12h to 45 mg q12h (50% increase based on breakthrough
+       utilization of 4 doses/day x 15 mg = 60 mg/day rescue use)"]
+     Breakthrough adjustment:
+     - [New dose: e.g., "Increase morphine IR from 15 mg to 20 mg q3h
+       PRN (10-15% of new total daily dose)"]
+     Adjuvant:
+     - [Add/adjust: specific drug, dose, indication]
+     Non-pharmacologic:
+     - [Specific intervention]
+
+  2. Opioid rotation (if indicated)
+     - [Show calculation:
+       Current total daily opioid = *** mg [current drug]
+       Convert to oral morphine equivalents = *** mg
+       Apply 25-50% reduction for incomplete cross-tolerance = *** mg
+       Convert to new opioid: *** mg [new drug] = *** mg [dose, frequency]
+       New breakthrough: 10-15% of total daily dose = *** mg [drug] q3h PRN]
+
+  3. Bowel regimen
+     - [Adjust: specific laxative change]
+     - [Target: 1 BM every 1-2 days]
+
+  4. Other symptoms
+     - [Nausea, fatigue, etc.: specific interventions]
+
+  5. Interventional (if indicated)
+     - [Palliative radiation referral for bone mets]
+     - [Nerve block / intrathecal pump referral]
+
+  6. Follow-up
+     - Phone check in 48-72 hours to assess dose change effect
+     - Return in [1-2 weeks if actively titrating]
+     - [Call clinic if: pain uncontrolled despite breakthrough, excessive
+       sedation, confusion, respiratory rate &lt;10]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: cancer diagnosis and stage, known metastatic sites, current opioid regimen with doses and utilization, adjuvant medications, pain descriptions (each site), ESAS, functional status, bowel status, side effects.]
+</PromptPlayground>
+
+### Serious illness conversation / goals of care
+
+Use this when the primary purpose of the visit is a goals-of-care conversation. This might be the first time prognosis is being addressed directly, a decision point about continuing or stopping treatment, or advance care planning documentation. The note captures what was said, by whom, and what decisions resulted.
+
+<PromptPlayground tool="Claude" title="Serious Illness Conversation / Goals of Care">
+You are a palliative care physician documenting a serious illness conversation or goals-of-care discussion. The note must capture the conversation's substance, not just that it happened. Structure the note around the patient's understanding, values, decisions, and resulting documentation.
+
+### Rules
+
+- Write in past tense for the conversation content; present tense for current status and resulting plan.
+- Use medical abbreviations with first-use expansion.
+- Document who was present (patient, family members by relationship, interpreter, other providers).
+- Record the patient's understanding of illness and prognosis in their own words when possible.
+- Document values, priorities, and fears as stated by the patient, not as interpreted by the clinician.
+- Record specific decisions made, including code status, treatment preferences, and advance directive updates.
+- Distinguish between what the patient wants and what the family wants when these differ.
+- Document the clinician's prognostic assessment and what was communicated to the patient.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+SERIOUS ILLNESS CONVERSATION
+══════════════════════════════════════════
+
+DATE: ***
+PARTICIPANTS
+────────────
+  Patient: [Present / Not present (reason)]
+  Family/Support: [Name, relationship for each person present]
+  Interpreter: [Y/N; language]
+  Clinical team: [Providers present, roles]
+
+CLINICAL CONTEXT
+────────────────
+  Diagnosis: ***
+  Stage/Severity: ***
+  Recent clinical events: [What prompted this conversation:
+    hospitalization, scan results, functional decline, treatment failure]
+  Prognostic estimate: [Clinician's assessment: months, weeks, uncertain]
+  Disease-directed treatment status: ***
+  Current functional status: PPS ***%
+
+CONVERSATION CONTENT
+────────────────────
+
+  Understanding of Illness
+  ────────────────────────
+  Patient's understanding: [In their own words: "I know the cancer
+    has spread but I thought the chemo was working" / "I know I'm
+    not going to get better" / etc.]
+  Gaps in understanding identified: ***
+  Information shared today: [What the clinician communicated about
+    diagnosis, prognosis, treatment options, and trajectory]
+  Patient's response to information: [Emotional reaction, questions
+    asked, processing style]
+
+  Information Preferences
+  ───────────────────────
+  Patient wants: [Full information / General overview / Family to
+    receive information / Specific limits on what to discuss]
+
+  Goals and Values
+  ────────────────
+  What matters most: [Patient's own words]
+  Hopes: ***
+  Fears: ***
+  Unacceptable outcomes: [Conditions the patient would not want to live with]
+  Tradeoffs: [Willingness to accept side effects or hospitalization
+    for potential benefit, or preference for comfort]
+  Important milestones: [Events the patient wants to reach]
+
+  Specific Decisions Made
+  ───────────────────────
+  Code status: [Full code / DNR / DNR-DNI / Comfort measures only]
+    Changed from: *** to ***
+    Rationale discussed: ***
+  Disease-directed treatment: [Continue / Discontinue / Trial with
+    defined endpoints / Not applicable]
+  Hospitalization preferences: [Would accept / Would prefer to avoid /
+    Only for symptom management]
+  ICU preferences: [Would accept / Would not want]
+  Artificial nutrition: [Would accept / Would not want / Trial with review]
+  Dialysis: [Would accept / Would not want / If applicable]
+  Hospice: [Discussed / Patient agrees to referral / Patient not ready /
+    Wants to continue treatment first / Enrolled]
+
+  Family Dynamics
+  ───────────────
+  Family understanding: [Aligned with patient / Different expectations]
+  Family-patient agreement: [Aligned / Discordant on ***]
+  Surrogate decision-maker: [Identified, aware of role, knows patient's wishes]
+  Conflict: [None / Describe]
+
+ADVANCE DIRECTIVE STATUS
+────────────────────────
+  Health care proxy:
+    Named: [Y/N]
+    Name: ***
+    Relationship: ***
+    Aware of role and patient's wishes: [Y/N]
+  Living will: [On file / Not completed / Updated today]
+  POLST/MOLST:
+    Status: [Completed today / Updated today / Previously completed /
+      To be completed at next visit]
+    Resuscitation: [Attempt / DNR]
+    Medical interventions: [Full / Selective / Comfort-focused]
+    Artificially administered nutrition: [Long-term / Trial / None]
+  Documents provided to: [Patient, family, PCP, chart]
+
+EMOTIONAL AND SPIRITUAL NEEDS
+──────────────────────────────
+  Patient emotional state after conversation: ***
+  Family emotional state: ***
+  Spiritual needs identified: ***
+  Referrals: [Chaplain, social work, psychology, bereavement]
+
+ASSESSMENT
+──────────
+[Summary of the conversation: what was discussed, what decisions
+were made, what remains unresolved, and what the patient's
+current understanding and emotional state are.]
+
+PLAN
+────
+  1. Advance care planning documentation
+     - [POLST completed / to be completed]
+     - [HCP form: signed / to be signed]
+     - [Copy to chart, PCP, patient]
+
+  2. Treatment decisions
+     - [Continue/discontinue treatment per discussion]
+     - [Communicate decision to primary oncologist/specialist]
+
+  3. Symptom management
+     - [Any changes based on GOC]
+
+  4. Hospice (if applicable)
+     - [Referral placed / Information provided / To be revisited]
+
+  5. Support services
+     - [Social work / chaplain / psychology / support group]
+     - [Caregiver support]
+
+  6. Follow-up
+     - [Phone call in *** days to check in]
+     - [Next visit in *** for: continued conversation /
+       POLST completion / symptom management]
+     - [Family meeting if needed: date, participants]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: diagnosis, prognosis, what prompted the conversation, who was present, what was discussed (patient's understanding, values, fears, decisions), code status, advance directive status, emotional responses, and any unresolved issues.]
+</PromptPlayground>
+
+### Hospice transition evaluation
+
+Use this when evaluating a patient for hospice eligibility and transition. The note documents disease-specific criteria, functional decline trajectory, and the clinical rationale supporting a prognosis of six months or less.
+
+<PromptPlayground tool="Claude" title="Hospice Transition Evaluation">
+You are a palliative care physician evaluating a patient for hospice eligibility and transition. Structure the note around disease-specific prognostic criteria, functional decline documentation, patient and family readiness, and the logistics of hospice enrollment.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document disease-specific hospice eligibility criteria (per LCD/NCD guidelines for the specific disease).
+- Provide a physician narrative supporting the prognostic estimate of six months or less.
+- Document functional decline trajectory with specific data points over time.
+- Record patient and family understanding of hospice (what it is and is not).
+- Address common misconceptions: hospice does not mean giving up, hospice can be revoked, hospice provides active symptom management.
+- Document care setting preference: home, facility, inpatient hospice.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+HOSPICE TRANSITION EVALUATION
+══════════════════════════════════════════
+
+PRIMARY DIAGNOSIS
+─────────────────
+  Disease: ***
+  Stage/Severity: ***
+  Disease-directed treatment: [Completed / Discontinued M/D/YY /
+    Patient declines further treatment]
+
+HOSPICE ELIGIBILITY CRITERIA
+────────────────────────────
+
+  General Criteria (non-disease-specific)
+  ───────────────────────────────────────
+  PPS: ***% (trajectory: ***)
+  Weight loss: *** lbs over *** months (***%)
+  Recurrent hospitalizations: [number in past 6 months]
+  Declining functional status: [Specific examples]
+  Serum albumin: *** (if available)
+  Dependence in ADLs: [List which]
+
+  Disease-Specific Criteria
+  ─────────────────────────
+  [For cancer:]
+  - Metastatic disease or locally advanced, not amenable to curative treatment
+  - Declining PPS despite treatment
+  - ECOG ≥3
+
+  [For heart failure:]
+  - NYHA Class IV despite optimal therapy
+  - EF ***%
+  - Recurrent hospitalizations: *** in past 6 months
+  - Refractory symptoms on maximal GDMT
+  - Renal function decline
+  - Cardiac cachexia
+
+  [For COPD:]
+  - FEV1 &lt;30% predicted (if available)
+  - Cor pulmonale
+  - O2 dependent at rest
+  - Recurrent exacerbations requiring hospitalization: *** in past year
+  - Unintentional weight loss &gt;10% over 6 months
+
+  [For dementia:]
+  - FAST stage ≥7a
+  - Unable to ambulate, dress, bathe independently
+  - Urinary and fecal incontinence
+  - Meaningful speech limited to ≤6 words per day
+  - Comorbid condition in past year: aspiration pneumonia, pyelonephritis,
+    sepsis, decubitus ulcers, recurrent fevers
+
+  Criteria met: [List which specific criteria are met]
+
+FUNCTIONAL TRAJECTORY
+─────────────────────
+  [Document decline over time with specific dates:]
+  M/D/YY: PPS ***%, [functional description]
+  M/D/YY: PPS ***%, [functional description]
+  M/D/YY: PPS ***%, [functional description]
+  Today: PPS ***%, [functional description]
+  Pattern: [Gradual decline / Stepwise decline / Rapid decline]
+
+PHYSICIAN NARRATIVE
+───────────────────
+[A paragraph in the physician's voice explaining why, in their
+clinical judgment, the patient's prognosis is six months or less
+if the disease follows its expected course. Reference specific
+clinical indicators, functional trajectory, and disease biology.]
+
+PATIENT AND FAMILY READINESS
+─────────────────────────────
+  Patient understanding of hospice: ***
+  Misconceptions addressed: ***
+  Patient preference: [Ready to enroll / Considering / Not ready]
+  Family understanding: ***
+  Family preference: [Supportive / Reluctant / Conflicted]
+  Care setting preference: [Home / Residential facility / Inpatient hospice]
+
+CURRENT SYMPTOMS
+────────────────
+  [ESAS or symptom list with severity]
+  Current medications for symptom management: ***
+
+ADVANCE DIRECTIVES
+──────────────────
+  Code status: ***
+  HCP: ***
+  POLST: [Status]
+
+ASSESSMENT
+──────────
+[Summary: disease status, hospice eligibility, functional trajectory,
+patient/family readiness, and clinical recommendation.]
+
+PLAN
+────
+  1. Hospice referral
+     - [Hospice agency: *** (or to be selected by patient)]
+     - [Level of care: routine home care / continuous care /
+       inpatient respite / general inpatient]
+     - [Physician certifying terminal prognosis: *** ]
+     - [Attending physician of record: palliative care / PCP / oncologist]
+
+  2. Medication reconciliation for hospice
+     - [Medications to continue under hospice formulary]
+     - [Medications to discontinue (no longer aligned with comfort goals)]
+     - [Medications that may need hospice approval: specify]
+
+  3. Equipment and services
+     - [Hospital bed, oxygen, wheelchair, commode, other DME]
+     - [Home nursing, home aide, social work, chaplain, volunteer]
+
+  4. Symptom management transition
+     - [Current regimen to continue / adjustments]
+     - [PRN orders for: pain, dyspnea, anxiety, nausea,
+       terminal secretions, agitation]
+
+  5. Communication
+     - [Notify PCP, oncologist/specialist]
+     - [Discharge from disease-directed services if applicable]
+
+  6. Follow-up
+     - [Hospice intake visit expected within *** days]
+     - [Palliative care will: continue to co-manage / sign off to hospice /
+       remain available for consultation]
+     - [Bereavement support for family: available through hospice]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: diagnosis, stage, treatment history, functional status over time (with dates), weight trend, hospitalizations, symptoms, medications, advance directive status, patient and family preferences, and any disease-specific criteria data (EF, FEV1, FAST stage, etc.).]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+71-year-old male with stage IV pancreatic adenocarcinoma, diagnosed 11/2025, metastatic to liver. Completed 4 cycles FOLFIRINOX, stopped 2/2026 due to disease progression on restaging CT and declining performance status. No further chemo planned. Wife and adult daughter present at visit. Current PPS 50% (was 70% at diagnosis, 60% 6 weeks ago). ECOG 3. Weight 148 lbs (was 172 lbs at diagnosis, lost 24 lbs in 4 months). Complains of abdominal pain 7/10 at rest, 9/10 with movement, epigastric, constant, radiating to back. Currently on extended-release morphine 30 mg q12h, morphine IR 15 mg q4h PRN (using 5-6 breakthrough doses per day). Opioid side effects: constipation (last BM 3 days ago despite senna 2 tabs BID and docusate). No nausea on ondansetron 4 mg q8h PRN. Mild sedation in afternoon. ESAS: pain 7, tiredness 6, drowsiness 4, nausea 2, appetite 7, dyspnea 3, depression 5, anxiety 6, well-being 7. Sleeps 4-5 hours, wakes from pain. PHQ-2: 4/6 (positive). Lives at home with wife. Wife reports poor sleep (3-4 hours), anxiety about caregiving, back pain from lifting. Daughter visits on weekends but lives 2 hours away. Code status: DNR-DNI (documented 1/2026). HCP: wife. POLST: completed 1/2026, comfort-focused. Patient says: "I know there's nothing more the chemo can do. I want to be comfortable at home." Wife tearful, says she's worried about managing his pain at home. Has not discussed hospice previously.
+
+**LLM output:**
+
+PALLIATIVE CARE CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Follow-up symptom management and goals-of-care discussion
+Interval since last visit: 4 weeks
+Visit participants: Patient, wife (health care proxy), adult daughter
+
+CHIEF CONCERN
+─────────────
+Abdominal pain inadequately controlled on current opioid regimen; fatigue and weight loss; goals-of-care discussion following discontinuation of chemotherapy
+
+PRIMARY DIAGNOSIS
+─────────────────
+  Disease: Pancreatic adenocarcinoma, stage IV, metastatic to liver
+  Date of diagnosis: 11/2025
+  Prognosis: Weeks to a few months based on disease trajectory, declining performance status, and progressive cachexia
+  Disease-directed treatment status: Discontinued 2/2026 after 4 cycles of FOLFIRINOX due to disease progression on restaging computed tomography (CT) and declining function. No further chemotherapy planned.
+  Primary oncologist: [Not provided; verify before signing]
+  PCP: [Not provided; verify before signing]
+
+FUNCTIONAL STATUS
+─────────────────
+  Palliative Performance Scale (PPS): 50% (prior: 60% 6 weeks ago; 70% at diagnosis 11/2025)
+  Eastern Cooperative Oncology Group (ECOG) Performance Status: 3/4
+  Trajectory: Rapid decline (PPS dropped from 70% to 50% in 4 months)
+  Functional detail: Spends more than 50% of the day in bed or reclined. Requires assistance with bathing and some dressing. Ambulates to the bathroom with a walker. Oral intake reduced to small meals and liquid supplements; poor appetite. Unable to drive or leave the house independently.
+  Comparison to last visit: Notable decline in activity tolerance and oral intake.
+
+ESAS SYMPTOM ASSESSMENT
+───────────────────────
+  [0 = no symptom, 10 = worst possible]
+
+  Domain               Current    Prior         Trend
+  ──────               ───────    ──────        ─────
+  Pain                 7/10       [Not provided] ***
+  Tiredness            6/10       [Not provided] ***
+  Drowsiness           4/10       [Not provided] ***
+  Nausea               2/10       [Not provided] ***
+  Appetite (lack of)   7/10       [Not provided] ***
+  Shortness of breath  3/10       [Not provided] ***
+  Depression           5/10       [Not provided] ***
+  Anxiety              6/10       [Not provided] ***
+  Well-being (poor)    7/10       [Not provided] ***
+
+  Total Edmonton Symptom Assessment System (ESAS): 47/90
+  Symptom distress score: 5.2/10
+
+PAIN ASSESSMENT
+───────────────
+  Pain 1:
+    Location: Epigastric, radiating to the back
+    Severity: 7/10 at rest, 9/10 with movement
+    Character: Constant, deep, aching
+    Radiation: Through to the mid-back
+    Aggravating factors: Movement, position changes, eating
+    Alleviating factors: Opioids (partial), lying still
+    Temporal pattern: Constant with incident exacerbation
+    Nociceptive vs. neuropathic: Mixed (visceral nociceptive from tumor; possible celiac plexus involvement contributing neuropathic component given radiation to back)
+
+OPIOID MANAGEMENT
+─────────────────
+  Current Regimen
+  ───────────────
+  Long-acting: Extended-release morphine 30 mg PO every 12 hours
+  Breakthrough: Morphine immediate-release (IR) 15 mg PO every 4 hours PRN
+    Breakthrough doses used: 5-6 in past 24 hours (consistently for past week)
+  Adjuvant analgesics: None currently
+  Non-pharmacologic: None currently
+
+  Morphine Equivalent Daily Dose (MEDD) Calculation
+  ──────────────────────────────────────────────────
+  Long-acting: ER morphine 30 mg x 2 = 60 mg oral morphine
+  Breakthrough: Morphine IR 15 mg x 5.5 (avg) = 82.5 mg oral morphine
+  Total MEDD: 142.5 mg oral morphine equivalents per day
+  Prior MEDD: 60 mg (long-acting only, 4 weeks ago; breakthrough was 1-2 doses/day)
+  Trend: Rapidly escalating (60 mg to 142.5 mg in 4 weeks)
+
+  Opioid Side Effects
+  ───────────────────
+  Constipation: Significant. Last bowel movement 3 days ago despite senna 2 tablets BID and docusate. Requires escalation.
+  Nausea: Well controlled on ondansetron 4 mg every 8 hours as needed.
+  Sedation: Mild, primarily in the afternoon. Not dose-limiting.
+  Myoclonus: None
+  Respiratory: No concern
+  Cognitive: Intact
+
+OTHER SYMPTOM MANAGEMENT
+─────────────────────────
+
+  Anorexia / Cachexia
+  ────────────────────
+  Weight: 148 lbs (lost 24 lbs from 172 lbs at diagnosis, 14% body weight in 4 months)
+  Oral intake: Small meals, liquid supplements, no full meals tolerated
+  Current management: None specific
+
+  Constipation
+  ────────────
+  Last BM: 3 days ago
+  Bowel regimen: Senna 2 tablets BID, docusate 100 mg BID
+  Adequacy: Ineffective; opioid dose has increased significantly since regimen was set
+
+  Fatigue
+  ───────
+  Severity: 6/10
+  Contributing factors: Disease progression, cachexia, pain-disrupted sleep, possible depression
+
+  Insomnia
+  ────────
+  Sleep: 4-5 hours per night; wakes from pain
+  Contributing factors: Pain, anxiety, position discomfort
+
+GOALS OF CARE
+─────────────
+
+  Patient Understanding
+  ─────────────────────
+  Understanding of diagnosis: Accurate. Patient states: "I know there's nothing more the chemo can do."
+  Understanding of prognosis: Acknowledges life-limiting illness. Aware that time is limited though specific prognostic estimate not previously discussed in detail.
+  Information preferences: Wants full information.
+
+  Values and Priorities
+  ─────────────────────
+  Most important to patient: "I want to be comfortable at home."
+  Unacceptable states: [Not explicitly stated; explore at next visit]
+  Willingness to trade quality for quantity: Prioritizes comfort over any further disease-directed intervention.
+  Important milestones: [Not provided; explore at next visit]
+
+  Code Status
+  ───────────
+  Current: Do not resuscitate / Do not intubate (DNR/DNI)
+  Date documented: 1/2026
+  Discussion today: Confirmed; patient reaffirms DNR/DNI
+
+  Advance Directives
+  ──────────────────
+  Health care proxy (HCP): Wife. Named, aware of role, aware of patient's wishes.
+  Living will: [Not provided; verify before signing]
+  Physician Orders for Life-Sustaining Treatment (POLST): Completed 1/2026
+    Resuscitation: DNR
+    Medical interventions: Comfort-focused
+    Artificially administered nutrition: None
+  Copy in chart: [Verify before signing]
+
+PSYCHOSOCIAL ASSESSMENT
+───────────────────────
+  Emotional state: Patient appears reflective and accepting of his prognosis. He is oriented toward comfort. Anxiety relates to pain control and concern for his wife's well-being.
+  Depression screen: Patient Health Questionnaire-2 (PHQ-2) 4/6 (positive). Warrants further assessment; symptoms may overlap with disease burden and anticipatory grief.
+  Social support: Wife is primary caregiver; daughter visits weekends. Limited daily in-home support otherwise.
+  Financial concerns: [Not provided; verify before signing]
+
+SPIRITUAL ASSESSMENT
+────────────────────
+  [Not provided; verify before signing]
+
+CAREGIVER ASSESSMENT
+────────────────────
+  Primary caregiver: Wife
+  Caregiver burden: High
+    Sleep: 3-4 hours per night (severely disrupted)
+    Physical health: Back pain from lifting patient
+    Emotional state: Tearful during visit. Reports anxiety about managing his pain at home.
+  Daughter: Available weekends; lives 2 hours away
+  Respite: None currently in place. Needed.
+  Bereavement risk: Moderate to high (anticipatory grief, sleep deprivation, caregiver isolation during the week)
+
+CURRENT MEDICATIONS
+───────────────────
+  Extended-release morphine 30 mg PO q12h — pain
+  Morphine IR 15 mg PO q4h PRN — breakthrough pain
+  Ondansetron 4 mg PO q8h PRN — nausea
+  Senna 2 tablets PO BID — opioid-induced constipation
+  Docusate 100 mg PO BID — stool softener
+
+  Medication burden assessment: Appropriate for symptom management. Constipation regimen needs escalation. Consider adding adjuvant analgesic and antidepressant.
+
+VITAL SIGNS
+───────────
+  Weight: 148 lbs
+  [Remaining vitals not provided; verify before signing]
+
+ASSESSMENT
+──────────
+71-year-old male with stage IV pancreatic adenocarcinoma, metastatic to liver, status post 4 cycles FOLFIRINOX (discontinued 2/2026 for progression), presenting for symptom management and goals-of-care discussion. His pain is inadequately controlled with a total MEDD of 142.5 mg per day, driven by 5-6 breakthrough doses daily, indicating the long-acting dose is insufficient. Functional status has declined from PPS 70% to 50% in four months, consistent with a rapid decline trajectory. He has lost 14% of his body weight. He is clear in his preference for comfort at home. Hospice is appropriate and was discussed today for the first time.
+
+  1. Pain, inadequately controlled
+     Epigastric and back pain 7/10 at rest is undertreated. The long-acting morphine dose of 60 mg per day is insufficient; the patient is using 82.5 mg per day in breakthrough doses, effectively telling us that the long-acting dose should be roughly doubled. The character and radiation suggest a mixed nociceptive-neuropathic mechanism (celiac plexus involvement), which supports adding a neuropathic adjuvant.
+
+  2. Constipation, opioid-induced, inadequately managed
+     Three days without a bowel movement on an escalating opioid dose. Current bowel regimen was set when the MEDD was 60 mg; it is now 142.5 mg. Stimulant laxative dose needs to increase, and a peripheral opioid antagonist should be considered.
+
+  3. Anorexia and cachexia
+     24 lbs lost in 4 months. Appetite ESAS 7/10. Cancer cachexia is the primary driver. Appetite stimulants have limited evidence but may provide modest comfort.
+
+  4. Depression and anxiety
+     PHQ-2 positive at 4/6. ESAS depression 5/10, anxiety 6/10. Overlaps with disease burden and anticipatory grief. Warrants closer assessment and consideration of pharmacotherapy. Duloxetine could serve dual purpose (mood and neuropathic pain).
+
+  5. Functional status: PPS 50%, rapid decline trajectory
+     Declining from 70% to 50% over 4 months with progressive dependence in ADLs. Consistent with a prognosis of weeks to a few months.
+
+  6. Goals of care: comfort-focused, home-based
+     Patient is clear and consistent. DNR/DNI and comfort-focused POLST are already in place. He wants to be at home. Hospice referral is appropriate and aligns with his stated goals.
+
+  7. Caregiver: high burden, needs support
+     Wife is sleep-deprived, physically strained, and anxious. She needs home hospice support (aide, nursing, respite) urgently.
+
+PLAN
+────
+  1. Pain management
+     - Increase extended-release morphine from 30 mg q12h to 60 mg q12h (doubling based on total 24-hour opioid utilization of approximately 142.5 mg)
+     - Increase morphine IR breakthrough to 20 mg q3h PRN (approximately 10-15% of new total daily long-acting dose of 120 mg)
+     - Start duloxetine 30 mg daily for 1 week, then 60 mg daily (for neuropathic pain component and comorbid depression)
+     - Discuss celiac plexus block referral if pain remains refractory after opioid optimization; patient to consider
+
+  2. Constipation
+     - Increase senna to 3 tablets BID
+     - Add polyethylene glycol (MiraLAX) 17 g daily
+     - If no BM within 48 hours: bisacodyl 10 mg suppository
+     - If refractory: start methylnaltrexone 8 mg SC every other day
+     - Discontinue docusate (stool softener alone is ineffective for opioid-induced constipation)
+     - Target: bowel movement at least every other day
+
+  3. Depression and anxiety
+     - Duloxetine (see pain management) will address mood
+     - Reassess PHQ-9 at next visit
+     - Offer psychology or social work referral for anticipatory grief support
+
+  4. Anorexia
+     - Start dexamethasone 4 mg PO daily (dual benefit: appetite stimulation and potential pain adjuvant for peritumoral inflammation)
+     - Counsel: small frequent meals, calorie-dense foods, protein supplements
+     - No artificial nutrition per POLST and patient preference
+
+  5. Insomnia
+     - Pain control optimization is the primary intervention
+     - Consider melatonin 3 mg at bedtime if sleep does not improve with pain control
+
+  6. Hospice referral
+     - Discussed hospice with patient and wife today. Explained: hospice provides active symptom management at home, includes nursing visits, aide for personal care, social work, chaplain, and 24-hour on-call nurse; does not mean giving up; can be revoked at any time.
+     - Patient agrees to hospice enrollment. Wife agrees and expressed relief at the prospect of in-home nursing support.
+     - Referral to be placed today. Hospice agency: [patient to select or recommend local agency]
+     - Level of care: Routine home hospice
+     - Certifying physician: [self or primary oncologist; verify]
+     - Hospice eligibility criteria met: metastatic pancreatic cancer no longer receiving disease-directed treatment, PPS 50% with rapid decline, 14% weight loss in 4 months, ECOG 3, progressive functional dependence
+
+  7. Caregiver support
+     - Hospice aide visits will provide respite and reduce physical lifting burden
+     - Social work referral for wife: caregiver support, respite coordination, anticipatory grief
+     - Daughter to be included in next family meeting (phone or in-person)
+     - Wife encouraged to see her own PCP for back pain evaluation
+
+  8. Coordination
+     - Communicate plan to primary oncologist
+     - PCP notification of hospice transition
+     - Ensure hospice has current POLST and medication list
+
+  9. Deprescribing
+     - Discontinue docusate (ineffective as monotherapy)
+     - Ondansetron PRN to continue as needed; reassess after dexamethasone starts (may reduce nausea as well)
+
+  10. Follow-up
+      - Phone check in 48-72 hours to assess pain after morphine dose increase
+      - Hospice intake visit expected within 5 business days
+      - Palliative care will remain available for consultation to hospice team; plan to see patient again in 2 weeks or sooner if hospice requests
+      - After hours: hospice on-call nurse once enrolled; palliative care on-call until then
+      - Call clinic immediately if: pain uncontrolled despite breakthrough doses, confusion, respiratory rate below 10, falls, caregiver inability to manage at home
+
+DISPOSITION
+───────────
+Patient and wife counseled on medication changes (morphine dose increase, breakthrough dose increase, duloxetine, dexamethasone, bowel regimen escalation), hospice referral, and what to expect from hospice services. Both agree with plan. Wife expressed gratitude for the hospice discussion. After-hours contact information provided. Patient walked to the car with walker assistance; wife drove.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **MEDD is not optional in a palliative care note.** Any note documenting opioid management must calculate and state the morphine equivalent daily dose. It is the single most important number for dose adjustment, rotation, and safety. The model calculates it from what you provide, but you must verify the conversion factors, especially for methadone (which has a nonlinear conversion ratio).
+- **Breakthrough utilization tells you whether the long-acting dose is right.** If a patient uses more than 3-4 breakthrough doses per day consistently, the long-acting dose is too low. The model tracks this, but the clinical decision to increase the long-acting dose is yours. The general approach: add up total 24-hour opioid use (long-acting plus all breakthrough doses), then redistribute as roughly 70-80% long-acting and 20-30% available as breakthrough.
+- **Goals-of-care documentation must capture substance, not process.** "Goals of care discussed with patient and family" is a medicolegal nothing. The note must record what the patient understands, what they value, what they decided, and what remains unresolved. The model structures this, but only from what you provide. Quote the patient when possible.
+- **PPS trajectory over time is more prognostic than a single PPS.** A PPS of 50% that has been stable for 3 months is different from a PPS of 50% that was 70% six weeks ago. The model documents both the current value and the trend. Give it multiple data points with dates.
+- **Caregiver assessment is part of the patient note.** Caregiver burnout predicts hospital readmission, uncontrolled symptoms, and early transition to inpatient care. The model includes a caregiver section; use it. Sleep hours, physical symptoms, and emotional state are clinical data.
+- **Hospice does not equal death in six months.** Some patients live longer than expected on hospice and are recertified. Others are enrolled weeks before death. The model documents eligibility criteria, but the prognostic estimate is a clinical judgment call. Document your reasoning, not just your conclusion.
+- **Deprescribing is prescribing.** At PPS 50% with comfort-focused goals, the patient does not need a statin, a daily aspirin for primary prevention, or metformin for an A1c of 7.4%. The model will flag deprescribing opportunities if you include a complete medication list. The default in palliative care is to remove medications that are not directly contributing to comfort or symptom management.
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) - for inpatient palliative care consultation follow-up notes
+- [Consult Note](/templates/consult-note) - for initial inpatient palliative care consultations
+- [Death Summary](/templates/death-summary) - for documenting the death and course of illness
+- [Discharge Summary](/templates/discharge-summary-basic) - for patients transitioning from hospital to hospice
+- [Disability/FMLA Letter](/templates/disability-fmla-letter) - for caregiver FMLA documentation

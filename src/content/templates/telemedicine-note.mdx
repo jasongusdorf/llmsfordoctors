@@ -1,0 +1,604 @@
+---
+title: "Telemedicine Visit Note"
+category: note-writing
+targetTool: claude
+tags: [beginner, note-writing, telemedicine, virtual, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "This template generates a structured telemedicine visit note capturing the documentation requirements unique to virtual care: technology platform, patient location, informed consent, exam limitations, and the reasoning for whether the visit was sufficient"
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when documenting a clinical encounter conducted via telemedicine, whether video or audio-only. Telemedicine notes carry the same clinical and legal weight as in-person documentation, but they require additional elements that in-person notes do not: technology platform, patient consent, patient location, the reason the visit was conducted virtually, and an honest accounting of what you could and could not assess through a screen. Payors audit these elements. So do malpractice attorneys.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+<Callout type="tip">
+  State licensing requirements for telemedicine vary. The patient's location at the time of the visit, not their home address, determines which state's laws apply. Document the patient's physical location at the time of the encounter.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Telemedicine Visit Note">
+You are a physician writing a clinical note for a telemedicine encounter. After receiving the clinical information below, produce a complete visit note that meets telemedicine-specific documentation requirements in addition to standard clinical documentation.
+
+**Purpose:** Generate a telemedicine visit note that includes all required telehealth documentation elements (consent, platform, location, exam limitations) alongside the standard clinical encounter note.
+
+### Rules
+
+- Write in present tense for current status, assessment, and plan; past tense for history.
+- Include all telemedicine-specific documentation elements in a dedicated section at the top of the note.
+- The physical exam section must explicitly state what was observed via video AND what could not be assessed due to the virtual format.
+- If the patient reported vitals from home devices, label them as "patient-reported" and note the device used.
+- Document clinical reasoning for whether the virtual format was sufficient for this encounter or whether an in-person visit is needed.
+- For audio-only visits, document why video was not used and note the further limitations on physical assessment.
+- Use medical abbreviations throughout. Never spell out what an abbreviation stands for.
+- Reference dates in the format M/D/YY.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- "patient" instead of "pt"
+- "s/p" = status post
+- "pmhx" = past medical history
+- "MDM" = medical decision-making
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+TELEMEDICINE VISIT NOTE
+══════════════════════════════════════════
+
+TELEHEALTH DOCUMENTATION
+─────────────────────────
+  Visit type: [Synchronous video / Audio-only / Store-and-forward]
+  Platform: [***]
+  Connection quality: [Adequate / Intermittent / Poor]
+  Audio: [Clear / Intermittent]
+  Video: [Clear / Intermittent / N/A (audio-only)]
+  Patient location: [State], [Home / Office / Other]
+  Provider location: [State], [Clinic / Home / Hospital]
+  Patient able to use technology: [Yes / With assistance / No]
+  Informed consent for telehealth: Obtained [verbally / written /
+  on file from prior visit]
+  Reason for virtual visit: [***]
+
+CHIEF COMPLAINT
+───────────────
+***
+
+HISTORY OF PRESENT ILLNESS
+───────────────────────────
+[Narrative paragraph. Include symptom onset, duration,
+severity, associated symptoms, pertinent positives and
+negatives. Past tense for history, present tense for
+current symptoms.]
+
+REVIEW OF SYSTEMS
+─────────────────
+[Pertinent positives and negatives beyond HPI.
+"All other reviewed systems negative" if applicable.]
+
+PAST MEDICAL HISTORY
+────────────────────
+***
+
+MEDICATIONS
+───────────
+***
+
+ALLERGIES
+─────────
+***
+
+VITALS (PATIENT-REPORTED)
+─────────────────────────
+  Source: [Home BP cuff / Pulse oximeter / Glucometer /
+  Thermometer / Scale / None available]
+  BP: *** (patient-reported, home device)
+  HR: ***
+  SpO2: *** (patient-reported, home pulse oximeter)
+  Temp: ***
+  Weight: ***
+  Glucose: ***
+  [Note: values are patient-reported from home monitoring
+  devices and were not independently verified.]
+
+PHYSICAL EXAMINATION (VIDEO-BASED)
+───────────────────────────────────
+  Observed via video:
+  ─────────────────
+  General: [Appearance, distress, affect, grooming,
+  body habitus as visible on screen]
+  Skin: [Lesions shown to camera, if applicable.
+  Note lighting and image quality.]
+  Respiratory: [Respiratory effort, use of accessory muscles,
+  speaking in full sentences, visible work of breathing]
+  Musculoskeletal: [ROM if demonstrated, gait if patient
+  walked on camera, visible swelling or deformity]
+  Neurologic: [Speech fluency, facial symmetry, visible
+  tremor, coordination if tested on camera]
+  Wound: [If shown to camera: size, color, drainage,
+  surrounding skin. Note image quality.]
+  [Other systems observed as applicable.]
+
+  NOT assessable via video:
+  ─────────────────────────
+  [List specific exam components that could not be
+  performed: auscultation (heart, lungs, abdomen),
+  palpation (abdomen, lymph nodes, joints), percussion,
+  fundoscopic exam, otoscopic exam, detailed neurologic
+  exam (reflexes, sensation, strength grading), rectal
+  exam, pelvic exam, etc.]
+
+ASSESSMENT
+──────────
+  [Numbered problem list with clinical impression for each.]
+  1. ***
+  2. ***
+
+PLAN
+────
+  [Numbered plan corresponding to each assessment item.]
+  1. ***
+  2. ***
+
+ADEQUACY OF VIRTUAL ENCOUNTER
+──────────────────────────────
+  [Was this visit sufficient for the clinical question at hand?
+  If yes, state why. If no, document the need for in-person
+  follow-up and the specific reason (e.g., "abdominal
+  palpation required to assess for organomegaly," "auscultation
+  needed to evaluate new murmur").]
+
+  In-person follow-up needed: [Yes / No]
+  Reason: [***]
+  Timeframe: [***]
+
+PRESCRIBING
+───────────
+  [Medications prescribed. For controlled substances, document
+  DEA telehealth prescribing compliance and state-specific
+  requirements met.]
+
+BILLING
+───────
+  Total visit time: *** minutes
+  Medical decision-making time: *** minutes
+  Telehealth modifier: [95 (synchronous video) / 93 (audio-only)]
+  Place of service: [02 (telehealth — patient home) /
+  10 (telehealth — patient at originating site)]
+
+  Attestation: This visit was conducted via real-time
+  [audio-visual / audio-only] telecommunication technology.
+  The patient was informed of the limitations of a virtual
+  visit and consented to proceed.
+```
+
+---
+CLINICAL INFORMATION:
+[Paste your de-identified clinical data here: visit logistics (platform, locations), chief complaint, HPI, vitals if available, what you observed on video, assessment, and plan.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Audio-only | Add: "This was an audio-only visit. Document why video was not available and the additional exam limitations." |
+| Specialist visit | Add: "This is a [specialty] telemedicine visit. Include specialty-specific exam elements that can be assessed via video (e.g., dermatology photos, movement disorder observation)." |
+| Pediatric | Add: "This is a pediatric telemedicine visit. Document the caregiver present, the child's cooperation with the video exam, and developmental observations." |
+| Controlled substance | Add: "This visit involves prescribing a controlled substance via telemedicine. Document DEA telehealth prescribing compliance, the established patient relationship, and state-specific requirements." |
+| Post-discharge follow-up | Add: "This is a post-discharge telemedicine follow-up. Include the discharge diagnosis, date of discharge, and any interval changes since discharge." |
+
+---
+
+## Variations
+
+### Chronic disease follow-up (virtual)
+
+Use this for routine follow-up visits for chronic conditions (diabetes, hypertension, COPD, heart failure) conducted via telemedicine. The emphasis is on home-monitored data, medication management, and disease control metrics.
+
+<PromptPlayground tool="Claude" title="Chronic Disease Telemedicine Follow-Up">
+You are a physician writing a telemedicine visit note for a chronic disease follow-up encounter. The patient is managing one or more chronic conditions and this visit focuses on disease control, medication management, and home monitoring data.
+
+**Purpose:** Generate a chronic disease management note that integrates patient-reported home data (BP, glucose, weight, SpO2) with medication adjustments and disease control assessment.
+
+### Rules
+
+- Write in present tense for current status and plan; past tense for history and prior visits.
+- Include telemedicine documentation elements (consent, platform, location).
+- Organize home monitoring data clearly with date ranges and trends, not single values.
+- Compare current disease control metrics to target goals.
+- Document medication adherence and barriers (cost, side effects, complexity).
+- The exam section is limited; acknowledge this and state what was observed.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Output format
+
+```
+TELEMEDICINE CHRONIC DISEASE FOLLOW-UP
+══════════════════════════════════════════
+
+TELEHEALTH DOCUMENTATION
+─────────────────────────
+  [Standard telehealth elements: platform, consent, locations,
+  connection quality.]
+
+VISIT CONTEXT
+─────────────
+  [Age]-year-old [male/female] with pmhx of [***], presenting
+  for routine [interval] follow-up via telemedicine. Last
+  in-person visit: [date].
+
+DISEASE CONTROL REVIEW
+──────────────────────
+
+  [Disease 1: e.g., DM2]
+  ───────────────────────
+  Last A1c: *** (date) — Target: ***
+  Home glucose log (past 2 weeks):
+    Fasting: range ***-***, average ***
+    Post-prandial: range ***-***, average ***
+  Hypoglycemic episodes: [None / frequency]
+  Current regimen: [***]
+  Adherence: [***]
+  Assessment: [At goal / Above goal / Worsening]
+
+  [Disease 2: e.g., HTN]
+  ───────────────────────
+  Home BP log (past 2 weeks):
+    Range: ***-***/***-***
+    Average: ***/***
+  Current regimen: [***]
+  Adherence: [***]
+  Assessment: [At goal / Above goal / Below goal]
+
+  [Additional diseases as applicable.]
+
+MEDICATION REVIEW
+─────────────────
+  [Full medication list with adherence assessment for each.
+  Note any barriers: cost, side effects, complexity.]
+
+VIDEO EXAM
+──────────
+  General: [***]
+  [Limited exam elements observable via video.]
+  Not assessable: [***]
+
+ASSESSMENT AND PLAN
+───────────────────
+  [Numbered problem list with specific plan for each,
+  including medication adjustments, lab orders, and
+  next visit interval.]
+
+NEXT VISIT
+──────────
+  Type: [In-person / Telemedicine]
+  Interval: [***]
+  Rationale for visit type: [***]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: chronic conditions, home monitoring data (BP, glucose, weight), current medications, labs, and any interval changes since last visit.]
+</PromptPlayground>
+
+### Acute visit via telehealth
+
+Use this for unscheduled or urgent telemedicine visits for acute complaints (URI, UTI, rash, musculoskeletal pain, medication side effects). The emphasis is on triage: can this be managed virtually, or does the patient need to be seen in person or go to the ED?
+
+<PromptPlayground tool="Claude" title="Acute Telehealth Visit">
+You are a physician writing a telemedicine visit note for an acute clinical complaint. This is an unscheduled or urgent visit where the primary question is whether the complaint can be managed virtually or requires in-person evaluation.
+
+**Purpose:** Generate an acute visit note with explicit documentation of the triage decision: virtual management vs. in-person referral vs. ED referral.
+
+### Rules
+
+- Write in present tense for current symptoms and plan; past tense for onset and history.
+- Include telemedicine documentation elements.
+- The exam section must clearly delineate what was observed versus what could not be assessed, and how this limitation affects the clinical assessment.
+- Document the triage decision explicitly: is virtual management safe and appropriate for this complaint?
+- Include specific return precautions and escalation criteria.
+- If prescribing antibiotics or other treatments without a confirmatory physical exam or test, document the clinical reasoning and the risk accepted.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Output format
+
+```
+ACUTE TELEHEALTH VISIT
+══════════════════════════════════════════
+
+TELEHEALTH DOCUMENTATION
+─────────────────────────
+  [Standard telehealth elements.]
+
+CHIEF COMPLAINT
+───────────────
+***
+
+HPI
+───
+[Narrative paragraph covering onset, duration, severity,
+associated symptoms, pertinent positives and negatives,
+self-treatment attempted.]
+
+VIDEO EXAM
+──────────
+  Observed: [***]
+  Not assessable: [***]
+  Exam limitations relevant to this complaint: [Specify
+  what exam findings would change management if this
+  were an in-person visit.]
+
+TRIAGE DECISION
+───────────────
+  Can this complaint be safely managed via telemedicine?
+  [Yes / No / Yes with caveats]
+  Rationale: [***]
+  [If no: recommended disposition (in-person visit within
+  X days / ED today / urgent care today)]
+
+ASSESSMENT
+──────────
+  Working diagnosis: ***
+  Confidence: [High / Moderate / Low, given exam limitations]
+  Differential: [***]
+
+PLAN
+────
+  [Treatment plan. If empiric treatment without confirmatory
+  testing, state: "Treated empirically based on clinical
+  presentation via video. Confirmatory [exam/test] not
+  performed due to virtual format."]
+
+RETURN PRECAUTIONS
+──────────────────
+  [Specific symptoms or timeframes that should prompt:
+  - In-person visit within [timeframe]
+  - ED evaluation immediately
+  - Follow-up telemedicine visit in [timeframe]]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: chief complaint, symptom details, what you observed on video, home vitals if available, your assessment and plan.]
+</PromptPlayground>
+
+### Behavioral health telehealth visit
+
+Use this for psychiatric or behavioral health encounters conducted via telemedicine. Behavioral health visits are particularly well-suited to telemedicine, but documentation must capture the mental status exam as performed via video and address any safety concerns with specific protocols.
+
+<PromptPlayground tool="Claude" title="Behavioral Health Telehealth Visit">
+You are a physician or psychiatrist writing a telemedicine visit note for a behavioral health encounter. This includes psychiatric follow-up, therapy check-in, or medication management for mental health conditions.
+
+**Purpose:** Generate a behavioral health visit note conducted via telemedicine with a video-based mental status exam and safety assessment.
+
+### Rules
+
+- Write in present tense for current mental status and plan; past tense for history.
+- Include telemedicine documentation elements.
+- The mental status exam must be documented as performed via video, noting what was directly observed and any limitations.
+- Safety assessment (SI, HI, self-harm) is required at every behavioral health visit, regardless of the reason for the visit.
+- If the patient is in crisis, document the crisis plan including the patient's physical location, local emergency resources, and the plan for ensuring safety before ending the visit.
+- For controlled substance prescribing, document DEA compliance and state requirements.
+- Document the patient's environment as observed on video (private setting, others present, distractions) as it affects the clinical encounter.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Output format
+
+```
+BEHAVIORAL HEALTH TELEHEALTH VISIT
+══════════════════════════════════════════
+
+TELEHEALTH DOCUMENTATION
+─────────────────────────
+  [Standard telehealth elements.]
+  Patient environment: [Private room / Others present
+  (who) / Distracting environment / In vehicle]
+  Privacy adequate for sensitive discussion: [Yes / No]
+
+VISIT TYPE
+──────────
+  [Medication management / Therapy / Combined / Crisis]
+  Interval since last visit: [***]
+
+SUBJECTIVE
+──────────
+  Chief concern: [***]
+  [Narrative covering mood, sleep, appetite, energy,
+  concentration, anxiety, psychotic symptoms if applicable,
+  substance use, medication effects, functional status,
+  psychosocial stressors.]
+
+MENTAL STATUS EXAM (VIA VIDEO)
+──────────────────────────────
+  Appearance: [Grooming, hygiene, clothing, visible
+  weight change — as observable on video]
+  Behavior: [Psychomotor activity, eye contact with camera,
+  cooperation, agitation, restlessness]
+  Speech: [Rate, rhythm, volume, coherence]
+  Mood (patient-reported): "***"
+  Affect (observed): [Range, congruence, reactivity]
+  Thought process: [Linear, circumstantial, tangential,
+  loosening of associations]
+  Thought content: [Delusions, obsessions, preoccupations]
+  Perceptions: [AH, VH, other hallucinations — currently
+  and recently]
+  Cognition: [Alert, oriented, attention, concentration —
+  as assessable via video]
+  Insight: [Good / Fair / Poor]
+  Judgment: [Good / Fair / Poor]
+
+SAFETY ASSESSMENT
+─────────────────
+  Suicidal ideation: [None / Passive / Active — with or
+  without plan, intent, means]
+  Homicidal ideation: [None / Present]
+  Self-harm urges: [None / Present]
+  Access to means: [Firearms, medications, other]
+  Protective factors: [***]
+  Safety plan in place: [Yes / No / Updated today]
+  Risk level: [Low / Moderate / High]
+
+MEDICATIONS
+───────────
+  [Current psychiatric medications with doses, duration,
+  side effects, adherence, and response.]
+
+ASSESSMENT AND PLAN
+───────────────────
+  [Numbered problem list.]
+  1. ***
+  2. ***
+
+NEXT VISIT
+──────────
+  Type: [Telemedicine / In-person]
+  Interval: [***]
+  Between-visit plan: [Crisis line, safety plan, therapy
+  homework, medication titration schedule]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: psychiatric history, current symptoms, medication list, mental status observations from the video visit, safety assessment, and plan.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+Video visit via Doxy.me for DM2 and HTN follow-up. Patient is at home in California, provider in clinic in California. Connection quality adequate, audio and video clear. Consent for telehealth on file. 58-year-old female with DM2 (10 years) and HTN (8 years). Meds: metformin 1000mg BID, empagliflozin 10mg daily, lisinopril 20mg daily, amlodipine 5mg daily. Home BP over past 2 weeks: range 128-146/78-88, average 136/82. Home fasting glucose past 2 weeks: range 118-162, average 138. Weight from home scale: 187 lbs (up 3 lbs from 3 months ago). Last A1c: 7.4% (2 months ago). Last BMP: Cr 0.9, K 4.1 (2 months ago). No chest pain, no dyspnea, no polyuria, no vision changes, no foot numbness. Adherent to medications. On video: appears well, no acute distress, speaking comfortably, no visible edema in lower extremities when patient showed feet on camera.
+
+**LLM output:**
+
+TELEMEDICINE VISIT NOTE
+══════════════════════════════════════════
+
+TELEHEALTH DOCUMENTATION
+─────────────────────────
+  Visit type: Synchronous video
+  Platform: Doxy.me
+  Connection quality: Adequate
+  Audio: Clear
+  Video: Clear
+  Patient location: California, home
+  Provider location: California, clinic
+  Patient able to use technology: Yes
+  Informed consent for telehealth: On file from prior visit
+  Reason for virtual visit: Routine chronic disease follow-up; no examination elements required that cannot be assessed via video and home monitoring
+
+CHIEF COMPLAINT
+───────────────
+Routine follow-up for DM2 and HTN
+
+HISTORY OF PRESENT ILLNESS
+───────────────────────────
+58-year-old female with 10-year history of DM2 and 8-year history of HTN presents for routine interval follow-up via telemedicine. She reports medication adherence to all four agents without missed doses. She denies chest pain, dyspnea, polyuria, polydipsia, vision changes, and numbness or tingling in her feet. She notes a 3-pound weight gain over the past 3 months, which she attributes to decreased activity over the winter. Home BP monitoring over the past 2 weeks shows a range of 128-146/78-88 with an average of 136/82. Fasting glucose range 118-162, average 138. No hypoglycemic episodes. No side effects from current medications.
+
+REVIEW OF SYSTEMS
+─────────────────
+Negative for headache, dizziness, visual changes, chest pain, palpitations, dyspnea, edema, abdominal pain, urinary frequency, and paresthesias. All other reviewed systems negative.
+
+PAST MEDICAL HISTORY
+────────────────────
+DM2 (10 years), HTN (8 years)
+
+MEDICATIONS
+───────────
+Metformin 1000 mg PO BID, empagliflozin 10 mg PO daily, lisinopril 20 mg PO daily, amlodipine 5 mg PO daily
+
+ALLERGIES
+─────────
+***
+
+VITALS (PATIENT-REPORTED)
+─────────────────────────
+  Source: Home BP cuff, home scale
+  BP: 136/82 (2-week average, patient-reported, home device)
+  HR: ***
+  Weight: 187 lbs (up from 184 lbs 3 months ago)
+  Glucose: 138 (fasting average, home glucometer)
+
+PHYSICAL EXAMINATION (VIDEO-BASED)
+───────────────────────────────────
+  Observed via video:
+  ─────────────────
+  General: Well-appearing, no acute distress, alert, conversant, comfortable
+  Skin: No visible lesions on face, arms, or hands
+  Respiratory: Speaking in full sentences without difficulty, no visible respiratory distress
+  Extremities: Patient showed bilateral feet on camera; no visible edema, no obvious skin breakdown or ulceration. Skin color appears normal. Image quality adequate for gross inspection.
+
+  NOT assessable via video:
+  ─────────────────────────
+  Auscultation (heart, lungs), abdominal palpation, peripheral pulse palpation, monofilament testing (diabetic foot exam), fundoscopic exam, detailed skin exam
+
+ASSESSMENT
+──────────
+  1. DM2, stable, near goal. A1c 7.4% (2 months ago, target &lt;7%). Fasting glucose average 138, above target but improved from prior. Weight up 3 lbs.
+  2. HTN, above goal. Average home BP 136/82 (target &lt;130/80 given DM). Consistently above systolic target.
+
+PLAN
+────
+  1. DM2: Continue metformin 1000 mg BID and empagliflozin 10 mg daily. Reinforce dietary counseling and physical activity goal (150 min/week). Repeat A1c in 1 month. If A1c remains above 7%, discuss adding GLP-1 RA at next visit (would also support weight management). Diabetic foot exam needed at next in-person visit. Diabetic retinal screening: verify up to date.
+  2. HTN: Average BP above target. Increase amlodipine from 5 mg to 10 mg daily. Continue lisinopril 20 mg daily. Patient to continue home BP monitoring and bring log to next visit. If average BP remains above 130/80 on increased dose, will consider adding chlorthalidone.
+  3. Labs: Order BMP and A1c to be drawn prior to next visit.
+
+ADEQUACY OF VIRTUAL ENCOUNTER
+──────────────────────────────
+  This visit was adequate for routine chronic disease management. Medication adjustments and monitoring plan can be made based on home data and lab review. In-person visit is needed for diabetic foot exam (monofilament testing) and complete physical exam.
+
+  In-person follow-up needed: Yes
+  Reason: Diabetic foot exam due (cannot perform monofilament testing via video)
+  Timeframe: Within 3 months
+
+PRESCRIBING
+───────────
+  Amlodipine 10 mg PO daily (increased from 5 mg)
+
+BILLING
+───────
+  Total visit time: 20 minutes
+  Medical decision-making time: 15 minutes
+  Telehealth modifier: 95 (synchronous video)
+  Place of service: 02 (telehealth, patient at home)
+
+  Attestation: This visit was conducted via real-time audio-visual telecommunication technology using the Doxy.me platform. The patient was informed of the limitations of a virtual visit and consented to proceed. Consent is on file.
+
+---
+
+## Tips & pitfalls
+
+- The most common telemedicine documentation deficiency in audits is missing patient location. Payors and state boards require the patient's physical location at the time of the visit because it determines which state's licensure and prescribing laws apply.
+- Audio-only visits are reimbursable for many payors but at different rates, and they require a different modifier (93 instead of 95). Document why video was not used: patient preference, lack of technology, connectivity issues.
+- Patient-reported vitals are clinically useful but not equivalent to in-office measurements. Label them clearly. A patient's home BP cuff may not be calibrated; a home scale may not match your clinic scale. Acknowledge this in your documentation.
+- The AI may generate a full physical exam. Review and delete any exam components you did not actually perform or observe. Documenting auscultation findings on a video visit is indefensible.
+- Telehealth prescribing of controlled substances has specific DEA requirements that changed after the COVID-19 public health emergency. As of 2025, DEA requires an initial in-person evaluation before prescribing Schedule II-V controlled substances via telemedicine in most circumstances. Verify current federal and state rules before prescribing.
+- Document the adequacy of the virtual encounter for every visit. "This visit was appropriate for telemedicine because..." protects you in an audit and demonstrates clinical judgment about when telemedicine is and is not sufficient.
+- If you identify a finding on video that concerns you (visible respiratory distress, facial droop, severe rash), document what you saw and your instructions to the patient (go to the ED, come to clinic today, send photos for further evaluation).
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) -- the standard in-person follow-up note structure
+- [Discharge Instructions](/templates/discharge-instructions) -- patient instructions that may be reviewed at a post-discharge telemedicine visit
+- [Medication Reconciliation](/templates/medication-reconciliation) -- systematic medication review, often done at telemedicine follow-ups
+- [Follow-Up Visit Prep](/templates/follow-up-visit-prep) -- preparation template for any follow-up visit, virtual or in-person

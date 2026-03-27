@@ -45,13 +45,38 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   try {
+    const trimmedName = name.trim();
+    const trimmedEmail = email.toLowerCase().trim();
+    const trimmedMessage = message.trim();
+    const submittedAt = new Date().toISOString();
+
     const key = `contact:${Date.now()}-${crypto.randomUUID().slice(0, 8)}`;
     await env.FORM_STORE.put(key, JSON.stringify({
-      name: name.trim(),
-      email: email.toLowerCase().trim(),
-      message: message.trim(),
-      submittedAt: new Date().toISOString(),
+      name: trimmedName,
+      email: trimmedEmail,
+      message: trimmedMessage,
+      submittedAt,
     }));
+
+    // Send email notification via Resend
+    try {
+      await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${env.RESEND_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: 'LLMs for Doctors <noreply@llmsfordoctors.com>',
+          to: 'jasongusdorfmd@gmail.com',
+          reply_to: trimmedEmail,
+          subject: `New message from ${trimmedName} via llmsfordoctors.com`,
+          text: `Name: ${trimmedName}\nEmail: ${trimmedEmail}\nTime: ${submittedAt}\n\n${trimmedMessage}`,
+        }),
+      });
+    } catch (emailErr) {
+      console.error('Resend email failed:', emailErr);
+    }
 
     return new Response(JSON.stringify({ ok: true }), {
       status: 200,

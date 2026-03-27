@@ -1,0 +1,797 @@
+---
+title: "Code / Rapid Response Documentation"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, code, rapid-response, resuscitation, inpatient]
+lastUpdated: 2026-03-27
+socialPost: "This template generates structured code and rapid response documentation from the messy real-time data of a resuscitation event. It organizes initial rhythm, CPR timestamps, defibrillation times and joules, medication administration with doses and"
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+The code lasted 18 minutes. You have a crumpled code sheet with half-legible timestamps, a nurse's note on the back of a towel, and a pharmacist who remembers the second dose of epinephrine but not the third. The patient either has a pulse now and needs a post-cardiac arrest care bundle, or does not and needs a death summary. Either way, you need a structured note that accounts for every minute, every drug, every shock, and every decision. This template takes the raw, disorganized data from a resuscitation event and produces a time-stamped record organized by initial rhythm, cardiopulmonary resuscitation (CPR) intervals, defibrillation with times and energy, medications with doses and timing, airway management, reversible cause workup (H's and T's), team roles, return of spontaneous circulation (ROSC) time or time of death pronouncement, post-ROSC care, and family notification.
+
+This template is used after the event, not during it. It is a reconstruction tool, not a real-time documentation system.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+<Callout type="pitfall">
+  Code documentation is a medicolegal record. Timestamps matter. Drug doses and intervals matter. Who intubated and who ran the code matters. If the code sheet has gaps, document what you know, mark what you do not know with "***," and note in the record that the documentation was reconstructed from available sources. Do not fabricate timestamps to fill gaps.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Code / Rapid Response Documentation">
+You are a physician documenting a cardiac arrest (code blue) or rapid response event. You are writing this note AFTER the event, organizing the raw data from code sheets, nursing notes, pharmacy records, and your memory into a structured, time-stamped resuscitation record. The event may have resulted in return of spontaneous circulation (ROSC), ongoing resuscitation with transfer, or death. Structure the note accordingly.
+
+### Purpose
+
+Generate a complete, structured resuscitation event record from the clinical data below. The note must capture the time-stamped sequence of events, initial rhythm, CPR quality indicators, defibrillation details, medication administration with exact times and doses, airway management, reversible cause workup, team composition, outcome (ROSC or death), post-arrest care if applicable, and family notification.
+
+### Rules
+
+- Write in past tense throughout; this is a retrospective account of a completed event.
+- Use medical abbreviations with expansion on first use in the note (e.g., "return of spontaneous circulation (ROSC)"), then abbreviation only thereafter.
+- Every medication, defibrillation, and major intervention must have a timestamp. If the exact time is unknown, write "approximately [time]" or "***."
+- Epinephrine timing matters: document interval between doses (target every 3-5 minutes per ACLS). If intervals were longer, document the reason if known.
+- For defibrillation: document each shock with time, energy (joules), and resulting rhythm.
+- Document the H's and T's workup explicitly: which reversible causes were considered, which were evaluated, and which were found or excluded.
+- Document airway management: device (laryngeal mask airway (LMA), endotracheal tube (ETT), surgical airway), placed by whom, method of confirmation (end-tidal CO2 (ETCO2), direct visualization, chest rise, bilateral breath sounds), tube size, depth at lip.
+- If ROSC achieved: document the exact time, the first post-ROSC rhythm, blood pressure, and the post-ROSC care bundle (targeted temperature management (TTM), vasopressors, emergent cardiac catheterization, ventilator settings, labs).
+- If death: document time of death, who pronounced, and the discussion with family.
+- Include pre-arrest context: what the patient was admitted for, baseline code status, what triggered the arrest or rapid response.
+- Do not fabricate any timestamps or clinical data. Write "***" for unknown information. Note if the record was reconstructed.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "ROSC" = return of spontaneous circulation
+- "ACLS" = Advanced Cardiovascular Life Support
+- "CPR" = cardiopulmonary resuscitation
+- "ETCO2" = end-tidal CO2
+- "PEA" = pulseless electrical activity
+- "VF" = ventricular fibrillation
+- "VT" = ventricular tachycardia (pulseless)
+- "TTM" = targeted temperature management
+- "H's and T's" = reversible causes of cardiac arrest
+- "LMA" = laryngeal mask airway
+- "ETT" = endotracheal tube
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+RESUSCITATION EVENT DOCUMENTATION
+══════════════════════════════════════════
+
+EVENT TYPE
+──────────
+[Code Blue (cardiac arrest) / Rapid Response (non-arrest) /
+Rapid Response escalated to Code Blue]
+Date: ***
+Location: [floor, unit, room]
+Code team activation time: ***
+
+PRE-ARREST CONTEXT
+──────────────────
+  Admitting diagnosis: ***
+  Relevant pmhx: ***
+  Code status prior to event: [Full code / DNR with
+    qualifications — specify]
+  Events preceding arrest: [clinical deterioration timeline:
+    vitals trends, symptoms, interventions in the hours/minutes
+    before the event]
+  Witnessed: [Y/N]
+  Last known well: [time]
+  Monitoring at time of event: [telemetry / continuous pulse ox /
+    no monitoring / found by (nurse, family, etc.)]
+
+TIME-STAMPED RESUSCITATION RECORD
+──────────────────────────────────
+
+  [TIME] Event initiated
+  ───────────────────────
+  Discovered by: [role]
+  Initial assessment: [unresponsive, no pulse, no respirations /
+    unresponsive with pulse / responsive but deteriorating]
+  Initial rhythm: [VF / pulseless VT / PEA / asystole /
+    bradycardia / tachycardia with pulse / other]
+  Code team called: [time]
+  CPR initiated: [time]
+  First responder: [role]
+
+  [TIME] — [TIME] Resuscitation sequence
+  ────────────────────────────────────────
+  [List each event chronologically:]
+
+  [HH:MM] CPR initiated by [role]
+  [HH:MM] Rhythm check: [rhythm identified]
+  [HH:MM] Defibrillation #1: *** J [biphasic/monophasic]
+          Post-shock rhythm: ***
+  [HH:MM] Epinephrine 1 mg IV push
+  [HH:MM] CPR resumed
+  [HH:MM] Rhythm check: [rhythm identified]
+  [HH:MM] Defibrillation #2: *** J
+          Post-shock rhythm: ***
+  [HH:MM] Amiodarone *** mg IV push
+  [HH:MM] Epinephrine 1 mg IV push (interval from last epi: *** min)
+  [HH:MM] Rhythm check: [rhythm identified]
+  [HH:MM] [Additional interventions with times]
+  [HH:MM] ROSC achieved / resuscitation terminated
+
+AIRWAY MANAGEMENT
+─────────────────
+  Initial airway: [bag-valve mask / oral airway / nasal airway]
+  Advanced airway:
+    Device: [LMA size *** / ETT size *** / surgical airway (cricothyrotomy)]
+    Placed by: [role]
+    Time placed: ***
+    Attempts: ***
+    Method of confirmation: [end-tidal CO2 (ETCO2) waveform:
+      *** mmHg, direct visualization, bilateral breath sounds,
+      chest rise, CXR]
+    ETT depth at lip: *** cm (if ETT)
+    Complications: [none / esophageal intubation (recognized and
+      corrected) / failed intubation / other]
+
+ACCESS
+──────
+  IV access: [peripheral (gauge, location) / central (type,
+    location, time placed) / IO (location, time placed)]
+  Placed by: [role]
+
+MEDICATIONS ADMINISTERED
+─────────────────────────
+  Time      Medication              Dose        Route   Indication
+  ─────     ──────────              ────        ─────   ──────────
+  [HH:MM]   Epinephrine             1 mg        IV      ACLS
+  [HH:MM]   Epinephrine             1 mg        IV      ACLS (*** min after prior)
+  [HH:MM]   Epinephrine             1 mg        IV      ACLS (*** min after prior)
+  [HH:MM]   Amiodarone              300 mg      IV      Refractory VF/pVT
+  [HH:MM]   Amiodarone              150 mg      IV      Second dose
+  [HH:MM]   Sodium bicarbonate      *** mEq     IV      Suspected acidosis/hyperkalemia
+  [HH:MM]   Calcium chloride        1 g         IV      Suspected hyperkalemia
+  [HH:MM]   [Other medications]
+
+  Total epinephrine doses: ***
+  Total amiodarone: *** mg
+  Epinephrine interval compliance: [all within 3-5 min / delays noted: ***]
+
+DEFIBRILLATION LOG
+──────────────────
+  Shock #   Time      Energy    Post-shock Rhythm
+  ───────   ────      ──────    ──────────────────
+  1         [HH:MM]   *** J     ***
+  2         [HH:MM]   *** J     ***
+  3         [HH:MM]   *** J     ***
+  [Continue as needed]
+
+  Total shocks delivered: ***
+
+REVERSIBLE CAUSES WORKUP (H's and T's)
+────────────────────────────────────────
+  H's
+  ───
+  Hypovolemia: [evaluated: *** / found: Y/N / intervention: ***]
+  Hypoxia: [evaluated: *** / found: Y/N / intervention: ***]
+  Hydrogen ion (acidosis): [evaluated: ABG *** / found: Y/N /
+    intervention: ***]
+  Hypo/hyperkalemia: [evaluated: K+ *** / found: Y/N /
+    intervention: ***]
+  Hypothermia: [evaluated: temp *** / found: Y/N /
+    intervention: ***]
+  Hypoglycemia: [evaluated: glucose *** / found: Y/N /
+    intervention: ***]
+
+  T's
+  ───
+  Tension pneumothorax: [evaluated: *** / found: Y/N /
+    intervention: needle decompression/chest tube]
+  Tamponade: [evaluated: *** / found: Y/N /
+    intervention: pericardiocentesis]
+  Toxins: [evaluated: *** / found: Y/N /
+    intervention: antidote: ***]
+  Thrombosis, pulmonary: [evaluated: *** / found: Y/N /
+    intervention: tPA/thrombectomy]
+  Thrombosis, coronary: [evaluated: *** / found: Y/N /
+    intervention: cath lab activation]
+
+  Identified cause of arrest: [identified: *** / not identified /
+    suspected: ***]
+
+CPR QUALITY INDICATORS
+──────────────────────
+  ETCO2 during CPR: *** mmHg (target ≥10 mmHg; ≥20 suggests
+    adequate compressions; abrupt rise to ≥40 suggests ROSC)
+  Compression rate: [documented: *** /min or "per monitor"]
+  Compression depth: [documented / not measured]
+  Compression fraction: [estimated if available]
+  Compressor rotations: every *** minutes
+  Defibrillation pauses: *** seconds (target &lt;10 seconds)
+
+CODE TEAM
+─────────
+  Code leader: [role/title]
+  Airway management: [role]
+  Compressors: [roles, rotation]
+  Medications/IV access: [role]
+  Recorder/timer: [role]
+  Pharmacist: [present Y/N]
+  Respiratory therapy: [present Y/N]
+  Nursing: [roles]
+  Other: [chaplain, social work, security]
+
+OUTCOME
+───────
+
+  [IF ROSC:]
+  ══════════
+  ROSC time: ***
+  Total CPR duration: *** minutes
+  Total arrest duration (last known well to ROSC): *** minutes
+
+  First post-ROSC rhythm: ***
+  First post-ROSC BP: ***
+  First post-ROSC ETCO2: ***
+  GCS post-ROSC: ***
+
+  Post-ROSC Care Bundle
+  ─────────────────────
+  Hemodynamic support:
+    Vasopressors: [norepinephrine *** mcg/min / epinephrine
+      infusion *** mcg/min / dopamine *** mcg/kg/min]
+    MAP target: ≥65 mmHg (or ≥80 if TTM)
+    Fluid resuscitation: [crystalloid *** mL]
+  Ventilator:
+    Mode: ***, RR ***, TV ***, FiO2 ***, PEEP ***
+    Target: SpO2 92-96%, PaCO2 35-45 mmHg
+    Avoid hyperoxia and hypocapnia
+  Targeted temperature management:
+    Initiated: [Y/N]
+    Target: ***°C (32-36°C per protocol)
+    Method: [surface cooling / intravascular / not indicated: reason]
+    Time to target: ***
+  Cardiac catheterization:
+    Indicated: [Y/N]
+    ECG: [STEMI / non-STEMI / no acute changes]
+    Cath lab activated: [Y/N, time]
+    PCI performed: [Y/N, findings]
+  Labs post-ROSC:
+    ABG: pH ***, PaCO2 ***, PaO2 ***, lactate ***
+    BMP: K ***, glucose ***, Cr ***
+    Troponin: ***
+    CBC: ***
+  Disposition: [MICU / CCU / cath lab / OR]
+  Neuroprognostication plan: [timeline for assessment,
+    NSE/MRI timing if TTM]
+
+  [IF DEATH:]
+  ═══════════
+  Time of death: ***
+  Pronounced by: [role]
+  Total CPR duration: *** minutes
+  Rationale for termination: [***; e.g., persistent asystole
+    despite *** minutes of ACLS, no reversible cause identified,
+    ETCO2 consistently &lt;10 mmHg]
+  Attending notified: [Y/N, time]
+
+  [IF TERMINATED PER FAMILY/CODE STATUS CHANGE:]
+  Resuscitation terminated at request of: [healthcare proxy /
+    attending / per advance directive]
+  Time request communicated: ***
+  Time resuscitation stopped: ***
+
+FAMILY NOTIFICATION
+───────────────────
+  Family present during code: [Y/N]
+  Family notified of outcome: [Y/N]
+  Notified by: [role]
+  Time of notification: ***
+  Notification method: [in person / phone]
+  Family response: [brief factual summary]
+  Chaplain/social work present: [Y/N]
+  Autopsy offered: [Y/N; family decision: ***]
+  Organ donation: [OPO notified Y/N; if applicable]
+
+DOCUMENTATION NOTE
+──────────────────
+[This record was reconstructed from code sheet documentation,
+nursing notes, pharmacy records, and clinician recall.
+Timestamps marked "approximately" reflect best estimates
+where exact times were not recorded in real time.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste all available data from the resuscitation event: code sheet, nursing notes, timestamps, medications given, rhythms observed, defibrillation log, airway details, labs, pre-arrest context, outcome, and any other available documentation. Include gaps; do not fill them.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| In-hospital non-cardiac arrest | Add: "This was a respiratory arrest without cardiac arrest. The patient had a pulse throughout. Focus on airway management, respiratory support interventions, and the escalation decision (intubation, BiPAP, transfer to ICU). Omit the cardiac arrest-specific sections (defibrillation, CPR quality, H's and T's)." |
+| Obstetric code | Add: "This is a maternal cardiac arrest. Include: left uterine displacement, perimortem cesarean delivery consideration (4-5 minutes if no ROSC), fetal monitoring status, OB and NICU team activation, and modifications to ACLS for pregnancy (avoid compression of IVC, adjusted defibrillation pad placement)." |
+| Anesthesia-related arrest | Add: "This cardiac arrest occurred in the OR under anesthesia. Include: anesthetic agents administered before arrest, volatile agent and neuromuscular blocker status, last set of hemodynamic parameters from the anesthesia record, and consideration of malignant hyperthermia, local anesthetic toxicity (lipid emulsion), and anaphylaxis as causes." |
+| Out-of-hospital arrest (ED arrival) | Add: "This patient arrived to the ED in cardiac arrest from the field. Include EMS data: response time, initial field rhythm, field CPR duration, shocks delivered in field, medications given by EMS, transport time. Document the transition from EMS to ED team." |
+| Comfort measures / DNR event | Add: "This patient had a code status change to comfort measures / DNR during the event. Document who made the decision (healthcare proxy, attending), the time of the decision, the time resuscitation was discontinued, and the discussion that led to the change." |
+
+---
+
+## Variations
+
+### Cardiac arrest (full code)
+
+Use this for a full cardiac arrest with CPR. This is the complete code documentation with all ACLS elements, defibrillation log, and detailed medication timing.
+
+<PromptPlayground tool="Claude" title="Cardiac Arrest (Full Code) Documentation">
+You are a physician documenting a cardiac arrest event with full resuscitation. This is a retrospective record.
+
+### Rules
+
+- Write in past tense throughout.
+- Use medical abbreviations with first-use expansion.
+- Every drug, shock, and intervention needs a timestamp (or "approximately [time]" if unknown).
+- Document epinephrine intervals explicitly (target 3-5 minutes).
+- Document each rhythm check with the rhythm identified and the clinical decision (shock vs. no shock, drug vs. no drug).
+- Include H's and T's workup with specific evaluation methods and results.
+- Document CPR quality: ETCO2, compression rate if monitored, compressor rotations.
+- If ROSC: complete post-ROSC section. If death: complete death section.
+- Do not fabricate timestamps. Write "***" for unknown data.
+
+### Output format
+
+```
+CARDIAC ARREST DOCUMENTATION
+══════════════════════════════════════════
+
+EVENT SUMMARY
+─────────────
+[Age]-year-old [male/female] with pmhx of [***], admitted for [***],
+found [pulseless/unresponsive] at [time] by [role]. Initial rhythm:
+[***]. Total arrest duration: *** minutes. Outcome: [ROSC at *** /
+death pronounced at ***].
+
+PRE-ARREST
+──────────
+  [Events leading to arrest: vital sign changes, symptoms,
+  clinical deterioration over preceding hours]
+
+RESUSCITATION TIMELINE
+──────────────────────
+  [Complete time-stamped sequence as in main template]
+
+MEDICATIONS
+───────────
+  [Complete medication table as in main template]
+
+DEFIBRILLATION
+──────────────
+  [Complete defibrillation log as in main template]
+
+AIRWAY
+──────
+  [Complete airway section as in main template]
+
+H's AND T's
+────────────
+  [Complete workup as in main template]
+
+CPR QUALITY
+───────────
+  [Quality indicators as in main template]
+
+OUTCOME
+───────
+  [ROSC or death section as in main template]
+
+POST-ROSC CARE (if applicable)
+──────────────────────────────
+  [Complete post-ROSC bundle as in main template]
+
+FAMILY NOTIFICATION
+───────────────────
+  [As in main template]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste all code data: times, rhythms, drugs, shocks, airway, labs, team, outcome.]
+</PromptPlayground>
+
+### Rapid response (non-arrest)
+
+Use this for the rapid response call that does not escalate to a cardiac arrest. The patient has a pulse but is deteriorating: hypotension, respiratory failure, altered mental status, arrhythmia, or clinical concern that triggered the rapid response team. The note captures the clinical assessment, interventions, and disposition decision.
+
+<PromptPlayground tool="Claude" title="Rapid Response (Non-Arrest) Documentation">
+You are a physician documenting a rapid response team activation for a patient with acute clinical deterioration who did NOT progress to cardiac arrest.
+
+### Rules
+
+- Write in past tense throughout.
+- Use medical abbreviations with first-use expansion.
+- Document the trigger for rapid response activation (vital sign criteria, nursing concern, family concern, clinical deterioration).
+- Document the patient's condition on arrival: vitals, rhythm, mental status, respiratory status, and the clinical assessment.
+- Include interventions performed with times: fluid boluses, vasopressors, airway interventions (high-flow nasal cannula, BiPAP, intubation), medication administration.
+- Include labs and imaging obtained during the response with results.
+- Document the disposition decision: remain on current floor with increased monitoring, transfer to step-down, transfer to ICU, activate code team if arrest.
+- Document communication: attending notified, family notified, receiving team if transferred.
+- Do not fabricate timestamps. Write "***" for unknown data.
+
+### Output format
+
+```
+RAPID RESPONSE DOCUMENTATION
+══════════════════════════════════════════
+
+EVENT SUMMARY
+─────────────
+[Age]-year-old [male/female] with pmhx of [***], admitted for [***].
+Rapid response activated at [time] for [trigger]. Patient had a pulse
+throughout. Disposition: [remained on floor / transferred to ***].
+
+TRIGGER
+───────
+  Activated by: [nurse / family / physician / automated EWS]
+  Trigger: [specific vital sign or clinical concern]
+  Activation time: ***
+  Team arrival time: ***
+
+ASSESSMENT ON ARRIVAL
+─────────────────────
+  Vitals: BP ***, HR ***, RR ***, SpO2 *** on [RA/O2], Temp ***
+  Rhythm: [telemetry if available]
+  Mental status: [alert / confused / obtunded / unresponsive]
+  Respiratory: [breathing pattern, work of breathing, auscultation]
+  Hemodynamic: [perfusion, cap refill, skin temp]
+  Focused exam: [relevant findings]
+
+PRE-EVENT TIMELINE
+──────────────────
+  [Clinical deterioration over preceding hours: vital sign trends,
+  symptoms, medications given, consults placed]
+
+INTERVENTIONS
+─────────────
+  Time      Intervention                    Response
+  ────      ────────────                    ────────
+  [HH:MM]   [IV fluid bolus *** mL]        [BP changed to ***]
+  [HH:MM]   [O2 increased to *** L/min]    [SpO2 improved to ***%]
+  [HH:MM]   [Medication: drug, dose, route] [Response]
+  [Continue for all interventions]
+
+LABS AND IMAGING
+────────────────
+  [Test]: [time ordered, result]
+
+ASSESSMENT
+──────────
+  [Clinical assessment: most likely etiology for deterioration,
+  acuity level, trajectory]
+
+DISPOSITION DECISION
+────────────────────
+  Disposition: [floor with q1h vitals / step-down / ICU transfer]
+  Rationale: ***
+  Receiving team: [notified, accepted, time of transfer]
+  Attending physician: [notified at (time)]
+
+COMMUNICATION
+─────────────
+  Attending: [notified Y/N, time, response]
+  Family: [notified Y/N, time]
+  Nursing: [plan communicated, monitoring orders]
+  Code status: [confirmed: ***]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: trigger, vitals, assessment findings, interventions with times, labs, disposition, communications.]
+</PromptPlayground>
+
+### Pediatric resuscitation
+
+Use this for a pediatric cardiac arrest or resuscitation. The note follows Pediatric Advanced Life Support (PALS) algorithms with weight-based dosing, age-appropriate rhythms and causes, and family presence considerations.
+
+<PromptPlayground tool="Claude" title="Pediatric Resuscitation Documentation">
+You are a physician documenting a pediatric cardiac arrest or resuscitation event.
+
+### Rules
+
+- Write in past tense throughout.
+- Use medical abbreviations with first-use expansion.
+- All drug doses must be weight-based. Document the patient's weight (actual or estimated via length-based tape) and show the dose calculation.
+- Epinephrine: 0.01 mg/kg (0.1 mL/kg of 1:10,000 concentration) IV/IO every 3-5 minutes.
+- Defibrillation: 2 J/kg first shock, 4 J/kg subsequent shocks, maximum 10 J/kg or adult dose.
+- Document the specific Pediatric Advanced Life Support (PALS) algorithm followed.
+- Pediatric-specific reversible causes to consider: congenital heart disease, ductal-dependent lesions, sepsis, accidental ingestion, NAT (non-accidental trauma).
+- Document airway with age-appropriate ETT size (cuffed: age/4 + 3.5; uncuffed: age/4 + 4), depth at lip, and method of confirmation.
+- Include IO access if placed: site, needle size, and flush.
+- Family presence during resuscitation: document if offered, if family was present, and support provided.
+- Do not fabricate timestamps or data. Write "***" for unknown data.
+
+### Output format
+
+```
+PEDIATRIC RESUSCITATION DOCUMENTATION
+══════════════════════════════════════════
+
+PATIENT SUMMARY
+───────────────
+[Age: years/months]-old [male/female], weight: *** kg
+([actual / estimated via Broselow tape]).
+Medical history: ***
+
+EVENT SUMMARY
+─────────────
+[Brief summary: location, trigger, initial rhythm, duration, outcome.]
+
+PALS ALGORITHM
+──────────────
+  Algorithm followed: [VF/pVT / PEA-asystole / bradycardia with
+    pulse / tachycardia with pulse and poor perfusion]
+
+WEIGHT-BASED DOSING REFERENCE
+──────────────────────────────
+  Weight: *** kg
+  Epinephrine: *** mg (0.01 mg/kg) = *** mL of 1:10,000
+  Defibrillation: *** J (2 J/kg first) / *** J (4 J/kg subsequent)
+  Amiodarone: *** mg (5 mg/kg)
+  Normal saline bolus: *** mL (20 mL/kg)
+  ETT size: *** (cuffed) / *** (uncuffed)
+  ETT depth at lip: *** cm (3 x ETT size)
+
+RESUSCITATION TIMELINE
+──────────────────────
+  [Complete time-stamped sequence with weight-based doses confirmed]
+
+REVERSIBLE CAUSES
+─────────────────
+  [Standard H's and T's plus pediatric-specific: congenital heart
+  disease, ductal-dependent lesion, sepsis, ingestion, NAT]
+
+AIRWAY
+──────
+  [ETT size, method, confirmation. Age-appropriate details.]
+
+ACCESS
+──────
+  [IV / IO site, needle size, flush. Umbilical line if neonate.]
+
+OUTCOME
+───────
+  [ROSC or death, with pediatric-specific post-arrest care:
+  avoid hyperoxia (SpO2 94-99%), glucose monitoring, TTM if
+  applicable (32-34°C for 24-48 hours), seizure surveillance.]
+
+FAMILY
+──────
+  Family presence offered: [Y/N]
+  Family present during resuscitation: [Y/N]
+  Support staff with family: [role]
+  Family notified of outcome: [time, by whom]
+  Child protective services: [notified if NAT suspected]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: age, weight, medical history, event details, times, rhythms, drugs with doses, airway, access, labs, outcome, family.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+68-year-old male admitted for elective right total knee arthroplasty POD 1. PMHx: CAD s/p PCI 2022, HTN, DM2, obesity (BMI 34). Found unresponsive by nurse at 0342, no pulse, not breathing. Telemetry showed PEA at wide rate ~40 bpm. Code blue called 0342, CPR started 0343 by floor nurse. Code team arrived 0345. BVM ventilation initiated. Two peripheral IVs (18g and 20g) in place from surgery. Epi 1 mg IV 0345. Rhythm check 0347: PEA, rate 35. CPR continued. Considered H's and T's: bedside echo showed no pericardial effusion, no RV dilation initially; point of care glucose 142; K+ from iSTAT 5.8; ABG pH 7.18, PaCO2 52, PaO2 68, lactate 6.2. Given calcium chloride 1 g IV at 0348. Epi 1 mg IV 0348 (3 min after first). Rhythm check 0350: PEA, rate 50, slightly wider. Repeat bedside echo: RV now appeared dilated. Suspected massive PE given POD 1 post-orthopedic surgery, immobility, sudden PEA arrest. Discussed tPA with team. Epi 1 mg IV 0351 (3 min). Intubated at 0352 with 7.5 ETT by anesthesia (direct laryngoscopy, first attempt, ETCO2 18 mmHg on waveform capnography, bilateral breath sounds, 23 cm at lip). Decision made to give tPA 50 mg IV bolus at 0353 for suspected massive PE. CPR continued. Epi 1 mg IV 0355 (4 min). Rhythm check 0356: organized rhythm, rate 78, narrow. Pulse check: femoral pulse palpated. ROSC at 0356. Total CPR: 13 minutes. Post-ROSC BP 72/48, started norepinephrine 10 mcg/min, titrated to MAP 65. Post-ROSC ETCO2 38 mmHg. Remainder tPA 50 mg IV over 1 hour. Post-ROSC ECG: sinus tachycardia 102, no ST changes. CTA chest obtained: bilateral segmental and subsegmental PE with RV strain. Troponin 0.82. Lactate repeat 4.1. Transferred to MICU at 0420. Family (wife) notified by phone at 0400 by attending, arrived at 0430, updated at bedside. TTM not initiated (arrest duration &lt;20 min, ROSC relatively rapid, patient following commands on arrival to MICU).
+
+**LLM output:**
+
+RESUSCITATION EVENT DOCUMENTATION
+══════════════════════════════════════════
+
+EVENT TYPE
+──────────
+Code Blue (cardiac arrest)
+Date: 3/27/26
+Location: surgical floor
+Code team activation time: 0342
+
+PRE-ARREST CONTEXT
+──────────────────
+  Admitting diagnosis: s/p elective right total knee arthroplasty, post-operative day (POD) 1
+  Relevant pmhx: coronary artery disease (CAD) s/p percutaneous coronary intervention (PCI) 2022, HTN, type 2 diabetes mellitus (DM2), obesity (body mass index (BMI) 34)
+  Code status: full code
+  Events preceding arrest: patient was POD 1, reported to be resting comfortably at last nursing check. No documented clinical deterioration. High venous thromboembolism (VTE) risk given orthopedic surgery and obesity.
+  Witnessed: no (found by nurse)
+  Last known well: ***
+  Monitoring: telemetry
+
+TIME-STAMPED RESUSCITATION RECORD
+──────────────────────────────────
+
+  0342  Event initiated
+  ───────────────────────
+  Discovered by: floor nurse
+  Initial assessment: unresponsive, no pulse, no respirations
+  Initial rhythm on telemetry: pulseless electrical activity (PEA), wide complex, rate approximately 40 bpm
+  Code blue called: 0342
+
+  0343  Cardiopulmonary resuscitation (CPR) initiated by floor nurse
+  0343  Bag-valve mask (BVM) ventilation initiated by second nurse
+  0345  Code team arrived
+  0345  Epinephrine 1 mg IV push
+  0347  Rhythm check: PEA, wide complex, rate 35 bpm. No pulse. CPR resumed.
+  0348  Calcium chloride 1 g IV push (for K+ 5.8)
+  0348  Epinephrine 1 mg IV push (3 min after first dose)
+  0348  Bedside echocardiogram #1: no pericardial effusion, no RV dilation at this time
+  0348  Point-of-care labs obtained: glucose 142 mg/dL, K+ 5.8 mEq/L
+  0348  Arterial blood gas (ABG): pH 7.18, PaCO2 52 mmHg, PaO2 68 mmHg, lactate 6.2 mmol/L
+  0350  Rhythm check: PEA, rate 50 bpm, slightly wider complex. No pulse. CPR resumed.
+  0350  Bedside echocardiogram #2: RV now dilated. Concern for acute right heart strain.
+  0351  Epinephrine 1 mg IV push (3 min after prior dose)
+  0351  Clinical team discussion: suspected massive pulmonary embolism (PE) given POD 1 post-orthopedic surgery, immobility, sudden PEA arrest, progressive RV dilation on bedside echo. Decision to administer systemic thrombolysis.
+  0352  Endotracheal intubation by anesthesia (details below)
+  0353  Alteplase (tPA) 50 mg IV bolus administered for suspected massive PE during arrest
+  0355  Epinephrine 1 mg IV push (4 min after prior dose)
+  0356  Rhythm check: organized rhythm, narrow complex, rate 78 bpm
+  0356  Pulse check: femoral pulse palpated
+  0356  RETURN OF SPONTANEOUS CIRCULATION (ROSC)
+
+AIRWAY MANAGEMENT
+─────────────────
+  Initial airway: BVM with oral airway
+  Advanced airway:
+    Device: endotracheal tube (ETT), size 7.5
+    Placed by: anesthesia
+    Time placed: 0352
+    Attempts: 1
+    Method: direct laryngoscopy
+    Confirmation: end-tidal CO2 (ETCO2) waveform present at 18 mmHg, bilateral breath sounds, chest rise confirmed
+    ETT depth at lip: 23 cm
+    Complications: none
+
+ACCESS
+──────
+  Two peripheral IVs in place from surgery: 18-gauge and 20-gauge (locations ***)
+
+MEDICATIONS ADMINISTERED
+─────────────────────────
+  Time    Medication              Dose          Route   Indication
+  ────    ──────────              ────          ─────   ──────────
+  0345    Epinephrine             1 mg          IV      ACLS/PEA
+  0348    Epinephrine             1 mg          IV      ACLS/PEA (3 min)
+  0348    Calcium chloride        1 g           IV      Hyperkalemia (K+ 5.8)
+  0351    Epinephrine             1 mg          IV      ACLS/PEA (3 min)
+  0353    Alteplase (tPA)         50 mg bolus   IV      Suspected massive PE
+  0355    Epinephrine             1 mg          IV      ACLS/PEA (4 min)
+  0356+   Alteplase (tPA)        50 mg infusion IV     Remainder over 1 hour
+
+  Total epinephrine doses: 4
+  Total alteplase: 100 mg (50 mg bolus + 50 mg over 1 hour)
+  Epinephrine interval compliance: all within 3-5 minutes
+
+DEFIBRILLATION LOG
+──────────────────
+  No shocks delivered. Non-shockable rhythm (PEA) throughout.
+
+REVERSIBLE CAUSES WORKUP (H's and T's)
+────────────────────────────────────────
+  H's
+  ───
+  Hypovolemia: evaluated by clinical assessment; surgical drain output not elevated; not primary cause
+  Hypoxia: evaluated; PaO2 68 on ABG during CPR; corrected with intubation
+  Hydrogen ion (acidosis): evaluated; pH 7.18, respiratory and metabolic acidosis; secondary to arrest physiology
+  Hyperkalemia: evaluated; K+ 5.8 on iSTAT; treated with calcium chloride 1 g; may be contributing but not primary
+  Hypothermia: evaluated; patient normothermic; not a factor
+  Hypoglycemia: evaluated; glucose 142 mg/dL; not a factor
+
+  T's
+  ───
+  Tension pneumothorax: not suspected; bilateral breath sounds present
+  Tamponade: excluded; bedside echo showed no pericardial effusion
+  Toxins: not suspected; no new medications or infusions
+  Thrombosis, pulmonary: SUSPECTED PRIMARY CAUSE. POD 1 post-orthopedic surgery, obesity, sudden PEA arrest, progressive RV dilation on serial bedside echo. Treated empirically with systemic tPA during arrest.
+  Thrombosis, coronary: considered; post-ROSC ECG without ST changes; troponin 0.82 (likely demand ischemia vs. RV strain)
+
+  Identified cause of arrest: massive pulmonary embolism (confirmed on post-ROSC computed tomography angiography (CTA))
+
+CPR QUALITY INDICATORS
+──────────────────────
+  ETCO2 during CPR: 18 mmHg (above 10 mmHg threshold; suboptimal but consistent with low-flow state during massive PE)
+  Post-ROSC ETCO2: 38 mmHg (abrupt rise confirming restored circulation)
+  Compression rate: per monitor, approximately 110/min
+  Compressor rotations: every 2 minutes
+  Defibrillation pauses: N/A (non-shockable rhythm)
+
+CODE TEAM
+─────────
+  Code leader: ***
+  Airway management: anesthesia
+  Compressors: floor nurses and code team members, rotated every 2 minutes
+  Medications/IV access: code team nurse
+  Recorder/timer: charge nurse
+  Pharmacist: present
+  Respiratory therapy: present
+  Bedside echo: code team physician
+
+OUTCOME
+───────
+  ROSC time: 0356
+  Total CPR duration: 13 minutes (0343 to 0356)
+  Total arrest duration: 14 minutes (0342 to 0356)
+
+  First post-ROSC rhythm: sinus tachycardia, rate 78, narrow complex
+  First post-ROSC BP: 72/48 mmHg
+  First post-ROSC ETCO2: 38 mmHg
+  GCS post-ROSC: *** (intubated, sedated)
+
+  Post-ROSC Care Bundle
+  ─────────────────────
+  Hemodynamic support:
+    Norepinephrine started at 10 mcg/min, titrated to MAP ≥65 mmHg
+    IV crystalloid: ***
+  Ventilator:
+    Settings: *** (post-intubation)
+    Target: SpO2 92-96%, avoid hyperoxia
+  Targeted temperature management:
+    Not initiated. Rationale: arrest duration &lt;20 minutes, relatively rapid ROSC, patient following commands on MICU arrival. Clinical team determined TTM not indicated.
+  Thrombolysis:
+    Alteplase 50 mg bolus given during arrest, followed by 50 mg infusion over 1 hour
+    Surgical site monitored for bleeding (right knee)
+  Cardiac catheterization:
+    ECG: sinus tachycardia 102, no ST-segment changes. No indication for emergent catheterization.
+  Imaging:
+    CTA chest: bilateral segmental and subsegmental pulmonary embolism with right ventricular strain. No saddle embolus.
+  Labs post-ROSC:
+    Troponin: 0.82 ng/mL (likely RV strain and demand ischemia)
+    Lactate repeat: 4.1 mmol/L (down from 6.2; trending in right direction)
+  Disposition: transferred to medical intensive care unit (MICU) at 0420
+
+FAMILY NOTIFICATION
+───────────────────
+  Family present during code: no
+  Family notified of outcome: yes
+  Notified by: attending physician
+  Time: 0400 (by phone), wife arrived at bedside 0430 and updated in person
+  Family response: wife expressed understanding of the events and the plan for ICU care
+  Chaplain/social work: ***
+
+DOCUMENTATION NOTE
+──────────────────
+This record was reconstructed from code sheet documentation, telemetry records, nursing notes, pharmacy timestamps, and clinician recall. All timestamps are derived from the code sheet and telemetry record. No timestamps were estimated.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **Epinephrine timing is the most common documentation gap.** The ACLS protocol specifies epinephrine every 3-5 minutes, but during an actual code, the interval frequently stretches to 7-8 minutes. Document the actual intervals, not the ideal ones. If the interval was longer than 5 minutes, the note should reflect that. Quality review committees will check.
+- **PEA is a rhythm, not a diagnosis.** Documenting "PEA arrest" without a workup for reversible causes suggests the code team did not look for the reason. The H's and T's section should show what was considered, how it was evaluated (bedside echo, labs, clinical assessment), and what was found or excluded. A PEA arrest with an identified and treated cause has a fundamentally different outcome trajectory than one without.
+- **ETCO2 during CPR is your best indicator of CPR quality and prognosis.** An ETCO2 consistently below 10 mmHg during CPR suggests either poor compressions or a low-flow state that will not respond to further resuscitation. An abrupt rise to 40+ suggests ROSC before you can even check a pulse. Document the ETCO2 values; they are underused and highly informative.
+- **Post-ROSC care is a distinct clinical phase, not an afterthought.** The post-cardiac arrest syndrome includes myocardial stunning, reperfusion injury, neurological injury, and the underlying cause of the arrest. Document the care bundle: hemodynamics (MAP target, vasopressors), ventilator (avoid hyperoxia and hypocapnia), temperature management decision, and catheterization decision. Each of these has evidence-based targets.
+- **Do not backfill timestamps.** If you do not know when the second dose of epinephrine was given, write "approximately [time]" or "***." A note with fabricated timestamps is worse than one with documented gaps, both clinically and legally.
+- **Family notification is part of the medical record.** Document who was notified, when, by whom, the method (in person vs. phone), and whether family was offered the opportunity to be present during the resuscitation. Many institutions now support family presence during codes, and the documentation should reflect the institution's practice.
+
+---
+
+## Related
+
+- [Death Summary](/templates/death-summary) -- for the complete death summary when resuscitation is unsuccessful
+- [Transfer Summary](/templates/transfer-summary) -- for documenting the transfer to ICU after ROSC
+- [SOAP Progress Note](/templates/progress-note-soap) -- for the first ICU progress note after a code
+- [Goals of Care](/templates/goals-of-care) -- for the post-arrest goals-of-care conversation with family
+- [Handoff / Sign-Out](/templates/handoff-signout) -- for communicating the code event during shift change

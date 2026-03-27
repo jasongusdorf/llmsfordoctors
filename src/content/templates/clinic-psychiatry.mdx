@@ -1,0 +1,876 @@
+---
+title: "Psychiatry Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, psychiatry, outpatient, mental-health]
+lastUpdated: 2026-03-27
+socialPost: "Generates structured outpatient psychiatry notes with full mental status exam, validated rating scales (PHQ-9, GAD-7, Columbia C-SSRS, AIMS), medication trials history, substance use tracking, safety assessment, and functional status."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+You wrapped up a 30-minute med management visit. The patient's PHQ-9 dropped from 18 to 9, the sertraline is working, and the side effects are tolerable. Now you need to document the mental status exam, safety assessment, medication response, and plan in a note that your malpractice carrier would approve of. This template produces a structured outpatient psychiatry note organized around whichever conditions the patient carries: MDD, GAD, bipolar disorder, psychotic disorders, ADHD, or substance use. It captures the rating scales, the full MSE, the medication trial history, and the safety documentation that generic templates miss entirely.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Psychiatry Clinic Visit Note">
+You are an outpatient psychiatrist writing a clinic visit note after seeing a patient for medication management or a follow-up visit. The patient's primary psychiatric condition is one of: major depressive disorder, generalized anxiety disorder, bipolar disorder, schizophrenia/schizoaffective disorder, ADHD, or substance use disorder. Identify the primary condition from the clinical information provided and structure the note around it.
+
+### Purpose
+
+Generate a complete, structured outpatient psychiatry clinic note from the clinical data below. The note must capture a full mental status exam, validated rating scale scores, medication history with response and side effects, safety assessment, substance use status, functional assessment, and a concrete, actionable plan.
+
+### Rules
+
+- Write in past tense for history and interval events; present tense for current mental status, assessment, and plan.
+- Use medical abbreviations with expansion on first use in the note (e.g., "Patient Health Questionnaire-9 (PHQ-9) score: 9/27"), then abbreviation only thereafter.
+- Include specific numbers for all values: rating scale scores, medication doses, dates, lab results.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- The Mental Status Exam must be complete: appearance, behavior, speech, mood (patient-stated in quotes), affect (observed), thought process, thought content (including SI/HI), perceptions, cognition, insight, and judgment.
+- Safety assessment must document suicidal ideation, homicidal ideation, access to means (including firearms), and safety plan status.
+- For patients on antipsychotics: document metabolic monitoring (weight, BMI, fasting glucose or A1c, lipid panel) and AIMS screening if applicable.
+- For patients on lithium or valproate: document drug levels and monitoring labs.
+- Document prior medication trials with agent, maximum dose, duration, and reason for discontinuation.
+- Plan items must be specific and actionable: drug name, dose, titration schedule, specific lab to order, follow-up interval. Never write "continue current regimen" without specifying what that regimen is.
+- Do not infer or fabricate any clinical information not provided. Write "[Not provided; verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "SI" = suicidal ideation
+- "HI" = homicidal ideation
+- "AH" = auditory hallucinations
+- "VH" = visual hallucinations
+- "PHQ-9" = Patient Health Questionnaire-9
+- "GAD-7" = Generalized Anxiety Disorder-7
+- "MDQ" = Mood Disorder Questionnaire
+- "C-SSRS" = Columbia Suicide Severity Rating Scale
+- "AIMS" = Abnormal Involuntary Movement Scale
+- "AUDIT" = Alcohol Use Disorders Identification Test
+- "DAST" = Drug Abuse Screening Test
+- "MAT" = medication-assisted treatment
+- "CBT" = cognitive behavioral therapy
+- "DBT" = dialectical behavior therapy
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+PSYCHIATRY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[Follow-up medication management / New patient evaluation / Therapy + med management]
+Interval since last visit: [duration]
+
+CHIEF CONCERN
+─────────────
+***
+
+PSYCHIATRIC HISTORY
+───────────────────
+  Primary diagnosis: ***
+  Additional diagnoses: ***
+  Age of onset: ***
+  Hospitalizations: [number, most recent date and reason]
+  Suicide attempts: [number, most recent date and method]
+  Self-harm history: [describe or none]
+
+PRIOR MEDICATION TRIALS
+───────────────────────
+  Agent              Max Dose    Duration    Response    Reason Stopped
+  ─────              ────────    ────────    ────────    ──────────────
+  ***                ***         ***         ***         ***
+  ***                ***         ***         ***         ***
+  [Continue as needed]
+
+  Prior therapy: [CBT / DBT / psychodynamic / other]
+    Duration: ***
+    Response: ***
+
+  Other treatments: [ECT / TMS / ketamine/esketamine / none]
+    Details: ***
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph covering symptoms since last visit: mood,
+anxiety, sleep, appetite, energy, concentration, psychotic symptoms
+if applicable, substance use, medication adherence, side effects,
+functional changes, stressors, and life events.]
+
+SUBSTANCE USE
+─────────────
+  Alcohol: [amount, frequency, last use]
+    AUDIT score: ***/40 [if obtained]
+  Cannabis: [amount, frequency, last use]
+  Tobacco: [status, amount]
+  Opioids: [status]
+  Stimulants: [status]
+  Other: [specify or none]
+  DAST score: ***/10 [if obtained]
+  Sobriety date: [if applicable]
+  Recovery supports: [AA/NA, sponsor, sober living, if applicable]
+  MAT: [buprenorphine/methadone/naltrexone, dose, prescriber, if applicable]
+
+CURRENT PSYCHIATRIC MEDICATIONS
+───────────────────────────────
+  [Drug, dose, frequency] — start date: [M/D/YY], indication: ***
+  [Drug, dose, frequency] — start date: [M/D/YY], indication: ***
+  [Continue for all psychiatric medications]
+
+  Adherence: [Patient-reported: good / partial / poor; details]
+  Side effects: ***
+  As-needed (PRN) medication use: [agent, frequency of use over past week/month]
+
+  Non-Psychiatric Medications
+  ───────────────────────────
+  [Drug, dose, frequency] — indication
+  [Continue as needed]
+
+METABOLIC MONITORING (if on antipsychotics)
+───────────────────────────────────────────
+  Weight: *** lbs (trend: ***)
+  BMI: ***
+  Fasting glucose or A1c: *** (date: ***)
+  Lipid panel: TC *** LDL *** HDL *** TG *** (date: ***)
+  AIMS score: ***/28 [if on antipsychotic ≥3 months]
+
+DRUG LEVELS (if applicable)
+───────────────────────────
+  Lithium: *** mEq/L (date: ***; therapeutic range 0.6-1.2)
+    TSH: *** Cr: *** Ca: ***
+  Valproate: *** mcg/mL (date: ***; therapeutic range 50-125)
+    LFTs: AST *** ALT ***
+    CBC with platelets: ***
+  Clozapine: *** ng/mL (if applicable)
+    ANC: *** (date: ***)
+
+RATING SCALES
+─────────────
+  PHQ-9: ***/27 (prior: ***/27 on M/D/YY)
+    [Score interpretation: 0-4 minimal, 5-9 mild, 10-14 moderate,
+    15-19 moderately severe, 20-27 severe]
+  GAD-7: ***/21 (prior: ***/21 on M/D/YY)
+    [Score interpretation: 0-4 minimal, 5-9 mild, 10-14 moderate, 15-21 severe]
+  C-SSRS: [Ideation intensity: ***/25; behavior: ***]
+  MDQ: [Positive / Negative, if screened]
+  AIMS: ***/28 [if applicable]
+  Other scales: [PCL-5, ASRS, YMRS, PANSS, etc., if obtained]
+
+MENTAL STATUS EXAM
+──────────────────
+  Appearance: [Grooming, hygiene, dress, apparent age vs stated age,
+    body habitus, distinguishing features]
+  Behavior: [Psychomotor activity: normal / agitation / retardation;
+    eye contact; cooperation; abnormal movements]
+  Speech: [Rate, rhythm, volume, tone, latency]
+  Mood: "[Patient's own words]"
+  Affect: [Observed: range (full / constricted / flat / labile),
+    quality (euthymic / dysphoric / anxious / irritable / euphoric),
+    congruence with stated mood]
+  Thought process: [Linear, logical, goal-directed / tangential /
+    circumstantial / loose associations / flight of ideas / thought blocking]
+  Thought content:
+    Suicidal ideation: [None / passive ("I wish I weren't here") /
+      active without plan / active with plan]
+      [If present: frequency, intensity, duration, intent, plan, means, access,
+      deterrents, protective factors]
+    Homicidal ideation: [None / present, detail]
+    Delusions: [None / type and content]
+    Obsessions/compulsions: [None / describe]
+    Paranoia: [None / present, detail]
+  Perceptions:
+    Auditory hallucinations: [None / present, detail: command AH Y/N]
+    Visual hallucinations: [None / present, detail]
+    Other perceptual disturbances: [None / describe]
+  Cognition: [Alert, oriented x4 / A&Ox3 / impaired;
+    attention, concentration, memory if formally assessed]
+  Insight: [Good / fair / limited / poor]
+  Judgment: [Good / fair / limited / poor]
+
+SAFETY ASSESSMENT
+─────────────────
+  Current suicidal ideation: [None / passive / active]
+  Current homicidal ideation: [None / present]
+  Access to firearms: [Yes, secured / Yes, unsecured / No / Declined to answer]
+  Access to lethal means: [Medications, other]
+  Recent self-harm: [None / describe]
+  Safety plan: [In place / updated today / needs creation / N/A]
+    Crisis contacts: ***
+    Coping strategies reviewed: [Y/N]
+  Risk level: [Low / moderate / high]
+    Risk factors: ***
+    Protective factors: ***
+
+FUNCTIONAL STATUS
+─────────────────
+  Employment: [Employed (type) / Unemployed / Disability / Student / Retired]
+  Relationships: [Married/partnered / Single / Divorced; quality]
+  Housing: [Stable / Unstable / describe]
+  Legal issues: [None / pending / describe]
+  Sleep: [Duration, quality, sleep aids]
+  Appetite: [Normal / increased / decreased; weight change]
+  Exercise: [Type, frequency]
+  Daily functioning: [Able to manage ADLs/IADLs / impairments]
+
+THERAPY STATUS
+──────────────
+  Current therapist: [Y/N]
+  Modality: [CBT / DBT / psychodynamic / supportive / EMDR / other]
+  Frequency: ***
+  Coordination: [Last communication with therapist, M/D/YY]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [psychiatric diagnoses] presenting
+for [visit type]. [One-sentence trajectory statement.]
+
+  1. [Primary psychiatric diagnosis]
+     [Brief assessment of current status, medication response,
+     symptom trajectory, and rationale for plan.]
+
+  2. [Secondary psychiatric diagnosis, if applicable]
+     [Brief assessment.]
+
+  3. [Substance use disorder, if applicable]
+     [Brief assessment: sobriety status, MAT status, recovery supports.]
+
+  4. [Medical conditions relevant to psychiatric care]
+     [Brief assessment.]
+
+  Risk assessment: [Low / moderate / high] based on [specific factors].
+
+PLAN
+────
+  1. [Primary psychiatric diagnosis]
+     - [Medication change: drug, dose, titration schedule, or continuation with dose]
+     - [Monitoring: side effects to watch for, labs to order]
+     - [Therapy recommendation or coordination]
+
+  2. [Secondary diagnosis]
+     - [Specific action]
+
+  3. [Substance use, if applicable]
+     - [MAT adjustment, recovery support, screening]
+
+  4. Safety
+     - [Safety plan status: reviewed / updated / created]
+     - [Means restriction counseling: performed / not indicated]
+     - [Emergency contacts: confirmed]
+     - [Crisis resources: 988 Suicide and Crisis Lifeline reviewed]
+
+  5. Monitoring
+     - Labs to order: [specific labs and reason]
+     - Rating scales: [to repeat at next visit]
+     - Metabolic monitoring: [if on antipsychotics]
+
+  6. Follow-up
+     - Return in [interval]
+     - [Specific criteria for earlier return or crisis intervention]
+     - Coordination: [communication with therapist, PCP, other providers]
+
+DISPOSITION
+───────────
+[Patient counseled on ***, agrees with plan.
+Safety plan reviewed. Crisis resources provided.
+Return precautions reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: psychiatric history, current medications with doses and start dates, prior medication trials, interval symptoms, substance use, rating scale scores, mental status exam findings, safety assessment data, functional status, therapy status, relevant labs, and any other pertinent information.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| New patient evaluation | Change visit type to "New patient evaluation" and add: "Include a comprehensive psychiatric history: developmental history, family psychiatric history, trauma history (with patient consent), complete prior treatment history, and a full biopsychosocial formulation." |
+| Child/adolescent | Add: "This patient is a child/adolescent. Include developmental history, school performance, behavioral observations, parent/guardian collateral, and age-appropriate rating scales (e.g., Vanderbilt for ADHD, CDI for depression). Document assent and consent." |
+| Forensic/legal | Add: "This note may be used in a legal context. Document mental status and functional capacity with particular precision. Include exact quotes where relevant. Clearly distinguish clinical observations from patient self-report." |
+| Collaborative care | Add: "This patient is seen within a collaborative care model. Include the psychiatric consultant's recommendations formatted for the primary care team, with specific medication changes, monitoring parameters, and criteria for step-up to specialty care." |
+| Telehealth | Add: "This visit was conducted via telehealth. Document the patient's location, that identity was verified, that the patient confirmed privacy, and note any limitations of the virtual assessment (e.g., 'unable to fully assess psychomotor activity due to camera angle')." |
+
+---
+
+## Variations
+
+### Depression/anxiety medication management
+
+Use this for the most common outpatient psychiatry visit: a patient with MDD, GAD, or both, returning for medication adjustment. The note tracks PHQ-9 and GAD-7 trends, medication response, side effects, and safety, without the overhead of a full new-patient workup.
+
+<PromptPlayground tool="Claude" title="Depression/Anxiety Medication Management">
+You are an outpatient psychiatrist writing a follow-up note for a patient with depression, anxiety, or both. Structure the note around symptom trajectory (tracked via PHQ-9 and GAD-7), medication response, side effect management, and safety.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document PHQ-9 and GAD-7 with comparison to prior scores.
+- Specify medication, dose, start date, and response for each psychotropic agent.
+- Document sleep, appetite, energy, concentration, and anhedonia as separate data points.
+- Safety assessment must include SI screen, means access, and safety plan status.
+- Plan must include specific dose changes with titration schedule or rationale for holding.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+DEPRESSION / ANXIETY FOLLOW-UP
+══════════════════════════════════════════
+
+VISIT TYPE: Medication management follow-up
+Interval: [duration since last visit]
+
+SYMPTOM TRACKING
+────────────────
+  PHQ-9: ***/27 (prior: ***/27 on M/D/YY)
+    Trajectory: [improving / stable / worsening]
+  GAD-7: ***/21 (prior: ***/21 on M/D/YY)
+    Trajectory: [improving / stable / worsening]
+
+  Symptom Detail
+  ──────────────
+  Mood: ***
+  Anhedonia: [present / improved / resolved]
+  Sleep: [onset, maintenance, early awakening; hours; quality]
+  Appetite: [increased / decreased / normal; weight change]
+  Energy: [low / normal / improved]
+  Concentration: [impaired / improved / normal]
+  Guilt/worthlessness: [present / absent]
+  Psychomotor changes: [retardation / agitation / none]
+  Anxiety symptoms: [worry, tension, avoidance, panic attacks (frequency)]
+
+CURRENT MEDICATIONS
+───────────────────
+  [Drug, dose, frequency] — started M/D/YY
+    Response: [none / partial / good / excellent]
+    Side effects: ***
+    Adherence: ***
+  [Continue for each]
+
+  PRN use: [agent, frequency over past month]
+
+MENTAL STATUS EXAM
+──────────────────
+  [Abbreviated but complete MSE]
+
+SAFETY ASSESSMENT
+─────────────────
+  SI: [None / passive / active]
+  HI: [None / present]
+  Firearms access: [Y/N]
+  Safety plan: [In place / updated]
+  Risk level: [Low / moderate / high]
+
+THERAPY STATUS
+──────────────
+  [Current therapist, modality, frequency, progress]
+
+ASSESSMENT
+──────────
+[Summary: diagnosis, trajectory, medication response.]
+
+PLAN
+────
+  1. [Primary diagnosis]
+     - [Medication: continue dose / increase from X to Y mg starting M/D/YY /
+       add agent / taper and switch]
+     - [Rationale for change or hold]
+     - [Side effect management]
+
+  2. Therapy
+     - [Continue / initiate / change modality / increase frequency]
+
+  3. Safety
+     - [Safety plan reviewed / updated / means restriction discussed]
+     - [988 Lifeline reviewed]
+
+  4. Follow-up
+     - Return in [interval]
+     - [Rating scales to repeat]
+     - [Labs if needed]
+     - [Earlier return criteria]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: diagnoses, current medications with doses and start dates, PHQ-9 and GAD-7 scores (current and prior), interval symptoms, sleep/appetite/energy, side effects, adherence, safety assessment, therapy status.]
+</PromptPlayground>
+
+### Bipolar disorder stabilization
+
+Use this for patients with bipolar I or II in any phase: manic, depressive, mixed, or euthymic maintenance. The note tracks mood charting, medication levels, metabolic monitoring, and the distinctive safety considerations of bipolar illness.
+
+<PromptPlayground tool="Claude" title="Bipolar Disorder Stabilization">
+You are an outpatient psychiatrist writing a follow-up note for a patient with bipolar disorder (I or II). Structure the note around current mood phase, mood stabilizer management with drug levels, metabolic monitoring, sleep pattern (an early warning sign), and safety assessment.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Identify the current mood phase: manic, hypomanic, depressed, mixed, or euthymic.
+- Document mood charting data if available (patient-reported mood ratings over time).
+- Include drug levels with therapeutic ranges for lithium, valproate, and carbamazepine.
+- Document metabolic monitoring for antipsychotics (weight, glucose, lipids, AIMS).
+- Assess sleep pattern and duration (sleep disruption precedes mood episodes).
+- Safety assessment must include SI, HI, and risk-taking behaviors.
+- Plan must include specific medication adjustments with levels, monitoring schedule, and sleep hygiene.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+BIPOLAR DISORDER FOLLOW-UP
+══════════════════════════════════════════
+
+VISIT TYPE: Medication management follow-up
+Interval: [duration since last visit]
+
+BIPOLAR CLASSIFICATION
+──────────────────────
+  Type: [Bipolar I / Bipolar II]
+  Current phase: [Manic / Hypomanic / Depressed / Mixed / Euthymic]
+  Most recent episode: [type, approximate date]
+  Rapid cycling: [Y/N]
+  Hospitalizations for mood episodes: [number, most recent]
+
+MOOD TRACKING
+─────────────
+  Patient-reported mood (1-10): *** (last visit: ***)
+  Sleep: *** hours/night (last visit: *** hours)
+    Pattern: [stable / shortened (mania risk) / hypersomnia (depression)]
+  Energy: [normal / elevated / low]
+  Irritability: [none / mild / moderate / severe]
+  Impulsivity / risk-taking: [none / present, describe]
+  Psychomotor activity: [normal / increased / decreased]
+  Grandiosity: [none / present]
+  Goal-directed activity: [normal / increased / decreased]
+  Speech: [normal rate / pressured / slow]
+
+CURRENT MEDICATIONS
+───────────────────
+  Mood stabilizers:
+    [Drug, dose] — level: *** (date: ***; range: ***)
+  Antipsychotics:
+    [Drug, dose] — start date: ***
+  Antidepressants (if applicable):
+    [Drug, dose] — [note: risk of mood switch monitored]
+  PRN:
+    [Drug, dose, frequency of use]
+
+DRUG LEVELS AND MONITORING
+──────────────────────────
+  Lithium: *** mEq/L (range 0.6-1.2)
+    TSH: *** Cr: *** Ca: *** [dates]
+  Valproate: *** mcg/mL (range 50-125)
+    LFTs: *** CBC: *** [dates]
+  Metabolic panel (if on antipsychotic):
+    Weight: *** BMI: ***
+    Fasting glucose / A1c: ***
+    Lipid panel: ***
+    AIMS: ***/28
+
+MENTAL STATUS EXAM
+──────────────────
+  [Complete MSE with emphasis on psychomotor activity,
+  speech rate, affect range and lability, thought process,
+  and perceptual disturbances.]
+
+SAFETY ASSESSMENT
+─────────────────
+  SI: [None / present — note: highest risk during mixed and depressive episodes]
+  HI: [None / present]
+  Risk-taking behavior: [spending, sexual, driving, substance use]
+  Firearms access: [Y/N]
+  Safety plan: [status]
+  Risk level: [Low / moderate / high]
+
+SUBSTANCE USE
+─────────────
+  [Alcohol, cannabis, stimulants, other — quantity, frequency]
+
+FUNCTIONAL STATUS
+─────────────────
+  [Employment, relationships, legal, daily functioning]
+
+ASSESSMENT
+──────────
+[Summary: bipolar type, current phase, medication response,
+trajectory, risk assessment.]
+
+PLAN
+────
+  1. Mood stabilization
+     - [Medication adjustment: dose, target level, or continuation]
+     - [Drug level timing: draw trough level in *** weeks]
+     - [If adding/switching: titration schedule]
+
+  2. Metabolic monitoring
+     - [Labs to order: specific tests and timing]
+     - [AIMS if on antipsychotic ≥3 months]
+
+  3. Sleep regulation
+     - [Sleep hygiene reinforcement]
+     - [Sleep aid if applicable]
+     - [Patient to contact clinic if sleep drops below *** hours for 2+ nights]
+
+  4. Safety
+     - [Safety plan reviewed / updated]
+     - [Means restriction]
+     - [Crisis resources]
+
+  5. Therapy
+     - [Status, modality recommendations]
+
+  6. Follow-up
+     - Return in [interval]
+     - [Drug levels before next visit]
+     - [Earlier return criteria: sleep disruption, mood shift, SI]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: bipolar type and history, current medications with doses, drug levels, mood charting data, sleep pattern, interval symptoms, safety assessment, metabolic labs, substance use, functional status.]
+</PromptPlayground>
+
+### Substance use disorder / MAT follow-up
+
+Use this for patients in treatment for substance use disorders, whether on medication-assisted treatment (buprenorphine, methadone, naltrexone) or in recovery without pharmacotherapy. The note tracks sobriety, treatment adherence, urine drug screens, and the intersection of substance use with co-occurring psychiatric illness.
+
+<PromptPlayground tool="Claude" title="Substance Use Disorder / MAT Follow-Up">
+You are an outpatient psychiatrist writing a follow-up note for a patient with a substance use disorder. The patient may be on medication-assisted treatment (MAT) or in non-pharmacologic recovery. Structure the note around substance use status, MAT management, urine drug screen results, co-occurring psychiatric conditions, and recovery supports.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document specific substances, quantity, frequency, and date of last use.
+- For buprenorphine patients: document dose, COWS score if induction, diversion risk assessment, prescription monitoring program (PMP) check.
+- For naltrexone patients: document injection date if extended-release, hepatic function monitoring.
+- Include urine drug screen results with date and interpretation.
+- Document co-occurring psychiatric conditions with current treatment.
+- Safety assessment includes SI/HI and overdose risk (naloxone availability).
+- Plan must address both SUD and co-occurring conditions.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+SUBSTANCE USE DISORDER FOLLOW-UP
+══════════════════════════════════════════
+
+VISIT TYPE: SUD / MAT follow-up
+Interval: [duration since last visit]
+
+SUBSTANCE USE STATUS
+────────────────────
+  Primary substance: ***
+  Other substances: ***
+  Last use: [substance, date]
+  Sobriety date: [if applicable]
+  Duration of current sobriety: ***
+  Pattern since last visit: [abstinent / reduced use / relapse, details]
+  Cravings: [none / mild / moderate / severe; triggers identified]
+
+MEDICATION-ASSISTED TREATMENT
+─────────────────────────────
+  Agent: [Buprenorphine-naloxone / Buprenorphine / Methadone / Naltrexone PO /
+    Naltrexone ER injection / None]
+  Dose: ***
+  Frequency: ***
+  Prescriber: [self / OTP / other]
+  Adherence: ***
+  Side effects: ***
+  Diversion risk: [low / moderate / high; assessment basis]
+  PMP checked: [Y/N, date, findings]
+
+URINE DRUG SCREEN
+──────────────────
+  Date: ***
+  Results: [List each substance tested and result]
+  Interpretation: [Consistent with prescribed medications /
+    Unexpected positive for *** / Unexpected negative for ***]
+
+RECOVERY SUPPORTS
+─────────────────
+  12-step program: [AA/NA, frequency of meetings]
+  Sponsor: [Y/N]
+  Sober living: [Y/N]
+  Recovery coach: [Y/N]
+  Peer support: [describe]
+  Social support: [family involvement, relationships]
+
+CO-OCCURRING PSYCHIATRIC CONDITIONS
+────────────────────────────────────
+  [Diagnosis]: [current status, medication, response]
+  [Diagnosis]: [current status]
+  Rating scales: PHQ-9 ***/27, GAD-7 ***/21
+
+MENTAL STATUS EXAM
+──────────────────
+  [Complete MSE with attention to signs of intoxication,
+  withdrawal, or impaired cognition.]
+
+SAFETY ASSESSMENT
+─────────────────
+  SI: [None / present]
+  HI: [None / present]
+  Overdose risk: [low / moderate / high]
+  Naloxone (Narcan): [Patient has supply: Y/N; caregiver trained: Y/N]
+  Last overdose: [date or none]
+  IV drug use: [Y/N; HIV/HCV screening status]
+
+FUNCTIONAL STATUS
+─────────────────
+  [Employment, housing, legal (probation, drug court), relationships,
+  driving status.]
+
+ASSESSMENT
+──────────
+[Summary: SUD type and status, MAT response, co-occurring
+conditions, recovery trajectory, risk level.]
+
+PLAN
+────
+  1. Substance use disorder
+     - [MAT: continue dose / adjust / taper plan]
+     - [UDS: frequency, next scheduled]
+     - [PMP: checked, findings]
+     - [Naloxone: prescribed / refilled / not indicated]
+
+  2. Recovery supports
+     - [Encourage meetings / referral / recovery coach]
+
+  3. Co-occurring psychiatric conditions
+     - [Medication management for each condition]
+
+  4. Safety
+     - [Overdose prevention plan reviewed]
+     - [SI assessment: safety plan status]
+
+  5. Medical
+     - [HIV/HCV screening if IV use]
+     - [Hepatic monitoring if on naltrexone]
+     - [Other labs]
+
+  6. Follow-up
+     - Return in [interval]
+     - [UDS schedule]
+     - [Criteria for treatment intensity change]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: substance use history, current substances and last use dates, MAT details, urine drug screen results, co-occurring diagnoses, current medications, interval history, recovery supports, functional status, safety assessment data.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+34-year-old female with MDD and GAD, on sertraline 150 mg daily (started 100 mg 4/2025, increased to 150 mg 7/2025) and buspirone 10 mg TID (started 6/2025). Prior trials: fluoxetine 40 mg x 8 weeks (partial response, sexual side effects, switched), escitalopram 20 mg x 6 weeks (no response, stopped). No therapy history until 3 months ago; now seeing a therapist weekly for CBT. No substance use. No prior hospitalizations or suicide attempts. PHQ-9 today: 9 (was 18 on 4/2025, 13 on 7/2025). GAD-7 today: 8 (was 16 on 4/2025, 11 on 7/2025). Sleep improved from 4 hours to 6-7 hours. Still has early morning awakening. Appetite normal, gained 5 lbs since starting sertraline. Energy "better but not great." Concentration improved. No SI, no HI. No firearms. Works as a teacher, went back to full-time in September after FMLA leave. Lives with partner, relationship improved. Mood: "better than I've been in a year." Affect: brighter, full range, reactive. Thought process linear. No perceptual disturbances. Insight good. Judgment good.
+
+**LLM output:**
+
+PSYCHIATRY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Follow-up medication management
+Interval since last visit: 8 weeks
+
+CHIEF CONCERN
+─────────────
+Follow-up for depression and anxiety management; patient reports continued improvement
+
+PSYCHIATRIC HISTORY
+───────────────────
+  Primary diagnosis: Major depressive disorder (MDD), recurrent, moderate
+  Additional diagnoses: Generalized anxiety disorder (GAD)
+  Age of onset: [Not provided; verify before signing]
+  Hospitalizations: None
+  Suicide attempts: None
+  Self-harm history: None
+
+PRIOR MEDICATION TRIALS
+───────────────────────
+  Agent              Max Dose    Duration    Response           Reason Stopped
+  ─────              ────────    ────────    ────────           ──────────────
+  Fluoxetine         40 mg       8 weeks     Partial            Sexual side effects
+  Escitalopram       20 mg       6 weeks     No response        Inefficacy
+
+  Prior therapy: None until 6/2025
+  Other treatments: None
+
+INTERVAL HISTORY
+────────────────
+Patient reports sustained improvement in mood and anxiety since last visit. She describes sleeping 6-7 hours per night, up from a baseline of 4 hours at her worst, though she continues to experience early morning awakening around 5 AM. Appetite is normal. She notes a 5 lb weight gain since starting sertraline, which she attributes to improved appetite. Energy is "better but not great," with most improvement in the late morning and afternoon. Concentration has improved; she is managing a full teaching workload without difficulty. She reports no panic attacks and reduced generalized worry, though she still notices tension during high-stress workdays. She returned to full-time work in September after a period of FMLA leave. Her relationship with her partner has improved. She attends weekly cognitive behavioral therapy (CBT) and finds it helpful for managing anxious thought patterns. She denies any suicidal ideation, self-harm urges, or substance use. She reports good medication adherence.
+
+SUBSTANCE USE
+─────────────
+  Alcohol: None
+  Cannabis: None
+  Tobacco: None
+  Other: None
+
+CURRENT PSYCHIATRIC MEDICATIONS
+───────────────────────────────
+  Sertraline 150 mg daily — started 100 mg 4/2025, increased to 150 mg 7/2025; indication: MDD
+    Response: Good; PHQ-9 improved from 18 to 9 over 11 months
+    Side effects: 5 lb weight gain, no sexual side effects
+    Adherence: Good
+  Buspirone 10 mg TID — started 6/2025; indication: GAD
+    Response: Good; GAD-7 improved from 16 to 8
+    Side effects: None reported
+    Adherence: Good
+
+  PRN: None
+
+  Non-Psychiatric Medications
+  ───────────────────────────
+  [Not provided; verify before signing]
+
+RATING SCALES
+─────────────
+  Patient Health Questionnaire-9 (PHQ-9): 9/27 (prior: 13/27 on 7/2025; initial: 18/27 on 4/2025)
+    Interpretation: Mild depression. Trajectory: improving.
+  Generalized Anxiety Disorder-7 (GAD-7): 8/21 (prior: 11/21 on 7/2025; initial: 16/21 on 4/2025)
+    Interpretation: Mild anxiety. Trajectory: improving.
+  Columbia Suicide Severity Rating Scale (C-SSRS): No ideation, no behavior.
+
+MENTAL STATUS EXAM
+──────────────────
+  Appearance: Well-groomed, dressed appropriately, appears stated age.
+  Behavior: Psychomotor activity normal. Good eye contact. Cooperative and engaged.
+  Speech: Normal rate, rhythm, and volume.
+  Mood: "Better than I've been in a year."
+  Affect: Bright, full range, reactive, congruent with stated mood.
+  Thought process: Linear, logical, goal-directed.
+  Thought content:
+    Suicidal ideation: None
+    Homicidal ideation: None
+    Delusions: None
+    Obsessions: None
+  Perceptions:
+    Auditory hallucinations: None
+    Visual hallucinations: None
+  Cognition: Alert, oriented to person, place, time, and situation. Attention and concentration intact.
+  Insight: Good
+  Judgment: Good
+
+SAFETY ASSESSMENT
+─────────────────
+  Current suicidal ideation: None
+  Current homicidal ideation: None
+  Access to firearms: No
+  Access to lethal means: No specific concerns
+  Recent self-harm: None
+  Safety plan: Not indicated at current risk level
+  Risk level: Low
+    Risk factors: History of moderate MDD, female sex
+    Protective factors: Engaged in treatment (medication and therapy), employment, supportive partner relationship, no substance use, no prior attempts, no access to lethal means, good insight
+
+FUNCTIONAL STATUS
+─────────────────
+  Employment: Full-time teacher, returned from FMLA leave 9/2025. Managing full workload.
+  Relationships: Lives with partner; relationship improved.
+  Housing: Stable
+  Legal issues: None
+  Sleep: 6-7 hours, early morning awakening
+  Appetite: Normal
+  Exercise: [Not provided; verify before signing]
+  Daily functioning: Independent in all ADLs and IADLs
+
+THERAPY STATUS
+──────────────
+  Current therapist: Yes
+  Modality: CBT
+  Frequency: Weekly
+  Progress: Patient reports CBT helpful for anxious thought patterns
+  Coordination: [Not provided; verify before signing]
+
+ASSESSMENT
+──────────
+34-year-old female with MDD and GAD presenting for medication management follow-up. Both conditions are responding well to the current regimen of sertraline 150 mg and buspirone 10 mg TID, supplemented by weekly CBT. PHQ-9 has improved from 18 to 9 over 11 months, and GAD-7 from 16 to 8 over the same period. She has returned to full-time work and reports improved relationships and daily functioning.
+
+  1. Major depressive disorder, improving, partial remission
+     PHQ-9 of 9 represents a 50% reduction from baseline but remains in the mild range. Residual symptoms include low energy and early morning awakening. Weight gain of 5 lbs is modest and may relate to improved appetite rather than a medication side effect, though sertraline-associated weight gain is possible. Current dose of 150 mg is within the therapeutic range; the trajectory suggests continued improvement rather than a plateau.
+
+  2. Generalized anxiety disorder, improving
+     GAD-7 of 8 is down from 16 at baseline. Residual situational anxiety at work is present but manageable and appropriate for CBT intervention. Buspirone and sertraline together appear effective.
+
+  Risk assessment: Low, based on no SI/HI, no access to means, engagement in treatment, functional improvement, and strong protective factors.
+
+PLAN
+────
+  1. Major depressive disorder
+     - Continue sertraline 150 mg daily
+     - Hold dose increase for now; trajectory is improving and patient has not plateaued
+     - Reassess at next visit; if PHQ-9 remains above 5 after 3 more months at this dose, consider increase to 200 mg
+     - Monitor weight trend; if gain exceeds 10 lbs total, discuss dietary strategies and consider whether medication switch is warranted
+     - For early morning awakening: sleep hygiene review (consistent wake time, no screens after 10 PM); if persists at next visit, consider low-dose trazodone 25-50 mg at bedtime
+
+  2. Generalized anxiety disorder
+     - Continue buspirone 10 mg TID
+     - Residual work-related anxiety is an appropriate target for ongoing CBT
+
+  3. Therapy
+     - Continue weekly CBT
+     - Coordinate with therapist (send note or call within 2 weeks)
+
+  4. Safety
+     - Risk level low; formal safety plan not indicated
+     - 988 Suicide and Crisis Lifeline number provided in visit summary
+
+  5. Follow-up
+     - Return in 8 weeks
+     - Repeat PHQ-9 and GAD-7 at next visit
+     - No labs needed at this time
+     - Call clinic sooner if: worsening mood, return of SI, significant sleep disruption, or new side effects
+
+DISPOSITION
+───────────
+Patient counseled on continued medication adherence, sleep hygiene, and weight monitoring. Agrees with plan. Return precautions reviewed. 988 Lifeline number included in after-visit summary.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **The MSE is medico-legal bedrock.** The model generates all MSE categories, but you must verify every line against what you actually observed. "Affect: congruent" is a clinical judgment, not a default. If the patient said "I'm fine" while appearing tearful, document the incongruence.
+- **Safety assessment is not a checkbox.** The model structures the assessment, but risk stratification depends on your clinical judgment. A patient with passive SI, no plan, and strong protective factors is different from one with passive SI, a loaded firearm at home, and a recent breakup. The model documents what you give it; the risk level is yours to assign.
+- **Prior medication trials need maximum dose and adequate duration.** "Tried fluoxetine" is not a medication trial. "Fluoxetine 40 mg for 8 weeks with partial response and sexual side effects leading to switch" is. The distinction matters for treatment planning and prior authorization.
+- **PHQ-9 response vs. remission.** A 50% reduction in PHQ-9 is response. A score below 5 is remission. These are different treatment endpoints. The model will track the numbers; make sure your plan reflects which goal you are working toward.
+- **Antipsychotic metabolic monitoring has a schedule.** Baseline, 4 weeks, 8 weeks, 12 weeks, then quarterly for the first year, then annually. The model will include a monitoring section, but the timing needs to match where the patient is in that schedule.
+- **Substance use documentation requires specificity.** "Social drinker" is not clinical documentation. Drinks per week, type, pattern (binge vs. daily), and AUDIT-C score are. The model will document whatever level of detail you provide.
+- **Coordinate with the therapist.** The model includes a therapy section, but documentation of coordination (last contact date, shared treatment goals) is what demonstrates integrated care. Include the date of your last communication with the therapist.
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) - for inpatient psychiatric notes
+- [Consult Note](/templates/consult-note) - for initial psychiatric consultations from the ED or inpatient service
+- [Medication Reconciliation](/templates/medication-reconciliation) - for the comprehensive medication list including prior trials
+- [Disability/FMLA Letter](/templates/disability-fmla-letter) - for when your patient needs functional capacity documentation
+- [Referral Letter](/templates/referral-letter) - for patients being referred to or from your practice

@@ -1,0 +1,801 @@
+---
+title: "Sports Medicine Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, sports-medicine, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "This template generates structured sports medicine clinic notes covering concussion, ACL and meniscal injuries, rotator cuff pathology, stress fractures, tendinopathy, and return-to-play evaluations."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+A college soccer player sits on your exam table, 10 days out from a concussion, symptom-free at rest but unsure whether she can start running again. You need to document her Sport Concussion Assessment Tool (SCAT5) findings, her vestibular/ocular motor screening (VOMS) results, where she stands in the graded return-to-play protocol, and your clearance decision, all in a format that the athletic trainer, the team, and the family can follow. Paste your visit data into this template, and the LLM produces a structured sports medicine note that captures the SCAT5 and Immediate Post-Concussion Assessment and Cognitive Testing (ImPACT) results, VOMS scores, Buffalo treadmill protocol progression, sport and position and competition level, return-to-play (RTP) criteria and protocol stage, functional testing thresholds, pre-participation physical examination (PPE) cardiovascular screening using the American Heart Association (AHA) 14-point checklist, and Relative Energy Deficiency in Sport (RED-S) and female athlete triad screening.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+<Callout type="pitfall">
+  Return-to-play decisions carry risk for the athlete and liability for the physician. Document the specific criteria met (or not met) at each protocol stage. "Cleared for return to play" without documented symptom resolution, cognitive recovery, and exertion tolerance is defensible neither clinically nor legally.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Sports Medicine Clinic Visit Note">
+You are a sports medicine physician writing an outpatient clinic note after seeing an athlete for injury evaluation, concussion management, pre-participation examination, or return-to-play assessment. The patient may present with one or more of the following: concussion, ACL or meniscal injury, rotator cuff pathology, stress fracture, tendinopathy, or a return-to-play evaluation. Identify the clinical context from the information provided and structure the note accordingly.
+
+### Purpose
+
+Generate a complete, structured outpatient sports medicine clinic note from the clinical data below. The note must capture the athlete's sport-specific context, injury mechanism, validated assessment tools, functional testing results, imaging interpretation, treatment plan, and return-to-play protocol status with criteria-based progression.
+
+### Rules
+
+- Write in past tense for history and mechanism; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use in the note (e.g., "Sport Concussion Assessment Tool (SCAT5)"), then abbreviation only thereafter.
+- Include specific numbers for all values: SCAT5 subscores, VOMS scores, ImPACT composite scores, ROM in degrees, strength testing, functional test results.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Always document the athlete's sport, position, competition level (recreational, high school, college, professional), and season timing.
+- Organize the Assessment as a numbered problem list with the primary injury first, then contributing factors, then return-to-play status.
+- Plan items must be specific and actionable: protocol stage advancement criteria, therapy prescription with type and frequency, imaging orders, surgical referral indications, and explicit clearance or non-clearance decision with rationale.
+- For concussion: document SCAT5 subscores (symptom number and severity, cognitive, balance), VOMS results (each domain with symptom provocation score), ImPACT composite scores compared to baseline, Buffalo treadmill protocol stage and heart rate achieved, and specific RTP protocol stage.
+- For ACL/meniscal injury: document mechanism, exam findings (Lachman, anterior drawer, pivot shift, McMurray, joint line tenderness), MRI findings, surgical vs. non-operative criteria, and functional testing if post-operative (single-leg hop, Y-balance, quad symmetry index).
+- For rotator cuff: document provocative tests (Neer, Hawkins, empty can, external rotation lag, belly press), imaging, and cuff integrity assessment.
+- For stress fractures: document high-risk vs. low-risk classification, imaging findings, weight-bearing status, and return-to-running protocol.
+- For pre-participation exam: document AHA 14-point cardiovascular screening, musculoskeletal screening, and RED-S/female athlete triad screening.
+- Do not infer or fabricate any clinical information not provided. Write "***" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt" and "athlete" interchangeably based on context
+- "s/p" = status post
+- "SCAT5" = Sport Concussion Assessment Tool, 5th edition
+- "VOMS" = Vestibular/Ocular Motor Screening
+- "ImPACT" = Immediate Post-Concussion Assessment and Cognitive Testing
+- "RTP" = return to play
+- "RTA" = return to activity
+- "PPE" = pre-participation physical examination
+- "AHA" = American Heart Association
+- "RED-S" = Relative Energy Deficiency in Sport
+- "ACL" = anterior cruciate ligament
+- "MRI" = magnetic resonance imaging
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+SPORTS MEDICINE CLINIC NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[New injury evaluation / Concussion follow-up / Post-operative
+follow-up / Pre-participation exam / Return-to-play evaluation]
+Interval since injury/surgery: [duration]
+
+ATHLETE PROFILE
+───────────────
+  Sport: ***
+  Position: ***
+  Competition level: [recreational / high school / college (division) /
+    professional / elite amateur]
+  Season status: [pre-season / in-season / post-season / off-season]
+  Dominant hand/foot: ***
+  Prior injuries to same body part: [none / list with dates]
+
+MECHANISM OF INJURY
+───────────────────
+[Specific description: contact vs. non-contact, body position,
+force direction, playing surface, equipment worn. For concussion:
+loss of consciousness (Y/N, duration), amnesia (retrograde: ***,
+anterograde: ***), seizure activity (Y/N), initial symptoms.]
+
+CONCUSSION ASSESSMENT (if applicable)
+──────────────────────────────────────
+  SCAT5 Results
+  ─────────────
+  Date administered: ***
+  Symptom evaluation:
+    Number of symptoms: ***/22
+    Symptom severity score: ***/132
+    Compared to baseline: [higher / same / lower]
+  Cognitive assessment (SAC):
+    Orientation: ***/5
+    Immediate memory: ***/15
+    Concentration: ***/5
+    Delayed recall: ***/5
+    SAC total: ***/30 (baseline: ***/30)
+  Balance examination (modified BESS):
+    Double leg (firm): errors ***/10
+    Single leg (firm): errors ***/10
+    Tandem (firm): errors ***/10
+    Double leg (foam): errors ***/10
+    Single leg (foam): errors ***/10
+    Tandem (foam): errors ***/10
+    Total errors: ***/60 (baseline: ***/60)
+  Coordination: finger-to-nose [normal / abnormal]
+
+  VOMS Results
+  ────────────
+  (Symptom provocation: 0 = none, 10 = severe)
+                              Headache  Dizziness  Nausea  Fogginess
+  Smooth pursuits (H):        ***/10    ***/10     ***/10  ***/10
+  Smooth pursuits (V):        ***/10    ***/10     ***/10  ***/10
+  Saccades (H):               ***/10    ***/10     ***/10  ***/10
+  Saccades (V):               ***/10    ***/10     ***/10  ***/10
+  Convergence (NPC): *** cm   ***/10    ***/10     ***/10  ***/10
+  VOR (H):                    ***/10    ***/10     ***/10  ***/10
+  VOR (V):                    ***/10    ***/10     ***/10  ***/10
+  Visual motion sensitivity:  ***/10    ***/10     ***/10  ***/10
+  VOMS interpretation: [normal / abnormal: specify domains]
+  (Abnormal: symptom increase ≥2 points from baseline or NPC
+  distance ≥5 cm)
+
+  ImPACT Testing (if performed)
+  ─────────────────────────────
+  Date: ***
+  Verbal memory: *** (baseline: ***)
+  Visual memory: *** (baseline: ***)
+  Visual motor speed: *** (baseline: ***)
+  Reaction time: *** sec (baseline: *** sec)
+  Symptom score: *** (baseline: ***)
+  Interpretation: [at baseline / below baseline in: ***]
+
+  Buffalo Treadmill Protocol (if performed)
+  ──────────────────────────────────────────
+  Date: ***
+  Symptom-limited heart rate: *** bpm (***% age-predicted max)
+  Time to symptom onset: *** min
+  Symptoms provoked: [none / list]
+  Interpretation: [passed (asymptomatic at 80% max HR) /
+    failed at *** bpm / not yet attempted]
+
+  Return-to-Play Protocol Status
+  ───────────────────────────────
+  Protocol used: [Consensus Statement on Concussion in Sport
+    (Berlin 2016) / institutional protocol]
+  Current stage: ***/6
+    Stage 1: Symptom-limited activity [completed / current / not started]
+    Stage 2: Light aerobic exercise [completed / current / not started]
+    Stage 3: Sport-specific exercise [completed / current / not started]
+    Stage 4: Non-contact training drills [completed / current / not started]
+    Stage 5: Full-contact practice [completed / current / not started]
+    Stage 6: Return to competition [completed / current / not started]
+  Minimum 24 hours at each stage before advancing.
+  Criteria to advance: asymptomatic at current stage for ≥24 hours.
+
+MSK INJURY ASSESSMENT (if applicable)
+──────────────────────────────────────
+  Injury: [structure, laterality]
+  Mechanism: [as described above]
+  Onset: [acute (specific event) / insidious / overuse]
+  Duration: ***
+
+  Physical Examination
+  ────────────────────
+  Inspection: [swelling, ecchymosis, deformity, atrophy, alignment]
+  Palpation: [point tenderness location, effusion, warmth]
+  ROM: [Active: **°, Passive: **°, compared to contralateral: **°]
+  Strength: [specific muscle testing, MRC grade or manual muscle testing]
+  Special tests:
+    [Knee]: Lachman [pos/neg, endpoint (firm/soft)],
+      anterior drawer [pos/neg], posterior drawer [pos/neg],
+      pivot shift [pos/neg], McMurray [pos/neg, location],
+      valgus stress [0°/30°: stable/unstable, endpoint],
+      varus stress [0°/30°: stable/unstable, endpoint],
+      patellar apprehension [pos/neg]
+    [Shoulder]: Neer [pos/neg], Hawkins [pos/neg],
+      empty can [pos/neg, strength],
+      external rotation lag [pos/neg],
+      belly press [pos/neg], Speed [pos/neg],
+      O'Brien [pos/neg], apprehension/relocation [pos/neg],
+      sulcus sign [pos/neg, grade]
+    [Ankle]: anterior drawer [pos/neg], talar tilt [pos/neg],
+      squeeze test [pos/neg], Thompson [intact/ruptured]
+  Neurovascular: [intact / findings]
+  Gait: [normal / antalgic / describe]
+
+  Functional Testing (if post-op or RTP evaluation)
+  ──────────────────────────────────────────────────
+  Single-leg hop test: affected *** cm, unaffected *** cm,
+    limb symmetry index (LSI): ***% (target ≥90%)
+  Triple hop: affected *** cm, unaffected *** cm, LSI: ***%
+  Crossover hop: affected *** cm, unaffected *** cm, LSI: ***%
+  Timed 6-meter hop: affected *** sec, unaffected *** sec, LSI: ***%
+  Y-balance test: [anterior, PM, PL reach distances, composite score]
+  Quadriceps strength symmetry: ***% (isokinetic at 60°/sec, target ≥90%)
+  Hamstring/quad ratio: ***
+
+  Imaging
+  ───────
+  X-ray: [date, findings]
+  MRI: [date, findings: specific structural detail]
+  Ultrasound: [date, findings]
+  CT: [date, findings]
+  Bone scan / SPECT: [date, findings, if stress fracture evaluation]
+
+PRE-PARTICIPATION EXAM (if applicable)
+───────────────────────────────────────
+  AHA 14-Point Cardiovascular Screening
+  ──────────────────────────────────────
+  Personal History:
+    1. Chest pain/discomfort with exertion: [Y/N]
+    2. Unexplained syncope/near-syncope: [Y/N]
+    3. Excessive/unexplained dyspnea with exertion: [Y/N]
+    4. Prior heart murmur recognized: [Y/N]
+    5. Elevated systemic BP: [Y/N]
+    6. Prior restriction from sport for cardiac reason: [Y/N]
+    7. Prior testing for heart condition: [Y/N]
+  Family History:
+    8. Premature death (&lt;50 years) due to heart disease: [Y/N]
+    9. Disability from heart disease in close relative &lt;50: [Y/N]
+    10. HCM, ARVC, LQTS, Marfan, or other ion channelopathy
+        in family: [Y/N]
+  Physical Examination:
+    11. Heart murmur (supine and standing): [Y/N, description]
+    12. Femoral pulse diminished or delayed: [Y/N]
+    13. Marfanoid features: [Y/N]
+    14. BP: *** / *** mmHg (sitting, right arm)
+  Screening result: [No positive findings / Positive findings
+    requiring further evaluation: specify]
+
+  Musculoskeletal Screening
+  ─────────────────────────
+  [90-second MSK screen or sport-specific screening results]
+
+  RED-S / Female Athlete Triad Screening (if applicable)
+  ──────────────────────────────────────────────────────
+  Menstrual history: [menarche age, cycle regularity, current
+    status, amenorrhea duration if applicable]
+  Energy availability: [dietary intake estimate, training volume,
+    weight trend, disordered eating screen]
+  Bone health: [stress fracture history, DEXA if obtained:
+    Z-score]
+  Screening tool: [LEAF-Q score if used]
+  Risk category: [low / moderate / high]
+  Clearance recommendation: [full participation / modified
+    participation with plan / restricted pending evaluation]
+
+CURRENT MEDICATIONS
+───────────────────
+  [Drug, dose, frequency] — indication
+  [Include supplements, NSAIDs, hormonal contraceptives if relevant]
+  Banned substance check: [all medications reviewed against
+    WADA/NCAA prohibited list: compliant / concern: specify]
+
+VITAL SIGNS
+───────────
+  BP: ***
+  HR: ***
+  Weight: *** (BMI: ***)
+  Height: ***
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] [sport, position, competition level]
+presenting for [visit type]. [One-sentence clinical summary.]
+
+  1. [Primary injury/condition]
+     [Current status, trajectory, key exam and testing findings.]
+
+  2. [Secondary finding, if applicable]
+     [Status and relevance to primary injury.]
+
+  3. Return-to-play status
+     [Current protocol stage, criteria met, criteria remaining.]
+
+PLAN
+────
+  1. [Primary injury]
+     - [Treatment: specific modality, medication, injection, brace]
+     - [Therapy: PT prescription with specific goals and frequency]
+     - [Activity modification: specific restrictions with duration]
+     - [Imaging: additional studies if indicated]
+     - [Surgical referral: specific indication and urgency]
+
+  2. Return-to-play protocol
+     - [Current stage and advancement criteria]
+     - [Specific activity allowed at this stage]
+     - [Timeline estimate for full return (with caveat that
+       progression is symptoms-based, not time-based)]
+     - [Communication to athletic trainer / coach / family]
+
+  3. Prevention
+     - [Injury prevention program: specific exercises]
+     - [Equipment modification if indicated]
+     - [Screening follow-up: RED-S, cardiac, if applicable]
+
+  4. Follow-up
+     - Return in [interval]
+     - [Testing to repeat at next visit: SCAT5, ImPACT,
+       functional testing]
+     - [Criteria for earlier return: new symptoms, failure
+       to progress, re-injury]
+
+DISPOSITION
+───────────
+[Athlete counseled on ***. Activity restrictions reviewed with
+athlete [and parents if minor / and athletic trainer / and coach].
+Written return-to-play protocol provided.
+Return precautions reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: sport, position, competition level, injury mechanism, symptoms, SCAT5/VOMS/ImPACT results, exam findings, imaging, functional testing, current treatment, medications, and return-to-play protocol status.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Pediatric/adolescent athlete | Add: "This is a pediatric or adolescent athlete. Apply more conservative return-to-play timelines. Include growth plate assessment, parental involvement in decision-making, and school accommodation plan for concussion." |
+| Professional/elite athlete | Add: "This is a professional or elite athlete. Include contract and season considerations in the context (not as medical decision factors), coordination with team medical staff, and documentation of informed consent for any accelerated timeline." |
+| Chronic exertional compartment syndrome | Add: "Evaluate for chronic exertional compartment syndrome. Include exercise-induced symptoms, compartment pressure measurements (pre and post exercise with values in mmHg), and surgical referral criteria." |
+| Shoulder instability | Add: "This patient has recurrent shoulder instability. Include number of dislocations, direction, provocative tests (apprehension, relocation, surprise), Beighton hypermobility score, and surgical vs. rehabilitation decision criteria." |
+| Running injury | Add: "This is a running-related injury. Include weekly mileage, recent mileage changes, shoe type and age, running surface, training errors, biomechanical assessment findings, and return-to-running protocol (walk-run intervals)." |
+
+---
+
+## Variations
+
+### Concussion return-to-play
+
+Use this for the concussion patient being evaluated for return-to-play advancement. The note is focused entirely on concussion resolution: symptom status, cognitive recovery, vestibular-ocular normalization, exertion tolerance, and the specific protocol stage the athlete is cleared to enter.
+
+<PromptPlayground tool="Claude" title="Concussion Return-to-Play Evaluation">
+You are a sports medicine physician evaluating a concussed athlete for return-to-play protocol advancement.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document time since injury, total symptom duration, and current symptom status.
+- Include SCAT5 subscores compared to baseline (or normative data if no baseline).
+- Include VOMS results with specific domain scores.
+- Include ImPACT composite scores compared to baseline if available.
+- Document Buffalo treadmill protocol results with symptom-free heart rate.
+- Specify the exact RTP protocol stage the athlete is being cleared to enter, the criteria met, and what must happen before the next stage.
+- For athletes &lt;18 years old, note that more conservative timelines are recommended.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Output format
+
+```
+CONCUSSION RETURN-TO-PLAY EVALUATION
+══════════════════════════════════════════
+
+ATHLETE SUMMARY
+───────────────
+[Age]-year-old [male/female] [sport, position, level].
+Concussion date: ***. Time since injury: *** days.
+Mechanism: ***. LOC: [Y/N]. Amnesia: [Y/N].
+Concussion history: [number of prior concussions with dates
+and recovery durations].
+
+CURRENT SYMPTOM STATUS
+───────────────────────
+  Symptoms at rest: [none / list with severity]
+  SCAT5 symptom score: ***/22 symptoms, ***/132 severity
+  Baseline SCAT5: ***/22 symptoms, ***/132 severity
+  Symptom-free since: [date or "not yet symptom-free"]
+
+COGNITIVE ASSESSMENT
+────────────────────
+  SCAT5 SAC: ***/30 (baseline: ***/30)
+  ImPACT (date: ***):
+    Verbal memory: *** (baseline: ***)
+    Visual memory: *** (baseline: ***)
+    Visual motor speed: *** (baseline: ***)
+    Reaction time: *** (baseline: ***)
+  Interpretation: [at/above baseline / below baseline in: ***]
+
+VESTIBULAR/OCULAR ASSESSMENT
+─────────────────────────────
+  VOMS: [normal / abnormal domains: ***]
+  NPC: *** cm (normal &lt;5 cm)
+  Balance (BESS): ***/60 errors (baseline: ***/60)
+  Vestibular therapy: [completed / ongoing / not indicated]
+
+EXERTION TOLERANCE
+──────────────────
+  Buffalo protocol: [stage, heart rate achieved, symptoms]
+  Sport-specific exertion: [completed / not yet attempted]
+  Symptom provocation with exertion: [none / describe]
+
+RTP PROTOCOL DECISION
+─────────────────────
+  Current stage: ***/6
+  Criteria for advancement: [list specific criteria met]
+  Decision: [advance to stage *** / remain at stage *** /
+    additional evaluation needed]
+  Rationale: [specific clinical reasoning]
+  Timeline estimate: [expected full clearance in *** days/weeks,
+    contingent on symptom-free progression at each stage]
+
+CLEARANCE STATUS
+────────────────
+  [NOT cleared for return to play — specify restrictions]
+  [CLEARED to advance to stage *** of RTP protocol]
+  [CLEARED for full unrestricted return to play]
+  Communicated to: [athletic trainer, coach, parents]
+
+PLAN
+────
+  [Specific next steps, follow-up timing, repeat testing schedule]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: concussion date, mechanism, symptom status, SCAT5, VOMS, ImPACT, Buffalo protocol results, concussion history, current RTP stage.]
+</PromptPlayground>
+
+### ACL surgical decision
+
+Use this for the athlete with a confirmed or suspected ACL tear being evaluated for surgical versus non-operative management. The note captures the injury mechanism, exam findings, MRI interpretation, and the specific factors that inform the surgical decision: sport, competition level, associated injuries, functional instability, and patient goals.
+
+<PromptPlayground tool="Claude" title="ACL Injury Evaluation and Surgical Decision">
+You are a sports medicine physician evaluating an athlete with a confirmed or suspected ACL injury, determining whether surgical reconstruction is indicated.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the mechanism of injury with specific detail (contact vs. non-contact, deceleration, pivoting, valgus).
+- Document all knee exam findings: Lachman (grade, endpoint), anterior drawer, pivot shift, McMurray, joint line tenderness, valgus/varus stress at 0° and 30°, effusion, ROM.
+- Document MRI findings: ACL status (complete tear, partial tear, location), meniscal status (medial/lateral, tear type, location), chondral status, bone bruise pattern, MCL/LCL status.
+- Include surgical decision factors: sport and level, functional instability episodes, associated injuries (meniscal tears, MCL), patient age, activity goals, willingness to modify activity.
+- If surgical: include graft discussion (BPTP, hamstring, quad tendon, allograft), timing, and pre-hab plan.
+- If non-operative: include specific criteria for reconsidering surgery (giving-way episodes, meniscal damage progression).
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Output format
+
+```
+ACL INJURY EVALUATION
+══════════════════════════════════════════
+
+ATHLETE SUMMARY
+───────────────
+[Age]-year-old [male/female] [sport, position, level].
+Injury date: ***. Mechanism: ***.
+
+INJURY DETAILS
+──────────────
+  Mechanism: [detailed description]
+  Immediate symptoms: [pop heard Y/N, immediate swelling Y/N,
+    weight-bearing ability, continued play Y/N]
+  Subsequent course: [swelling timeline, instability episodes,
+    treatment to date]
+
+PHYSICAL EXAMINATION
+────────────────────
+  Knee (affected side / contralateral for comparison)
+  ──────────────────────────────────────────────────
+  Inspection: effusion [none / small / moderate / large]
+  ROM: [flexion ***°/***°, extension ***°/***° (affected/contralateral)]
+  Lachman: [grade 1/2/3, endpoint firm/soft] (contralateral: ***)
+  Anterior drawer: [positive/negative, mm translation]
+  Pivot shift: [positive/negative, grade]
+  Posterior drawer: [positive/negative]
+  McMurray: [positive/negative, medial/lateral, click/pain]
+  Joint line tenderness: [medial/lateral/none]
+  Valgus stress (30°): [stable/unstable, endpoint]
+  Valgus stress (0°): [stable/unstable]
+  Varus stress (30°): [stable/unstable]
+  Neurovascular: [intact / findings]
+  Contralateral knee: [normal / findings]
+
+MRI FINDINGS
+────────────
+  Date: ***
+  ACL: [complete tear / partial tear (% / location) / intact]
+  Meniscus:
+    Medial: [intact / tear type (bucket handle, radial, horizontal,
+      complex), zone (red-red, red-white, white-white), location]
+    Lateral: [intact / tear type, zone, location]
+  Chondral surfaces: [intact / defect: location, grade (Outerbridge)]
+  Bone bruise: [location (lateral femoral condyle, posterior tibial
+    plateau — classic ACL pattern)]
+  MCL: [intact / sprain grade / tear]
+  LCL/PLC: [intact / findings]
+  Other: [Baker cyst, loose bodies, other]
+
+SURGICAL DECISION ANALYSIS
+───────────────────────────
+  Factors favoring reconstruction:
+    - [Specific factors: young age, high-demand sport, pivoting/
+      cutting sport, functional instability, meniscal tear amenable
+      to repair, multi-ligament injury, patient goals]
+  Factors favoring non-operative management:
+    - [Specific factors: low-demand activity, partial tear with
+      stable knee, patient preference, no instability, willingness
+      to modify activity]
+
+  Decision: [surgical reconstruction recommended / non-operative
+    management recommended / patient deciding]
+  [If surgical: graft discussion, timing, pre-hab plan]
+  [If non-operative: activity modification, bracing, PT, and
+    criteria for reconsidering surgery]
+
+PLAN
+────
+  [Specific surgical or non-operative management plan with
+  PT prescription, follow-up, and expected timeline.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: sport, level, injury mechanism, exam findings, MRI results, instability episodes, patient goals, prior knee history.]
+</PromptPlayground>
+
+### Pre-participation physical examination
+
+Use this for the annual pre-participation physical. The note is organized around the AHA 14-point cardiovascular screen, musculoskeletal screening, and sport-specific risk factor assessment including RED-S and female athlete triad screening where indicated.
+
+<PromptPlayground tool="Claude" title="Pre-Participation Physical Examination">
+You are a sports medicine physician performing a pre-participation physical examination for an athlete.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Complete all 14 elements of the AHA cardiovascular screening checklist with specific findings.
+- Document the musculoskeletal screening exam systematically.
+- For female athletes: screen for the female athlete triad (energy deficiency, menstrual dysfunction, low bone mineral density) and RED-S.
+- For all athletes: screen for heat illness risk, sickle cell trait status, concussion history, mental health (PHQ-2 minimum).
+- Clearance determination must be one of: cleared without restriction, cleared with recommendations, not cleared pending further evaluation (specify what), or not cleared (specify reason).
+- Document sport-specific considerations if relevant (e.g., weight-class sports, contact sports, aquatic sports).
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Output format
+
+```
+PRE-PARTICIPATION PHYSICAL EXAMINATION
+══════════════════════════════════════════
+
+ATHLETE PROFILE
+───────────────
+  Age: ***  Sex: ***  Sport(s): ***
+  Position: ***  Level: ***
+
+MEDICAL HISTORY
+───────────────
+  Prior medical conditions: ***
+  Prior surgeries: ***
+  Concussion history: [number, dates, recovery durations]
+  Medications: ***
+  Allergies: ***
+  Sickle cell trait: [known status / not tested / positive]
+  Immunizations: [up to date / needs: ***]
+  Mental health screen: PHQ-2 ***/6
+
+AHA 14-POINT CARDIOVASCULAR SCREENING
+──────────────────────────────────────
+  [Complete checklist as in main template with all 14 items]
+
+  ECG (if performed): [findings]
+  Echo (if indicated): [findings]
+
+  Cardiovascular clearance: [no concerns / requires further
+    evaluation: ***]
+
+FEMALE ATHLETE TRIAD / RED-S SCREENING (if applicable)
+──────────────────────────────────────────────────────
+  Menstrual history: ***
+  Dietary assessment: ***
+  Stress fracture history: ***
+  DEXA (if indicated): ***
+  Risk category: [low / moderate / high]
+
+MUSCULOSKELETAL SCREENING
+──────────────────────────
+  [Systematic screening with findings: cervical spine, shoulders,
+  elbows, wrists/hands, thoracolumbar spine, hips, knees, ankles/feet]
+  Prior injuries: [relevant findings]
+
+VITALS AND BODY COMPOSITION
+────────────────────────────
+  BP: ***  HR: ***  Height: ***  Weight: ***  BMI: ***
+  Vision: [Snellen: R 20/*** L 20/***]
+
+PHYSICAL EXAMINATION
+────────────────────
+  [System-based exam: HEENT, cardiac, pulmonary, abdominal,
+  skin, neurological, musculoskeletal]
+
+CLEARANCE DETERMINATION
+────────────────────────
+  [ ] Cleared for all sports without restriction
+  [ ] Cleared with recommendations: ***
+  [ ] Not cleared pending further evaluation: ***
+  [ ] Not cleared for: *** (reason: ***)
+
+RECOMMENDATIONS
+───────────────
+  [Specific follow-up items, equipment requirements, conditioning
+  recommendations, referrals]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: age, sex, sport, level, medical history, concussion history, medications, menstrual history, family cardiac history, vitals, exam findings, prior injuries.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+19-year-old female college (Division I) soccer player, midfielder, 10 days post-concussion. Non-contact injury: headed the ball during practice, immediately felt "foggy," removed herself from play. No loss of consciousness, no amnesia, no seizure. Initial symptoms: headache 6/10, dizziness, difficulty concentrating, light sensitivity, nausea. Symptom diary over past 10 days: headache resolved day 7, dizziness resolved day 8, currently reports no symptoms at rest. One prior concussion at age 16 (recovered in 14 days). No baseline ImPACT available. SCAT5 today: 0/22 symptoms, 0/132 severity, SAC 28/30 (orientation 5/5, immediate memory 14/15, concentration 4/5, delayed recall 5/5), BESS 4/60 errors. VOMS today: all domains 0/10 for headache, dizziness, nausea, fogginess; NPC 3 cm. No ImPACT baseline available. Completed Buffalo treadmill protocol yesterday: reached 85% age-predicted max HR (170 bpm), ran 20 minutes on treadmill with no symptom provocation. Currently at RTP stage 2 (light aerobic exercise, completed 2 days asymptomatic). Has not attempted sport-specific exercise yet. Physical exam: normal neurological exam, no cervical tenderness, full cervical ROM, gait normal. Vitals: BP 112/68, HR 62, weight 138 lbs, height 5'6". Meds: none. Season starts in 3 weeks.
+
+**LLM output:**
+
+SPORTS MEDICINE CLINIC NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Concussion follow-up and return-to-play evaluation
+Interval since injury: 10 days
+
+ATHLETE PROFILE
+───────────────
+  Sport: soccer
+  Position: midfielder
+  Competition level: college, Division I
+  Season status: pre-season (season starts in 3 weeks)
+  Dominant foot: ***
+  Prior injuries: one prior concussion at age 16, recovered in 14 days
+
+MECHANISM OF INJURY
+───────────────────
+Non-contact mechanism during practice 10 days ago. Athlete headed the ball and immediately felt "foggy." She removed herself from play. No loss of consciousness, no retrograde or anterograde amnesia, no witnessed seizure activity. Initial symptoms included headache (6/10), dizziness, difficulty concentrating, photosensitivity, and nausea.
+
+CONCUSSION ASSESSMENT
+──────────────────────
+  Sport Concussion Assessment Tool (SCAT5) Results
+  ─────────────────────────────────────────────────
+  Date administered: 3/27/26
+  Symptom evaluation:
+    Number of symptoms: 0/22
+    Symptom severity score: 0/132
+    Compared to baseline: no baseline available; compared to normative data: normal
+  Cognitive assessment (SAC):
+    Orientation: 5/5
+    Immediate memory: 14/15
+    Concentration: 4/5
+    Delayed recall: 5/5
+    SAC total: 28/30 (no baseline; normative range 25-30: normal)
+  Balance examination (modified BESS):
+    Total errors: 4/60 (no baseline; normative &lt;10 errors: normal)
+  Coordination: finger-to-nose normal
+
+  Vestibular/Ocular Motor Screening (VOMS) Results
+  ──────────────────────────────────────────────────
+                              Headache  Dizziness  Nausea  Fogginess
+  Smooth pursuits (H):        0/10      0/10       0/10    0/10
+  Smooth pursuits (V):        0/10      0/10       0/10    0/10
+  Saccades (H):               0/10      0/10       0/10    0/10
+  Saccades (V):               0/10      0/10       0/10    0/10
+  Convergence (NPC): 3 cm     0/10      0/10       0/10    0/10
+  VOR (H):                    0/10      0/10       0/10    0/10
+  VOR (V):                    0/10      0/10       0/10    0/10
+  Visual motion sensitivity:  0/10      0/10       0/10    0/10
+  VOMS interpretation: normal. No symptom provocation in any domain. NPC 3 cm (normal &lt;5 cm).
+
+  Immediate Post-Concussion Assessment and Cognitive Testing (ImPACT)
+  ───────────────────────────────────────────────────────────────────
+  No baseline available. ImPACT not performed today given clinical resolution of symptoms and normal SCAT5/VOMS. If any concern arises during RTP progression, ImPACT can be obtained and compared to normative data.
+
+  Buffalo Treadmill Protocol
+  ──────────────────────────
+  Date: 3/26/26
+  Symptom-limited heart rate: 170 bpm (85% age-predicted max heart rate of 201 bpm)
+  Time: 20 minutes on treadmill
+  Symptoms provoked: none
+  Interpretation: passed. Athlete tolerated aerobic exercise at 85% max HR for 20 minutes without symptom provocation. This exceeds the 80% threshold for clearance.
+
+  Return-to-Play (RTP) Protocol Status
+  ──────────────────────────────────────
+  Protocol: Consensus Statement on Concussion in Sport (Berlin 2016)
+  Current stage: 2/6 (light aerobic exercise)
+    Stage 1: Symptom-limited activity — completed
+    Stage 2: Light aerobic exercise — completed (2 days asymptomatic)
+    Stage 3: Sport-specific exercise — not yet started
+    Stage 4: Non-contact training drills — not yet started
+    Stage 5: Full-contact practice — not yet started
+    Stage 6: Return to competition — not yet started
+
+CURRENT MEDICATIONS
+───────────────────
+  None
+
+VITAL SIGNS
+───────────
+  BP: 112/68
+  HR: 62
+  Weight: 138 lbs
+  Height: 5'6" (BMI 22.3)
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: alert, well-appearing, in no acute distress. Cooperative and engaged.
+  Neurological: cranial nerves II-XII intact. Motor strength 5/5 all extremities. Sensation intact to light touch. Coordination normal (finger-to-nose, heel-to-shin). Gait normal, tandem gait normal.
+  Cervical spine: no midline or paraspinal tenderness. Full ROM in flexion, extension, lateral bending, and rotation. Spurling negative bilaterally.
+  Psychiatric: affect appropriate. Mood "good."
+
+ASSESSMENT
+──────────
+19-year-old female Division I college soccer midfielder, 10 days post-concussion (non-contact header mechanism), now symptom-free at rest and with exertion.
+
+  1. Concussion, resolving
+     Symptom-free since day 8 post-injury. SCAT5 fully normal (0/22 symptoms, SAC 28/30, BESS 4/60 errors). VOMS normal in all domains with NPC 3 cm. Buffalo treadmill protocol passed at 85% max HR for 20 minutes without symptom provocation. Clinical and objective assessments consistent with concussion resolution. This is her second lifetime concussion; the first (age 16) resolved in 14 days.
+
+  2. Return-to-play status
+     Completed stage 2 (light aerobic exercise) for 2 days without symptoms. Meets criteria to advance to stage 3 (sport-specific exercise). With the season starting in 3 weeks and minimum 24 hours required at each stage, full clearance (stage 6) is achievable in approximately 5-6 days if progression remains asymptomatic.
+
+PLAN
+────
+  1. Concussion management
+     - Advance to stage 3 of RTP protocol (sport-specific exercise): soccer-specific drills without contact (dribbling, passing, agility, cutting). No heading.
+     - Remain at stage 3 for minimum 24 hours. If asymptomatic, advance to stage 4 (non-contact training drills with team).
+     - Athletic trainer to supervise each stage and confirm symptom-free status before advancement.
+     - If symptoms return at any stage, drop back to the last asymptomatic stage for 24 hours before re-attempting.
+
+  2. Return-to-play protocol progression
+     - Stage 3: sport-specific exercise (starting 3/28/26)
+     - Stage 4: non-contact team practice (earliest 3/29/26)
+     - Stage 5: full-contact practice, requires medical clearance from this office before contact (earliest 3/30/26; athlete must be seen before contact clearance)
+     - Stage 6: return to competition (earliest 3/31/26)
+     - Estimated full clearance: early next week, contingent on symptom-free progression
+
+  3. Contact clearance visit
+     - Return to clinic before stage 5 (full-contact practice) for final evaluation and written medical clearance
+     - At that visit: repeat SCAT5 to confirm continued resolution, confirm no symptoms with sport-specific non-contact drills, provide written clearance to athletic trainer
+
+  4. Prevention and monitoring
+     - Discuss heading technique with athletic trainer and coaching staff
+     - Given second lifetime concussion, counsel athlete on cumulative risk. If a third concussion occurs, recommend neuropsychological evaluation and longer recovery protocol.
+     - No pharmacologic restrictions
+
+  5. Follow-up
+     - Return before stage 5 for contact clearance (approximately 2-3 days)
+     - Earlier return if: any symptom recurrence, headache with exertion, dizziness, difficulty concentrating, or any new neurological symptoms
+
+DISPOSITION
+───────────
+Athlete counseled on graduated return-to-play protocol, the importance of symptom-free progression at each stage, and the requirement for medical clearance before contact. RTP protocol provided in writing to athlete and will be communicated to athletic trainer. Return precautions reviewed.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **No baseline ImPACT does not mean you cannot make a return-to-play decision.** Normative data exists by age and sex. Compare the post-injury scores to published norms. A "return to baseline" requirement without an actual baseline creates an impossible standard and delays clearance unnecessarily.
+- **VOMS abnormalities may persist after symptoms resolve.** An athlete who reports zero symptoms but has a near point of convergence of 12 cm and symptom provocation with VOR testing is not recovered. Test the vestibular-ocular system specifically; do not rely on symptom self-report alone.
+- **The Buffalo treadmill protocol is diagnostic, not therapeutic.** Passing it (reaching 80% of age-predicted max HR without symptom provocation) confirms physiologic recovery. Failing it identifies athletes who need subsymptom-threshold aerobic exercise as treatment for prolonged recovery, not further rest.
+- **Functional testing thresholds for ACL return-to-sport are moving targets.** The commonly cited 90% limb symmetry index on hop testing is a minimum, not a guarantee of readiness. Quad strength symmetry and psychological readiness (ACL-RSI score) are equally important. Document all three.
+- **Pre-participation cardiovascular screening catches structural disease, not all sudden death risk.** The AHA 14-point screen is designed to identify hypertrophic cardiomyopathy (HCM), anomalous coronary arteries, and other structural causes. A normal screen does not exclude channelopathies (long QT, Brugada) or commotio cordis risk. Document what the screen evaluates and what it does not.
+- **RED-S is not limited to female athletes.** Male athletes in weight-class sports, endurance sports, and aesthetic sports (gymnastics, diving) are also at risk for energy deficiency with bone, hormonal, and cardiovascular consequences. Screen any athlete with unexplained stress fractures, declining performance, or weight concerns, regardless of sex.
+- **Document the clearance decision with specificity.** "Cleared for return to play" is not the same as "cleared to advance to stage 3 of a 6-stage RTP protocol." The latter is defensible. The former, if the athlete is re-injured at practice, may not be.
+
+---
+
+## Related
+
+- [PM&R / Rehabilitation Medicine](/templates/clinic-pmr) -- for the injured athlete with a rehabilitation focus
+- [Procedure Note](/templates/procedure-note) -- for documenting joint injections, PRP, or other office procedures
+- [Pre-Operative Medical Clearance](/templates/preop-medical-clearance) -- for athletes being cleared for ACL reconstruction or other surgery
+- [Referral Letter](/templates/referral-letter) -- for orthopedic surgery referrals
+- [Disability / FMLA Letter](/templates/disability-fmla-letter) -- for scholarship-related injury documentation

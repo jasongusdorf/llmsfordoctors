@@ -1,5 +1,3 @@
-import { createHmac, randomBytes } from 'node:crypto';
-
 // --- Types ---
 
 export interface OAuthParams {
@@ -45,15 +43,34 @@ const COLLECTION_URL_PREFIX: Record<string, string> = {
   videos: '/videos/',
 };
 
-// --- OAuth 1.0a ---
+// --- OAuth 1.0a (Web Crypto API for Cloudflare Workers compatibility) ---
 
 function percentEncode(str: string): string {
   return encodeURIComponent(str).replace(/[!'()*]/g, (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`);
 }
 
-export function buildOAuthHeader(params: OAuthParams): string {
+function generateNonce(): string {
+  const bytes = new Uint8Array(16);
+  crypto.getRandomValues(bytes);
+  return Array.from(bytes).map((b) => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function hmacSha1Base64(key: string, data: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const cryptoKey = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(key),
+    { name: 'HMAC', hash: 'SHA-1' },
+    false,
+    ['sign'],
+  );
+  const signature = await crypto.subtle.sign('HMAC', cryptoKey, encoder.encode(data));
+  return btoa(String.fromCharCode(...new Uint8Array(signature)));
+}
+
+export async function buildOAuthHeader(params: OAuthParams): Promise<string> {
   const timestamp = Math.floor(Date.now() / 1000).toString();
-  const nonce = randomBytes(16).toString('hex');
+  const nonce = generateNonce();
 
   const oauthParams: Record<string, string> = {
     oauth_consumer_key: params.apiKey,
@@ -80,10 +97,8 @@ export function buildOAuthHeader(params: OAuthParams): string {
   // Build signing key
   const signingKey = `${percentEncode(params.apiSecret)}&${percentEncode(params.accessSecret)}`;
 
-  // HMAC-SHA1
-  const signature = createHmac('sha1', signingKey)
-    .update(baseString)
-    .digest('base64');
+  // HMAC-SHA1 via Web Crypto API
+  const signature = await hmacSha1Base64(signingKey, baseString);
 
   oauthParams.oauth_signature = signature;
 
@@ -180,7 +195,7 @@ export async function postTweet(
   const url = 'https://api.x.com/2/tweets';
   const body = JSON.stringify({ text });
 
-  const authHeader = buildOAuthHeader({
+  const authHeader = await buildOAuthHeader({
     method: 'POST',
     url,
     body,

@@ -1,0 +1,843 @@
+---
+title: "Radiation Oncology Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, radiation-oncology, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "This template generates structured radiation oncology clinic notes covering breast, lung, prostate, head and neck, brain metastases, and palliative bone RT."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+The patient is on fraction 20 of 33. She lost 4 pounds this week, her mucositis went from grade 1 to grade 2, and the concurrent cisplatin is due tomorrow. Between contouring, plan checks, and the morning tumor board, you have a narrow window to document the weekly on-treatment visit, the toxicity assessment, and the coordination with medical oncology. Paste your visit data into this template, and the LLM produces a structured radiation oncology note that tracks the radiation technique (intensity-modulated radiation therapy (IMRT), volumetric modulated arc therapy (VMAT), stereotactic body radiation therapy (SBRT), stereotactic radiosurgery (SRS), proton therapy), dose and fractionation, fraction number, acute toxicity grading by Common Terminology Criteria for Adverse Events (CTCAE), concurrent chemotherapy status, weight trend, nutritional support, skin and mucositis grading, and treatment break documentation.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+<Callout type="pitfall">
+  Toxicity grading must be precise. A CTCAE grade 2 mucositis (moderate pain, modified diet) has a different management pathway than grade 3 (severe pain, inadequate oral intake). The distinction between grades often determines whether treatment continues, is modified, or requires a break. Use the CTCAE version your institution follows and document the specific criteria met, not just the grade number.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Radiation Oncology Clinic Visit Note">
+You are a radiation oncologist writing a clinic note for a patient undergoing or being evaluated for radiation therapy. The visit may be a new consultation, weekly on-treatment check, post-treatment follow-up, or palliative radiation evaluation. The patient may have one or more of the following: breast cancer, lung cancer, prostate cancer, head and neck (H&N) cancer, brain metastases, or bone metastases requiring palliative radiation. Identify the cancer type and treatment context from the clinical information provided and structure the note accordingly.
+
+### Purpose
+
+Generate a complete, structured radiation oncology clinic note from the clinical data below. The note must capture the radiation treatment plan details, fraction progress, acute toxicity assessment with CTCAE grading, concurrent systemic therapy coordination, nutritional and supportive care status, and a plan addressing toxicity management and treatment modifications.
+
+### Rules
+
+- Write in past tense for history and completed treatments; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use in the note (e.g., "intensity-modulated radiation therapy (IMRT)"), then abbreviation only thereafter.
+- Include specific numbers for all values: dose in Gy, number of fractions, fraction number, weight in lbs or kg, CTCAE grades, lab values.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Grade all acute toxicities using CTCAE v5.0 criteria. Document the specific criteria met for each grade assignment.
+- Organize the Assessment as a numbered problem list with the primary cancer and RT treatment first, then each toxicity as a separate item, then supportive care.
+- Plan items must be specific: medication name, dose, supportive care order, treatment modification with rationale, referral with reason.
+- For H&N cancer: document weight trend (weekly), PEG tube status, mucositis grade, xerostomia grade, dysgeusia, dental status, and speech/swallowing assessment.
+- For breast cancer: document skin reaction grade, arm edema, and cardiac dose if left-sided.
+- For lung cancer: document esophagitis grade, pneumonitis risk, and pulmonary function.
+- For prostate cancer: document GU toxicity (frequency, urgency, dysuria) and GI toxicity (diarrhea, rectal bleeding, tenesmus) grades.
+- Do not infer or fabricate any clinical information not provided. Write "***" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "IMRT" = intensity-modulated radiation therapy
+- "VMAT" = volumetric modulated arc therapy
+- "SBRT" = stereotactic body radiation therapy
+- "SRS" = stereotactic radiosurgery
+- "CTCAE" = Common Terminology Criteria for Adverse Events
+- "PTV" = planning target volume
+- "GTV" = gross tumor volume
+- "CTV" = clinical target volume
+- "OAR" = organ at risk
+- "Gy" = Gray
+- "fx" = fraction(s)
+- "H&N" = head and neck
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+RADIATION ONCOLOGY CLINIC NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[New consultation / Weekly on-treatment / End-of-treatment /
+Post-RT follow-up / Palliative RT evaluation]
+Date: ***
+Treating physician: ***
+
+CANCER DIAGNOSIS
+────────────────
+  Primary: [cancer type, histology, grade]
+  Stage: [TNM staging, AJCC edition]
+  Key molecular/pathologic features: [ER/PR/HER2, PD-L1, EGFR,
+    HPV status, KRAS, Gleason, PSA, etc.]
+  Date of diagnosis: ***
+  Multidisciplinary tumor board: [discussed Y/N, date,
+    recommendations]
+
+TREATMENT SUMMARY
+─────────────────
+  Surgery: [procedure, date, margins, pathologic findings]
+  Systemic therapy:
+    Neoadjuvant: [regimen, dates, response]
+    Concurrent: [regimen, cycle number, last dose date,
+      next dose date]
+    Adjuvant (planned): [regimen]
+  Radiation therapy:
+    Intent: [curative / adjuvant / palliative / definitive]
+    Technique: [IMRT / VMAT / SBRT / SRS / 3D-CRT / proton /
+      electron boost / brachytherapy]
+    Prescription: *** Gy in *** fx to [target]
+    [If boost]: *** Gy in *** fx to [boost target]
+    Fraction schedule: [daily / BID / QOD / hypofractionated]
+    Start date: ***
+    Current fraction: ***/*** (***% complete)
+    Expected completion date: ***
+    Treatment breaks: [none / *** days, reason: ***]
+    Cumulative dose delivered: *** Gy
+
+CONCURRENT CHEMOTHERAPY STATUS (if applicable)
+───────────────────────────────────────────────
+  Regimen: ***
+  Cycle: ***/***
+  Last administration: [date]
+  Next administration: [date]
+  Dose modifications: [none / describe with reason]
+  Chemotherapy-related toxicities: [***]
+  Coordination note: [any holds, delays, or dose reductions
+    communicated to medical oncology]
+
+ACUTE TOXICITY ASSESSMENT (CTCAE v5.0)
+───────────────────────────────────────
+  Skin (if applicable)
+  ─────────────────────
+  Grade: ***/4
+  [1: faint erythema or dry desquamation]
+  [2: moderate erythema; patchy moist desquamation, mostly in
+    skin folds; moderate edema]
+  [3: moist desquamation in areas other than skin folds;
+    bleeding with minor trauma]
+  Description: [location, appearance, area affected]
+  Treatment: [aquaphor, silver sulfadiazine, mepitel,
+    wound care referral]
+
+  Mucositis (H&N, if applicable)
+  ───────────────────────────────
+  Grade: ***/4
+  [1: painless ulcers, erythema, mild soreness]
+  [2: painful erythema, edema, or ulcers; can eat modified diet]
+  [3: severe pain; unable to adequately eat or hydrate orally]
+  Location: [oral cavity / oropharynx / hypopharynx / larynx]
+  Treatment: [salt/soda rinses, magic mouthwash, opioid
+    analgesics, PEG tube use]
+
+  Dysphagia (H&N, if applicable)
+  ───────────────────────────────
+  Grade: ***/4
+  Current diet: [regular / soft / liquid / NPO with PEG]
+  PEG tube: [not placed / placed (date) / in use (*** kcal/day
+    via tube) / not yet needed]
+  Speech-language pathology: [swallow evaluation date, findings,
+    recommendations]
+
+  Esophagitis (thoracic, if applicable)
+  ──────────────────────────────────────
+  Grade: ***/4
+  Symptoms: [dysphagia, odynophagia, heartburn]
+  Treatment: [PPI, viscous lidocaine, diet modification]
+
+  Dermatitis (breast, if applicable)
+  ───────────────────────────────────
+  Grade: ***/4
+  Location: [breast, axilla, inframammary fold, boost field]
+  Treatment: [moisturizer, topical steroid, silver sulfadiazine]
+
+  GU Toxicity (prostate/pelvic, if applicable)
+  ─────────────────────────────────────────────
+  Frequency: grade ***/3
+  Urgency: grade ***/3
+  Dysuria: grade ***/3
+  Hematuria: [Y/N, grade]
+  Nocturia: *** episodes/night
+  IPSS score: ***/35 (baseline: ***/35)
+  Treatment: [tamsulosin, phenazopyridine, anticholinergic]
+
+  GI Toxicity (prostate/pelvic, if applicable)
+  ─────────────────────────────────────────────
+  Diarrhea: grade ***/4
+  Proctitis: grade ***/3
+  Rectal bleeding: [Y/N, grade]
+  Treatment: [loperamide, hydrocortisone suppository, diet]
+
+  Fatigue: grade ***/3
+  Nausea: grade ***/3
+  Other toxicities: [list with CTCAE grade]
+
+NUTRITIONAL STATUS (especially H&N)
+────────────────────────────────────
+  Current weight: *** lbs/kg
+  Weight at start of RT: *** lbs/kg
+  Weight change: [+/-] *** lbs/kg (***%)
+  BMI: ***
+  Caloric intake: [adequate / inadequate; estimated *** kcal/day]
+  PEG tube: [status as above]
+  Nutritional supplements: [type, frequency]
+  Dietitian: [involved Y/N; last assessment date]
+  Weight loss threshold for intervention: [>5% triggers dietitian
+    referral and PEG discussion if not already placed]
+
+PAIN ASSESSMENT
+───────────────
+  Location: ***
+  Severity: ***/10 (prior: ***/10)
+  Type: [mucositis / tumor / musculoskeletal / neuropathic]
+  Current analgesics: [drug, dose, frequency, adequacy]
+  Breakthrough medications: [drug, dose, frequency used]
+
+CURRENT MEDICATIONS
+───────────────────
+  [Drug, dose, frequency] — indication
+  [Continue for all]
+  Supportive medications: [antiemetics, analgesics, skin care,
+    mouth care, bowel regimen, etc.]
+
+VITAL SIGNS
+───────────
+  BP: ***
+  HR: ***
+  Weight: *** (trend: ***)
+  Temperature: ***
+  SpO2: ***
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: [appearance, performance status (ECOG/KPS)]
+  ECOG Performance Status: ***/4
+  Head/neck (if H&N): [oral cavity, oropharynx inspection,
+    mucositis, trismus, neck nodes, skin]
+  Chest (if thoracic/breast): [radiation field skin, lungs,
+    chest wall]
+  Abdomen/pelvis (if pelvic): [distension, tenderness, rectal
+    if indicated]
+  Neurological (if brain): [mental status, cranial nerves,
+    motor, coordination]
+  Skin: [radiation field assessment, photo documentation Y/N]
+
+LABS (if obtained)
+──────────────────
+  CBC: WBC ***, ANC ***, Hgb ***, Plt ***
+  BMP: [if applicable]
+  Other: [tumor markers, PSA, etc.]
+
+IMAGING (if applicable)
+───────────────────────
+  [Type, date, findings relevant to treatment response or
+  toxicity assessment]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [cancer diagnosis and stage]
+undergoing [RT technique] [intent], fraction ***/*** (***%
+complete). [One-sentence treatment tolerance summary.]
+
+  1. [Cancer and radiation treatment status]
+     [Fraction progress, treatment tolerance, expected completion,
+     any breaks or modifications.]
+
+  2. [Primary toxicity]
+     [CTCAE grade, trajectory (new / stable / worsening / improving),
+     current management adequacy.]
+
+  3. [Secondary toxicity]
+     [Grade, management.]
+
+  4. [Nutritional status, if applicable]
+     [Weight trend, adequacy of intake, PEG status.]
+
+  5. [Concurrent systemic therapy, if applicable]
+     [Coordination issues, holds, dose modifications.]
+
+  6. [Pain management]
+     [Adequacy, changes needed.]
+
+PLAN
+────
+  1. Radiation therapy
+     - [Continue current plan / modify: dose adjustment, break,
+       field change, with rationale]
+     - Expected completion: [date]
+     - Next on-treatment check: [date]
+
+  2. [Toxicity 1]
+     - [Specific management: medication with dose, wound care,
+       dietary modification]
+     - [Threshold for treatment modification: "If grade progresses
+       to ***, will *** "]
+
+  3. [Toxicity 2]
+     - [Management]
+
+  4. Nutritional support
+     - [Dietitian follow-up, supplement orders, PEG feeds
+       adjustment, weight check frequency]
+
+  5. Concurrent systemic therapy
+     - [Coordination with medical oncology: proceed / hold /
+       dose reduce with rationale]
+
+  6. Pain management
+     - [Medication adjustment: drug, dose, frequency]
+
+  7. Supportive care
+     - [Mouth care protocol, skin care, antiemetics, etc.]
+
+  8. Follow-up
+     - [Weekly on-treatment check / end-of-treatment visit /
+       post-RT follow-up in *** weeks]
+     - [Imaging: post-treatment scan type and timing]
+     - [Late effects to monitor and when]
+
+DISPOSITION
+───────────
+[Patient counseled on current toxicities, management plan,
+and expected timeline. Treatment continues / modified / on break.
+Return precautions reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: cancer diagnosis and stage, RT plan (technique, dose, fractions), current fraction number, concurrent systemic therapy, toxicity assessment, weight and nutritional data, pain, medications, vitals, exam findings, and any imaging or labs.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Initial consultation | Add: "This is a new radiation oncology consultation. Structure the note as a full evaluation with history, staging workup review, treatment options discussed (including non-RT alternatives), treatment recommendation with rationale, and informed consent documentation including risks, benefits, and alternatives." |
+| Reirradiation | Add: "This patient has been previously irradiated. Document prior RT details (date, site, dose, technique), cumulative dose to overlapping structures, and the rationale for reirradiation including risk-benefit discussion and OAR dose constraints." |
+| Brachytherapy | Add: "This patient is receiving brachytherapy. Document the technique (HDR/LDR), applicator type, implant geometry, dose rate, dose per fraction, number of fractions, image guidance, and coordination with the physics plan." |
+| Pediatric radiation | Add: "This is a pediatric patient. Include developmental considerations, sedation/anesthesia requirements, growth and neurocognitive late effects risk, fertility preservation discussion, and coordination with pediatric oncology." |
+| Proton therapy | Add: "This patient is receiving proton therapy. Document the clinical rationale for proton vs. photon therapy, the dosimetric advantage for OAR sparing, insurance authorization status, and any logistical considerations (travel, treatment center)." |
+
+---
+
+## Variations
+
+### Weekly on-treatment visit
+
+Use this for the weekly check during an active radiation course. The note is shorter and focused on toxicity surveillance, weight tracking, and treatment continuity. This is the bread-and-butter radiation oncology note: brief, systematic, and oriented toward catching problems before they become treatment-limiting.
+
+<PromptPlayground tool="Claude" title="Weekly On-Treatment Visit">
+You are a radiation oncologist writing a weekly on-treatment check note for a patient actively receiving radiation therapy.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document fraction progress (current/total) and cumulative dose.
+- Grade all toxicities using CTCAE v5.0 with trajectory (new, stable, improving, worsening) compared to last week.
+- Document weight with change from baseline and from last week.
+- For H&N patients, document mucositis grade, dietary intake status, and PEG use.
+- Include concurrent chemotherapy status and any coordination needed.
+- Plan must address each active toxicity and state the threshold for treatment modification.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Output format
+
+```
+WEEKLY ON-TREATMENT CHECK
+══════════════════════════════════════════
+
+DATE: ***
+TREATMENT WEEK: ***/***
+FRACTION: ***/*** (*** Gy of *** Gy delivered)
+TREATMENT BREAKS: [none / *** days, reason]
+
+INTERVAL SUMMARY
+────────────────
+[2-3 sentence narrative: new symptoms, symptom changes,
+functional status, ED visits, hospitalizations since last week.]
+
+TOXICITY DASHBOARD
+──────────────────
+                        Grade   Last Week   Trajectory
+  Skin/dermatitis:      ***/4   ***/4       [new/stable/worse/better]
+  Mucositis:            ***/4   ***/4       [new/stable/worse/better]
+  Dysphagia:            ***/4   ***/4       [new/stable/worse/better]
+  Esophagitis:          ***/4   ***/4       [new/stable/worse/better]
+  GU (frequency):       ***/3   ***/3       [new/stable/worse/better]
+  GI (diarrhea):        ***/4   ***/4       [new/stable/worse/better]
+  Fatigue:              ***/3   ***/3       [new/stable/worse/better]
+  Nausea:               ***/3   ***/3       [new/stable/worse/better]
+  Pain:                 ***/10  ***/10      [new/stable/worse/better]
+  Other:                ***     ***         ***
+
+WEIGHT
+──────
+  Today: *** lbs/kg
+  Baseline: *** lbs/kg
+  Change from baseline: [+/-] *** lbs/kg (***%)
+  Change from last week: [+/-] *** lbs/kg
+  Action: [none / dietitian / PEG / supplements / IV fluids]
+
+CONCURRENT CHEMOTHERAPY
+───────────────────────
+  Last dose: [date, agent]
+  Next dose: [date, agent]
+  Labs: ANC ***, Plt ***, Cr ***
+  Status: [on schedule / held: reason / dose reduced: reason]
+
+BRIEF EXAM
+──────────
+  ECOG PS: ***
+  [Treatment field examination: skin, mucosal, or relevant findings]
+
+PLAN
+────
+  1. RT: continue current plan, fraction ***/***
+  2. [Toxicity 1]: [management]
+  3. [Toxicity 2]: [management]
+  4. Nutrition: [plan]
+  5. Concurrent chemo: [proceed / hold / communicate with med onc]
+  6. Next on-treatment check: [date]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: fraction number, toxicities with grades, weight, diet, concurrent chemo status, labs, exam findings, interval symptoms.]
+</PromptPlayground>
+
+### Post-RT surveillance
+
+Use this for the follow-up visit after radiation therapy is complete. The note shifts from acute toxicity management to late effects surveillance, treatment response assessment, and cancer surveillance imaging.
+
+<PromptPlayground tool="Claude" title="Post-RT Surveillance Visit">
+You are a radiation oncologist writing a post-treatment surveillance note for a patient who has completed radiation therapy.
+
+### Rules
+
+- Write in past tense for history and completed treatment; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Summarize the completed RT course: technique, total dose, fractions, dates, breaks, concurrent therapy.
+- Document resolution or persistence of acute toxicities with current CTCAE grades.
+- Screen for late effects based on treatment site: radiation pneumonitis (lung), cardiac toxicity (left breast, mediastinal), hypothyroidism (H&N), xerostomia (H&N), fibrosis, lymphedema, neurocognitive effects (brain), secondary malignancy risk.
+- Document treatment response: clinical exam findings, imaging results (PET/CT, MRI), tumor markers.
+- Include cancer surveillance schedule appropriate to the diagnosis and stage.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Output format
+
+```
+POST-RT SURVEILLANCE VISIT
+══════════════════════════════════════════
+
+PATIENT SUMMARY
+───────────────
+[Age]-year-old [male/female] with [cancer, stage] s/p [RT details:
+technique, dose/fx, dates]. Concurrent: [systemic therapy if applicable].
+Time since RT completion: ***.
+
+COMPLETED TREATMENT SUMMARY
+────────────────────────────
+  RT: [technique] *** Gy in *** fx, [start date] to [end date]
+  Treatment breaks: [none / details]
+  Concurrent: [agent, cycles completed]
+  Adjuvant: [ongoing systemic therapy if applicable]
+
+ACUTE TOXICITY RESOLUTION
+──────────────────────────
+                        Peak Grade   Current Grade   Status
+  [Toxicity 1]:         ***/4        ***/4           [resolved/improving/persistent]
+  [Toxicity 2]:         ***/4        ***/4           [resolved/improving/persistent]
+  [Toxicity 3]:         ***/4        ***/4           [resolved/improving/persistent]
+
+LATE EFFECTS SCREENING
+──────────────────────
+  [Site-specific screening items with findings]
+  [H&N]: Xerostomia: [grade]. Dental: [status]. Hypothyroidism:
+    TSH *** (date). Fibrosis: [grade]. Osteoradionecrosis: [Y/N].
+    Trismus: [Y/N, max opening *** mm].
+  [Breast]: Fibrosis: [grade]. Lymphedema: [Y/N, measurement].
+    Cardiac: [echo if left-sided, date, EF]. Rib fracture: [Y/N].
+  [Lung]: Pneumonitis: [Y/N, grade, imaging]. PFTs: [date, values].
+  [Prostate]: GU late effects: [IPSS ***]. GI late effects: [grade].
+    Erectile function: [status].
+  [Brain]: Neurocognitive: [subjective report, formal testing if done].
+    Radionecrosis: [imaging findings].
+
+TREATMENT RESPONSE
+──────────────────
+  Clinical: [exam findings suggesting response/progression]
+  Imaging: [type, date, findings, RECIST/RANO/PERCIST if applicable]
+  Tumor markers: [type, value, trend]
+  Response category: [complete response / partial response / stable
+    disease / progressive disease / too early to assess]
+
+CURRENT SYMPTOMS
+────────────────
+  Pain: ***/10
+  Fatigue: grade ***/3
+  Weight: *** (change from end-of-treatment: ***)
+  Functional status: ECOG ***
+
+PHYSICAL EXAMINATION
+────────────────────
+  [Focused exam of treated region and relevant nodes]
+
+SURVEILLANCE SCHEDULE
+─────────────────────
+  Next imaging: [type, date]
+  Lab monitoring: [what, when]
+  Follow-up intervals: [frequency by year]
+
+ASSESSMENT AND PLAN
+───────────────────
+[Problem-oriented assessment addressing treatment response,
+residual/late toxicities, ongoing systemic therapy, and
+surveillance plan with specific imaging and lab schedule.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: completed RT details, time since completion, current symptoms, toxicity resolution, imaging results, exam findings, current medications, labs.]
+</PromptPlayground>
+
+### Palliative RT consultation
+
+Use this for the patient referred for radiation to palliate symptoms from metastatic disease: bone pain, brain metastases causing neurological symptoms, tumor-related bleeding, airway obstruction, or spinal cord compression. The note balances symptom relief goals with treatment burden and prognosis.
+
+<PromptPlayground tool="Claude" title="Palliative Radiation Therapy Consultation">
+You are a radiation oncologist evaluating a patient for palliative radiation therapy. Structure the note around symptom burden, goals of care, and a treatment recommendation that balances efficacy with treatment burden.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the specific symptom(s) radiation is intended to palliate.
+- Include prognosis discussion, performance status, and goals of care.
+- For bone metastases: document pain score, fracture risk (Mirels score if applicable), prior palliative RT to the same site, and fractionation options (single fraction 8 Gy vs. multi-fraction).
+- For brain metastases: document number and size, symptom burden, prior whole brain RT or SRS, and treatment options (WBRT vs. SRS vs. observation).
+- For spinal cord compression: document neurological deficit, time course, steroid use, and urgency.
+- Treatment recommendation must include fractionation schedule, expected onset and duration of palliation, and expected side effects.
+- Address concurrent systemic therapy and coordination with medical oncology.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Output format
+
+```
+PALLIATIVE RADIATION THERAPY CONSULTATION
+══════════════════════════════════════════
+
+PATIENT SUMMARY
+───────────────
+[Age]-year-old [male/female] with [primary cancer, stage, key features]
+referred for palliative RT for [symptom/indication].
+
+ONCOLOGIC HISTORY
+─────────────────
+  Primary: [diagnosis, date, stage]
+  Metastatic sites: [list with dates of identification]
+  Prior systemic therapy: [regimens with dates and response]
+  Prior radiation: [sites, doses, dates]
+  Current systemic therapy: [regimen, status]
+
+SYMPTOM ASSESSMENT
+──────────────────
+  Target symptom(s): [pain, neurological deficit, bleeding,
+    obstruction, other]
+  Pain: ***/10 (location, character, duration, analgesic use)
+  Neurological: [deficits if brain or spine involvement]
+  Functional impact: [mobility, ADLs, sleep, quality of life]
+
+PERFORMANCE STATUS AND PROGNOSIS
+─────────────────────────────────
+  ECOG PS: ***/4
+  KPS: ***/100
+  Estimated prognosis: [weeks / months / years]
+  Prognostic factors: [disease burden, PS, albumin, comorbidities]
+
+GOALS OF CARE
+─────────────
+  [Discussed with patient/family: symptom relief, functional
+  preservation, quality of life. Code status if relevant.
+  Patient's priorities and preferences.]
+
+TREATMENT RECOMMENDATION
+─────────────────────────
+  Indication: [specific symptom to palliate]
+  Technique: ***
+  Dose/fractionation: *** Gy in *** fx
+  Rationale for fractionation: [single fraction for convenience
+    and equivalent palliation / multi-fraction for durability /
+    SBRT for oligometastatic or re-treatment]
+  Expected onset of relief: ***
+  Expected duration of relief: ***
+  Expected side effects: [specific to site]
+  Alternatives discussed: [other fractionation schemes,
+    observation, systemic therapy alone]
+
+TREATMENT LOGISTICS
+───────────────────
+  Simulation: [date]
+  Start date: [estimated]
+  Transportation: [ambulatory / stretcher / inpatient]
+  Concurrent medications: [dexamethasone dose if brain/cord,
+    analgesics]
+
+ASSESSMENT AND PLAN
+───────────────────
+[Problem-oriented assessment with palliative RT recommendation,
+prognosis-informed treatment intensity, and coordination with
+the oncology and palliative care teams.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: cancer diagnosis, metastatic sites, symptom details, performance status, prognosis, goals of care, prior treatments, imaging, current medications.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+58-year-old male with locally advanced squamous cell carcinoma (SCC) of the oropharynx (left tonsil), stage IVA (T3N2bM0), HPV-positive (p16+). Treated with definitive IMRT 70 Gy in 35 fx to primary and involved nodes, 56 Gy in 35 fx to elective nodal volumes, concurrent cisplatin 100 mg/m2 q3 weeks (cycle 2 of 3 completed last week). Currently on fraction 20/35 (week 4). Weight: 182 lbs today, was 196 lbs at start of RT, was 185 lbs last week. PEG tube placed pre-treatment, currently supplementing 500 kcal/day via tube, eating soft diet orally. Mucositis: confluent erythema and patchy pseudomembranes oral cavity and oropharynx, painful, taking soft foods but with difficulty, using opioids for meals. Skin: moderate erythema bilateral neck in treatment field, no moist desquamation. Dysgeusia present. Xerostomia present, moderate. Fatigue moderate, ECOG 2 (was 1 at start). Pain 6/10 throat (was 3/10 last week). Meds: fentanyl patch 25 mcg/hr, oxycodone 5 mg q4h PRN, magic mouthwash, ondansetron 8 mg q8h PRN, dexamethasone 4 mg BID, pantoprazole 40 mg daily, salt/soda rinses. Labs: WBC 3.2, ANC 1.8, Hgb 11.4, Plt 178, Cr 1.1. Vitals: BP 128/76, HR 82, temp 98.8, SpO2 97%.
+
+**LLM output:**
+
+RADIATION ONCOLOGY CLINIC NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Weekly on-treatment check
+Date: 3/27/26
+
+CANCER DIAGNOSIS
+────────────────
+  Primary: squamous cell carcinoma (SCC) of the oropharynx, left tonsil
+  Stage: IVA (T3N2bM0, AJCC 8th edition)
+  Key features: human papillomavirus (HPV)-positive (p16+)
+  Date of diagnosis: ***
+  Multidisciplinary tumor board: ***
+
+TREATMENT SUMMARY
+─────────────────
+  Surgery: none; definitive chemoradiation
+  Concurrent systemic therapy: cisplatin 100 mg/m2 every 3 weeks; cycle 2 of 3 completed last week; cycle 3 due week 7
+  Radiation therapy:
+    Intent: definitive, curative
+    Technique: intensity-modulated radiation therapy (IMRT)
+    Prescription: 70 Gy in 35 fx to gross tumor volume (GTV) primary and involved nodes; 56 Gy in 35 fx to elective nodal clinical target volume (CTV)
+    Start date: ***
+    Current fraction: 20/35 (57% complete)
+    Cumulative dose delivered: 40 Gy to GTV, 32 Gy to elective volumes
+    Expected completion date: ***
+    Treatment breaks: none
+
+CONCURRENT CHEMOTHERAPY STATUS
+──────────────────────────────
+  Regimen: cisplatin 100 mg/m2 q3 weeks
+  Cycle: 2/3
+  Last administration: last week
+  Next administration: week 7
+  Labs: WBC 3.2, ANC 1.8 (mild neutropenia but above threshold for cisplatin), Hgb 11.4, Plt 178, Cr 1.1
+  Status: on schedule; no dose modifications to date. Will reassess ANC and Cr before cycle 3.
+
+ACUTE TOXICITY ASSESSMENT (Common Terminology Criteria for Adverse Events (CTCAE) v5.0)
+──────────────────────────────────────────────────────────────────────────────────────────
+
+  Mucositis
+  ─────────
+  Grade: 2/4 (painful erythema, edema, or ulcers; can eat modified diet)
+  Trajectory: worsening (was grade 1 last week)
+  Description: confluent erythema with patchy pseudomembranes involving oral cavity and oropharynx bilaterally. Patient is eating soft foods with significant pain; requires opioid analgesia before meals.
+  Treatment: magic mouthwash before meals, salt/soda rinses 6x daily, fentanyl patch 25 mcg/hr, oxycodone 5 mg q4h PRN
+
+  Dysphagia
+  ─────────
+  Grade: 2/4 (symptomatic, altered eating/swallowing)
+  Current diet: soft foods orally with PEG supplementation
+  PEG tube: placed pre-treatment; currently providing 500 kcal/day supplementation
+  Oral intake estimate: approximately 1000 kcal/day (declining from last week)
+
+  Skin/Dermatitis
+  ────────────────
+  Grade: 1/4 (faint erythema or dry desquamation)
+  Location: bilateral neck within treatment field
+  Description: moderate erythema, no moist desquamation, no tenderness
+  Treatment: aquaphor to treatment field after daily treatment; no topical steroids at this time
+
+  Xerostomia
+  ──────────
+  Grade: 2/3 (moderate dry mouth; stimulated salivary flow &gt;0.1 to ≤0.2 mL/min)
+  Treatment: frequent sips of water, artificial saliva
+
+  Dysgeusia
+  ─────────
+  Grade: 2/3 (significant altered taste; food aversion)
+
+  Fatigue
+  ───────
+  Grade: 2/3 (moderate fatigue; limiting instrumental ADLs)
+  ECOG performance status: 2 (was 1 at start of treatment)
+
+NUTRITIONAL STATUS
+──────────────────
+  Current weight: 182 lbs
+  Weight at start of RT: 196 lbs
+  Weight last week: 185 lbs
+  Weight change from baseline: -14 lbs (7.1% loss)
+  Weight change from last week: -3 lbs
+  PEG tube: in use, 500 kcal/day supplementation
+  Oral intake: soft diet, approximately 1000 kcal/day, declining
+  Total estimated daily intake: 1500 kcal/day (inadequate for a 182-lb male on active treatment)
+  Dietitian: involved; last assessment 3/20/26
+
+  Weight loss of 7.1% over 4 weeks exceeds the 5% threshold. Caloric supplementation via PEG must increase.
+
+PAIN ASSESSMENT
+───────────────
+  Location: throat, bilateral, worse with swallowing
+  Severity: 6/10 (was 3/10 last week; worsening in parallel with mucositis)
+  Type: mucositis-related
+  Current analgesics: fentanyl patch 25 mcg/hr (continuous), oxycodone 5 mg q4h PRN (using approximately 4 doses daily)
+  Current daily opioid use: fentanyl 25 mcg/hr (~60 mg morphine equivalent daily dose (MEDD)) + oxycodone 20 mg/day (~30 mg MEDD) = approximately 90 mg MEDD
+  Adequacy: inadequate; pain worsening, breakthrough use increasing
+
+CURRENT MEDICATIONS
+───────────────────
+  Fentanyl patch 25 mcg/hr q72h — mucositis pain
+  Oxycodone 5 mg q4h PRN — breakthrough pain
+  Magic mouthwash (diphenhydramine/lidocaine/antacid) — mucositis
+  Ondansetron 8 mg q8h PRN — nausea
+  Dexamethasone 4 mg BID — edema, appetite, nausea
+  Pantoprazole 40 mg daily — gastric protection
+  Salt/soda rinses — oral care
+
+VITAL SIGNS
+───────────
+  BP: 128/76
+  HR: 82
+  Weight: 182 lbs
+  Temperature: 98.8°F
+  SpO2: 97%
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: thin male, appears fatigued, in no acute distress. ECOG 2.
+  Head and neck: bilateral neck erythema in radiation field, no moist desquamation. Oral cavity: confluent mucosal erythema with patchy white pseudomembranes along buccal mucosa and lateral tongue. Oropharynx: erythema and pseudomembranes at left tonsillar fossa and soft palate. No frank ulceration. No visible tumor mass (reduced from baseline). Left level II and III lymphadenopathy palpably smaller than at simulation.
+  Neck: no trismus (opening 35 mm).
+  Lungs: clear bilaterally.
+
+LABS
+────
+  CBC: WBC 3.2, ANC 1.8, Hgb 11.4, Plt 178
+  Cr: 1.1
+
+ASSESSMENT
+──────────
+58-year-old male with locally advanced HPV-positive oropharyngeal SCC (T3N2bM0) undergoing definitive IMRT with concurrent cisplatin, fraction 20/35. Treatment week 4 with expected acceleration of acute toxicities.
+
+  1. Oropharyngeal SCC, on definitive chemoradiation
+     Treatment on schedule, no breaks. Clinical exam suggests tumor response (decreasing palpable adenopathy). At 57% of treatment, toxicities are expected to escalate through the remaining 3 weeks.
+
+  2. Mucositis, CTCAE grade 2, worsening
+     Progressed from grade 1 to grade 2 this week. Confluent pseudomembranes. Patient still eating soft foods but with increasing difficulty and pain. Grade 3 (inability to adequately eat or hydrate) is likely within the next 1-2 weeks.
+
+  3. Weight loss, 7.1% from baseline
+     Three-pound loss this week despite PEG supplementation. Current total intake approximately 1500 kcal/day, insufficient. PEG supplementation must increase to compensate for declining oral intake.
+
+  4. Pain, worsening
+     From 3/10 to 6/10 in one week. Current MEDD approximately 90 mg with inadequate control. Fentanyl patch increase indicated.
+
+  5. Concurrent cisplatin
+     ANC 1.8, marginal but acceptable. Cr 1.1, stable. Cycle 3 due in week 7; will reassess labs and audiology before administration.
+
+  6. Fatigue, grade 2
+     ECOG declined from 1 to 2. Expected trajectory. Activity counseling provided.
+
+PLAN
+────
+  1. Radiation therapy
+     - Continue IMRT, fraction 21/35 tomorrow
+     - No treatment breaks indicated at this time
+     - Anticipate increasing toxicity through end of treatment
+
+  2. Mucositis
+     - Continue magic mouthwash before meals and salt/soda rinses 6x daily
+     - Add caphosol (supersaturated calcium phosphate rinse) 4x daily
+     - Oral nystatin swish-and-spit 4x daily (prophylactic, given pseudomembranes)
+     - If mucositis progresses to grade 3 (unable to eat or hydrate adequately), transition to full PEG nutrition and reassess need for IV hydration
+
+  3. Nutritional support
+     - Increase PEG supplementation to 1000 kcal/day (from 500 kcal/day)
+     - Dietitian follow-up this week; target total intake ≥2000 kcal/day
+     - Daily weight checks at home; report if &gt;2 lbs lost in any week
+     - Continue dexamethasone 4 mg BID for appetite stimulation
+
+  4. Pain management
+     - Increase fentanyl patch from 25 mcg/hr to 37 mcg/hr q72h
+     - Continue oxycodone 5 mg q4h PRN; increase to 10 mg q4h PRN if breakthrough frequency exceeds 4 doses daily
+     - Constipation prophylaxis: add docusate 100 mg BID and senna 8.6 mg QHS
+
+  5. Concurrent cisplatin
+     - Cycle 3 due week 7; obtain CBC, BMP, Mg, audiology before cycle 3
+     - Communicate weight loss and mucositis status to medical oncology
+     - If ANC drops below 1.5 or Cr rises above 1.5, cisplatin cycle 3 will be held; communicate with med onc team
+
+  6. Supportive care
+     - Continue ondansetron 8 mg q8h PRN and pantoprazole 40 mg daily
+     - Oral hygiene reinforcement: soft toothbrush, avoid alcohol-based mouthwash
+     - Skin care: continue aquaphor; if moist desquamation develops, switch to silver sulfadiazine
+
+  7. Follow-up
+     - Weekly on-treatment check in 1 week (fraction 25/35)
+     - Post-treatment PET/CT at 12 weeks after RT completion per NCCN guidelines
+     - TSH at 3 months post-RT and every 6 months thereafter (hypothyroidism surveillance)
+
+DISPOSITION
+───────────
+Patient counseled on expected mucositis progression, increased PEG use, and fentanyl patch adjustment. He understands the importance of maintaining caloric intake via tube. Treatment continues without modification. Return precautions reviewed: fever, inability to swallow liquids, severe dehydration symptoms warrant same-day evaluation.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **CTCAE grading must be precise, not estimated.** Grade 2 mucositis means painful but still eating a modified diet. Grade 3 means inadequate oral intake. The difference between these two grades often determines whether the patient stays on treatment, gets a PEG tube, or gets admitted. Use the CTCAE v5.0 definitions, not your gestalt.
+- **Weight loss in H&N patients is predictive.** More than 5% weight loss during treatment correlates with worse outcomes, treatment breaks, and hospitalization. Document the weight at each visit, the cumulative percentage loss, and the weekly rate of change. A patient losing 3 lbs per week will not finish 7 weeks of treatment without nutritional intervention.
+- **Treatment breaks have consequences.** Every missed fraction during a definitive course for a rapidly proliferating tumor (especially H&N SCC) can reduce local control. Document the reason for any break, the number of fractions missed, and whether the treatment plan will be modified to compensate (e.g., accelerated fractionation or weekend treatments).
+- **The model may confuse dose per fraction with total dose.** Verify that the dose-fractionation scheme matches standard regimens for the diagnosis. Common errors: prescribing SBRT doses in conventional fractionation schedules, or writing "70 Gy per fraction" when it should be "2 Gy per fraction to 70 Gy total." Always check the math.
+- **Late effects surveillance has specific timelines by site.** Hypothyroidism screening (TSH every 6-12 months post-H&N RT), cardiac monitoring (echo for left breast or mediastinal fields), pulmonary function testing (for lung RT), and neurocognitive assessment (for brain RT) all have evidence-based schedules. Document the surveillance plan with specific tests and timing, not just "monitor for late effects."
+- **Concurrent chemotherapy coordination requires explicit communication.** If the radiation oncologist identifies a toxicity that should delay chemotherapy, document the recommendation and the communication to medical oncology. "Will communicate with med onc" is insufficient; document the specific recommendation ("recommend holding cisplatin cycle 3 given ANC 1.2; discussed with Dr. [de-identified] on [date]").
+
+---
+
+## Related
+
+- [Goals of Care](/templates/goals-of-care) -- for palliative radiation patients needing goals-of-care documentation
+- [Transfer Summary](/templates/transfer-summary) -- for patients transferring between oncology teams
+- [Procedure Note](/templates/procedure-note) -- for documenting brachytherapy procedures
+- [Consult Note](/templates/consult-note) -- for the initial radiation oncology consultation format
+- [Letter of Medical Necessity](/templates/medical-necessity-letter) -- for proton therapy or other specialized RT authorizations

@@ -1,0 +1,859 @@
+---
+title: "OB/GYN Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, obgyn, outpatient, womens-health]
+lastUpdated: 2026-03-27
+socialPost: "Generates structured OB/GYN outpatient notes covering prenatal care, abnormal uterine bleeding workup, menopause/HRT management, contraception counseling, and cervical cancer screening."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Your next patient is a 32-week prenatal visit, the one after that is a menopause consult, and the one after that is abnormal bleeding. Each requires a different note structure with different data fields, and a generic SOAP note captures none of it well. This template produces a structured OB/GYN clinic note organized around the visit type: prenatal care, abnormal uterine bleeding, menopause management, contraception, or cervical cancer screening follow-up. It pulls gestational age, GTPAL, prenatal lab tracking, fetal heart rate, fundal height, Pap history, and menopause symptom scoring without you having to build the framework from scratch every time.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="OB/GYN Clinic Visit Note">
+You are an OB/GYN physician writing an outpatient clinic visit note. The patient's visit type is one of: prenatal care, abnormal uterine bleeding evaluation, menopause/HRT management, contraception counseling, or cervical cancer screening follow-up. Identify the visit type from the clinical information provided and structure the note accordingly.
+
+### Purpose
+
+Generate a complete, structured outpatient OB/GYN clinic note from the clinical data below. The note must capture visit-type-specific data: obstetric parameters for prenatal visits, bleeding pattern and workup for AUB, symptom scores and risk assessment for menopause, and screening history for cervical concerns. The plan must be specific and actionable.
+
+### Rules
+
+- Write in past tense for history and interval events; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use in the note (e.g., "estimated gestational age (EGA) 28 weeks"), then abbreviation only thereafter.
+- Include specific numbers for all values: gestational age, lab results, vitals, medication doses, imaging measurements.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- For prenatal visits: calculate and document EGA, document fetal heart rate, fundal height, fetal movement, weight gain from prepregnancy weight, and blood pressure trend. Track prenatal labs and screening status.
+- For AUB: document bleeding pattern, hemoglobin/ferritin trend, endometrial thickness, biopsy results if obtained, and current treatment.
+- For menopause: document vasomotor symptom frequency and severity, urogenital symptoms, mood and sleep, DEXA results, and HRT regimen with contraindications assessment.
+- Pelvic exam findings must be documented systematically: external, speculum (cervix, discharge), bimanual (uterine size and shape, adnexal assessment, tenderness).
+- Plan items must be specific: medication name, dose, route, duration; test to order; referral with reason; follow-up interval with rationale.
+- Do not infer or fabricate any clinical information not provided. Write "[Not provided; verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "EGA" = estimated gestational age
+- "EDD" = estimated date of delivery
+- "GTPAL" = gravida, term, preterm, abortions, living
+- "FHR" = fetal heart rate
+- "AUB" = abnormal uterine bleeding
+- "PALM-COEIN" = polyp, adenomyosis, leiomyoma, malignancy, coagulopathy, ovulatory dysfunction, endometrial, iatrogenic, not yet classified
+- "HRT" = hormone replacement therapy
+- "LMP" = last menstrual period
+- "ASCCP" = American Society for Colposcopy and Cervical Pathology
+- "GDM" = gestational diabetes mellitus
+- "GBS" = Group B Streptococcus
+- "UACR" = urine albumin-to-creatinine ratio
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+OB/GYN CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[Prenatal care / AUB evaluation / Menopause management / Contraception /
+Cervical screening follow-up / Annual well-woman / GYN problem visit]
+Interval since last visit: [duration]
+
+CHIEF CONCERN
+─────────────
+***
+
+OBSTETRIC HISTORY (if applicable)
+─────────────────────────────────
+  Gravidity/Parity: G*** T*** P*** A*** L***
+  Current pregnancy:
+    EGA: *** weeks *** days (by [LMP / dating ultrasound M/D/YY])
+    EDD: ***
+    Conception: [Spontaneous / IUI / IVF]
+
+  Prior pregnancies
+  ─────────────────
+  [Year, gestational age at delivery, mode (SVD/CS/operative vaginal),
+  birth weight, complications for each]
+
+GYNECOLOGIC HISTORY
+───────────────────
+  Menstrual history:
+    LMP: ***
+    Cycle length: *** days
+    Flow duration: *** days
+    Flow: [light / moderate / heavy; quantify if possible: pads/tampons per day]
+    Dysmenorrhea: [None / mild / moderate / severe]
+    Intermenstrual bleeding: [Y/N]
+    Postcoital bleeding: [Y/N]
+  Contraception: [Method, duration, satisfaction, side effects]
+  Cervical screening:
+    Last Pap: [date, result]
+    Last HPV: [date, result]
+    History of abnormal Pap: [describe or none]
+    Colposcopy/LEEP/cone history: [describe or none]
+  STI screening: [Dates and results of recent testing]
+  Prior GYN surgeries: [list or none]
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph covering symptoms and events since last visit.
+Tailor to visit type:
+  Prenatal: fetal movement, contractions, bleeding, leaking fluid,
+    headaches, visual changes, swelling, diet, exercise, work status.
+  AUB: bleeding pattern changes, symptoms (fatigue, lightheadedness),
+    new medications, sexual activity, pain.
+  Menopause: hot flash frequency/severity, sleep, mood, vaginal
+    dryness, urinary symptoms, sexual function.]
+
+PRENATAL MONITORING (if applicable)
+───────────────────────────────────
+
+  Current Visit
+  ─────────────
+  EGA: *** weeks
+  Weight: *** lbs (prepregnancy: ***, total gain: *** lbs)
+  BP: *** (trend: ***)
+  Urine protein: [Negative / Trace / +1 / +2]
+  Fundal height: *** cm
+  Fetal heart rate: *** bpm
+  Fetal movement: [Active / decreased / not yet felt]
+  Fetal presentation: [Cephalic / breech / transverse / not yet assessed]
+  Cervical exam: [If indicated: dilation, effacement, station]
+  Edema: [None / mild / moderate / severe]
+
+  Prenatal Lab Tracking
+  ─────────────────────
+  Blood type / Rh: *** Antibody screen: ***
+  Rubella immunity: [Immune / Non-immune]
+  HIV: ***
+  RPR/VDRL: ***
+  Hepatitis B sAg: ***
+  GC/Chlamydia: ***
+  CBC: Hgb *** Hct *** Plt ***
+  Urinalysis/culture: ***
+  Genetic screening: [Type (NIPT/cell-free DNA, quad screen, carrier screen),
+    date, result]
+  GDM screen:
+    1-hour glucose (24-28 weeks): *** [date]
+    3-hour GTT (if indicated): *** [date]
+  GBS culture (35-37 weeks): *** [date]
+  Rh immune globulin: [If Rh-negative: given at 28 weeks Y/N, date]
+  Tdap: [Given 27-36 weeks: Y/N, date]
+
+  Ultrasound Summary
+  ──────────────────
+  Dating US: [date, CRL, EGA]
+  Anatomy scan (18-22 weeks): [date, findings]
+  Growth scan (if indicated): [date, EFW, percentile, AFI]
+
+ABNORMAL UTERINE BLEEDING (if applicable)
+──────────────────────────────────────────
+  Bleeding pattern: [Heavy menstrual bleeding / Irregular / Intermenstrual /
+    Postmenopausal / Postcoital]
+  Duration of abnormal bleeding: ***
+  Quantification: [Pads/tampons per day; clots; flooding]
+  PALM-COEIN classification: ***
+  Associated symptoms: [Pain, fatigue, lightheadedness]
+  Impact on daily life: ***
+
+  Workup
+  ──────
+  Hemoglobin: *** (trend: ***)
+  Ferritin: ***
+  TSH: ***
+  Coagulation studies: [If indicated]
+  Pregnancy test: ***
+  Pelvic ultrasound: [Date, endometrial thickness, uterine size,
+    fibroids (number, size, location: submucosal/intramural/subserosal),
+    adnexal findings]
+  Endometrial biopsy: [Date, result]
+  Hysteroscopy: [Date, findings, if performed]
+
+  Current treatment: ***
+
+MENOPAUSE MANAGEMENT (if applicable)
+─────────────────────────────────────
+  Menopause status: [Perimenopause / Postmenopause]
+  Age at menopause (or LMP if peri): ***
+  Years since menopause: ***
+
+  Vasomotor symptoms:
+    Hot flashes: [frequency per day/week, severity (mild/moderate/severe)]
+    Night sweats: [frequency, sleep disruption]
+  Urogenital symptoms:
+    Vaginal dryness: [Y/N, severity]
+    Dyspareunia: [Y/N]
+    Urinary symptoms: [frequency, urgency, incontinence]
+  Mood: [stable / depressed / anxious; screen if indicated]
+  Sleep: [quality, duration]
+  Sexual function: [active / not active; concerns]
+
+  HRT Regimen (if applicable)
+  ───────────────────────────
+  Estrogen: [Type, route (oral/transdermal/vaginal), dose]
+  Progestogen: [Type, dose, schedule (continuous/cyclic)]
+  Duration of use: ***
+  Response: [Symptom improvement: none / partial / complete]
+  Side effects: ***
+
+  Contraindications assessed:
+    History of breast cancer: [Y/N]
+    History of VTE: [Y/N]
+    Active liver disease: [Y/N]
+    Unexplained vaginal bleeding: [Y/N]
+    Coronary heart disease: [Y/N]
+
+  Bone Health
+  ───────────
+  DEXA: [Date, T-scores: lumbar spine ***, total hip ***, femoral neck ***]
+  FRAX score: [If calculated]
+  Calcium/Vitamin D: [Supplementation status]
+  Osteoporosis treatment: [If applicable: agent, dose]
+
+PELVIC EXAM
+────────────
+  External: ***
+  Speculum:
+    Cervix: [Appearance, lesions, discharge]
+    Vaginal mucosa: [Rugae, atrophy, discharge]
+  Bimanual:
+    Uterus: [Size (weeks), shape, position, tenderness, mobility]
+    Adnexa: [Masses, tenderness, fullness]
+    Cul-de-sac: [Tenderness, nodularity]
+  Rectovaginal: [If performed]
+
+BREAST EXAM
+───────────
+  [Findings or deferred; last mammogram date and result]
+
+VITAL SIGNS
+───────────
+  BP: ***
+  HR: ***
+  Weight: *** (BMI: ***)
+  Temperature: ***
+
+DIAGNOSTICS
+───────────
+  Labs
+  ────
+  [All recent labs with dates and values.]
+
+  Imaging
+  ───────
+  [Pelvic US, mammogram, DEXA, other.]
+
+ASSESSMENT
+──────────
+[Age]-year-old [G*P* if OB / female if GYN] with [relevant history]
+presenting for [visit type]. [One-sentence trajectory or status statement.]
+
+  1. [Primary concern]
+     [Brief assessment of current status, trajectory, and rationale.]
+
+  2. [Secondary concern, if applicable]
+     [Brief assessment.]
+
+  3. [Preventive care / screening status]
+     [Brief assessment.]
+
+PLAN
+────
+  1. [Primary concern]
+     - [Specific action: medication with dose/route, test to order,
+       procedure to schedule, referral]
+     - [Specific action]
+     - [Specific action]
+
+  2. [Secondary concern]
+     - [Specific action]
+
+  3. Screening / Preventive
+     - [Cervical screening plan per ASCCP guidelines]
+     - [Mammogram status]
+     - [Other age-appropriate screening]
+
+  Follow-Up
+  ─────────
+  Return in [interval] for [specific purpose].
+  [Criteria for earlier return.]
+
+DISPOSITION
+───────────
+[Patient counseled on ***, agrees with plan.
+Return precautions reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: visit type, obstetric or gynecologic history, interval symptoms, current medications, vitals, exam findings, recent labs, imaging results, screening history, and any other relevant data.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| High-risk OB | Add: "This is a high-risk pregnancy. Document risk factors (preeclampsia, GDM, prior preterm birth, multiple gestation, advanced maternal age, etc.), surveillance plan (NST/BPP schedule, growth ultrasound frequency), and specialist co-management." |
+| Fertility / preconception | Add: "This is a preconception counseling or fertility evaluation visit. Include ovarian reserve testing (AMH, AFC, day 3 FSH/E2), partner semen analysis, genetic carrier screening, folic acid status, and medication teratogenicity review." |
+| Postpartum visit | Add: "This is a postpartum visit. Document delivery summary, breastfeeding status, postpartum mood screen (EPDS), contraception plan, perineal or incision healing, return of menses, and pelvic floor assessment." |
+| GYN oncology follow-up | Add: "This is a gynecologic oncology surveillance visit. Document cancer type, stage, treatment summary, surveillance schedule, tumor markers if applicable, and symptoms concerning for recurrence." |
+| Adolescent GYN | Add: "This is an adolescent patient. Document Tanner staging, menarchal history, confidential social history (HEEADSSS assessment), and age-appropriate counseling. Contraception discussion should include LARC options per AAP/ACOG guidelines." |
+
+---
+
+## Variations
+
+### Routine prenatal visit
+
+Use this for the standard prenatal visit between 24 and 36 weeks: checking weight, blood pressure, fundal height, fetal heart rate, and tracking where the patient is in the prenatal lab schedule. The note captures the repetitive data points that make prenatal documentation efficient when structured and tedious when not.
+
+<PromptPlayground tool="Claude" title="Routine Prenatal Visit">
+You are an OB/GYN physician writing a routine prenatal visit note. The patient is between 24 and 36 weeks gestation. Structure the note around interval obstetric symptoms, fetal assessment, prenatal lab tracking, and anticipatory guidance appropriate to gestational age.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Calculate and display EGA prominently.
+- Document weight gain trajectory (total gain and rate per week).
+- Blood pressure must be compared to trend from prior visits.
+- Document fetal heart rate, fundal height, and fetal movement.
+- Track prenatal lab completion: which labs are done, which are due at this gestational age.
+- Anticipatory guidance must be gestational-age-specific.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+ROUTINE PRENATAL VISIT
+══════════════════════════════════════════
+
+EGA: *** weeks *** days (by [LMP / dating US M/D/YY])
+EDD: ***
+G*** T*** P*** A*** L***
+Visit number: ***
+
+INTERVAL HISTORY
+────────────────
+[Fetal movement, contractions, bleeding, leaking fluid, headache,
+visual changes, epigastric pain, swelling, nausea/vomiting,
+diet, exercise, work status, psychosocial stressors.]
+
+VITALS AND GROWTH
+─────────────────
+  BP: *** (prior visits: ***)
+  Weight: *** lbs
+    Prepregnancy weight: *** lbs
+    Total gain: *** lbs
+    Rate: *** lbs/week this trimester
+  Urine protein: ***
+  Edema: ***
+
+FETAL ASSESSMENT
+────────────────
+  FHR: *** bpm (by Doppler)
+  Fundal height: *** cm (EGA: *** weeks)
+  Fetal movement: ***
+  Presentation: *** [if assessed]
+
+PRENATAL LAB STATUS
+───────────────────
+  Completed                          Result        Date
+  ─────────                          ──────        ────
+  Blood type/Rh/Antibody screen      ***           ***
+  CBC                                ***           ***
+  Rubella                            ***           ***
+  HIV                                ***           ***
+  RPR                                ***           ***
+  Hep B sAg                          ***           ***
+  GC/CT                              ***           ***
+  UA/UCx                             ***           ***
+  Genetic screening                  ***           ***
+
+  Due This Visit or Upcoming
+  ──────────────────────────
+  [GDM 1-hr screen (24-28 wks): done / due / result]
+  [Rh immune globulin (28 wks, if Rh-neg): done / due]
+  [Tdap (27-36 wks): done / due]
+  [GBS culture (35-37 wks): done / due]
+  [Repeat CBC (28 wks): done / due]
+
+MEDICATIONS
+───────────
+  Prenatal vitamin: [Y/N, type]
+  Iron supplementation: [If indicated]
+  Other: ***
+
+ASSESSMENT
+──────────
+[Age]-year-old G*P* at *** weeks EGA with [uncomplicated /
+complications] pregnancy presenting for routine prenatal visit.
+[One-sentence status.]
+
+  1. Intrauterine pregnancy at *** weeks
+     [Assessment of fetal and maternal status.]
+
+  2. [Complications if any: GDM, anemia, etc.]
+
+PLAN
+────
+  1. Prenatal care
+     - [Labs to order today]
+     - [Vaccinations to administer]
+     - [Imaging to schedule]
+     - [Anticipatory guidance: preterm labor signs, kick counts,
+       labor planning, breastfeeding, etc., per gestational age]
+
+  2. [Complication management if any]
+
+  3. Next visit
+     - Return in [2 weeks / 1 week depending on EGA]
+     - [What to expect at next visit]
+     - Call or go to L&D for: contractions q5min, bleeding,
+       rupture of membranes, decreased fetal movement,
+       severe headache, visual changes, epigastric pain
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: EGA, EDD, GTPAL, interval symptoms, vitals with BP trend, weight, FHR, fundal height, prenatal lab results, medications, complications if any.]
+</PromptPlayground>
+
+### Abnormal uterine bleeding workup
+
+Use this for the patient referred (or presenting) for abnormal bleeding: heavy periods, irregular cycles, intermenstrual spotting, or postmenopausal bleeding. The note is organized around the PALM-COEIN classification, systematic workup, and treatment response.
+
+<PromptPlayground tool="Claude" title="Abnormal Uterine Bleeding Workup">
+You are an OB/GYN physician writing a clinic note for a patient with abnormal uterine bleeding (AUB). Structure the note around bleeding pattern characterization, PALM-COEIN classification, systematic workup results, and treatment plan.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Characterize the bleeding pattern precisely: timing, duration, quantity (pads/tampons per day, clots, flooding), impact on daily life.
+- Apply the PALM-COEIN classification system.
+- Document hemoglobin trend (not just a single value) and iron status.
+- Pelvic ultrasound findings must include endometrial thickness and fibroid mapping (number, size in cm, location).
+- Plan must be specific: medical treatment with dose and duration, or procedural intervention with indication and timing.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+ABNORMAL UTERINE BLEEDING EVALUATION
+══════════════════════════════════════════
+
+VISIT TYPE: [New evaluation / Follow-up / Post-procedure]
+
+BLEEDING CHARACTERIZATION
+─────────────────────────
+  Pattern: [Heavy menstrual bleeding / Irregular / Intermenstrual /
+    Postmenopausal / Postcoital]
+  Duration of abnormality: ***
+  Cycle length: *** days (prior normal: *** days)
+  Flow duration: *** days
+  Quantity: [pads/tampons per day; overnight changes; clots (size);
+    flooding episodes]
+  Associated symptoms: [Cramping, fatigue, lightheadedness, syncope]
+  Impact: [Work missed, activity limitation, quality of life]
+
+PALM-COEIN CLASSIFICATION
+─────────────────────────
+  P - Polyp: [Suspected / Confirmed / Ruled out]
+  A - Adenomyosis: [Suspected / Confirmed / Ruled out]
+  L - Leiomyoma: [Submucosal / Intramural / Subserosal / None]
+  M - Malignancy/hyperplasia: [Screened / Biopsy result / Ruled out]
+  C - Coagulopathy: [Screened / Present / Ruled out]
+  O - Ovulatory dysfunction: [Present / Absent]
+  E - Endometrial: [Primary endometrial cause suspected / not suspected]
+  I - Iatrogenic: [Medication-related: specify / None]
+  N - Not yet classified: [Y/N]
+
+RELEVANT HISTORY
+────────────────
+  Menstrual history: [Age of menarche, prior normal pattern]
+  Obstetric history: G*** P***
+  Contraception: [Current method]
+  Cervical screening: [Last Pap/HPV, date, result]
+  Medications: [Anticoagulants, hormonal agents, NSAIDs]
+  Family history: [Bleeding disorders, GYN malignancy]
+
+WORKUP RESULTS
+──────────────
+  CBC: Hgb *** (prior: *** on M/D/YY) Hct *** MCV *** Plt ***
+  Ferritin: *** (date: ***)
+  Iron studies: [If obtained]
+  TSH: ***
+  Pregnancy test: ***
+  Coagulation: [PT, PTT, vWF, if indicated]
+  Pelvic ultrasound (M/D/YY):
+    Endometrial thickness: *** mm
+    Uterine size: *** x *** x *** cm
+    Fibroids: [Number, size, location for each]
+    Adnexa: ***
+  Saline infusion sonogram: [If performed]
+  Endometrial biopsy (M/D/YY): [Result]
+  Hysteroscopy (M/D/YY): [Findings]
+
+PELVIC EXAM
+────────────
+  [Systematic findings]
+
+ASSESSMENT
+──────────
+[Summary with PALM-COEIN classification, bleeding severity,
+anemia status, and likely etiology.]
+
+PLAN
+────
+  1. AUB management
+     - [Medical: hormonal (OCP, IUD, progestin, tranexamic acid)
+       with dose, route, duration]
+     - [Procedural: hysteroscopy, polypectomy, myomectomy,
+       endometrial ablation, UAE, hysterectomy, with indication]
+     - [Iron replacement: dose, formulation, duration]
+
+  2. Further workup (if needed)
+     - [Additional imaging, biopsy, labs]
+
+  3. Monitoring
+     - [Repeat Hgb timing]
+     - [Bleeding diary instructions]
+     - [Follow-up imaging]
+
+  4. Follow-up
+     - Return in [interval]
+     - [Criteria for earlier return: soaking pad per hour,
+       lightheadedness, syncope]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: bleeding pattern description, menstrual history, OB history, current medications, labs (CBC, ferritin, TSH), pelvic ultrasound results, biopsy results if any, current treatment, pelvic exam findings.]
+</PromptPlayground>
+
+### Menopause / HRT management
+
+Use this for the perimenopausal or postmenopausal patient being evaluated or followed for vasomotor symptoms, urogenital atrophy, or osteoporosis risk. The note tracks symptom burden, HRT regimen and response, contraindication assessment, and bone health.
+
+<PromptPlayground tool="Claude" title="Menopause / HRT Management">
+You are an OB/GYN physician writing a clinic note for a perimenopausal or postmenopausal patient. Structure the note around vasomotor and urogenital symptom assessment, HRT management (initiation, continuation, or discontinuation), cardiovascular and breast cancer risk assessment, and bone health.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Quantify vasomotor symptoms: number of hot flashes per day or week, severity, duration.
+- Document all HRT contraindications assessed with specific Y/N for each.
+- For patients on HRT: document regimen (estrogen type, route, dose; progestogen type, dose, schedule), duration of use, and symptom response.
+- Include breast cancer risk assessment (family history, prior biopsies, risk models if calculated).
+- Bone health: DEXA T-scores at all three sites, FRAX if calculated, calcium/vitamin D status.
+- Plan must specify HRT duration expectations, monitoring schedule, and criteria for discontinuation.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+MENOPAUSE MANAGEMENT VISIT
+══════════════════════════════════════════
+
+VISIT TYPE: [Initial evaluation / Follow-up / HRT reassessment]
+Menopausal status: [Perimenopause / Postmenopause]
+Age at menopause: *** (or LMP: ***)
+Years since menopause: ***
+
+SYMPTOM ASSESSMENT
+──────────────────
+  Vasomotor
+  ─────────
+  Hot flashes: [frequency/day or /week], severity [mild/moderate/severe],
+    duration [seconds/minutes]
+  Night sweats: [frequency/week], sleep disruption [Y/N]
+  Response to current treatment: [none / partial / complete relief]
+
+  Urogenital
+  ──────────
+  Vaginal dryness: [none / mild / moderate / severe]
+  Dyspareunia: [Y/N, severity]
+  Vulvovaginal irritation: [Y/N]
+  Urinary: [frequency / urgency / stress incontinence / UTIs]
+
+  Mood and Cognition
+  ──────────────────
+  Mood: [stable / depressed / anxious / irritable]
+  Depression screen: PHQ-2 ***/6 [PHQ-9 if positive: ***/27]
+  Sleep: [hours, quality, independent of night sweats]
+  Concentration/memory: [subjective concerns]
+
+  Sexual Function
+  ───────────────
+  Sexually active: [Y/N]
+  Libido: [normal / decreased]
+  Concerns: ***
+
+  Musculoskeletal
+  ───────────────
+  Joint pain: [Y/N, location]
+  Height loss: [current vs prior measurement]
+
+HRT STATUS
+──────────
+  Current regimen:
+    Estrogen: [type (estradiol, CEE), route (oral/transdermal patch/
+      vaginal ring/vaginal cream), dose]
+    Progestogen: [type (MPA, micronized progesterone, norethindrone),
+      dose, schedule (continuous/cyclic)] [or: not needed if post-hysterectomy]
+    Duration of current regimen: ***
+  Prior HRT trials: [agent, duration, reason for change]
+  Vaginal estrogen: [type, dose, frequency]
+
+  Contraindications Assessed
+  ──────────────────────────
+  History of breast cancer: [Y/N]
+  History of endometrial cancer: [Y/N]
+  History of VTE/PE: [Y/N]
+  Active liver disease: [Y/N]
+  Unexplained vaginal bleeding: [Y/N]
+  History of stroke or MI: [Y/N]
+  Known thrombophilia: [Y/N]
+
+BREAST CANCER RISK
+──────────────────
+  Family history: [First-degree relatives with breast cancer, age at dx]
+  Prior breast biopsies: [Results]
+  Breast density: [If known from mammogram]
+  Risk model: [Gail / Tyrer-Cuzick score if calculated]
+  Last mammogram: [Date, result]
+
+BONE HEALTH
+───────────
+  DEXA (M/D/YY):
+    Lumbar spine T-score: ***
+    Total hip T-score: ***
+    Femoral neck T-score: ***
+  Diagnosis: [Normal / Osteopenia / Osteoporosis]
+  FRAX: [10-yr major osteoporotic fracture ***%, hip fracture ***%]
+  Calcium intake: [dietary + supplemental, total mg/day]
+  Vitamin D: [level if checked; supplementation dose]
+  Osteoporosis treatment: [If applicable: agent, dose, duration]
+  Fall risk: [Assessed: Y/N]
+
+CARDIOVASCULAR RISK
+───────────────────
+  BP: ***
+  Lipid panel: [If recent]
+  Diabetes: [Y/N]
+  Smoking: [status]
+  BMI: ***
+  10-year ASCVD risk: [If calculated]
+
+PHYSICAL EXAM
+─────────────
+  Vitals: ***
+  Breast exam: ***
+  Pelvic exam: [Vulvovaginal atrophy signs, cervix, uterine size]
+
+ASSESSMENT
+──────────
+[Summary: menopausal status, symptom burden, HRT status and response,
+bone health, breast cancer risk profile.]
+
+PLAN
+────
+  1. Vasomotor symptom management
+     - [HRT: initiate / continue / adjust dose / discuss discontinuation]
+     - [Non-hormonal alternative if HRT contraindicated:
+       specify agent and dose]
+     - [Reassess symptoms in *** months]
+
+  2. Urogenital health
+     - [Vaginal estrogen: initiate / continue / dose]
+     - [Other: moisturizers, lubricants, pelvic floor PT]
+
+  3. Bone health
+     - [DEXA: order / repeat in *** years]
+     - [Calcium/Vitamin D: dose adjustments]
+     - [Osteoporosis treatment if indicated]
+
+  4. Breast cancer surveillance
+     - [Mammogram: order / due date]
+     - [Risk reduction discussion if high risk]
+
+  5. Monitoring
+     - [Labs if on HRT: lipids, LFTs per protocol]
+     - [Endometrial surveillance if on estrogen without progestogen
+       and has a uterus]
+
+  6. Follow-up
+     - Return in [interval]
+     - [Criteria for earlier return: breakthrough bleeding,
+       new breast lump, calf swelling]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: menopausal status, age at menopause, symptoms (vasomotor, urogenital, mood, sleep), current HRT regimen, breast cancer risk factors, DEXA results, mammogram history, vitals, exam findings, labs.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+32-year-old G2P1001 at 28 weeks 3 days by dating ultrasound (6/2025). EDD 6/12/26. First pregnancy: SVD at 39 weeks, 7 lbs 4 oz, uncomplicated. Current pregnancy uncomplicated. Prenatal labs: O+, antibody screen negative, rubella immune, HIV negative, RPR nonreactive, Hep B sAg negative, GC/CT negative, NIPT low risk, anatomy scan 20 weeks normal. Today: 1-hour GDM screen result 118 (normal). Vitals: BP 116/72 (BP trend: 112/68, 118/74, 114/70, 116/72), weight 158 lbs (prepregnancy 142, gained 16 lbs), FHR 148, fundal height 28 cm. Reports active fetal movement, no contractions, no bleeding, no leaking fluid, no headaches, no visual changes. Sleeping well with 1 bathroom trip per night. Working full-time as an accountant. Takes prenatal vitamin daily. No medications. No allergies.
+
+**LLM output:**
+
+OB/GYN CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Routine prenatal care
+Interval since last visit: 4 weeks
+
+CHIEF CONCERN
+─────────────
+Routine prenatal visit at 28 weeks
+
+OBSTETRIC HISTORY
+─────────────────
+  Gravidity/Parity: G2 T1 P0 A0 L1
+  Current pregnancy:
+    Estimated gestational age (EGA): 28 weeks 3 days (by dating ultrasound 6/2025)
+    Estimated date of delivery (EDD): 6/12/26
+    Conception: Spontaneous
+
+  Prior pregnancies
+  ─────────────────
+  Pregnancy 1: Term SVD at 39 weeks, 7 lbs 4 oz, uncomplicated
+
+INTERVAL HISTORY
+────────────────
+Patient reports an uncomplicated interval since her last visit 4 weeks ago. She describes active fetal movement throughout the day. She denies contractions, vaginal bleeding, leaking fluid, headaches, visual changes, epigastric pain, and extremity swelling. She is sleeping well with one nocturia episode per night. She continues working full-time as an accountant without restrictions. Appetite is good. She takes her prenatal vitamin daily.
+
+PRENATAL MONITORING
+───────────────────
+
+  Current Visit
+  ─────────────
+  EGA: 28 weeks 3 days
+  Weight: 158 lbs (prepregnancy: 142 lbs, total gain: 16 lbs)
+  BP: 116/72 (trend: 112/68, 118/74, 114/70, 116/72; normal and stable)
+  Urine protein: [Not provided; verify before signing]
+  Fundal height: 28 cm (appropriate for 28 weeks EGA)
+  Fetal heart rate (FHR): 148 bpm by Doppler
+  Fetal movement: Active, reported multiple times daily
+  Fetal presentation: [Not provided; verify before signing]
+  Edema: None reported
+
+  Prenatal Lab Tracking
+  ─────────────────────
+  Completed                          Result              Date
+  ─────────                          ──────              ────
+  Blood type/Rh/Antibody screen      O+, Ab screen neg   [initial labs]
+  CBC                                [Not provided; verify before signing]
+  Rubella                            Immune               [initial labs]
+  HIV                                Negative             [initial labs]
+  RPR                                Nonreactive          [initial labs]
+  Hep B sAg                          Negative             [initial labs]
+  GC/CT                              Negative             [initial labs]
+  Genetic screening (NIPT)           Low risk             [first trimester]
+  1-hour GDM screen                  118 mg/dL (normal)   Today
+
+  Due This Visit or Upcoming
+  ──────────────────────────
+  Rh immune globulin: Not indicated (Rh positive)
+  Tdap: Due between 27-36 weeks; administer today
+  Repeat CBC at 28 weeks: Order today
+  Group B Streptococcus (GBS) culture: Due at 35-37 weeks
+
+  Ultrasound Summary
+  ──────────────────
+  Dating US (6/2025): Confirmed EDD 6/12/26
+  Anatomy scan (20 weeks): Normal; no anomalies identified
+  Growth scan: Not indicated at this time
+
+MEDICATIONS
+───────────
+  Prenatal vitamin: Daily
+  Other medications: None
+
+ALLERGIES
+─────────
+  No known allergies
+
+VITAL SIGNS
+───────────
+  BP: 116/72 mmHg
+  Weight: 158 lbs (BMI: [Not provided; verify before signing])
+
+ASSESSMENT
+──────────
+32-year-old G2T1P0A0L1 at 28 weeks 3 days EGA with uncomplicated pregnancy presenting for routine prenatal visit. Fetal and maternal status are reassuring. Weight gain is appropriate at 16 lbs. Blood pressure trend is normal and stable. GDM screen is normal. All prenatal labs to date are unremarkable.
+
+  1. Intrauterine pregnancy at 28 weeks 3 days, uncomplicated
+     Fetal heart rate is 148 bpm, fundal height is appropriate for dates, and the patient reports active fetal movement. Growth and development are on track. GDM screen is normal, eliminating the need for a 3-hour glucose tolerance test.
+
+  2. Preventive care, on schedule
+     Tdap is due this visit (27-36 week window). GBS culture will be due at 35-37 weeks.
+
+PLAN
+────
+  1. Prenatal care
+     - Administer Tdap today
+     - Order repeat CBC (28-week anemia screen)
+     - Begin kick count instruction: patient to monitor fetal movement daily starting at 28 weeks; report if fewer than 10 movements in 2 hours
+     - Anticipatory guidance reviewed: preterm labor signs (regular contractions, low back pain, pelvic pressure, vaginal bleeding, fluid leaking), when to call or go to labor and delivery
+     - Discussed third-trimester expectations: increased visit frequency (q2 weeks until 36 weeks, then weekly), GBS culture at 35-37 weeks, birth plan preferences
+
+  2. Follow-up
+     - Return in 2 weeks (30 weeks EGA)
+     - Transition to weekly visits at 36 weeks
+     - Call or go to L&D for: regular contractions every 5 minutes, vaginal bleeding, rupture of membranes, decreased fetal movement, severe headache, visual changes, or epigastric pain
+
+DISPOSITION
+───────────
+Patient counseled on kick counts, preterm labor signs, and third-trimester visit schedule. Tdap administered today (right deltoid); observed 15 minutes, no adverse reaction. Agrees with plan. Return precautions reviewed.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **Gestational age drives everything in a prenatal note.** If you give the model the wrong dating information, every lab timing, screening recommendation, and anticipatory guidance item will be off. Double-check EGA against the dating ultrasound, not the LMP, when there is a discrepancy.
+- **Blood pressure trend matters more than a single reading.** One elevated BP at 32 weeks is not preeclampsia. A rising trend from 110/70 to 130/82 to 142/90 over three visits is a different story. Provide multiple data points when you can.
+- **PALM-COEIN is a classification, not a diagnosis.** The model will apply it to AUB, but the classification only works when you have completed the relevant workup. An ultrasound showing fibroids does not mean fibroids are causing the bleeding if the fibroids are subserosal and there is also a polyp.
+- **HRT contraindication assessment is medicolegal documentation.** The model lists each contraindication with a Y/N. Verify that every "N" is actually true. A missed family history of breast cancer in this section is a significant documentation gap.
+- **Endometrial thickness thresholds depend on context.** Postmenopausal bleeding with an endometrial stripe of 5 mm or more needs biopsy. A 4 mm stripe in a premenopausal patient on hormonal contraception means something entirely different. The model uses the numbers you give it; the clinical interpretation is yours.
+- **Prenatal lab tracking prevents things from falling through cracks.** The most common documentation error in prenatal care is not the visit note itself but the failure to document that a screening test was offered, declined, or resulted. The model tracks lab status, but only if you tell it what has been completed and what is still pending.
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) - for inpatient OB or GYN notes
+- [Consult Note](/templates/consult-note) - for OB/GYN consultations from the ED or other services
+- [Procedure Note](/templates/procedure-note) - for documenting hysteroscopy, LEEP, D&C, and other GYN procedures
+- [Discharge Summary](/templates/discharge-summary-basic) - for postpartum or post-surgical discharges
+- [Referral Letter](/templates/referral-letter) - for high-risk OB referrals or GYN oncology referrals

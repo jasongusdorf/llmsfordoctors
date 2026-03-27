@@ -1,0 +1,847 @@
+---
+title: "Pain Medicine Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, pain-medicine, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "This template generates structured pain medicine clinic notes covering chronic low back pain, CRPS, neuropathic pain, refractory headache, cancer pain, and failed back surgery syndrome."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+The visit lasted 25 minutes. In that time, you reviewed a urine drug screen with an unexpected finding, checked the Prescription Drug Monitoring Program (PDMP), discussed a spinal cord stimulator (SCS) trial, adjusted a buprenorphine patch, and documented a pain agreement renewal. Now you need to write a note that satisfies clinical, regulatory, and medicolegal requirements all at once. Paste your visit data into this template, and the LLM produces a structured pain medicine note that tracks the Pain, Enjoyment of life, and General activity (PEG) score, calculates morphine equivalent daily dose (MEDD), documents the Opioid Risk Tool (ORT) score, interprets the urine drug screen (UDS) with expected versus found substances, records the PDMP check, catalogs interventional procedures with dates and response, and captures the opioid agreement status. The note treats documentation as both clinical care and risk management, because in pain medicine the two are inseparable.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+<Callout type="pitfall">
+  Pain medicine documentation carries legal weight beyond the clinical encounter. UDS results, PDMP checks, opioid agreements, and risk stratification scores are auditable elements. If you document a PDMP check, you performed one. If you omit it, auditors and regulators will assume you did not. Get the facts right before signing.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Pain Medicine Clinic Visit Note">
+You are a pain medicine physician writing an outpatient clinic note after seeing a patient for chronic pain management, interventional procedure follow-up, or new pain consultation. The patient may carry one or more of the following conditions: chronic low back pain, complex regional pain syndrome (CRPS), neuropathic pain, refractory headache, cancer pain, or failed back surgery syndrome (FBSS). Identify all active pain diagnoses from the clinical information provided and structure the note around them.
+
+### Purpose
+
+Generate a complete, structured outpatient pain medicine clinic note from the clinical data below. The note must capture pain assessment with validated scoring, opioid risk stratification, urine drug screen interpretation, PDMP documentation, interventional procedure history with response tracking, current medication regimen with MEDD calculation, and a specific plan for each pain condition.
+
+### Rules
+
+- Write in past tense for history and interval events; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use in the note (e.g., "morphine equivalent daily dose (MEDD)"), then abbreviation only thereafter.
+- Include specific numbers for all values: pain scores, MEDD, ORT score, UDS results, procedure dates, doses.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Organize the Assessment as a numbered problem list with the primary pain diagnosis first, then contributing conditions, then opioid management as a distinct problem.
+- Plan items must be specific and actionable: medication name, dose, change direction, procedure name with target level/structure, referral with reason.
+- For opioid therapy: document MEDD, ORT score, UDS results (expected vs. found), PDMP check date and findings, opioid agreement status with date, naloxone prescription status, and functional assessment (PEG score).
+- For interventional procedures: document procedure name, date, target structure/level, technique (fluoroscopy, ultrasound), outcome (percent relief, duration of relief), and whether diagnostic or therapeutic.
+- For CRPS: document Budapest criteria findings and whether criteria are met.
+- For neuropathic pain: document the specific nerve or distribution, etiology, and response to neuropathic agents.
+- Never recommend abrupt opioid discontinuation. Tapers must specify rate and monitoring plan.
+- Do not infer or fabricate any clinical information not provided. Write "***" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "MEDD" = morphine equivalent daily dose
+- "PEG" = Pain, Enjoyment of life, General activity score
+- "ORT" = Opioid Risk Tool
+- "UDS" = urine drug screen
+- "PDMP" = Prescription Drug Monitoring Program
+- "SCS" = spinal cord stimulator
+- "ESI" = epidural steroid injection
+- "RFA" = radiofrequency ablation
+- "MBB" = medial branch block
+- "CRPS" = complex regional pain syndrome
+- "FBSS" = failed back surgery syndrome
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+PAIN MEDICINE CLINIC NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[New consultation / Follow-up / Procedure follow-up / Opioid management]
+Interval since last visit: [duration]
+Referring provider: *** (if new consult)
+
+PAIN DIAGNOSES
+──────────────
+  1. [Primary pain diagnosis, ICD-10 if known]
+  2. [Secondary pain diagnosis]
+  3. [Additional diagnoses]
+
+PAIN ASSESSMENT
+───────────────
+  Pain, Enjoyment of life, General activity (PEG) Score
+  ──────────────────────────────────────────────────────
+  Pain intensity (average, past week): ***/10
+  Enjoyment of life interference:     ***/10
+  General activity interference:       ***/10
+  PEG average: ***/10 (prior visit: ***/10)
+
+  Pain Catastrophizing Scale (PCS): ***/52 (if obtained)
+
+  Pain Map
+  ────────
+  [Location 1]: [quality, severity ***/10, radiation, aggravating/
+    alleviating factors, temporal pattern]
+  [Location 2]: [same detail]
+
+  Functional Status
+  ─────────────────
+  Sleep: [hours per night, interruptions from pain, sleep aid use]
+  Work: [working / modified duty / disability / retired]
+  Activity: [walking distance, sitting tolerance, ADL limitations]
+  Mood: [PHQ-2 or PHQ-9 score if obtained]
+
+OPIOID RISK ASSESSMENT AND MONITORING
+──────────────────────────────────────
+  Opioid Risk Tool (ORT) Score: ***/26
+  ─────────────────────────────────────
+  Risk category: [Low (0-3) / Moderate (4-7) / High (≥8)]
+
+  Current Opioid Regimen and MEDD
+  ────────────────────────────────
+  [Opioid 1]: [drug, dose, frequency]
+  [Opioid 2]: [drug, dose, frequency]
+  MEDD calculation:
+    [Drug 1]: *** mg/day x [conversion factor] = *** mg MEDD
+    [Drug 2]: *** mg/day x [conversion factor] = *** mg MEDD
+    Total MEDD: *** mg/day
+  MEDD trend: [stable / increasing / decreasing; prior MEDD: ***]
+
+  Opioid Agreement
+  ────────────────
+  Status: [Active / due for renewal / expired]
+  Date signed: ***
+  Key terms reviewed: [single prescriber, single pharmacy, random UDS,
+    pill counts, no early refills]
+  Violations: [none / describe with dates]
+
+  Naloxone
+  ────────
+  Prescribed: [Y/N]
+  Date: ***
+  Indication: [MEDD ≥50, concurrent benzodiazepine, history of overdose,
+    respiratory comorbidity, household member risk]
+
+  PDMP Check
+  ──────────
+  Date checked: ***
+  Findings: [Consistent with prescribed medications /
+    Discrepancy: describe]
+  Controlled substances from other providers: [none / list with
+    prescriber, drug, date]
+
+  Urine Drug Screen (UDS)
+  ────────────────────────
+  Date collected: ***
+  Method: [immunoassay / LC-MS/MS confirmation]
+
+                    Expected    Found     Interpretation
+  Opiates/opioids:  [agent]    [pos/neg]  [consistent / unexpected]
+  Benzodiazepines:  [Y/N]      [pos/neg]  [consistent / unexpected]
+  Amphetamines:     [Y/N]      [pos/neg]  [consistent / unexpected]
+  Cannabinoids:     [Y/N]      [pos/neg]  [consistent / unexpected]
+  Cocaine:          [N]        [pos/neg]  [consistent / unexpected]
+  Methadone:        [Y/N]      [pos/neg]  [consistent / unexpected]
+  Fentanyl:         [Y/N]      [pos/neg]  [consistent / unexpected]
+  Other:            [specify]  [pos/neg]  [consistent / unexpected]
+
+  UDS interpretation summary: [Consistent with prescribed regimen /
+    Discrepancy requiring discussion: explain, including possible
+    false positive/negative causes]
+
+  Patient discussion of UDS results: [N/A / Discussed: patient
+    explanation, clinical judgment]
+
+INTERVENTIONAL PROCEDURE HISTORY
+─────────────────────────────────
+  Procedure 1
+  ───────────
+  Date: ***
+  Procedure: [ESI, MBB, RFA, SCS trial, trigger point injection,
+    joint injection, nerve block, intrathecal pump trial]
+  Target: [level/structure]
+  Technique: [fluoroscopy / ultrasound / CT / anatomic landmarks]
+  Medications: [steroid type and dose, local anesthetic, other]
+  Result: ***% relief for *** [days/weeks/months]
+  Complications: [none / describe]
+  Diagnostic value: [confirmed / did not confirm *** as pain generator]
+
+  Procedure 2
+  ───────────
+  [Same structure]
+
+  Procedure Summary
+  ─────────────────
+  Total ESIs in past 12 months: ***
+  Last RFA: [date, levels, relief duration]
+  SCS status: [not considered / trial *** (date, result) /
+    implanted (date, device, settings, response)]
+  Intrathecal pump: [not considered / trialed / implanted
+    (date, drug, dose, refill schedule)]
+
+CURRENT MEDICATIONS (complete list)
+────────────────────────────────────
+  Opioid:
+    [Drug, dose, frequency] — MEDD contribution: *** mg
+  Non-opioid analgesics:
+    [Drug, dose, frequency] — indication
+  Neuropathic agents:
+    [Drug, dose, frequency] — indication
+  Muscle relaxants:
+    [Drug, dose, frequency] — indication
+  Topical:
+    [Drug, formulation] — indication
+  Other:
+    [Drug, dose, frequency] — indication
+
+  Adherence: [Patient reports (good / partial / poor); barriers]
+  Side effects: [constipation, sedation, cognitive, nausea, other]
+
+ALLERGIES
+─────────
+  ***
+
+VITAL SIGNS
+───────────
+  BP: ***
+  HR: ***
+  Weight: *** (BMI: ***; trend: ***)
+  SpO2: ***
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: ***
+  Spine: [inspection, palpation, ROM, provocative tests
+    (SLR, facet loading, SI provocation)]
+  Neurological: [motor, sensory, reflexes, gait, Romberg]
+  Musculoskeletal: [relevant joints, ROM, strength, tenderness]
+  Skin/vascular: [CRPS signs: edema, color change, temperature
+    asymmetry, sudomotor changes, trophic changes, allodynia]
+  Psychological: [affect, mood, pain behavior observations,
+    catastrophizing signs]
+
+DIAGNOSTICS
+───────────
+  Recent imaging: [MRI, CT, X-ray: date, findings]
+  EMG/NCS: [date, findings, if applicable]
+  Labs: [ESR, CRP if inflammatory workup; drug levels if applicable]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [primary pain diagnosis and duration]
+presenting for [visit type]. [One-sentence trajectory: improving /
+stable / worsening; functional trend.]
+
+  1. [Primary pain diagnosis]
+     [Current status, response to treatment, functional impact.]
+
+  2. [Secondary pain diagnosis]
+     [Status and treatment response.]
+
+  3. Chronic opioid therapy management (if applicable)
+     [MEDD, risk level, UDS and PDMP concordance, functional
+     assessment, opioid agreement status.]
+
+  4. [Mental health comorbidity, if applicable]
+     [Depression, anxiety, catastrophizing: impact on pain and
+     treatment engagement.]
+
+PLAN
+────
+  1. [Primary pain diagnosis]
+     - [Medication change: drug, dose, direction]
+     - [Interventional procedure: type, target, rationale,
+       scheduling]
+     - [Physical therapy: specific type and goals]
+     - [Imaging or diagnostics to order]
+
+  2. [Secondary pain diagnosis]
+     - [Specific action items]
+
+  3. Opioid management
+     - [Continue / taper / rotate: specific instructions]
+     - [MEDD target if tapering: rate and monitoring]
+     - [UDS: next scheduled, random or routine]
+     - [PDMP: recheck interval]
+     - [Opioid agreement: renewal if due]
+     - [Naloxone: prescribe or confirm]
+
+  4. Behavioral health
+     - [Pain psychology referral, CBT for chronic pain,
+       mindfulness-based stress reduction]
+
+  5. Follow-up
+     - Return in [interval]
+     - [Pre-visit requirements: UDS, PDMP, imaging]
+     - [Red flags for earlier return: worsening neurological
+       symptoms, suicidal ideation, overdose risk]
+
+DISPOSITION
+───────────
+[Patient counseled on ***, agrees with plan.
+Opioid agreement reviewed / renewed.
+Return precautions discussed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: pain diagnoses, pain scores, current medications with doses, opioid history, UDS results, PDMP findings, interventional procedure history with dates and responses, exam findings, imaging, functional status, and psychological assessment.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Cancer pain | Add: "This patient has cancer-related pain. Opioid risk stratification (ORT, UDS, PDMP) is less relevant than symptom control and quality of life. Focus on adequate analgesia, breakthrough dosing, palliative radiation or nerve block considerations, and coordination with oncology." |
+| Opioid taper | Add: "This visit focuses on an opioid taper plan. Document the clinical rationale for the taper, the current MEDD, the target MEDD, the taper rate (typically 10% per month for chronic therapy), and the monitoring plan including frequent follow-up, UDS, and screening for opioid withdrawal symptoms." |
+| Pediatric/adolescent pain | Add: "This is a pediatric or adolescent patient. Use age-appropriate pain assessment tools (FLACC, Wong-Baker). Opioid prescribing follows stricter guidelines. Include school attendance, family dynamics, and developmental impact." |
+| Headache-focused visit | Add: "This patient's primary diagnosis is a refractory headache disorder. Include headache diary data (frequency, severity, duration, triggers), acute medication usage days per month, medication overuse headache screening, and preventive medication trial history with doses and reasons for discontinuation." |
+| Pre-SCS evaluation | Add: "This visit is a pre-spinal cord stimulator evaluation. Include the psychological clearance status, SCS trial plan (percutaneous vs. paddle, permanent lead placement), pain mapping, insurance authorization status, and specific functional goals for the trial." |
+
+---
+
+## Variations
+
+### Chronic opioid therapy management
+
+Use this for the visit that is primarily about monitoring and managing chronic opioid therapy. The clinical question is whether the current regimen is working, safe, and still indicated, and the documentation needs to show you asked all three.
+
+<PromptPlayground tool="Claude" title="Chronic Opioid Therapy Management">
+You are a pain medicine physician writing an outpatient note focused on chronic opioid therapy management. The visit centers on monitoring safety, efficacy, and ongoing indication for opioid use.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the "4 A's" of opioid therapy monitoring: Analgesia (PEG score), Activity (functional status), Adverse effects (side effects), and Aberrant behavior (agreement adherence, UDS, PDMP).
+- Calculate and document MEDD with conversion math shown.
+- Interpret UDS results with expected vs. found for each substance, including discussion of discrepancies.
+- Document PDMP check with date and concordance.
+- Include ORT score with category and opioid agreement status.
+- If tapering, document rate, current vs. target MEDD, and monitoring frequency.
+- Never recommend abrupt discontinuation; always specify a taper plan if dose reduction is indicated.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Output format
+
+```
+CHRONIC OPIOID THERAPY MANAGEMENT
+══════════════════════════════════════════
+
+PATIENT SUMMARY
+───────────────
+[Age]-year-old [male/female] with [pain diagnosis and duration]
+on chronic opioid therapy for [duration]. Current MEDD: *** mg/day.
+
+THE 4 A's
+─────────
+  Analgesia
+  ─────────
+  PEG score: ***/10 (prior: ***/10)
+  Pain level (average): ***/10
+  Trend: [improving / stable / worsening]
+
+  Activity
+  ────────
+  Work status: ***
+  Physical activity: ***
+  ADL function: ***
+  Sleep: *** hours/night
+  Functional gains or losses since last visit: ***
+
+  Adverse Effects
+  ───────────────
+  Constipation: [Y/N, treatment]
+  Sedation: [Y/N, severity]
+  Cognitive effects: [Y/N]
+  Hormonal (if applicable): [testosterone level, symptoms]
+  Falls: [Y/N, frequency]
+  Other: ***
+
+  Aberrant Behavior
+  ─────────────────
+  Opioid agreement: [active, date signed, violations]
+  Early refill requests: [Y/N, frequency]
+  Lost/stolen prescriptions: [Y/N, frequency]
+  Obtaining opioids from other sources: [PDMP check result]
+  Dose escalation requests: [Y/N, context]
+  UDS concordance: [concordant / discrepant, detail]
+
+OPIOID REGIMEN AND MEDD
+─────────────────────────
+  [Full calculation as in main template]
+
+UDS INTERPRETATION
+──────────────────
+  [Full interpretation table as in main template]
+
+PDMP CHECK
+──────────
+  [Full PDMP documentation as in main template]
+
+RISK STRATIFICATION
+───────────────────
+  ORT: ***/26 ([risk level])
+  Risk factors: [personal/family hx substance use, psychiatric
+    comorbidity, age, concurrent benzodiazepines, MEDD ≥90]
+  Risk mitigation measures in place: [naloxone, frequent visits,
+    random UDS, pill counts, behavioral health engagement]
+
+ASSESSMENT AND PLAN
+───────────────────
+[Assessment of whether opioid therapy remains indicated based
+on the 4 A's. Specific plan for continuation, dose adjustment,
+or taper with rationale, rate, and monitoring.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: pain diagnosis, opioid regimen with doses, MEDD, PEG score, functional status, UDS results, PDMP findings, opioid agreement status, naloxone status, side effects, behavioral concerns.]
+</PromptPlayground>
+
+### Interventional procedure follow-up
+
+Use this for the visit after an epidural steroid injection, radiofrequency ablation, medial branch block, joint injection, or nerve block. The note captures the procedure details, the patient's response, and the decision about next steps.
+
+<PromptPlayground tool="Claude" title="Interventional Procedure Follow-Up">
+You are a pain medicine physician writing an outpatient follow-up note after an interventional pain procedure. The note documents the procedure response and guides the next treatment decision.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the specific procedure performed with date, target, technique, and injectate.
+- Quantify pain relief as percentage reduction from baseline and duration of relief.
+- For diagnostic blocks (MBB), document whether the result meets criteria for RFA (typically ≥80% relief for the duration of the local anesthetic).
+- For ESIs, document the number performed in the past 12 months and cumulative steroid exposure.
+- For SCS, document trial parameters, lead position, programming settings, and patient-reported relief.
+- Include functional improvement, not just pain score reduction.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Output format
+
+```
+INTERVENTIONAL PROCEDURE FOLLOW-UP
+══════════════════════════════════════════
+
+PATIENT SUMMARY
+───────────────
+***
+
+PROCEDURE REVIEWED
+──────────────────
+  Date: ***
+  Procedure: ***
+  Target: [level/structure, laterality]
+  Technique: [fluoroscopy / ultrasound / CT]
+  Injectate: [agent(s), volume, steroid dose]
+  Complications: [none / describe]
+
+RESPONSE ASSESSMENT
+───────────────────
+  Pre-procedure pain: ***/10
+  Post-procedure pain (today): ***/10
+  Maximum relief achieved: ***% reduction
+  Duration of relief: ***
+  Functional improvement: [specific gains: sitting tolerance,
+    walking distance, sleep, return to work]
+  Diagnostic value: [MBB: ≥80% relief with [local] lasting
+    [duration] — positive / negative / equivocal]
+
+PROCEDURE HISTORY SUMMARY
+──────────────────────────
+  ESIs in past 12 months: *** (recommended limit: 3-4 per region)
+  RFAs: [levels, dates, relief duration for each]
+  Other: [joint injections, nerve blocks, SCS, pump: dates and responses]
+
+CURRENT PAIN STATUS
+───────────────────
+  PEG: ***/10 (pre-procedure: ***/10)
+  Current medications: [list with doses]
+  MEDD (if on opioids): *** mg/day
+
+ASSESSMENT AND PLAN
+───────────────────
+[Assessment of procedure response. Decision tree: if diagnostic
+block positive, proceed to RFA; if ESI provided good relief,
+repeat at next flare or proceed to RFA; if inadequate relief,
+alternative interventions or imaging review.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: procedure details, pre and post pain scores, functional response, procedure history, current medications, imaging.]
+</PromptPlayground>
+
+### CRPS management
+
+Use this for the patient being evaluated or treated for complex regional pain syndrome. The note documents Budapest criteria, CRPS-specific findings, and the multidisciplinary treatment approach.
+
+<PromptPlayground tool="Claude" title="CRPS Management">
+You are a pain medicine physician writing an outpatient note for a patient being evaluated or managed for complex regional pain syndrome. Structure the note around Budapest diagnostic criteria, disease severity, and multidisciplinary management.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document all four Budapest criteria categories: sensory, vasomotor, sudomotor/edema, motor/trophic. Record specific findings in each category.
+- State whether clinical or research Budapest criteria are met.
+- Include affected limb temperature comparison (side-to-side difference), edema measurement, ROM comparison, and grip/pinch strength if upper extremity.
+- Document CRPS severity score if used.
+- Include triple-phase bone scan, MRI, or thermography results if available.
+- Treatment must address the biopsychosocial model: pharmacologic, interventional (sympathetic blocks, SCS, intrathecal), rehabilitative (functional restoration, desensitization, mirror therapy, graded motor imagery), and psychological.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Output format
+
+```
+CRPS MANAGEMENT
+══════════════════════════════════════════
+
+PATIENT SUMMARY
+───────────────
+[Age]-year-old [male/female] with complex regional pain syndrome
+(CRPS) [type I / type II] of the [extremity], onset [date], preceded
+by [inciting event or spontaneous]. Duration: ***.
+
+BUDAPEST CRITERIA ASSESSMENT
+─────────────────────────────
+  1. Sensory (reports/signs)
+     Reports: hyperesthesia [Y/N], allodynia [Y/N]
+     Signs: hyperalgesia to pinprick [Y/N], allodynia to light
+     touch [Y/N]
+
+  2. Vasomotor (reports/signs)
+     Reports: temperature asymmetry [Y/N], color changes [Y/N]
+     Signs: temperature asymmetry (affected: ***°F, unaffected:
+     ***°F, difference: ***°F) [Y/N]
+     Color: [red / blue / mottled / pale / normal]
+
+  3. Sudomotor/edema (reports/signs)
+     Reports: edema [Y/N], sweating changes [Y/N]
+     Signs: edema [Y/N] (circumference: affected *** cm,
+     unaffected *** cm)
+     Sweating asymmetry: [Y/N]
+
+  4. Motor/trophic (reports/signs)
+     Reports: weakness [Y/N], decreased ROM [Y/N], nail/hair/
+     skin changes [Y/N]
+     Signs: decreased ROM [Y/N] (specific joints: ***)
+     Motor: tremor [Y/N], dystonia [Y/N], weakness [Y/N]
+     Trophic: nail changes [Y/N], hair changes [Y/N],
+     skin changes [Y/N]
+
+  Budapest criteria met (clinical): [Y/N]
+  (Requires: continuing pain disproportionate to inciting event,
+  ≥1 symptom reported in ≥3 of 4 categories, ≥1 sign observed
+  in ≥2 of 4 categories, no better diagnosis.)
+
+TREATMENT HISTORY
+─────────────────
+  Pharmacologic: [neuropathic agents, anti-inflammatory, opioid
+    if applicable, bisphosphonates, compounding creams: drug,
+    dose, response for each]
+  Interventional: [sympathetic blocks (stellate ganglion / lumbar
+    sympathetic): dates, number performed, response (% relief,
+    duration). SCS: trial/implant status. Intrathecal: status]
+  Rehabilitation: [functional restoration PT/OT, desensitization
+    program, mirror therapy, graded motor imagery, aquatic
+    therapy: participation and progress]
+  Psychological: [pain psychology, CBT, biofeedback: participation
+    and response]
+
+FUNCTIONAL COMPARISON
+─────────────────────
+  Affected extremity:
+    Grip strength: *** lbs (unaffected: *** lbs)
+    ROM: [joint-by-joint comparison]
+    Weight-bearing: [full / partial / non-weight-bearing]
+  Pain: ***/10 (prior visit: ***/10)
+  PEG: ***/10 (prior visit: ***/10)
+  Function: [specific limitations and gains]
+
+ASSESSMENT AND PLAN
+───────────────────
+[Problem-oriented assessment with CRPS trajectory (acute /
+subacute / chronic; spreading / stable / improving), treatment
+response, and specific multidisciplinary plan for next interval.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: CRPS type, affected extremity, inciting event, Budapest criteria findings, temperature and edema measurements, ROM, treatment history, functional status, imaging, current medications.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+52-year-old female with chronic low back pain (LBP) with left L5 radiculopathy, s/p L4-5 laminectomy 3 years ago (FBSS). Also lumbar facet arthropathy. On chronic opioid therapy for 4 years. Current meds: oxycodone ER 20 mg BID, oxycodone IR 10 mg q6h PRN (takes 3-4 daily), gabapentin 800 mg TID, duloxetine 60 mg daily, cyclobenzaprine 10 mg QHS, meloxicam 15 mg daily. ORT score 8 (high risk: family hx alcoholism, personal hx depression, age 16-45 at first opioid exposure). Opioid agreement signed 1/15/26, current. Naloxone prescribed 6/2025. PEG score: pain 7/10, enjoyment 8/10, activity 7/10, average 7.3/10 (prior visit 6.8/10). UDS from today: opiates positive (expected), benzodiazepines negative (expected), THC negative (expected), fentanyl negative (expected), all others negative. PDMP checked today: consistent, oxycodone from this clinic only, no other controlled substances. Interventional history: L4-5 interlaminar ESI 6/2025 (40% relief, 3 weeks), L4-5 transforaminal ESI 9/2025 (50% relief, 4 weeks), L3-4 and L4-5 MBB left 1/2026 (90% relief for 6 hours with bupivacaine, positive diagnostic block), L3-4 and L4-5 RFA left 2/2026 (60% sustained relief, ongoing at 6 weeks). Considering SCS referral for radicular component. PHQ-9: 12 (moderate depression), sees therapist biweekly for CBT. MRI lumbar 8/2025: post-surgical changes L4-5, mild foraminal narrowing L5-S1 left, no recurrent herniation. Exam: tenderness paraspinal L4-S1, SLR negative bilateral, left ankle reflex diminished, sensation decreased left lateral foot, strength 4/5 left EHL, antalgic gait. Vitals: BP 132/78, HR 76, weight 178 lbs, BMI 29.4.
+
+**LLM output:**
+
+PAIN MEDICINE CLINIC NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Follow-up, chronic pain management and opioid monitoring
+Interval since last visit: 6 weeks
+
+PAIN DIAGNOSES
+──────────────
+  1. Failed back surgery syndrome (FBSS), s/p L4-5 laminectomy (2023), with persistent left L5 radiculopathy
+  2. Lumbar facet arthropathy, L3-4 and L4-5
+  3. Major depressive disorder, moderate severity, comorbid with chronic pain
+
+PAIN ASSESSMENT
+───────────────
+  Pain, Enjoyment of life, General activity (PEG) Score
+  ──────────────────────────────────────────────────────
+  Pain intensity (average, past week): 7/10
+  Enjoyment of life interference:     8/10
+  General activity interference:       7/10
+  PEG average: 7.3/10 (prior visit: 6.8/10; worsening)
+
+  Pain Map
+  ────────
+  Low back: deep, aching, bilateral, worse with prolonged standing and extension, 6/10. Partially improved since radiofrequency ablation (RFA) 6 weeks ago. Axial component reduced approximately 60%.
+  Left leg: burning, shooting pain radiating from left buttock to lateral calf and foot, 8/10. Not changed by RFA. Worse with sitting more than 20 minutes. This is the dominant source of disability.
+
+  Functional Status
+  ─────────────────
+  Sleep: 4-5 hours per night, wakes 2-3 times from leg pain
+  Work: on disability for 2 years
+  Activity: walks &lt;2 blocks before leg pain limits; sitting tolerance 20 minutes
+  Mood: Patient Health Questionnaire-9 (PHQ-9) 12/27, moderate depression. Attending cognitive behavioral therapy (CBT) biweekly.
+
+OPIOID RISK ASSESSMENT AND MONITORING
+──────────────────────────────────────
+  Opioid Risk Tool (ORT) Score: 8/26
+  ─────────────────────────────────────
+  Risk category: High (≥8)
+  Risk factors: family history of alcoholism (+3), personal history of depression (+1), age 16-45 at first opioid exposure (+4)
+
+  Current Opioid Regimen and Morphine Equivalent Daily Dose (MEDD)
+  ─────────────────────────────────────────────────────────────────
+  Oxycodone ER 20 mg BID
+  Oxycodone IR 10 mg q6h PRN (using 3-4 daily, average 35 mg/day)
+  MEDD calculation:
+    Oxycodone ER: 40 mg/day x 1.5 = 60 mg MEDD
+    Oxycodone IR: 35 mg/day x 1.5 = 52.5 mg MEDD
+    Total MEDD: 112.5 mg/day
+  MEDD trend: stable over past 6 months
+
+  Opioid Agreement
+  ────────────────
+  Status: Active
+  Date signed: 1/15/26
+  Violations: none
+
+  Naloxone
+  ────────
+  Prescribed: Y
+  Date: 6/2025
+  Indication: MEDD ≥90 mg, high ORT score
+
+  Prescription Drug Monitoring Program (PDMP) Check
+  ──────────────────────────────────────────────────
+  Date checked: 3/27/26
+  Findings: Consistent with prescribed medications. Oxycodone dispensed from this clinic only. No other controlled substances from other providers.
+
+  Urine Drug Screen (UDS)
+  ────────────────────────
+  Date collected: 3/27/26
+  Method: immunoassay
+
+                    Expected    Found    Interpretation
+  Opiates/opioids:  oxycodone  positive  consistent
+  Benzodiazepines:  absent     negative  consistent
+  Amphetamines:     absent     negative  consistent
+  Cannabinoids:     absent     negative  consistent
+  Cocaine:          absent     negative  consistent
+  Fentanyl:         absent     negative  consistent
+
+  UDS interpretation summary: Concordant with prescribed regimen. No unexpected substances detected.
+
+INTERVENTIONAL PROCEDURE HISTORY
+─────────────────────────────────
+  Procedure 1
+  ───────────
+  Date: 6/2025
+  Procedure: L4-5 interlaminar epidural steroid injection (ESI)
+  Target: L4-5 interlaminar, left
+  Technique: fluoroscopy
+  Medications: triamcinolone 80 mg, bupivacaine 0.25% 2 mL
+  Result: 40% relief for 3 weeks
+  Diagnostic value: partial response suggests both discogenic and facet components
+
+  Procedure 2
+  ───────────
+  Date: 9/2025
+  Procedure: L4-5 left transforaminal ESI
+  Target: left L5 nerve root
+  Technique: fluoroscopy
+  Result: 50% relief for 4 weeks
+  Diagnostic value: confirmed left L5 radiculopathy as significant pain generator
+
+  Procedure 3
+  ───────────
+  Date: 1/2026
+  Procedure: L3-4 and L4-5 left medial branch blocks (MBB)
+  Target: left L3, L4 medial branches
+  Technique: fluoroscopy
+  Medications: bupivacaine 0.5% 0.5 mL per level
+  Result: 90% relief for 6 hours, consistent with bupivacaine duration
+  Diagnostic value: positive diagnostic block (≥80% relief); patient meets criteria for RFA
+
+  Procedure 4
+  ───────────
+  Date: 2/2026
+  Procedure: L3-4 and L4-5 left radiofrequency ablation
+  Target: left L3, L4 medial branches
+  Technique: fluoroscopy, 80°C for 90 seconds per lesion
+  Result: 60% relief of axial back pain at 6 weeks, sustained. No change in radicular leg pain (expected; RFA targets facet, not radicular pain).
+
+  Procedure Summary
+  ─────────────────
+  ESIs in past 12 months: 2
+  Last RFA: 2/2026, ongoing response at 6 weeks
+  SCS status: not yet trialed; being considered for radicular component
+
+CURRENT MEDICATIONS (complete list)
+────────────────────────────────────
+  Opioid:
+    Oxycodone ER 20 mg BID — chronic LBP and radiculopathy; MEDD 60 mg
+    Oxycodone IR 10 mg q6h PRN — breakthrough pain; MEDD ~52.5 mg
+  Neuropathic agents:
+    Gabapentin 800 mg TID — neuropathic radicular pain
+    Duloxetine 60 mg daily — neuropathic pain and comorbid depression
+  Muscle relaxant:
+    Cyclobenzaprine 10 mg QHS — nocturnal muscle spasm
+  NSAID:
+    Meloxicam 15 mg daily — anti-inflammatory
+
+  Adherence: good per patient report
+  Side effects: constipation managed with daily docusate; no sedation, no cognitive complaints
+
+ALLERGIES
+─────────
+***
+
+VITAL SIGNS
+───────────
+  BP: 132/78
+  HR: 76
+  Weight: 178 lbs (BMI 29.4)
+  SpO2: ***
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: alert, cooperative, mildly antalgic gait favoring left leg
+  Spine: tenderness to palpation paraspinal muscles L4-S1. Reduced lumbar flexion (~50% of normal). Extension limited by pain. No step-off.
+  Neurological:
+    Motor: left extensor hallucis longus 4/5, all other myotomes 5/5 bilateral
+    Sensory: decreased light touch left lateral foot (L5 dermatome)
+    Reflexes: left ankle reflex diminished (1+), right ankle 2+, bilateral patella 2+
+    SLR: negative bilaterally
+  Gait: antalgic, mildly wide-based, no foot drop
+
+DIAGNOSTICS
+───────────
+  MRI lumbar spine (8/2025): post-surgical changes L4-5, laminectomy defect, mild epidural fibrosis. Mild left L5-S1 foraminal narrowing. No recurrent disc herniation. No significant central canal stenosis.
+
+ASSESSMENT
+──────────
+52-year-old female with failed back surgery syndrome (s/p L4-5 laminectomy, 2023) presenting for follow-up after left L3-4 and L4-5 RFA. The axial back pain component has responded well to RFA (60% sustained relief at 6 weeks). The dominant problem remains left L5 radicular pain, which is unchanged and continues to limit sitting, walking, and sleep. PEG score has worsened slightly to 7.3 despite axial improvement, reflecting the radicular pain's outsized functional impact.
+
+  1. FBSS with persistent left L5 radiculopathy
+     Axial pain improved with RFA; radicular pain unchanged. MRI shows foraminal narrowing at L5-S1 without recurrent herniation. Two transforaminal ESIs provided partial, temporary relief. Patient is a candidate for SCS trial evaluation.
+
+  2. Lumbar facet arthropathy, L3-4 and L4-5
+     Good response to left RFA at 6 weeks. Monitor for return of axial pain; typical duration 6-12 months.
+
+  3. Chronic opioid therapy management
+     MEDD 112.5 mg/day, high ORT risk. UDS and PDMP concordant. Opioid agreement current. Naloxone prescribed. Despite high MEDD, functional status remains poor (disability, walking &lt;2 blocks, sitting tolerance 20 minutes). If SCS trial is successful, goal is to reduce MEDD by at least 30%.
+
+  4. Moderate depression, comorbid with chronic pain
+     PHQ-9 12/27. Engaged in biweekly CBT. No suicidal ideation. Duloxetine 60 mg serving dual purpose (neuropathic pain and depression).
+
+PLAN
+────
+  1. FBSS with left L5 radiculopathy
+     - Referral for spinal cord stimulator evaluation: SCS trial consultation for left L5 radicular pain. Patient meets criteria (failed conservative therapy, failed surgical intervention, persistent radiculopathy confirmed on imaging and exam, positive response to diagnostic transforaminal injection).
+     - Continue gabapentin 800 mg TID (no dose increase given current tolerability; reassess after SCS decision)
+     - PT referral for core stabilization and nerve glides, 2x/week for 6 weeks
+
+  2. Lumbar facet arthropathy
+     - Monitor RFA response; no intervention needed at this time
+     - Repeat RFA in 8-12 months when effect wanes, or sooner if axial pain returns
+
+  3. Opioid management
+     - Continue oxycodone ER 20 mg BID and oxycodone IR 10 mg q6h PRN (current regimen stable, UDS/PDMP concordant)
+     - MEDD 112.5 mg: goal to reduce if SCS trial successful. Do not escalate.
+     - Random UDS at next visit
+     - PDMP recheck at next visit
+     - Opioid agreement renewal due 1/2027
+     - Naloxone confirmed in possession and not expired
+
+  4. Depression
+     - Continue duloxetine 60 mg daily
+     - Continue biweekly CBT
+     - Rescreen PHQ-9 at next visit
+
+  5. Follow-up
+     - Return in 8 weeks
+     - Pre-visit: UDS, bring current medication bottles
+     - Earlier return for: worsening leg weakness, bowel/bladder changes, suicidal ideation
+
+DISPOSITION
+───────────
+Patient counseled on SCS referral process, continued opioid monitoring, and importance of PT engagement. Agrees with plan. Opioid agreement current. Return precautions reviewed.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **MEDD calculation errors are the single most dangerous mistake in this template.** The model may use incorrect conversion factors. Verify every conversion against the CDC or equianalgesic table your practice uses. The most common errors: treating hydrocodone as equianalgesic to morphine (it is, 1:1), but converting oxycodone incorrectly (the conversion factor is 1.5, not 1.0). Methadone conversion is nonlinear and should always be verified manually.
+- **UDS interpretation requires clinical judgment, not just positive/negative matching.** A negative result for a prescribed opioid may reflect timing (last dose more than detection window), rapid metabolism, or diversion. A positive result for a non-prescribed substance may be a false positive (poppy seeds for opiates, diphenhydramine for PCP on immunoassay). Document your clinical interpretation, not just the lab result. Confirm unexpected findings with liquid chromatography-mass spectrometry (LC-MS/MS) before making clinical decisions.
+- **The PDMP check must have a date.** Documenting "PDMP reviewed" without a date does not satisfy most state requirements. Include the date you checked, what you found, and whether it was concordant.
+- **PEG scores track what matters more than pain scores alone.** A patient whose pain is 6/10 but whose PEG is 3/10 is doing well functionally. A patient whose pain is 4/10 but whose PEG is 8/10 is not. The PEG captures what opioid therapy is supposed to improve: function and quality of life, not just the number.
+- **Interventional procedure decisions follow diagnostic logic.** Do not skip the diagnostic medial branch block before proceeding to RFA. Document the percentage relief, duration, and concordance with the expected local anesthetic duration. Payers and peer reviewers will look for this sequence.
+- **ESI frequency limits exist for steroid exposure, not arbitrary rationing.** Document the number of ESIs in the past 12 months and the cumulative steroid dose. Most guidelines recommend no more than 3-4 ESIs per spinal region per year. If you are approaching this limit, the note should reflect why you are continuing ESIs versus pursuing other interventions.
+- **Never document "patient is drug-seeking" or "aberrant behavior" without specific factual basis.** Document the facts: "UDS positive for benzodiazepines, not prescribed. Patient states she took a friend's diazepam for anxiety on [date]." Let the facts speak. Labels without evidence create legal liability and damage the therapeutic relationship.
+
+---
+
+## Related
+
+- [PM&R / Rehabilitation Medicine](/templates/clinic-pmr) -- for the chronic pain patient with a rehabilitation focus
+- [Procedure Note](/templates/procedure-note) -- for documenting interventional pain procedures
+- [Prior Authorization](/templates/prior-authorization) -- for obtaining insurance approval for SCS, intrathecal pump, or specialized medications
+- [Peer-to-Peer Preparation](/templates/peer-to-peer-prep) -- for preparing for insurance peer-to-peer reviews on denied procedures
+- [Letter of Medical Necessity](/templates/medical-necessity-letter) -- for supporting DME or treatment approvals

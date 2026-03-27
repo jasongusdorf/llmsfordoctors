@@ -3,8 +3,8 @@ import { buildOAuthHeader, selectContent, pickCollection, filterEligible, buildT
 import type { ContentItem, PostedEntry } from './social';
 
 describe('buildOAuthHeader', () => {
-  it('produces a valid Authorization header string', () => {
-    const header = buildOAuthHeader({
+  it('produces a valid Authorization header string', async () => {
+    const header = await buildOAuthHeader({
       method: 'POST',
       url: 'https://api.x.com/2/tweets',
       apiKey: 'testkey',
@@ -23,7 +23,7 @@ describe('buildOAuthHeader', () => {
     expect(header).toContain('oauth_version="1.0"');
   });
 
-  it('produces different signatures for different bodies', () => {
+  it('produces different signatures for different bodies', async () => {
     const params = {
       method: 'POST' as const,
       url: 'https://api.x.com/2/tweets',
@@ -32,8 +32,8 @@ describe('buildOAuthHeader', () => {
       accessToken: 'testtoken',
       accessSecret: 'testtokensecret',
     };
-    const h1 = buildOAuthHeader({ ...params, body: '{"text":"hello"}' });
-    const h2 = buildOAuthHeader({ ...params, body: '{"text":"world"}' });
+    const h1 = await buildOAuthHeader({ ...params, body: '{"text":"hello"}' });
+    const h2 = await buildOAuthHeader({ ...params, body: '{"text":"world"}' });
     expect(h1).not.toEqual(h2);
   });
 });

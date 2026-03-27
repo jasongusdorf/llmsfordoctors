@@ -1,0 +1,919 @@
+---
+title: "Dermatology Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, dermatology, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "Generates structured dermatology clinic notes with precise lesion morphology, disease-specific scoring (PASI, EASI, IGA), biopsy tracking, biologic monitoring labs, dermoscopy findings, and phototherapy dosing."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+The patient with psoriasis on a biologic walks in for their three-month check. You need PASI scores, BSA, biologic monitoring labs, and a comparison to the last visit's photos. The next patient has a suspicious mole. The one after that is on isotretinoin. A dermatology note that works for all three requires structured morphologic description, disease-specific scoring, biopsy tracking, and treatment-specific monitoring, none of which a generic clinic note template captures. This template handles all of it.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Dermatology Clinic Visit Note">
+You are an outpatient dermatologist writing a clinic visit note after seeing a patient. The patient's primary dermatologic condition is one of: psoriasis, atopic dermatitis/eczema, acne, skin cancer (melanoma or non-melanoma), or another condition requiring biologic therapy or procedural management. Identify the primary condition from the clinical information and structure the note around it.
+
+### Purpose
+
+Generate a complete, structured outpatient dermatology clinic note from the clinical data below. The note must capture precise lesion descriptions using standard dermatologic morphology, disease-specific severity scores, biopsy results and tracking, treatment history and response, and monitoring data for systemic therapies.
+
+### Rules
+
+- Write in past tense for history and interval events; present tense for current findings, assessment, and plan.
+- Use medical abbreviations with expansion on first use in the note (e.g., "body surface area (BSA) 8%"), then abbreviation only thereafter.
+- Describe lesions using standard dermatologic terminology: morphology (macule, papule, patch, plaque, nodule, vesicle, pustule, bulla, wheal, tumor), color, size in cm, border characteristics, distribution pattern, and secondary changes (scale, crust, erosion, ulceration, lichenification, excoriation).
+- Use anatomic precision for location (e.g., "left posterior auricular scalp" not "head").
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- For psoriasis: document BSA (%), PASI score (or components), nail involvement, and psoriatic arthritis screening.
+- For atopic dermatitis: document EASI score, IGA, affected areas, triggers, and quality-of-life impact.
+- For acne: document severity classification, distribution, scarring assessment, and isotretinoin parameters if applicable.
+- For skin cancer: document lesion description with ABCDE criteria, dermoscopy findings, biopsy results (Breslow depth, margins, histologic subtype), and surveillance schedule.
+- For biologic therapy: document agent, dose, frequency, TB screening, hepatitis panel, CBC, LFTs, and response assessment.
+- Plan items must be specific: medication name, dose, vehicle (cream, ointment, solution, foam), frequency, anatomic site of application; procedure with site; lab order with timing.
+- Do not infer or fabricate any clinical information not provided. Write "[Not provided; verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "BSA" = body surface area
+- "PASI" = Psoriasis Area and Severity Index
+- "EASI" = Eczema Area and Severity Index
+- "IGA" = Investigator Global Assessment
+- "DLQI" = Dermatology Life Quality Index
+- "NB-UVB" = narrowband ultraviolet B
+- "PUVA" = psoralen plus ultraviolet A
+- "DES" = dermoscopy
+- "BCC" = basal cell carcinoma
+- "SCC" = squamous cell carcinoma
+- "AK" = actinic keratosis
+- "iPLEDGE" = isotretinoin risk management program
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+DERMATOLOGY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[Follow-up / New patient / Skin check / Biopsy follow-up /
+Biologic monitoring / Procedure visit]
+Interval since last visit: [duration]
+
+CHIEF CONCERN
+─────────────
+***
+
+DERMATOLOGIC HISTORY
+────────────────────
+  Primary diagnosis: ***
+  Duration: ***
+  Prior treatments: [Topical, phototherapy, systemic, biologic,
+    procedural — list chronologically with response]
+  Family history: [Psoriasis, eczema, melanoma, other skin conditions]
+  Skin type: [Fitzpatrick I-VI]
+
+INTERVAL HISTORY
+────────────────
+[Narrative: symptom changes since last visit, flares, triggers
+identified, treatment adherence, side effects, new lesions,
+pruritus severity, pain, sleep impact, quality of life.]
+
+CURRENT TREATMENT
+─────────────────
+  Topical
+  ───────
+  [Drug, vehicle, strength] — apply to [site], [frequency]
+  [Drug, vehicle, strength] — apply to [site], [frequency]
+
+  Systemic / Biologic
+  ────────────────────
+  [Drug, dose, route, frequency, start date]
+  Response: ***
+  Side effects: ***
+  Adherence: ***
+
+  Phototherapy (if applicable)
+  ────────────────────────────
+  Type: [NB-UVB / PUVA / excimer laser]
+  Frequency: *** sessions per week
+  Cumulative sessions: ***
+  Last dose: *** mJ/cm²
+  Response: ***
+  Burns/adverse events: ***
+
+  Other
+  ─────
+  [OTC treatments, moisturizers, avoidance strategies]
+
+DISEASE-SPECIFIC ASSESSMENT
+───────────────────────────
+
+  Psoriasis (if applicable)
+  ─────────────────────────
+  BSA: ***% (prior: ***% on M/D/YY)
+  PASI: ***/72 (prior: ***/72 on M/D/YY)
+    Head: *** Trunk: *** Upper extremities: *** Lower extremities: ***
+  DLQI: ***/30
+  Nail involvement: [Y/N; pitting, onycholysis, oil spots, subungual
+    hyperkeratosis; number of nails affected]
+  Scalp involvement: [Y/N, severity]
+  Inverse/genital involvement: [Y/N]
+  Psoriatic arthritis screen:
+    Joint pain/stiffness: [Y/N]
+    Morning stiffness (&gt;30 min): [Y/N]
+    Dactylitis: [Y/N]
+    Enthesitis: [Y/N]
+    Referred to rheumatology: [Y/N, date]
+
+  Atopic Dermatitis (if applicable)
+  ──────────────────────────────────
+  EASI: ***/72 (prior: ***/72 on M/D/YY)
+  IGA: ***/4 (0=clear, 1=almost clear, 2=mild, 3=moderate, 4=severe)
+  DLQI: ***/30
+  Affected areas: [list with severity per area]
+  Pruritus NRS: ***/10 (prior: ***/10)
+  Sleep impact: [disrupted *** nights/week]
+  Triggers identified: [allergens, irritants, stress, climate]
+  Superinfection signs: [Y/N; crusting, weeping, honey-colored crust]
+  Patch testing: [Done / Not done / Results]
+
+  Acne (if applicable)
+  ─────────────────────
+  Severity: [Comedonal / Mild inflammatory / Moderate inflammatory /
+    Severe / Nodulocystic]
+  Distribution: [Face (forehead, cheeks, chin, jawline), chest, back]
+  Lesion count: [Comedones: ***, Papules/pustules: ***, Nodules: ***]
+  Scarring: [None / Atrophic (ice pick, boxcar, rolling) / Hypertrophic /
+    Keloid; severity: mild / moderate / severe]
+  Post-inflammatory hyperpigmentation: [Y/N, severity]
+
+  Isotretinoin (if applicable)
+  ────────────────────────────
+  iPLEDGE registered: [Y/N]
+  Current dose: *** mg/day (*** mg/kg/day)
+  Cumulative dose: *** mg/kg (target: 120-150 mg/kg)
+  Month *** of treatment
+  Pregnancy test: [date, result]
+  Contraception: [two methods documented]
+  Labs: [date]
+    LFTs: AST *** ALT ***
+    Lipids: TC *** TG *** LDL *** HDL ***
+    CBC: ***
+  Side effects: [Dryness (lips, skin, eyes), myalgias, mood changes,
+    headaches, nosebleeds]
+
+  Skin Cancer (if applicable)
+  ───────────────────────────
+  Cancer history:
+    [Lesion 1: Type, site, date of diagnosis, treatment, margins]
+    [Lesion 2: Type, site, date of diagnosis, treatment, margins]
+  Current surveillance lesion(s):
+    [Describe each with ABCDE or clinical features]
+  Dermoscopy findings: [Pattern, colors, structures]
+  Risk factors: [Fitzpatrick type, UV exposure history, tanning bed use,
+    family history, immunosuppression, prior skin cancers (count)]
+  Surveillance schedule: [frequency based on risk level]
+
+BIOPSY TRACKING
+───────────────
+  Active Biopsies
+  ───────────────
+  Site: ***
+    Date performed: ***
+    Indication: ***
+    Pathology result: ***
+    [Melanoma: Breslow depth ***, Clark level ***, ulceration Y/N,
+      mitotic rate, margins, sentinel node status]
+    [BCC/SCC: Histologic subtype, margins, perineural invasion]
+    Follow-up plan: ***
+
+  Prior Biopsies (relevant)
+  ─────────────────────────
+  [Site, date, result for each]
+
+BIOLOGIC MONITORING (if applicable)
+───────────────────────────────────
+  Agent: ***
+  Dose and frequency: ***
+  Start date: ***
+  Pre-treatment screening:
+    TB (QuantiFERON): [date, result]
+    Hepatitis B: [HBsAg, anti-HBs, anti-HBc; date, results]
+    Hepatitis C: [date, result]
+  Monitoring labs (M/D/YY):
+    CBC: WBC *** Hgb *** Plt ***
+    LFTs: AST *** ALT *** Alk phos ***
+    Cr: ***
+    Other: [drug-specific: e.g., lipids for acitretin]
+  Immunization status: [Flu, COVID, pneumococcal, shingles —
+    live vaccines contraindicated on biologics]
+  Infections since last visit: [None / describe]
+
+SKIN EXAMINATION
+────────────────
+  Full body skin exam: [Performed / Deferred; reason]
+
+  Lesion-by-Lesion Documentation
+  ──────────────────────────────
+  Lesion 1:
+    Location: [Anatomically precise]
+    Morphology: [Primary lesion type]
+    Size: *** x *** cm
+    Color: ***
+    Border: [Well-defined / Irregular / Diffuse]
+    Surface: [Smooth / Scaly / Crusted / Verrucous / Ulcerated]
+    Distribution: [Localized / Generalized / Symmetric / Dermatomal /
+      Photodistributed / Flexural / Extensor]
+    Change from prior: [New / Stable / Improved / Worsened / Changed in ***]
+    Dermoscopy: [If performed: pattern, structures, colors]
+
+  Lesion 2:
+    [Same format]
+
+  General skin: ***
+  Hair: ***
+  Nails: ***
+  Mucous membranes: [If relevant]
+
+PHOTOGRAPHY
+───────────
+  Photos taken: [Y/N; body sites documented]
+  Comparison to prior photos (M/D/YY): [Improved / Stable / Worsened;
+    specific changes noted]
+
+VITAL SIGNS
+───────────
+  BP: ***
+  Weight: *** (BMI: ***)
+
+DIAGNOSTICS
+───────────
+  Labs
+  ────
+  [All recent labs with dates and values.]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [dermatologic diagnosis/diagnoses]
+presenting for [visit type]. [One-sentence trajectory statement.]
+
+  1. [Primary dermatologic condition]
+     [Current severity, trend from prior visit, treatment response,
+     rationale for plan.]
+
+  2. [Secondary condition, if applicable]
+     [Brief assessment.]
+
+  3. [Biopsy follow-up, if applicable]
+     [Result, implications, next steps.]
+
+PLAN
+────
+  1. [Primary condition]
+     - Topical: [Drug, vehicle, strength, site, frequency, duration]
+     - Systemic/Biologic: [Drug, dose, continue/adjust/switch]
+     - Phototherapy: [Dose adjustment, frequency]
+     - Procedure: [Biopsy site, excision plan, Mohs referral]
+     - Patient education: [Trigger avoidance, moisturizer regimen,
+       sun protection]
+
+  2. [Secondary condition]
+     - [Specific action]
+
+  3. Monitoring
+     - Labs to order: [Specific labs with timing]
+     - Biopsy: [Site, indication, to be performed today / schedule]
+     - Photography: [Schedule for comparison]
+
+  4. Referrals
+     - [Rheumatology for PsA, Mohs for skin cancer, allergy for
+       patch testing, etc.]
+
+  Follow-Up
+  ─────────
+  Return in [interval] for [specific purpose].
+  [Criteria for earlier return: rapidly changing lesion, signs of
+  infection, medication reaction.]
+
+DISPOSITION
+───────────
+[Patient counseled on ***, agrees with plan.
+Sun protection counseling provided.
+Return precautions reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: primary skin condition, duration, current treatment with specific products and strengths, interval history, skin exam findings with lesion descriptions, disease severity scores, biopsy results, labs, photography comparison, and any other relevant data.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Pediatric derm | Add: "This patient is a child. Adjust treatment options to pediatric-appropriate formulations and doses. Document impact on school and activities. Include caregiver education. Note Tanner stage if relevant to acne treatment decisions." |
+| Wound / ulcer clinic | Add: "This is a wound care or chronic ulcer visit. Document wound measurements (length x width x depth in cm), wound bed (granulation %, slough %, necrotic tissue), periwound skin, exudate, signs of infection, and offloading/compression status." |
+| Cosmetic derm | Add: "This is a cosmetic dermatology visit. Document the aesthetic concern, prior cosmetic procedures, Fitzpatrick skin type, treatment plan (injectable, laser, chemical peel), informed consent, and expected recovery timeline." |
+| Teledermatology | Add: "This visit was conducted via teledermatology. Note the image quality, whether dermoscopy images were available, and any limitations of remote assessment. Document whether an in-person visit is needed for biopsy or full-body skin exam." |
+| Inpatient derm consult | Change to: "You are a dermatologist writing an inpatient consultation. Include the referring service, reason for consult, medication review for drug eruption consideration, and systemic involvement assessment." |
+
+---
+
+## Variations
+
+### Psoriasis on biologic therapy
+
+Use this for the patient with moderate-to-severe plaque psoriasis being monitored on a biologic agent. The note tracks disease severity, treatment response, and the monitoring labs and safety assessments that biologic therapy requires.
+
+<PromptPlayground tool="Claude" title="Psoriasis Biologic Therapy Follow-Up">
+You are an outpatient dermatologist writing a follow-up note for a patient with psoriasis on biologic therapy. Structure the note around disease severity assessment (BSA, PASI), biologic response, monitoring labs, and safety screening.
+
+### Rules
+
+- Write in past tense for history; present tense for current findings and plan.
+- Use medical abbreviations with first-use expansion.
+- Document BSA and PASI with comparison to prior visit.
+- Assess treatment response: PASI 75, PASI 90, or PASI 100 achievement.
+- Document biologic-specific monitoring: TB screening, hepatitis panel, CBC, LFTs.
+- Screen for psoriatic arthritis at each visit.
+- Assess for injection site reactions, infections, and other biologic-specific adverse events.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+PSORIASIS BIOLOGIC THERAPY FOLLOW-UP
+══════════════════════════════════════════
+
+DISEASE STATUS
+──────────────
+  BSA: ***% (prior: ***% on M/D/YY; baseline: ***%)
+  PASI: ***/72 (prior: ***/72 on M/D/YY; baseline: ***/72)
+  PASI improvement: ***% from baseline
+    [PASI 75 achieved: Y/N]
+    [PASI 90 achieved: Y/N]
+    [PASI 100 achieved: Y/N]
+  DLQI: ***/30
+  Affected areas: [Describe current plaques by location, size, and
+    degree of erythema, induration, and scale]
+  Nail psoriasis: [Status and change]
+  Scalp: [Status and change]
+
+BIOLOGIC THERAPY
+────────────────
+  Agent: ***
+  Dose: ***
+  Route: ***
+  Frequency: ***
+  Start date: ***
+  Current phase: [Induction / Maintenance]
+  Prior biologics:
+    [Agent, duration, best response, reason for switch]
+
+  Injection site: [Reaction: none / erythema / swelling / pain]
+  Adherence: ***
+  Anti-drug antibodies: [If tested]
+
+PSORIATIC ARTHRITIS SCREEN
+──────────────────────────
+  Joint pain: [Y/N; location]
+  Morning stiffness: [Y/N; duration]
+  Dactylitis: [Y/N]
+  Enthesitis: [Y/N; location: Achilles, plantar fascia, other]
+  Nail changes suggestive of PsA: [Y/N]
+  Rheumatology co-management: [Y/N; last visit]
+
+SAFETY MONITORING
+─────────────────
+  Infections since last visit: [None / URI / UTI / skin / other]
+  Serious infections: [None / describe]
+  Malignancy screening: [Skin exam, age-appropriate cancer screening]
+  Immunizations: [Status; no live vaccines]
+
+MONITORING LABS (M/D/YY)
+─────────────────────────
+  TB screening (QuantiFERON): [Last date, result; annual rescreen Y/N]
+  Hepatitis B panel: [Last date, results]
+  CBC: WBC *** ANC *** Hgb *** Plt ***
+  LFTs: AST *** ALT ***
+  Cr: ***
+  Other: ***
+
+SKIN EXAM
+─────────
+  [Lesion descriptions with comparison to prior visit.
+  Include photographs if taken.]
+
+ASSESSMENT
+──────────
+[Summary: psoriasis severity, biologic response, PASI change,
+PsA screen, safety status.]
+
+PLAN
+────
+  1. Psoriasis management
+     - [Continue / switch / dose-adjust biologic, with rationale]
+     - [Adjunctive topical: drug, vehicle, site, frequency]
+     - [Scalp/nail-specific treatment if needed]
+
+  2. PsA management
+     - [Refer to rheumatology / continue co-management / no PsA identified]
+
+  3. Monitoring
+     - [Labs before next visit: specify]
+     - [TB rescreen if due]
+     - [Photography for comparison]
+
+  4. Follow-up
+     - Return in [interval, typically 3 months on stable biologic]
+     - [Criteria for earlier return: flare, infection, injection reaction]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: psoriasis history, current biologic agent with dose and start date, prior biologics, BSA and PASI scores (current and prior), skin exam findings, PsA symptoms, monitoring labs, injection site status, infections, adherence.]
+</PromptPlayground>
+
+### Skin cancer surveillance visit
+
+Use this for the patient with a history of melanoma or non-melanoma skin cancer returning for routine surveillance. The note is built around systematic full-body skin exam, lesion tracking, dermoscopy documentation, and biopsy management.
+
+<PromptPlayground tool="Claude" title="Skin Cancer Surveillance Visit">
+You are an outpatient dermatologist writing a skin cancer surveillance note for a patient with a history of melanoma or non-melanoma skin cancer. Structure the note around cancer history, risk stratification, systematic full-body skin exam with lesion-by-lesion documentation, and surveillance plan.
+
+### Rules
+
+- Write in past tense for history; present tense for current findings and plan.
+- Use medical abbreviations with first-use expansion.
+- Document complete skin cancer history: type, site, date, treatment, pathology details.
+- Risk stratification: Fitzpatrick type, UV exposure, immunosuppression, total lifetime skin cancer count, family history.
+- Full-body skin exam must be systematic by anatomic region.
+- Any concerning lesion needs: anatomic location, size, ABCDE assessment, dermoscopy findings, and plan (monitor, biopsy, refer for Mohs).
+- Document comparison to prior visit with specific changes noted.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+SKIN CANCER SURVEILLANCE VISIT
+══════════════════════════════════════════
+
+CANCER HISTORY
+──────────────
+  Total skin cancers: ***
+  Melanoma history:
+    [Site, date, Breslow depth, Clark level, ulceration, mitotic rate,
+    margins, SLNB result, stage, treatment, last follow-up]
+  BCC history:
+    [Site, date, subtype, treatment, margins, recurrence]
+  SCC history:
+    [Site, date, differentiation, perineural invasion, treatment,
+    margins, recurrence]
+  AK treatment history: [Cryotherapy, topical 5-FU, imiquimod, PDT]
+
+RISK PROFILE
+────────────
+  Fitzpatrick skin type: ***
+  UV exposure: [Occupation, recreational, geographic, tanning bed history]
+  Immunosuppression: [None / transplant / biologic / other]
+  Family history: [Melanoma, NMSC; relationship, age at diagnosis]
+  Total lifetime skin cancer count: ***
+  Atypical mole syndrome: [Y/N]
+  Prior sun protection counseling: [Y/N]
+
+INTERVAL HISTORY
+────────────────
+[New or changing lesions patient reports, symptoms (bleeding,
+itching, pain), sun exposure and protection practices,
+self-exam compliance.]
+
+FULL-BODY SKIN EXAM
+────────────────────
+  Scalp: ***
+  Face: ***
+  Ears: ***
+  Neck: ***
+  Chest/Abdomen: ***
+  Back: ***
+  Upper extremities (R): ***
+  Upper extremities (L): ***
+  Hands/Nails: ***
+  Lower extremities (R): ***
+  Lower extremities (L): ***
+  Feet/Toenails: ***
+  Genital/Perianal: [Examined / Deferred]
+
+  Lesions of Concern
+  ──────────────────
+  Lesion 1:
+    Location: ***
+    Size: *** x *** mm
+    ABCDE: Asymmetry [Y/N], Border [regular/irregular],
+      Color [uniform/variegated, list colors], Diameter [mm],
+      Evolution [changing Y/N, how]
+    Dermoscopy: [Network pattern, globules, streaks, blue-white veil,
+      regression structures, vascular pattern, other structures]
+    Clinical impression: ***
+    Plan: [Monitor with photos / Biopsy (shave, punch, excisional) /
+      Refer for Mohs]
+
+  Lesion 2:
+    [Same format]
+
+  Stable lesions being monitored:
+    [Location, last measured, dermoscopy comparison: stable / changed]
+
+PHOTOGRAPHY
+───────────
+  Total body photos: [On file / Updated today / Due]
+  Dermoscopy images: [Taken today for lesions at: ***]
+  Comparison to prior (M/D/YY): [Findings]
+
+LYMPH NODE EXAM (if melanoma history)
+─────────────────────────────────────
+  Cervical: ***
+  Axillary: ***
+  Inguinal: ***
+  Regional to prior melanoma site: ***
+
+ASSESSMENT
+──────────
+[Summary: skin cancer history, risk level, exam findings,
+lesions of concern, overall surveillance status.]
+
+PLAN
+────
+  1. Lesion management
+     - [Biopsy: site, type, indication]
+     - [Excision: site, margins planned]
+     - [Mohs referral: site, indication]
+     - [Monitor with dermoscopy: site, interval]
+
+  2. AK treatment
+     - [Cryotherapy today: sites]
+     - [Field treatment: agent, site, duration]
+
+  3. Sun protection
+     - [Counseling reviewed: sunscreen SPF ≥30, reapply q2hr,
+       protective clothing, shade-seeking behavior, no tanning beds]
+
+  4. Surveillance schedule
+     - Return in [3/6/12 months based on risk level]
+     - Self-exam monthly: [reviewed technique]
+     - [Imaging: if melanoma, sentinel node follow-up, CT/PET if indicated]
+
+  5. Pending
+     - Biopsy results expected in [timeframe]
+     - Will call with results and plan
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: skin cancer history with pathology details, risk factors, interval history, full-body skin exam findings, lesion descriptions, dermoscopy findings, prior photos for comparison, lymph node exam.]
+</PromptPlayground>
+
+### Acne management (including isotretinoin)
+
+Use this for acne patients at any severity level, including those on or being considered for isotretinoin. The note captures severity grading, treatment response, and the specific documentation requirements of isotretinoin prescribing (iPLEDGE, labs, pregnancy testing, contraception).
+
+<PromptPlayground tool="Claude" title="Acne Management Visit">
+You are an outpatient dermatologist writing a clinic note for an acne patient. The patient may be on topical therapy, oral antibiotics, hormonal therapy, or isotretinoin. Structure the note around acne severity, treatment response, and medication-specific monitoring.
+
+### Rules
+
+- Write in past tense for history; present tense for current findings and plan.
+- Use medical abbreviations with first-use expansion.
+- Grade acne severity: comedonal, mild inflammatory, moderate inflammatory, severe inflammatory, nodulocystic.
+- Document lesion counts when possible: comedones, papules/pustules, nodules.
+- Assess and document scarring type and severity.
+- For isotretinoin patients: document iPLEDGE compliance, pregnancy test, contraception, labs (LFTs, lipids, CBC), cumulative dose (mg/kg), and side effects.
+- Plan must include specific products with vehicle, strength, and application instructions.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+ACNE MANAGEMENT VISIT
+══════════════════════════════════════════
+
+VISIT TYPE: [Initial evaluation / Follow-up / Isotretinoin month ***]
+
+ACNE CLASSIFICATION
+───────────────────
+  Severity: [Comedonal / Mild inflammatory / Moderate inflammatory /
+    Severe inflammatory / Nodulocystic]
+  Distribution: [Face (zones), chest, back, shoulders]
+  Duration: ***
+  Age of onset: ***
+
+CURRENT STATUS
+──────────────
+  Lesion assessment:
+    Comedones: [count or density estimate]
+    Papules/pustules: [count or density estimate]
+    Nodules/cysts: [count]
+    Active lesions predominant location: ***
+  Scarring:
+    Type: [None / Atrophic (ice-pick, boxcar, rolling) / Hypertrophic / Keloid]
+    Severity: [None / Mild / Moderate / Severe]
+    Location: ***
+  Post-inflammatory changes:
+    Hyperpigmentation: [Y/N, severity]
+    Erythema: [Y/N]
+  Oiliness/seborrhea: [Mild / Moderate / Severe]
+  Comparison to last visit: [Improved / Stable / Worsened; specific changes]
+
+CURRENT TREATMENT
+─────────────────
+  Topical:
+    [Product, vehicle, strength, application site, frequency, duration]
+    Tolerability: [Good / Dryness / Irritation / other]
+  Oral:
+    [Drug, dose, frequency, duration]
+    Side effects: ***
+  Hormonal (if applicable):
+    [OCP: type, dose / Spironolactone: dose]
+    Side effects: ***
+
+  Isotretinoin (if applicable)
+  ────────────────────────────
+  iPLEDGE: [Registered, compliant, window open]
+  Current dose: *** mg/day (*** mg/kg/day)
+  Weight: *** kg
+  Month *** of treatment
+  Cumulative dose: *** mg/kg (target: 120-150 mg/kg)
+  Months remaining (estimated): ***
+  Pregnancy test (M/D/YY): [Negative]
+  Contraception: [Method 1, Method 2]
+  Labs (M/D/YY):
+    LFTs: AST *** ALT ***
+    Lipids: TC *** TG *** LDL *** HDL ***
+    CBC: [If obtained]
+  Side effects:
+    Lips/skin dryness: [None / Mild / Moderate / Severe]
+    Musculoskeletal: [Myalgias / Back pain / None]
+    Mood: [Stable / Changes noted]
+    Eyes: [Dry eyes / Contact lens intolerance / None]
+    Nosebleeds: [Y/N, frequency]
+    GI: [None / Describe]
+    Headaches: [None / Describe]
+
+PRIOR TREATMENTS
+────────────────
+  [Agent, duration, response, reason for change]
+  [Continue for each prior treatment]
+
+INTERVAL HISTORY
+────────────────
+[Narrative: breakout pattern, treatment adherence, side effects,
+triggers (stress, diet, menstrual cycle), cosmetic and skin care
+product use, psychosocial impact.]
+
+ASSESSMENT
+──────────
+[Summary: acne type and severity, treatment response, scarring
+status, isotretinoin progress if applicable.]
+
+PLAN
+────
+  1. Acne treatment
+     Topical:
+     - [Product, vehicle, strength, site, frequency — specific instructions]
+     Oral:
+     - [Drug, dose, duration — or isotretinoin dose adjustment]
+     Procedural:
+     - [Extraction, injection of cysts, chemical peel, laser, if any]
+
+  2. Isotretinoin management (if applicable)
+     - [Dose: continue / increase from *** to *** mg/day]
+     - [iPLEDGE: confirm next window]
+     - [Labs before next visit: LFTs, lipids]
+     - [Pregnancy test: schedule before next visit]
+
+  3. Scarring (if applicable)
+     - [Treatment plan: timing (after acne controlled), modality
+       (microneedling, laser resurfacing, filler, subcision)]
+
+  4. Skin care regimen
+     - [Cleanser, moisturizer, sunscreen recommendations]
+
+  5. Follow-up
+     - Return in [4 weeks for isotretinoin / 6-8 weeks for other]
+     - [Labs *** days before next visit]
+     - [Call clinic for: severe headache, visual changes, rectal bleeding,
+       severe mood changes, bone/joint pain]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: acne history, current treatment with specific products, prior treatments, skin exam with lesion counts and distribution, scarring assessment, isotretinoin details if applicable (dose, month, labs, pregnancy test, side effects), interval symptoms.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+45-year-old male with moderate-severe plaque psoriasis, diagnosed 2014. Prior treatments: topical clobetasol (good for limited disease, insufficient as BSA expanded), methotrexate 20 mg weekly x 2 years (partial response, LFTs elevated, discontinued 2020), adalimumab 40 mg q2wks x 18 months (initial PASI 75, then loss of response, switched 2023). Started secukinumab 300 mg monthly (after loading) in 3/2025. Baseline PASI 14.2, BSA 12%. Last visit (12/2025): PASI 4.8, BSA 5%. Today (3/2026): reports continued clearing, one small plaque on left elbow, scalp mostly clear. Denies joint pain, morning stiffness, nail changes. No infections. Takes secukinumab as scheduled, no injection site reactions. Labs (3/1/26): CBC normal, LFTs normal, QuantiFERON negative (annual rescreen). Exam: 2 cm well-defined erythematous plaque with fine scale on left olecranon, two thin plaques (1 cm each) on bilateral shins, trace scale on posterior scalp. No nail pitting. BSA approximately 2%. PASI calculated at 2.1.
+
+**LLM output:**
+
+DERMATOLOGY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Follow-up, biologic monitoring
+Interval since last visit: 3 months
+
+CHIEF CONCERN
+─────────────
+Follow-up for plaque psoriasis on secukinumab
+
+DERMATOLOGIC HISTORY
+────────────────────
+  Primary diagnosis: Plaque psoriasis, moderate-severe
+  Duration: 12 years (diagnosed 2014)
+  Prior treatments:
+    - Clobetasol 0.05% ointment: Good for limited disease; insufficient as body surface area (BSA) expanded
+    - Methotrexate 20 mg weekly, 2 years (2018-2020): Partial response; discontinued for elevated liver function tests (LFTs)
+    - Adalimumab 40 mg every 2 weeks, 18 months (2021-2023): Initial Psoriasis Area and Severity Index (PASI) 75 response; secondary loss of response; switched
+    - Secukinumab 300 mg monthly (after loading): Started 3/2025; current agent
+  Family history: [Not provided; verify before signing]
+  Skin type: [Not provided; verify before signing]
+
+INTERVAL HISTORY
+────────────────
+Patient reports continued improvement of psoriasis since last visit. He notes one small plaque on the left elbow that has been persistent but stable, and his scalp is mostly clear. He denies pruritus, pain, and new lesions. He takes secukinumab on schedule without missed doses and reports no injection site reactions. He denies joint pain, morning stiffness, dactylitis, and nail changes. No infections, upper respiratory symptoms, or candidal infections since last visit.
+
+CURRENT TREATMENT
+─────────────────
+  Systemic / Biologic
+  ────────────────────
+  Secukinumab 300 mg subcutaneous monthly — start date: 3/2025
+  Response: Excellent (PASI improved from 14.2 to 2.1; BSA from 12% to 2%)
+  Side effects: None
+  Adherence: Good; no missed doses
+
+  Topical
+  ───────
+  [Not provided; verify before signing]
+
+DISEASE-SPECIFIC ASSESSMENT
+───────────────────────────
+
+  Psoriasis
+  ─────────
+  BSA: 2% (prior: 5% on 12/2025; baseline: 12% on 3/2025)
+  PASI: 2.1/72 (prior: 4.8/72 on 12/2025; baseline: 14.2/72 on 3/2025)
+  PASI improvement: 85% from baseline
+    PASI 75 achieved: YES
+    PASI 90 achieved: NO (85%)
+    PASI 100 achieved: NO
+  Dermatology Life Quality Index (DLQI): [Not provided; verify before signing]
+  Nail involvement: None
+  Scalp involvement: Trace scale on posterior scalp; markedly improved
+  Inverse/genital involvement: None
+
+  Psoriatic arthritis screen:
+    Joint pain/stiffness: No
+    Morning stiffness (&gt;30 min): No
+    Dactylitis: No
+    Enthesitis: No
+    Referred to rheumatology: Not indicated at this time
+
+BIOLOGIC MONITORING
+───────────────────
+  Agent: Secukinumab 300 mg SC monthly
+  Start date: 3/2025 (12 months on therapy)
+  Pre-treatment screening:
+    TB (QuantiFERON): Negative (3/2025)
+    Hepatitis B: [Not provided; verify if completed at baseline]
+    Hepatitis C: [Not provided; verify if completed at baseline]
+  Monitoring labs (3/1/26):
+    CBC: Within normal limits
+    LFTs: AST and ALT within normal limits
+    QuantiFERON: Negative (annual rescreen)
+  Immunization status: [Not provided; verify before signing]
+  Infections since last visit: None
+  Injection site reactions: None
+
+SKIN EXAMINATION
+────────────────
+  Full body skin exam: Performed
+
+  Lesion-by-Lesion Documentation
+  ──────────────────────────────
+  Lesion 1:
+    Location: Left olecranon
+    Morphology: Plaque
+    Size: 2 x 2 cm
+    Color: Erythematous
+    Border: Well-defined
+    Surface: Fine scale
+    Change from prior: Stable from prior visit
+
+  Lesion 2:
+    Location: Right anterior shin
+    Morphology: Thin plaque
+    Size: 1 x 1 cm
+    Color: Erythematous
+    Surface: Minimal scale
+    Change from prior: Improved
+
+  Lesion 3:
+    Location: Left anterior shin
+    Morphology: Thin plaque
+    Size: 1 x 1 cm
+    Color: Erythematous
+    Surface: Minimal scale
+    Change from prior: Improved
+
+  Scalp: Trace fine scale on posterior scalp; no thick plaques
+  Nails: No pitting, onycholysis, or oil spots
+  General skin: No new lesions; remainder of skin clear
+
+PHOTOGRAPHY
+───────────
+  Photos taken: [Not provided; verify before signing]
+
+ASSESSMENT
+──────────
+45-year-old male with moderate-severe plaque psoriasis diagnosed in 2014, presenting for 12-month follow-up on secukinumab. Disease is well controlled with PASI improving from 14.2 at baseline to 2.1 (85% improvement), achieving PASI 75 but not yet PASI 90. BSA has decreased from 12% to 2%. Three residual plaques remain (left elbow, bilateral shins) with trace scalp involvement. No signs of psoriatic arthritis. No adverse effects from therapy. Monitoring labs are normal.
+
+  1. Plaque psoriasis, well controlled on secukinumab
+     Excellent response over 12 months with progressive improvement (BSA 12% to 5% to 2%). Approaching PASI 90. Residual plaques are small, thin, and minimally symptomatic. No loss of response. No infections, which is the primary safety concern with IL-17 inhibition (particularly candidiasis). LFTs normalized after methotrexate discontinuation and remain normal.
+
+  2. Psoriatic arthritis screening, negative
+     No joint symptoms, morning stiffness, dactylitis, or enthesitis. Will continue screening at each visit given the 30% lifetime risk of psoriatic arthritis in psoriasis patients.
+
+PLAN
+────
+  1. Psoriasis management
+     - Continue secukinumab 300 mg SC monthly; do not change dose (ongoing improvement)
+     - Add clobetasol 0.05% ointment to left elbow plaque BID for 2-week pulses, then weekends only as maintenance
+     - Clobetasol 0.05% scalp solution to posterior scalp daily x 2 weeks, then as needed
+
+  2. Monitoring
+     - Repeat CBC, LFTs in 6 months (9/2026)
+     - Annual QuantiFERON: next due 3/2027
+     - Update hepatitis B screening documentation if not on file
+     - Clinical photography today for ongoing comparison
+
+  3. Psoriatic arthritis
+     - No referral needed at this time
+     - Continue screening at each visit
+
+  4. Sun protection
+     - Counseled on daily SPF ≥30, especially to areas of prior plaques (Koebner phenomenon risk)
+
+  5. Follow-up
+     - Return in 3 months (6/2026)
+     - Call clinic if: new rash, signs of infection (fever, sore throat, painful skin), significant flare, or joint symptoms
+
+DISPOSITION
+───────────
+Patient counseled on continued secukinumab, topical adjunctive therapy for residual plaques, and sun protection. Agrees with plan. Return precautions reviewed.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **Lesion description is the clinical data.** In dermatology, the skin exam is not a formality; it is the diagnostic test. The model generates structured descriptions, but only from what you provide. "Red spot on arm" produces a useless note. "3 cm well-defined erythematous plaque with silvery scale on the left extensor forearm" produces a note worth signing.
+- **PASI calculation is easy to get wrong.** The PASI score weights body regions differently (head 0.1, trunk 0.3, upper extremities 0.2, lower extremities 0.4) and grades erythema, induration, and scale on a 0-4 scale. The model will calculate from component scores if you provide them, but verify the arithmetic. A PASI of 2.1 vs. 4.8 changes whether you are at PASI 90.
+- **Biologic monitoring follows a schedule.** Initial labs (CBC, LFTs, hepatitis B/C, TB) are done at baseline. Ongoing monitoring varies by agent. The model includes the monitoring section, but you must know what is due when. Annual TB rescreening is standard for most biologics but not all.
+- **Isotretinoin documentation is a liability minefield.** The note must show iPLEDGE compliance, pregnancy test date and result, two forms of contraception, labs with dates, cumulative dose calculation, and side effect screening. Miss any of these, and you have a documentation gap in one of dermatology's most regulated prescriptions.
+- **Dermoscopy findings belong in the note.** If you used a dermatoscope to evaluate a lesion, document what you saw. "Dermoscopy performed, benign pattern" is better than no documentation, but "Dermoscopy: typical network, symmetric globules at periphery, no regression structures" is what supports your decision not to biopsy.
+- **Photography comparison requires dates.** The model will document comparison to prior photos, but only if you specify the date of the prior photos and what changed. "Improved from prior" is not useful. "Plaques on bilateral shins reduced from 3 cm to 1 cm compared to photos from 12/15/25" is.
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) - for inpatient dermatology consult follow-ups
+- [Consult Note](/templates/consult-note) - for the initial dermatology consultation
+- [Procedure Note](/templates/procedure-note) - for documenting biopsies, excisions, and Mohs surgery
+- [Referral Letter](/templates/referral-letter) - for Mohs referrals or rheumatology referrals for psoriatic arthritis
+- [Prior Authorization](/templates/prior-authorization) - for biologic prior authorizations (step therapy documentation)

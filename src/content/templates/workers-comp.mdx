@@ -1,0 +1,773 @@
+---
+title: "Workers' Compensation Evaluation"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, workers-comp, occupational, documentation]
+lastUpdated: 2026-03-27
+socialPost: "This template generates structured workers' compensation evaluation notes with the legal and clinical elements the system requires: specific injury mechanism, job duties and physical demands, prior injury history, objective exam with ROM in degrees and"
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Workers' compensation notes serve two audiences simultaneously: the clinical team managing the injury and the legal-administrative system deciding whether to pay for it. A standard office visit note is not sufficient. The workers' comp system requires a specific injury mechanism tied to a specific work activity, a causation opinion stated directly, work restrictions expressed in pounds and hours, and eventually a maximum medical improvement (MMI) determination with an impairment rating. Miss any of these, and the claim stalls, the patient does not get treated, and the employer's insurer sends a utilization review denial. Paste your visit data into this template, and the LLM produces a note that satisfies both clinical and medicolegal requirements.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, employer name, claim numbers, and any other direct identifiers.
+</Callout>
+
+<Callout type="pitfall">
+  Workers' compensation documentation requires a direct causation statement. Phrases like "the injury may be related to work" or "it is possible that work contributed" are clinically honest but legally insufficient. The standard in most jurisdictions is "more likely than not" (greater than 50% probability). State your causation opinion directly, and if you cannot support causation, say that directly as well.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Workers' Compensation Evaluation Note">
+You are a physician writing a workers' compensation evaluation note for a patient with a workplace injury. This may be an initial injury evaluation, a follow-up visit with work status update, or a maximum medical improvement and impairment determination. The note must satisfy both clinical documentation standards and the legal-administrative requirements of the workers' compensation system.
+
+### Purpose
+
+Generate a complete, structured workers' compensation evaluation note from the clinical data below. The note must capture the specific injury mechanism and work activity, job duties and physical demands, prior injury history, objective examination with measurable findings, a direct causation opinion, work status with specific physical restrictions, treatment plan, and MMI or impairment determination if applicable.
+
+### Rules
+
+- Write in past tense for history and mechanism; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use in the note (e.g., "range of motion (ROM)"), then abbreviation only thereafter.
+- Include specific numbers for all values: ROM in degrees, grip strength in lbs/kg, circumferential measurements in cm, lifting restrictions in lbs, standing/walking tolerance in hours.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- The injury mechanism must describe a specific work activity, not just "at work." What was the patient doing, what happened, and how did the body part become injured?
+- Document job duties and physical demands using Department of Labor categories (sedentary, light, medium, heavy, very heavy) with specific lifting, carrying, standing, walking, and positional requirements.
+- Document prior injuries to the same body part, including prior workers' comp claims, if known.
+- Physical examination must include objective, measurable findings: ROM in degrees (both active and passive, compared to contralateral), grip strength (dynamometer), circumferential measurements for swelling, and specific provocative tests.
+- Causation opinion must be stated directly using "to a reasonable degree of medical certainty" or "more likely than not" language. Do not hedge. If causation is uncertain, explain why.
+- Work status must use one of three categories: full duty, modified duty with specific restrictions, or temporary total disability (TTD). Restrictions must be expressed in specific physical terms.
+- If the patient has reached maximum medical improvement (MMI), state so directly with the date and the basis for the determination.
+- If an impairment rating is provided, cite the edition of the AMA Guides to the Evaluation of Permanent Impairment used and the specific rating methodology.
+- Do not infer or fabricate any clinical information not provided. Write "***" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "ROM" = range of motion
+- "MMI" = maximum medical improvement
+- "TTD" = temporary total disability
+- "TPD" = temporary partial disability
+- "PPD" = permanent partial disability
+- "WPI" = whole person impairment
+- "FCE" = functional capacity evaluation
+- "IME" = independent medical examination
+- "DOI" = date of injury
+- "DOL" = Department of Labor
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+WORKERS' COMPENSATION EVALUATION
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[Initial injury evaluation / Follow-up / MMI determination /
+Impairment rating / Return-to-work evaluation]
+Date of evaluation: ***
+Date of injury (DOI): ***
+Time since injury: ***
+Claim number: [de-identified]
+
+EMPLOYER AND JOB INFORMATION
+─────────────────────────────
+  Employer: [de-identified]
+  Job title: ***
+  Employment duration: ***
+  Physical demand classification (per DOL):
+    [Sedentary / Light / Medium / Heavy / Very heavy]
+  Specific job duties:
+    - [Duty 1 with physical demands: e.g., "Lifts boxes weighing
+      up to 50 lbs from floor to waist-height shelving,
+      approximately 30 times per shift"]
+    - [Duty 2]
+    - [Duty 3]
+  Typical shift: *** hours
+  Standing/walking: *** hours per shift
+  Sitting: *** hours per shift
+  Lifting: up to *** lbs, frequency: ***
+  Repetitive motions: [describe]
+  Awkward postures: [describe]
+
+INJURY MECHANISM
+────────────────
+  Date: ***
+  Time: ***
+  Specific activity at time of injury: [What was the patient
+    doing? What specific work task? What body position?]
+  Mechanism: [What happened? Specific force, direction, object,
+    height of fall, weight of object, surface]
+  Immediate symptoms: [What did the patient feel immediately?
+    Pop, snap, sharp pain, weakness, numbness]
+  Immediate actions: [Continued working / stopped / reported to
+    supervisor / went to occupational health / went to ED]
+  First medical treatment: [date, provider type, location]
+  Employer notified: [Y/N, date]
+  Incident report filed: [Y/N, date]
+
+PRIOR INJURY HISTORY
+────────────────────
+  Prior injuries to same body part: [None / details with dates,
+    mechanism, treatment, recovery, and residual symptoms]
+  Prior workers' compensation claims: [None / details with dates,
+    body part, claim status (open/closed), impairment rating if any]
+  Pre-existing conditions affecting same body part: [None /
+    degenerative changes, prior surgery, chronic conditions]
+  Baseline functional status before this injury: [Full duty /
+    restrictions / description of pre-injury capability]
+
+SUBJECTIVE COMPLAINT
+────────────────────
+  Current symptoms:
+    Pain: [location, character, severity ***/10, constant vs.
+      intermittent, radiation]
+    Functional limitations: [specific activities limited:
+      lifting, reaching, gripping, walking, sitting, sleeping]
+    Aggravating factors: [specific work activities and daily activities]
+    Alleviating factors: [rest, ice, medications, position changes]
+  Symptom trajectory since injury: [improving / stable / worsening]
+  Current treatment: [medications, PT, bracing, restrictions]
+  Treatment received to date: [chronological list with dates,
+    providers, types, and response]
+
+CURRENT WORK STATUS
+───────────────────
+  Currently working: [Y/N]
+  If working: [full duty / modified duty with restrictions: ***]
+  If not working: [TTD since (date); reason: ***]
+  Employer accommodating restrictions: [Y/N; describe]
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: ***
+  Gait: [normal / antalgic / assistive device]
+
+  Affected body part:
+  ────────────────────
+  Inspection: [swelling, ecchymosis, deformity, atrophy,
+    surgical scars, asymmetry]
+  Palpation: [point tenderness with specific anatomic location,
+    effusion, crepitus, warmth]
+
+  Range of Motion (ROM)
+  ─────────────────────
+  [Joint]      Active    Passive    Contralateral    Normal
+  Flexion:     ***°      ***°       ***°             ***°
+  Extension:   ***°      ***°       ***°             ***°
+  [Add all relevant planes of motion]
+  Pain with motion: [at end range / throughout arc / none]
+  Effort: [appears maximal / submaximal (describe basis)]
+
+  Strength Testing
+  ────────────────
+  [Muscle group]: ***/5 MRC grade (contralateral: ***/5)
+  [Continue for all relevant muscle groups]
+
+  Grip Strength (if upper extremity)
+  ──────────────────────────────────
+  Affected: *** lbs (average of 3 trials: ***, ***, ***)
+  Unaffected: *** lbs (average of 3 trials: ***, ***, ***)
+  Rapid exchange grip: [consistent / bell curve /
+    inconsistent (describe)]
+  Coefficient of variation: ***% (normal &lt;15%)
+
+  Circumferential Measurements (if swelling present)
+  ──────────────────────────────────────────────────
+  Location: *** cm above/below [landmark]
+  Affected: *** cm
+  Unaffected: *** cm
+  Difference: *** cm
+
+  Provocative Tests
+  ─────────────────
+  [Test name]: [positive / negative]
+  [Continue for all relevant tests with specific findings]
+
+  Neurological (if applicable)
+  ────────────────────────────
+  Sensory: [dermatomal distribution, specific findings]
+  Motor: [as above]
+  Reflexes: [specific reflexes tested and findings]
+  Tension signs: [SLR, Spurling, Tinel, Phalen, etc.]
+
+  Waddell Signs (if applicable, for spine injuries)
+  ──────────────────────────────────────────────────
+  1. Tenderness: [superficial / nonanatomic]: [pos/neg]
+  2. Simulation: [axial loading / rotation]: [pos/neg]
+  3. Distraction: [SLR discrepancy]: [pos/neg]
+  4. Regional: [non-dermatomal sensory / cogwheel weakness]: [pos/neg]
+  5. Overreaction: [pos/neg]
+  Positive Waddell signs: ***/5
+
+  Pain Behavior Observations
+  ──────────────────────────
+  [Objective observations: guarding, facial grimacing,
+  inconsistencies between observed function and reported
+  limitation, sitting tolerance during interview vs. reported
+  sitting tolerance]
+
+DIAGNOSTICS
+───────────
+  Imaging:
+    [Type, date, findings]
+  EMG/NCS: [date, findings, if applicable]
+  Labs: [if applicable]
+  Functional Capacity Evaluation (FCE): [date, findings,
+    physical demand level achieved, validity indicators]
+
+CAUSATION OPINION
+─────────────────
+  To a reasonable degree of medical certainty, the patient's
+  [diagnosis] is [causally related / not causally related] to
+  the workplace injury described above on [DOI].
+
+  Basis for opinion:
+  [Explain the clinical reasoning: temporal relationship between
+  injury mechanism and symptom onset, consistency of mechanism
+  with the diagnosed condition, objective findings supporting
+  the diagnosis, presence or absence of pre-existing pathology,
+  and the relative contribution of work vs. pre-existing factors.]
+
+  Apportionment (if applicable):
+  [If pre-existing condition contributes: "***% of the current
+  condition is attributable to the workplace injury of [DOI],
+  and ***% is attributable to pre-existing [condition]."
+  Basis for apportionment must be stated.]
+
+DIAGNOSES
+─────────
+  1. [Primary diagnosis, ICD-10]
+  2. [Secondary diagnosis, ICD-10]
+  [Continue as needed]
+  Work-related: [Y/N for each]
+
+TREATMENT PLAN
+──────────────
+  Current treatment:
+    - [Medication: drug, dose, frequency, duration]
+    - [Physical therapy: type, frequency, duration, goals]
+    - [Bracing/DME: type]
+    - [Restrictions: specific and measurable]
+  Recommended treatment:
+    - [New orders with rationale]
+    - [Referrals with reason]
+    - [Surgery recommendation if applicable: procedure, rationale,
+      expected recovery time, expected work status post-op]
+  Treatment authorization: [authorized / pending / denied:
+    appeal plan]
+
+WORK STATUS DETERMINATION
+─────────────────────────
+  Status: [Full duty / Modified duty / Temporary total disability]
+  Effective date: ***
+  Expected duration: ***
+
+  [If modified duty:]
+  Specific restrictions:
+    Lifting: *** lbs maximum (floor to waist), *** lbs (waist
+      to shoulder), *** lbs (overhead)
+    Carrying: *** lbs maximum, *** feet maximum distance
+    Pushing/pulling: *** lbs maximum force
+    Standing: *** hours maximum per shift
+    Walking: *** hours maximum per shift
+    Sitting: *** hours maximum per shift
+    Climbing: [restricted / not restricted]
+    Bending/stooping: [restricted / not restricted / limited to
+      *** times per hour]
+    Reaching overhead: [restricted / not restricted]
+    Repetitive gripping: [restricted / not restricted]
+    Driving: [restricted / not restricted]
+    Use of affected extremity: [specific limitations]
+  Total hours: *** hours per day, *** days per week
+
+  [If TTD:]
+  Rationale: [specific clinical reason patient cannot work in
+    any capacity]
+  Expected return-to-work date: ***
+
+MMI DETERMINATION (if applicable)
+──────────────────────────────────
+  Maximum medical improvement: [Not yet reached / Reached]
+  Date of MMI: ***
+  Basis: [Patient has reached a clinical plateau; further treatment
+    is not expected to result in significant functional improvement.
+    Specific findings supporting plateau: ***]
+
+IMPAIRMENT RATING (if applicable)
+──────────────────────────────────
+  Edition: AMA Guides to the Evaluation of Permanent Impairment,
+    [5th / 6th] edition
+  Body part rated: ***
+  Method: [DRE / ROM / diagnosis-based impairment (DBI)]
+
+  Rating calculation:
+    [Step-by-step calculation per the AMA Guides methodology
+    used. Include class, grade modifiers, and net adjustment
+    if using 6th edition.]
+  Whole person impairment (WPI): ***%
+  Apportioned WPI (if applicable): ***%
+
+  Permanent restrictions: [None / specific restrictions expected
+    to be permanent]
+
+FOLLOW-UP
+─────────
+  Next visit: [date]
+  Purpose: [re-evaluation, work status update, post-op check,
+    MMI determination]
+  Anticipated treatment duration: ***
+  Expected return to full duty: [date or "not expected"]
+
+DISPOSITION
+───────────
+[Patient counseled on diagnosis, causation, work status,
+restrictions, and treatment plan. Understands restrictions
+and will provide documentation to employer. Return precautions
+reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: injury mechanism and date, job title and duties, physical demands, prior injury history, current symptoms, treatment to date, work status, exam findings with ROM and strength measurements, imaging, and any FCE or impairment data.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Cumulative trauma (repetitive stress) | Add: "This is a cumulative trauma or repetitive stress injury, not a single incident. Document the repetitive work activities, duration of exposure, gradual symptom onset timeline, and the specific biomechanical mechanism by which the work activities caused or aggravated the condition." |
+| Independent medical examination (IME) | Add: "This is an independent medical examination requested by the insurer/employer. The evaluation is for the purpose of providing an independent opinion on diagnosis, causation, treatment appropriateness, work status, and MMI/impairment. The patient is not my treating physician. The tone is neutral and evidence-based." |
+| Psychiatric workers' comp claim | Add: "This is a workers' compensation claim involving a psychiatric or psychological condition (PTSD, depression, anxiety) related to workplace events. Document the specific workplace events, the DSM-5 diagnostic criteria met, the temporal relationship, and the functional impact on work capacity." |
+| Federal workers' comp (OWCP) | Add: "This claim is under the Federal Employees' Compensation Act (FECA/OWCP). Use OWCP-specific forms and terminology. The causation standard may differ from state workers' comp. Document the accepted condition(s) and any disputed conditions separately." |
+| Return-to-work after surgery | Add: "This patient is returning to work after surgery for a work-related injury. Document the surgical procedure, post-operative recovery milestones, current functional status, comparison to pre-injury job demands, and the specific date and capacity for return. Restrictions must be tied to the surgical recovery timeline." |
+
+---
+
+## Variations
+
+### Initial injury evaluation
+
+Use this for the first medical visit after a workplace injury. The note captures the injury mechanism in detail, establishes the diagnosis, provides an initial causation opinion, and sets work restrictions.
+
+<PromptPlayground tool="Claude" title="Initial Workers' Comp Injury Evaluation">
+You are a physician performing the initial medical evaluation of a patient with a new workplace injury.
+
+### Rules
+
+- Write in past tense for mechanism; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- The injury mechanism must be highly specific: what the patient was doing, what happened, how the body part was injured, what they felt, what they did immediately after.
+- Document job duties with specific physical demands.
+- Examination must include ROM in degrees compared to contralateral and normal values.
+- Provide an initial causation opinion. At this stage, if the mechanism is consistent with the injury and the timeline fits, the opinion can be straightforward.
+- Set initial work restrictions that are specific and measurable.
+- Order appropriate imaging and treatment.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Output format
+
+```
+INITIAL WORKERS' COMPENSATION EVALUATION
+══════════════════════════════════════════
+
+DOI: ***
+MECHANISM: [Detailed mechanism as specified]
+
+EMPLOYER/JOB: [Title, duties, physical demands]
+
+PRIOR HISTORY: [Same body part: none or details]
+
+EXAMINATION: [Objective findings with ROM, strength, provocative tests]
+
+IMAGING: [Ordered or performed: findings]
+
+DIAGNOSIS: [Primary and secondary, ICD-10]
+
+CAUSATION: [Direct statement using "to a reasonable degree
+of medical certainty"]
+
+WORK STATUS: [Full duty / modified / TTD with specific restrictions]
+
+TREATMENT PLAN: [Medications, PT, imaging, referrals]
+
+FOLLOW-UP: [Date and purpose]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: injury date, mechanism, job title and duties, symptoms, exam findings, prior injury history.]
+</PromptPlayground>
+
+### Follow-up with work status update
+
+Use this for the routine follow-up visit where the primary purpose is updating the work status and documenting treatment progress. The insurer and employer need this note to continue authorizing treatment and modified duty.
+
+<PromptPlayground tool="Claude" title="Workers' Comp Follow-Up with Work Status Update">
+You are a physician writing a follow-up note for a patient with an established workers' compensation claim. The primary purpose is to update the work status and document treatment progress.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Compare current exam findings to prior visit (ROM, strength, functional status).
+- Document treatment received since last visit with response.
+- Update work restrictions: same, more restrictive, less restrictive, or advanced to full duty. Justify any change with objective findings.
+- Address whether the patient is progressing as expected or whether the recovery is delayed (and if so, why).
+- If MMI is approaching, indicate estimated timeline.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Output format
+
+```
+WORKERS' COMPENSATION FOLLOW-UP
+══════════════════════════════════════════
+
+DOI: ***
+TIME SINCE INJURY: ***
+CLAIM STATUS: [open / approaching MMI]
+
+INTERVAL HISTORY
+────────────────
+  [Treatment received, symptom trajectory, work status since
+  last visit, employer accommodating restrictions Y/N]
+
+EXAMINATION (compared to prior)
+────────────────────────────────
+  ROM: [current vs. prior vs. contralateral]
+  Strength: [current vs. prior]
+  Provocative tests: [current results]
+  Functional observations: [consistency, effort, pain behaviors]
+
+TREATMENT RESPONSE
+──────────────────
+  [PT progress, medication response, injection response, etc.]
+
+WORK STATUS UPDATE
+──────────────────
+  Prior restrictions: [summary]
+  Updated restrictions: [same / modified: specify changes]
+  Rationale for change: [objective basis]
+  Effective date: ***
+  Expected duration: ***
+
+PLAN
+────
+  [Ongoing treatment, new orders, referrals]
+  Estimated MMI: [date or "not yet determinable"]
+
+FOLLOW-UP: [Date and purpose]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: DOI, time since injury, treatment since last visit, current symptoms, exam findings with ROM, work status, employer accommodation.]
+</PromptPlayground>
+
+### MMI and impairment determination
+
+Use this for the visit where you determine that the patient has reached maximum medical improvement and assign a permanent impairment rating. This note has significant legal and financial consequences; the impairment rating directly determines the settlement value.
+
+<PromptPlayground tool="Claude" title="MMI and Impairment Determination">
+You are a physician determining maximum medical improvement and assigning a permanent impairment rating for a workers' compensation patient.
+
+### Rules
+
+- Write in past tense for treatment history; present tense for current status and determination.
+- Use medical abbreviations with first-use expansion.
+- Document the basis for the MMI determination: stable exam findings over multiple visits, completed treatment course, no further treatment expected to produce significant improvement.
+- Specify which edition of the AMA Guides to the Evaluation of Permanent Impairment is being used (this varies by jurisdiction).
+- For the 5th edition: show the specific table, chapter, and criteria used. For ROM method, show each plane of motion with the corresponding impairment value.
+- For the 6th edition: show the diagnosis-based impairment (DBI) class assignment, grade modifiers (GMFH, GMPE, GMCS), net adjustment, and final impairment value.
+- If apportioning, state the percentage attributed to the work injury and the percentage attributed to pre-existing conditions, with the clinical basis.
+- Document permanent restrictions if any.
+- This note may be used in depositions, hearings, and settlement negotiations. Precision matters.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Output format
+
+```
+MMI AND IMPAIRMENT DETERMINATION
+══════════════════════════════════════════
+
+DOI: ***
+DATE OF MMI: ***
+TIME FROM INJURY TO MMI: ***
+
+TREATMENT SUMMARY
+─────────────────
+  [Chronological treatment history: surgeries, injections,
+  PT courses, medications, with dates and responses]
+
+CURRENT STATUS AT MMI
+─────────────────────
+  Subjective: [residual symptoms]
+  Objective: [exam findings, ROM, strength, stability]
+  Functional: [what the patient can and cannot do]
+
+MMI DETERMINATION
+─────────────────
+  The patient has reached maximum medical improvement as of
+  [date]. Basis: [stable exam findings over *** visits spanning
+  *** months; completed course of *** therapy; no further
+  treatment expected to produce significant improvement in
+  function or symptoms.]
+
+IMPAIRMENT RATING
+─────────────────
+  AMA Guides edition: ***
+  Body part: ***
+  Method: [DRE / ROM / DBI]
+
+  [Detailed calculation with tables, values, and methodology]
+
+  Upper extremity impairment: ***%
+  Whole person impairment (WPI): ***%
+
+  Apportionment:
+    Work-related WPI: ***%
+    Pre-existing WPI: ***%
+    Basis: [clinical reasoning]
+
+PERMANENT RESTRICTIONS
+──────────────────────
+  [Specific permanent restrictions, or "no permanent restrictions"]
+
+CAUSATION (final opinion)
+─────────────────────────
+  [Restate or update causation opinion with the full treatment
+  course now known]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: DOI, complete treatment history with dates, current exam with ROM in degrees, prior visits showing plateau, AMA Guides edition required by jurisdiction, diagnosis, pre-existing conditions.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+42-year-old male warehouse worker, employed 8 years. Job duties: loads trucks, lifts boxes 20-60 lbs from floor to shelving (waist to overhead), approximately 40 lifts per shift, stands/walks 6-7 hours per 8-hour shift, occasional forklift operation. DOI: 2/15/26. Injury: lifting a 55-lb box from floor level, felt sudden sharp pain in low back with radiation to left leg. Dropped the box, could not straighten up. Reported to supervisor, sent to occupational health same day. No prior back injuries, no prior workers' comp claims. No pre-existing back conditions. Treatment to date: ibuprofen 800 mg TID, cyclobenzaprine 10 mg TID, PT 3x/week for 4 weeks (some improvement), lumbar MRI 3/1/26: L4-5 left paracentral disc herniation contacting the left L5 nerve root, no stenosis, no other levels affected. Current symptoms: persistent LBP 6/10, left leg pain to calf 5/10, numbness left lateral calf, worse with sitting more than 20 min and bending. Unable to work since DOI. Exam: antalgic gait, lumbar flexion 40° (normal 60°), extension 10° (normal 25°), lateral bending 20° bilaterally (normal 25°), paraspinal tenderness L4-5, positive SLR left at 45°, negative right, left EHL 4/5, left ankle reflex diminished, decreased sensation left L5 dermatome. Waddell 0/5. Currently off work (TTD since 2/15/26).
+
+**LLM output:**
+
+WORKERS' COMPENSATION EVALUATION
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Follow-up evaluation
+Date of evaluation: 3/27/26
+Date of injury (DOI): 2/15/26
+Time since injury: 6 weeks
+
+EMPLOYER AND JOB INFORMATION
+─────────────────────────────
+  Employer: [de-identified]
+  Job title: warehouse worker
+  Employment duration: 8 years
+  Physical demand classification: heavy
+  Specific job duties:
+    - Loads trucks by lifting boxes weighing 20-60 lbs from floor level to waist-height and overhead shelving, approximately 40 lifts per shift
+    - Stands and walks 6-7 hours per 8-hour shift
+    - Occasional forklift operation
+  Typical shift: 8 hours
+  Standing/walking: 6-7 hours per shift
+  Sitting: 1-2 hours per shift
+  Lifting: up to 60 lbs, approximately 40 times per shift
+  Repetitive motions: bending, lifting, reaching overhead
+  Awkward postures: floor-level lifting, overhead reaching
+
+INJURY MECHANISM
+────────────────
+  Date: 2/15/26
+  Time: ***
+  Specific activity: patient was lifting a 55-lb box from floor level to waist-height shelving, a routine task performed multiple times per shift
+  Mechanism: while bending at the waist and lifting the box from the floor, patient felt sudden, sharp pain in the low back with immediate radiation into the left leg. He dropped the box and was unable to straighten up.
+  Immediate symptoms: sharp low back pain, left leg pain, inability to stand upright
+  Immediate actions: reported to supervisor, sent to occupational health clinic same day
+  First medical treatment: occupational health clinic, 2/15/26
+  Employer notified: yes, 2/15/26
+  Incident report filed: ***
+
+PRIOR INJURY HISTORY
+────────────────────
+  Prior injuries to same body part: none
+  Prior workers' compensation claims: none
+  Pre-existing conditions: none affecting the lumbar spine
+  Baseline functional status before injury: full duty without restrictions; performing heavy physical labor for 8 years without back complaints
+
+SUBJECTIVE COMPLAINT
+────────────────────
+  Current symptoms:
+    Pain: low back pain 6/10, deep aching, constant with sharp exacerbations; left leg pain 5/10, radiating from buttock to lateral calf, burning quality; numbness left lateral calf
+    Functional limitations: cannot sit more than 20 minutes, cannot bend or lift, unable to perform any warehouse duties
+    Aggravating factors: sitting more than 20 minutes, forward bending, lifting
+    Alleviating factors: lying supine with knees flexed, ice, ibuprofen (partial relief)
+  Symptom trajectory: modestly improved over 6 weeks with physical therapy (PT); back pain improved from 8/10 to 6/10, leg pain improved from 7/10 to 5/10; numbness unchanged
+  Treatment received to date:
+    - 2/15/26: occupational health; started ibuprofen 800 mg three times daily, cyclobenzaprine 10 mg three times daily
+    - 2/17/26-3/15/26: PT 3x/week, 12 sessions; McKenzie protocol, core stabilization. Some improvement in back pain; leg symptoms persistent.
+    - 3/1/26: lumbar magnetic resonance imaging (MRI)
+  Current medications: ibuprofen 800 mg three times daily, cyclobenzaprine 10 mg three times daily
+
+CURRENT WORK STATUS
+───────────────────
+  Currently working: no
+  Temporary total disability (TTD) since 2/15/26
+  Reason: unable to perform any warehouse duties due to pain, radiculopathy, and inability to lift, bend, stand for prolonged periods, or sit for more than 20 minutes
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: alert, cooperative male, in mild distress with position changes
+  Gait: antalgic, favoring left lower extremity, no assistive device
+
+  Lumbar Spine
+  ────────────
+  Inspection: no visible deformity, no scoliosis, no surgical scars
+  Palpation: tenderness to palpation over left paraspinal musculature at L4-5 level; no midline tenderness; no sacroiliac joint tenderness
+
+  Range of Motion (ROM)
+  ─────────────────────
+                    Active    Passive    Normal
+  Flexion:          40°       ***        60°
+  Extension:        10°       ***        25°
+  Left lateral:     20°       ***        25°
+  Right lateral:    20°       ***        25°
+  Pain with motion: flexion and extension reproduce back pain; flexion reproduces left leg pain
+
+  Strength Testing
+  ────────────────
+  Left hip flexion: 5/5
+  Left quadriceps: 5/5
+  Left tibialis anterior: 5/5
+  Left extensor hallucis longus (EHL): 4/5 (decreased compared to right 5/5)
+  Left gastrocnemius: 5/5
+  Right lower extremity: 5/5 throughout
+
+  Provocative Tests
+  ─────────────────
+  Straight leg raise (SLR), left: positive at 45° (reproduces left leg pain to calf)
+  SLR, right: negative
+  Crossed SLR: negative
+  Lumbar facet loading: negative bilaterally
+
+  Neurological
+  ────────────
+  Sensory: decreased light touch left lateral calf and dorsum of foot (L5 dermatome); intact right lower extremity; intact bilateral L4, S1 dermatomes
+  Motor: left EHL 4/5 as above; all other myotomes 5/5 bilaterally
+  Reflexes: left ankle reflex diminished (1+); right ankle 2+; bilateral patellar 2+
+  Babinski: downgoing bilaterally
+
+  Waddell Signs: 0/5
+
+  Pain Behavior Observations
+  ──────────────────────────
+  Patient sat in the chair for approximately 18 minutes during interview, consistent with reported 20-minute sitting tolerance. Guarding with lumbar flexion appeared consistent with reported pain. No exaggeration noted. Effort during strength testing appeared maximal.
+
+DIAGNOSTICS
+───────────
+  MRI lumbar spine (3/1/26): L4-5 left paracentral disc herniation in contact with the left L5 nerve root. No central stenosis. No foraminal stenosis. No abnormalities at other levels. Normal conus and cauda equina.
+
+CAUSATION OPINION
+─────────────────
+  To a reasonable degree of medical certainty, the patient's L4-5 disc herniation with left L5 radiculopathy is causally related to the workplace injury of 2/15/26.
+
+  Basis: the patient had no prior back pain, no pre-existing lumbar spine conditions, and was performing full heavy-duty work without limitation for 8 years before this injury. The mechanism (lifting a 55-lb box from floor level) is biomechanically consistent with disc herniation at L4-5. Symptom onset was immediate and temporally linked to the specific lifting event. MRI findings of a disc herniation contacting the L5 nerve root are anatomically consistent with the clinical presentation (L5 radiculopathy with EHL weakness, L5 sensory loss, and positive SLR). There are no pre-existing conditions to apportion. The work injury is the sole cause of this condition.
+
+  Apportionment: not applicable. No pre-existing pathology.
+
+DIAGNOSES
+─────────
+  1. L4-5 left paracentral disc herniation (M51.16)
+  2. Left L5 radiculopathy (M54.17)
+  Work-related: yes (both)
+
+TREATMENT PLAN
+──────────────
+  Current:
+    - Continue ibuprofen 800 mg three times daily with food
+    - Continue cyclobenzaprine 10 mg three times daily
+    - PT: transition to nerve mobilization and core stabilization, 3x/week for 4 additional weeks
+  Recommended:
+    - Referral to spine specialist for evaluation of left L5-S1 transforaminal epidural steroid injection (ESI). The disc herniation is in contact with the nerve root, and 6 weeks of conservative treatment have produced incomplete relief of radicular symptoms.
+    - If ESI provides &lt;50% relief or symptoms worsen, surgical consultation for possible L4-5 microdiscectomy will be recommended.
+    - Add gabapentin 300 mg three times daily for neuropathic leg pain and numbness (titrate as tolerated)
+  Treatment authorization: PT and specialist referral require workers' comp insurer authorization; will submit request
+
+WORK STATUS DETERMINATION
+─────────────────────────
+  Status: modified duty
+  Effective date: 3/27/26
+  Expected duration: 6 weeks (re-evaluate at next visit)
+
+  Specific restrictions:
+    Lifting: 10 lbs maximum (floor to waist), 5 lbs (waist to shoulder), no overhead lifting
+    Carrying: 10 lbs maximum, short distances only
+    Pushing/pulling: 15 lbs maximum force
+    Standing: 2 hours maximum per shift (with ability to alternate sitting and standing)
+    Walking: 2 hours maximum per shift
+    Sitting: no more than 20 minutes at a time; must be able to change position
+    Climbing: restricted (no ladders, no stairs more than 1 flight)
+    Bending/stooping: restricted (no more than 5 times per hour, no sustained bending)
+    No forklift operation (vibration)
+    No squatting, kneeling, or crawling
+  Total hours: 8 hours per day, 5 days per week (if employer can accommodate restrictions)
+
+  Note: patient has been on TTD since 2/15/26. Given modest improvement over 6 weeks, transition to modified duty is appropriate if the employer can provide sedentary-to-light work within the restrictions above. If the employer cannot accommodate, TTD continues.
+
+MMI DETERMINATION
+──────────────────
+  Maximum medical improvement: not yet reached.
+  The patient is 6 weeks post-injury with ongoing radiculopathy, objective neurological deficit (EHL weakness, sensory loss), and incomplete response to conservative treatment. Further treatment (ESI, possible surgery) is expected to produce additional improvement. MMI cannot be determined until the treatment course is complete.
+
+FOLLOW-UP
+─────────
+  Next visit: 4 weeks (4/24/26)
+  Purpose: re-evaluation, PT progress, ESI response if performed, work status update
+  Anticipated treatment duration: 3-6 months, depending on response to ESI and whether surgery is needed
+  Expected return to full duty: if conservative treatment succeeds, 3-4 months; if surgery required, 5-7 months
+
+DISPOSITION
+───────────
+Patient counseled on diagnosis, causation, modified duty restrictions, gabapentin initiation, and referral to spine specialist. He understands the restrictions and will provide documentation to his employer. Return precautions reviewed: progressive weakness, bowel or bladder dysfunction, or saddle numbness warrant immediate emergency evaluation.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **"At work" is not a mechanism of injury.** The note must describe the specific physical activity: what the patient was lifting, how heavy it was, what position they were in, what happened biomechanically. "Injured back at work" will be challenged. "Lifted a 55-lb box from floor level and felt sudden sharp back pain with left leg radiation" will not.
+- **Causation opinions cannot be wishy-washy.** "The injury may have been caused by work" does not meet the legal standard in any jurisdiction. "To a reasonable degree of medical certainty" is the standard phrase. Use it. If you genuinely cannot support causation, say so clearly rather than hedging.
+- **ROM measurements must use a goniometer, not visual estimation.** Workers' comp examinations are held to a higher standard than routine clinical visits. If opposing counsel asks "Did you use a goniometer?" and the answer is "I estimated visually," your examination loses credibility. Document the measurement method.
+- **Grip strength needs three trials and a coefficient of variation.** A single grip strength measurement is unreliable. Three trials with the coefficient of variation (standard deviation divided by mean, multiplied by 100) documents both the value and the consistency of effort. A coefficient above 15% suggests submaximal effort or variable pain inhibition.
+- **Work restrictions must be specific enough for an employer to follow.** "Light duty" is meaningless. "Lifting limited to 10 lbs maximum floor to waist, 5 lbs waist to shoulder, no overhead lifting, standing limited to 2 hours per shift with ability to alternate sitting" gives the employer enough information to determine whether they can accommodate. Without this specificity, the claim defaults to TTD, which costs more and keeps the patient out of work longer.
+- **Waddell signs are not a lie detector.** Three or more positive Waddell signs suggest the patient's pain experience has a significant non-organic component, but this does not mean the patient is malingering. It means the clinical picture includes psychosocial factors that affect symptom reporting and functional capacity. Document the findings factually; do not editorialize.
+
+---
+
+## Related
+
+- [PM&R / Rehabilitation Medicine](/templates/clinic-pmr) -- for work-related injuries requiring rehabilitation
+- [Letter of Medical Necessity](/templates/medical-necessity-letter) -- for treatment authorization requests
+- [Disability / FMLA Letter](/templates/disability-fmla-letter) -- for disability documentation outside the workers' comp system
+- [Peer-to-Peer Preparation](/templates/peer-to-peer-prep) -- for utilization review denials
+- [Procedure Note](/templates/procedure-note) -- for documenting interventional procedures in a workers' comp case

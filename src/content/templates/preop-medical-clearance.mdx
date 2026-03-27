@@ -1,0 +1,644 @@
+---
+title: "Pre-Operative Medical Clearance"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, pre-op, clearance, perioperative, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "This template generates a structured pre-operative medical clearance note capturing cardiac and pulmonary risk stratification, medication management, VTE prophylaxis, anesthesia considerations, and a clear risk communication summary for the surgical team."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when you are the internist, hospitalist, or primary care physician evaluating a patient's fitness for surgery. This is not the surgeon's pre-op note; it is the medical consultant's assessment of perioperative risk and the plan to mitigate it. The surgical team needs three things from you: a risk estimate, a medication management plan, and any recommendations that might change their approach or timing. This template delivers all three.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+<Callout type="pitfall">
+  Pre-operative clearance is not a rubber stamp. If you identify a condition that warrants delaying surgery, say so clearly. The surgical team may disagree, but your documentation must reflect your independent medical judgment.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Pre-Operative Medical Clearance">
+You are an internist writing a pre-operative medical clearance note for a patient being evaluated before surgery. After receiving the clinical information below, produce a structured pre-operative evaluation documenting risk stratification, medication management, and recommendations to the surgical and anesthesia teams.
+
+**Purpose:** Generate a comprehensive perioperative risk assessment with specific, actionable recommendations for the surgical team.
+
+### Rules
+
+- Write in present tense for current status and plan; past tense for history.
+- Document each risk domain (cardiac, pulmonary, VTE, glycemic, medication) as a discrete section.
+- Include specific risk scores with their component criteria (RCRI, STOP-BANG, Caprini, ACS NSQIP).
+- For medication management, include specific hold dates and restart criteria, not just "hold before surgery."
+- Functional capacity must be estimated in METs with the clinical basis for the estimate.
+- Do not write "cleared for surgery." Write a risk assessment with recommendations. Clearance language implies a guarantee; risk stratification does not.
+- Use medical abbreviations throughout. Never spell out what an abbreviation stands for.
+- Reference dates in the format M/D/YY.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- "patient" instead of "pt"
+- "s/p" = status post
+- "pmhx" = past medical history
+- "RCRI" = Revised Cardiac Risk Index
+- "METs" = metabolic equivalents
+- "DAPT" = dual antiplatelet therapy
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+PRE-OPERATIVE MEDICAL CLEARANCE
+══════════════════════════════════════════
+
+PATIENT SUMMARY
+───────────────
+[Age]-year-old [male/female] with pmhx of [***] presenting
+for pre-operative evaluation prior to [procedure] scheduled
+for [date]. Surgery classified as [elective/urgent/emergent],
+[low/intermediate/high] surgical risk per ACS NSQIP.
+
+CARDIAC RISK ASSESSMENT
+───────────────────────
+  RCRI Score: ***/6
+  ──────────
+  [ ] Ischemic heart disease
+  [ ] History of CHF
+  [ ] History of cerebrovascular disease
+  [ ] Diabetes on insulin
+  [ ] Creatinine >2.0
+  [ ] High-risk surgery (intraperitoneal, intrathoracic,
+      suprainguinal vascular)
+
+  Estimated 30-day cardiac risk: ***% (MACE)
+
+  Functional Capacity: *** METs
+  ──────────────────────────────
+  [Clinical basis: can climb 1 flight of stairs, walk 2 blocks,
+  do heavy housework, etc.]
+
+  Active Cardiac Conditions: [None / List]
+  ──────────────────────────────────────────
+  [Unstable angina, decompensated CHF, significant arrhythmia,
+  severe valvular disease. If present, surgery should be delayed
+  pending optimization.]
+
+  Prior Cardiac Workup
+  ────────────────────
+  [Most recent stress test: date, type, result]
+  [Most recent echo: date, EF, valvular findings]
+  [Cardiac catheterization: date, findings, interventions]
+
+  Cardiac Recommendations
+  ───────────────────────
+  [Specific recommendations: proceed vs delay, need for
+  additional workup (stress test, echo, cardiology consult),
+  perioperative beta-blocker management, statin continuation.]
+
+PULMONARY RISK ASSESSMENT
+─────────────────────────
+  STOP-BANG Score: ***/8
+  ─────────────────────
+  [S] Snoring: [Y/N]
+  [T] Tired: [Y/N]
+  [O] Observed apnea: [Y/N]
+  [P] Pressure (treated HTN): [Y/N]
+  [B] BMI >35: [Y/N]
+  [A] Age >50: [Y/N]
+  [N] Neck circumference >40 cm: [Y/N]
+  [G] Gender male: [Y/N]
+
+  OSA risk: [Low / Intermediate / High]
+
+  Baseline SpO2: ***%
+  PFTs (if applicable): [Date, FEV1, FVC, FEV1/FVC, DLCO]
+
+  Pulmonary Recommendations
+  ─────────────────────────
+  [CPAP compliance, incentive spirometry, smoking cessation
+  status, need for PFTs, post-op monitoring level.]
+
+MEDICATION MANAGEMENT
+─────────────────────
+  Anticoagulation
+  ───────────────
+  Current agent: ***
+  Indication: ***
+  CHA2DS2-VASc (if AFib): ***/9
+  HAS-BLED: ***/9
+  Bridging plan: [No bridging / Bridging with LMWH]
+  Last dose: [date]
+  Hold date: [date]
+  Restart: [POD ***, pending surgical team confirmation of
+  hemostasis]
+
+  Antiplatelet Therapy
+  ────────────────────
+  Current agent(s): ***
+  Indication: ***
+  Time since last stent/ACS: ***
+  Hold date: [ASA: continue / hold *** days prior]
+  [P2Y12 inhibitor: hold *** days prior]
+  [Discuss with cardiology and surgical team if DAPT
+  &lt;12 months from DES or &lt;6 months from ACS]
+
+  Diabetes Management
+  ───────────────────
+  A1c: *** (date)
+  Current regimen: ***
+  Pre-op plan:
+    - Metformin: hold *** hours before surgery
+    - SGLT2 inhibitor: hold *** days before surgery
+    - Insulin: [Reduce basal by ***%; hold bolus morning of
+      surgery]
+    - Morning of surgery: check fasting glucose, sliding scale
+      coverage
+
+  Other Medications
+  ─────────────────
+  - ACEi/ARB: [Hold / Continue] morning of surgery
+  - Beta-blocker: Continue (do NOT hold)
+  - Statin: Continue
+  - Herbal supplements: Discontinue *** weeks before surgery
+  - [Other medications with specific instructions]
+
+VTE PROPHYLAXIS
+───────────────
+  Caprini Score: ***
+  Risk category: [Very low / Low / Moderate / High]
+  Recommended prophylaxis: [Early ambulation / mechanical /
+  pharmacologic (agent, dose, timing)]
+  Duration: [***]
+
+ANESTHESIA CONSIDERATIONS
+─────────────────────────
+  Airway: Mallampati class ***, neck ROM [full/limited],
+  [dentition, beard, obesity considerations]
+  Prior anesthesia history: [Uneventful / complications:
+  difficult intubation, MH, prolonged paralysis, PONV]
+  PONV risk: [Low / Moderate / High] (Apfel score ***/4)
+
+LABS AND STUDIES
+────────────────
+  CBC: [Date] WBC ***, Hgb ***, Plt ***
+  BMP: [Date] Na ***, K ***, Cr ***, Glucose ***
+  Coagulation: [Date] PT ***, INR ***, PTT ***
+  A1c: *** (date)
+  Type and screen: [Ordered / not indicated]
+  ECG: [Date] [Rhythm, rate, intervals, ST/T changes]
+  CXR: [Date, if indicated] [Findings]
+
+COMORBIDITY OPTIMIZATION STATUS
+────────────────────────────────
+  A1c: *** [Target &lt;8% for elective surgery]
+  BP: *** [Controlled / needs optimization]
+  Smoking: [Never / former / current. If current: cessation
+  counseled, ideally ≥4 weeks before surgery]
+  Nutritional status: [Albumin ***, BMI ***]
+
+OVERALL RISK ASSESSMENT AND RECOMMENDATIONS
+────────────────────────────────────────────
+[Summary paragraph: overall perioperative risk assessment
+integrating cardiac, pulmonary, and other risk factors.
+Specific recommendations to the surgical team. Any conditions
+requiring optimization before proceeding. Clear statement of
+whether the patient's medical conditions have been optimized
+for the planned procedure, or what remains to be done.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste your de-identified clinical data here: proposed surgery, PMH, medications, cardiac history and workup, pulmonary history, functional capacity, labs, and any other relevant data.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| High-risk cardiac | Add: "This patient has active cardiac conditions. Emphasize the cardiac risk assessment and whether surgery should proceed or be delayed pending further workup." |
+| Emergency surgery | Add: "This is an emergent procedure. Focus on identifying modifiable risks that can be addressed in the available time, not on delaying surgery." |
+| Transplant patient | Add: "This patient is on immunosuppression for a solid organ transplant. Address perioperative steroid dosing and immunosuppressant management." |
+| Pediatric pre-op | Add: "This is a pediatric patient. Use age-appropriate risk stratification and include developmental and family considerations." |
+| Obstetric surgery | Add: "This patient is pregnant. Address fetal monitoring, teratogenic medication avoidance, and positioning considerations." |
+
+---
+
+## Variations
+
+### Cardiac risk-focused clearance
+
+Use this when the primary concern is cardiac risk: history of CAD, CHF, valvular disease, recent stent, or a high RCRI score. This variation goes deeper on the cardiac assessment and perioperative beta-blocker management.
+
+<PromptPlayground tool="Claude" title="Cardiac Risk-Focused Pre-Op Clearance">
+You are an internist writing a pre-operative evaluation focused on cardiac risk stratification for a patient with known or suspected cardiac disease.
+
+**Purpose:** Produce a cardiac-focused perioperative risk assessment using AHA/ACC guidelines, with specific recommendations about the need for further cardiac workup and perioperative cardiac medication management.
+
+### Rules
+
+- Write in present tense for current status and plan; past tense for history.
+- Apply the 2014 AHA/ACC perioperative guideline algorithm step by step: emergency surgery, active cardiac conditions, surgical risk, functional capacity, clinical risk factors.
+- Document each step of the algorithm with the patient's data and the resulting recommendation.
+- If functional capacity is &lt;4 METs or unknown, document the clinical basis and whether pharmacologic stress testing is indicated.
+- For patients with coronary stents, document stent type (BMS vs DES), date of placement, and the minimum DAPT duration per current guidelines.
+- Include specific perioperative beta-blocker recommendations (continue if already on; do NOT start de novo within 24 hours of surgery).
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Output format
+
+```
+CARDIAC-FOCUSED PRE-OPERATIVE ASSESSMENT
+══════════════════════════════════════════
+
+PATIENT SUMMARY
+───────────────
+***
+
+AHA/ACC ALGORITHM APPLICATION
+──────────────────────────────
+  Step 1 — Emergency surgery? [Yes/No]
+  Step 2 — Active cardiac conditions? [List or None]
+  Step 3 — Surgical risk: [Low (&lt;1%) / Elevated (≥1%)]
+  Step 4 — Functional capacity: [≥4 METs / &lt;4 METs / Unknown]
+    Clinical basis: ***
+  Step 5 — Clinical risk factors (RCRI): ***/6
+  Algorithm result: [Proceed / Further testing / Cardiology consult]
+
+DETAILED CARDIAC HISTORY
+─────────────────────────
+  CAD: [***]
+  Stent history: [Type, date, vessel, DAPT duration]
+  CHF: [***]
+  Valvular disease: [***]
+  Arrhythmia: [***]
+
+PRIOR CARDIAC WORKUP
+────────────────────
+  Stress test: [Date, type, result, ischemic threshold]
+  Echocardiogram: [Date, EF, wall motion, valvular findings]
+  Catheterization: [Date, findings]
+  Other: [Holter, EP study, etc.]
+
+PERIOPERATIVE CARDIAC MEDICATION PLAN
+──────────────────────────────────────
+  Beta-blocker: [Continue at current dose / Rationale if not on one]
+  Statin: Continue
+  DAPT: [Management plan with specific dates and cardiology input]
+  Anticoagulation: [If applicable]
+
+CARDIAC RECOMMENDATIONS
+───────────────────────
+[Specific recommendations: proceed to surgery, delay for
+optimization, additional testing needed, cardiology consult,
+perioperative monitoring level (telemetry, ICU), troponin
+surveillance post-op.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: cardiac history, stent details, prior workup dates and results, current cardiac medications, functional capacity, proposed surgery and urgency.]
+</PromptPlayground>
+
+### Pulmonary risk assessment
+
+Use this for patients undergoing thoracic or upper abdominal surgery, or those with known pulmonary disease, where post-operative pulmonary complications are the primary concern.
+
+<PromptPlayground tool="Claude" title="Pulmonary Risk-Focused Pre-Op Assessment">
+You are an internist writing a pre-operative evaluation focused on pulmonary risk for a patient undergoing a procedure with elevated risk of post-operative pulmonary complications (PPC).
+
+**Purpose:** Produce a pulmonary-focused perioperative assessment with risk scoring, optimization strategies, and recommendations to reduce post-operative pulmonary complications.
+
+### Rules
+
+- Write in present tense for current status and plan; past tense for history.
+- Include ARISCAT score components (age, SpO2, respiratory infection in past month, pre-op anemia, surgical incision site, duration of surgery, emergency procedure).
+- Document STOP-BANG for OSA screening.
+- For patients with COPD or asthma, document baseline severity, current controller regimen, recent exacerbation history, and baseline spirometry.
+- For current smokers, document pack-years and cessation counseling.
+- Include specific post-op pulmonary optimization recommendations (incentive spirometry, early ambulation, CPAP compliance, epidural vs systemic analgesia).
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Output format
+
+```
+PULMONARY RISK-FOCUSED PRE-OPERATIVE ASSESSMENT
+══════════════════════════════════════════════════
+
+PATIENT SUMMARY
+───────────────
+***
+
+ARISCAT SCORE
+─────────────
+  Age: *** (points: ***)
+  Pre-op SpO2: ***% (points: ***)
+  Respiratory infection in past month: [Y/N] (points: ***)
+  Pre-op anemia (Hgb ≤10): [Y/N] (points: ***)
+  Surgical incision: [peripheral / upper abdominal /
+  intrathoracic] (points: ***)
+  Duration of surgery: [&lt;2 hrs / 2-3 hrs / >3 hrs] (points: ***)
+  Emergency procedure: [Y/N] (points: ***)
+  Total ARISCAT score: ***
+  PPC risk category: [Low / Intermediate / High]
+
+OSA SCREENING (STOP-BANG)
+─────────────────────────
+  Score: ***/8
+  Risk: [Low / Intermediate / High]
+  Current CPAP use: [Y/N]
+  CPAP compliance: [***]
+  Plan: [Bring CPAP to hospital / Post-op CPAP / Continuous
+  pulse oximetry]
+
+BASELINE PULMONARY STATUS
+─────────────────────────
+  Diagnosis: [COPD / Asthma / ILD / None]
+  Severity: [***]
+  Current controller regimen: [***]
+  Last exacerbation: [***]
+  Baseline SpO2: ***% on [RA / O2 at *** L/min]
+  PFTs (date): FEV1 *** (***% predicted), FVC ***
+  (***% predicted), FEV1/FVC ***, DLCO *** (***% predicted)
+
+SMOKING STATUS
+──────────────
+  [Never / Former (quit date) / Current (*** pack-years)]
+  Cessation counseling: [***]
+  Weeks since cessation: [***]
+
+PULMONARY OPTIMIZATION RECOMMENDATIONS
+───────────────────────────────────────
+[Specific recommendations: incentive spirometry training
+pre-op, COPD/asthma optimization, CPAP protocol, smoking
+cessation timeline, post-op analgesia strategy (epidural
+preferred for thoracic/upper abdominal), post-op monitoring
+level, bronchodilator protocol, DVT prophylaxis overlap.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: pulmonary history, PFTs, OSA status, smoking history, baseline SpO2, proposed surgery type and expected duration.]
+</PromptPlayground>
+
+### Anticoagulation bridge planning
+
+Use this when the primary pre-operative question is managing anticoagulation: when to hold, whether to bridge, and when to restart. Particularly useful for patients on warfarin, DOACs, or DAPT.
+
+<PromptPlayground tool="Claude" title="Anticoagulation Bridge Planning">
+You are an internist planning perioperative anticoagulation management for a patient on chronic anticoagulation or antiplatelet therapy.
+
+**Purpose:** Produce a detailed anticoagulation bridging plan with specific dates, doses, and restart criteria.
+
+### Rules
+
+- Write in present tense for the plan; past tense for history.
+- Specify the exact agent, dose, and indication for current anticoagulation or antiplatelet therapy.
+- For warfarin patients, determine bridging need based on thromboembolic risk (CHA2DS2-VASc for AFib, VTE recurrence risk, mechanical valve type/position).
+- For DOAC patients, specify hold duration based on agent half-life, renal function, and procedural bleeding risk.
+- For DAPT patients, document time since stent/ACS, stent type, and minimum DAPT duration per guidelines.
+- Classify procedural bleeding risk as low, moderate, or high.
+- Include specific calendar dates (or day-relative instructions) for hold, bridge start/stop, and restart.
+- Note that restart timing requires surgical team confirmation of hemostasis.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Output format
+
+```
+PERIOPERATIVE ANTICOAGULATION PLAN
+══════════════════════════════════════════
+
+PATIENT SUMMARY
+───────────────
+***
+
+CURRENT ANTICOAGULATION/ANTIPLATELET
+─────────────────────────────────────
+  Agent(s): ***
+  Dose: ***
+  Indication: ***
+  Duration on therapy: ***
+  Renal function: CrCl *** mL/min (Cockcroft-Gault)
+
+THROMBOEMBOLIC RISK
+───────────────────
+  [For AFib:]
+    CHA2DS2-VASc: ***/9
+    Prior stroke/TIA: [Y/N]
+    Risk category: [Low / Moderate / High]
+  [For mechanical valve:]
+    Valve position: [Mitral / Aortic]
+    Valve type: ***
+    Risk category: [High — all mechanical valves require bridging]
+  [For VTE:]
+    Time since last VTE: ***
+    Provoked vs unprovoked: ***
+    Risk category: [Low / Moderate / High]
+
+PROCEDURAL BLEEDING RISK
+─────────────────────────
+  Procedure: ***
+  Bleeding risk: [Low / High]
+  Rationale: ***
+
+BRIDGING DECISION
+─────────────────
+  Bridge: [Yes / No]
+  Rationale: ***
+
+MANAGEMENT TIMELINE
+───────────────────
+  [For warfarin + bridging:]
+    Day -5: Last dose of warfarin
+    Day -3: Start enoxaparin *** mg SQ Q12H
+    Day -1: Last dose of enoxaparin (morning dose; hold evening)
+    Day 0: Surgery. Check INR morning of (target &lt;1.5).
+    Day +1: Restart enoxaparin *** mg SQ Q12H when surgical
+    team confirms hemostasis
+    Day +1: Restart warfarin at home dose
+    Bridge until: INR ≥2.0 on two consecutive checks
+
+  [For DOAC:]
+    Day -[***]: Last dose of [agent]
+    Day 0: Surgery
+    Day +[***]: Restart [agent] at home dose when surgical
+    team confirms hemostasis
+
+  [For DAPT:]
+    ASA 81 mg: [Continue perioperatively / Hold *** days prior]
+    [P2Y12 inhibitor]: Hold *** days prior (last dose [date])
+    Restart: POD *** per surgical team, with loading dose
+    [yes/no]
+
+SPECIAL CONSIDERATIONS
+──────────────────────
+  [Renal dosing adjustments, high-risk stent timing concerns,
+  need for cardiology or hematology input, plan if surgery
+  is delayed, plan if unexpected bleeding occurs.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: current anticoagulation/antiplatelet agents with doses, indication, renal function, CHA2DS2-VASc or VTE history, stent details if applicable, proposed procedure and bleeding risk, scheduled surgery date.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+72-year-old male with pmhx of DM2 (A1c 7.8%), CAD s/p DES to LAD 8 months ago on DAPT (ASA 81mg + clopidogrel 75mg), HTN, CKD III (Cr 1.6), OSA on CPAP. Scheduled for elective left total hip arthroplasty in 3 weeks. Functional capacity: can walk 2 blocks on flat ground, climb 1 flight of stairs slowly (estimated 4 METs). Last echo 6 months ago showed EF 55%, no valvular disease. No stress test since PCI. No recent chest pain or dyspnea at rest. Meds: ASA 81mg, clopidogrel 75mg, metformin 1000mg BID, empagliflozin 10mg daily, lisinopril 20mg daily, metoprolol succinate 50mg daily, atorvastatin 80mg daily. Labs: Hgb 13.2, Plt 210, Cr 1.6, K 4.3, glucose 142, INR 1.0. ECG: NSR, rate 68, no ST changes.
+
+**LLM output:**
+
+PRE-OPERATIVE MEDICAL CLEARANCE
+══════════════════════════════════════════
+
+PATIENT SUMMARY
+───────────────
+72-year-old male with pmhx of DM2, CAD s/p DES to LAD (8 months ago, on DAPT), HTN, CKD III, and OSA on CPAP presenting for pre-operative evaluation prior to elective left total hip arthroplasty scheduled in 3 weeks. Surgery classified as elective, intermediate surgical risk per ACS NSQIP.
+
+CARDIAC RISK ASSESSMENT
+───────────────────────
+  RCRI Score: 3/6
+  ──────────
+  [x] Ischemic heart disease (CAD s/p DES)
+  [ ] History of CHF
+  [ ] History of cerebrovascular disease
+  [x] Diabetes on insulin (Note: on oral agents, not insulin; does not meet criterion. Revised to 2/6.)
+  [x] Creatinine >2.0 (Cr 1.6; does not meet criterion. Revised to 1/6.)
+  [x] High-risk surgery (total hip arthroplasty is intermediate risk. Revised.)
+
+  Corrected RCRI Score: 1/6
+  Estimated 30-day cardiac MACE risk: approximately 1%
+
+  Functional Capacity: 4 METs
+  ──────────────────────────────
+  Can walk 2 blocks on flat ground and climb 1 flight of stairs slowly. Borderline adequate. No symptoms provoked by these activities.
+
+  Active Cardiac Conditions: None
+  ──────────────────────────────────────────
+  No unstable angina, decompensated CHF, significant arrhythmia, or severe valvular disease.
+
+  Prior Cardiac Workup
+  ────────────────────
+  Echo (9/27/25): EF 55%, no valvular disease, normal wall motion.
+  Cardiac catheterization (7/25): DES to LAD. No other significant lesions per report.
+  No stress test since PCI.
+
+  Cardiac Recommendations
+  ───────────────────────
+  Per AHA/ACC 2014 guidelines: functional capacity is borderline at 4 METs with only 1 RCRI point. No active cardiac conditions. Proceeding to surgery without further cardiac testing is reasonable. The more pressing issue is DAPT management (see below). Cardiology input is required before modifying DAPT at 8 months post-DES. Continue metoprolol succinate 50 mg daily perioperatively; do not hold. Continue atorvastatin 80 mg daily. No indication for pre-op stress test at this time given adequate functional capacity and recent cath data.
+
+PULMONARY RISK ASSESSMENT
+─────────────────────────
+  STOP-BANG Score: 5/8
+  ─────────────────────
+  [S] Snoring: Y (per OSA diagnosis)
+  [T] Tired: [***]
+  [O] Observed apnea: Y (per OSA diagnosis)
+  [P] Pressure (treated HTN): Y
+  [B] BMI >35: [***]
+  [A] Age >50: Y
+  [N] Neck circumference >40 cm: [***]
+  [G] Gender male: Y
+
+  OSA risk: High (known OSA on CPAP)
+  CPAP compliance: [Verify and complete before signing]
+
+  Pulmonary Recommendations
+  ─────────────────────────
+  Patient must bring CPAP to hospital. Post-op CPAP in PACU and on the floor. Continuous pulse oximetry for first 48 hours post-op. Incentive spirometry protocol starting pre-op teaching. Avoid excessive opioid sedation given OSA.
+
+MEDICATION MANAGEMENT
+─────────────────────
+  Antiplatelet Therapy
+  ────────────────────
+  Current agents: ASA 81 mg daily + clopidogrel 75 mg daily (DAPT)
+  Indication: DES to LAD, placed 8 months ago
+  Time since stent: 8 months
+
+  CRITICAL ISSUE: Current guidelines recommend minimum 6 months of DAPT after DES, with 12 months preferred for ACS indication. At 8 months, this patient is within the guideline-recommended DAPT duration. Elective surgery requiring DAPT interruption should ideally be deferred until 12 months post-DES.
+
+  Recommended plan: Discuss with interventional cardiology before proceeding. If cardiology agrees to proceed at 8 months:
+  - ASA 81 mg: CONTINUE perioperatively (do not hold)
+  - Clopidogrel 75 mg: Hold 5 days before surgery
+  - Restart clopidogrel POD 1-2 with surgical team confirmation of hemostasis (loading dose 300 mg, then 75 mg daily)
+
+  Diabetes Management
+  ───────────────────
+  A1c: 7.8% (adequate for elective surgery; target &lt;8%)
+  Current regimen: metformin 1000 mg BID, empagliflozin 10 mg daily
+  Pre-op plan:
+    - Metformin: hold 48 hours before surgery (risk of lactic acidosis with renal hypoperfusion)
+    - Empagliflozin: hold 3 days before surgery (risk of euglycemic DKA)
+    - Morning of surgery: check fasting glucose, sliding scale coverage
+    - Restart both agents when tolerating PO and renal function stable post-op
+
+  Other Medications
+  ─────────────────
+  - Lisinopril 20 mg: Hold morning of surgery (risk of refractory hypotension under anesthesia). Restart POD 1-2 when hemodynamically stable.
+  - Metoprolol succinate 50 mg: CONTINUE. Take with sip of water morning of surgery.
+  - Atorvastatin 80 mg: CONTINUE perioperatively.
+
+VTE PROPHYLAXIS
+───────────────
+  Caprini Score: 7 (age >75: 3, major orthopedic surgery: 5, with adjustments for comorbidities)
+  Risk category: High
+  Recommended prophylaxis: mechanical (SCDs) intra-op and post-op + pharmacologic prophylaxis per orthopedic protocol (enoxaparin 40 mg SQ daily or rivaroxaban 10 mg daily starting POD 1, pending surgical team preference). Note: coordinate with DAPT restart timing.
+  Duration: 35 days post total hip arthroplasty per ACCP guidelines.
+
+ANESTHESIA CONSIDERATIONS
+─────────────────────────
+  Airway: Mallampati class [***], neck ROM [***]
+  OSA: CPAP-dependent. High risk for post-op airway complications. Recommend post-op CPAP and continuous pulse oximetry.
+  Prior anesthesia history: [***]
+  CKD III: dose-adjust renally cleared agents.
+
+LABS AND STUDIES
+────────────────
+  CBC: Hgb 13.2, Plt 210
+  BMP: K 4.3, Cr 1.6, glucose 142
+  Coagulation: INR 1.0
+  A1c: 7.8%
+  Type and screen: Order prior to surgery
+  ECG: NSR, rate 68, no ST changes, no prior for comparison
+
+OVERALL RISK ASSESSMENT AND RECOMMENDATIONS
+────────────────────────────────────────────
+This 72-year-old male with CAD s/p recent DES, DM2, CKD III, and OSA presents an intermediate overall perioperative risk for elective total hip arthroplasty. The cardiac risk is acceptable (RCRI 1/6, adequate functional capacity, recent normal EF), but the key issue is DAPT duration. At 8 months post-DES, elective surgery requiring P2Y12 inhibitor interruption carries a risk of stent thrombosis. Interventional cardiology consultation is recommended before scheduling surgery. If cardiology concurs that proceeding is acceptable, ASA should be continued throughout, and clopidogrel held for 5 days pre-op with early restart. OSA management with perioperative CPAP and continuous pulse oximetry is essential. Metformin and empagliflozin should be held as outlined above, and lisinopril held morning of surgery. Medical conditions are otherwise optimized for the planned procedure.
+
+---
+
+## Tips & pitfalls
+
+- "Cleared for surgery" is a phrase to avoid. Your job is risk stratification and optimization, not a guarantee. Document "medical conditions have been assessed and optimized" or "perioperative risk is acceptable for the proposed procedure," not clearance.
+- The AI may assign RCRI criteria incorrectly. The most common errors: scoring diabetes when the patient is not on insulin, scoring creatinine when it is below 2.0, and misclassifying surgical risk. Verify each criterion manually.
+- Stent timing is a medicolegal flashpoint. If a patient has a stent and you recommend proceeding, document that you discussed the timing with cardiology and cite the specific guideline supporting your recommendation.
+- The model tends to over-recommend pre-operative stress testing. Per AHA/ACC guidelines, stress testing is rarely indicated if functional capacity is adequate (4 or more METs) and there are no active cardiac conditions, regardless of the number of clinical risk factors.
+- Medication hold instructions must include specific dates and restart criteria, not just "hold before surgery." Patients and surgical teams need a calendar.
+- Do not assume the surgical team knows your medication plan. State each hold and restart explicitly, and confirm the plan is communicated to anesthesia.
+- SGLT2 inhibitor management is frequently missed. These agents should be held 3 to 4 days before surgery to reduce the risk of euglycemic DKA, a diagnosis that is easy to miss because the glucose may be normal.
+
+---
+
+## Related
+
+- [Procedure Note](/templates/procedure-note) -- the surgeon's documentation of the operation itself
+- [History and Physical](/templates/history-and-physical) -- the full admission H&P if the patient is admitted pre-operatively
+- [Medication Reconciliation](/templates/medication-reconciliation) -- systematic review of the patient's full medication list
+- [Risk Stratification](/templates/risk-stratification) -- general risk scoring and stratification template

@@ -1,0 +1,944 @@
+---
+title: "Primary Care Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, primary-care, outpatient, family-medicine]
+lastUpdated: 2026-03-27
+socialPost: "This template generates structured primary care notes for six visit types: hypertension, type 2 diabetes, hyperlipidemia, depression/anxiety, low back pain, and preventive care."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+You finished a 20-minute visit with a patient who has four chronic conditions and is overdue for a colonoscopy. Fifteen of those minutes were clinical. The next five are documentation. Paste your visit data into this template, and the LLM produces a structured primary care note organized around whichever conditions the patient carries: hypertension, type 2 diabetes, hyperlipidemia, depression, low back pain, preventive care, or some combination. The note knows to pull A1c trends, home blood pressure logs, PHQ-9 scores, cancer screening dates, and vaccination status without you remembering to include each one.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Primary Care Clinic Visit Note">
+You are a primary care physician writing an outpatient clinic visit note after seeing a patient for a follow-up, chronic disease management, acute visit, or annual wellness visit. The patient may carry one or more of the following common conditions: hypertension, type 2 diabetes, hyperlipidemia, depression/anxiety, low back pain, or need preventive care. Identify all active conditions from the clinical information provided and structure the note around them.
+
+### Purpose
+
+Generate a complete, structured outpatient primary care clinic note from the clinical data below. The note must capture chronic disease monitoring data, medication reconciliation with doses and adherence, preventive care tracking, social determinants screening, and a concrete, actionable plan for each problem.
+
+### Rules
+
+- Write in past tense for history and interval events; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use in the note (e.g., "hemoglobin A1c (A1c) 7.2%"), then abbreviation only thereafter.
+- Include specific numbers for all values: lab results, vitals, doses, dates, screening scores.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Organize the Assessment as a numbered problem list with chronic disease conditions first, then acute issues, then preventive care.
+- Plan items must be specific and actionable: drug name, dose, titration target, follow-up interval, specific test or referral to order. Never write "continue current management" without specifying what that management is.
+- For hypertension: document home blood pressure log average, current regimen, and BP target.
+- For type 2 diabetes: document A1c trend, home glucose log if available, foot exam, last eye exam date, urine albumin-to-creatinine ratio (UACR), and current diabetes regimen.
+- For hyperlipidemia: document LDL, statin (drug, dose, intensity), and 10-year atherosclerotic cardiovascular disease (ASCVD) risk score.
+- For depression/anxiety: document PHQ-9 or GAD-7 score, current psychotropic medications, therapy status.
+- For preventive care: document screening due dates, vaccination status, and any shared decision-making discussions.
+- Include a complete medication list with indication for each medication and adherence assessment.
+- Document social determinants: insurance, food security, housing, transportation, social isolation.
+- Do not infer or fabricate any clinical information not provided. Write "[Not provided; verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "A1c" = hemoglobin A1c
+- "ASCVD" = atherosclerotic cardiovascular disease
+- "UACR" = urine albumin-to-creatinine ratio
+- "PHQ-9" = Patient Health Questionnaire-9
+- "GAD-7" = Generalized Anxiety Disorder-7
+- "AUDIT-C" = Alcohol Use Disorders Identification Test-Concise
+- "BMI" = body mass index
+- "USPSTF" = United States Preventive Services Task Force
+- "DEXA" = dual-energy X-ray absorptiometry
+- "LDCT" = low-dose computed tomography
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+PRIMARY CARE CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[Annual wellness / Chronic disease management / Acute visit / Follow-up]
+Interval since last visit: [duration]
+
+CHIEF CONCERN
+─────────────
+***
+
+ACTIVE PROBLEM LIST
+───────────────────
+  1. ***
+  2. ***
+  3. ***
+  [Continue as needed]
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph covering symptoms and events since last visit.
+Include: medication adherence, symptom changes, hospitalizations,
+ED visits, specialist visits, lifestyle changes.]
+
+CHRONIC DISEASE MONITORING
+──────────────────────────
+
+  Hypertension (if applicable)
+  ────────────────────────────
+  Diagnosis date: ***
+  Current regimen: [drug, dose for each agent]
+  Home BP log average: *** (range: ***)
+  Office BP today: ***
+  Target BP: ***
+  End-organ screening: [last Cr, UACR, EKG if applicable]
+
+  Type 2 Diabetes (if applicable)
+  ────────────────────────────────
+  Diagnosis date: ***
+  Current A1c: ***% (date: ***)
+  Prior A1c: ***% (date: ***)
+  A1c target: ***%
+  Home glucose log: [fasting range, postprandial range, if available]
+  Current regimen: [drug, dose for each agent]
+  Foot exam: [today's findings / last performed M/D/YY]
+  Last dilated eye exam: [date, result]
+  UACR: *** (date: ***)
+  Last lipid panel: [LDL, date]
+
+  Hyperlipidemia (if applicable)
+  ───────────────────────────────
+  LDL: *** mg/dL (date: ***)
+  Total cholesterol: *** HDL: *** Triglycerides: ***
+  Statin: [drug, dose, intensity level]
+  10-year ASCVD risk: ***%
+  Statin intolerance history: [None / describe]
+
+  Depression / Anxiety (if applicable)
+  ─────────────────────────────────────
+  Diagnosis: [MDD / GAD / both / adjustment disorder / other]
+  PHQ-9 today: ***/27 (prior: ***/27 on M/D/YY)
+  GAD-7 today: ***/21 (prior: ***/21 on M/D/YY)
+  Current medications: [drug, dose, start date]
+  Side effects: ***
+  Therapy: [type (CBT, other), frequency, therapist coordination]
+  Suicidal ideation screen: [Negative / Positive, detail]
+
+  Low Back Pain (if applicable)
+  ──────────────────────────────
+  Duration: [acute (&lt;4 weeks) / subacute (4-12 weeks) / chronic (&gt;12 weeks)]
+  Character: ***
+  Radiation: [None / describe]
+  Red flags: [None / list any: saddle anesthesia, bowel/bladder changes,
+    progressive weakness, fever, weight loss, history of cancer]
+  Functional impact: ***
+  Current treatment: [medications, PT, injections, imaging]
+  Imaging: [None indicated / results if obtained]
+
+CURRENT MEDICATIONS
+───────────────────
+  [Drug, dose, frequency] — indication: [reason]
+  [Drug, dose, frequency] — indication: [reason]
+  [Continue for all medications]
+
+  Adherence: [Patient reports (good / partial / poor); barriers if any]
+  Refills needed: ***
+  Medications to reconcile: [discrepancies noted, if any]
+
+ALLERGIES
+─────────
+  ***
+
+SOCIAL DETERMINANTS
+───────────────────
+  Insurance: ***
+  Food security: [Screened: secure / insecure; details]
+  Housing: [Stable / unstable / homeless; details]
+  Transportation: [Adequate / barrier to care]
+  Social support: [Lives with / alone; isolation risk]
+  Tobacco: [Never / Former (quit date) / Current (pack-years, cessation interest)]
+  Alcohol: [AUDIT-C score: ***/12 or describe use]
+  Substance use: [None / describe]
+  Exercise: [Type, frequency, duration]
+
+VITAL SIGNS
+───────────
+  BP: *** (repeat if elevated: ***)
+  HR: ***
+  Weight: *** (BMI: ***; trend: ***)
+  Temperature: ***
+  SpO2: ***
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: ***
+  HEENT: ***
+  Neck: ***
+  Cardiovascular: ***
+  Pulmonary: ***
+  Abdomen: ***
+  Musculoskeletal: *** [detail if MSK complaint]
+  Neurological: *** [detail if neuro complaint]
+  Skin: ***
+  Psychiatric: [Mood, affect, if relevant]
+  Feet: [Monofilament, pedal pulses, skin integrity — if diabetic]
+
+DIAGNOSTICS
+───────────
+  Labs
+  ────
+  [List all recent labs with dates and values.]
+
+  Imaging
+  ───────
+  [List any recent imaging with dates and results.]
+
+  Screening Scores
+  ────────────────
+  PHQ-9: ***
+  GAD-7: ***
+  AUDIT-C: ***
+  Fall risk (if age ≥65): ***
+
+PREVENTIVE CARE TRACKER
+───────────────────────
+  Cancer Screening
+  ────────────────
+  Colonoscopy: [Last date, result, next due]
+  Mammogram: [Last date, result, next due]
+  Cervical cancer (Pap/HPV): [Last date, result, next due]
+  Lung cancer (LDCT): [Eligible Y/N; last date; next due]
+  Prostate (PSA): [Shared decision-making discussion: Y/N; result if obtained]
+
+  Vaccinations
+  ────────────
+  Influenza: [Date or due]
+  COVID-19: [Date of last dose, booster status]
+  Pneumococcal (PCV20 or PCV15+PPSV23): [Date or due; series status]
+  Shingles (Shingrix): [Dose 1 date, Dose 2 date, or due]
+  Tdap/Td: [Last date, next due]
+  Hepatitis B: [If indicated; status]
+
+  Other Screenings
+  ────────────────
+  DEXA: [If indicated; last date, T-score, next due]
+  AAA ultrasound: [If indicated; status]
+  Hepatitis C: [One-time screen status]
+  HIV: [Screen status]
+  Diabetes screening: [If not diabetic; last A1c or fasting glucose]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [relevant conditions summary]
+presenting for [visit type]. [One-sentence trajectory statement.]
+
+  1. [Primary chronic condition]
+     [Brief assessment of current status, trajectory, and rationale.]
+
+  2. [Second condition]
+     [Brief assessment.]
+
+  3. [Third condition]
+     [Brief assessment.]
+
+  4. Preventive care / Health maintenance
+     [Screening and vaccination status summary.]
+
+  [Patient-stated health goals: ***]
+
+PLAN
+────
+  1. [Primary condition]
+     - [Specific action: medication change with dose, lab order, referral]
+     - [Specific action]
+     - [Specific action]
+
+  2. [Second condition]
+     - [Specific action]
+
+  3. [Third condition]
+     - [Specific action]
+
+  4. Preventive care
+     - [Screening to order: specify which]
+     - [Vaccinations to administer today or order]
+     - [Referrals: e.g., colonoscopy, mammogram, eye exam]
+
+  5. Medication changes summary
+     - [New: drug, dose, indication]
+     - [Changed: drug, old dose → new dose, reason]
+     - [Discontinued: drug, reason]
+     - [Refills: list]
+
+  Shared Decision-Making
+  ──────────────────────
+  [Document any SDM discussions: cancer screening, statin initiation,
+  PSA testing, medication preferences, etc.]
+
+  Follow-Up
+  ─────────
+  Return to clinic in [interval].
+  [Specific criteria for earlier return or ED visit.]
+
+DISPOSITION
+───────────
+[Patient counseled on ***, agrees with plan.
+Return precautions reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: reason for visit, interval history, active problem list, current medications with doses, vitals, exam findings, recent labs, screening history, vaccination records, social history, and any other relevant data.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Annual wellness visit | Change visit type to "Annual wellness visit" and add: "Emphasize preventive care tracker, screening recommendations per USPSTF guidelines, and health maintenance. Include a comprehensive review of systems." |
+| Pediatric / Adolescent | Add: "This patient is a pediatric or adolescent patient. Adjust screening recommendations to age-appropriate guidelines. Include growth chart data, developmental milestones if applicable, and age-appropriate vaccination schedule." |
+| Geriatric focus | Add: "This patient is over 65. Include fall risk assessment, cognitive screening (MoCA or MMSE), medication appropriateness review (Beers criteria), and life-expectancy-adjusted cancer screening recommendations." |
+| Medicare AWV | Add: "This is a Medicare Annual Wellness Visit. Structure as a Health Risk Assessment including: cognitive screen, depression screen, fall risk, home safety, advance directive status, and a personalized prevention plan." |
+| Post-hospital follow-up | Add: "This is a transitional care visit within 14 days of hospital discharge. Emphasize medication reconciliation with discharge medications, symptom surveillance, follow-up on pending studies, and assessment for readmission risk." |
+
+---
+
+## Variations
+
+### Annual wellness / preventive visit
+
+Use this for the healthy (or seemingly healthy) patient coming in for their yearly checkup. The note centers on screening, vaccinations, risk factor identification, and health maintenance rather than acute symptom management.
+
+<PromptPlayground tool="Claude" title="Annual Wellness / Preventive Visit">
+You are a primary care physician writing an outpatient note for an annual wellness or preventive visit. The focus is health maintenance, cancer screening, vaccinations, and risk factor assessment. Chronic conditions should be addressed briefly with reference to the management plan, but the note is organized around prevention.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document all USPSTF-recommended screenings applicable to the patient's age and sex with current status and next due date.
+- Document vaccination status against current CDC adult immunization schedule.
+- Screen for depression (PHQ-2 or PHQ-9), alcohol use (AUDIT-C), and fall risk (if age ≥65).
+- Include social determinants screening results.
+- Plan must specify which screenings to order, which vaccinations to administer, and which referrals to place.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+ANNUAL WELLNESS / PREVENTIVE VISIT
+══════════════════════════════════════════
+
+VISIT TYPE: Annual wellness visit
+Last annual visit: [date]
+
+HEALTH RISK ASSESSMENT
+──────────────────────
+  Age: ***   Sex: ***   BMI: ***
+  Tobacco: [status, pack-years]
+  Alcohol: AUDIT-C ***/12
+  Exercise: [frequency, type]
+  Diet: [brief assessment]
+  Seatbelt use: [Y/N]
+  Firearms in home: [Y/N, secured]
+
+FAMILY HISTORY (cancer-relevant)
+────────────────────────────────
+  [First-degree relatives with cancer type and age at diagnosis.]
+  [Heart disease, diabetes, other hereditary conditions.]
+
+CHRONIC CONDITIONS (brief status)
+─────────────────────────────────
+  [Condition]: [controlled / not at goal / stable] on [regimen]
+  [Condition]: [status]
+
+SCREENING STATUS
+────────────────
+
+  Cancer Screening
+  ────────────────
+  Colonoscopy: [Last M/D/YY, result, next due M/D/YY]
+  Mammogram: [Last M/D/YY, BIRADS, next due M/D/YY]
+  Cervical (Pap/HPV): [Last M/D/YY, result, next due M/D/YY]
+  Lung cancer LDCT: [Eligible: Y/N (criteria), last date, next due]
+  Prostate (PSA): [SDM discussion documented: Y/N; result if obtained]
+
+  Metabolic Screening
+  ───────────────────
+  Lipid panel: [Last M/D/YY; LDL ***; ASCVD risk ***%]
+  A1c or fasting glucose: [Last M/D/YY; result]
+  TSH: [If indicated; last date, result]
+  Hepatitis C: [One-time screen: done / due]
+  HIV: [Screen status]
+
+  Bone Health
+  ───────────
+  DEXA: [If indicated; last date, T-score, next due]
+  Vitamin D: [Level if checked]
+  Calcium supplementation: [Y/N]
+
+  AAA Screening
+  ─────────────
+  [If male, age 65-75, ever-smoker: status]
+
+VACCINATION STATUS
+──────────────────
+  Influenza: [date or due]
+  COVID-19: [last dose date, booster status]
+  Pneumococcal: [series status]
+  Shingrix: [series status]
+  Tdap/Td: [last date]
+  Hepatitis B: [if indicated]
+
+DEPRESSION / ANXIETY SCREEN
+────────────────────────────
+  PHQ-2: ***/6 [if positive, PHQ-9: ***/27]
+  GAD-7: ***/21 [if obtained]
+  Suicidal ideation: [Negative / Positive]
+
+FALL RISK (if age ≥65)
+──────────────────────
+  Falls in past year: [number]
+  Gait assessment: ***
+  Orthostatic vitals: ***
+  Vision: ***
+  Home hazards discussed: [Y/N]
+
+SOCIAL DETERMINANTS
+───────────────────
+  [Insurance, food security, housing, transportation, social isolation]
+
+ADVANCE DIRECTIVES
+───────────────────
+  Health care proxy: [Named: Y/N; name and relationship]
+  Living will: [On file: Y/N]
+  POLST: [If applicable]
+  Goals-of-care discussion: [Brief summary or deferred]
+
+PHYSICAL EXAMINATION
+────────────────────
+  [Comprehensive exam findings]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] presenting for annual wellness visit.
+[One-sentence summary of overall health status.]
+
+PERSONALIZED PREVENTION PLAN
+─────────────────────────────
+  Screenings to order today:
+  - ***
+  Vaccinations to administer today:
+  - ***
+  Referrals:
+  - ***
+  Lifestyle modifications:
+  - ***
+  Chronic disease adjustments (if any):
+  - ***
+
+  Follow-Up
+  ─────────
+  Return for annual wellness visit in 12 months.
+  [Sooner if: specific criteria.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: age, sex, active problem list, current medications, family history, social history, screening history with dates, vaccination records, vitals, exam findings, recent labs.]
+</PromptPlayground>
+
+### Chronic disease management (HTN + DM + HLD)
+
+Use this for the bread-and-butter primary care patient with the metabolic triad. The note tracks A1c trend, home blood pressures, LDL target, ASCVD risk, and medication optimization across all three conditions simultaneously.
+
+<PromptPlayground tool="Claude" title="Chronic Disease Management (HTN + DM2 + HLD)">
+You are a primary care physician writing an outpatient note for a patient with hypertension, type 2 diabetes, and hyperlipidemia. Structure the note around disease-specific targets, medication optimization, and end-organ surveillance across all three conditions.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document current value vs. target for: BP, A1c, LDL, UACR.
+- Assess ASCVD risk and statin intensity appropriateness.
+- Document diabetes complications screening: foot exam, eye exam, UACR, neuropathy symptoms.
+- Assess medication adherence for each condition and identify barriers.
+- Plan must include specific dose adjustments, lab orders with timing, and follow-up interval.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+CHRONIC DISEASE MANAGEMENT VISIT
+══════════════════════════════════════════
+
+DISEASE DASHBOARD
+─────────────────
+                    Current     Target      At Goal?
+  BP (office):      ***         &lt;130/80     [Y/N]
+  BP (home avg):    ***         &lt;130/80     [Y/N]
+  A1c:              ***%        &lt;***%       [Y/N]
+  LDL:              *** mg/dL   &lt;*** mg/dL  [Y/N]
+  UACR:             *** mg/g    &lt;30 mg/g    [Y/N]
+  BMI:              ***         &lt;25         [Y/N]
+  ASCVD 10-yr risk: ***%
+
+INTERVAL HISTORY
+────────────────
+[Narrative: medication adherence, symptoms, home monitoring data,
+hypoglycemic episodes, side effects, lifestyle changes, ED visits.]
+
+HYPERTENSION
+────────────
+  Current regimen: [drug, dose for each agent]
+  Home BP log: [average, range, frequency of monitoring]
+  Office BP today: *** (repeat if elevated: ***)
+  End-organ assessment: Cr ***, UACR ***, EKG [if applicable]
+  Barriers to control: [adherence, dietary sodium, medication side effects, white-coat effect]
+
+TYPE 2 DIABETES
+───────────────
+  Current A1c: ***% (M/D/YY) Prior: ***% (M/D/YY)
+  Home glucose log: [fasting range, postprandial range]
+  Hypoglycemia: [frequency, severity, awareness]
+  Current regimen: [drug, dose for each agent]
+  Complications screening:
+    Retinopathy: Last dilated eye exam [date, result, next due]
+    Nephropathy: UACR *** (M/D/YY); eGFR ***
+    Neuropathy: [symptoms, monofilament exam result]
+    Foot exam: [today's findings: pulses, sensation, skin, deformity]
+  Diabetes self-management education: [status]
+
+HYPERLIPIDEMIA
+──────────────
+  Last lipid panel (M/D/YY): TC *** LDL *** HDL *** TG ***
+  Statin: [drug, dose, intensity]
+  Non-statin lipid therapy: [ezetimibe, PCSK9i, icosapent ethyl, if any]
+  Statin intolerance: [None / history]
+  ASCVD risk category: [low / borderline / intermediate / high /
+    very high (established ASCVD)]
+  Risk enhancers: [list if applicable]
+
+MEDICATIONS (complete list)
+───────────────────────────
+  [Drug, dose, frequency] — indication
+  [Continue for all]
+  Adherence: [assessment and barriers]
+
+VITAL SIGNS AND EXAM
+─────────────────────
+  [Vitals with orthostatics if applicable. Focused exam:
+  cardiovascular, peripheral pulses, foot exam, fundoscopy if done.]
+
+LABS
+────
+  [All recent labs with dates and trends.]
+
+ASSESSMENT AND PLAN
+───────────────────
+  1. Hypertension
+     Current status: [at goal / above goal by *** mmHg]
+     - [Specific medication change or continuation with dose]
+     - [Home BP monitoring instructions]
+     - [Lab orders]
+
+  2. Type 2 diabetes
+     Current status: [at A1c goal / above goal]
+     - [Medication adjustment with dose and reason]
+     - [Screening orders: eye exam referral, UACR, foot exam documented]
+     - [DSME referral if needed]
+
+  3. Hyperlipidemia
+     Current status: [LDL at goal / above goal]
+     - [Statin adjustment or add-on therapy]
+     - [Repeat lipid panel timing]
+
+  4. Cardiovascular risk reduction
+     - [Aspirin decision (if applicable, per USPSTF)]
+     - [Lifestyle: diet, exercise, weight, smoking cessation]
+     - [SGLT2i or GLP-1 RA for cardiorenal benefit if indicated]
+
+  5. Follow-up
+     - Labs in [interval]: [specific tests]
+     - Return in [interval]
+     - [Earlier return criteria]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: chronic disease history, current medications with doses, home BP log, home glucose log, recent A1c, lipid panel, UACR, Cr, vitals, exam findings, adherence assessment, lifestyle data.]
+</PromptPlayground>
+
+### Acute visit (URI, UTI, MSK pain)
+
+Use this for the patient who calls Monday morning with something that started over the weekend. The note is shorter and structured for same-day evaluation, diagnosis, and treatment of common acute complaints. It still captures chronic conditions and medication reconciliation, because primary care never has the luxury of treating one thing at a time.
+
+<PromptPlayground tool="Claude" title="Acute Primary Care Visit">
+You are a primary care physician writing an outpatient note for an acute same-day visit. The patient presents with a new or worsening symptom: upper respiratory infection, urinary tract infection, musculoskeletal pain, or similar acute complaint. Structure the note around the acute evaluation while briefly documenting chronic conditions.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Focus the HPI on the acute complaint with pertinent positives and negatives.
+- Include a targeted review of systems relevant to the chief concern.
+- Document red flags assessed and absent (or present).
+- Plan must include specific treatment (drug, dose, duration), follow-up criteria, and return precautions.
+- Briefly list chronic conditions with current status; do not restructure the note around them.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+ACUTE PRIMARY CARE VISIT
+══════════════════════════════════════════
+
+VISIT TYPE: Acute / Same-day
+Symptom onset: [date or duration]
+
+CHIEF CONCERN
+─────────────
+***
+
+HPI
+───
+[Focused narrative: onset, location, duration, character, aggravating/
+alleviating factors, associated symptoms. Pertinent positives and negatives.
+Red flags assessed.]
+
+RELEVANT CHRONIC CONDITIONS
+────────────────────────────
+  [Condition]: [brief status, relevant to today's complaint or not]
+  [Condition]: [brief status]
+
+CURRENT MEDICATIONS
+───────────────────
+  [Complete list with doses and indications.]
+
+ALLERGIES
+─────────
+  ***
+
+VITAL SIGNS
+───────────
+  ***
+
+PHYSICAL EXAMINATION
+────────────────────
+  [Targeted exam relevant to chief concern.
+  Specify pertinent findings and pertinent normal findings.]
+
+DIAGNOSTICS
+───────────
+  [POC tests (strep, UA, flu), labs ordered, imaging if any.]
+  Results: ***
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [relevant history] presenting with
+[acute complaint]. [Working diagnosis with brief rationale.]
+
+  1. [Acute diagnosis]
+     [Assessment rationale: why this diagnosis, what was ruled out.]
+
+  2. [Secondary acute finding, if any]
+
+PLAN
+────
+  1. [Acute diagnosis]
+     - Treatment: [drug, dose, route, frequency, duration]
+     - Supportive care: [specific recommendations]
+     - Patient education: [key points discussed]
+
+  2. Chronic conditions (no changes / brief adjustments)
+     - [Any medication adjustments triggered by today's visit]
+
+  3. Follow-up
+     - [Return in *** days if not improving]
+     - Return precautions: [specific symptoms that warrant earlier return or ED visit]
+
+  4. Work/school note: [if applicable]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: chief complaint, symptom details, duration, current medications, allergies, vitals, exam findings, any POC test results, relevant chronic conditions.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+58-year-old female with HTN, DM2 (A1c 7.8% three months ago), HLD, and history of depression (stable on sertraline). Presenting for annual visit. Current meds: lisinopril 20 mg daily, amlodipine 5 mg daily, metformin 1000 mg BID, empagliflozin 10 mg daily, atorvastatin 40 mg daily, sertraline 100 mg daily, aspirin 81 mg daily. Home BP log average 134/82 over last month. Home fasting glucose 120-150. Last colonoscopy 2019, normal. Last mammogram 3/2025, BIRADS 1. Last Pap/HPV 2023, negative. No LDCT (15 pack-year history, quit 2018). Shingrix dose 1 given 9/2025, dose 2 not yet received. Last flu shot 10/2025. COVID booster 9/2025. Pneumococcal not yet given. Labs from today: A1c 7.4%, LDL 98, HDL 52, TG 168, Cr 0.9, UACR 42 mg/g. PHQ-9: 4. BMI 31.2. Weight 186 lbs (was 190 last year). BP 138/84, repeat 132/80. Exam: monofilament intact, pedal pulses 2+, no foot deformities. No diabetic retinopathy on last eye exam 8/2025.
+
+**LLM output:**
+
+PRIMARY CARE CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Annual wellness visit
+Interval since last visit: 12 months
+
+CHIEF CONCERN
+─────────────
+Annual wellness visit with chronic disease review
+
+ACTIVE PROBLEM LIST
+───────────────────
+  1. Type 2 diabetes mellitus
+  2. Hypertension
+  3. Hyperlipidemia
+  4. Major depressive disorder, stable
+  5. Obesity (BMI 31.2)
+  6. Moderately increased albuminuria
+
+INTERVAL HISTORY
+────────────────
+Patient reports good medication adherence over the past year. She checks fasting blood glucose at home 3-4 times per week, with readings ranging 120-150 mg/dL. She monitors blood pressure at home; her log shows an average of 134/82 mmHg over the past month. She reports no hypoglycemic episodes, chest pain, dyspnea, polyuria, polydipsia, or vision changes. She quit smoking in 2018 after a 15 pack-year history. She walks 20 minutes three times per week. Weight is down 4 lbs from last year. She denies depressive symptoms beyond baseline and reports stable mood on sertraline. No hospitalizations or ED visits since last visit.
+
+CHRONIC DISEASE MONITORING
+──────────────────────────
+
+  Hypertension
+  ────────────
+  Diagnosis date: [Not provided; verify before signing]
+  Current regimen: Lisinopril 20 mg daily, amlodipine 5 mg daily
+  Home BP log average: 134/82 mmHg (range: [Not provided; verify before signing])
+  Office BP today: 138/84 mmHg, repeat 132/80 mmHg
+  Target BP: &lt;130/80 mmHg
+  End-organ screening: Cr 0.9, urine albumin-to-creatinine ratio (UACR) 42 mg/g (moderately increased)
+
+  Type 2 Diabetes
+  ────────────────
+  Diagnosis date: [Not provided; verify before signing]
+  Current hemoglobin A1c (A1c): 7.4% (today)
+  Prior A1c: 7.8% (12/2025)
+  A1c target: &lt;7.0%
+  Home glucose log: Fasting 120-150 mg/dL
+  Current regimen: Metformin 1000 mg BID, empagliflozin 10 mg daily
+  Foot exam: Performed today. Monofilament sensation intact bilaterally, pedal pulses 2+ bilaterally, no deformities, skin intact
+  Last dilated eye exam: 8/2025, no diabetic retinopathy
+  UACR: 42 mg/g (today), moderately increased albuminuria (30-300 mg/g)
+
+  Hyperlipidemia
+  ──────────────
+  LDL: 98 mg/dL (today)
+  Total cholesterol: [Not provided; verify before signing] HDL: 52 mg/dL Triglycerides: 168 mg/dL
+  Statin: Atorvastatin 40 mg daily (high intensity)
+  10-year atherosclerotic cardiovascular disease (ASCVD) risk: [Not provided; verify before signing; calculate and document]
+  Statin intolerance history: None
+
+  Depression
+  ──────────
+  Diagnosis: Major depressive disorder (MDD), stable
+  Patient Health Questionnaire-9 (PHQ-9) today: 4/27 (minimal depression)
+  Current medication: Sertraline 100 mg daily
+  Side effects: None reported
+  Therapy: [Not provided; verify before signing]
+  Suicidal ideation screen: Negative
+
+CURRENT MEDICATIONS
+───────────────────
+  Lisinopril 20 mg daily — hypertension, renal protection
+  Amlodipine 5 mg daily — hypertension
+  Metformin 1000 mg BID — type 2 diabetes
+  Empagliflozin 10 mg daily — type 2 diabetes, cardiorenal benefit
+  Atorvastatin 40 mg daily — hyperlipidemia
+  Sertraline 100 mg daily — major depressive disorder
+  Aspirin 81 mg daily — cardiovascular risk reduction
+
+  Adherence: Patient reports taking all medications as prescribed. No barriers identified.
+  Refills needed: [Verify before signing]
+
+ALLERGIES
+─────────
+[Not provided; verify before signing]
+
+SOCIAL DETERMINANTS
+───────────────────
+  Insurance: [Not provided; verify before signing]
+  Food security: [Not provided; verify before signing]
+  Housing: [Not provided; verify before signing]
+  Transportation: [Not provided; verify before signing]
+  Social support: [Not provided; verify before signing]
+  Tobacco: Former smoker, 15 pack-years, quit 2018
+  Alcohol: [Not provided; verify before signing]
+  Exercise: Walks 20 minutes, 3 times per week
+
+VITAL SIGNS
+───────────
+  BP: 138/84 mmHg (repeat: 132/80 mmHg)
+  HR: [Not provided; verify before signing]
+  Weight: 186 lbs (BMI 31.2; down 4 lbs from 190 lbs last year)
+  Temperature: [Not provided; verify before signing]
+  SpO2: [Not provided; verify before signing]
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: Alert, well-appearing, in no acute distress.
+  Cardiovascular: Regular rate and rhythm, no murmurs.
+  Pulmonary: Clear to auscultation bilaterally.
+  Abdomen: Soft, nontender, nondistended.
+  Feet: Monofilament sensation intact bilaterally. Pedal pulses 2+ bilaterally. No deformities, calluses, or skin breakdown.
+  Psychiatric: Mood "good," affect euthymic.
+  [Remainder of exam: Not provided; verify before signing]
+
+DIAGNOSTICS
+───────────
+  Labs (today)
+  ────────────
+  A1c: 7.4% (improved from 7.8%)
+  LDL: 98 mg/dL, HDL: 52 mg/dL, TG: 168 mg/dL
+  Cr: 0.9 mg/dL
+  UACR: 42 mg/g (moderately increased)
+
+  Screening Scores
+  ────────────────
+  PHQ-9: 4/27 (minimal)
+
+PREVENTIVE CARE TRACKER
+───────────────────────
+  Cancer Screening
+  ────────────────
+  Colonoscopy: Last 2019, normal. Due now (10 years if normal, but patient is now 58; repeat by 2029, though due for discussion given age)
+  Mammogram: Last 3/2025, BIRADS 1. Next due 3/2026
+  Cervical (Pap/HPV): Last 2023, negative. Next due 2028 (q5yr with HPV co-test)
+  Lung cancer LDCT: Eligible: No (15 pack-years, quit 2018; USPSTF requires ≥20 pack-years)
+  Prostate (PSA): Not applicable
+
+  Vaccinations
+  ────────────
+  Influenza: 10/2025 (up to date)
+  COVID-19: Booster 9/2025 (up to date)
+  Pneumococcal (PCV20): Not yet received. Due now (age ≥50 with diabetes)
+  Shingrix: Dose 1 given 9/2025. Dose 2 due now (2-6 months after dose 1)
+  Tdap/Td: [Not provided; verify before signing]
+
+  Other Screenings
+  ────────────────
+  Hepatitis C: [Not provided; verify before signing; one-time screen recommended]
+  HIV: [Not provided; verify before signing]
+
+ASSESSMENT
+──────────
+58-year-old female with type 2 diabetes, hypertension, hyperlipidemia, stable depression, and obesity presenting for annual wellness visit. A1c has improved from 7.8% to 7.4% but remains above goal. Blood pressure is slightly above target. New finding of moderately increased albuminuria (UACR 42 mg/g) warrants attention.
+
+  1. Type 2 diabetes, improving but not at goal
+     A1c improved 0.4% over the past year on metformin and empagliflozin. Current 7.4% remains above 7.0% target. Fasting glucoses 120-150 suggest room for optimization. No retinopathy on last eye exam. New moderately increased albuminuria supports continued empagliflozin for renal benefit. Foot exam normal.
+
+  2. Hypertension, slightly above target
+     Home average 134/82 and office 132/80 (repeat) are close to but not at goal of &lt;130/80. UACR of 42 mg/g suggests early nephropathy, favoring tighter BP control. Current regimen is lisinopril 20 mg and amlodipine 5 mg.
+
+  3. Moderately increased albuminuria
+     UACR 42 mg/g is a new finding. Patient is already on an ACE inhibitor (lisinopril) and an SGLT2 inhibitor (empagliflozin), both renoprotective. Repeat in 3 months to confirm persistence.
+
+  4. Hyperlipidemia, at goal
+     LDL 98 mg/dL on atorvastatin 40 mg. Triglycerides mildly elevated at 168 mg/dL. With diabetes and ASCVD risk factors, high-intensity statin is appropriate.
+
+  5. Depression, stable
+     PHQ-9 4/27 on sertraline 100 mg. No medication changes needed.
+
+  6. Obesity
+     BMI 31.2, down 4 lbs from last year. Encourage continued lifestyle modification.
+
+  7. Preventive care
+     Due for pneumococcal vaccine, Shingrix dose 2, and colonoscopy scheduling.
+
+  Patient-stated health goals: Wants to keep losing weight and bring blood sugar down further.
+
+PLAN
+────
+  1. Type 2 diabetes
+     - Continue metformin 1000 mg BID and empagliflozin 10 mg daily
+     - Add once-weekly semaglutide 0.25 mg SC for 4 weeks, then increase to 0.5 mg weekly (dual benefit for glycemic control and weight loss)
+     - Recheck A1c in 3 months
+     - Diabetic eye exam scheduled for 8/2026
+     - Repeat UACR in 3 months
+     - Continue annual foot exams
+
+  2. Hypertension
+     - Increase lisinopril from 20 mg daily to 40 mg daily (target &lt;130/80, renal benefit given albuminuria)
+     - Continue amlodipine 5 mg daily
+     - Continue home BP monitoring; target &lt;130/80
+     - Recheck BMP in 2 weeks to monitor Cr and K after lisinopril increase
+
+  3. Hyperlipidemia
+     - Continue atorvastatin 40 mg daily
+     - Lifestyle counseling for triglycerides: reduce refined carbohydrates, increase omega-3 intake
+     - Repeat lipid panel in 6 months
+
+  4. Depression
+     - Continue sertraline 100 mg daily
+     - Rescreen PHQ-9 at next visit
+
+  5. Obesity
+     - Semaglutide will provide additional weight loss benefit
+     - Encourage continued walking; goal 150 minutes per week
+     - Nutrition referral for diabetes-friendly weight loss plan
+
+  6. Preventive care
+     - Administer PCV20 today
+     - Administer Shingrix dose 2 today
+     - Referral for screening colonoscopy (last was 2019; due for repeat)
+     - Mammogram due 3/2026; order
+     - Verify hepatitis C screening status and order if not done
+
+  7. Medication changes summary
+     - New: Semaglutide 0.25 mg SC weekly (titrate to 0.5 mg in 4 weeks)
+     - Changed: Lisinopril 20 mg daily to 40 mg daily
+     - No discontinuations
+
+  Shared Decision-Making
+  ──────────────────────
+  Discussed addition of semaglutide for glycemic control and weight loss. Patient agrees to trial. Reviewed injection technique and common GI side effects (nausea, typically self-limited). Discussed colonoscopy; patient agrees to schedule.
+
+  Follow-Up
+  ─────────
+  Return to clinic in 3 months for A1c recheck, UACR recheck, and BP assessment after medication changes.
+  BMP in 2 weeks (fax to clinic).
+  Call clinic if persistent nausea with semaglutide lasting more than 2 weeks, or if home BP consistently above 150/90 or below 100/60.
+
+DISPOSITION
+───────────
+Patient counseled on medication changes, semaglutide injection technique, and dietary modifications. Agrees with plan. Return precautions reviewed. PCV20 and Shingrix dose 2 administered today; observed 15 minutes, no adverse reactions.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **The medication list is the backbone.** Primary care notes live or die on medication reconciliation. If you give the model an incomplete list, the plan will have gaps. Include every medication the patient takes, including over-the-counter drugs, supplements, and inhalers.
+- **Home monitoring data makes the note sing.** A home BP log average is more useful than a single office reading. A home glucose log is more useful than a single A1c. The more longitudinal data you provide, the better the interval assessment.
+- **PHQ-9 scores need context.** A PHQ-9 of 8 means different things for a patient whose prior score was 18 (improving) versus one whose prior score was 2 (worsening). Always include the prior score and date.
+- **Preventive care recommendations change.** The model uses current USPSTF guidelines, but screening intervals and age thresholds are updated periodically. Verify lung cancer screening eligibility criteria (currently ≥20 pack-years), colonoscopy intervals based on findings, and mammography age cutoffs against the most recent guidelines.
+- **ASCVD risk calculation requires specific inputs.** The model cannot calculate a 10-year ASCVD risk score accurately unless you provide age, sex, race, total cholesterol, HDL, systolic BP, BP treatment status, diabetes status, and smoking status. If you want a calculated score, provide all the inputs or calculate it yourself and include it.
+- **Social determinants screening is not optional decoration.** Food insecurity affects A1c. Transportation barriers affect follow-up. If your system uses a standardized screening tool, include those results. The model will document them, but only if you provide them.
+- **The UACR deserves its own line item.** Moderately increased albuminuria (30-300 mg/g) in a diabetic patient has direct treatment implications for ACE/ARB dosing and SGLT2i use. Do not bury it in a general lab list.
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) - for inpatient daily notes on the same patients
+- [Medication Reconciliation](/templates/medication-reconciliation) - for the detailed medication list that feeds into this note
+- [Discharge Summary](/templates/discharge-summary-basic) - for when your patient gets admitted and you need the discharge summary for continuity
+- [Referral Letter](/templates/referral-letter) - for sending patients to the specialists whose templates are also on this site
+- [Lifestyle Modification Plan](/templates/lifestyle-modification-plan) - for structured diet, exercise, and behavioral change plans

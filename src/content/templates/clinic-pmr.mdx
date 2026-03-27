@@ -1,0 +1,972 @@
+---
+title: "PM&R / Rehabilitation Medicine Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, pmr, rehabilitation, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "This template generates structured PM&R clinic notes covering TBI, spinal cord injury, stroke, chronic pain, amputee care, and MSK rehab. It captures functional independence measures, spasticity scoring, DME specifications, therapy progress, and bowel and"
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Your patient rolled into clinic in a power wheelchair with a new pressure injury, a baclofen pump due for refill, and questions about returning to work. You have 30 minutes. Twenty of those minutes were spent examining, adjusting, and listening. The remaining ten are documentation. Paste your visit data into this template, and the LLM produces a structured physiatry note organized around the patient's injury type, functional status, equipment needs, and rehabilitation goals. The note knows to capture Functional Independence Measure (FIM) scores, American Spinal Injury Association Impairment Scale (AIS) grades, Rancho Los Amigos levels, Modified Ashworth Scale (MAS) scores, Braden scores, bowel and bladder programs, durable medical equipment (DME) specifications, therapy progress, and community reintegration status without you listing each from memory.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+<Callout type="pitfall">
+  Rehabilitation notes serve dual purposes: clinical documentation and justification for continued therapy, DME, and disability determinations. If functional status has changed, document the direction and magnitude. Vague statements like "making progress" do not support medical necessity for ongoing services.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="PM&R / Rehabilitation Medicine Clinic Visit Note">
+You are a physiatrist writing an outpatient rehabilitation medicine clinic note after seeing a patient for follow-up or new evaluation. The patient may have one or more of the following conditions: traumatic brain injury (TBI), spinal cord injury (SCI), stroke, chronic pain, limb amputation, or musculoskeletal rehabilitation. Identify all active rehabilitation diagnoses from the clinical information provided and structure the note around them.
+
+### Purpose
+
+Generate a complete, structured outpatient PM&R clinic note from the clinical data below. The note must capture functional status with validated scales, rehabilitation therapy progress, DME status and needs, bowel and bladder management, spasticity assessment, pain management, community reintegration, and a goal-oriented plan for each problem.
+
+### Rules
+
+- Write in past tense for history and interval events; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use in the note (e.g., "Functional Independence Measure (FIM) score"), then abbreviation only thereafter.
+- Include specific numbers for all values: FIM scores, AIS grades, Rancho levels, MAS scores, Braden scores, ROM in degrees, strength in MRC grades.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Organize the Assessment as a numbered problem list with the primary rehabilitation diagnosis first, then secondary complications, then comorbidities.
+- Plan items must be specific and actionable: therapy type and frequency, DME orders with specifications, medication changes with doses, referrals with reason.
+- For SCI: document neurological level, AIS grade, bowel program, bladder management, skin integrity, and autonomic dysreflexia (AD) history.
+- For TBI: document Rancho Los Amigos level, cognitive FIM subscores, behavioral status, and post-traumatic seizure prophylaxis.
+- For stroke: document modified Rankin Scale (mRS) score, NIH Stroke Scale (NIHSS) if available, affected side, and motor recovery trajectory.
+- For spasticity: document MAS scores by muscle group, current treatment (oral, botulinum toxin, intrathecal baclofen), and functional impact.
+- For amputees: document amputation level, prosthetic type, K-level classification, socket fit, and gait analysis findings.
+- Do not infer or fabricate any clinical information not provided. Write "***" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "FIM" = Functional Independence Measure
+- "AIS" = American Spinal Injury Association Impairment Scale
+- "MAS" = Modified Ashworth Scale
+- "mRS" = modified Rankin Scale
+- "AD" = autonomic dysreflexia
+- "DME" = durable medical equipment
+- "AFO" = ankle-foot orthosis
+- "ROM" = range of motion
+- "MRC" = Medical Research Council (muscle strength grading)
+- "SCI" = spinal cord injury
+- "TBI" = traumatic brain injury
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+PM&R / REHABILITATION MEDICINE CLINIC NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[New evaluation / Follow-up / Annual equipment review]
+Interval since last visit: [duration]
+Injury/onset date: [date]
+Time since injury/onset: [duration]
+
+REHABILITATION DIAGNOSIS SUMMARY
+─────────────────────────────────
+  Primary: [e.g., T6 complete SCI (AIS A), 6 months post-injury]
+  Secondary: [e.g., neurogenic bowel/bladder, spasticity, neuropathic pain]
+  Comorbidities: [e.g., DM2, depression]
+
+FUNCTIONAL STATUS
+─────────────────
+  FIM Scores (current / prior visit)
+  ───────────────────────────────────
+  Self-care:
+    Eating:           ***/7  (prior: ***/7)
+    Grooming:         ***/7  (prior: ***/7)
+    Bathing:          ***/7  (prior: ***/7)
+    Upper body dress: ***/7  (prior: ***/7)
+    Lower body dress: ***/7  (prior: ***/7)
+    Toileting:        ***/7  (prior: ***/7)
+
+  Mobility:
+    Bed/chair transfer: ***/7  (prior: ***/7)
+    Toilet transfer:    ***/7  (prior: ***/7)
+    Tub/shower:         ***/7  (prior: ***/7)
+    Walk/wheelchair:    ***/7  (prior: ***/7)
+    Stairs:             ***/7  (prior: ***/7)
+
+  Cognition (if TBI/stroke):
+    Comprehension:    ***/7  (prior: ***/7)
+    Expression:       ***/7  (prior: ***/7)
+    Social interaction: ***/7  (prior: ***/7)
+    Problem solving:  ***/7  (prior: ***/7)
+    Memory:           ***/7  (prior: ***/7)
+
+  Total FIM: ***/126 (prior: ***/126)
+
+  Additional Scales
+  ─────────────────
+  [SCI]: AIS grade: *** Neurological level: ***
+         ASIA motor score: ***/100 (UE: ***/50, LE: ***/50)
+         ASIA sensory score: Light touch ***/112, Pin prick ***/112
+  [TBI]: Rancho Los Amigos level: ***/10
+  [Stroke]: mRS: ***/6   NIHSS: ***/42 (if available)
+  [Spasticity]: MAS by muscle group:
+    [Muscle group]: ***/4
+    [Muscle group]: ***/4
+    [Muscle group]: ***/4
+  [Amputee]: Amputation level: ***
+             K-level: ***/4
+             Prosthetic: [type, components, socket fit]
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph covering changes since last visit: therapy
+progress, functional gains or losses, hospitalizations, falls,
+skin breakdown, equipment issues, pain changes, psychosocial
+status, return to work/school/community activities.]
+
+BOWEL AND BLADDER PROGRAM (if applicable)
+──────────────────────────────────────────
+  Bladder management: [CIC q*** hours / indwelling Foley /
+    suprapubic catheter / condom catheter / volitional void
+    with residuals]
+  Post-void residual: *** mL
+  UTI frequency: *** in past [timeframe]
+  Last urodynamics: [date, findings]
+
+  Bowel program: [digital stimulation / suppository (type) /
+    mini-enema / oral regimen]
+  Frequency: every *** [hours/days]
+  Time to complete: *** minutes
+  Continence status: [continent / incontinent episodes: ***/week]
+  Last colonoscopy: [date, if applicable]
+
+SKIN INTEGRITY
+──────────────
+  Braden score: ***/23
+  Current pressure injuries: [None / Stage ***, location, dimensions
+    (*** cm x *** cm x *** cm depth), wound base, drainage, treatment]
+  Prior pressure injuries: [location, stage, date healed]
+  Pressure relief: [weight shifts q*** min / tilt-in-space /
+    pressure-mapping results]
+  Cushion: [type, manufacturer, date of issue]
+  Mattress: [type]
+
+SPASTICITY MANAGEMENT (if applicable)
+──────────────────────────────────────
+  Current treatment:
+    Oral: [baclofen *** mg ***, tizanidine *** mg ***, other]
+    Botulinum toxin: [last injection date, muscles injected,
+      total units, response]
+    Intrathecal baclofen pump: [manufacturer, implant date,
+      current dose *** mcg/day, concentration, refill volume,
+      next refill due date, pump alarm date]
+  Functional impact of spasticity: [positive (transfers, standing)
+    vs. negative (pain, positioning, hygiene, sleep)]
+  Clonus: [present/absent, location, sustained/unsustained]
+
+PAIN ASSESSMENT
+───────────────
+  Pain type: [nociceptive / neuropathic / central / mixed]
+  Location: ***
+  Intensity: ***/10 (prior visit: ***/10)
+  Current treatment: [medications with doses, modalities, injections]
+  Functional impact: [sleep, mobility, mood, participation]
+
+DME STATUS
+──────────
+  Wheelchair: [manual/power, make/model, date of issue, condition]
+    Seating: [cushion type, back type, positioning components]
+    Needed repairs or replacements: ***
+  Orthotics: [AFO/KAFO type, date of issue, fit/condition]
+  Prosthetics (if applicable): [type, components, socket fit,
+    alignment, K-level classification]
+  Other DME: [hospital bed, standing frame, shower chair, hoyer
+    lift, communication device]
+  DME orders needed: ***
+
+THERAPY STATUS
+──────────────
+  Physical therapy: [frequency, current goals, progress toward goals]
+  Occupational therapy: [frequency, current goals, progress toward goals]
+  Speech therapy: [frequency, current goals, progress toward goals]
+  Recreational therapy: [if applicable]
+  Medical necessity for continued therapy: [specific functional
+    gains being made, plateaus, new goals]
+
+COMMUNITY REINTEGRATION
+───────────────────────
+  Living situation: [home / group home / SNF / assisted living]
+  Home modifications: [ramp, grab bars, roll-in shower, widened
+    doorways, stair lift — completed and needed]
+  Transportation: [drives / adaptive driving / paratransit / family]
+  Driving evaluation: [completed / pending / not indicated]
+  Vocational status: [working / not working / vocational rehab
+    referral / disability status]
+  School (if applicable): [accommodations, IEP/504 status]
+  Recreation: [adaptive sports, community activities]
+  Caregiver: [relationship, hours of assistance, caregiver burden]
+
+MEDICATIONS
+───────────
+  [Drug, dose, frequency] — indication
+  [Continue for all medications]
+  Adherence: [assessment and barriers]
+
+VITAL SIGNS
+───────────
+  BP: *** (supine: *** / seated: *** — if SCI, note AD risk)
+  HR: ***
+  Weight: *** (BMI: ***; trend: ***)
+  SpO2: ***
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: ***
+  Neurological:
+    Motor (MRC grading):
+      [UE]: Deltoid ***/5, Biceps ***/5, Wrist ext ***/5,
+        Triceps ***/5, Finger flex ***/5, Finger abd ***/5
+      [LE]: Iliopsoas ***/5, Quads ***/5, Tib ant ***/5,
+        EHL ***/5, Gastroc ***/5
+    Sensory: [light touch and pin prick by dermatome, if SCI]
+    Tone: [MAS scores listed above]
+    Reflexes: [biceps, triceps, patellar, Achilles, Babinski]
+    Coordination: [if applicable]
+  Musculoskeletal:
+    ROM: [list joints with degrees if limited]
+    Contractures: [present/absent, location, degree]
+  Skin: [pressure areas inspected, wound description if present]
+  Cardiovascular: ***
+  Pulmonary: ***
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [primary rehab diagnosis and
+time since injury] presenting for [visit type]. [One-sentence
+trajectory statement: improving / plateau / declining.]
+
+  1. [Primary rehabilitation diagnosis]
+     [Current functional status, trajectory since last visit,
+     key changes.]
+
+  2. [Neurogenic bowel/bladder, if applicable]
+     [Program effectiveness, complications, needed adjustments.]
+
+  3. [Spasticity, if applicable]
+     [Current severity, functional impact, treatment response.]
+
+  4. [Skin integrity, if applicable]
+     [Pressure injury status, prevention adequacy.]
+
+  5. [Pain]
+     [Type, severity trend, treatment response.]
+
+  6. [DME needs]
+     [Equipment status, repairs, new orders.]
+
+  7. [Community reintegration / vocational]
+     [Progress toward discharge goals, return to work/school.]
+
+PLAN
+────
+  1. [Primary rehabilitation diagnosis]
+     - [Therapy orders: type, frequency, duration, specific goals]
+     - [Functional targets for next visit]
+
+  2. [Bowel/bladder]
+     - [Program adjustments, urology referral, supplies]
+
+  3. [Spasticity]
+     - [Medication change with dose, botulinum toxin plan, pump
+       refill date, referral for pump adjustment]
+
+  4. [Skin]
+     - [Wound care orders, pressure relief modifications,
+       cushion/mattress changes, wound care referral]
+
+  5. [Pain]
+     - [Medication adjustment, modality orders, injection referral]
+
+  6. [DME]
+     - [Specific equipment orders: wheelchair repair, new AFO
+       with specs, prosthetic adjustment, letter of medical
+       necessity if needed]
+
+  7. [Community reintegration]
+     - [Driving evaluation, vocational rehab referral, home
+       modification orders, adaptive recreation referral]
+
+  8. Follow-up
+     - Return to PM&R clinic in [interval]
+     - [Labs, imaging, or studies to obtain before next visit]
+     - [Criteria for earlier return: AD episodes, skin breakdown,
+       new weakness, falls]
+
+DISPOSITION
+───────────
+[Patient counseled on ***, agrees with plan.
+Return precautions reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: rehabilitation diagnosis, injury date and mechanism, functional status, FIM scores, AIS/Rancho/mRS level, bowel/bladder program, skin status, spasticity assessment, pain, current DME, therapy progress, medications, vitals, exam findings, and community/vocational status.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Pediatric rehabilitation | Add: "This is a pediatric patient. Use WeeFIM instead of FIM. Include developmental milestones, school/IEP accommodations, growth parameters, and family/caregiver training goals." |
+| Inpatient rehabilitation | Add: "This is an inpatient rehabilitation admission note or progress note. Include admission FIM scores, projected discharge FIM, length of stay estimate, team conference notes, and discharge planning." |
+| Spinal cord injury annual eval | Add: "This is an annual comprehensive SCI evaluation. Include full AIS examination, updated bowel/bladder assessment, bone density screening, cardiovascular risk factors, mental health screen (PHQ-9), and 5-year equipment replacement schedule." |
+| Workers' compensation case | Add: "This patient is being seen under a workers' compensation claim. Include work-related injury details, functional capacity findings, specific work restrictions with weight limits and hours, and return-to-work timeline." |
+| Concussion / mild TBI | Add: "This is a concussion or mild TBI evaluation. Include SCAT5 results, vestibular/ocular motor screening (VOMS), symptom inventory with severity, cognitive testing, and graded return-to-activity protocol." |
+
+---
+
+## Variations
+
+### SCI follow-up
+
+Use this for the spinal cord injury patient returning for routine follow-up. The note zeroes in on neurological level stability, bowel and bladder program effectiveness, skin surveillance, spasticity management, and equipment needs.
+
+<PromptPlayground tool="Claude" title="Spinal Cord Injury Follow-Up">
+You are a physiatrist writing an outpatient follow-up note for a patient with a spinal cord injury. Structure the note around neurological stability, bowel and bladder management, skin integrity, spasticity, pain, equipment, and community reintegration.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document AIS grade with neurological level, ASIA motor and sensory scores.
+- Document bowel and bladder programs with specific regimens, continence status, and complication history.
+- Document skin status with Braden score, current and prior pressure injuries, and prevention strategy.
+- For spasticity, include MAS by muscle group and functional impact (helpful vs. harmful).
+- For autonomic dysreflexia, document history of episodes, triggers identified, and management plan.
+- Include DME status with specific equipment, condition, and pending orders.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Output format
+
+```
+SPINAL CORD INJURY FOLLOW-UP
+══════════════════════════════════════════
+
+PATIENT SUMMARY
+───────────────
+[Age]-year-old [male/female] with [level] [complete/incomplete]
+SCI (AIS [grade]), [duration] post-injury, mechanism: [***].
+
+NEUROLOGICAL EXAMINATION
+─────────────────────────
+  Neurological level: [motor level R: *** L: *** / sensory level R: *** L: ***]
+  AIS grade: ***
+  ASIA motor score: ***/100 (UE ***/50, LE ***/50)
+  ASIA sensory: LT ***/112, PP ***/112
+  Zone of partial preservation: [if incomplete]
+  Change from prior exam: [stable / improved / declined; specify]
+
+BOWEL PROGRAM
+─────────────
+  Type: [***]
+  Medications: [docusate ***, senna ***, bisacodyl supp, mini-enema]
+  Frequency: ***
+  Duration per session: *** minutes
+  Effectiveness: [continent / accidents ***/week / incomplete evacuation]
+  Complications: [hemorrhoids, fissures, megacolon concerns]
+  Adjustments needed: ***
+
+BLADDER MANAGEMENT
+──────────────────
+  Method: [CIC schedule / indwelling / suprapubic / condom / reflex void]
+  CIC volumes: *** mL average (target &lt;500 mL)
+  Frequency: q*** hours
+  UTI history: [*** infections in past *** months; organisms if known]
+  Prophylaxis: [methenamine, acidification, none]
+  Last urodynamics: [date, findings: capacity, compliance, reflux, DSD]
+  Renal ultrasound: [date, findings]
+
+AUTONOMIC DYSREFLEXIA (if injury at or above T6)
+──────────────────────────────────────────────────
+  History of AD episodes: [Y/N; frequency]
+  Known triggers: [bladder distension, bowel impaction, skin irritation,
+    ingrown toenail, DVT, other]
+  Management protocol reviewed: [Y/N]
+  Carries AD card/emergency instructions: [Y/N]
+  Baseline resting BP: ***
+
+SKIN INTEGRITY
+──────────────
+  Braden score: ***/23
+  Current injuries: [None / details with staging, location, size]
+  Prior injuries: [location, stage, date healed, surgical history]
+  Wheelchair cushion: [type, age, pressure mapping date/result]
+  Weight shifts: [method, frequency]
+
+SPASTICITY
+──────────
+  MAS scores:
+    Hip adductors: R ***/4  L ***/4
+    Quadriceps:    R ***/4  L ***/4
+    Hamstrings:    R ***/4  L ***/4
+    Gastroc/soleus: R ***/4  L ***/4
+  Clonus: [present/absent, beats, location]
+  Functional impact: [helpful (standing, transfers) / harmful
+    (pain, sleep, positioning, hygiene)]
+  Current treatment: [oral agents with doses, botulinum toxin
+    history, ITB pump details if applicable]
+
+PAIN
+────
+  [Neuropathic at-level / below-level / nociceptive MSK / visceral]
+  Intensity: ***/10
+  Treatment: [gabapentin ***, pregabalin ***, duloxetine ***,
+    other agents, modalities]
+  Response: ***
+
+DME STATUS
+──────────
+  Wheelchair: [type, make/model, age, condition]
+  Cushion: [type, age]
+  Orthotics: [type, fit]
+  Other: [standing frame, shower chair, hospital bed, other]
+  Pending orders: ***
+
+THERAPY AND COMMUNITY
+─────────────────────
+  Current therapy: [type, frequency, goals]
+  Vocational status: ***
+  Transportation: ***
+  Caregiver: [relationship, hours]
+  Adaptive recreation: ***
+
+ASSESSMENT AND PLAN
+───────────────────
+[Problem-oriented assessment and plan as in main template.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: SCI level and completeness, time since injury, bowel/bladder program, skin status, spasticity, pain, DME, therapy, community status, medications, vitals, exam.]
+</PromptPlayground>
+
+### TBI cognitive rehabilitation
+
+Use this for the TBI patient whose primary rehabilitation focus is cognition and behavior. The note centers on Rancho Los Amigos level, cognitive FIM subscores, neuropsychological testing, behavioral management, and the transition from supervised to independent functioning.
+
+<PromptPlayground tool="Claude" title="TBI Cognitive Rehabilitation Follow-Up">
+You are a physiatrist writing an outpatient follow-up note for a patient recovering from traumatic brain injury, with emphasis on cognitive and behavioral rehabilitation.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document Rancho Los Amigos level with specific behavioral observations that justify the rating.
+- Document cognitive FIM subscores: comprehension, expression, social interaction, problem solving, and memory.
+- Include post-traumatic amnesia (PTA) duration if known, Glasgow Coma Scale (GCS) at presentation, and neuroimaging findings.
+- Document behavioral issues: agitation, disinhibition, confabulation, emotional lability, apathy, with frequency and management.
+- Include seizure history and prophylaxis status.
+- Document supervision level needed for safety and the specific activities that require supervision.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Output format
+
+```
+TBI COGNITIVE REHABILITATION FOLLOW-UP
+══════════════════════════════════════════
+
+PATIENT SUMMARY
+───────────────
+[Age]-year-old [male/female] with TBI from [mechanism] on [date],
+[duration] post-injury. Admission GCS: ***. PTA duration: ***.
+Neuroimaging: [CT/MRI findings].
+
+RANCHO LOS AMIGOS LEVEL
+─────────────────────────
+  Current level: ***/10
+  Prior level: ***/10 (date)
+  Behavioral observations supporting level:
+  [Specific examples from today's visit and interval reports.]
+
+COGNITIVE STATUS
+────────────────
+  FIM Cognitive Subscores (current / prior):
+    Comprehension:      ***/7  (***/7)
+    Expression:         ***/7  (***/7)
+    Social interaction: ***/7  (***/7)
+    Problem solving:    ***/7  (***/7)
+    Memory:             ***/7  (***/7)
+  Cognitive total:      ***/35 (***/35)
+
+  Neuropsychological testing: [date, summary of findings,
+    domains impaired, domains intact]
+  Orientation: [person / place / time / situation]
+  Attention: [sustained, selective, divided — status]
+  Executive function: [planning, initiation, self-monitoring]
+  Insight/awareness: [intact / impaired / anosognosia]
+
+BEHAVIORAL STATUS
+─────────────────
+  Agitation: [frequency, triggers, severity, management]
+  Disinhibition: [type, frequency, impact on safety]
+  Emotional lability: [frequency, triggers]
+  Apathy/initiation: [severity, impact on participation]
+  Sleep-wake cycle: [normalized / disrupted; pattern]
+  Behavioral interventions: [structured schedule, redirection,
+    environmental modifications, 1:1 supervision]
+  Psychotropic medications: [drug, dose, indication, response]
+
+SEIZURE STATUS
+──────────────
+  Post-traumatic seizures: [Y/N; type, frequency, last seizure date]
+  Anticonvulsant: [drug, dose, level if applicable]
+  Prophylaxis duration: [standard 7-day / extended; rationale]
+  EEG: [date, findings, if obtained]
+
+MOTOR AND PHYSICAL STATUS
+──────────────────────────
+  Motor FIM subscores: [if applicable]
+  Hemiparesis: [side, severity]
+  Balance: [static sitting, dynamic sitting, static standing,
+    dynamic standing, Berg balance score]
+  Ambulation: [independent / assistive device / wheelchair;
+    distance, assistance level]
+  Spasticity: [MAS scores if present]
+
+SUPERVISION LEVEL
+─────────────────
+  Current: [24-hour / waking hours / intermittent check-in /
+    independent for routine]
+  Activities requiring supervision: [***]
+  Safety concerns: [wandering, impulsive behavior, fall risk,
+    medication management, cooking/stove, driving]
+
+THERAPY STATUS
+──────────────
+  Speech-language pathology: [frequency, cognitive-linguistic goals,
+    progress]
+  Occupational therapy: [frequency, ADL/IADL goals, progress]
+  Physical therapy: [frequency, mobility/balance goals, progress]
+  Neuropsychology: [involved Y/N; recommendations]
+  Behavioral psychology: [involved Y/N; approach]
+
+COMMUNITY REINTEGRATION
+───────────────────────
+  Living situation: [home with supervision / group home / other]
+  Driving: [not cleared / evaluation pending / cleared with
+    restrictions]
+  Vocational: [not ready / vocational rehab / modified duties /
+    returned to work]
+  School: [if applicable; accommodations, performance]
+  Legal: [guardianship / conservatorship / power of attorney status]
+
+ASSESSMENT AND PLAN
+───────────────────
+[Problem-oriented assessment and plan, with specific cognitive,
+behavioral, motor, and reintegration goals for next interval.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: TBI mechanism and date, GCS, imaging, PTA duration, Rancho level, cognitive/behavioral status, seizure history, motor status, supervision level, therapy progress, medications, living situation.]
+</PromptPlayground>
+
+### Post-stroke spasticity management
+
+Use this for the stroke patient whose visit centers on spasticity assessment and treatment: botulinum toxin injections, oral agents, or intrathecal baclofen evaluation. The note captures the functional impact of spasticity (both positive and negative), prior treatments and responses, and injection planning.
+
+<PromptPlayground tool="Claude" title="Post-Stroke Spasticity Management">
+You are a physiatrist writing an outpatient note for a stroke patient being evaluated or treated for post-stroke spasticity. Structure the note around spasticity assessment, functional impact, treatment history, and injection or pump management planning.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document MAS scores for each affected muscle group, both upper and lower extremity.
+- Distinguish helpful spasticity (assists transfers, standing) from harmful spasticity (pain, contracture risk, hygiene difficulty, skin breakdown).
+- Document prior spasticity treatments with dates, doses, and functional response.
+- For botulinum toxin: include muscles targeted, total units per visit, dilution, guidance method (EMG, ultrasound, anatomic landmarks), and interval since last injection.
+- For ITB pump: include current dose, concentration, refill schedule, and functional gains since implantation.
+- Include passive ROM measurements for joints at risk of contracture.
+- Include mRS for overall disability tracking.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Output format
+
+```
+POST-STROKE SPASTICITY MANAGEMENT
+══════════════════════════════════════════
+
+PATIENT SUMMARY
+───────────────
+[Age]-year-old [male/female] with [ischemic/hemorrhagic] stroke
+([vascular territory]) on [date], [duration] post-stroke.
+[Left/Right] hemiparesis. mRS: ***/6.
+
+SPASTICITY ASSESSMENT
+──────────────────────
+  Upper Extremity (affected side)
+  ────────────────────────────────
+  Shoulder adductors/IR:  MAS ***/4  Passive ROM: abd ***°, ER ***°
+  Elbow flexors:          MAS ***/4  Passive ROM: ext ***°
+  Forearm pronators:      MAS ***/4  Passive ROM: sup ***°
+  Wrist flexors:          MAS ***/4  Passive ROM: ext ***°
+  Finger flexors:         MAS ***/4  Passive ROM: ext ***°
+  Thumb adductors:        MAS ***/4
+
+  Lower Extremity (affected side)
+  ────────────────────────────────
+  Hip adductors:     MAS ***/4  Passive ROM: abd ***°
+  Quadriceps:        MAS ***/4
+  Hamstrings:        MAS ***/4  Passive ROM: ext ***°
+  Ankle plantarflexors: MAS ***/4  Passive ROM: DF ***°
+  Toe flexors:       MAS ***/4
+
+  Clonus: [present/absent, location, beats]
+
+  Functional Impact of Spasticity
+  ────────────────────────────────
+  Harmful effects:
+    - [Pain: location, severity]
+    - [Contracture risk: joints at risk]
+    - [Hygiene: palmar hygiene, perineal care difficulty]
+    - [Positioning: difficulty with seating, sleeping]
+    - [Gait: equinovarus, circumduction, knee hyperextension]
+  Helpful effects:
+    - [Extensor tone assists standing/transfers: Y/N]
+    - [Quad tone supports stance phase: Y/N]
+
+SPASTICITY TREATMENT HISTORY
+─────────────────────────────
+  Oral agents:
+    [Agent, dose, dates used, response, side effects, current status]
+
+  Botulinum toxin:
+    Last injection: [date]
+    Product: [onabotulinumtoxinA / abobotulinumtoxinA /
+      incobotulinumtoxinA]
+    Total units: ***
+    Muscles injected: [muscle, units per muscle]
+    Guidance: [EMG / ultrasound / landmarks]
+    Response: [onset, peak effect, duration of benefit,
+      functional gains observed]
+    Interval since last injection: *** weeks
+
+  Intrathecal baclofen (if applicable):
+    Pump implant date: ***
+    Current dose: *** mcg/day
+    Concentration: ***
+    Last refill: [date]  Next refill: [date]
+
+  Other: [serial casting, dynamic splinting, phenol/alcohol
+    nerve blocks]
+
+CURRENT FUNCTIONAL STATUS
+──────────────────────────
+  mRS: ***/6
+  Ambulation: [independent / device / wheelchair; distance]
+  UE function: [functional / assist only / non-functional]
+  ADLs: [independent / modified independent / requires assist for ***]
+  Current therapy: [PT/OT frequency and goals]
+
+TODAY'S TREATMENT PLAN
+──────────────────────
+  [If injection visit:]
+    Product: ***
+    Total units: ***
+    Injection plan:
+      [Muscle]: *** units, *** injection sites
+      [Muscle]: *** units, *** injection sites
+      [Continue for each muscle]
+    Guidance method: ***
+    Dilution: ***
+    Post-injection stretching program: [prescribed]
+
+  [If pump management:]
+    Dose adjustment: [current *** mcg/day to *** mcg/day]
+    Rationale: ***
+    Next refill: [date]
+
+ASSESSMENT AND PLAN
+───────────────────
+[Problem-oriented assessment with spasticity trajectory,
+treatment response, and goals for next interval. Include
+specific functional targets: improved palmar hygiene, reduced
+ankle clonus, improved gait pattern, reduced caregiver burden
+for dressing.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: stroke type, date, affected side, mRS, spasticity exam with MAS scores, ROM, treatment history, current function, today's injection plan or pump management, medications, therapy status.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+34-year-old male with T6 complete SCI (AIS A), 6 months post-injury from MVC. S/p posterior spinal fusion T4-T8. Neurogenic bowel on digital stimulation program with bisacodyl suppository every other day, completing in 30 min, continent. Neurogenic bladder on CIC q4-6h, volumes 350-450 mL, 1 UTI in past 3 months (E. coli, treated). No AD episodes. Braden 17. No current pressure injuries; history of stage 2 sacral PI in acute rehab, healed 3 months ago. Spasticity: bilateral LE MAS 2 hip adductors, 2 quads, 1+ hamstrings, 2 gastroc. On baclofen 20 mg TID. Neuropathic pain at T6 level, 5/10, on gabapentin 600 mg TID. Manual wheelchair TiLite ZRA, ROHO Quadtro cushion 6 months old. Bilateral Allard ToeOFF AFOs. FIM total 98/126. PT 2x/week for wheelchair skills, community mobility. OT 1x/week for home management. Lives with parents, ground floor, ramp installed, roll-in shower completed. Not driving yet, driving eval scheduled next month. Was college student pre-injury, planning to return fall semester with accommodations. Meds: baclofen 20 mg TID, gabapentin 600 mg TID, oxybutynin 5 mg BID, docusate 100 mg BID, senna 8.6 mg BID, bisacodyl 10 mg supp QOD, enoxaparin discontinued 2 months ago. Vitals: BP 110/68 seated, HR 72, weight 165 lbs (BMI 23.4).
+
+**LLM output:**
+
+PM&R / REHABILITATION MEDICINE CLINIC NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Follow-up
+Interval since last visit: 6 weeks
+Injury date: 9/27/25
+Time since injury: 6 months
+
+REHABILITATION DIAGNOSIS SUMMARY
+─────────────────────────────────
+  Primary: T6 complete SCI (American Spinal Injury Association Impairment Scale (AIS) A), 6 months post-MVC, s/p posterior spinal fusion T4-T8
+  Secondary: neurogenic bowel, neurogenic bladder, lower extremity spasticity, neuropathic pain
+  Comorbidities: none
+
+FUNCTIONAL STATUS
+─────────────────
+  Functional Independence Measure (FIM) Scores (current / prior visit)
+  ────────────────────────────────────────────────────────────────────
+  Self-care:
+    Eating:           7/7  (prior: 7/7)
+    Grooming:         7/7  (prior: 7/7)
+    Bathing:          6/7  (prior: 5/7)
+    Upper body dress: 7/7  (prior: 7/7)
+    Lower body dress: 5/7  (prior: 4/7)
+    Toileting:        5/7  (prior: 4/7)
+
+  Mobility:
+    Bed/chair transfer: 6/7  (prior: 5/7)
+    Toilet transfer:    5/7  (prior: 4/7)
+    Tub/shower:         5/7  (prior: 4/7)
+    Wheelchair:         6/7  (prior: 5/7)
+    Stairs:             1/7  (prior: 1/7)
+
+  Total FIM: 98/126 (prior: 88/126)
+
+  Additional Scales
+  ─────────────────
+  AIS grade: A
+  Neurological level: T6
+  ASIA motor score: 50/100 (UE 50/50, LE 0/50)
+  ASIA sensory score: Light touch 52/112, Pin prick 52/112
+  Modified Ashworth Scale (MAS):
+    Hip adductors: bilateral 2/4
+    Quadriceps: bilateral 2/4
+    Hamstrings: bilateral 1+/4
+    Gastrocnemius/soleus: bilateral 2/4
+
+INTERVAL HISTORY
+────────────────
+Patient reports continued functional gains over the past 6 weeks. He is now independent with lower body dressing using adaptive equipment and requires only standby assist for bathtub transfers. He completed 1 course of antibiotics for a urinary tract infection (UTI) 2 months ago (E. coli) and has had no recurrence since. He denies any episodes of autonomic dysreflexia (AD), including during bowel program. He reports his neuropathic pain at the T6 dermatome has been stable at 5/10 on gabapentin 600 mg three times daily. He describes the spasticity in both legs as manageable and notes that the extensor tone in his quadriceps helps with transfers. No falls from wheelchair. No new skin breakdown. He has been attending physical therapy (PT) twice weekly and occupational therapy (OT) once weekly. Mood is good; he reports excitement about a scheduled driving evaluation next month and plans to return to college in the fall.
+
+BOWEL AND BLADDER PROGRAM
+──────────────────────────
+  Bladder management: clean intermittent catheterization (CIC) q4-6 hours
+  CIC volumes: 350-450 mL (within target)
+  UTI frequency: 1 in past 3 months (E. coli, treated with oral antibiotics)
+  Anticholinergic: oxybutynin 5 mg twice daily
+  Last urodynamics: ***
+
+  Bowel program: digital stimulation with bisacodyl 10 mg suppository every other day
+  Oral regimen: docusate 100 mg twice daily, senna 8.6 mg twice daily
+  Time to complete: 30 minutes
+  Continence status: continent, no accidents
+
+SKIN INTEGRITY
+──────────────
+  Braden score: 17/23 (mild risk)
+  Current pressure injuries: none
+  Prior pressure injuries: stage 2 sacral, occurred during acute rehab, healed 3 months ago
+  Pressure relief: weight shifts every 15-20 minutes per patient report
+  Cushion: ROHO Quadtro Select, 6 months old, inflation checked today (adequate)
+  Mattress: pressure-redistribution overlay at home
+
+SPASTICITY MANAGEMENT
+──────────────────────
+  Current treatment:
+    Oral: baclofen 20 mg three times daily
+  MAS scores: hip adductors 2, quadriceps 2, hamstrings 1+, gastroc 2 bilaterally
+  Clonus: 3-4 beats bilateral ankles, unsustained
+  Functional impact: quadriceps tone is helpful for transfer stability; ankle plantarflexor spasticity does not impair wheelchair mobility but limits standing frame tolerance
+
+PAIN ASSESSMENT
+───────────────
+  Pain type: neuropathic, at-level (T6 dermatome)
+  Location: bilateral band-like burning at T6
+  Intensity: 5/10 (prior visit: 6/10)
+  Current treatment: gabapentin 600 mg three times daily
+  Functional impact: mild sleep disruption, does not limit therapy participation
+
+DME STATUS
+──────────
+  Wheelchair: TiLite ZRA manual ultralight, issued 3 months ago, good condition
+  Cushion: ROHO Quadtro Select, 6 months old, adequate inflation
+  Orthotics: bilateral Allard ToeOFF ankle-foot orthoses (AFOs), good fit, used for standing frame
+  Other: standing frame at PT gym (considering home unit)
+  DME orders needed: evaluate for home standing frame
+
+THERAPY STATUS
+──────────────
+  PT: 2x/week; current goals: independent community wheelchair mobility on uneven terrain, car transfer independence; progressing well
+  OT: 1x/week; current goals: independent meal preparation, light housekeeping; progressing well
+  Medical necessity: patient continues to make measurable FIM gains (10-point improvement over 6 weeks); ongoing therapy indicated
+
+COMMUNITY REINTEGRATION
+───────────────────────
+  Living situation: home with parents, ground floor apartment
+  Home modifications: ramp (completed), roll-in shower (completed), widened doorways (completed)
+  Transportation: parents drive currently; adaptive driving evaluation scheduled next month
+  Vocational: college student pre-injury; planning return fall 2026 with disability services accommodations
+  Recreation: beginning adaptive basketball with local team
+  Caregiver: parents provide standby assist for bathing and some transfers; approximately 2 hours daily
+
+MEDICATIONS
+───────────
+  Baclofen 20 mg three times daily — spasticity
+  Gabapentin 600 mg three times daily — neuropathic pain
+  Oxybutynin 5 mg twice daily — neurogenic bladder
+  Docusate 100 mg twice daily — bowel program
+  Senna 8.6 mg twice daily — bowel program
+  Bisacodyl 10 mg suppository every other day — bowel program
+  Enoxaparin: discontinued 2 months ago (completed DVT prophylaxis course)
+  Adherence: patient reports excellent adherence, no missed doses
+
+VITAL SIGNS
+───────────
+  BP: 110/68 (seated)
+  HR: 72
+  Weight: 165 lbs (BMI 23.4)
+  SpO2: ***
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: alert, well-appearing male in manual wheelchair, no acute distress
+  Neurological:
+    Motor (MRC grading):
+      UE: deltoid 5/5, biceps 5/5, wrist ext 5/5, triceps 5/5, finger flex 5/5, finger abd 5/5 bilaterally
+      LE: 0/5 throughout bilaterally
+    Sensory: intact light touch and pin prick through T6 bilaterally; absent below T6
+    Tone: MAS as documented above
+    Reflexes: absent biceps, triceps; 3+ patellar, 3+ Achilles bilaterally; Babinski upgoing bilaterally
+  Musculoskeletal:
+    Shoulders: full ROM, no impingement signs (Neer, Hawkins negative bilaterally)
+    Hips: passive ROM full; no contractures
+    Ankles: passive DF 5° bilaterally with sustained stretch (limited by spasticity)
+  Skin: sacrum intact, no erythema; ischial tuberosities intact; bilateral heels intact
+  Cardiovascular: regular rate and rhythm, no murmurs
+  Pulmonary: clear bilaterally
+
+ASSESSMENT
+──────────
+34-year-old male with T6 complete SCI (AIS A), 6 months post-MVC, with continued functional gains on outpatient rehabilitation.
+
+  1. T6 complete SCI (AIS A)
+     FIM improved from 88 to 98 over 6 weeks. Major gains in bathing, lower body dressing, toileting, and transfers. Neurological level stable at T6 with no motor recovery below the level of injury.
+
+  2. Neurogenic bladder
+     CIC program effective with appropriate volumes. One UTI in past 3 months, no recurrence. Oxybutynin continued for storage symptoms.
+
+  3. Neurogenic bowel
+     Bowel program effective. Continent, 30-minute sessions, every other day. No changes needed.
+
+  4. Lower extremity spasticity
+     MAS scores stable at 1+ to 2. Baclofen 20 mg three times daily controlling symptoms adequately. Quad tone functionally helpful for transfers. Ankle spasticity limits standing frame tolerance.
+
+  5. Neuropathic pain
+     Improved from 6/10 to 5/10 on gabapentin 600 mg three times daily. Mild sleep disruption persists.
+
+  6. DME
+     Manual wheelchair and cushion in good condition. AFOs fit well. Consider home standing frame for bone health and spasticity management.
+
+  7. Community reintegration
+     Progressing well. Driving evaluation next month. College return planned fall 2026.
+
+PLAN
+────
+  1. SCI rehabilitation
+     - Continue PT 2x/week: advance community wheelchair skills, car transfers
+     - Continue OT 1x/week: advance home management (cooking, laundry)
+     - Obtain DEXA scan (6 months post-SCI; baseline bone density for long-term monitoring)
+
+  2. Neurogenic bladder
+     - Continue CIC q4-6 hours, oxybutynin 5 mg twice daily
+     - Order urodynamics (no baseline outpatient study on file)
+     - Renal ultrasound to screen for hydronephrosis
+     - Urine culture only if symptomatic; do not treat asymptomatic bacteriuria
+
+  3. Neurogenic bowel
+     - Continue current program; no changes
+
+  4. Spasticity
+     - Continue baclofen 20 mg three times daily
+     - Monitor ankle ROM; if passive DF declines below neutral, consider botulinum toxin to gastrocnemius/soleus for standing frame tolerance
+     - Stretching program: ankle DF stretches 3x daily, 30-second holds
+
+  5. Neuropathic pain
+     - Increase gabapentin to 800 mg three times daily for residual pain and sleep disruption
+     - If intolerable sedation, discuss switch to pregabalin at next visit
+
+  6. Skin
+     - Continue current prevention: weight shifts, ROHO cushion checks monthly
+     - Pressure mapping at next wheelchair clinic visit
+
+  7. DME
+     - Prescription for home standing frame with letter of medical necessity
+     - Wheelchair maintenance check at 12-month mark
+
+  8. Community reintegration
+     - Driving evaluation next month; results to be reviewed at next PM&R visit
+     - College disability services: send functional documentation for accommodations
+     - Continue adaptive basketball
+
+  9. Follow-up
+     - Return to PM&R clinic in 8 weeks
+     - Labs before next visit: BMP, CBC, vitamin D
+     - Earlier return for: new skin breakdown, AD episodes, recurrent UTI, increased spasticity interfering with function
+
+DISPOSITION
+───────────
+Patient counseled on gabapentin dose increase, ankle stretching program, and standing frame goals. Agrees with plan. Return precautions reviewed.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **FIM scores require specificity.** The model may assign FIM levels that do not match the actual supervision or assistance the patient needs. Verify each subscore against the 7-point scale definitions: 7 is complete independence, 6 is modified independence (device), 5 is supervision, 4 is minimal assist (patient does 75%+), 3 is moderate assist, 2 is maximal assist, and 1 is total assist. A score of 5 means the patient does the task but needs someone watching; a 4 means someone physically helps.
+- **AIS grading requires a complete examination.** The model cannot assign an AIS grade from incomplete exam data. If you provide only motor findings without sensory testing (light touch and pin prick by dermatome, including sacral segments S4-5), the grade may be wrong. AIS B vs. C distinction hinges on sacral sparing and motor function below the level.
+- **Spasticity is not always the enemy.** Document both helpful and harmful effects. A patient whose extensor tone helps with standing transfers will lose that function if you treat spasticity too aggressively. The treatment goal is function, not a MAS score of zero.
+- **Pressure injury staging matters for billing and wound care referrals.** Stage 1 (nonblanchable erythema) and stage 2 (partial thickness) have fundamentally different treatment and documentation requirements than stage 3 and 4 injuries. Unstageable and deep tissue injury are distinct categories, not "stage 5."
+- **Bowel program timing and effectiveness dictate quality of life.** A program that takes 90 minutes is not working, even if the patient is technically continent. Document duration, effectiveness, and patient satisfaction. A change in oral regimen, suppository type, or timing can transform daily life.
+- **DME prescriptions require medical justification linking the device to a functional goal.** "Needs a wheelchair" is not sufficient. "Requires ultralight manual wheelchair to achieve independent community mobility (FIM 6) given complete T6 paraplegia with preserved UE strength" connects the device to the clinical picture.
+- **Autonomic dysreflexia documentation is critical above T6.** Even if the patient has never had an episode, document that the risk was assessed, that the patient carries an AD management card, and that the care team knows the patient's baseline blood pressure. AD is a medical emergency that non-rehab providers may not recognize.
+
+---
+
+## Related
+
+- [History and Physical](/templates/history-and-physical) -- the full admission H&P for inpatient rehabilitation admissions
+- [SOAP Progress Note](/templates/progress-note-soap) -- daily inpatient rehab progress notes
+- [Workers' Compensation Evaluation](/templates/workers-comp) -- when the rehabilitation patient is also a workers' comp case
+- [Letter of Medical Necessity](/templates/medical-necessity-letter) -- for DME, home health, and therapy authorization
+- [Disability / FMLA Letter](/templates/disability-fmla-letter) -- for disability determination and accommodation documentation
