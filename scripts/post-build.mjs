@@ -13,17 +13,25 @@ export default {
   },
 
   async scheduled(event, env, ctx) {
+    const base = 'https://llmsfordoctors.com';
+    const headers = { 'Authorization': 'Bearer ' + env.CRON_SECRET };
+
     console.log('[cron] Starting scheduled news refresh...');
     try {
-      const url = 'https://llmsfordoctors.com/api/refresh-news';
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'Authorization': 'Bearer ' + env.CRON_SECRET },
-      });
+      const res = await fetch(base + '/api/refresh-news', { method: 'POST', headers });
       const data = await res.json();
       console.log('[cron] Refresh result:', JSON.stringify(data));
     } catch (err) {
       console.error('[cron] Scheduled refresh failed:', err);
+    }
+
+    console.log('[cron] Starting scheduled social post...');
+    try {
+      const res = await fetch(base + '/api/post-social', { method: 'POST', headers });
+      const data = await res.json();
+      console.log('[cron] Social post result:', JSON.stringify(data));
+    } catch (err) {
+      console.error('[cron] Scheduled social post failed:', err);
     }
   },
 };
