@@ -1,0 +1,844 @@
+---
+title: "Gastroenterology Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, gastroenterology, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "GI clinic template that pulls Harvey-Bradshaw index for IBD, biologic drug levels, MELD scores, or polyp surveillance intervals depending on the diagnosis. Eight notes at the end of clinic, all structured."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+The afternoon clinic ends, and you have eight notes to close. This template handles the six conditions that account for most GI clinic slots: GERD, inflammatory bowel disease (Crohn's and UC), IBS, chronic liver disease and cirrhosis, colon polyp surveillance, and celiac disease. Paste in clinical data, and the LLM produces a structured note that knows to pull Harvey-Bradshaw index, calprotectin trends, biologic drug levels, MELD scores, variceal surveillance dates, or polyp surveillance intervals depending on the diagnosis. The disease-specific scaffolding is built in so you spend your time on clinical judgment, not note architecture.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Gastroenterology Clinic Visit Note">
+You are an outpatient gastroenterologist writing a clinic visit note after seeing a patient for a follow-up or management visit. The patient's primary GI condition is one of: GERD, inflammatory bowel disease (Crohn's disease or ulcerative colitis), irritable bowel syndrome, chronic liver disease/cirrhosis, colon polyp surveillance, or celiac disease. Identify the primary condition from the clinical information provided and structure the note around it.
+
+### Purpose
+
+Generate a complete, structured outpatient gastroenterology clinic note from the clinical data below. The note must capture disease-specific monitoring data (endoscopy findings, disease activity scores, liver scores, drug levels), medication reconciliation, assessment of disease trajectory, and a concrete plan with specific next steps.
+
+### Rules
+
+- Write in past tense for history and interval events; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use in the note (e.g., "Harvey-Bradshaw Index (HBI) 4"), then abbreviation only thereafter.
+- Include specific numbers for all values: lab results, scores, endoscopy measurements, imaging findings.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Organize the Assessment as a problem list with the primary GI condition first.
+- Plan items must be specific and actionable: drug name and dose changes, endoscopy scheduling with preparation details, imaging orders, specific lab panels. Never write "continue current management" without specifying what that management is.
+- For IBD patients: document Montreal classification, disease activity score (HBI for Crohn's, partial Mayo or full Mayo for UC), current biologic with dose/interval, last drug level and antibody status, and calprotectin trend.
+- For cirrhosis patients: document etiology, Child-Pugh score with components, MELD score, variceal surveillance status, and hepatocellular carcinoma (HCC) screening status.
+- For polyp surveillance: document polyp history with pathology, risk stratification, and guideline-based next surveillance interval.
+- Do not infer or fabricate any clinical information not provided. Write "[Not provided; verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "HBI" = Harvey-Bradshaw Index
+- "IBD" = inflammatory bowel disease
+- "UC" = ulcerative colitis
+- "CD" = Crohn's disease
+- "MELD" = Model for End-Stage Liver Disease
+- "HCC" = hepatocellular carcinoma
+- "EGD" = esophagogastroduodenoscopy
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+GASTROENTEROLOGY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[Follow-up / New patient / Pre-procedure / Post-procedure / Surveillance]
+Interval since last visit: [duration]
+
+CHIEF CONCERN
+─────────────
+***
+
+GI HISTORY
+──────────
+  Primary diagnosis: ***
+  Date of diagnosis: ***
+  Disease classification: [Montreal classification / Child-Pugh class /
+    Polyp risk category / IBS subtype / GERD complication status]
+  Key history:
+    - [Surgical history: colectomy, liver transplant, fundoplication,
+      cholecystectomy, bowel resections with dates]
+    - [Endoscopy history: dates, findings, pathology summaries]
+    - [Hospitalizations for GI disease]
+
+ENDOSCOPY HISTORY
+─────────────────
+  Procedure     Date      Key Findings                  Pathology
+  ──────────    ────────  ────────────────────────────   ─────────────
+  [EGD/Colo]   M/D/YY    [Findings]                     [Path result]
+  [EGD/Colo]   M/D/YY    [Findings]                     [Path result]
+  Next due: [Procedure] on/by [date], indication: [***]
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph covering symptoms and events since last visit.
+Include: bowel frequency and consistency (Bristol Stool Scale),
+abdominal pain (location, severity, pattern), bleeding (hematochezia,
+melena, hematemesis), nausea/vomiting, dysphagia, heartburn, weight
+change (quantify), appetite, bloating, urgency/incontinence, nocturnal
+symptoms, extraintestinal manifestations (joints, skin, eyes),
+ED visits, hospitalizations, steroid courses.]
+
+CURRENT MEDICATIONS
+───────────────────
+  GI-Specific Medications
+  ───────────────────────
+  [For each: drug name, dose, route, frequency, duration if relevant]
+  [Biologics: include infusion/injection interval and next due date]
+  [PPIs: dose and duration of therapy]
+  [5-ASA: formulation and dose]
+  [Immunomodulators: drug, dose, start date]
+
+  Other Medications
+  ─────────────────
+  ***
+
+  Supplements
+  ───────────
+  [Iron, B12, folate, vitamin D, calcium, probiotics]
+
+VITAL SIGNS
+───────────
+  BP: ***
+  HR: ***
+  Weight: *** [change: +/- *** lbs from M/D/YY]
+  BMI: ***
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: ***
+  Abdomen: [Inspection, auscultation, palpation: tenderness location,
+    distension, organomegaly, ascites (fluid wave, shifting dullness),
+    surgical scars, stoma if present]
+  Rectal: [If performed: tone, masses, blood, external disease]
+  Skin: [Jaundice, spider angiomata, palmar erythema, erythema nodosum,
+    pyoderma gangrenosum]
+  Extremities: [Edema, asterixis]
+  Eyes: [Scleral icterus, episcleritis]
+  Joints: [Arthritis, sacroiliitis findings]
+
+DIAGNOSTICS
+───────────
+
+  Labs
+  ────
+  [Comprehensive metabolic panel, CBC, inflammatory markers
+  (CRP, ESR), liver panel (AST, ALT, ALP, Tbili, albumin),
+  INR, fecal calprotectin, stool studies, celiac panel,
+  drug levels and antibodies if applicable]
+
+  Biologic Drug Monitoring (if applicable)
+  ─────────────────────────────────────────
+  Drug: ***
+  Trough level: *** [therapeutic range: ***]
+  Antibodies: [Positive / Negative / Not checked]
+  Date: ***
+  Interpretation: [Therapeutic / Subtherapeutic / Adequate level
+    with antibodies / etc.]
+
+  Imaging
+  ───────
+  [Abdominal US, CT, MR enterography, fibroscan, etc.]
+
+  Liver-Specific (if applicable)
+  ──────────────────────────────
+  Fibroscan/FibroSure: [Date, kPa or score]
+  FIB-4: ***
+  AFP: *** [date]
+
+  Nutrition Panel (if applicable)
+  ───────────────────────────────
+  Albumin: ***
+  Prealbumin: ***
+  Iron studies: ***
+  B12: ***
+  Folate: ***
+  Vitamin D: ***
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [relevant GI history summary]
+presenting for [visit type]. [One-sentence trajectory statement.]
+
+  1. [Primary GI condition]
+     [Brief assessment: current disease activity, trajectory,
+     key data supporting assessment.]
+
+  2. [Secondary GI condition, if applicable]
+     [Brief assessment.]
+
+  3. [Relevant nutrition/metabolic issues]
+     [Brief assessment.]
+
+  [For IBD patients, include:]
+  IBD Disease Activity
+  ────────────────────
+  Montreal classification: [CD: A_L_B_ / UC: E_S_]
+  Disease activity score:
+    [CD: HBI ***/16+ (remission &lt;5, mild 5-7, moderate 8-16, severe &gt;16)]
+    [UC: Partial Mayo ***/9 or Full Mayo ***/12]
+  Endoscopic activity: [Last scope findings, SES-CD or Mayo endoscopic subscore]
+  Biomarkers: CRP ***, fecal calprotectin *** (prior: *** on M/D/YY)
+  Extraintestinal manifestations: [Active / Quiescent / None]
+
+  [For cirrhosis patients, include:]
+  Liver Disease Severity
+  ──────────────────────
+  Etiology: ***
+  Child-Pugh score: ***/15 (Class [A/B/C])
+    Albumin: *** [1/2/3 points]
+    Bilirubin: *** [1/2/3 points]
+    INR: *** [1/2/3 points]
+    Ascites: [None/Mild/Mod-severe] [1/2/3 points]
+    Encephalopathy: [None/Grade 1-2/Grade 3-4] [1/2/3 points]
+  MELD score: ***
+  Variceal surveillance: [Last EGD date, findings, banding status]
+  HCC screening: [Last US/MRI date, AFP, findings]
+
+  [For polyp surveillance, include:]
+  Polyp Risk Stratification
+  ─────────────────────────
+  Highest-risk finding: [***]
+  Total polyps removed: ***
+  Advanced adenoma: [Y/N]
+  Serrated polyps: [Y/N, size, location]
+  Family history of CRC: [Y/N, first-degree, age at diagnosis]
+  Guideline applied: [USMSTF 2020]
+  Recommended surveillance interval: [*** years]
+
+PLAN
+────
+  1. [Primary GI condition]
+     - [Specific action: medication dose change, biologic switch,
+       endoscopy scheduling, imaging order, lab panel]
+     - [Specific action]
+     - [Specific action]
+
+  2. [Secondary condition]
+     - [Specific action]
+
+  3. [Nutrition/metabolic]
+     - [Specific action]
+
+  Monitoring
+  ──────────
+  - Labs: [Specific panels and timing]
+  - Imaging: [Specific study and timing]
+  - Endoscopy: [Next procedure, indication, timing]
+  - Drug levels: [If on biologic, next trough level timing]
+
+  Referrals
+  ─────────
+  [Hepatology, surgery, nutrition, transplant evaluation,
+  dermatology for EIM, ophthalmology for EIM]
+
+  Follow-Up
+  ─────────
+  Return to GI clinic in [interval].
+  [Specific criteria for earlier return or ED visit.]
+
+DISPOSITION
+───────────
+[Patient counseled on ***, agrees with plan.
+Return precautions reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: reason for visit, GI diagnosis and classification, interval symptoms, endoscopy history with pathology, current medications with doses, vitals, exam findings, labs (including drug levels if on biologics), imaging, and any other relevant data.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Pre-endoscopy | Add: "This is a pre-procedure visit. Include procedure indication, informed consent documentation, bowel prep instructions, anticoagulation management plan, and anesthesia considerations." |
+| Post-endoscopy | Add: "This is a post-procedure follow-up. Document procedure findings, pathology results, complications, and the next surveillance plan based on findings." |
+| Hepatitis management | Add: "This patient has chronic hepatitis B or C. Include viral load, genotype, treatment history, SVR status, and HCC surveillance protocol." |
+| Nutrition focus | Add: "Emphasize nutritional assessment: BMI, micronutrient levels, dietary restrictions, enteral/parenteral nutrition status, and dietitian involvement." |
+| Motility disorders | Add: "This patient has a motility disorder (gastroparesis, achalasia, chronic intestinal pseudo-obstruction). Include gastric emptying study results, manometry findings, and prokinetic therapy assessment." |
+
+---
+
+## Variations
+
+### IBD follow-up
+
+Use this for the patient with established Crohn's disease or ulcerative colitis returning for routine monitoring. The note is built around disease activity assessment, biologic therapy management, and complication screening.
+
+<PromptPlayground tool="Claude" title="IBD Follow-Up Visit">
+You are an outpatient gastroenterologist writing a clinic visit note for a patient with established inflammatory bowel disease (Crohn's disease or ulcerative colitis). Structure the note around disease activity assessment, biologic/immunomodulator management, and complication screening.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document Montreal classification for disease extent and behavior.
+- Calculate and document the appropriate disease activity score: Harvey-Bradshaw Index (HBI) for Crohn's, partial Mayo score for UC.
+- Document current biologic with dose, interval, last drug trough level, and antibody status.
+- Track fecal calprotectin and CRP trends with at least 2 data points.
+- Document extraintestinal manifestations by organ system.
+- Screen for opportunistic infection risk and vaccination status on immunosuppression.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+IBD CLINIC VISIT
+══════════════════════════════════════════
+
+IBD CLASSIFICATION
+──────────────────
+  Diagnosis: [Crohn's disease / Ulcerative colitis]
+  Date of diagnosis: ***
+  Montreal classification:
+    [CD: Age at diagnosis (A1/A2/A3), Location (L1/L2/L3 +/- L4),
+     Behavior (B1/B2/B3 +/- p)]
+    [UC: Extent (E1/E2/E3), Severity (S0/S1/S2/S3)]
+  Surgical history: [Resections, colectomy, ostomy, j-pouch]
+  Perianal disease: [Y/N, fistula/abscess/fissure history]
+
+DISEASE ACTIVITY
+────────────────
+  Clinical score:
+    [CD: HBI ***/16+
+      General well-being: ***/4
+      Abdominal pain: ***/3
+      Liquid stools/day: ***
+      Abdominal mass: ***/3
+      Complications: ***]
+    [UC: Partial Mayo ***/9
+      Stool frequency: ***/3
+      Rectal bleeding: ***/3
+      Physician global assessment: ***/3]
+  Interpretation: [Remission / Mild / Moderate / Severe]
+
+  Biomarkers:
+    CRP: *** (prior: *** on M/D/YY)
+    Fecal calprotectin: *** mcg/g (prior: *** on M/D/YY)
+    Trend: [Improving / Stable / Worsening]
+
+  Last endoscopic assessment:
+    Date: ***
+    Findings: ***
+    [CD: SES-CD if available / UC: Mayo endoscopic subscore]
+
+INTERVAL HISTORY
+────────────────
+[Narrative: stool frequency, consistency (Bristol scale), blood,
+urgency, nocturnal stools, abdominal pain pattern, weight change,
+appetite, joint symptoms, skin lesions, eye symptoms, fatigue,
+steroid use since last visit, ED visits, hospitalizations.]
+
+CURRENT IBD THERAPY
+───────────────────
+  Biologic: [Drug, dose, route, interval, next infusion/injection date]
+  Drug monitoring:
+    Last trough level: *** [date] (therapeutic range: ***)
+    Anti-drug antibodies: [Positive (titer: ***) / Negative / Not checked]
+    Interpretation: [Therapeutic / Subtherapeutic / Immunogenic failure /
+      Pharmacokinetic failure]
+  Immunomodulator: [Drug, dose, start date]
+  5-ASA: [Drug, formulation, dose]
+  Corticosteroids: [Current use: Y/N. If Y: drug, dose, taper plan]
+  Antibiotics: [Ciprofloxacin/metronidazole for perianal disease]
+
+IMMUNOSUPPRESSION SAFETY
+────────────────────────
+  TB screening: [QuantiFERON date, result]
+  Hepatitis B: [HBsAg, anti-HBc, anti-HBs, date]
+  Vaccinations: [Flu, pneumococcal, COVID, hepatitis A/B, VZV status]
+  Skin cancer screening: [Last dermatology visit]
+  Cervical cancer screening: [Last Pap, if applicable]
+
+EXTRAINTESTINAL MANIFESTATIONS
+──────────────────────────────
+  Joints: [Peripheral arthritis / Axial spondyloarthropathy / None]
+  Skin: [Erythema nodosum / Pyoderma gangrenosum / None]
+  Eyes: [Uveitis / Episcleritis / None]
+  Hepatobiliary: [PSC / Cholelithiasis / None]
+  Other: ***
+
+NUTRITION
+─────────
+  Weight: *** [trend]
+  BMI: ***
+  Albumin: ***
+  Iron studies: ***
+  B12: *** [especially post-ileal resection]
+  Vitamin D: ***
+  Folate: *** [if on methotrexate]
+
+ASSESSMENT AND PLAN
+───────────────────
+  1. [CD/UC], [activity level], [trajectory]
+     - Biologic therapy: [Continue current / Dose escalate: specify new
+       dose or interval / Switch: specify new agent and rationale /
+       Add immunomodulator for combination therapy]
+     - Endoscopy: [Schedule colonoscopy for mucosal assessment if due]
+     - Steroid: [Taper plan if applicable; "steroid-free remission" is the goal]
+
+  2. Extraintestinal manifestations
+     - [Specific management for each active EIM]
+
+  3. Nutrition and supplementation
+     - [Specific replacements: iron IV/PO, B12, vitamin D dose]
+
+  4. Preventive care on immunosuppression
+     - [Vaccination updates, screening referrals]
+
+  5. Monitoring
+     - Labs: [CBC, CMP, CRP, calprotectin, drug levels; timing]
+     - Next endoscopy: [Date, indication]
+     - Drug level: [Next trough timing]
+
+  6. Follow-up in [interval]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: IBD diagnosis and Montreal classification, disease activity symptoms, current biologic and immunomodulator with doses, last drug level and antibodies, calprotectin/CRP, last endoscopy findings, EIM status, labs, nutrition labs, vaccination status.]
+</PromptPlayground>
+
+### Chronic liver disease/cirrhosis management
+
+Use this for patients with chronic liver disease or established cirrhosis being followed for disease monitoring, complication surveillance, and transplant evaluation. The note centers on liver disease severity scores, variceal and HCC screening, and decompensation status.
+
+<PromptPlayground tool="Claude" title="Cirrhosis Management Visit">
+You are an outpatient gastroenterologist or hepatologist writing a clinic visit note for a patient with chronic liver disease or cirrhosis. Structure the note around liver disease staging, complication surveillance (varices, HCC, ascites, encephalopathy), and transplant considerations.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Calculate and document Child-Pugh score with each component and point assignment.
+- Calculate and document MELD score (or MELD-Na if sodium is available).
+- Document variceal surveillance: last esophagogastroduodenoscopy (EGD) date, findings, beta-blocker or banding status.
+- Document HCC surveillance: last imaging modality and date, alpha-fetoprotein (AFP).
+- Classify as compensated or decompensated, and list any decompensation events (ascites, variceal bleeding, encephalopathy, jaundice).
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+LIVER DISEASE CLINIC VISIT
+══════════════════════════════════════════
+
+LIVER DISEASE PROFILE
+─────────────────────
+  Etiology: [MASLD/MASH / Alcohol / HCV / HBV / Autoimmune hepatitis /
+    PBC / PSC / Wilson's / Hemochromatosis / Cryptogenic / Mixed]
+  Stage: [Chronic liver disease without cirrhosis / Compensated cirrhosis /
+    Decompensated cirrhosis]
+  Diagnosis basis: [Biopsy / Fibroscan / Imaging + clinical / Elastography]
+  Date of diagnosis: ***
+  Decompensation history: [None / List events with dates:
+    ascites, variceal bleed, encephalopathy, SBP, jaundice]
+
+  [If viral hepatitis:]
+  Genotype: ***
+  Treatment history: [Regimen, dates, response]
+  SVR status: [Achieved / Not achieved / Pending]
+  Current viral load: ***
+
+DISEASE SEVERITY
+────────────────
+  Child-Pugh Score: ***/15 (Class [A / B / C])
+    Albumin: *** g/dL → [1 pt (&gt;3.5) / 2 pt (2.8-3.5) / 3 pt (&lt;2.8)]
+    Total bilirubin: *** mg/dL → [1 pt (&lt;2) / 2 pt (2-3) / 3 pt (&gt;3)]
+    INR: *** → [1 pt (&lt;1.7) / 2 pt (1.7-2.3) / 3 pt (&gt;2.3)]
+    Ascites: [None / Mild / Mod-severe] → [1 / 2 / 3 pt]
+    Encephalopathy: [None / Grade 1-2 / Grade 3-4] → [1 / 2 / 3 pt]
+
+  MELD score: ***
+  MELD-Na: *** (if sodium available)
+
+  Fibroscan (if available):
+    Date: ***
+    Liver stiffness: *** kPa
+    CAP score: *** dB/m
+
+  FIB-4: ***
+
+COMPLICATION SURVEILLANCE
+─────────────────────────
+  Varices
+  ───────
+    Last EGD: [Date]
+    Findings: [No varices / Small / Medium / Large; red wale signs Y/N]
+    Prophylaxis: [NSBB (drug, dose) / Band ligation / None]
+    Next EGD due: [Date]
+
+  HCC Screening
+  ─────────────
+    Last imaging: [US / MRI with contrast / CT], date: ***
+    Findings: ***
+    AFP: *** [date]
+    LI-RADS (if applicable): ***
+    Next screening due: [Date; standard interval q6 months]
+
+  Ascites
+  ───────
+    Status: [None / Controlled on diuretics / Refractory]
+    Diuretics: [Furosemide dose / Spironolactone dose]
+    Last paracentesis: [Date, volume, SBP ruled out Y/N]
+    Sodium restriction adherence: ***
+
+  Hepatic Encephalopathy
+  ──────────────────────
+    Status: [None / Controlled / Active episodes]
+    Lactulose: [Dose, frequency, bowel movements/day target]
+    Rifaximin: [Dose]
+    Last episode: [Date, precipitant]
+
+INTERVAL HISTORY
+────────────────
+[Narrative: weight change, abdominal distension, confusion/sleep
+changes, GI bleeding, jaundice, pruritus, muscle cramps, alcohol
+use (quantify), medication adherence, diet adherence, ED visits,
+hospitalizations.]
+
+EXAM, LABS, IMAGING
+───────────────────
+  [Relevant exam findings: ascites, jaundice, spider angiomata,
+  asterixis, gynecomastia, caput medusae, splenomegaly.
+  Labs: CMP, CBC, INR, AFP, viral loads.
+  Imaging: recent US/CT/MRI findings.]
+
+TRANSPLANT STATUS
+─────────────────
+  Candidacy: [Not indicated / Under evaluation / Listed (MELD ***,
+    blood type, listing date) / Not a candidate (reason)]
+  Evaluation status: [Completed / In progress: pending ***]
+  Living donor evaluation: [Y/N]
+
+ASSESSMENT AND PLAN
+───────────────────
+  1. [Liver disease etiology], [compensated/decompensated], [trajectory]
+     - Disease-specific therapy: [Antiviral / Alcohol cessation program /
+       Immunosuppression / Ursodiol / Weight management]
+     - Decompensation management: [Diuretic adjustment, lactulose/rifaximin,
+       beta-blocker, paracentesis schedule]
+
+  2. Variceal surveillance
+     - [EGD timing, beta-blocker adjustment]
+
+  3. HCC screening
+     - [Next imaging and AFP timing]
+
+  4. Transplant
+     - [Status update and next steps]
+
+  5. Monitoring
+     - Labs: [Specific panels and timing]
+     - Imaging: [Next study]
+     - Endoscopy: [Next EGD]
+
+  6. Follow-up in [interval]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: liver disease etiology, cirrhosis status, decompensation history, current medications, labs (CMP, CBC, INR, AFP), imaging, EGD findings, fibroscan, transplant status, interval symptoms, alcohol use.]
+</PromptPlayground>
+
+### Post-polypectomy surveillance
+
+Use this for patients returning after colonoscopy with polypectomy who need guideline-based surveillance scheduling. The note is structured around polyp characterization, risk stratification, and the specific surveillance interval with guideline citation.
+
+<PromptPlayground tool="Claude" title="Post-Polypectomy Surveillance">
+You are an outpatient gastroenterologist writing a clinic visit note for a patient following up after colonoscopy with polypectomy. Structure the note around polyp characterization, risk stratification per USMSTF 2020 guidelines, and surveillance interval determination.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document every polyp removed: location, size (mm), morphology, and pathology result.
+- Classify the highest-risk finding that drives the surveillance interval.
+- Apply the US Multi-Society Task Force (USMSTF) 2020 guidelines for post-polypectomy surveillance. Cite the specific recommendation.
+- Document family history of colorectal cancer (CRC) with degree of relation and age at diagnosis.
+- Include bowel prep quality from the colonoscopy as it affects surveillance recommendations.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+POST-POLYPECTOMY SURVEILLANCE
+══════════════════════════════════════════
+
+COLONOSCOPY SUMMARY
+───────────────────
+  Date: ***
+  Indication: [Screening / Surveillance / Diagnostic]
+  Bowel prep quality: [Excellent / Good / Fair / Poor / Inadequate]
+  Cecal intubation: [Y/N]
+  Withdrawal time: *** minutes (≥6 min target)
+
+POLYP INVENTORY
+───────────────
+  #   Location        Size    Morphology     Pathology              Complete
+  ──  ──────────────  ──────  ─────────────  ─────────────────────  ────────
+  1   [e.g., cecum]   *** mm  [Sessile/Ped]  [TA/TVA/SSP/HP/TSA]   [Y/N]
+  2   ***              *** mm  ***            ***                     [Y/N]
+  3   ***              *** mm  ***            ***                     [Y/N]
+
+  Total polyps: ***
+  Advanced adenoma(s): [Y/N]
+    Definition met by: [≥10 mm / villous histology / high-grade dysplasia]
+  Sessile serrated polyp(s): [Y/N, size, location, dysplasia status]
+
+RISK STRATIFICATION
+───────────────────
+  Highest-risk finding: ***
+  Family history CRC: [Y/N, details]
+  Prior colonoscopy history: [Dates, findings]
+
+  Risk category (USMSTF 2020):
+    [Low risk: 1-2 tubular adenomas &lt;10 mm → 7-10 years
+     High risk: ≥3 adenomas, or adenoma ≥10 mm, or villous,
+       or high-grade dysplasia → 3 years
+     Sessile serrated polyp ≥10 mm or with dysplasia → 3 years
+     Sessile serrated polyp &lt;10 mm without dysplasia → 5 years
+     Hyperplastic polyps only (rectosigmoid, &lt;10 mm) → 10 years]
+
+SURVEILLANCE RECOMMENDATION
+───────────────────────────
+  Next colonoscopy in *** years (due approximately M/YY)
+  Guideline: USMSTF 2020
+  Rationale: [Cite the specific recommendation that applies]
+  Caveats: [Incomplete resection requiring short-interval follow-up,
+    poor prep requiring earlier repeat, family history modifiers]
+
+ASSESSMENT AND PLAN
+───────────────────
+  1. Colon polyp surveillance
+     - Next colonoscopy: [Date/interval]
+     - [If incomplete resection: plan for repeat at 6 months]
+     - [If poor prep: repeat in 1 year with enhanced prep]
+
+  2. Colorectal cancer prevention
+     - [Aspirin consideration if high-risk]
+     - [Family screening recommendations if hereditary risk]
+
+  3. Follow-up
+     - Return to GI for pre-procedure visit before next colonoscopy
+     - [Interim symptoms warranting earlier evaluation]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: colonoscopy date, prep quality, polyp details (location, size, morphology for each), pathology results, family history of CRC, prior colonoscopy history.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+34-year-old female with Crohn's disease diagnosed at age 22, Montreal classification A2L3B2p (diagnosed young adult, ileocolonic, stricturing with perianal disease). S/p ileocecal resection 2019 for stricture. Perianal fistula drained 2020, currently quiescent. On adalimumab 40 mg subQ every 2 weeks since 2020. Last colonoscopy 10/15/25 showed mild ileal inflammation at the neo-terminal ileum (SES-CD 4), no colonic disease. Last adalimumab trough 6.8 mcg/mL (therapeutic ≥7.5), antibodies negative (drawn 2/1/26). Calprotectin 285 mcg/g today (was 120 in 9/25). CRP 0.8 (normal). She reports 3-4 loose stools daily (Bristol 5-6), mild crampy periumbilical pain rated 2/10 after meals, no blood, no nocturnal stools. Weight stable at 128 lbs. No joint pain, skin lesions, or eye symptoms. Vitals normal. Exam: soft, mild periumbilical tenderness, no mass, no perianal disease on external inspection. Labs: Hgb 12.1, albumin 3.8, B12 380 (s/p ileal resection), vitamin D 28, iron studies normal.
+
+**LLM output:**
+
+GASTROENTEROLOGY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Follow-up
+Interval since last visit: 6 months
+
+CHIEF CONCERN
+─────────────
+Crohn's disease management, rising calprotectin
+
+GI HISTORY
+──────────
+  Primary diagnosis: Crohn's disease (CD)
+  Date of diagnosis: 2010 (age 22)
+  Disease classification: Montreal A2L3B2p (age 17-40, ileocolonic, stricturing with perianal disease)
+  Key history:
+    - 2019: Ileocecal resection for ileal stricture
+    - 2020: Perianal fistula incision and drainage, currently quiescent
+    - 2020: Started adalimumab
+
+ENDOSCOPY HISTORY
+─────────────────
+  Procedure      Date       Key Findings                              Pathology
+  ──────────     ────────   ────────────────────────────────────────   ──────────────
+  Colonoscopy    10/15/25   Mild ileal inflammation at neo-TI;        Chronic active
+                            SES-CD 4; no colonic disease              ileitis
+
+  Next due: Colonoscopy in approximately 10/2026 to reassess response to therapy change
+
+INTERVAL HISTORY
+────────────────
+Patient reports 3-4 loose stools daily (Bristol Stool Scale 5-6) since last visit, which represents a mild increase from her baseline of 2-3 formed stools. She describes mild, crampy periumbilical pain rated 2/10, occurring after meals. She denies blood in her stools, nocturnal bowel movements, urgency, or incontinence. No nausea, vomiting, or dysphagia. Weight has been stable. She denies joint pain, skin lesions, or eye symptoms. No ED visits or hospitalizations since last visit. No corticosteroid use. She reports good adherence to adalimumab every 2 weeks.
+
+CURRENT MEDICATIONS
+───────────────────
+  GI-Specific Medications
+  ───────────────────────
+  Adalimumab 40 mg subcutaneous injection every 2 weeks (since 2020). Next injection due [Not provided; verify before signing].
+
+  Supplements
+  ───────────
+  Vitamin D 2000 IU daily. No B12 supplementation currently (level adequate).
+
+VITAL SIGNS
+───────────
+  BP: [Not provided; verify before signing]
+  HR: [Not provided; verify before signing]
+  Weight: 128 lbs (stable from last visit)
+  BMI: [Not provided; verify before signing]
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: Well-appearing, no acute distress.
+  Abdomen: Soft, mild periumbilical tenderness to palpation, no rebound or guarding, no palpable mass, well-healed RLQ surgical scar from ileocecal resection. No distension.
+  Rectal (external): No perianal fistula openings, no induration, no drainage. Perianal disease quiescent.
+  Skin: No erythema nodosum or pyoderma gangrenosum.
+  Eyes: No scleral injection.
+  Joints: No swelling or tenderness.
+
+DIAGNOSTICS
+───────────
+
+  Labs
+  ────
+  Hemoglobin (Hgb): 12.1 g/dL
+  Albumin: 3.8 g/dL
+  C-reactive protein (CRP): 0.8 mg/L (normal)
+  B12: 380 pg/mL (adequate; monitored given s/p ileal resection)
+  Vitamin D: 28 ng/mL (borderline low)
+  Iron studies: Normal
+
+  Biologic Drug Monitoring
+  ────────────────────────
+  Drug: Adalimumab
+  Trough level: 6.8 mcg/mL (therapeutic range: ≥7.5 mcg/mL)
+  Anti-drug antibodies: Negative
+  Date: 2/1/26
+  Interpretation: Subtherapeutic trough with negative antibodies. This is a pharmacokinetic failure pattern, amenable to dose optimization.
+
+  Fecal Calprotectin
+  ───────────────────
+  Today: 285 mcg/g
+  Prior: 120 mcg/g on 9/25
+  Trend: Rising. Calprotectin &gt;250 correlates with active endoscopic inflammation.
+
+ASSESSMENT
+──────────
+34-year-old female with Crohn's disease (A2L3B2p, s/p ileocecal resection 2019, perianal disease quiescent) presenting for routine follow-up with biochemical evidence of worsening disease activity despite adalimumab therapy.
+
+  1. Crohn's disease, mild activity, rising biomarkers
+     Calprotectin has more than doubled from 120 to 285 mcg/g over 6 months, and the last colonoscopy (10/25) showed mild ileal inflammation (SES-CD 4). CRP remains normal, but calprotectin is a more sensitive marker for intestinal inflammation. The adalimumab trough is 6.8 (below the therapeutic threshold of 7.5), with no antibodies detected. This pattern (subtherapeutic level, antibody-negative) supports dose intensification rather than a drug switch.
+
+  IBD Disease Activity
+  ────────────────────
+  Montreal classification: A2L3B2p
+  Disease activity score:
+    Harvey-Bradshaw Index (HBI): 4
+      General well-being: 1 (slightly below par)
+      Abdominal pain: 1 (mild)
+      Liquid stools/day: 2 (3-4 loose stools)
+      Abdominal mass: 0 (none)
+      Complications: 0
+    Interpretation: Clinical remission (HBI &lt;5), though borderline with rising biomarkers suggesting subclinical activity.
+  Endoscopic activity: Mild (SES-CD 4, 10/15/25)
+  Biomarkers: CRP 0.8 (normal), calprotectin 285 (rising from 120)
+  Extraintestinal manifestations: None active
+
+  2. Perianal Crohn's disease, quiescent
+     No active drainage, induration, or pain on exam. Continues biologic therapy.
+
+  3. Vitamin D insufficiency
+     Level 28 ng/mL, borderline. Goal ≥30.
+
+PLAN
+────
+  1. Crohn's disease, pharmacokinetic optimization
+     - Shorten adalimumab interval from every 2 weeks to every week (40 mg subQ weekly) to achieve therapeutic trough ≥7.5 mcg/mL
+     - Recheck adalimumab trough level 4 weeks after interval change
+     - If trough remains subtherapeutic at weekly dosing, consider switch to alternative biologic (ustekinumab or vedolizumab; discuss at next visit)
+     - Repeat fecal calprotectin in 8-12 weeks to assess biochemical response to dose intensification
+     - Colonoscopy in approximately 6 months (target 10/2026) to assess mucosal response
+
+  2. Perianal disease surveillance
+     - Continue monitoring at each visit
+     - MRI pelvis if symptoms recur
+
+  3. Nutrition
+     - Increase vitamin D to 4000 IU daily for 8 weeks, then recheck level
+     - Continue monitoring B12 annually given ileal resection
+     - Iron studies normal; recheck in 6 months
+
+  4. Preventive care
+     - Confirm flu and COVID vaccines current
+     - Annual dermatology screening (on immunosuppression)
+     - Cervical cancer screening per guidelines
+
+  Monitoring
+  ──────────
+  - Adalimumab trough level: 4 weeks after interval change
+  - Fecal calprotectin: 8-12 weeks
+  - CBC, CMP, CRP: at next visit
+  - B12: annual (next due approximately 2/2027)
+  - Vitamin D: recheck in 8 weeks
+
+  Follow-Up
+  ─────────
+  Return to GI clinic in 3 months. Call clinic sooner for worsening abdominal pain, bloody stools, fever, or perianal symptoms.
+
+DISPOSITION
+───────────
+Patient counseled on adalimumab dose intensification rationale, injection schedule change, and the plan for reassessment. She understands the goal of achieving mucosal healing and agrees with the approach. Return precautions reviewed.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **Drug level interpretation is the critical skill.** The model documents the level and antibody status, but the clinical decision (dose intensify vs. switch) depends on the pattern. Therapeutic level with active disease = mechanistic failure, switch drugs. Subtherapeutic level with no antibodies = pharmacokinetic failure, dose optimize. Subtherapeutic level with antibodies = immunogenic failure, switch drugs or add immunomodulator. Verify the model's interpretation matches the pattern.
+- **Calprotectin context matters.** A calprotectin of 285 in Crohn's means something different than 285 in a patient being worked up for IBS (where the test helps rule out IBD). The model may not contextualize the value against the clinical scenario. A rising calprotectin in known IBD, even if still under 500, warrants attention.
+- **Montreal classification is static for location and age, but behavior can change.** A patient diagnosed as B1 (non-stricturing, non-penetrating) who develops a stricture becomes B2. The model may not update this unless you tell it.
+- **Child-Pugh arithmetic.** The model typically calculates this correctly, but albumin and bilirubin thresholds differ for PBC/PSC vs other causes. Verify the cutoff values used match the etiology.
+- **Surveillance intervals are guideline-specific.** USMSTF 2020 is the current standard for post-polypectomy surveillance. The model sometimes cites older intervals. A 5 mm tubular adenoma is low-risk (7-10 year interval), not 5 years.
+- **HCC surveillance is every 6 months.** The model should recommend abdominal ultrasound with or without AFP every 6 months for any patient with cirrhosis. If it suggests annual screening, correct it.
+- **Do not accept "monitor symptoms" as a plan.** In IBD, the goal is mucosal healing, not just symptom control. A patient can feel fine while inflammation silently progresses. The plan should include objective endpoints: calprotectin target, endoscopic reassessment timeline, drug level goals.
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) - for inpatient notes on admitted GI patients
+- [Consult Note](/templates/consult-note) - for inpatient GI consultations
+- [Procedure Note](/templates/procedure-note) - for endoscopy procedure documentation
+- [Referral Letter](/templates/referral-letter) - for patients being referred to your GI clinic
+- [Discharge Summary](/templates/discharge-summary-basic) - for GI-related discharges (GI bleed, IBD flare, liver decompensation)

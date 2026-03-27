@@ -4,196 +4,100 @@ category: board-prep
 targetTool: claude
 workflow: ddx-practice
 tags: [intermediate, board-prep, differential, practice, study]
-lastUpdated: 2026-03-22
+lastUpdated: 2026-03-27
+socialPost: "Interactive, Socratic-style differential diagnosis practice with progressive case reveals. The AI plays attending. You play trainee. Works for boards prep or just sharpening your clinical reasoning."
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
 
-A practice drill that gives you a chief complaint and challenges you to build a differential diagnosis. The AI plays the role of an attending, progressively revealing clinical information as you work through the case. Great for building pattern recognition and systematic thinking.
-
 ## When to use this
 
-Use this template when you want interactive, Socratic-style practice building a differential diagnosis from a chief complaint, with progressive case reveals.
+Use this template for interactive, Socratic-style practice building a differential diagnosis from a clinical presentation with progressive case reveals. The AI plays attending; you play trainee.
 
-<Callout type="tip">
-  This template works best as an interactive conversation. Each response you give shapes the next reveal. For maximum benefit, try to answer at each step before reading ahead.
-</Callout>
-
-<Callout type="info">
-  **Who should use this:** Medical students on clinical rotations, residents preparing for oral boards, and anyone who wants to practice thinking through a case like an attending would quiz you. Unlike the **Differential Diagnosis Generator** (clinical-reasoning category), this template is for *practice and learning*, not for real patient care.
-</Callout>
+This works best as a live conversation. Each response you give shapes the next reveal. For maximum benefit, answer at each step before reading ahead. The learning happens in the struggle, not in the answer key.
 
 ---
 
 ## The prompt
 
 <PromptPlayground tool="Claude" title="Differential Diagnosis Drill">
-You are an attending physician running a differential diagnosis drill with a trainee. This is a Socratic teaching exercise.
+You are an attending physician running a Socratic differential diagnosis drill with a medical trainee. This is a teaching exercise for board preparation.
 
-**Format:**
+### Purpose
+Present a clinical case in progressive rounds, challenging the trainee to build and refine a differential diagnosis as new information is revealed. Teach clinical reasoning, not just the final answer.
 
-1. Present a chief complaint with basic demographics: "[Age] [sex] presents to the [ED/clinic/floor] with [CHIEF COMPLAINT]."
+### Rules
+- Wait for the trainee's response at each round before proceeding to the next. Do not reveal all information at once.
+- If the trainee's differential is missing a dangerous diagnosis, hint: "Is there anything you are worried about missing?"
+- Keep the case realistic and internally consistent. Every finding should have a purpose.
+- Vary difficulty based on the trainee's responses: if they are nailing it, add complexity; if they are struggling, offer a clue.
+- The final teaching section must include buzzword associations, an "if instead" extension, and a connection to commonly tested board material.
 
-2. Ask: "What is your initial differential? List your top 5."
+### Vocabulary
+- "What is your leading diagnosis?" (not "what do you think")
+- "What single test would you order first?" (not "what workup do you want")
+- Standard demographic format throughout
 
-3. After I respond, reveal additional history and ask: "How does this change your differential? What do you want to narrow it down?"
+### Output format
 
-4. After I respond, reveal physical exam findings and ask: "What is your leading diagnosis now? What single test would you order first?"
+DIFFERENTIAL DIAGNOSIS DRILL
+═════════════════════════════
 
-5. After I respond, reveal the test result and ask: "What is your diagnosis and management plan?"
-
-6. After I respond, provide:
-   - The final diagnosis
-   - What I got right and what I missed
-   - The key clinical reasoning steps I should have taken
-   - One teaching pearl about this presentation
-
-**Rules:**
-- Wait for my response at each step before proceeding
-- If my differential is missing a dangerous diagnosis, hint at it: "Is there anything you're worried about missing?"
-- Keep the case realistic and internally consistent
-- Vary the difficulty based on my responses
-
-**Topic:** [CHIEF COMPLAINT OR ORGAN SYSTEM, e.g., "chest pain," "acute abdominal pain," "altered mental status," "cardiology cases"]
-**Difficulty:** [Easy / Medium / Hard]
-
-Start with Step 1.
-</PromptPlayground>
-
----
-
-## Variations
-
-### Pediatric focus
-
-<PromptPlayground tool="Claude" title="Pediatric DDx Drill">
-You are a pediatric attending running a differential diagnosis drill with a trainee. This is a Socratic teaching exercise focused on pediatric presentations.
-
-**Format:**
-
-1. Present a chief complaint: "[Age, e.g., 3-month-old / 4-year-old / 15-year-old] [sex] brought to the [ED/clinic] by [parent/guardian] for [CHIEF COMPLAINT]."
-
-2. Ask: "What is your initial pediatric differential? List your top 5. Remember to think about age-specific diagnoses."
-
-3. After I respond, reveal additional history (including birth history, immunizations, developmental milestones, and sick contacts as relevant). Ask: "How does this change your differential?"
-
-4. After I respond, reveal physical exam findings (including growth percentile, vitals with age-appropriate normal ranges). Ask: "What is your leading diagnosis now? What single test or action would you take first?"
-
-5. After I respond, reveal results and ask: "What is your diagnosis and management plan? Include disposition and parent counseling."
-
-6. After I respond, provide:
-   - The final diagnosis
-   - What I got right and what I missed
-   - Age-specific considerations I should have weighed
-   - One pediatric teaching pearl
-
-**Rules:**
-- Wait for my response at each step
-- Highlight age-specific differentials (a 3-month-old with fever is different from a 5-year-old with fever)
-- Include developmental and social context
-- Remind me of "don't miss" pediatric diagnoses if my differential is missing them
-
-**Topic:** [PEDIATRIC CHIEF COMPLAINT, e.g., "fever in a neonate," "abdominal pain in a school-age child," "limping child"]
-**Difficulty:** [Easy / Medium / Hard]
-
-Start with Step 1.
-</PromptPlayground>
-
-### Emergency medicine focus
-
-<PromptPlayground tool="Claude" title="EM DDx Drill">
-You are an emergency medicine attending running a differential diagnosis drill. This is a fast-paced, high-acuity Socratic exercise.
-
-**Format:**
-
-1. Present an ED triage note: "[Age] [sex] arrives by [ambulance/walk-in] with [CHIEF COMPLAINT]. Triage vitals: [HR, BP, RR, SpO2, Temp]. Triage acuity: [ESI level]."
-
-2. Ask: "You are the ED physician. What are your top 5 differentials, and what is the one diagnosis you must rule out first?"
-
-3. After I respond, reveal the focused history and ask: "What do you want on your physical exam? What are you looking for?"
-
-4. After I respond, reveal exam findings and ask: "What orders are you putting in right now? Prioritize."
-
-5. After I respond, reveal results and ask: "What is your diagnosis, disposition, and management?"
-
-6. After I respond, provide:
-   - The final diagnosis
-   - Whether my workup would have caught or missed the diagnosis
-   - Any time-sensitive steps I delayed
-   - One EM pearl about this presentation
-
-**Rules:**
-- Time pressure: assume each step represents 5–10 minutes of real time
-- Emphasize "must-not-miss" diagnoses
-- If I miss a critical action, say: "The nurse is asking if you want anything else before [consequence]"
-- Make cases realistic for the ED (not fully worked-up on arrival)
-
-**Topic:** [ED CHIEF COMPLAINT, e.g., "chest pain," "shortness of breath," "syncope," "headache"]
-**Difficulty:** [Easy / Medium / Hard]
-
-Start with Step 1.
-</PromptPlayground>
-
-### Pattern recognition drill
-
-<PromptPlayground tool="Claude" title="Pattern Recognition Drill">
-You are a board review tutor running a rapid pattern recognition drill. This is speed practice for board-style clinical presentations.
-
-**Format:**
-
-Present 10 rapid-fire clinical snapshots. For each one:
-
-**Case [N]:**
-"[Age] [sex] with [brief history] presents with [2–3 key findings]."
-
-Ask: "What is the most likely diagnosis?"
-
-After I respond to each case, immediately tell me:
-- Whether I was right or wrong
-- The correct answer if I was wrong, with the key pattern I should have recognized
-- Move to the next case immediately
-
-After all 10 cases, provide:
-- My score (X/10)
-- The patterns I missed most often
-- A "cheat sheet" of the classic patterns covered in this drill
-
-**Topic:** [ORGAN SYSTEM OR CHIEF COMPLAINT, e.g., "cardiology presentations," "endocrine emergencies," "infectious disease"]
-**Difficulty:** [Easy / Medium / Hard]
-
-Start with Case 1.
-</PromptPlayground>
-
----
-
-## Example output
-
-**Step 1:**
-
-A 67-year-old man presents to the ED with sudden onset of severe, tearing chest pain that radiates to his back. He has a history of hypertension and has been non-adherent with his medications.
+ROUND 1: PRESENTATION
+──────────────────────
+[Age]-year-old [sex] presents to [setting] with [chief complaint]. [1-2 additional context sentences.]
 
 What is your initial differential? List your top 5.
+[Wait for trainee response]
 
-*(After the student responds with their differential, the drill continues:)*
+ROUND 2: ADDITIONAL HISTORY
+────────────────────────────
+[Reveal additional history, medications, social history, family history]
+How does this change your differential? What moves up? What drops off?
+[Wait for trainee response]
 
-**Step 3 reveal (after student narrows differential):**
-
-Physical exam findings: BP 185/110 in the right arm, 140/85 in the left arm. Heart rate 95, regular. A new diastolic murmur is heard at the right sternal border. Femoral pulses are diminished bilaterally.
-
+ROUND 3: PHYSICAL EXAM
+───────────────────────
+[Reveal vital signs and focused physical exam findings]
 What is your leading diagnosis now? What single test would you order first?
+[Wait for trainee response]
 
-**Step 6 (final feedback):**
+ROUND 4: TEST RESULTS
+──────────────────────
+[Reveal the key test result]
+What is your final diagnosis? What is your management plan?
+[Wait for trainee response]
 
-**Final Diagnosis:** Stanford Type A aortic dissection
+ROUND 5: TEACHING WRAP-UP
+──────────────────────────
+FINAL DIAGNOSIS: [Diagnosis]
 
-**What you got right:** You correctly identified aortic dissection as a leading diagnosis based on the tearing chest pain radiating to the back and blood pressure differential between arms.
+WHAT YOU GOT RIGHT:
+[Specific elements the trainee identified correctly]
 
-**What you missed:** You did not initially ask about the new diastolic murmur, which indicates aortic regurgitation from the dissection flap extending to the aortic valve. This is a key clue that the dissection involves the ascending aorta (Type A) and may require emergent surgical repair.
+WHAT YOU MISSED:
+[Key clues or reasoning steps the trainee overlooked]
 
-**Key reasoning steps:** Tearing pain + BP differential + new aortic regurgitation + diminished pulses = Type A dissection until proven otherwise. CTA chest/abdomen/pelvis is the confirmatory test. Immediate surgical consultation before imaging is complete.
+REASONING CHAIN:
+[Step-by-step reasoning from presentation to diagnosis]
 
-**Teaching pearl:** A blood pressure difference of more than 20 mmHg between arms is one of the most specific physical exam findings for aortic dissection. Always check bilateral blood pressures in acute chest pain.
+BUZZWORDS:
+- [Buzzword] → [association]
+- [Buzzword] → [association]
+
+HIGH-YIELD TEACHING POINTS:
+- [Key concept this case teaches]
+- [Related board-testable fact]
+
+IF INSTEAD...
+[How changing one finding would change the diagnosis]
+
+---
+Topic: [CHIEF COMPLAINT OR ORGAN SYSTEM, e.g., "chest pain," "acute abdominal pain," "altered mental status," "cardiology cases"]
+Difficulty: [Easy / Medium / Hard]
+Exam focus: [USMLE Step 2 CK / Step 3 / Shelf / Specialty Board]
+</PromptPlayground>
 
 ---
 
@@ -201,26 +105,240 @@ What is your leading diagnosis now? What single test would you order first?
 
 | Element | How to Adjust |
 |---------|---------------|
-| Specialty | Add: "Make this a [pediatric/OB/surgical/psychiatric] case" |
-| Exam focus | Add: "Focus on diagnoses tested on [USMLE Step 2 / EM boards / IM boards]" |
-| Multiple cases | Add: "After completing one case, immediately present another on a different topic" |
-| Self-study mode | Add: "Don't wait for my responses. Present the full case with pauses and teaching points throughout" |
+| Specialty focus | Add: "Make this a [pediatric / OB / surgical / psychiatric / neurology] case." |
+| Exam targeting | Add: "Focus on diagnoses commonly tested on [USMLE Step 2 / EM boards / IM boards]." |
+| Multiple cases | Add: "After completing one case, immediately present another on a different topic." |
+| Self-study mode | Add: "Do not wait for my responses. Present the full case with pauses and teaching points throughout." This is useful for review but produces less deep learning than interactive mode. |
+| Oral board prep | Add: "Simulate an oral board format. After each round, ask me to present my reasoning verbally before moving on." |
+
+---
+
+## Variations
+
+### Rapid-fire drill (chief complaint only, 30 seconds per case)
+
+<PromptPlayground tool="Claude" title="Rapid-Fire Differential Drill">
+You are a board review tutor running a rapid-fire pattern recognition drill. This is speed practice for board-style clinical presentations.
+
+### Purpose
+Present 10 brief clinical snapshots. The trainee identifies the most likely diagnosis for each. Score at the end and review missed patterns.
+
+### Rules
+- Each case is 1-2 sentences. No full vignettes.
+- After the trainee responds to each case, immediately say whether they were right or wrong, give the correct answer with the key pattern, and move to the next case.
+- After all 10, provide a score, identify the patterns missed most often, and give a buzzword cheat sheet.
+
+### Output format
+
+RAPID-FIRE DIFFERENTIAL DRILL
+══════════════════════════════
+
+CASE 1:
+[Age] [sex] with [brief history] presents with [2-3 key findings].
+What is the most likely diagnosis?
+
+[After trainee responds:]
+[RIGHT/WRONG]. [Correct answer]. Key pattern: [buzzword → diagnosis].
+
+[Continue through Case 10]
+
+FINAL SCORE: [X/10]
+
+PATTERNS YOU MISSED:
+- [Pattern and how to recognize it next time]
+
+BUZZWORD CHEAT SHEET:
+- [Finding] → [Diagnosis]
+- [Finding] → [Diagnosis]
+[One per case covered]
+
+---
+Topic: [ORGAN SYSTEM OR CHIEF COMPLAINT]
+Difficulty: [Easy / Medium / Hard]
+</PromptPlayground>
+
+### Physical exam focused
+
+<PromptPlayground tool="Claude" title="Physical Exam Differential Drill">
+You are an attending physician running a differential diagnosis drill focused on physical exam findings. The trainee must use exam findings, not labs or imaging, to build the differential.
+
+### Purpose
+Train physical exam pattern recognition. Present cases where the key diagnostic clue comes from the physical exam, not from test results. This builds the clinical reasoning that precedes the workup.
+
+### Rules
+- Round 1 gives only the chief complaint and demographics. No exam findings yet.
+- Round 2 reveals the physical exam in detail: vitals, inspection, palpation, percussion, auscultation, special maneuvers.
+- Round 3 asks the trainee to commit to a diagnosis and predict what the confirmatory test will show.
+- Round 4 reveals the test result and teaches.
+- Emphasize the physical exam findings that distinguish between diagnoses on the differential.
+
+### Output format
+
+PHYSICAL EXAM DRILL
+════════════════════
+
+ROUND 1: CHIEF COMPLAINT ONLY
+──────────────────────────────
+[Age]-year-old [sex] presents with [chief complaint].
+What are your top 5 diagnoses? What physical exam findings would you look for to distinguish between them?
+
+ROUND 2: THE EXAM
+──────────────────
+[Detailed physical exam findings including vitals, inspection, palpation, auscultation, and relevant special maneuvers]
+Based on the exam alone, what is your leading diagnosis? What single test would confirm it?
+
+ROUND 3: YOUR PREDICTION
+─────────────────────────
+Before I show you the test result, predict: what do you expect it to show and why?
+
+ROUND 4: RESULT AND TEACHING
+─────────────────────────────
+[Test result]
+FINAL DIAGNOSIS: [diagnosis]
+
+EXAM PEARLS:
+- [Which exam finding was the key discriminator and why]
+- [Related physical exam findings boards test]
+
+---
+Topic: [CHIEF COMPLAINT, e.g., "heart murmur," "abdominal mass," "joint swelling"]
+Difficulty: [Easy / Medium / Hard]
+</PromptPlayground>
+
+### Lab interpretation focused
+
+<PromptPlayground tool="Claude" title="Lab Interpretation Differential Drill">
+You are an attending physician running a differential diagnosis drill focused on laboratory data interpretation.
+
+### Purpose
+Train systematic lab interpretation skills. Present a clinical scenario, then reveal labs in stages: basic metabolic panel, then CBC, then specialized tests. The trainee must refine the differential at each stage based on lab patterns.
+
+### Rules
+- Round 1 gives the clinical scenario with no labs.
+- Round 2 reveals the BMP/CMP. Ask the trainee to identify abnormalities and how they change the differential.
+- Round 3 reveals the CBC and/or additional labs. Ask the trainee to commit to a diagnosis.
+- Round 4 reveals the definitive test and teaches.
+- Include specific lab values with units. Do not use vague descriptors like "elevated" without a number.
+- Teach the lab patterns that distinguish between diagnoses (e.g., anion gap vs. non-anion gap metabolic acidosis).
+
+### Output format
+
+LAB INTERPRETATION DRILL
+═════════════════════════
+
+ROUND 1: CLINICAL SCENARIO (NO LABS)
+─────────────────────────────────────
+[Clinical scenario]
+Top 5 differential? What lab patterns would you expect for each?
+
+ROUND 2: BASIC LABS
+───────────────────
+[BMP/CMP with specific values]
+What abnormalities do you see? How does this change your differential?
+
+ROUND 3: ADDITIONAL LABS
+────────────────────────
+[CBC, specialized labs with specific values]
+What is your leading diagnosis now?
+
+ROUND 4: DEFINITIVE TEST AND TEACHING
+──────────────────────────────────────
+[Result]
+FINAL DIAGNOSIS: [diagnosis]
+
+LAB INTERPRETATION PEARLS:
+- [The lab pattern that clinched the diagnosis]
+- [How to distinguish this pattern from a similar one]
+- [Related lab interpretation fact for boards]
+
+---
+Topic: [CLINICAL SCENARIO, e.g., "metabolic acidosis," "pancytopenia," "elevated liver enzymes," "acute kidney injury"]
+Difficulty: [Easy / Medium / Hard]
+</PromptPlayground>
+
+---
+
+## Example output
+
+DIFFERENTIAL DIAGNOSIS DRILL
+═════════════════════════════
+
+ROUND 1: PRESENTATION
+──────────────────────
+67-year-old man presents to the emergency department with sudden onset of severe chest pain that he describes as "tearing" and radiating to his back. He has a history of hypertension and has been non-adherent with his medications for the past several months.
+
+What is your initial differential? List your top 5.
+
+*(Trainee responds with their differential)*
+
+ROUND 2: ADDITIONAL HISTORY
+────────────────────────────
+The pain started 2 hours ago while he was lifting a heavy box. It was maximal at onset (did not build gradually). He denies any prior episodes. He smokes one pack per day and has not seen a physician in over a year. No family history of connective tissue disorders. No cocaine use. No recent surgery or immobilization.
+
+How does this change your differential? What moves up? What drops off?
+
+*(Trainee responds)*
+
+ROUND 3: PHYSICAL EXAM
+───────────────────────
+Vitals: BP 185/110 mmHg in the right arm, 140/85 mmHg in the left arm. HR 95 bpm, regular. RR 20. SpO2 98% on room air.
+Exam: Diaphoretic, in obvious distress. A new diastolic murmur is heard at the right sternal border (not present on prior records). Femoral pulses are diminished bilaterally. No JVD. Lungs clear. Abdomen soft, nontender.
+
+What is your leading diagnosis now? What single test would you order first?
+
+*(Trainee responds)*
+
+ROUND 4: TEST RESULTS
+──────────────────────
+CT angiography of the chest, abdomen, and pelvis shows an intimal flap extending from the ascending aorta through the aortic arch and into the descending thoracic aorta. The dissection involves the aortic root with aortic valve involvement. No rupture or pericardial effusion.
+
+What is your final diagnosis? What is your management plan?
+
+*(Trainee responds)*
+
+ROUND 5: TEACHING WRAP-UP
+──────────────────────────
+FINAL DIAGNOSIS: Stanford Type A aortic dissection
+
+WHAT YOU GOT RIGHT:
+Aortic dissection was correctly identified as the leading diagnosis based on tearing chest pain radiating to the back, maximal at onset, and the blood pressure differential between arms.
+
+WHAT YOU MISSED:
+The new diastolic murmur at the right sternal border indicates aortic regurgitation from the dissection flap extending to the aortic valve. This is the finding that classifies this as a Type A dissection (involving the ascending aorta) and mandates emergent surgical repair rather than medical management alone.
+
+REASONING CHAIN:
+Tearing pain maximal at onset + back radiation + hypertension + BP differential between arms + new aortic regurgitation murmur + diminished femoral pulses = Type A aortic dissection. CTA confirms. Immediate surgical consultation, IV esmolol to target HR below 60 and SBP below 120, and emergent surgical repair.
+
+BUZZWORDS:
+- Tearing chest pain radiating to back → aortic dissection
+- BP differential greater than 20 mmHg between arms → aortic dissection
+- New diastolic murmur + chest pain → dissection involving aortic root
+- Pain maximal at onset → dissection (vs. MI, which builds gradually)
+
+HIGH-YIELD TEACHING POINTS:
+- Stanford Type A (involves ascending aorta): surgical emergency. Type B (descending only): medical management unless complicated.
+- Always check bilateral blood pressures in acute chest pain. A difference greater than 20 mmHg systolic is one of the most specific exam findings for dissection.
+- Beta-blockers first (reduce shear stress), then add vasodilators if needed. Never give vasodilators alone (reflex tachycardia increases shear force).
+
+IF INSTEAD...
+If this patient had no new murmur, symmetric pulses, and the dissection was confined to the descending aorta on CTA, the classification would change to Stanford Type B. Management would be medical (IV beta-blocker, pain control, ICU monitoring) unless complicated by malperfusion, rupture, or refractory pain.
 
 ---
 
 ## Tips & pitfalls
 
-- This template works best as an interactive conversation. Each response you give shapes the next reveal.
-- Unlike the **Differential Diagnosis Generator** (clinical-reasoning), this template is for *practice and learning*, not for real patient care.
-- For maximum benefit, try to answer at each step before reading ahead. The learning happens in the struggle.
-- If the AI is making cases too easy or too hard, explicitly tell it: "Make the next case harder" or "Give me a more straightforward case."
-- The "Self-study mode" variation is useful when you want to review cases without the back-and-forth, but interactive mode produces deeper learning.
-- For oral board prep specifically, practice speaking your responses out loud rather than typing them. The AI drill simulates the format of oral board examinations.
-- Pair with the **Case Vignette Analysis** template when you want to deeply analyze a specific case you struggled with during a drill.
+- Interactive mode produces deeper learning than self-study mode. The effort of generating a differential before seeing the answer is where reasoning skills develop. Reading a pre-built case teaches content; working through one teaches process.
+- Unlike the Differential Diagnosis Generator (clinical-reasoning category), this template is for practice and learning, not for real patient care.
+- If the AI makes cases too easy or too hard, say so explicitly. "Make the next case harder" or "Give me something more straightforward" adjusts the difficulty.
+- For oral board prep, speak your responses aloud rather than typing them. The drill format mirrors the structure of oral board examinations.
+- Pair with Case Vignette Analysis when a case stumps you. Use this template to practice the reasoning; use that template to dissect where your reasoning went wrong.
+- The "if instead" extension at the end of each drill is high-yield board material. It teaches you to recognize how one changed variable shifts the entire diagnosis and management, which is precisely the skill Step 2 CK and Step 3 test.
 
 ---
 
 ## Related
 
-- [DDx Generator](/templates/ddx-generator) — the clinical-use version of differential diagnosis generation
-- [Case Vignette Analysis](/templates/case-vignette-analysis) — detailed analysis of individual board-style cases
+- [Case Vignette Analysis](/templates/case-vignette-analysis) -- detailed analysis of individual board-style cases
+- [Question Generator](/templates/question-generator) -- generate board-style questions for self-testing
+- [Topic Review](/templates/topic-review) -- review underlying topics when a drill reveals a knowledge gap
+- [DDx Generator](/templates/ddx-generator) -- the clinical-use version for real patient care

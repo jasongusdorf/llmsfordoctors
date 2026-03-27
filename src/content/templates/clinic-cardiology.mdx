@@ -1,0 +1,774 @@
+---
+title: "Cardiology Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, cardiology, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "Paste in your cardiology clinic data — the LLM produces a structured outpatient note that already knows to pull EF, device interrogation dates, GDMT status, and CHA2DS2-VASc scores."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+You have a Wednesday afternoon cardiology clinic. The patient sits down, you review the chart, you talk for fifteen minutes, and then you spend ten more writing the note. This template handles the last part. Paste in the clinical data from your visit, and the LLM produces a structured outpatient cardiology note organized around whichever of the six most common conditions the patient carries: heart failure, CAD, atrial fibrillation, resistant hypertension, valvular heart disease, or hyperlipidemia. The note knows to pull EF, device interrogation dates, GDMT status, and CHA2DS2-VASc scores without you having to remember what to include.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Cardiology Clinic Visit Note">
+You are an outpatient cardiologist writing a clinic visit note after seeing a patient for a follow-up or management visit. The patient's primary cardiac condition is one of: heart failure, coronary artery disease, atrial fibrillation, resistant hypertension, valvular heart disease, or hyperlipidemia. Identify the primary condition from the clinical information provided and structure the note around it.
+
+### Purpose
+
+Generate a complete, structured outpatient cardiology clinic note from the clinical data below. The note must capture disease-specific monitoring data, medication reconciliation with doses, assessment of disease trajectory since the last visit, and a concrete, actionable plan.
+
+### Rules
+
+- Write in past tense for history and interval events; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use in the note (e.g., "left ventricular ejection fraction (LVEF) 35%"), then abbreviation only thereafter.
+- Include specific numbers for all values: lab results, vitals, doses, dates, imaging measurements.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Organize the Assessment as a problem list with the primary cardiac condition first.
+- Plan items must be specific and actionable: drug name, dose, titration target, follow-up interval, specific test to order. Never write "continue current management" without specifying what that management is.
+- For heart failure patients: document GDMT optimization status for each of the four pillars (ARNI/ACEi/ARB, beta-blocker, MRA, SGLT2i) with current dose vs target dose.
+- For atrial fibrillation patients: document CHA2DS2-VASc score, HAS-BLED score, and anticoagulation regimen.
+- For CAD patients: document antiplatelet therapy, statin intensity, and last stress test or angiography.
+- Do not infer or fabricate any clinical information not provided. Write "[Not provided; verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "LVEF" = left ventricular ejection fraction
+- "GDMT" = guideline-directed medical therapy
+- "ARNI" = angiotensin receptor-neprilysin inhibitor
+- "MRA" = mineralocorticoid receptor antagonist
+- "SGLT2i" = sodium-glucose cotransporter-2 inhibitor
+- "CHA2DS2-VASc" = congestive heart failure, hypertension, age ≥75 (doubled), diabetes, stroke (doubled), vascular disease, age 65-74, sex category
+- "HAS-BLED" = hypertension, abnormal renal/liver function, stroke, bleeding, labile INR, elderly, drugs/alcohol
+- "NYHA" = New York Heart Association
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+CARDIOLOGY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[Follow-up / New patient / Post-procedure / Pre-operative clearance]
+Interval since last visit: [duration]
+
+CHIEF CONCERN
+─────────────
+***
+
+CARDIAC HISTORY
+───────────────
+  Primary diagnosis: ***
+  Cardiac history timeline:
+    - [Date]: [Event: MI, PCI, CABG, valve surgery, TAVR, ablation, etc.]
+    - [Date]: [Event]
+  Devices: [None / Pacemaker / ICD / CRT-D / CRT-P]
+    Type: ***
+    Implant date: ***
+    Last interrogation: [date, key findings]
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph covering symptoms and events since last visit.
+Include: chest pain, dyspnea, palpitations, syncope/presyncope,
+edema, exercise tolerance, hospitalizations, ED visits.
+Document NYHA functional class and specific exercise capacity
+(blocks walked, flights of stairs, activities tolerated).]
+
+CURRENT MEDICATIONS
+───────────────────
+  Antiplatelet/Anticoagulant
+  ─────────────────────────
+  ***
+
+  Statin
+  ──────
+  ***
+
+  Rate/Rhythm Control
+  ────────────────────
+  ***
+
+  Heart Failure Medications (if applicable)
+  ──────────────────────────────────────────
+  ARNI/ACEi/ARB: [drug, current dose → target dose]
+  Beta-blocker: [drug, current dose → target dose]
+  MRA: [drug, current dose → target dose]
+  SGLT2i: [drug, current dose → target dose]
+  Diuretics: [drug, dose, frequency]
+  Hydralazine/Isosorbide dinitrate: [if applicable]
+
+  Other Cardiac Medications
+  ─────────────────────────
+  ***
+
+  Non-Cardiac Medications
+  ───────────────────────
+  ***
+
+VITAL SIGNS
+───────────
+  BP (seated): ***
+  BP (standing): *** [if orthostatics checked]
+  HR: ***
+  Weight: *** [trend: up/down *** lbs from last visit on M/D/YY]
+  SpO2: ***
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: ***
+  Neck: JVP *** cm above the sternal angle. Carotid upstrokes ***.
+  Cardiovascular: Rate ***, rhythm ***. S1/S2 ***.
+    Murmurs: [grade, location, radiation, change from prior]
+    Gallops: [S3/S4 present or absent]
+  Pulmonary: ***
+  Abdomen: ***
+  Extremities: Edema [none / trace / 1+ / 2+ / 3+, location].
+    Peripheral pulses: ***
+
+DIAGNOSTICS
+───────────
+
+  Labs
+  ────
+  BNP/NT-proBNP: *** [trend from prior: ***]
+  BMP: Na ***, K ***, Cr ***, BUN ***
+  Lipid panel: TC ***, LDL ***, HDL ***, TG ***
+  INR: *** [if on warfarin; TTR if available]
+  Troponin: *** [if checked]
+  A1c: *** [if relevant]
+
+  Echocardiogram
+  ───────────────
+  Date: ***
+  LVEF: ***% [prior: ***% on M/D/YY]
+  Wall motion: ***
+  Valve function: ***
+  RVSP: *** mmHg
+  Diastolic function: ***
+  Other: ***
+
+  Device Interrogation
+  ────────────────────
+  Date: ***
+  Rhythm: ***
+  Pacing percentage: ***
+  Arrhythmia episodes: ***
+  Thresholds/impedances: ***
+  Battery: ***
+
+  Cardiac Catheterization / Angiography
+  ──────────────────────────────────────
+  Date: ***
+  Findings: ***
+
+  Other Studies
+  ─────────────
+  [Stress test, Holter, event monitor, cardiac MRI, CT angiography]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [relevant cardiac history summary]
+presenting for [visit type]. [One-sentence trajectory statement.]
+
+  1. [Primary cardiac condition]
+     [Brief assessment of current status, trajectory, and rationale.]
+
+  2. [Secondary cardiac condition, if applicable]
+     [Brief assessment.]
+
+  3. [Other relevant conditions]
+     [Brief assessment.]
+
+  [For HF patients, include:]
+  GDMT Optimization Status
+  ────────────────────────
+  Pillar 1 (ARNI/ACEi/ARB): [On/Off] [current dose] [at target: Y/N]
+  Pillar 2 (Beta-blocker): [On/Off] [current dose] [at target: Y/N]
+  Pillar 3 (MRA): [On/Off] [current dose] [at target: Y/N]
+  Pillar 4 (SGLT2i): [On/Off] [current dose] [at target: Y/N]
+
+  [For AFib patients, include:]
+  Stroke/Bleeding Risk
+  ────────────────────
+  CHA2DS2-VASc: ***/9 [list components]
+  HAS-BLED: ***/9 [list components]
+
+PLAN
+────
+  1. [Primary cardiac condition]
+     - [Specific action: medication change with dose, test to order, referral]
+     - [Specific action]
+     - [Specific action]
+
+  2. [Secondary condition]
+     - [Specific action]
+
+  3. [Other conditions]
+     - [Specific action]
+
+  Monitoring
+  ──────────
+  - Labs to order: ***
+  - Imaging to order: ***
+  - Device interrogation: [next date]
+
+  Follow-Up
+  ─────────
+  Return to cardiology clinic in [interval].
+  [Specific criteria for earlier return or ED visit.]
+
+DISPOSITION
+───────────
+[Patient counseled on ***, agrees with plan.
+Return precautions reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: reason for visit, interval history, cardiac history, device info, current medications with doses, vitals, exam findings, recent labs, echo results, cath data, and any other relevant studies.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Visit type | Change the visit type field to "New patient evaluation" and add: "Include a complete cardiac review of systems and full risk factor assessment." |
+| Pre-op clearance | Add: "This is a pre-operative cardiac risk assessment. Include the Revised Cardiac Risk Index, functional capacity in METs, and a recommendation regarding perioperative cardiac risk and any further testing needed." |
+| Post-procedure | Add: "This is a post-procedure follow-up. Document procedure details, complications, recovery course, and any restrictions still in effect." |
+| EP focus | Add: "This patient is being seen for an electrophysiology concern. Emphasize rhythm analysis, device parameters, antiarrhythmic drug levels, and ablation history." |
+| Preventive cardiology | Add: "This is a preventive cardiology visit. Emphasize 10-year ASCVD risk, coronary calcium score, lipid targets, and lifestyle modification plan." |
+
+---
+
+## Variations
+
+### Heart failure follow-up
+
+Use this for the patient with established heart failure (HFrEF or HFpEF) coming in for routine monitoring. The note is built around GDMT optimization, volume status assessment, and functional trajectory.
+
+<PromptPlayground tool="Claude" title="Heart Failure Follow-Up">
+You are an outpatient cardiologist writing a clinic visit note for a patient with established heart failure (HFrEF or HFpEF). Structure the note around GDMT optimization, volume status, and functional trajectory.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document all four GDMT pillars with current dose vs target dose.
+- Assess volume status systematically: weight trend, JVP, edema, orthopnea, BNP trend.
+- Classify NYHA functional class with specific supporting examples (not just the class number).
+- Plan must include specific titration steps or rationale for holding at current dose.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+HEART FAILURE CLINIC VISIT
+══════════════════════════════════════════
+
+HF CLASSIFICATION
+─────────────────
+  Type: [HFrEF / HFmrEF / HFpEF]
+  LVEF: ***% (date: ***)
+  Etiology: [Ischemic / Non-ischemic / specify]
+  NYHA class: [I / II / III / IV]
+    Functional detail: [e.g., "walks 4 blocks on flat ground without
+    stopping; dyspnea climbing 2 flights of stairs"]
+
+INTERVAL HISTORY
+────────────────
+[Narrative: symptoms since last visit, hospitalizations, weight
+changes, diuretic adjustments, fluid/salt adherence, exercise,
+device alerts if applicable.]
+
+VOLUME STATUS ASSESSMENT
+────────────────────────
+  Weight: *** lbs (last visit: *** lbs on M/D/YY; dry weight target: ***)
+  JVP: *** cm
+  Orthopnea: [Yes, *** pillows / No]
+  PND: [Yes / No]
+  Peripheral edema: [None / trace / 1+ / 2+ / 3+]
+  Lung exam: [Clear / crackles (location)]
+  BNP/NT-proBNP: *** (prior: *** on M/D/YY)
+  Overall: [Euvolemic / Hypervolemic / Hypovolemic]
+
+GDMT STATUS
+───────────
+  Pillar 1: ARNI/ACEi/ARB
+    Current: [Drug, dose]
+    Target: [Drug, target dose]
+    Barrier to uptitration: [None / hypotension / hyperkalemia / renal function / other]
+
+  Pillar 2: Beta-blocker
+    Current: [Drug, dose]
+    Target: [Drug, target dose]
+    Barrier: [None / bradycardia / hypotension / fatigue / other]
+
+  Pillar 3: MRA
+    Current: [Drug, dose]
+    Target: [Drug, target dose]
+    Barrier: [None / hyperkalemia / renal function / other]
+
+  Pillar 4: SGLT2i
+    Current: [Drug, dose]
+    Target: [Drug, target dose]
+    Barrier: [None / GU infections / volume depletion / other]
+
+  Diuretics: [Drug, dose, frequency]
+  Hydralazine/ISDN: [if applicable]
+  Ivabradine: [if applicable]
+  Vericiguat: [if applicable]
+
+DEVICE STATUS
+─────────────
+  Device: [None / PPM / ICD / CRT-D / CRT-P]
+  Last interrogation: [Date, key findings]
+  CRT response: [if applicable]
+
+DIAGNOSTICS
+───────────
+  [Labs, echo, other relevant studies with dates and trends.]
+
+ASSESSMENT
+──────────
+[Summary one-liner, trajectory statement.]
+
+PLAN
+────
+  1. Heart failure management
+     GDMT changes:
+     - [Specific titration: "Uptitrate sacubitril-valsartan from
+       49/51 mg BID to 97/103 mg BID"]
+     - [Or: "Hold carvedilol at 12.5 mg BID due to HR 54; recheck
+       in 4 weeks"]
+     Volume management:
+     - [Diuretic adjustment if needed]
+     - [Daily weight, fluid restriction, sodium target]
+
+  2. [Other cardiac conditions]
+     - [Specific actions]
+
+  3. Monitoring
+     - Labs: [Specific labs to order and timing]
+     - Echo: [Next scheduled or order new]
+     - Device: [Next interrogation]
+
+  4. Follow-up
+     - Return in [interval]
+     - Call clinic if weight increases by &gt;3 lbs in 48 hours
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: HF history, LVEF, current GDMT with doses, volume status findings, vitals, weight trend, labs, device data, interval symptoms.]
+</PromptPlayground>
+
+### Post-PCI/CABG follow-up
+
+Use this for patients returning after percutaneous coronary intervention or coronary artery bypass surgery. The note centers on antiplatelet compliance, graft/stent patency surveillance, risk factor modification, and cardiac rehabilitation progress.
+
+<PromptPlayground tool="Claude" title="Post-PCI/CABG Follow-Up">
+You are an outpatient cardiologist writing a clinic visit note for a patient following up after PCI or CABG. Structure the note around procedural recovery, antiplatelet/anticoagulant management, risk factor modification, and surveillance for recurrent ischemia.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the procedure details: date, lesion(s) treated, stent type(s) or graft conduits, complications.
+- Specify dual antiplatelet therapy (DAPT) duration plan and current day count.
+- Document each modifiable risk factor with current status and target.
+- Plan must include specific medication doses, lab orders, and follow-up testing.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+POST-PCI/CABG FOLLOW-UP
+══════════════════════════════════════════
+
+PROCEDURE SUMMARY
+─────────────────
+  Procedure: [PCI / CABG]
+  Date: ***
+  Indication: [STEMI / NSTEMI / stable angina / positive stress test]
+  Details:
+    [PCI: Vessel(s), lesion(s), stent type (DES/BMS), size, complications]
+    [CABG: Number of grafts, conduits (LIMA, SVG), target vessels, complications]
+  Access site: [Radial / Femoral] (PCI only)
+  Post-procedure LVEF: ***%
+
+INTERVAL HISTORY
+────────────────
+[Narrative: chest pain recurrence, dyspnea, access site healing,
+sternal wound healing (CABG), activity level, cardiac rehab
+participation, return to work/driving status.]
+
+ANTIPLATELET / ANTICOAGULANT STATUS
+───────────────────────────────────
+  Aspirin: [dose]
+  P2Y12 inhibitor: [clopidogrel / ticagrelor / prasugrel], [dose]
+  DAPT start date: ***
+  Planned DAPT duration: [months]
+  Day *** of DAPT
+  Anticoagulant: [if applicable, indication]
+  Bleeding events since procedure: [None / describe]
+
+RISK FACTOR MANAGEMENT
+──────────────────────
+  LDL: *** mg/dL (target: &lt;70 mg/dL for very high risk)
+  Statin: [drug, dose, intensity level]
+  A1c: *** (target: &lt;7%)
+  BP: *** (target: &lt;130/80)
+  Smoking: [Never / Former / Current, cessation plan]
+  BMI: ***
+  Exercise: [Cardiac rehab status, sessions completed, current capacity]
+
+VITAL SIGNS AND EXAM
+─────────────────────
+  [Standard cardiac exam with attention to access/wound sites.]
+
+DIAGNOSTICS
+───────────
+  [Labs, stress test results, echo if obtained.]
+
+ASSESSMENT AND PLAN
+───────────────────
+  1. CAD, s/p [PCI/CABG] on [date]
+     - [Antiplatelet plan]
+     - [Statin titration]
+     - [Symptom management]
+
+  2. Risk factor modification
+     - [Specific targets and actions for each risk factor]
+
+  3. Cardiac rehabilitation
+     - [Status, goals]
+
+  4. Monitoring
+     - [Stress test timing, echo, labs]
+
+  5. Follow-up
+     - Return in [interval]
+     - [Return precautions for recurrent ischemia]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: procedure details, date, current medications with doses, interval symptoms, risk factor data, labs, any post-procedure testing, cardiac rehab status.]
+</PromptPlayground>
+
+### Atrial fibrillation management
+
+Use this for patients with established atrial fibrillation (or flutter) being followed for rate or rhythm control and anticoagulation management. The note is structured around stroke risk stratification, anticoagulation status, and rate/rhythm control adequacy.
+
+<PromptPlayground tool="Claude" title="Atrial Fibrillation Management">
+You are an outpatient cardiologist writing a clinic visit note for a patient with atrial fibrillation or atrial flutter. Structure the note around stroke risk stratification, anticoagulation management, and rate or rhythm control strategy.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Calculate and document CHA2DS2-VASc score with each component listed.
+- Calculate and document HAS-BLED score with each component listed.
+- Specify whether the strategy is rate control or rhythm control, and document adequacy.
+- For rhythm control patients: document antiarrhythmic drug, cardioversion history, ablation history/candidacy.
+- For rate control patients: document resting HR target and current resting HR.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+ATRIAL FIBRILLATION CLINIC VISIT
+══════════════════════════════════════════
+
+AF CLASSIFICATION
+─────────────────
+  Type: [Paroxysmal / Persistent / Long-standing persistent / Permanent]
+  Date of diagnosis: ***
+  Known triggers: ***
+
+STROKE RISK
+───────────
+  CHA2DS2-VASc Score: ***/9
+    C - CHF: [0/1]
+    H - Hypertension: [0/1]
+    A2 - Age ≥75: [0/2]
+    D - Diabetes: [0/1]
+    S2 - Stroke/TIA/thromboembolism: [0/2]
+    V - Vascular disease: [0/1]
+    A - Age 65-74: [0/1]
+    Sc - Sex category (female): [0/1]
+  Recommendation: [Anticoagulation indicated / Not indicated / Consider]
+
+  HAS-BLED Score: ***/9
+    H - Hypertension (uncontrolled): [0/1]
+    A - Abnormal renal/liver function: [0/1 each]
+    S - Stroke history: [0/1]
+    B - Bleeding history/predisposition: [0/1]
+    L - Labile INR: [0/1]
+    E - Elderly (&gt;65): [0/1]
+    D - Drugs/alcohol: [0/1 each]
+  Interpretation: [Low / Moderate / High bleeding risk]
+
+ANTICOAGULATION STATUS
+──────────────────────
+  Agent: [Warfarin / Apixaban / Rivaroxaban / Dabigatran / Edoxaban / None]
+  Dose: ***
+  [If warfarin: last INR ***, TTR ***%, INR range ***]
+  Adherence: ***
+  Bleeding events: [None / describe]
+  Last CBC/renal function: ***
+
+RATE vs RHYTHM CONTROL
+──────────────────────
+  Strategy: [Rate control / Rhythm control]
+
+  [Rate control:]
+  Resting HR target: &lt;110 (asymptomatic) or &lt;80 (symptomatic)
+  Current resting HR: ***
+  Rate control agent(s): [drug, dose]
+  Symptoms with current rate: ***
+
+  [Rhythm control:]
+  Antiarrhythmic: [drug, dose, start date]
+  Cardioversion history: [dates, success, recurrence]
+  Ablation history: [date, type, outcome]
+  Current rhythm: [SR / AF / Flutter]
+  Recurrence since last visit: [Y/N, frequency, duration of episodes]
+  Monitoring: [Holter / event monitor / implanted loop recorder / KardiaMobile]
+
+INTERVAL HISTORY
+────────────────
+[Narrative: palpitations, dyspnea, exercise tolerance, syncope,
+bleeding, adherence, lifestyle triggers (alcohol, caffeine, sleep).]
+
+EXAM, LABS, STUDIES
+───────────────────
+  [Vitals, cardiac exam, relevant labs, EKG, echo, monitoring results.]
+
+ASSESSMENT AND PLAN
+───────────────────
+  1. Atrial fibrillation, [type], [rate/rhythm control strategy]
+     - [Anticoagulation plan]
+     - [Rate or rhythm control adjustments]
+     - [Monitoring plan]
+
+  2. [Related conditions: HTN, HF, valvular disease]
+     - [Specific actions]
+
+  3. Follow-up
+     - Return in [interval]
+     - [Indications for earlier return]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: AF history, type, anticoagulation details, rate/rhythm control medications, symptoms, vitals, EKG, echo, labs, any monitoring data.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+67-year-old male with HFrEF, ischemic cardiomyopathy s/p LAD PCI with DES in 2022. Last echo 1/15/26 showed LVEF 30%, moderate MR, RVSP 42. ICD (Boston Scientific) implanted 9/2024, last interrogated 2/10/26 showing NSR, 8% V-pacing, no arrhythmia episodes. Current meds: sacubitril-valsartan 97/103 BID, carvedilol 25 BID, spironolactone 25 daily, dapagliflozin 10 daily, furosemide 40 daily, aspirin 81 daily, atorvastatin 80 daily. He reports walking 3-4 blocks before needing to stop, down from 6 blocks three months ago. No chest pain. Two-pillow orthopnea, new. Weight up 5 lbs in past month. Denies PND. No ICD shocks. Vitals: BP 108/68 seated, HR 62, weight 198 lbs (was 193 on 12/20/25), SpO2 95% RA. Exam: JVP 10 cm, RRR, II/VI systolic murmur at apex, bibasilar crackles, 1+ pitting edema bilateral LE. Labs from today: BNP 680 (was 320 in 12/25), Na 136, K 4.8, Cr 1.4 (baseline 1.2), BUN 32.
+
+**LLM output:**
+
+CARDIOLOGY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Follow-up
+Interval since last visit: 3 months
+
+CHIEF CONCERN
+─────────────
+Worsening dyspnea on exertion and weight gain
+
+CARDIAC HISTORY
+───────────────
+  Primary diagnosis: Heart failure with reduced ejection fraction (HFrEF), ischemic cardiomyopathy
+  Cardiac history timeline:
+    - 2022: LAD percutaneous coronary intervention (PCI) with drug-eluting stent (DES)
+    - 9/2024: Implantable cardioverter-defibrillator (ICD) implantation (Boston Scientific)
+  Devices: ICD
+    Type: Boston Scientific single-chamber ICD
+    Implant date: 9/2024
+    Last interrogation: 2/10/26, normal sinus rhythm (NSR), V-pacing 8%, no arrhythmia episodes detected, no therapies delivered
+
+INTERVAL HISTORY
+────────────────
+Patient reports progressive decline in exercise tolerance over the past 3 months. He previously walked 6 blocks on flat ground before stopping; he now stops at 3-4 blocks. He describes new two-pillow orthopnea that developed over the past several weeks. He denies paroxysmal nocturnal dyspnea, chest pain, palpitations, syncope, or presyncope. No ICD shocks or alerts. Weight has increased 5 lbs over the past month despite unchanged diet and diuretic dose. He reports good medication adherence. He has not been to the ED or hospitalized since last visit.
+
+New York Heart Association (NYHA) functional class: III (walks 3-4 blocks on flat ground; limited by dyspnea; comfortable at rest).
+
+CURRENT MEDICATIONS
+───────────────────
+  Antiplatelet/Anticoagulant
+  ─────────────────────────
+  Aspirin 81 mg daily
+
+  Statin
+  ──────
+  Atorvastatin 80 mg daily
+
+  Heart Failure Medications
+  ─────────────────────────
+  Angiotensin receptor-neprilysin inhibitor (ARNI): Sacubitril-valsartan 97/103 mg BID (at target dose)
+  Beta-blocker: Carvedilol 25 mg BID (target: 25 mg BID; at target)
+  Mineralocorticoid receptor antagonist (MRA): Spironolactone 25 mg daily (target: 50 mg daily; below target)
+  Sodium-glucose cotransporter-2 inhibitor (SGLT2i): Dapagliflozin 10 mg daily (at target dose)
+  Diuretic: Furosemide 40 mg daily
+
+VITAL SIGNS
+───────────
+  BP (seated): 108/68 mmHg
+  HR: 62 bpm
+  Weight: 198 lbs (up 5 lbs from 193 lbs on 12/20/25; dry weight target: 193 lbs)
+  SpO2: 95% on room air
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: Alert, comfortable at rest, no acute distress.
+  Neck: JVP 10 cm above the sternal angle (elevated).
+  Cardiovascular: Rate 62, regular rhythm. Normal S1/S2. Grade II/VI systolic murmur at the apex radiating to the axilla, consistent with known moderate mitral regurgitation (MR). No S3 or S4.
+  Pulmonary: Bibasilar crackles, left greater than right.
+  Abdomen: Soft, nontender, no hepatomegaly.
+  Extremities: 1+ pitting edema bilateral lower extremities to the ankles. Peripheral pulses 2+ bilaterally.
+
+DIAGNOSTICS
+───────────
+
+  Labs (today)
+  ────────────
+  B-type natriuretic peptide (BNP): 680 pg/mL (prior: 320 pg/mL on 12/25)
+  Na 136, K 4.8, Cr 1.4 (baseline 1.2), BUN 32
+
+  Echocardiogram
+  ───────────────
+  Date: 1/15/26
+  LVEF: 30%
+  Wall motion: Anterior and apical hypokinesis
+  Valve function: Moderate MR
+  Right ventricular systolic pressure (RVSP): 42 mmHg
+  Diastolic function: [Not provided; verify before signing]
+
+  Device Interrogation
+  ────────────────────
+  Date: 2/10/26
+  Rhythm: NSR
+  V-pacing: 8%
+  Arrhythmia episodes: None
+  Therapies delivered: None
+  Battery: [Not provided; verify before signing]
+
+ASSESSMENT
+──────────
+67-year-old male with ischemic cardiomyopathy (LVEF 30%), s/p LAD PCI with DES (2022), ICD (2024), presenting for routine follow-up with evidence of volume overload and functional decline from NYHA class II to III over the past 3 months.
+
+  1. HFrEF, decompensating
+     BNP has doubled from 320 to 680, weight is 5 lbs above dry weight, JVP is elevated, and he has new bibasilar crackles and worsening edema. NYHA class has progressed from II to III. Volume overload is the most likely driver. Cr bump to 1.4 from 1.2 baseline may reflect cardiorenal physiology.
+
+  2. Moderate MR
+     Known from the 1/15/26 echo. May be contributing to worsening heart failure symptoms. Warrants serial monitoring for progression.
+
+  3. CAD, s/p LAD PCI (2022)
+     No anginal symptoms. Statin at high intensity. Antiplatelet therapy maintained.
+
+  4. ICD, functioning appropriately
+     No arrhythmia episodes, no therapies delivered. V-pacing 8%.
+
+  GDMT Optimization Status
+  ────────────────────────
+  Pillar 1 (ARNI): Sacubitril-valsartan 97/103 mg BID. At target: YES
+  Pillar 2 (Beta-blocker): Carvedilol 25 mg BID. At target: YES
+  Pillar 3 (MRA): Spironolactone 25 mg daily. At target: NO (target 50 mg)
+  Pillar 4 (SGLT2i): Dapagliflozin 10 mg daily. At target: YES
+
+PLAN
+────
+  1. HFrEF, volume overload
+     - Increase furosemide from 40 mg daily to 40 mg BID for 5 days, then reassess weight
+     - Strict daily weights; call clinic if not down 2-3 lbs in 5 days
+     - Sodium restriction counseled: 2 g/day
+     - Fluid restriction: 1.5 L/day
+     - Recheck BMP in 5-7 days to monitor K and Cr on increased diuresis
+     - If Cr rises above 1.6 or K rises above 5.3, call clinic before continuing increased furosemide
+
+  2. GDMT optimization
+     - Hold spironolactone uptitration (from 25 to 50 mg) until K and Cr stabilize after diuretic change
+     - Reassess spironolactone dose at next visit if K remains &lt;5.0 and Cr returns to baseline
+     - ARNI, beta-blocker, and SGLT2i at target; continue current doses
+
+  3. Moderate MR, monitoring
+     - Repeat transthoracic echocardiogram in 3 months to assess MR severity and LVEF trend
+     - If MR worsens to severe, refer for MitraClip evaluation
+
+  4. CAD
+     - Continue aspirin 81 mg daily and atorvastatin 80 mg daily
+     - Lipid panel at next visit
+
+  5. ICD
+     - Continue current programming
+     - Next device interrogation in 6 months (approximately 8/2026)
+
+  Monitoring
+  ──────────
+  - BMP in 5-7 days (fax to clinic)
+  - Repeat BNP at next visit
+  - Echocardiogram in 3 months
+  - Device interrogation 8/2026
+
+  Follow-Up
+  ─────────
+  Return to cardiology clinic in 4 weeks (sooner if persistent weight gain, worsening dyspnea, or inability to lie flat).
+  Go to ED for chest pain, syncope, ICD shocks, or rest dyspnea.
+
+DISPOSITION
+───────────
+Patient counseled on sodium restriction, fluid restriction, daily weights, and diuretic dose change. Agrees with plan. Return precautions reviewed.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **GDMT is the center of gravity for HF notes.** The model documents the four pillars and barriers to uptitration. Verify that it captures the real reason you are holding a dose (K of 5.2 is a reason; "patient preference" without context is not a plan).
+- **CHA2DS2-VASc calculation errors.** The model occasionally miscounts. Double-check the arithmetic, especially the age components (65-74 gets 1 point; 75 or older gets 2) and the stroke/TIA component (which scores 2, not 1).
+- **Weight trend matters more than a single weight.** If you give the model multiple data points, it will graph the trajectory. A single weight is less useful than "198 today, 193 last visit, 190 six months ago."
+- **Device data needs specifics.** "ICD interrogation normal" is not useful for the note. Include pacing percentages, arrhythmia logs, battery status, and lead thresholds. The model can only document what you provide.
+- **Anticoagulation nuance.** For patients on warfarin, include the time in therapeutic range (TTR), not just the most recent INR. For DOACs, include the last renal function check, since dose adjustments depend on creatinine clearance.
+- **Volume status is clinical, not numeric.** The model will generate JVP, edema, and weight findings, but the synthesis (euvolemic vs. hypervolemic) is your call. Do not accept the model's assessment without matching it to what you saw.
+- **Plan specificity is the whole point.** "Continue GDMT" is meaningless in a clinic note. The plan should specify whether each drug is being held, uptitrated, or continued at current dose, with the reason. If the model writes a vague plan, rewrite it.
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) - for inpatient daily notes on the same cardiac patients
+- [Consult Note](/templates/consult-note) - for the initial cardiology consultation
+- [Referral Letter](/templates/referral-letter) - for patients being referred to your cardiology clinic
+- [Medication Reconciliation](/templates/medication-reconciliation) - for the detailed medication list that feeds into this note

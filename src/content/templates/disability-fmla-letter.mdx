@@ -1,0 +1,420 @@
+---
+title: "Disability and FMLA Documentation"
+category: admin-billing
+targetTool: claude
+tags: [intermediate, admin-billing, disability, fmla, documentation]
+lastUpdated: 2026-03-27
+socialPost: "Disability claims are denied when documentation is vague. This template generates letters with specific, measurable functional limitations tied to a diagnosis — the difference between approval and denial."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when a patient needs medical documentation for a disability claim (short-term, long-term, or SSDI) or an FMLA certification. These forms require specific, measurable functional limitations tied to a diagnosis, not just a statement that the patient "cannot work." Vague documentation is the leading cause of disability claim denials.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, employer name, provider names, and any other direct identifiers.
+</Callout>
+
+<Callout type="pitfall">
+  Disability and FMLA documentation carries legal weight. The AI draft must be reviewed carefully for accuracy, and all functional limitations must be based on your clinical assessment, not estimated or inferred. You are the certifying provider; the letter is your professional opinion.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Disability and FMLA Documentation">
+You are a physician preparing disability or FMLA documentation for a patient's claim.
+
+**Purpose:** Produce a structured medical documentation letter with specific diagnoses (ICD-10), measurable functional limitations, treatment plan, prognosis, and work restrictions that meet the documentation requirements for disability insurers and the DOL FMLA certification form.
+
+### Rules
+- Use ICD-10 codes for all diagnoses.
+- Functional limitations must be specific and measurable. "Cannot work" is insufficient. "Cannot lift more than 10 pounds" or "Cannot stand for more than 20 minutes continuously" or "Requires 2 unscheduled breaks per 8-hour shift for pain management" are specific.
+- Tie each functional limitation directly to the medical condition with a clinical rationale.
+- Include objective clinical findings that support the limitations (exam findings, imaging, test results, validated functional scores).
+- Specify duration: is this temporary or permanent? If temporary, provide an estimated return-to-work date or next reassessment date.
+- For FMLA, address whether the condition is a "serious health condition" under DOL criteria (inpatient care, continuing treatment, chronic condition, permanent/long-term incapacity, or conditions requiring multiple treatments).
+- For work restrictions, distinguish between "cannot do at all" and "can do with accommodation."
+- Do not fabricate clinical findings, functional assessments, or diagnoses.
+
+### Vocabulary
+- "FMLA" = Family and Medical Leave Act. Requires a "serious health condition."
+- "SSDI" = Social Security Disability Insurance. Requires inability to engage in substantial gainful activity.
+- "RFC" = Residual Functional Capacity (SSA term for what the patient can still do).
+- "Functional limitation" = specific, measurable restriction on a physical or cognitive activity.
+- "AMA Guides" = American Medical Association Guides to the Evaluation of Permanent Impairment.
+
+### Output format
+
+```
+╔══════════════════════════════════════╗
+║  PATIENT IDENTIFICATION              ║
+╚══════════════════════════════════════╝
+```
+
+- **Patient:** [De-identified identifier]
+- **Date of Evaluation:** [Date]
+- **Certifying Provider:** [Name, credentials, specialty]
+- **Relationship to Patient:** [Treating physician since (date)]
+
+```
+╔══════════════════════════════════════╗
+║  DIAGNOSIS                           ║
+╚══════════════════════════════════════╝
+```
+
+| Diagnosis | ICD-10 Code | Date of Onset | Status |
+|-----------|-------------|---------------|--------|
+| [Primary diagnosis] | [Code] | [Date] | [Acute / Chronic / Progressive / Stable] |
+| [Secondary diagnosis, if contributing] | [Code] | [Date] | [Status] |
+
+```
+╔══════════════════════════════════════╗
+║  FUNCTIONAL LIMITATIONS              ║
+╚══════════════════════════════════════╝
+```
+
+| Activity | Limitation | Clinical Basis | Duration |
+|----------|-----------|----------------|----------|
+| Lifting | [Cannot lift >X lbs / Can lift X lbs occasionally] | [e.g., MRI-confirmed disc herniation at L4-L5 with radiculopathy] | [Temporary: X weeks / Permanent] |
+| Standing/Walking | [Cannot stand >X minutes continuously] | [Clinical finding] | [Duration] |
+| Sitting | [Cannot sit >X minutes without position change] | [Clinical finding] | [Duration] |
+| Cognitive/Concentration | [Cannot sustain focus >X minutes / Requires X breaks per shift] | [Clinical finding] | [Duration] |
+| Other | [Specific limitation] | [Clinical finding] | [Duration] |
+
+```
+╔══════════════════════════════════════╗
+║  DURATION OF CONDITION               ║
+╚══════════════════════════════════════╝
+```
+
+- **Condition onset:** [Date]
+- **Expected duration of functional limitations:** [X weeks/months, or permanent]
+- **Is this condition likely to last 12 months or longer?** [Yes / No / Uncertain]
+- **Next reassessment date:** [Date]
+
+```
+╔══════════════════════════════════════╗
+║  TREATMENT PLAN                      ║
+╚══════════════════════════════════════╝
+```
+
+| Treatment | Status | Expected Outcome |
+|-----------|--------|------------------|
+| [Medication, dose, frequency] | [Current / Planned] | [Symptom management / Curative / Palliative] |
+| [Physical therapy, frequency] | [Current / Planned] | [Expected functional improvement] |
+| [Surgery / procedure] | [Planned date / Under consideration] | [Expected recovery timeline] |
+
+```
+╔══════════════════════════════════════╗
+║  PROGNOSIS                           ║
+╚══════════════════════════════════════╝
+```
+
+- **Expected course:** [Improving / Stable / Progressive / Uncertain]
+- **Likelihood of return to full duty:** [Likely / Unlikely / Uncertain, with timeline]
+- **Likelihood of return to modified duty:** [Likely, with specific accommodations listed]
+- **Factors affecting recovery:** [Compliance, comorbidities, surgical outcome, etc.]
+
+```
+╔══════════════════════════════════════╗
+║  WORK RESTRICTIONS                   ║
+╚══════════════════════════════════════╝
+```
+
+| Restriction | Specific Limit | Accommodation Alternative |
+|-------------|---------------|---------------------------|
+| [Lifting] | [Max X lbs, X frequency] | [Use of assistive device / task reassignment] |
+| [Standing/Walking] | [Max X minutes, then X-minute break] | [Sit-stand workstation] |
+| [Hours] | [Cannot work >X hours/day or X days/week] | [Reduced schedule] |
+| [Environment] | [Cannot work in (heat/cold/heights/driving)] | [Indoor assignment] |
+
+**Estimated return to full duty:** [Date, or "unable to estimate at this time"]
+
+```
+╔══════════════════════════════════════╗
+║  CERTIFYING STATEMENT                ║
+╚══════════════════════════════════════╝
+```
+
+I certify that the above information is accurate and based on my clinical evaluation of this patient. The functional limitations described are directly attributable to the diagnosed medical condition(s) and are supported by the clinical findings documented in the medical record.
+
+[Provider Signature, Credentials, NPI, Date]
+
+---
+**PATIENT INFORMATION:**
+Diagnosis: [DIAGNOSIS AND ICD-10 CODE]
+Date of Onset: [WHEN THE CONDITION STARTED]
+Objective Findings: [EXAM FINDINGS, IMAGING, TEST RESULTS, FUNCTIONAL SCORES]
+Current Treatment: [MEDICATIONS, THERAPIES, PROCEDURES]
+Functional Limitations: [WHAT THE PATIENT CANNOT DO, WITH SPECIFIC LIMITS]
+Job Requirements: [PHYSICAL/COGNITIVE DEMANDS OF THE PATIENT'S JOB, if known]
+Claim Type: [SHORT-TERM DISABILITY / LONG-TERM DISABILITY / SSDI / FMLA]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Claim type | Add: "This is for [short-term disability / long-term disability / SSDI / FMLA / workers' compensation]" |
+| Employer form | Add: "The employer's form specifically asks about [list of required fields]. Address each one." |
+| AMA Guides | Add: "Include an impairment rating per AMA Guides to the Evaluation of Permanent Impairment, 6th edition" |
+| Mental health | Add: "Include cognitive and psychological functional limitations (concentration, interpersonal interaction, attendance reliability)" |
+| Payer-specific | Add: "This claim is with [INSURER NAME]. Reference their specific documentation requirements and criteria." |
+| Job-specific | Add: "The patient's job requires [specific physical/cognitive demands]. Map each limitation to a specific job requirement." |
+
+---
+
+## Variations
+
+### Short-term disability
+
+Use this for employer-sponsored short-term disability claims, typically covering 60-90 days. Emphasis on expected recovery timeline and return-to-work date.
+
+<PromptPlayground tool="Claude" title="Short-Term Disability Documentation">
+You are a physician completing short-term disability documentation for a patient.
+
+**Purpose:** Produce medical documentation supporting a short-term disability claim with specific diagnoses, functional limitations, treatment plan, and an estimated return-to-work date.
+
+### Rules
+- Include ICD-10 codes for all diagnoses.
+- Functional limitations must be specific, measurable, and tied to the diagnosis.
+- Include a clear expected return-to-work date (or date range).
+- Address whether the patient can perform modified duty before full return.
+- Include objective findings supporting the claimed limitations.
+- Do not fabricate clinical findings.
+
+### Output format
+
+**Diagnosis** (table with ICD-10, onset date, status)
+**Objective Clinical Findings** (exam, imaging, labs supporting the limitations)
+**Functional Limitations** (table: activity, specific limit, clinical basis, duration)
+**Treatment Plan** (current and planned treatments with timeline)
+**Expected Recovery Timeline**
+- Full disability period: [Start date] to [End date]
+- Modified duty possible starting: [Date, with specific restrictions]
+- Full return to work: [Date]
+**Next Reassessment:** [Date]
+
+---
+**PATIENT INFORMATION:**
+Diagnosis: [DIAGNOSIS AND ICD-10 CODE]
+Date of Onset: [DATE]
+Surgery/Procedure Date (if applicable): [DATE]
+Objective Findings: [EXAM, IMAGING, LABS]
+Current Treatment: [MEDICATIONS, THERAPIES]
+Job Requirements: [PHYSICAL/COGNITIVE DEMANDS]
+</PromptPlayground>
+
+### Long-term disability / SSDI
+
+Use this for long-term disability insurance claims or Social Security Disability Insurance applications, where the bar is higher and the documentation must demonstrate an inability to sustain substantial gainful activity for 12 months or longer.
+
+<PromptPlayground tool="Claude" title="Long-Term Disability / SSDI Documentation">
+You are a physician preparing medical documentation for a long-term disability or SSDI application.
+
+**Purpose:** Produce a detailed medical source statement documenting functional capacity, consistent with SSA's Residual Functional Capacity (RFC) assessment framework.
+
+### Rules
+- Include ICD-10 codes for all diagnoses.
+- Document functional limitations using SSA RFC categories: exertional (lift, carry, stand, walk, sit), non-exertional (climb, balance, stoop, kneel, crawl, reach, handle, finger), and mental (understand, remember, concentrate, interact, adapt).
+- Include specific time limits (e.g., "can sit for 20 minutes before needing to change position; total sitting capacity 4 hours in an 8-hour day").
+- Document frequency of "bad days" when symptoms prevent all activity.
+- Include all objective evidence: exam findings, imaging, lab results, validated functional scores.
+- Address whether the condition meets or equals a listed impairment in the SSA Blue Book (if applicable).
+- Note medication side effects that affect function (sedation, cognitive impairment, GI symptoms).
+- Do not fabricate findings or functional estimates.
+
+### Output format
+
+**Diagnoses** (table with ICD-10 codes, onset dates, status)
+**Objective Evidence** (exam, imaging, labs, functional testing)
+**Residual Functional Capacity Assessment**
+- Exertional limitations (table: sitting, standing, walking, lifting, carrying, with specific time/weight limits)
+- Non-exertional limitations (table: climbing, balancing, stooping, reaching, handling, fingering)
+- Mental/cognitive limitations (table: understanding, remembering, concentrating, interacting, adapting)
+**Medication Side Effects Affecting Function**
+**Frequency of Symptom Exacerbations** (how many days per month symptoms prevent all activity)
+**Prognosis** (expected course, likelihood of improvement, duration)
+**SSA Listing Assessment** (if applicable, does the condition meet or equal a Blue Book listing?)
+
+---
+**PATIENT INFORMATION:**
+Diagnoses: [ALL DIAGNOSES WITH ICD-10 CODES]
+Date of Onset: [DATE]
+Objective Findings: [DETAILED EXAM, IMAGING, LABS, FUNCTIONAL TESTS]
+Current Treatment: [ALL MEDICATIONS WITH DOSES, THERAPIES, PROCEDURES]
+Medication Side Effects: [SIDE EFFECTS AFFECTING FUNCTION]
+Functional Limitations: [WHAT THE PATIENT CANNOT DO, WITH SPECIFIC LIMITS AND DURATIONS]
+Symptom Frequency: [HOW OFTEN SYMPTOMS FLARE, HOW MANY DAYS/MONTH AFFECTED]
+</PromptPlayground>
+
+### FMLA certification
+
+Use this when completing a DOL WH-380 FMLA certification form (or equivalent employer form). FMLA requires documentation of a "serious health condition," not disability, so the threshold and language differ.
+
+<PromptPlayground tool="Claude" title="FMLA Certification Documentation">
+You are a physician completing an FMLA certification for a patient.
+
+**Purpose:** Produce medical documentation that meets the DOL requirements for FMLA certification, establishing that the patient has a "serious health condition" and specifying the need for leave.
+
+### Rules
+- Address whether the condition qualifies as a "serious health condition" under DOL criteria: (1) inpatient care, (2) continuing treatment by a healthcare provider (incapacity >3 days + 2 provider visits or 1 visit + ongoing treatment), (3) chronic condition requiring periodic treatment, (4) permanent/long-term incapacity, or (5) conditions requiring multiple treatments.
+- Specify the type of leave needed: continuous, intermittent, or reduced schedule.
+- For intermittent leave, estimate frequency and duration of episodes (e.g., "2-3 episodes per month, lasting 1-2 days each").
+- Include ICD-10 codes.
+- Tie the need for leave to the medical condition with specific clinical rationale.
+- Do not fabricate clinical findings.
+
+### Output format
+
+**Diagnosis** (ICD-10 code, onset date)
+**Serious Health Condition Qualification**
+Which DOL criterion is met and why.
+
+**Type of Leave Needed**
+- [ ] Continuous leave: [Start date] to [End date]
+- [ ] Intermittent leave: Estimated frequency [X times per month], duration [X days per episode]
+- [ ] Reduced schedule: [X hours/day or X days/week], for [duration]
+
+**Clinical Rationale for Leave**
+Why the medical condition requires time away from work (not just "patient is ill," but "flare episodes cause [specific symptom] that prevents [specific work function]").
+
+**Treatment Schedule**
+Appointments or treatments requiring time off (frequency, duration, expected duration of treatment course).
+
+**Expected Duration of Need for Leave**
+[Date range or "ongoing for chronic condition"]
+
+---
+**PATIENT INFORMATION:**
+Diagnosis: [DIAGNOSIS AND ICD-10 CODE]
+Condition Details: [SYMPTOMS, FREQUENCY OF FLARES, TREATMENT SCHEDULE]
+Type of Leave Requested: [CONTINUOUS / INTERMITTENT / REDUCED SCHEDULE]
+Functional Impact: [WHAT THE PATIENT CANNOT DO DURING EPISODES]
+Treatment Schedule: [FREQUENCY AND DURATION OF APPOINTMENTS/TREATMENTS]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what the main prompt produces when given a realistic disability case:
+
+**Input provided:**
+Diagnosis: Lumbar radiculopathy (M54.17), L4-L5 disc herniation (M51.16). Date of onset: 6 weeks ago. Objective findings: positive straight leg raise at 40 degrees bilaterally, decreased ankle reflex on right, MRI showing L4-L5 posterolateral disc herniation with right L5 nerve root compression. Current treatment: gabapentin 300mg TID, cyclobenzaprine 10mg TID, physical therapy 2x/week. Functional limitations: cannot sit more than 20 minutes, cannot lift more than 5 lbs, cannot stand more than 15 minutes. Job: office worker requiring 8 hours of sitting and occasional lifting up to 25 lbs. Claim type: short-term disability.
+
+**LLM output:**
+
+```
+╔══════════════════════════════════════╗
+║  PATIENT IDENTIFICATION              ║
+╚══════════════════════════════════════╝
+```
+
+- **Patient:** [De-identified]
+- **Date of Evaluation:** March 27, 2026
+- **Certifying Provider:** [Name, MD, specialty]
+- **Relationship to Patient:** Treating physician since [6 weeks ago]
+
+```
+╔══════════════════════════════════════╗
+║  DIAGNOSIS                           ║
+╚══════════════════════════════════════╝
+```
+
+| Diagnosis | ICD-10 | Date of Onset | Status |
+|-----------|--------|---------------|--------|
+| Lumbar radiculopathy, right L5 | M54.17 | 6 weeks ago | Acute, under treatment |
+| Lumbar disc herniation, L4-L5 | M51.16 | 6 weeks ago | Acute |
+
+```
+╔══════════════════════════════════════╗
+║  FUNCTIONAL LIMITATIONS              ║
+╚══════════════════════════════════════╝
+```
+
+| Activity | Limitation | Clinical Basis | Duration |
+|----------|-----------|----------------|----------|
+| Sitting | Cannot sit >20 minutes continuously without position change | MRI-confirmed L4-L5 disc herniation compressing right L5 root; prolonged sitting increases intradiscal pressure and reproduces radicular symptoms | Temporary: estimated 6-8 weeks |
+| Lifting | Cannot lift >5 lbs | Positive SLR at 40 degrees bilaterally; lifting increases axial load and worsens radiculopathy | Temporary: estimated 6-8 weeks |
+| Standing | Cannot stand >15 minutes continuously | Lumbar extension and prolonged weight-bearing reproduce radicular pain and paresthesias | Temporary: estimated 6-8 weeks |
+| Walking | Limited to 10-15 minutes at a time | Right L5 radiculopathy limits walking tolerance; decreased right ankle reflex indicates motor involvement | Temporary: estimated 4-6 weeks |
+
+```
+╔══════════════════════════════════════╗
+║  DURATION OF CONDITION               ║
+╚══════════════════════════════════════╝
+```
+
+- **Condition onset:** 6 weeks ago
+- **Expected duration of functional limitations:** 6-8 weeks from current date (pending treatment response)
+- **Is this condition likely to last 12 months or longer?** No, unless surgical intervention becomes necessary.
+- **Next reassessment date:** 4 weeks from current date
+
+```
+╔══════════════════════════════════════╗
+║  TREATMENT PLAN                      ║
+╚══════════════════════════════════════╝
+```
+
+| Treatment | Status | Expected Outcome |
+|-----------|--------|------------------|
+| Gabapentin 300 mg TID | Current | Neuropathic pain management; titrate as needed |
+| Cyclobenzaprine 10 mg TID | Current | Muscle spasm management |
+| Physical therapy (2x/week) | Current (4 weeks completed) | Core stabilization, McKenzie exercises; expected gradual functional improvement |
+| Epidural steroid injection | Under consideration if no improvement in 4 weeks | May accelerate recovery and enable return to work |
+
+```
+╔══════════════════════════════════════╗
+║  PROGNOSIS                           ║
+╚══════════════════════════════════════╝
+```
+
+- **Expected course:** Improving. Most lumbar disc herniations with radiculopathy improve with conservative management within 6-12 weeks.
+- **Likelihood of return to full duty:** Likely, within 6-8 weeks if treatment response continues.
+- **Likelihood of return to modified duty:** Likely within 2-3 weeks with accommodations (sit-stand workstation, no lifting >5 lbs, ability to change position every 20 minutes).
+- **Factors affecting recovery:** Treatment adherence, response to physical therapy, and whether epidural injection is needed.
+
+```
+╔══════════════════════════════════════╗
+║  WORK RESTRICTIONS                   ║
+╚══════════════════════════════════════╝
+```
+
+| Restriction | Specific Limit | Accommodation Alternative |
+|-------------|---------------|---------------------------|
+| Sitting | Max 20 minutes continuously, then 5-minute position change | Sit-stand workstation |
+| Lifting | Max 5 lbs | No lifting tasks; task reassignment |
+| Standing | Max 15 minutes continuously | Frequent position changes permitted |
+| Hours | Can work up to 4 hours/day initially | Graduated return: 4 hrs for 2 weeks, then 6 hrs, then full |
+
+**Estimated return to full duty:** 6-8 weeks from current date (approximately [date]).
+
+> **Note for employer:** This patient's job requires 8 hours of continuous sitting and occasional lifting up to 25 lbs. The current functional limitations (20-minute sitting tolerance, 5 lb lifting limit) prevent performance of essential job functions without significant modification. Modified duty with a sit-stand workstation and no lifting may be feasible within 2-3 weeks.
+
+---
+
+## Tips & pitfalls
+
+- The most common reason disability claims are denied: functional limitations are vague. "Cannot work due to back pain" will be denied. "Cannot sit for more than 20 minutes continuously due to MRI-confirmed L4-L5 disc herniation with right L5 radiculopathy; job requires 8 hours of sitting" will be approved.
+- Always include objective findings (imaging, exam maneuvers, validated scores) that support each functional limitation. Subjective complaints alone are insufficient for most insurers.
+- For SSDI applications, the SSA evaluates residual functional capacity, not diagnosis. A severe diagnosis with preserved function will be denied; a moderate diagnosis with documented functional impairment may be approved.
+- Disability insurers and the SSA may request your records. Ensure your clinical notes are consistent with the limitations you document in the disability letter.
+- For FMLA intermittent leave, be as specific as possible about frequency and duration of episodes. "As needed" is not specific enough; "2-3 episodes per month, each lasting 1-2 days, triggered by symptom flares" is.
+- Medication side effects (sedation from gabapentin, cognitive impairment from opioids) are legitimate functional limitations. Document them.
+- Review the patient's actual job requirements before completing the form. A lifting restriction means something different for a desk worker than for a warehouse employee.
+
+---
+
+## Related
+
+- [Referral Letter](/templates/referral-letter) -- if the patient needs a specialist evaluation to support the disability claim
+- [Prior Authorization](/templates/prior-authorization) -- if the treatment plan requires insurance approval
+- [MDM Complexity](/templates/mdm-complexity) -- document the encounter complexity for the visit where disability paperwork is completed

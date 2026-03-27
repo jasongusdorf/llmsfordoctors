@@ -2,19 +2,20 @@
 title: "Patient Discharge Instructions"
 category: patient-education
 targetTool: any
-workflow: discharge-education
+workflow: inpatient-discharge-education
 tags: [beginner, patient-education, discharge, instructions, inpatient]
-lastUpdated: 2026-03-22
+lastUpdated: 2026-03-27
+socialPost: "Generate plain-language discharge instructions at a 6th grade reading level: what happened, what changed in the medications, what sends them back to the ER. Supplements your institution's standard AVS."
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
 
-Generates plain-language discharge instructions for patients leaving the hospital or ED. Covers diagnosis summary, what was done during the stay, medication changes, activity restrictions, follow-up appointments, and return precautions. Unlike the clinician-facing discharge summary template, this output is written directly for the patient at a 6th grade reading level. Designed to complement (not replace) your institution's standard discharge paperwork.
-
 ## When to use this
 
-Use this template when you need to create plain-language discharge instructions for a patient leaving the hospital or emergency department.
+Your patient is leaving the hospital and needs to understand what happened, what changed in their medications, and what should send them back to the ER. This template generates plain-language discharge instructions written directly to the patient at a 6th grade reading level. It supplements (not replaces) your institution's standard AVS paperwork.
+
+This is the patient-facing counterpart to the clinician-facing discharge summary.
 
 <Callout type="hipaa">
   De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
@@ -25,214 +26,103 @@ Use this template when you need to create plain-language discharge instructions 
 ## The prompt
 
 <PromptPlayground tool="Any LLM" title="Patient Discharge Instructions">
-You are a physician writing discharge instructions for a patient who is leaving the hospital. The patient has no medical background. Write at a 6th grade reading level. Use short sentences. Be specific and actionable. Avoid medical jargon. If a medical term is unavoidable, define it in parentheses. Use bullet points for action items. Bold any critical safety information.
+You are a physician writing discharge instructions for a patient leaving the hospital. The patient has no medical background. Your job is to make sure they understand what happened, what to do at home, and when to come back.
 
-Create discharge instructions based on the information below:
+### Rules
 
-**Why you were in the hospital**
-In 2–3 simple sentences, explain the reason for the visit and what was found/treated.
+- Write at a 6th grade reading level.
+- Keep sentences under 15 words when possible.
+- Define every medical term in parentheses on first use.
+- Use "you" and "your" throughout.
+- No abbreviations.
+- Warning signs must be concrete: "you gain more than 3 pounds in one day" not "fluid retention."
+- Medication instructions must include what it does, not just the name and dose.
+- Do not invent clinical details not provided below.
 
-**What we did**
-Brief summary of tests, treatments, or procedures performed during the stay.
+### Vocabulary
 
-**Your medications**
-For each medication change:
-- **New medications:** Name, dose, how often, what it's for, and key instructions
-- **Stopped medications:** Name and why it was stopped
-- **Changed medications:** Name, what changed, and why
+- Use "water pill" alongside diuretic names
+- Use "blood thinner" alongside anticoagulant names
+- Use "blood pressure medicine" not "antihypertensive"
+- Use the simplest accurate word available
 
-**Activity and diet**
-- What you can and cannot do (lifting, driving, exercise, work)
-- Dietary changes or restrictions
-- For how long each restriction applies
+### Output format
 
-**Follow-up appointments**
-- Who to see, when, and what it's for
-- Phone numbers to call for scheduling if not yet scheduled
-- Any tests that need to happen before the follow-up
+```
+YOUR DISCHARGE INSTRUCTIONS
+══════════════════════════════════════════
 
-**Wound care** (if applicable)
-Specific instructions for any incisions, drains, or wounds.
+Dear ***,
 
-**When to call your doctor**
-List specific symptoms that should prompt a call to the doctor's office.
+Why You Were in the Hospital
+────────────────────────────
+[2-3 simple sentences explaining why the patient
+was admitted and what was found.]
 
-**When to go to the emergency room**
-List specific symptoms that need emergency care. Be concrete (e.g., "chest pain that does not go away after 5 minutes," not just "chest pain").
+What We Did
+───────────
+- ***
+- ***
+- ***
 
----
-DISCHARGE INFORMATION:
-[Paste: reason for visit, diagnoses, treatments given, medication changes, activity restrictions, follow-up appointments, and any special instructions]
-</PromptPlayground>
+Your Medications
+────────────────
+| Medication | What It's For | How to Take It | New or Changed? |
+|------------|---------------|----------------|-----------------|
+| ***        | ***           | ***            | ***             |
+| ***        | ***           | ***            | ***             |
+| ***        | ***           | ***            | ***             |
 
----
+Medications that were STOPPED:
+- ***: [why it was stopped]
 
-## Variations
+Follow-Up Appointments
+──────────────────────
+| Doctor         | When              | What For            | Phone        |
+|----------------|-------------------|---------------------|--------------|
+| ***            | ***               | ***                 | ***          |
+| ***            | ***               | ***                 | ***          |
 
-### Surgical discharge
+Tests to complete before your follow-up:
+- ***
 
-<PromptPlayground tool="Any LLM" title="Surgical Discharge Instructions">
-You are a surgeon writing post-surgical discharge instructions for a patient. The patient has no medical background. Write at a 6th grade reading level. Use short sentences. Bold any critical safety information.
+Warning Signs
+─────────────
+Go to the ER if:
+- ***
+- ***
+- ***
+- ***
 
-Create discharge instructions based on the information below:
+Call your doctor if:
+- ***
+- ***
+- ***
 
-**Your surgery**
-In 2–3 simple sentences, explain what surgery was done and why.
+Activity and Diet
+─────────────────
+  What You Can Do
+  ───────────────
+  - ***
+  - ***
 
-**Wound care**
-- How to care for your incision (cleaning, bandage changes, when to shower)
-- What normal healing looks like (some redness, mild swelling, bruising is OK)
-- What is NOT normal (spreading redness, pus, foul smell, opening of the incision)
+  What to Avoid
+  ─────────────
+  - *** for *** [duration]
+  - *** for *** [duration]
 
-**Pain management**
-- Prescribed pain medication: name, dose, how often, maximum per day
-- When to switch to over-the-counter pain relief (Tylenol or ibuprofen)
-- Ice, elevation, and other non-medication pain strategies
-- **Important:** Do not drive or operate machinery while taking prescription pain medication
+  Diet
+  ────
+  - ***
+  - ***
+```
 
-**Activity restrictions**
-- No lifting more than [X] pounds for [duration]
-- No driving for [duration]
-- No submerging incision in water (no baths, pools, hot tubs) for [duration]
-- When you can return to work
-- When you can resume exercise
-
-**Your medications**
-- New medications and what they are for
-- Medications to restart and when
-- Medications that were stopped and why
-
-**Follow-up**
-- When to schedule your post-surgical visit
-- What will happen at that visit (wound check, staple/suture removal)
-- Who to call with questions before then
-
-**Go to the ER if:**
-- **Fever above 101.5 degrees F**
-- **Increasing redness, swelling, or drainage from the incision**
-- **Sudden severe pain not relieved by your pain medication**
-- **Difficulty breathing or chest pain**
-- **Heavy bleeding that soaks through the bandage**
-
----
-SURGICAL INFORMATION:
-[Paste: procedure performed, wound details, prescribed medications, activity restrictions, and follow-up plan]
-</PromptPlayground>
-
-### Short-stay / ED discharge
-
-<PromptPlayground tool="Any LLM" title="ED / Short-Stay Discharge Instructions">
-You are an emergency physician writing discharge instructions for a patient leaving the emergency department. The patient has no medical background. Write at a 6th grade reading level. Keep the entire document under 300 words. Use short sentences. Bold any critical safety information.
-
-Create discharge instructions based on the information below:
-
-**Why you came to the ER**
-One sentence explaining the reason for the visit.
-
-**What we found**
-One sentence explaining what tests showed and the diagnosis.
-
-**What we did**
-Brief list of treatments given in the ER.
-
-**What to do at home**
-- Medications: name, dose, how often, for how long
-- Rest and activity guidance
-- Diet guidance if applicable
-
-**Follow up with your doctor**
-- See your regular doctor within [TIMEFRAME]
-- Reason for follow-up in one sentence
-
-**Come back to the ER right away if:**
-List 3–5 specific warning signs in bold. Be very concrete.
-
----
-ED VISIT INFORMATION:
-[Paste: reason for visit, diagnosis, treatments, medications prescribed, and follow-up plan]
-</PromptPlayground>
-
-### Complex multi-problem discharge
-
-<PromptPlayground tool="Any LLM" title="Complex Discharge Instructions">
-You are a physician writing discharge instructions for a patient with multiple medical problems who is leaving the hospital. The patient has no medical background. Write at a 6th grade reading level. Use short sentences. Bold any critical safety information.
-
-This patient has several conditions and many medication changes. Organize the instructions clearly so they are not overwhelming.
-
-**Why you were in the hospital**
-2–3 sentences explaining the reason for the visit.
-
-**Your conditions**
-For each active condition, create a mini-section:
-
-**[Condition 1 Name — in plain language]**
-- What it is (one sentence)
-- What we did for it
-- What you need to do at home
-
-**[Condition 2 Name — in plain language]**
-- What it is (one sentence)
-- What we did for it
-- What you need to do at home
-
-(Repeat for each condition)
-
-**Your medication schedule**
-Create a simple table showing what to take and when:
-
-| Time of Day | Medication | Dose | What It's For |
-|---|---|---|---|
-| Morning | [Med] | [Dose] | [Purpose] |
-| Evening | [Med] | [Dose] | [Purpose] |
-
-List any medications that were STOPPED and why.
-
-**Activity and diet**
-Specific restrictions with timelines.
-
-**Follow-up appointments**
-Table format: Who, When, What For, Phone Number
-
-**Warning signs: Call your doctor**
-Organized by condition if applicable.
-
-**Warning signs: Go to the ER**
-3–5 most critical warning signs, bolded.
+Replace each *** with details specific to this patient's hospitalization and discharge plan.
 
 ---
 DISCHARGE INFORMATION:
-[Paste: all diagnoses, treatments, medication changes, restrictions, and follow-up plans]
+[Paste: reason for admission, diagnoses, treatments given, medication changes, activity restrictions, dietary changes, follow-up appointments, and any special instructions]
 </PromptPlayground>
-
----
-
-## Example output
-
-**Why you were in the hospital**
-
-You came to the hospital because you were having trouble breathing and your legs were very swollen. We found that your heart was not pumping as strongly as it should. This is called heart failure. Fluid was building up in your lungs and legs because your heart could not pump it through your body well enough.
-
-**What we did**
-
-- We gave you medicine through an IV to help your body get rid of extra fluid (a "water pill")
-- We did blood tests and an ultrasound of your heart
-- We checked your kidney function and electrolytes (blood salt levels)
-- We adjusted your medications
-
-**Your medications**
-
-- **New: Furosemide (Lasix) 40 mg** — Take one tablet every morning. This is a water pill that helps your body get rid of extra fluid so your legs do not swell and your breathing stays easier. You will urinate more often. Take it in the morning so it does not wake you up at night.
-- **New: Carvedilol 6.25 mg** — Take one tablet twice a day with food. This helps your heart pump better over time. You may feel a little dizzy at first; sit down if this happens.
-- **Continued: Lisinopril 10 mg** — Keep taking one tablet every morning. This protects your heart and kidneys.
-- **Stopped: Ibuprofen** — Do not take ibuprofen (Advil, Motrin) anymore. It can make heart failure worse and harm your kidneys. Use Tylenol (acetaminophen) for pain instead.
-
-**When to go to the emergency room**
-
-- **You cannot breathe when lying flat and need to sit up or use extra pillows to sleep**
-- **You gain more than 3 pounds in one day or 5 pounds in one week**
-- **You have chest pain that does not go away after 10 minutes**
-- **You feel lightheaded or faint**
-- **Your legs or feet swell up much more than they are now**
 
 ---
 
@@ -243,26 +133,341 @@ You came to the hospital because you were having trouble breathing and your legs
 | Reading level | Change to "4th grade" for low health literacy or "8th grade" for more detail |
 | Language | Add: "Write in [LANGUAGE]" |
 | Caregiver | Add: "Address instructions to the patient's caregiver rather than the patient directly" |
-| Pediatric | Add: "This is for a child's parent/guardian" |
-| Surgical discharge | Add: "Include a wound care section with specific instructions" |
+| Pediatric | Add: "This is for a child's parent/guardian. Use 'your child' throughout." |
 | Length | Add: "Keep the entire document to 2 pages maximum" |
-| Medication detail | Add: "For each new medication, also list the most common side effects" |
+| Medication detail | Add: "For each new medication, also list the 2 most common side effects and what to do about them" |
+| Wound care | Add: "Include a wound care section with daily instructions and what normal healing looks like vs. signs of infection" |
+
+---
+
+## Variations
+
+### Surgical discharge
+
+<PromptPlayground tool="Any LLM" title="Surgical Discharge Instructions">
+You are a surgeon writing post-surgical discharge instructions for a patient. The patient has no medical background.
+
+### Rules
+
+- Write at a 6th grade reading level.
+- Keep sentences under 15 words when possible.
+- Define every medical term in parentheses.
+- Use "you" and "your" throughout.
+- Bold all critical safety information.
+- Wound care must describe what normal healing looks like AND what is not normal.
+- Pain medication instructions must include maximum daily amount and when to switch to over-the-counter.
+
+### Output format
+
+```
+YOUR SURGICAL DISCHARGE INSTRUCTIONS
+══════════════════════════════════════════
+
+Your Surgery
+────────────
+[2-3 sentences explaining what was done and why.]
+
+Wound Care
+──────────
+  How to Care for Your Incision
+  ─────────────────────────────
+  - ***
+  - ***
+
+  Normal Healing
+  ──────────────
+  Some redness, mild swelling, and bruising are OK.
+
+  NOT Normal (Call Your Doctor)
+  ────────────────────────────
+  - Spreading redness beyond 1 inch from the incision
+  - Pus or foul-smelling drainage
+  - The incision opens up
+
+Pain Management
+───────────────
+- ***: Take *** every *** hours. Do not take more
+  than *** in 24 hours.
+- Switch to Tylenol or ibuprofen when: ***
+- Ice the area for 15 minutes on, 15 minutes off.
+- Do not drive while taking prescription pain medicine.
+
+Activity Restrictions
+─────────────────────
+- No lifting more than *** pounds for ***
+- No driving for ***
+- No baths, pools, or hot tubs for ***
+- Return to work: ***
+- Resume exercise: ***
+
+Your Medications
+────────────────
+| Medication | What It's For | How to Take It | New or Changed? |
+|------------|---------------|----------------|-----------------|
+| ***        | ***           | ***            | ***             |
+
+Follow-Up
+─────────
+- Schedule your post-surgical visit within: ***
+- At that visit: ***
+- Call the office with questions: ***
+
+Go to the ER if:
+- Fever above 101.5 degrees F
+- Bleeding that soaks through the bandage
+- Sudden severe pain not helped by your pain medicine
+- Trouble breathing or chest pain
+- ***
+```
+
+---
+SURGICAL INFORMATION:
+[Paste: procedure performed, wound details, prescribed medications, activity restrictions, and follow-up plan]
+</PromptPlayground>
+
+### ED discharge
+
+<PromptPlayground tool="Any LLM" title="ED Discharge Instructions">
+You are an emergency physician writing discharge instructions for a patient leaving the emergency department. The patient has no medical background.
+
+### Rules
+
+- Write at a 6th grade reading level.
+- Keep sentences under 15 words when possible.
+- Keep the entire document under 300 words.
+- Bold all critical safety information.
+- Use "you" and "your" throughout.
+- Warning signs must be concrete and specific.
+
+### Output format
+
+```
+YOUR ER VISIT SUMMARY
+══════════════════════════════════════════
+
+Why You Came In
+───────────────
+[One sentence.]
+
+What We Found
+─────────────
+[One sentence.]
+
+What We Did
+───────────
+- ***
+- ***
+
+What to Do at Home
+──────────────────
+  Medications
+  ───────────
+  - ***: *** dose, *** times per day, for *** days
+
+  Rest and Activity
+  ─────────────────
+  - ***
+
+  Diet
+  ────
+  - ***
+
+Follow Up
+─────────
+See your regular doctor within ***.
+Reason: ***
+
+Come Back to the ER Right Away if:
+- ***
+- ***
+- ***
+- ***
+```
+
+---
+ED VISIT INFORMATION:
+[Paste: reason for visit, diagnosis, treatments, medications prescribed, and follow-up plan]
+</PromptPlayground>
+
+### Complex multi-problem discharge
+
+<PromptPlayground tool="Any LLM" title="Complex Discharge Instructions">
+You are a physician writing discharge instructions for a patient with multiple medical problems who is leaving the hospital. The patient has no medical background and many medication changes to keep track of.
+
+### Rules
+
+- Write at a 6th grade reading level.
+- Keep sentences under 15 words when possible.
+- Define every medical term in parentheses.
+- Organize by condition so the patient can find what they need.
+- Use a single medication schedule table showing what to take and when.
+- Warning signs should be organized by condition when possible.
+- Bold all critical safety information.
+
+### Output format
+
+```
+YOUR DISCHARGE INSTRUCTIONS
+══════════════════════════════════════════
+
+Why You Were in the Hospital
+────────────────────────────
+[2-3 sentences.]
+
+Your Conditions
+───────────────
+
+  *** [Condition 1 in plain language]
+  ─────────────────────────────────
+  - What it is: ***
+  - What we did: ***
+  - What you do at home: ***
+
+  *** [Condition 2 in plain language]
+  ─────────────────────────────────
+  - What it is: ***
+  - What we did: ***
+  - What you do at home: ***
+
+Your Daily Medication Schedule
+──────────────────────────────
+| Time of Day | Medication | Dose | What It's For |
+|-------------|------------|------|---------------|
+| Morning     | ***        | ***  | ***           |
+| Morning     | ***        | ***  | ***           |
+| Evening     | ***        | ***  | ***           |
+| Bedtime     | ***        | ***  | ***           |
+
+Medications STOPPED:
+- ***: [reason]
+
+Follow-Up Appointments
+──────────────────────
+| Doctor | When | What For | Phone |
+|--------|------|----------|-------|
+| ***    | ***  | ***      | ***   |
+
+Activity and Diet
+─────────────────
+- ***
+- ***
+
+Warning Signs by Condition
+──────────────────────────
+  For your *** [condition 1]:
+  Call your doctor if: ***
+  Go to the ER if: ***
+
+  For your *** [condition 2]:
+  Call your doctor if: ***
+  Go to the ER if: ***
+```
+
+---
+DISCHARGE INFORMATION:
+[Paste: all diagnoses, treatments, medication changes, restrictions, and follow-up plans]
+</PromptPlayground>
+
+---
+
+## Example output
+
+```
+YOUR DISCHARGE INSTRUCTIONS
+══════════════════════════════════════════
+
+Dear Patient,
+
+Why You Were in the Hospital
+────────────────────────────
+You came to the hospital because you were having
+trouble breathing and your legs were very swollen.
+We found that your heart is not pumping as strongly
+as it should. This is called heart failure. Fluid was
+building up in your lungs and legs.
+
+What We Did
+───────────
+- Gave you medicine through an IV to help your body
+  get rid of extra fluid (a "water pill")
+- Did blood tests and an ultrasound of your heart
+- Checked your kidney function
+- Adjusted your medications
+
+Your Medications
+────────────────
+| Medication            | What It's For              | How to Take It                     | New or Changed? |
+|-----------------------|----------------------------|------------------------------------|-----------------|
+| Furosemide (Lasix)    | Removes extra fluid        | 40 mg, one pill every morning      | NEW             |
+| Carvedilol            | Helps your heart pump      | 6.25 mg, one pill twice a day      | NEW             |
+| Lisinopril            | Protects heart and kidneys | 10 mg, one pill every morning      | No change       |
+
+Medications that were STOPPED:
+- Ibuprofen (Advil, Motrin): makes heart failure worse
+  and can harm your kidneys. Use Tylenol for pain instead.
+
+Follow-Up Appointments
+──────────────────────
+| Doctor           | When              | What For                      | Phone          |
+|------------------|-------------------|-------------------------------|----------------|
+| Heart doctor     | Within 1 week     | Check weight, labs, medicines | (555) 555-0100 |
+| Regular doctor   | Within 2 weeks    | Overall check-up              | (555) 555-0200 |
+
+Tests to complete before your follow-up:
+- Blood test (BMP) in 5 days to check kidney function
+  and potassium
+
+Warning Signs
+─────────────
+Go to the ER if:
+- You cannot breathe when lying flat
+- You gain more than 3 pounds in one day or 5 pounds
+  in one week
+- You have chest pain lasting more than 10 minutes
+- You feel lightheaded or faint
+
+Call your doctor if:
+- Your legs or feet swell more than they are now
+- You feel dizzy when you stand up
+- You are urinating much less than usual
+
+Activity and Diet
+─────────────────
+  What You Can Do
+  ───────────────
+  - Walk around the house and gradually increase
+  - Light housework is fine
+
+  What to Avoid
+  ─────────────
+  - Heavy lifting (more than 10 pounds) for 2 weeks
+  - Strenuous exercise until your heart doctor clears you
+
+  Diet
+  ────
+  - Limit salt to less than 2,000 mg per day (less than
+    1 teaspoon). Check labels on canned soups, frozen
+    meals, and deli meat.
+  - Limit fluids to 2 liters (about 8 cups) per day
+  - Weigh yourself every morning. Write it down.
+```
 
 ---
 
 ## Tips & pitfalls
 
-- This template is distinct from the **Discharge Summary: Basic Template**, which produces a clinician-facing document for the receiving PCP. This template is for the patient themselves.
-- This is a supplement to your institution's standard AVS (After Visit Summary), not a replacement.
-- Pair with the **Medication Instructions** template for detailed med-by-med education.
-- Always verify the medication section against the actual medication reconciliation, as this is the highest-risk section for AI errors.
-- For complex discharges (e.g., new cancer diagnosis, ICU stay), the output will need significant review and may benefit from being paired with an in-person explanation.
-- For surgical discharges, add wound care and activity restriction details to the input, or use the Surgical Discharge variation.
-- The "When to go to the emergency room" section is the most safety-critical part. Review it carefully and make sure the warning signs are specific to the patient's condition, not generic.
+- **Verify the medication section against the actual med rec.** This is the highest-risk section for AI errors and the most consequential for patient safety. Cross-check every name, dose, and frequency.
+- **The "Go to the ER" section deserves line-by-line review.** Warning signs must be specific to this patient's conditions, not a generic list. A CHF patient needs weight gain thresholds. A post-surgical patient needs wound infection criteria. Different patients, different red flags.
+- **This is a supplement to your AVS, not a replacement.** Your institution's After Visit Summary has legal and billing implications. This template creates a more readable companion document.
+- **Pair with the Medication Instructions template for polypharmacy.** When a patient goes home on 8 medications with 3 changes, a separate med-by-med sheet helps.
+- **For complex discharges, the output needs significant review.** New cancer diagnoses, ICU stays, and multi-system illness generate lengthy instructions that benefit from an in-person walkthrough with the patient and a family member.
+- **Consider the caregiver.** If someone other than the patient will be managing medications and appointments at home, add that to your prompt input so the output is addressed appropriately.
+- **AI tends to generate generic diet advice.** "Eat a healthy diet" is useless. Specify the restrictions in your input: low sodium with a gram target, fluid restriction with a volume, diabetic diet with carb ranges.
 
 ---
 
 ## Related
 
-- [Medication Instructions](/templates/medication-instructions) — detailed med-by-med education to supplement discharge instructions
-- [Discharge Summary](/templates/discharge-summary-basic) — the clinician-facing counterpart sent to the receiving provider
+- [Medication Instructions](/templates/medication-instructions): detailed med-by-med education to supplement discharge instructions
+- [Discharge Summary](/templates/discharge-summary-basic): the clinician-facing counterpart sent to the receiving provider
+- [Condition Explainer](/templates/condition-explainer): a deeper explanation of the diagnosis itself

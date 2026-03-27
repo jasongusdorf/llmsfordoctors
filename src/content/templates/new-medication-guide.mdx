@@ -2,25 +2,25 @@
 title: "New Medication Guide"
 category: patient-education
 targetTool: any
-tags: [patient-education, medication, prescription, pharmacy]
-lastUpdated: 2026-03-22
+workflow: outpatient-visit-education
+tags: [beginner, patient-education, medication, prescription, pharmacy]
+lastUpdated: 2026-03-27
+socialPost: "One new prescription. A template for generating the single-medication deep dive the pharmacy printout doesn't provide: mechanism, side effects ranked by likelihood, food/drug interactions, missed dose guidance."
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
 
-This template takes a medication name, dose, and indication and produces a patient-friendly medication guide. It covers what the medication does, how to take it, side effects to watch for, and when to call the doctor.
-
 ## When to use this
 
-Use this template when a patient is starting a new medication or has a significant dose change and needs a comprehensive, plain-language medication guide.
+You just prescribed a new medication and the patient needs more than the pharmacy printout that nobody reads. This template generates a single-medication deep dive: what it does, how to take it, side effects ranked by likelihood, dangerous reactions, food and drug interactions, and what happens if they miss a dose. It fills the gap between "take this twice a day" and the 14-page pharmacy insert. For patients going home on multiple new medications at once, use the Medication Instructions template instead.
 
 <Callout type="hipaa">
   De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, and any other direct identifiers. Medication names and doses alone are generally not identifiable.
 </Callout>
 
 <Callout type="pitfall">
-  AI can generate plausible but incorrect medication information (wrong doses, missed interactions, outdated warnings). Always verify the output against a trusted drug reference (e.g., UpToDate, Lexicomp, Micromedex) before giving to the patient.
+  AI can generate plausible but incorrect medication information: wrong doses, missed interactions, outdated warnings. Always verify the output against a trusted drug reference (Lexicomp, Micromedex, UpToDate) before giving it to the patient.
 </Callout>
 
 ---
@@ -28,45 +28,125 @@ Use this template when a patient is starting a new medication or has a significa
 ## The prompt
 
 <PromptPlayground tool="Any LLM" title="New Medication Guide">
-You are a physician creating a medication guide for a patient who has just been prescribed a new medication. The patient has no medical background. Write at a 6th grade reading level using short sentences and simple words.
+You are a physician creating a medication guide for a patient who has just been prescribed a new medication. The patient has no medical background. Your job is to make sure they understand this medication well enough to take it safely and recognize problems early.
 
-Avoid medical jargon. If a medical term is unavoidable, define it in parentheses. Use bullet points for lists.
+### Rules
 
-Using the medication information provided below, create a patient medication guide with the following sections:
+- Write at a 6th grade reading level.
+- Keep sentences under 15 words when possible.
+- Define every medical term in parentheses on first use.
+- Use "you" and "your" throughout.
+- No abbreviations.
+- Use an everyday analogy to explain what the medication does if one fits naturally.
+- Side effects: list only the 3-5 most common and the 2-3 most dangerous. Describe what the patient will feel, not medical terminology.
+- Missed dose instructions must be specific to this medication, not generic.
+- Warning signs must be concrete: "your skin or the whites of your eyes turn yellow" not "hepatotoxicity."
+- Do not invent clinical details not provided below.
 
-**1. What This Medication Is For**
-Explain in 2–3 simple sentences what the medication does and why the doctor prescribed it. Use an analogy if helpful.
+### Vocabulary
 
-**2. How to Take It**
-- Dose and frequency (e.g., "Take 1 tablet by mouth every morning")
-- Take with food, on an empty stomach, or either
-- Best time of day to take it
-- What to do if you miss a dose
-- How long you will need to take it (if known)
+- Use "blood thinner" alongside anticoagulant names
+- Use "blood sugar medicine" alongside metformin, etc.
+- Use "blood pressure medicine" alongside ACE inhibitor names, etc.
+- Use the simplest accurate word available
 
-**3. Common Side Effects**
-List the 3–5 most common side effects. For each one, briefly explain:
-- What it feels like
-- Whether it usually goes away on its own
-- What to do about it (e.g., "take with food to reduce nausea")
+### Output format
 
-**4. Serious Side Effects: Call Your Doctor**
-List 3–5 serious side effects that mean the patient should call their doctor right away. **Bold each one.**
+```
+YOUR NEW MEDICATION
+══════════════════════════════════════════
 
-**5. Things to Avoid**
-List interactions to be aware of:
-- Foods to avoid (if any)
-- Other medications that interact (common OTC drugs, supplements)
-- Alcohol restrictions
-- Activity restrictions (e.g., "may cause drowsiness; do not drive until you know how it affects you")
+*** [Medication Name] (*** [Brand Name])
+────────────────────────────────────────
 
-**6. Storage**
-How to store the medication (room temperature, refrigerate, keep away from light, etc.).
+What This Medication Does
+─────────────────────────
+[2-3 sentences explaining what the medication does
+and why your doctor prescribed it. Use an analogy
+if it helps.]
+
+How to Take It
+──────────────
+- Dose: ***
+- How often: ***
+- With food, without food, or either: ***
+- Best time of day: ***
+- Special instructions: ***
+- How long you will take it: ***
+
+Common Side Effects
+───────────────────
+These are normal and usually get better on their own:
+
+- ***: [what it feels like, what to do about it]
+- ***: [what it feels like, what to do about it]
+- ***: [what it feels like, what to do about it]
+
+Dangerous Side Effects
+──────────────────────
+Go to the ER if:
+- ***
+- ***
+
+Call your doctor right away if:
+- ***
+- ***
+- ***
+
+Interactions to Avoid
+─────────────────────
+  Foods
+  ─────
+  - ***
+
+  Medications
+  ───────────
+  - ***
+  - ***
+
+  Other
+  ─────
+  - ***
+
+If You Miss a Dose
+──────────────────
+[Specific instructions for this medication:
+when to take the missed dose, when to skip it,
+and what never to do (e.g., never take a double
+dose).]
+
+Storage
+───────
+- ***
+- ***
+
+Important
+─────────
+- Do not stop taking this medication without
+  talking to your doctor.
+- Keep out of reach of children.
+- Bring this guide to your next doctor visit.
+```
+
+Replace each *** with details specific to the medication listed below.
 
 ---
 MEDICATION INFORMATION:
-[Paste the medication name, dose, frequency, indication, and any relevant patient history (e.g., kidney function, other medications) here]
+[Paste the medication name, dose, frequency, indication, and any relevant patient history (e.g., kidney function, other medications, allergies)]
 </PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Reading level | Change to "4th grade" for low health literacy or "8th grade" for more detail |
+| Multiple meds | Add: "Create a separate guide for each medication listed" |
+| Pediatric | Add: "This medication is for a child. Write instructions for the parent. Include liquid dose in mL with syringe markings." |
+| Antibiotic | Add: "Emphasize completing the full course even if the patient feels better after a few days" |
+| Language | Add: "Write in [LANGUAGE]" |
+| Monitoring required | Add: "This medication requires regular blood test monitoring. Explain what is being monitored and how often." |
 
 ---
 
@@ -75,88 +155,273 @@ MEDICATION INFORMATION:
 ### Injectable medication guide
 
 <PromptPlayground tool="Any LLM" title="Injectable Medication Guide">
-You are a physician creating a medication guide for a patient who has just been prescribed an injectable medication. The patient has no medical background and has never given themselves an injection before. Write at a 6th grade reading level. Use short sentences and simple words.
+You are a physician creating a medication guide for a patient who has just been prescribed an injectable medication. The patient has no medical background and has never given themselves an injection before.
 
-Using the medication information provided below, create a patient guide with:
+### Rules
 
-**1. What This Medication Is For**
-2–3 simple sentences explaining what the medication does and why injection is needed instead of a pill.
+- Write at a 6th grade reading level.
+- Keep sentences under 15 words when possible.
+- Use "you" and "your" throughout.
+- Injection instructions must be step-by-step with numbered steps.
+- Include site rotation, sharps disposal, and storage.
+- Describe what the injection feels like so the patient knows what to expect.
 
-**2. How to Give Yourself the Injection**
-Step-by-step instructions with numbered steps:
-1. Wash your hands with soap and water
-2. Gather your supplies: [medication, syringe/pen, alcohol swab, sharps container]
-3. Choose an injection site: [describe where — belly, thigh, back of arm — with clear instructions on rotating sites]
-4. Clean the skin with an alcohol swab and let it dry
-5. Prepare the medication: [pen or syringe specific instructions]
-6. Pinch the skin, insert the needle at [angle], inject slowly
-7. Remove the needle, apply gentle pressure with a cotton ball
-8. Dispose of the needle in your sharps container — never recap or throw in the trash
+### Output format
 
-**3. Injection Schedule**
-- How often: [frequency]
-- Best time of day
-- How to keep track (calendar, app, alarm)
-- What to do if you miss a dose
+```
+YOUR INJECTABLE MEDICATION GUIDE
+══════════════════════════════════════════
 
-**4. Common Side Effects**
-3–5 side effects with what to do about each one. Include injection site reactions (redness, swelling, bruising) and note that these are normal.
+*** [Medication Name]
+─────────────────────
 
-**5. Serious Side Effects: Call Your Doctor**
-3–5 serious warning signs, bolded.
+What This Medication Does
+─────────────────────────
+[2-3 sentences explaining what it does and why
+injection is needed instead of a pill.]
 
-**6. Storage**
-Refrigeration requirements, how to transport, what to do if left out.
+How to Give Yourself the Injection
+──────────────────────────────────
+1. Wash your hands with soap and water.
+2. Gather your supplies: ***
+3. Choose an injection site:
+   - *** [describe where: belly, thigh, back of arm]
+   - Use a different spot each time (rotate sites)
+4. Clean the skin with an alcohol swab. Let it dry.
+5. Prepare the medication: ***
+6. Pinch the skin. Insert the needle at a ***
+   degree angle. Inject slowly.
+7. Remove the needle. Press gently with a cotton
+   ball or gauze.
+8. Put the used needle in your sharps container.
+   Never recap or throw it in the trash.
 
-**7. Sharps Disposal**
-Where to get a sharps container and how to dispose of it when full.
+What it feels like: You may feel a brief pinch
+or sting. This is normal. Some burning at the
+site is OK.
+
+Your Injection Schedule
+───────────────────────
+- How often: ***
+- Best time of day: ***
+- How to remember: ***
+- If you miss a dose: ***
+
+Common Side Effects
+───────────────────
+- Injection site redness, swelling, or bruising:
+  this is normal and goes away in a few days
+- ***
+- ***
+
+Dangerous Side Effects
+──────────────────────
+Go to the ER if:
+- ***
+- ***
+
+Call your doctor right away if:
+- ***
+- ***
+
+Storage
+───────
+- ***
+- If left out of the refrigerator: ***
+- Traveling with your medication: ***
+
+Sharps Disposal
+───────────────
+- Use an FDA-approved sharps container (available
+  at any pharmacy).
+- When the container is 3/4 full, seal it and
+  return it to your pharmacy or a sharps drop-off
+  location.
+- Never throw loose needles in the trash or
+  recycling.
+```
 
 ---
 MEDICATION INFORMATION:
 [Paste the injectable medication name, dose, frequency, indication, and any relevant details]
 </PromptPlayground>
 
+### Medication requiring monitoring (e.g., warfarin)
+
+<PromptPlayground tool="Any LLM" title="Monitored Medication Guide">
+You are a physician creating a medication guide for a patient starting a medication that requires regular blood test monitoring. The patient has no medical background.
+
+### Rules
+
+- Write at a 6th grade reading level.
+- Keep sentences under 15 words when possible.
+- Use "you" and "your" throughout.
+- Explain what is being monitored and why in plain language.
+- Include target ranges described in terms the patient understands.
+- Include a clear explanation of what happens if levels are too high or too low.
+- Food interaction section must be thorough for medications like warfarin.
+
+### Output format
+
+```
+YOUR MEDICATION GUIDE: ***
+══════════════════════════════════════════
+
+What This Medication Does
+─────────────────────────
+[2-3 sentences.]
+
+How to Take It
+──────────────
+- Dose: ***
+- When: ***
+- Special instructions: ***
+
+Your Blood Tests
+────────────────
+  What is being tested: ***
+  What the test measures: *** [in plain language]
+  Your target range: ***
+  How often: ***
+
+  If your level is too high:
+  - What you might notice: ***
+  - What the doctor will do: ***
+
+  If your level is too low:
+  - What you might notice: ***
+  - What the doctor will do: ***
+
+Foods That Affect This Medication
+─────────────────────────────────
+  Eat a consistent amount of these foods each week
+  (do not suddenly eat much more or much less):
+  - ***
+  - ***
+  - ***
+
+  Avoid completely:
+  - ***
+
+  Why this matters: [1-2 sentences explaining why
+  food affects this medication's levels]
+
+Other Medications to Avoid
+──────────────────────────
+- ***
+- ***
+- Tell every doctor, dentist, and pharmacist that
+  you take this medication.
+
+Dangerous Signs
+───────────────
+Go to the ER if:
+- ***
+- ***
+- ***
+
+Call your doctor right away if:
+- ***
+- ***
+
+Daily Safety Habits
+───────────────────
+- ***
+- ***
+- ***
+
+If You Miss a Dose
+──────────────────
+***
+
+Important
+─────────
+- Carry a card or wear a bracelet that says you
+  take ***.
+- Do not start any new medication, supplement, or
+  herbal product without asking your doctor first.
+```
+
+---
+MEDICATION INFORMATION:
+[Paste the medication name, dose, frequency, indication, current INR/levels if applicable, and relevant patient details]
+</PromptPlayground>
+
 ### Controlled substance guide
 
-<PromptPlayground tool="Any LLM" title="Controlled Substance Medication Guide">
-You are a physician creating a medication guide for a patient who has been prescribed a controlled substance. The patient has no medical background. Write at a 6th grade reading level. Use short sentences. Be direct and clear about safety without being judgmental.
+<PromptPlayground tool="Any LLM" title="Controlled Substance Guide">
+You are a physician creating a medication guide for a patient prescribed a controlled substance. The patient has no medical background. Be direct and clear about safety without being judgmental.
 
-Using the medication information provided below, create a patient guide with:
+### Rules
 
-**1. What This Medication Is For**
-2–3 simple sentences explaining what the medication does and why the doctor prescribed it.
+- Write at a 6th grade reading level.
+- Keep sentences under 15 words when possible.
+- Use "you" and "your" throughout.
+- Include maximum daily amount.
+- Bold all critical safety information.
+- Include safe storage, disposal, and refill information.
+- Include overdose warning signs.
+- Be honest about dependency without stigmatizing.
 
-**2. How to Take It**
-- Exact dose and frequency
-- Maximum amount per day
-- Take with food or on an empty stomach
-- What to do if you miss a dose (NOT: "take a double dose")
-- **Important:** Take this medication exactly as prescribed. Do not take more than directed.
+### Output format
 
-**3. Safety Rules**
-- **Do not drive or operate machinery** until you know how this medication affects you
-- **Do not drink alcohol** while taking this medication — the combination can be dangerous
-- **Do not share this medication** with anyone else, even if they have similar symptoms
-- **Keep this medication locked up** and away from children, visitors, and anyone who might misuse it
-- **Do not stop suddenly** without talking to your doctor (if applicable — some medications require gradual tapering)
+```
+YOUR MEDICATION GUIDE: ***
+══════════════════════════════════════════
 
-**4. Common Side Effects**
-3–5 side effects with what to do about each. Include constipation, drowsiness, nausea if applicable.
+What This Medication Does
+─────────────────────────
+[2-3 sentences.]
 
-**5. Serious Side Effects: Call 911**
-Warning signs of overdose or serious reaction, bolded:
-- **Extreme drowsiness or you cannot stay awake**
-- **Very slow or shallow breathing**
-- **Blue or gray lips or fingertips**
-- **You cannot be woken up**
+How to Take It
+──────────────
+- Dose: ***
+- How often: ***
+- Maximum in 24 hours: ***
+- Take exactly as prescribed.
 
-**6. Safe Storage and Disposal**
-- Store in a locked cabinet or lockbox
-- Keep a count of your pills
-- When you are done: do NOT flush or throw in trash. Return unused medication to a pharmacy drop-off or use a drug disposal kit.
+Safety Rules
+────────────
+- Do not drive or use heavy machines.
+- Do not drink alcohol.
+- Do not share this medication with anyone.
+- Keep it locked away from children and visitors.
+- Do not stop suddenly without talking to your
+  doctor.
 
-**7. Refills**
-How refills work for controlled substances (may require a new prescription each time, no phone-in refills, etc.).
+Common Side Effects
+───────────────────
+- ***
+- ***
+- ***
+
+Call 911 If You Notice
+──────────────────────
+- Extreme drowsiness or cannot stay awake
+- Very slow or shallow breathing
+- Blue or gray lips or fingertips
+- The person cannot be woken up
+
+If you or someone in your household has an opioid
+prescription, ask your doctor about naloxone
+(Narcan). It can reverse an overdose.
+
+Safe Storage and Disposal
+─────────────────────────
+- Store in a locked cabinet or lockbox.
+- Count your pills regularly.
+- When done: return unused pills to a pharmacy
+  drop-off or use a drug disposal kit. Do not
+  flush or throw in the trash.
+
+Refills
+───────
+- ***
+
+If You Miss a Dose
+──────────────────
+***
+```
 
 ---
 MEDICATION INFORMATION:
@@ -167,65 +432,124 @@ MEDICATION INFORMATION:
 
 ## Example output
 
-**Amlodipine (Norvasc) 5 mg — Your New Medication Guide**
+```
+YOUR NEW MEDICATION
+══════════════════════════════════════════
 
-**1. What This Medication Is For**
-Amlodipine is a blood pressure medicine. It relaxes your blood vessels so blood can flow more easily. This lowers your blood pressure and reduces the strain on your heart. Think of it like loosening a tight garden hose so water flows through more smoothly.
+Metformin (Glucophage) 500 mg
+────────────────────────────────────────
 
-**2. How to Take It**
-- Take 1 tablet (5 mg) by mouth once a day
-- You can take it with or without food
-- Take it at the same time each day (many people choose the morning)
-- If you miss a dose: take it as soon as you remember. If it is almost time for your next dose, skip the missed one. Do not take two tablets at once.
-- You will likely need to take this medication long-term. Do not stop taking it without talking to your doctor, even if you feel fine.
+What This Medication Does
+─────────────────────────
+Metformin is a blood sugar medicine. It helps your
+body use insulin (a hormone that controls blood
+sugar) better. Think of insulin as a key that opens
+your cells to let sugar in for energy. Metformin
+makes that key work more smoothly, so less sugar
+stays in your blood.
 
-**3. Common Side Effects**
-- Swollen ankles or feet — this happens because the medicine relaxes your blood vessels. It is usually mild. Put your feet up when you can. Tell your doctor if it gets worse.
-- Headache — usually goes away after the first week or two. Over-the-counter Tylenol is OK.
-- Feeling flushed or warm — this is because your blood vessels are opening up. It is not dangerous.
-- Dizziness — especially when you stand up quickly. Stand up slowly. Sit back down if you feel unsteady.
+How to Take It
+──────────────
+- Dose: 1 tablet (500 mg)
+- How often: Twice a day
+- With food: Always take it with a meal. This
+  reduces stomach upset.
+- Best time of day: With breakfast and with dinner
+- Special instructions: Swallow the tablet whole
+  with a full glass of water. Do not crush or chew.
+- How long you will take it: This is a long-term
+  medication. You will likely take it for years.
+  Do not stop without talking to your doctor.
 
-**4. Serious Side Effects: Call Your Doctor**
-- **Your heart feels like it is racing or pounding**
-- **You faint or nearly faint**
-- **Severe swelling of your face, lips, or tongue** (this is rare but could be an allergic reaction — call 911)
-- **Chest pain that is new or worse than usual**
+Common Side Effects
+───────────────────
+These are normal and usually get better after the
+first 1-2 weeks:
 
-**5. Things to Avoid**
-- Grapefruit and grapefruit juice — these can increase the amount of medication in your blood
-- Limit alcohol — it can lower your blood pressure too much and make you dizzy
-- Be careful with OTC cold medicines that contain pseudoephedrine — they can raise your blood pressure
+- Upset stomach or nausea: Take with food. Eat
+  smaller, more frequent meals. This usually goes
+  away on its own.
+- Diarrhea: Drink plenty of water. Eat bland foods.
+  Tell your doctor if it does not improve after 2
+  weeks.
+- Metallic taste in your mouth: This usually fades
+  within a few weeks. Chewing sugar-free gum can
+  help.
 
-**6. Storage**
-Store at room temperature. Keep the bottle closed and away from moisture and heat.
+Dangerous Side Effects
+──────────────────────
+Go to the ER if:
+- You feel very cold, dizzy, or have trouble
+  breathing. This could be a rare but serious
+  reaction called lactic acidosis (a buildup of
+  acid in the blood).
+- Your blood sugar drops very low: shaking,
+  sweating, confusion. Eat or drink something
+  with sugar and call 911 if you do not feel
+  better in 15 minutes.
 
----
+Call your doctor right away if:
+- Nausea, vomiting, or diarrhea that does not go
+  away after 2 weeks
+- You feel very tired or weak for no clear reason
+- Unusual muscle pain or cramping
 
-## How to customize
+Interactions to Avoid
+─────────────────────
+  Foods
+  ─────
+  - Limit alcohol. Drinking too much alcohol while
+    on metformin can cause a dangerous drop in
+    blood sugar.
 
-| Element | How to Adjust |
-|---|---|
-| Multiple medications | Add: "Create a separate section for each medication listed below" |
-| Pediatric | Add: "This medication is for a child. Include age-appropriate instructions for the parent." |
-| Insulin/injectable | Add: "Include injection technique, site rotation, and sharps disposal instructions" |
-| Controlled substance | Add: "Include safe storage guidance and disposal instructions for unused medication" |
-| Antibiotic | Add: "Emphasize completing the full course even if the patient feels better" |
+  Medications
+  ───────────
+  - Tell your doctor before having any scan that
+    uses contrast dye (the kind where they inject
+    something into your vein). You may need to stop
+    metformin for a few days before and after.
+  - Tell your doctor about all other medications,
+    vitamins, and supplements you take.
+
+  Other
+  ─────
+  - No specific activity restrictions.
+
+If You Miss a Dose
+──────────────────
+Take it as soon as you remember, as long as it is
+still close to a mealtime. If it is almost time for
+your next dose, skip the missed one. Do not take
+two tablets at once to make up for a missed dose.
+
+Storage
+───────
+- Keep at room temperature.
+- Keep the bottle closed and away from moisture.
+
+Important
+─────────
+- Do not stop taking metformin without talking to
+  your doctor, even if you feel fine.
+- Keep out of reach of children.
+- Bring this guide to your next doctor visit.
+```
 
 ---
 
 ## Tips & pitfalls
 
-- This template is shared across the **Inpatient Discharge Education** and **Outpatient Visit Education** workflows. Use it whenever a patient starts a new medication or has a significant dose change.
-- For high-risk medications (anticoagulants, insulin, opioids, chemotherapy), the AI output should be considered a starting draft; pair it with institution-specific medication education resources.
-- Always cross-reference side effects and interactions against a current drug reference before giving to the patient.
-- The AI may generate technically correct but overly alarming side effect lists. Trim rare side effects if they would cause more anxiety than benefit for the patient.
-- For patients on many medications, consider using this template for the most important 1–2 new medications and using the **Medication Instructions** template for a combined daily schedule.
-- Pay special attention to the "Things to Avoid" section. Drug-food and drug-drug interactions are one of the most actionable parts of the guide and also one of the most error-prone for AI.
+- **Verify everything against a drug reference before printing.** AI can hallucinate plausible-sounding drug interactions, invent dose recommendations, and list outdated warnings. Lexicomp, Micromedex, or UpToDate should be your backstop for every output.
+- **The side effect list needs trimming.** AI defaults to completeness. Patients need relevance. Keep the 3-5 most common side effects they are likely to experience and the 2-3 most dangerous ones they need to recognize. Fifteen side effects is not helpful; it is terrifying.
+- **The "Interactions to Avoid" section is the most actionable part for patients.** It is also among the most error-prone for AI. Drug-food interactions and OTC medication conflicts are where patients make real mistakes. Double-check this section.
+- **For monitored medications (warfarin, lithium, methotrexate), use the monitoring variation.** These medications require different emphasis: target ranges, blood test schedules, and consequences of levels being too high or too low.
+- **This template goes deep on one medication.** For patients starting 3 or more medications at once, use the Medication Instructions template for a batch overview, then generate a New Medication Guide only for the highest-risk or most complex medication.
+- **AI may be overly reassuring about side effects.** "This usually goes away on its own" is not always true. Review each side effect note for clinical accuracy.
 
 ---
 
 ## Related
 
-- [Medication Instructions](/templates/medication-instructions) — batch medication schedule when the patient is on multiple meds
-- [Inpatient Discharge Education Workflow](/workflows/inpatient-discharge-education) — workflow that uses this template at discharge
-- [Outpatient Visit Education Workflow](/workflows/outpatient-visit-education) — workflow that uses this template after clinic visits
+- [Medication Instructions](/templates/medication-instructions): batch medication schedule for patients on multiple meds
+- [Discharge Instructions](/templates/discharge-instructions): broader discharge education that includes a medication section
+- [Condition Explainer](/templates/condition-explainer): background on the diagnosis that led to this prescription

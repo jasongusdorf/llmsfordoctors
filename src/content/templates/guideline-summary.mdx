@@ -4,7 +4,8 @@ category: literature-review
 targetTool: claude
 workflow: guideline-review
 tags: [intermediate, literature-review, guidelines, summary]
-lastUpdated: 2026-03-22
+lastUpdated: 2026-03-27
+socialPost: "New guideline published. This template distills it into key recommendations with evidence grades, highlights what changed from the prior version, and flags the controversies worth knowing about."
 ---
 
 import PromptPlayground from '../../components/PromptPlayground.astro';
@@ -12,9 +13,11 @@ import Callout from '../../components/Callout.astro';
 
 ## When to use this
 
-Use this template when you need to quickly distill a clinical practice guideline into an actionable reference. Best for when a new guideline has been published and you need to understand the key recommendations, what changed from the prior version, and how it applies to your practice. For comparing two guidelines on the same topic, use the **Guideline comparison** variation in the Evidence Comparison template instead.
+Use this template when a new clinical practice guideline has been published and you need to distill it into an actionable reference. It extracts key recommendations with their evidence grades, highlights what changed from the prior version, and identifies controversies. For comparing two guidelines on the same topic, use the **Guideline-vs-Guideline** variation in the Evidence Comparison template instead.
 
-Distills a clinical practice guideline into a concise, actionable reference. Paste in the guideline text (or key sections) and get a structured summary of recommendations organized by clinical scenario.
+<Callout type="evidence">
+  Guideline grading systems vary across organizations (ACC/AHA Class/Level, GRADE, USPSTF letter grades). This template preserves the original system used by the issuing body. Verify all grades against the source document.
+</Callout>
 
 ---
 
@@ -23,39 +26,91 @@ Distills a clinical practice guideline into a concise, actionable reference. Pas
 <PromptPlayground tool="Claude" title="Clinical Practice Guideline Summary">
 You are a clinical guidelines expert distilling a practice guideline for a physician audience.
 
-Given the guideline text below, produce:
+**Purpose:** Produce a structured, critical summary of a clinical practice guideline that preserves evidence grades, highlights changes, identifies controversies, and delivers a clinical bottom line.
 
-**Guideline Overview**
-- Organization and year of publication
-- Scope: What clinical question(s) does this guideline address?
-- Target population
-- Methodology (evidence-based, expert consensus, or mixed)
+### Rules
+- Preserve the original recommendation grading system used by the issuing body (ACC/AHA Class/Level, GRADE, USPSTF, etc.).
+- For each key recommendation, report the strength (strong/conditional or Class I/IIa/IIb/III) and the level of evidence (High/Moderate/Low or A/B/C).
+- Note the guideline's methodology: systematic review, expert consensus, Delphi, GRADE, or mixed.
+- Identify funding sources and panel conflicts of interest.
+- Flag recommendations based on expert opinion alone (lowest level of evidence).
+- Identify controversies and minority opinions within the panel.
+- Do not fabricate recommendations or evidence levels. If the guideline text does not include strength/quality ratings, state that and omit those fields.
 
-**Key Recommendations**
-For each major recommendation:
-- **Recommendation:** Clear, actionable statement of what to do
-- **Strength:** Strong / Conditional (or Class I/IIa/IIb/III if ACC/AHA format)
-- **Evidence Quality:** High / Moderate / Low / Very Low
-- **Clinical Scenario:** When this recommendation applies
+### Vocabulary
+- "Class I" = strong recommendation supported by evidence. "Class IIa" = reasonable to perform. "Class IIb" = may be considered. "Class III" = no benefit or harmful.
+- "Level A" = high-quality evidence from multiple RCTs. "Level B-R" = moderate from RCTs. "Level B-NR" = moderate from nonrandomized studies. "Level C-LD" = limited data. "Level C-EO" = expert opinion.
 
-**Algorithm/Decision Pathway**
-If the guideline includes a clinical algorithm, describe the decision pathway as a step-by-step text flowchart:
-1. Start: [Starting condition]
-2. If [condition A] → [action A]
-3. If [condition B] → [action B]
-...
+### Output format
 
-**What Changed from Previous Guideline**
-Highlight 3–5 key changes from the prior version (if identifiable from the text). Note any recommendations that were upgraded, downgraded, or newly added.
+```
+╔══════════════════════════════════════╗
+║  GUIDELINE OVERVIEW                  ║
+╚══════════════════════════════════════╝
+```
 
-**Quick Reference**
-A one-page cheat sheet version: the 5–7 most important recommendations a clinician needs to remember.
+- **Issuing Body:** [Organization]
+- **Year:** [Publication year]
+- **Scope:** What clinical question(s) does this guideline address?
+- **Target Population:** [Who the guideline applies to]
+- **Methodology:** [Systematic review, GRADE, expert consensus, etc.]
+- **Funding:** [Funding source]
+- **Conflicts of Interest:** [Panel COI summary, if identifiable]
 
-Do not fabricate recommendations or evidence levels. If the provided text does not include strength/quality ratings, omit those fields and note it.
+```
+╔══════════════════════════════════════╗
+║  KEY RECOMMENDATIONS TABLE           ║
+╚══════════════════════════════════════╝
+```
+
+| # | Recommendation | Class/Strength | Level of Evidence | Clinical Scenario | New or Changed? |
+|---|---------------|----------------|-------------------|-------------------|-----------------|
+| 1 | [Actionable recommendation] | [I / IIa / IIb / III or Strong / Conditional] | [A / B-R / B-NR / C-LD / C-EO or High / Mod / Low] | [When this applies] | [New / Upgraded / Downgraded / Unchanged] |
+
+```
+╔══════════════════════════════════════╗
+║  WHAT CHANGED FROM PRIOR VERSION     ║
+╚══════════════════════════════════════╝
+```
+
+For each major change:
+- What the previous recommendation was (with its prior grade)
+- What the new recommendation is (with its new grade)
+- Why it changed (new evidence, reinterpretation, methodology change)
+
+If the provided text does not include the prior version, state that and skip this section.
+
+```
+╔══════════════════════════════════════╗
+║  CONTROVERSIES / MINORITY OPINIONS   ║
+╚══════════════════════════════════════╝
+```
+
+- Recommendations where panel members dissented
+- Areas where evidence is weak but recommendations are strong (potential value-judgment-driven)
+- Recommendations that conflict with other major society guidelines
+
+```
+╔══════════════════════════════════════╗
+║  PRACTICE IMPLICATIONS               ║
+╚══════════════════════════════════════╝
+```
+
+- What workflow or prescribing changes are needed to follow this guideline?
+- What diagnostic thresholds or treatment targets changed?
+- What new medications, tests, or procedures are now recommended (or no longer recommended)?
+
+```
+╔══════════════════════════════════════╗
+║  CLINICAL BOTTOM LINE                ║
+╚══════════════════════════════════════╝
+```
+
+In 2-3 sentences: What is the single most important change or takeaway for a practicing clinician? What should you do differently starting Monday morning?
 
 ---
-GUIDELINE TEXT:
-[Paste the guideline text, executive summary, or key recommendation sections here]
+**GUIDELINE TEXT:**
+[Paste the guideline text, executive summary, or key recommendation sections here. If available, include the prior version's key recommendations for comparison.]
 </PromptPlayground>
 
 ---
@@ -64,141 +119,140 @@ GUIDELINE TEXT:
 
 | Element | How to Adjust |
 |---------|---------------|
-| Specialty filter | Add: "Focus only on recommendations relevant to [primary care/emergency medicine/hospitalist] practice" |
-| Comparison | Add: "Compare this guideline against the [OTHER ORGANIZATION] guideline on the same topic" |
-| Patient population | Add: "Highlight recommendations specific to [elderly/pediatric/pregnant] patients" |
-| Format | Add: "Format the quick reference as a table" |
+| Specialty filter | Add: "Focus only on recommendations relevant to [primary care / emergency medicine / hospitalist] practice" |
+| Patient population | Add: "Highlight recommendations specific to [elderly / pediatric / pregnant] patients" |
+| Prior version comparison | Add: "I am also pasting the [YEAR] version. Produce a detailed side-by-side comparison of what changed." |
+| Quick reference | Add: "After the full summary, produce a one-page pocket card with the 5-7 most important recommendations" |
+| Implementation | Add: "Include an implementation checklist for adopting these recommendations in a [hospital / outpatient / ED] setting" |
+| Format | Add: "Format the key recommendations table as a printable quick-reference card" |
 
 ---
 
 ## Variations
 
-### Quick reference card
+### Conflicting guideline comparison
 
-Use this when you need a concise, at-a-glance reference card from a guideline -- suitable for printing or saving to your phone. Strips away methodology and rationale to focus purely on actionable recommendations.
+Use this when two major societies have published guidelines on the same topic and their recommendations disagree. This variation identifies where they diverge and why, so you can make an informed choice about which to follow.
 
-<PromptPlayground tool="Claude" title="Guideline Quick Reference Card">
-You are a clinical guidelines expert creating a pocket reference card for a busy clinician.
+<PromptPlayground tool="Claude" title="Conflicting Guideline Comparison">
+You are a guideline methodologist comparing two clinical practice guidelines that disagree on key recommendations.
 
-Given the guideline text below, produce a concise quick reference card:
+**Purpose:** Identify where two guidelines agree, where they disagree, why they disagree, and which recommendation is better supported for a given practice setting.
 
-**Guideline:** [Organization, topic, year]
+### Rules
+- Preserve each guideline's original grading system.
+- For each disagreement, identify the specific evidence each guideline cites.
+- Note differences in methodology, panel composition, funding, and evidence review dates.
+- Do not fabricate guideline recommendations or evidence grades.
 
-**Diagnosis Criteria**
-If the guideline defines the condition, list the diagnostic criteria in a concise numbered list or table.
-
-**Treatment Algorithm**
-Present the treatment pathway as a simple stepwise flow:
-1. First-line: [treatment] (strength of recommendation)
-2. If inadequate response → [next step]
-3. If contraindication to first-line → [alternative]
-4. Refer to specialist if: [criteria]
-
-**Key Thresholds**
-List important numbers clinicians need to remember (e.g., BP targets, HbA1c goals, screening intervals, risk score cutoffs).
-
-**Do / Do Not**
-| Do | Do Not |
-|----|--------|
-| [Strong recommendation FOR] | [Strong recommendation AGAINST] |
-
-**Red Flags / When to Refer**
-Bullet list of indications for urgent referral, hospitalization, or specialist consultation.
-
-Keep the entire output to one page (approximately 300 words). Prioritize actionability over completeness.
-
-Do not fabricate recommendations.
-
----
-GUIDELINE TEXT:
-[Paste the guideline text here]
-</PromptPlayground>
-
-### Full guideline with evidence grades
-
-Use this when you need a comprehensive summary that preserves the evidence grading for each recommendation, suitable for a department guideline review meeting or formulary committee discussion.
-
-<PromptPlayground tool="Claude" title="Full Guideline Summary with Evidence Grades">
-You are a clinical guidelines methodologist producing a comprehensive summary for a department guideline review.
-
-Given the guideline text below, produce a detailed summary:
+### Output format
 
 **Guideline Overview**
-Organization, year, scope, target population, funding, methodology (systematic review, Delphi, GRADE, etc.), and any notable conflicts of interest.
 
-**Recommendations Table**
+| Feature | Guideline A | Guideline B |
+|---------|-------------|-------------|
+| Organization | | |
+| Year | | |
+| Methodology | | |
+| Evidence Review Cutoff | | |
+| Funding | | |
 
-| # | Recommendation | Strength | Evidence Quality | GRADE Certainty | Clinical Scenario | New/Changed? |
-|---|---------------|----------|------------------|----------------|-------------------|-------------|
-| 1 | [Actionable recommendation] | Strong/Conditional | High/Mod/Low/VeryLow | [if GRADE used] | [When applies] | [New/Upgraded/Downgraded/Unchanged] |
+**Side-by-Side Recommendations**
 
-**Evidence Basis for Key Recommendations**
-For the 3–5 most important or most changed recommendations, summarize the evidence that supports them:
-- What studies were cited?
-- How strong is the evidence?
-- Were there dissenting opinions or minority positions?
+| Clinical Decision | Guideline A (Grade) | Guideline B (Grade) | Agreement? |
+|-------------------|---------------------|---------------------|------------|
+| [Decision point] | [Rec + grade] | [Rec + grade] | [Yes / Partial / No] |
 
-**Clinical Algorithms**
-Reproduce any decision algorithms as text-based flowcharts.
+**Analysis of Disagreements**
+For each disagreement: what explains it? Different evidence reviewed? Different methodology? Different values or weighting of outcomes?
 
-**Implementation Considerations**
-What resources, workflows, or system changes are needed to follow this guideline? Are there known barriers to implementation?
-
-**Comparison to Prior Version**
-Detailed comparison: what was added, removed, upgraded, or downgraded. Why did key recommendations change?
-
-Do not fabricate recommendations, evidence grades, or cited studies.
+**Clinical Bottom Line**
+In 2-3 sentences: For your practice setting, which guideline is more applicable and why? Where does genuine uncertainty remain?
 
 ---
-GUIDELINE TEXT:
-[Paste the full guideline or key sections here]
+**GUIDELINE A TEXT:**
+[Paste Guideline A sections]
+
+**GUIDELINE B TEXT:**
+[Paste Guideline B sections]
 </PromptPlayground>
 
-### Implementation checklist
+### Rapid guideline update summary
 
-Use this when your team has already decided to adopt a guideline and you need a practical implementation checklist -- suitable for quality improvement, order set development, or workflow redesign.
+Use this when a society issues a focused update (not a full guideline revision) and you need to quickly understand what changed and what it means for your practice.
 
-<PromptPlayground tool="Claude" title="Guideline Implementation Checklist">
-You are a quality improvement specialist translating a clinical guideline into an actionable implementation plan.
+<PromptPlayground tool="Claude" title="Rapid Guideline Update Summary">
+You are a clinical guidelines expert summarizing a focused guideline update for a physician audience.
 
-Given the guideline text below, produce an implementation checklist:
+**Purpose:** Distill a focused update into what changed, why, and what to do about it. Skip everything that stayed the same.
 
-**Guideline:** [Organization, topic, year]
+### Rules
+- Focus exclusively on new or changed recommendations.
+- Preserve original recommendation grades.
+- Note the specific new evidence that prompted the update.
+- Do not fabricate recommendations or evidence grades.
 
-**Pre-Implementation Assessment**
-- [ ] Current practice gap analysis: How does our current practice differ from these recommendations?
-- [ ] Stakeholder identification: Which providers, departments, and support staff are affected?
-- [ ] Resource assessment: Do we have the necessary medications, tests, equipment, and staffing?
-- [ ] EHR/order set review: Do existing order sets need updating?
+### Output format
 
-**Clinical Workflow Changes**
-For each recommendation that requires a practice change:
-- [ ] **Change:** [What needs to change]
-- [ ] **Who is responsible:** [Role/department]
-- [ ] **Order set update needed:** [Yes/No — describe]
-- [ ] **Education needed:** [Brief description of training required]
-- [ ] **Timeline:** [Suggested implementation timeline]
+**Update Overview**
+- Organization, year, scope of update (what triggered it, what it covers).
 
-**Metrics & Monitoring**
-- [ ] **Process measure:** [e.g., % of eligible patients receiving recommended treatment]
-- [ ] **Outcome measure:** [e.g., 30-day readmission rate, complication rate]
-- [ ] **Balancing measure:** [e.g., adverse events from new treatment, cost impact]
-- [ ] **Review frequency:** [Monthly / Quarterly]
+**What Changed**
 
-**Patient Communication**
-- [ ] Patient education materials updated
-- [ ] Informed consent documents updated (if applicable)
-- [ ] Patient-facing FAQs developed for significant practice changes
+| # | Prior Recommendation (Grade) | New Recommendation (Grade) | Key New Evidence | Clinical Impact |
+|---|------------------------------|----------------------------|------------------|-----------------|
+| 1 | [Old rec] | [New rec] | [Study/data that prompted change] | [What to do differently] |
 
-**Documentation**
-- [ ] Note templates updated
-- [ ] Billing/coding guidance updated (if new procedures or diagnoses)
-- [ ] Quality reporting aligned with new recommendations
+**What Did NOT Change** (brief)
+One paragraph confirming that remaining recommendations are unchanged.
 
-Do not fabricate guideline recommendations. Frame all checklist items around the actual recommendations in the provided text.
+**Clinical Bottom Line**
+In 1-2 sentences: The one thing you need to know from this update.
 
 ---
-GUIDELINE TEXT:
+**FOCUSED UPDATE TEXT:**
+[Paste the focused update text here]
+
+**PRIOR FULL GUIDELINE TEXT (if available):**
+[Paste relevant sections of the prior full guideline for comparison]
+</PromptPlayground>
+
+### Specialty-specific guideline extraction
+
+Use this when a guideline covers a broad clinical domain and you need to extract only the recommendations relevant to your specific specialty or practice setting.
+
+<PromptPlayground tool="Claude" title="Specialty-Specific Guideline Extraction">
+You are a clinical guidelines expert extracting specialty-relevant recommendations from a broad guideline.
+
+**Purpose:** Filter a large guideline down to the recommendations that matter for a specific practice setting, with practical implementation notes.
+
+### Rules
+- Include only recommendations directly relevant to the specified specialty.
+- Preserve original recommendation grades.
+- Add practical implementation notes for each recommendation in the context of the specified setting.
+- Do not fabricate recommendations or evidence grades.
+
+### Output format
+
+**Filtered Recommendations for [SPECIALTY]**
+
+| # | Recommendation | Grade | Why It Matters for [SPECIALTY] | What to Do |
+|---|---------------|-------|-------------------------------|------------|
+| 1 | [Rec] | [Grade] | [Relevance] | [Action] |
+
+**What You Can Skip**
+Brief summary of guideline sections not relevant to this specialty.
+
+**Red Flags / When to Refer**
+Recommendations that indicate the patient needs a different specialist or a higher level of care.
+
+**Clinical Bottom Line**
+In 1-2 sentences: What does this guideline mean for a [SPECIALTY] clinician?
+
+---
+**Specialty:** [YOUR SPECIALTY AND PRACTICE SETTING]
+
+**GUIDELINE TEXT:**
 [Paste the guideline text here]
 </PromptPlayground>
 
@@ -209,69 +263,92 @@ GUIDELINE TEXT:
 Here is what the main prompt produces when given a realistic guideline summary:
 
 **Input provided:**
-The 2023 AHA/ACC/HFSA Guideline for the Management of Heart Failure (focused update), covering the key recommendation changes for HFrEF management.
+The 2023 AHA/ACC/HFSA Guideline for the Management of Heart Failure (focused update).
 
 **LLM output:**
 
-**Guideline Overview**
-- Organization: AHA/ACC/HFSA. Year: 2023 (focused update of 2022 guideline).
-- Scope: Management of heart failure, with emphasis on HFrEF pharmacotherapy updates.
-- Target population: Adults with heart failure (all stages).
-- Methodology: Systematic evidence review with GRADE-informed recommendations using ACC/AHA Class/Level of Evidence system.
+```
+╔══════════════════════════════════════╗
+║  GUIDELINE OVERVIEW                  ║
+╚══════════════════════════════════════╝
+```
 
-**Key Recommendations**
+- **Issuing Body:** AHA/ACC/HFSA
+- **Year:** 2023 (focused update of 2022 guideline)
+- **Scope:** Management of heart failure, with emphasis on HFrEF pharmacotherapy updates
+- **Target Population:** Adults with heart failure (all stages)
+- **Methodology:** Systematic evidence review with GRADE-informed recommendations using ACC/AHA Class/Level of Evidence system
+- **Funding:** AHA/ACC (no industry funding for guideline development)
+- **Conflicts of Interest:** Disclosed per ACC/AHA policy; several panel members reported consulting fees from SGLT2i and ARNI manufacturers
 
-- **Recommendation:** Initiate GDMT with four pillars (ARNI/ACEi/ARB, beta-blocker, MRA, SGLT2i) in all patients with HFrEF (LVEF ≤40%).
-  - **Strength:** Class I (Strong)
-  - **Evidence Quality:** Level A
-  - **Clinical Scenario:** All HFrEF patients without contraindications.
+```
+╔══════════════════════════════════════╗
+║  KEY RECOMMENDATIONS TABLE           ║
+╚══════════════════════════════════════╝
+```
 
-- **Recommendation:** SGLT2 inhibitors (dapagliflozin or empagliflozin) are recommended for HFrEF regardless of diabetes status.
-  - **Strength:** Class I (Strong)
-  - **Evidence Quality:** Level A
-  - **Clinical Scenario:** HFrEF, with or without type 2 diabetes. This is new since the 2017 guideline.
+| # | Recommendation | Class | Level | Clinical Scenario | New/Changed? |
+|---|---------------|-------|-------|-------------------|-------------|
+| 1 | Initiate GDMT with four pillars (ARNI/ACEi/ARB + beta-blocker + MRA + SGLT2i) in all HFrEF (LVEF ≤40%) | I | A | All HFrEF without contraindications | Updated |
+| 2 | SGLT2 inhibitors (dapagliflozin or empagliflozin) recommended for HFrEF regardless of diabetes status | I | A | HFrEF, with or without T2DM | New |
+| 3 | SGLT2 inhibitors recommended for HFpEF (LVEF >40%) to reduce HF hospitalizations | IIa | B-R | HFpEF with recurrent volume overload or HF hospitalizations | New |
+| 4 | ARNI preferred over ACEi/ARB in most HFrEF patients | I | A | HFrEF tolerating ACEi/ARB | Upgraded |
 
-- **Recommendation:** SGLT2 inhibitors are recommended for HFpEF (LVEF >40%) to reduce HF hospitalizations.
-  - **Strength:** Class IIa (Moderate)
-  - **Evidence Quality:** Level B-R
-  - **Clinical Scenario:** HFpEF patients with recurrent volume overload or HF hospitalizations.
+```
+╔══════════════════════════════════════╗
+║  WHAT CHANGED FROM PRIOR VERSION     ║
+╚══════════════════════════════════════╝
+```
 
-**Algorithm/Decision Pathway**
-1. Start: Patient diagnosed with HFrEF (LVEF ≤40%)
-2. Initiate all four pillars simultaneously or in rapid sequence: ACEi/ARB/ARNI + beta-blocker + MRA + SGLT2i
-3. If LVEF remains ≤35% on optimized GDMT → assess for ICD and/or CRT based on QRS duration
-4. If symptoms persist despite optimized GDMT → consider hydralazine/nitrate (especially in Black patients), ivabradine (if HR >70 and in sinus rhythm), or referral for advanced HF therapies
-5. If LVEF improves to >40% on GDMT → continue all medications (do not de-escalate)
+1. **SGLT2 inhibitors added as fourth pillar of GDMT** (previously not included). Driven by DAPA-HF and EMPEROR-Reduced trials showing mortality and hospitalization benefits independent of diabetes.
+2. **HFpEF now has a pharmacologic recommendation** (SGLT2i, Class IIa). Previously, HFpEF management was limited to diuretics and comorbidity management. Driven by EMPEROR-Preserved and DELIVER trials.
+3. **Simultaneous initiation of all four pillars emphasized** over sequential titration. Rationale: early benefit from each class, no evidence that sequential approach is safer.
+4. **ARNI upgraded to preferred over ACEi/ARB** (previously positioned as a step-up after ACEi). Driven by growing real-world data supporting first-line use.
 
-**What Changed from Previous Guideline**
-1. SGLT2 inhibitors added as a new pillar of GDMT (Class I) -- previously not included.
-2. HFpEF treatment now has a pharmacologic recommendation (SGLT2i) -- previously limited to diuretics and comorbidity management.
-3. Emphasis on simultaneous initiation of all four pillars rather than sequential titration.
-4. ARNI preferred over ACEi/ARB in most patients (previously positioned as a step-up after ACEi).
+```
+╔══════════════════════════════════════╗
+║  CONTROVERSIES / MINORITY OPINIONS   ║
+╚══════════════════════════════════════╝
+```
 
-**Quick Reference**
-1. All HFrEF patients should be on four drug classes: ARNI (or ACEi/ARB), beta-blocker, MRA, SGLT2i.
-2. SGLT2 inhibitors work regardless of diabetes status.
-3. Start all four pillars early; do not wait to titrate one before starting the next.
-4. If LVEF recovers above 40%, continue all GDMT. Do not stop medications based on improved EF.
-5. HFpEF now has an evidence-based pharmacotherapy option: SGLT2 inhibitors.
-6. Refer for advanced therapies if symptoms persist despite optimized four-pillar GDMT.
+- Simultaneous initiation of four drug classes remains debated. Some panelists noted the evidence for simultaneous vs. sequential initiation comes from registry data, not RCTs.
+- The Class IIa recommendation for SGLT2i in HFpEF is stronger than some panelists felt the evidence supported, given that EMPEROR-Preserved and DELIVER showed reduced hospitalizations but no mortality benefit.
+
+```
+╔══════════════════════════════════════╗
+║  PRACTICE IMPLICATIONS               ║
+╚══════════════════════════════════════╝
+```
+
+- Every HFrEF patient should be assessed for all four drug classes at every visit. The goal is not "add one drug at a time" but "get to four drugs as quickly as tolerated."
+- SGLT2 inhibitors are now indicated in heart failure even without diabetes. Insurance coverage for this indication is still catching up; prior authorization may be required.
+- HFpEF patients now have an evidence-based pharmacotherapy option. Start dapagliflozin or empagliflozin in HFpEF patients with recurrent hospitalizations.
+- If LVEF recovers above 40% on GDMT, continue all medications. Do not de-escalate based on improved EF.
+
+```
+╔══════════════════════════════════════╗
+║  CLINICAL BOTTOM LINE                ║
+╚══════════════════════════════════════╝
+```
+
+The most important change: SGLT2 inhibitors are now a core pillar of heart failure therapy for both HFrEF and HFpEF, independent of diabetes status. Start all four GDMT classes early and simultaneously in HFrEF. For HFpEF, SGLT2 inhibitors are the first drug class with a guideline recommendation.
 
 ---
 
 ## Tips & pitfalls
 
-- Guidelines are periodically updated. Always check that you are referencing the most current version before acting on recommendations.
-- Some organizations (ACC/AHA, IDSA, ATS) use different grading systems; the AI will attempt to standardize, but verify against the source document.
-- This works best when you paste the full recommendation sections, not just the abstract or executive summary.
-- **Common AI failure mode:** The model may assign evidence grades that are not in the original guideline text, or may confuse ACC/AHA Class (strength) with Level of Evidence (quality). Always cross-check grading against the source.
-- **Focused updates vs. full guidelines:** If the guideline is a focused update, the model needs the original guideline text too to accurately describe "what changed." Provide both documents if possible.
-- **Conflicting guidelines:** Different societies sometimes issue conflicting recommendations on the same topic. This template summarizes one guideline at a time. For cross-guideline comparison, use the **Guideline comparison** variation in the Evidence Comparison template.
+- Guidelines are periodically updated. Always verify you are referencing the most current version before acting on recommendations.
+- Some organizations (ACC/AHA, IDSA, ATS, USPSTF) use different grading systems. The AI will attempt to preserve the original system, but verify against the source document.
+- This template works best when you paste the full recommendation sections, not just the abstract or executive summary. The more text you provide, the more accurate the extraction.
+- The model may assign evidence grades that are not in the original text, or confuse ACC/AHA Class (strength of recommendation) with Level of Evidence (quality of supporting data). Always cross-check grades against the source.
+- For focused updates, the model needs the original guideline text to accurately describe what changed. Provide both documents when possible.
+- Guideline panels sometimes make strong recommendations based on weak evidence (driven by clinical judgment or ethical considerations). The model should flag these, but verify independently.
+- Different societies sometimes issue conflicting recommendations on the same topic. This template summarizes one guideline at a time. For cross-guideline comparison, use the **Conflicting Guideline Comparison** variation or the Evidence Comparison template.
 
 ---
 
 ## Related
 
-- [Article Summary](/templates/article-summary) — summarize the individual studies a guideline is built on
-- [Evidence Comparison](/templates/evidence-comparison) — compare the landmark trials behind guideline recommendations
-- [PICO Research Question Builder](/templates/research-question) — frame the clinical question the guideline addresses
+- [Article Summary](/templates/article-summary) -- summarize the individual studies a guideline is built on
+- [Evidence Comparison](/templates/evidence-comparison) -- compare the landmark trials behind guideline recommendations
+- [Clinical Question Answerer](/templates/clinical-question) -- answer a specific clinical question using guideline recommendations and evidence

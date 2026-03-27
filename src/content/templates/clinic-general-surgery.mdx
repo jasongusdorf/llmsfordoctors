@@ -1,0 +1,741 @@
+---
+title: "General Surgery Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, general-surgery, surgical, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "A general surgery clinic template that identifies the primary condition and structures the note around it — pulling mesh history for hernias, receptor status for breast cancer, TNM staging for colon cancer."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+You see hernia patients and gallbladder patients and breast mass patients and thyroid nodule patients, and the clinic note for each requires a different constellation of data. A hernia note without mesh history is incomplete. A breast cancer note without receptor status is useless to the oncologist. This template identifies the primary surgical condition from your clinical data and structures the note around it, pulling the right disease-specific fields (imaging characteristics, pathology, staging, operative candidacy) without you having to remember which details matter for which diagnosis. It covers the six conditions that fill most general surgery clinic schedules: hernias, gallstone disease, breast mass or cancer, colon cancer, thyroid nodules, and appendicitis follow-up.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="General Surgery Clinic Visit Note">
+You are an outpatient general surgeon writing a clinic visit note after seeing a patient for a surgical consultation, pre-operative planning, post-operative follow-up, or surveillance visit. The patient's primary surgical condition is one of: hernia, gallstone disease, breast mass or cancer, colon cancer, thyroid nodule, or appendicitis follow-up. Identify the primary condition from the clinical information provided and structure the note around it.
+
+### Purpose
+
+Generate a complete, structured outpatient general surgery clinic note from the clinical data below. The note must capture disease-specific diagnostic data, surgical history, operative candidacy assessment, and a concrete plan (whether surgical or conservative).
+
+### Rules
+
+- Write in past tense for history and prior events; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use (e.g., "right upper quadrant (RUQ) ultrasound"), then abbreviation only thereafter.
+- Include specific numbers for all values: lab results, vitals, imaging measurements, dates.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Organize the Assessment as a problem list with the primary surgical condition first.
+- Plan items must be specific and actionable: procedure name, approach, preoperative requirements, referral details, follow-up interval. Never write "consider surgery" without specifying what surgery, what approach, and what needs to happen first.
+- For hernia patients: document type, location, size (exam and imaging), reducibility, incarceration history, mesh history from prior repairs, and symptom severity.
+- For breast patients: document imaging with BI-RADS classification, biopsy pathology including receptor status (ER, PR, HER2), genetic testing results (BRCA), and surgical plan (lumpectomy vs mastectomy, sentinel lymph node biopsy).
+- For gallstone disease: document RUQ ultrasound findings, HIDA scan results, MRCP/ERCP if performed, and symptom pattern (frequency, triggers, severity).
+- For colon cancer: document colonoscopy findings with pathology, CT staging, carcinoembryonic antigen (CEA) level, and surgical plan (approach, resection type, anastomosis plan).
+- For thyroid nodules: document ultrasound characteristics with TI-RADS score, fine-needle aspiration (FNA) with Bethesda classification, thyroid-stimulating hormone (TSH), and surgical plan (lobectomy vs total thyroidectomy).
+- Document operative candidacy: American Society of Anesthesiologists (ASA) class, relevant comorbidities, anticoagulation status, body mass index (BMI), nutritional status.
+- For post-op visits: document wound exam (healing, surgical site infection signs, seroma, hematoma), drain output if applicable, pathology results, and adjuvant therapy plan.
+- Do not infer or fabricate any clinical information not provided. Write "[Not provided; verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "SSI" = surgical site infection
+- "BI-RADS" = Breast Imaging Reporting and Data System
+- "TI-RADS" = Thyroid Imaging Reporting and Data System
+- "FNA" = fine-needle aspiration
+- "CEA" = carcinoembryonic antigen
+- "ASA" = American Society of Anesthesiologists
+- "BMI" = body mass index
+- "SLN" = sentinel lymph node
+- "HIDA" = hepatobiliary iminodiacetic acid
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+GENERAL SURGERY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[New surgical consultation / Pre-operative planning / Post-operative follow-up / Surveillance]
+Interval since last visit: [duration]
+Referring provider: ***
+
+CHIEF CONCERN
+─────────────
+***
+
+SURGICAL HISTORY
+────────────────
+  Prior abdominal/thoracic surgeries:
+    - [Date]: [Procedure, approach (open/laparoscopic/robotic), complications]
+    - [Date]: [Procedure]
+  Prior mesh implants: [None / describe type, location, date]
+  Anesthesia history: [Complications: none / difficult airway / MH / PONV / other]
+
+DISEASE-SPECIFIC HISTORY
+─────────────────────────
+
+  [FOR HERNIA:]
+  Hernia Details
+  ──────────────
+    Type: [Inguinal (direct/indirect) / Ventral / Incisional / Umbilical / Femoral / Hiatal]
+    Location: [Right / Left / Midline / specify]
+    Duration of symptoms: ***
+    Size on exam: *** cm
+    Size on imaging: *** cm (CT/US, date)
+    Reducibility: [Easily reducible / Reducible with effort / Irreducible]
+    Incarceration episodes: [None / describe with dates]
+    Symptoms: [Pain, obstruction symptoms, cosmetic concern]
+    Prior repair history: [None / date, approach, mesh Y/N, recurrence]
+
+  [FOR BREAST MASS/CANCER:]
+  Breast Details
+  ──────────────
+    Laterality: [Right / Left / Bilateral]
+    Imaging:
+      Mammogram: [Date, findings, BI-RADS ***]
+      Ultrasound: [Date, findings]
+      MRI: [Date, findings, if applicable]
+    Biopsy: [Date, method (core needle / excisional)]
+      Pathology: ***
+      Receptor status: ER [+/-], PR [+/-], HER2 [+/-], Ki-67 ***%
+    Genetic testing: [Not done / BRCA1/2 status / other panel results]
+    Clinical stage: T*** N*** M***
+    Multidisciplinary tumor board: [Date, recommendation]
+    Surgical plan: [Lumpectomy / Mastectomy (simple/modified radical)]
+      SLN biopsy: [Planned / Completed, results]
+      Reconstruction: [Not planned / Immediate / Delayed, type]
+
+  [FOR GALLSTONE DISEASE:]
+  Biliary Details
+  ───────────────
+    RUQ ultrasound: [Date, gallstone size/number, wall thickness, CBD diameter, pericholecystic fluid]
+    HIDA scan: [Date, EF ***%, findings]
+    MRCP: [Date, findings, if applicable]
+    ERCP: [Date, findings/interventions, if applicable]
+    Symptom pattern: [Frequency of attacks, duration, triggers (fatty food, large meals)]
+    Complications: [None / pancreatitis / cholangitis / choledocholithiasis]
+    Liver function tests (LFTs): AST ***, ALT ***, Alk Phos ***, T. Bili ***
+
+  [FOR COLON CANCER:]
+  Colon Details
+  ─────────────
+    Colonoscopy: [Date, location of mass, size, % obstruction]
+      Pathology: [Adenocarcinoma, differentiation, other features]
+    CT chest/abdomen/pelvis: [Date, staging findings]
+    PET/CT: [Date, findings, if applicable]
+    CEA: *** ng/mL
+    Clinical stage: T*** N*** M***
+    MSI/MMR status: ***
+    Neoadjuvant therapy: [None / completed, regimen, response]
+    Surgical plan: [Right/left/sigmoid colectomy, approach, anastomosis type]
+
+  [FOR THYROID NODULE:]
+  Thyroid Details
+  ───────────────
+    Ultrasound: [Date, nodule size, location, TI-RADS score, characteristics]
+    FNA: [Date, Bethesda category (I-VI), specific cytology]
+    Molecular testing: [Not done / Afirma / ThyroSeq, result]
+    TSH: *** mIU/L
+    Calcitonin: *** [if checked]
+    Vocal cord exam: [Normal / findings]
+    Surgical plan: [Lobectomy / Total thyroidectomy]
+    Central neck dissection: [Planned / Not planned]
+
+  [FOR APPENDICITIS FOLLOW-UP:]
+  Appendicitis Details
+  ────────────────────
+    Date of appendectomy: ***
+    Approach: [Laparoscopic / Open / Converted]
+    Pathology: [Acute appendicitis / Perforated / Appendiceal neoplasm]
+    Complications: [None / abscess / wound infection / ileus]
+    Interval appendectomy: [If applicable, planned date]
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph covering symptoms and events since last visit
+or since the condition was identified. Include pain, functional
+limitations, bowel function, dietary changes, weight changes,
+and any interim hospitalizations or ED visits.]
+
+CURRENT MEDICATIONS
+───────────────────
+  Anticoagulants/Antiplatelets: ***
+  Other relevant medications: ***
+  Allergies: ***
+
+OPERATIVE CANDIDACY
+───────────────────
+  ASA class: [I / II / III / IV]
+  BMI: ***
+  Relevant comorbidities: ***
+  Anticoagulation: [None / drug, plan for perioperative management]
+  Smoking: [Never / Former / Current, cessation status]
+  Nutritional status: [Albumin ***, prealbumin ***]
+  Cardiopulmonary clearance: [Not needed / Obtained (date) / Pending]
+  Anesthesia evaluation: [Not needed / Scheduled / Completed]
+
+VITAL SIGNS
+───────────
+  BP: ***
+  HR: ***
+  Weight: *** [change from last visit: ***]
+  BMI: ***
+  Temp: ***
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: ***
+  Abdomen: ***
+    Surgical site/hernia exam: [Detailed findings: size, reducibility,
+    tenderness, skin changes, mesh palpability]
+  Wound exam (post-op): [Incision healing, erythema, drainage, dehiscence,
+    seroma, hematoma]
+  Breast exam (if applicable): [Mass characteristics, skin changes,
+    axillary nodes]
+  Neck exam (if applicable): [Thyroid palpation, lymphadenopathy,
+    voice quality]
+  Other: ***
+
+DIAGNOSTICS
+───────────
+  Labs: ***
+  Imaging: ***
+  Pathology: ***
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [primary surgical condition]
+presenting for [visit type]. [One-sentence trajectory statement.]
+
+  1. [Primary surgical condition]
+     [Brief assessment: diagnosis, stage/severity, surgical indication
+     or post-op recovery status.]
+
+  2. [Secondary surgical or medical condition]
+     [Brief assessment.]
+
+  3. [Other relevant conditions]
+     [Brief assessment.]
+
+PLAN
+────
+  1. [Primary surgical condition]
+     - [Specific action: schedule surgery (procedure, approach, date),
+       order additional workup, continue surveillance, wound care
+       instructions]
+     - [Specific action]
+     - [Specific action]
+
+  2. [Secondary condition]
+     - [Specific action]
+
+  3. [Perioperative optimization, if pre-op]
+     - [Anticoagulation bridge plan]
+     - [Smoking cessation requirement]
+     - [Nutritional optimization]
+     - [Pre-op labs/testing to order]
+
+  Informed Consent
+  ────────────────
+  [If surgery planned: risks, benefits, alternatives discussed.
+  Patient verbalizes understanding and wishes to proceed.
+  OR: Risks/benefits of observation vs surgery discussed.]
+
+  Follow-Up
+  ─────────
+  [Return to clinic in [interval] / Pre-op visit scheduled for [date] /
+  Surgery scheduled for [date].]
+  [Criteria for earlier return or ED visit.]
+
+DISPOSITION
+───────────
+[Patient counseled on ***, agrees with plan. Return precautions reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: reason for visit, surgical history, disease-specific details (imaging, pathology, symptoms), current medications, vitals, exam findings, labs, and operative candidacy information.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Visit type | Change the visit type field and add context. For a new surgical consultation: "Include a full review of the referring provider's workup and your independent assessment of surgical indication." |
+| Emergency surgery follow-up | Add: "This patient had an emergent operation. Document the indication, intraoperative findings, and interval recovery with particular attention to complications and delayed presentation of injury." |
+| Minimally invasive focus | Add: "Discuss approach selection (laparoscopic vs robotic vs open) with rationale, conversion risk, and patient-specific factors favoring the chosen approach." |
+| Bariatric surgery | Add: "This is a bariatric surgery evaluation. Include BMI trajectory, weight loss attempts, obesity-related comorbidities, insurance requirements, and psychological clearance status." |
+| Pediatric surgery | Add: "This is a pediatric patient. Adjust the note for age-appropriate exam, growth percentiles, and parental counseling. Include developmental considerations for timing of elective repair." |
+
+---
+
+## Variations
+
+### Pre-operative surgical consultation
+
+Use this when a patient is referred for surgical evaluation and you are determining whether surgery is indicated, which procedure to offer, and what the patient needs before the operating room.
+
+<PromptPlayground tool="Claude" title="Pre-Operative Surgical Consultation">
+You are an outpatient general surgeon writing a clinic note for a new surgical consultation. The patient has been referred for evaluation of a surgical condition. Structure the note around diagnostic review, surgical indication, risk assessment, and operative planning.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the referring provider's workup and your independent assessment of its adequacy.
+- State the surgical indication clearly. If the indication is relative rather than absolute, explain the reasoning.
+- Assess operative risk: ASA class, comorbidities, optimization needed.
+- Plan must include: specific procedure, planned approach, pre-op requirements, anticipated timeline.
+- Document informed consent discussion: procedure, risks (including procedure-specific complications), benefits, alternatives including observation.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+SURGICAL CONSULTATION NOTE
+══════════════════════════════════════════
+
+REASON FOR REFERRAL
+───────────────────
+Referred by [provider/specialty] for evaluation of ***.
+
+HISTORY OF PRESENT ILLNESS
+───────────────────────────
+[Narrative: onset, duration, progression, prior workup, prior
+treatments, current symptom burden. Disease-specific details
+as appropriate.]
+
+SURGICAL HISTORY
+────────────────
+  [Prior surgeries with dates, approach, complications.]
+
+REVIEW OF OUTSIDE WORKUP
+─────────────────────────
+  Imaging: [Study, date, key findings, adequacy for surgical planning]
+  Labs: [Relevant results]
+  Pathology: [If applicable, results and adequacy]
+  Assessment: [Workup adequate / Additional studies needed: ***]
+
+OPERATIVE CANDIDACY
+───────────────────
+  ASA class: ***
+  BMI: ***
+  Comorbidities: ***
+  Anticoagulation: ***
+  Smoking: ***
+  Optimization needed: [None / list specific requirements]
+
+PHYSICAL EXAMINATION
+────────────────────
+  [Focused exam relevant to the surgical condition.]
+
+ASSESSMENT
+──────────
+[Summary statement with diagnosis, surgical indication, and
+risk-benefit analysis.]
+
+PLAN
+────
+  1. Surgical recommendation
+     - Procedure: ***
+     - Approach: [Open / Laparoscopic / Robotic]
+     - Rationale for approach: ***
+
+  2. Pre-operative requirements
+     - [Labs, imaging, clearances needed]
+     - [Optimization: smoking cessation, weight loss, A1c target, etc.]
+
+  3. Informed consent
+     - Procedure explained: ***
+     - Risks discussed: [procedure-specific complications list]
+     - Benefits: ***
+     - Alternatives: [observation, medical management, other procedures]
+     - Patient [wishes to proceed / wishes to consider further / declines]
+
+  4. Timeline
+     - [Pre-op visit: date]
+     - [Surgery: target date or "after optimization achieved"]
+     - [Expected recovery: duration, restrictions]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: referral reason, symptom history, prior workup (imaging, labs, pathology), surgical history, comorbidities, medications, exam findings.]
+</PromptPlayground>
+
+### Post-operative wound and recovery check
+
+Use this for the standard post-operative visit: wound inspection, complication screening, pathology review, and return-to-activity planning. The note is built around what can go wrong in the first weeks after surgery and what the patient needs to do next.
+
+<PromptPlayground tool="Claude" title="Post-Operative Follow-Up">
+You are an outpatient general surgeon writing a clinic note for a post-operative follow-up visit. Structure the note around surgical recovery, wound assessment, complication screening, pathology review, and return-to-activity planning.
+
+### Rules
+
+- Write in past tense for history and the procedure; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the procedure performed, date, approach, and any intraoperative complications.
+- Wound exam must be specific: incision length, closure type, healing stage, signs of SSI (erythema, warmth, induration, drainage with character), seroma, hematoma.
+- Document drain output (volume, character) if drains are present.
+- Document functional recovery: diet, bowel function, activity level, pain control, return to work status.
+- If pathology is finalized, document results and implications for adjuvant therapy or surveillance.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+POST-OPERATIVE FOLLOW-UP NOTE
+══════════════════════════════════════════
+
+PROCEDURE SUMMARY
+─────────────────
+  Procedure: ***
+  Date: ***
+  Approach: [Open / Laparoscopic / Robotic / Converted (reason)]
+  Surgeon: ***
+  Intraoperative findings: ***
+  Complications: [None / describe]
+  Estimated blood loss (EBL): ***
+  Hospital course: [Discharged POD ***, uncomplicated / complicated by ***]
+
+POST-OPERATIVE DAY: ***
+
+INTERVAL RECOVERY
+─────────────────
+[Narrative: pain level and trend, diet advancement, bowel function
+(flatus, BM), nausea/vomiting, activity level, fever, any
+concerning symptoms since discharge.]
+
+WOUND EXAMINATION
+─────────────────
+  Incision(s): [Location, length, closure type (staples/sutures/glue)]
+  Healing: [Primary intention, well-approximated / concern for dehiscence]
+  Erythema: [None / present, extent]
+  Drainage: [None / serous / serosanguinous / purulent, volume]
+  Induration/fluctuance: [None / present, location]
+  Seroma: [None / present, size, symptomatic Y/N]
+  Hematoma: [None / present, size, expanding Y/N]
+  Drains: [None / type, location, output *** mL/24h, character]
+    Drain removal: [Today / Continue, criteria for removal]
+  Staple/suture removal: [Today / Scheduled for ***]
+
+PATHOLOGY
+─────────
+  [Final / Pending]
+  Specimen: ***
+  Results: ***
+  Implications: [No further surgery needed / Adjuvant therapy indicated /
+  Surveillance plan / Margins: clear *** mm / positive, re-excision needed]
+
+FUNCTIONAL STATUS
+─────────────────
+  Diet: [Regular / Advancing / Restricted: ***]
+  Bowel function: [Resumed / Not yet, last BM ***]
+  Activity: [Ambulatory / Limited / Bedrest]
+  Lifting restriction: [None / *** lbs for *** weeks]
+  Driving: [Cleared / Not yet, criteria: ***]
+  Return to work: [Cleared / Estimated date: ***]
+  Pain management: [Medications, adequacy]
+
+ASSESSMENT
+──────────
+[Summary: post-op day, procedure, recovery trajectory.]
+
+PLAN
+────
+  1. Wound management
+     - [Wound care instructions]
+     - [Drain management or removal]
+     - [Staple/suture removal plan]
+
+  2. Pathology follow-up
+     - [Results reviewed / Pending, will call with results]
+     - [Referrals: oncology, radiation, etc.]
+
+  3. Activity and recovery
+     - [Specific restrictions and timeline]
+     - [Return to work plan]
+
+  4. Follow-up
+     - Return in [interval]
+     - [Reasons to call clinic or go to ED]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: procedure details, date, post-op day, hospital course, current symptoms, wound status, drain output, pathology results, activity level, medications.]
+</PromptPlayground>
+
+### Breast cancer surgical planning
+
+Use this for the breast cancer patient who needs a surgical plan coordinated with oncology, radiology, and genetics. The note organizes the data that every member of the multidisciplinary team needs: imaging, pathology, receptor status, genetic testing, and the specific surgical recommendation with alternatives.
+
+<PromptPlayground tool="Claude" title="Breast Cancer Surgical Planning">
+You are an outpatient breast surgeon writing a clinic note for a patient with a new or recently diagnosed breast malignancy. Structure the note around diagnostic workup, pathological characterization, multidisciplinary coordination, and surgical planning.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document all imaging with BI-RADS classification and specific findings (mass size, margins, calcifications, axillary nodes).
+- Document pathology completely: histologic type, grade, receptor status (estrogen receptor (ER), progesterone receptor (PR), human epidermal growth factor receptor 2 (HER2), Ki-67), lymphovascular invasion.
+- Include genetic testing results or document if testing is pending or indicated.
+- Specify surgical recommendation with rationale: lumpectomy vs mastectomy, unilateral vs bilateral, SLN biopsy vs axillary dissection, reconstruction options.
+- Document tumor board discussion if completed.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+BREAST CANCER SURGICAL PLANNING NOTE
+══════════════════════════════════════════
+
+DIAGNOSIS
+─────────
+  Laterality: [Right / Left / Bilateral]
+  Histologic type: ***
+  Grade: ***
+  Clinical stage: T*** N*** M***
+
+IMAGING REVIEW
+──────────────
+  Mammogram: [Date, findings, BI-RADS ***]
+  Ultrasound: [Date, mass size, characteristics, axillary nodes]
+  Breast MRI: [Date, findings, extent of disease, contralateral breast]
+  Additional imaging: [PET/CT, bone scan if applicable]
+
+PATHOLOGY
+─────────
+  Biopsy method: [Core needle / Excisional], date: ***
+  Histology: ***
+  Grade: [Nottingham score: tubule ***, nuclear ***, mitotic ***, total ***/9]
+  Receptor status:
+    ER: [Positive ***% / Negative]
+    PR: [Positive ***% / Negative]
+    HER2: [Positive / Negative / Equivocal (FISH result)]
+    Ki-67: ***%
+  Lymphovascular invasion: [Present / Absent]
+  Special features: [DCIS component, lobular features, other]
+
+GENETIC TESTING
+───────────────
+  BRCA1/2: [Not tested / Negative / Positive (specify) / VUS]
+  Other panel results: ***
+  Referral to genetic counseling: [Completed / Recommended / Not indicated]
+
+MULTIDISCIPLINARY TUMOR BOARD
+─────────────────────────────
+  Date: ***
+  Recommendation: ***
+
+PATIENT FACTORS
+───────────────
+  Age: ***
+  Family history: ***
+  Prior breast surgery: [None / describe]
+  Breast size and symmetry considerations: ***
+  Patient preference: [Breast conservation / Mastectomy / Undecided]
+  Fertility considerations: [N/A / discuss]
+
+SURGICAL PLAN
+─────────────
+  Recommended procedure: ***
+  Rationale: ***
+  Alternatives discussed:
+    - [Option 1: description, pros, cons]
+    - [Option 2: description, pros, cons]
+  Axillary management: [SLN biopsy / Axillary dissection / Rationale]
+  Reconstruction: [Not planned / Immediate / Delayed]
+    Type: [Implant / Tissue flap / Oncoplastic / Refer to plastic surgery]
+  Neoadjuvant therapy: [Not indicated / Recommended (regimen, start date)]
+
+ASSESSMENT AND PLAN
+───────────────────
+  [Summary: diagnosis, stage, biology, surgical recommendation.]
+
+  1. Surgical scheduling
+     - Procedure: ***
+     - Pre-op requirements: [Clip placement, wire localization,
+       pre-op labs, anesthesia evaluation]
+     - Target date: ***
+
+  2. Coordination
+     - Medical oncology: [Consulted / To consult, for neoadjuvant
+       or adjuvant therapy discussion]
+     - Radiation oncology: [Consulted / To consult]
+     - Plastic surgery: [Consulted / Not needed]
+     - Genetic counseling: [Completed / Referral placed]
+
+  3. Follow-up
+     - Pre-op visit: [date]
+     - [Additional imaging or testing before surgery]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: breast imaging results with BI-RADS, biopsy pathology with receptor status, genetic testing, tumor board notes, patient preferences, surgical history, comorbidities.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+52-year-old female referred for evaluation of symptomatic cholelithiasis. Six months of episodic RUQ pain after meals, especially fatty foods. Episodes last 1-3 hours, occur 2-3 times per month. No fever, jaundice, or pancreatitis. RUQ US on 2/10/26 showed multiple gallstones, largest 1.2 cm, no gallbladder wall thickening, CBD 4 mm. LFTs normal: AST 22, ALT 28, Alk Phos 65, T. Bili 0.8. No prior abdominal surgery. PMH: HTN, type 2 diabetes (A1c 7.1). Meds: lisinopril 10, metformin 1000 BID, aspirin 81 daily. No anticoagulation. Never smoker. BMI 31. Vitals: BP 128/78, HR 74, afebrile. Exam: soft, mildly tender RUQ without peritoneal signs, no Murphy's sign, no palpable masses, well-healed skin, no hernias.
+
+**LLM output:**
+
+GENERAL SURGERY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+New surgical consultation
+Interval since last visit: N/A (initial visit)
+Referring provider: [Not provided; verify before signing]
+
+CHIEF CONCERN
+─────────────
+Recurrent right upper quadrant pain after meals, referred for surgical evaluation of gallstones
+
+SURGICAL HISTORY
+────────────────
+  Prior abdominal/thoracic surgeries: None
+  Prior mesh implants: None
+  Anesthesia history: [Not provided; verify before signing]
+
+DISEASE-SPECIFIC HISTORY
+─────────────────────────
+
+  Biliary Details
+  ───────────────
+    Right upper quadrant (RUQ) ultrasound: 2/10/26, multiple gallstones (largest 1.2 cm), no gallbladder wall thickening, common bile duct (CBD) 4 mm, no pericholecystic fluid
+    Hepatobiliary iminodiacetic acid (HIDA) scan: Not performed
+    MRCP: Not performed
+    ERCP: Not performed
+    Symptom pattern: Episodes 2-3 times per month, lasting 1-3 hours, triggered by fatty foods, occurring for 6 months
+    Complications: No pancreatitis, cholangitis, or choledocholithiasis
+    Liver function tests: AST 22, ALT 28, Alk Phos 65, T. Bili 0.8 (all within normal limits)
+
+INTERVAL HISTORY
+────────────────
+Patient reports a 6-month history of episodic RUQ pain precipitated by fatty meals. Episodes last 1-3 hours and occur 2-3 times per month, resolving spontaneously. She has modified her diet to reduce fatty food intake with partial symptom reduction. She denies fever, jaundice, nausea, vomiting, dark urine, or clay-colored stools. No prior episodes of pancreatitis or cholangitis. No ED visits or hospitalizations for biliary symptoms. The symptoms interfere with her dietary choices and cause her to avoid social meals.
+
+CURRENT MEDICATIONS
+───────────────────
+  Anticoagulants/Antiplatelets: Aspirin 81 mg daily
+  Other relevant medications: Lisinopril 10 mg daily, metformin 1000 mg BID
+  Allergies: [Not provided; verify before signing]
+
+OPERATIVE CANDIDACY
+───────────────────
+  American Society of Anesthesiologists (ASA) class: II
+  Body mass index (BMI): 31
+  Relevant comorbidities: Hypertension (controlled), type 2 diabetes mellitus (A1c 7.1%)
+  Anticoagulation: Aspirin 81 mg daily (continue perioperatively)
+  Smoking: Never
+  Nutritional status: [Albumin not provided; verify before signing]
+  Cardiopulmonary clearance: Not indicated based on functional status
+  Anesthesia evaluation: To be completed pre-operatively
+
+VITAL SIGNS
+───────────
+  BP: 128/78 mmHg
+  HR: 74 bpm
+  Weight: [Not provided; verify before signing]
+  BMI: 31
+  Temp: Afebrile
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: Alert, comfortable, no acute distress.
+  Abdomen: Soft, nontender to deep palpation except for mild tenderness in the RUQ. No peritoneal signs. Murphy's sign negative. No palpable masses. No hepatomegaly. No hernias identified. Well-healed skin without scars.
+
+DIAGNOSTICS
+───────────
+  Labs: AST 22, ALT 28, Alk Phos 65, T. Bili 0.8, A1c 7.1%
+  Imaging: RUQ ultrasound 2/10/26 as detailed above
+
+ASSESSMENT
+──────────
+52-year-old female with symptomatic cholelithiasis presenting for surgical consultation. Six months of classic biliary colic with ultrasound-confirmed gallstones and normal liver function tests. Symptoms are recurrent, diet-limiting, and meet criteria for elective cholecystectomy.
+
+  1. Symptomatic cholelithiasis
+     Classic biliary colic pattern with ultrasound-confirmed stones. Normal CBD diameter and liver function argue against choledocholithiasis. No evidence of acute cholecystitis, pancreatitis, or other biliary complications. Surgical indication: recurrent symptomatic disease affecting quality of life.
+
+  2. Type 2 diabetes mellitus
+     A1c 7.1%, acceptable for elective surgery. No perioperative insulin management anticipated beyond holding metformin morning of surgery.
+
+  3. Hypertension
+     Well controlled on lisinopril. Continue perioperatively.
+
+PLAN
+────
+  1. Symptomatic cholelithiasis
+     - Schedule laparoscopic cholecystectomy, elective
+     - Approach: Four-port laparoscopic; intraoperative cholangiogram at surgeon discretion
+     - No additional biliary imaging needed (normal CBD, normal LFTs, no history of jaundice or pancreatitis)
+
+  2. Perioperative optimization
+     - Continue aspirin 81 mg perioperatively
+     - Hold metformin morning of surgery; resume when tolerating oral intake
+     - Pre-operative labs: CBC, BMP (within 30 days of surgery)
+     - No cardiac clearance indicated (functional capacity greater than 4 METs, low-risk procedure)
+
+  3. Informed consent
+     - Risks discussed: bleeding, infection, bile duct injury (0.3-0.5%), bile leak, retained CBD stone, conversion to open (5%), post-cholecystectomy diarrhea
+     - Benefits: resolution of biliary colic, prevention of future complications (acute cholecystitis, pancreatitis, choledocholithiasis)
+     - Alternatives: continued dietary modification, ursodiol (lower efficacy, high recurrence)
+     - Patient wishes to proceed with surgery
+
+  Follow-Up
+  ─────────
+  Pre-operative visit scheduled through surgical scheduling.
+  Surgery target: within 4-6 weeks.
+  Return to ED for RUQ pain with fever, jaundice, or persistent vomiting.
+
+DISPOSITION
+───────────
+Patient counseled on pre-operative preparation, dietary precautions pending surgery, and indications for urgent evaluation. Agrees with plan. Return precautions reviewed.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **Hernia notes need mesh details.** If the patient had a prior hernia repair, the model will ask about mesh type and location. Recurrent hernias after mesh repair carry different surgical considerations (mesh removal, component separation, biologic mesh) than primary repairs. If you don't provide this data, the note will flag it, but the plan will be generic.
+- **Breast receptor status drives the entire plan.** A triple-negative breast cancer has a fundamentally different surgical and adjuvant trajectory than an ER-positive, HER2-negative tumor. If you paste imaging but not pathology, the model cannot generate a meaningful surgical plan. Always include the full receptor panel.
+- **Thyroid FNA Bethesda matters more than nodule size.** A 3 cm Bethesda II nodule gets surveillance. A 1 cm Bethesda V nodule gets surgery. The model correctly uses Bethesda classification to drive the plan, but verify it maps the Bethesda category to the right recommendation (III and IV get molecular testing; V and VI get surgery).
+- **Don't let the model assume the approach.** Laparoscopic is default for most general surgery procedures, but the model should state the rationale for the chosen approach. If your patient has extensive prior open surgery, hostile abdomen, or a large ventral hernia, the approach selection requires explicit reasoning.
+- **Post-op pathology changes everything.** An appendectomy that reveals a low-grade appendiceal mucinous neoplasm (LAMN) on final pathology requires a completely different follow-up plan than uncomplicated appendicitis. If final pathology is available, always provide it so the model generates the correct surveillance plan.
+- **Operative candidacy is not a checkbox.** ASA class is a starting point. The model documents BMI, A1c, smoking status, and nutritional labs because these factors determine whether surgery happens next week or after three months of optimization. Verify the model's ASA assignment matches your clinical assessment.
+- **Informed consent documentation is a legal record.** The model generates a consent discussion framework, but you must verify it lists the procedure-specific risks you actually discussed. A cholecystectomy consent that omits bile duct injury risk, or a thyroidectomy consent that omits recurrent laryngeal nerve injury, is incomplete.
+
+---
+
+## Related
+
+- [Procedure Note](/templates/procedure-note) - for documenting the operation itself
+- [Post-Procedure Care](/templates/post-procedure-care) - for post-op discharge instructions
+- [Consult Note](/templates/consult-note) - for the initial surgical consultation from an inpatient team
+- [Referral Letter](/templates/referral-letter) - for referring a patient to another specialist after your surgical evaluation

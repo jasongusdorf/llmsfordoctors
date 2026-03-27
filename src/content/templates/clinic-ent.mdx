@@ -1,0 +1,751 @@
+---
+title: "Otolaryngology (ENT) Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, ent, otolaryngology, surgical, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "ENT clinic template for six common conditions — captures Lund-Mackay scores for sinusitis, TNM and HPV status for head and neck cancer, and the right disease-specific fields for each without manual structure."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+An ENT clinic runs on pattern recognition and procedure planning. The patient with chronic sinusitis who has failed medical therapy needs a note that captures Lund-Mackay scores, nasal endoscopy findings, and the decision tree toward surgery. The head and neck cancer patient returning for surveillance needs TNM staging, HPV status, swallowing function, and imaging comparison documented without omission. This template handles six conditions that fill most ENT outpatient schedules: chronic sinusitis, hearing loss, head and neck cancer, thyroid nodules, tonsillitis and sleep-disordered breathing, and vocal cord disorders. Paste in your clinical data, and the LLM produces a structured note with disease-specific fields baked into the output, so you do not have to remember which scoring systems apply to which diagnosis.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Otolaryngology (ENT) Clinic Visit Note">
+You are an attending otolaryngologist writing an outpatient clinic visit note after seeing a patient. The patient's primary ENT condition is one of: chronic sinusitis, hearing loss, head and neck cancer, thyroid nodules, tonsillitis/sleep-disordered breathing, or vocal cord disorders. Identify the primary condition from the clinical information provided and structure the note around it.
+
+### Purpose
+
+Generate a complete, structured otolaryngology clinic note from the clinical data below. The note must capture disease-specific examination findings, relevant scoring systems, imaging and procedural data, assessment of disease trajectory, and a concrete plan with specific next steps.
+
+### Rules
+
+- Write in past tense for history and interval events; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use in the note (e.g., "chronic rhinosinusitis (CRS) with nasal polyps (CRSwNP)"), then abbreviation only thereafter.
+- Include specific numbers for all values: audiometric data, imaging measurements, tumor dimensions, scores.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Organize the Assessment as a problem list with the primary ENT condition first.
+- Plan items must be specific and actionable: procedure name, medication with dose, follow-up interval, specific test to order. Never write "continue current management" without specifying what that management is.
+- For sinusitis patients: document CT sinus findings with Lund-Mackay score, nasal endoscopy findings, current medical regimen, and surgical candidacy.
+- For hearing loss patients: document audiogram with pure tone average (PTA), speech discrimination score (SDS), tympanometry, type of loss (CHL, SNHL, mixed), and hearing aid status.
+- For head and neck cancer patients: document primary site, TNM staging, pathology, HPV status (for oropharyngeal), treatment history, surveillance imaging, and functional status (swallowing, speech, airway).
+- For thyroid patients: document ultrasound findings with TI-RADS category, FNA results with Bethesda classification, molecular testing if performed, and TSH.
+- For voice patients: document Voice Handicap Index (VHI) score, laryngoscopy findings, vocal fold mobility, and speech therapy status.
+- For sleep/tonsil patients: document AHI, tonsil size (Brodsky scale), Mallampati score, BMI, and surgical candidacy.
+- Do not infer or fabricate any clinical information not provided. Write "[Not provided; verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "CRS" = chronic rhinosinusitis
+- "CRSwNP" = chronic rhinosinusitis with nasal polyps
+- "CRSsNP" = chronic rhinosinusitis without nasal polyps
+- "SNHL" = sensorineural hearing loss
+- "CHL" = conductive hearing loss
+- "PTA" = pure tone average
+- "SDS" = speech discrimination score
+- "TI-RADS" = Thyroid Imaging Reporting and Data System
+- "FNA" = fine needle aspiration
+- "VHI" = Voice Handicap Index
+- "AHI" = apnea-hypopnea index
+- "UPPP" = uvulopalatopharyngoplasty
+- "SDB" = sleep-disordered breathing
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+OTOLARYNGOLOGY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[Follow-up / New patient / Post-operative / Pre-operative]
+Interval since last visit: [duration]
+
+CHIEF CONCERN
+─────────────
+***
+
+ENT HISTORY
+───────────
+  Primary diagnosis: ***
+  Timeline:
+    - [Date]: [Event: diagnosis, procedure, imaging, treatment change]
+    - [Date]: [Event]
+  Prior ENT surgeries: [None / list with dates]
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph covering symptoms and events since last visit.
+Disease-specific content:
+- Sinusitis: nasal obstruction, drainage (color, consistency),
+  facial pressure, anosmia, exacerbations, antibiotic courses
+- Hearing: subjective hearing change, tinnitus, vertigo, aural
+  fullness, hearing aid use and benefit
+- H&N cancer: pain, dysphagia, weight loss, voice change, new
+  masses, treatment side effects
+- Thyroid: neck swelling, compressive symptoms (dysphagia,
+  dyspnea, voice change), hyper/hypothyroid symptoms
+- Voice: dysphonia pattern, voice use demands, reflux symptoms,
+  speech therapy adherence
+- Sleep: snoring severity, witnessed apneas, daytime somnolence
+  (Epworth score), CPAP use and tolerance, tonsillar symptoms]
+
+CURRENT MEDICATIONS
+───────────────────
+  ENT-Specific Medications
+  ────────────────────────
+  [Nasal steroids, nasal irrigations, antihistamines, biologics
+  (dupilumab for CRSwNP), antibiotics, thyroid hormone, voice
+  therapy adjuncts, CPAP settings]
+  ***
+
+  Other Medications
+  ─────────────────
+  ***
+
+PHYSICAL EXAMINATION
+────────────────────
+  Vitals: ***
+
+  Head and Neck Examination
+  ─────────────────────────
+  Ears:
+    Auricle: ***
+    EAC: [Clear / cerumen / drainage / lesion]
+    TM: [Intact / perforation (size, location) / effusion /
+         retraction / cholesteatoma]
+    OD: ***
+    OS: ***
+
+  Nose:
+    External: [Normal / deformity / prior rhinoplasty]
+    Anterior rhinoscopy: [Mucosa, turbinates, septum (deviation),
+    polyps, discharge]
+    Nasal endoscopy: [Mucosa, middle meatus (edema, polyps,
+    discharge), sphenoethmoidal recess, nasopharynx, adenoid]
+
+  Oral Cavity and Oropharynx:
+    Lips, oral mucosa, tongue, floor of mouth: ***
+    Tonsils: [Size (Brodsky 0-4), appearance, cryptic debris,
+    asymmetry]
+    Palate: ***
+    Mallampati: [Class I / II / III / IV]
+
+  Larynx (flexible laryngoscopy):
+    Supraglottis: ***
+    Vocal folds: [Mobility (bilateral/unilateral paralysis,
+    paresis), lesions (nodules, polyp, cyst, leukoplakia,
+    mass), edema, erythema]
+    Subglottis: ***
+    Airway: [Patent / stenosis (grade)]
+
+  Neck:
+    Thyroid: [Size, nodules (palpable, location, size), tenderness]
+    Lymphadenopathy: [Levels I-VI, size, character]
+    Masses: ***
+    Parotid/submandibular glands: ***
+
+AUDIOMETRIC DATA (if applicable)
+─────────────────────────────────
+  Date: ***
+  Pure Tone Average (PTA):
+    OD: *** dB HL    OS: *** dB HL
+  Speech Discrimination Score (SDS):
+    OD: ***%          OS: ***%
+  Tympanometry:
+    OD: Type ***      OS: Type ***
+  Type of loss: [CHL / SNHL / Mixed] [unilateral / bilateral]
+  Severity: [Normal / mild / moderate / moderately severe /
+            severe / profound]
+  Hearing aid: [None / current (type, benefit) / recommended]
+
+IMAGING
+───────
+  CT Sinuses (if applicable)
+  ──────────────────────────
+  Date: ***
+  Lund-Mackay score: ***/24
+  Key findings: ***
+
+  CT/MRI Neck (if applicable)
+  ────────────────────────────
+  Date: ***
+  Findings: ***
+
+  Thyroid Ultrasound (if applicable)
+  ───────────────────────────────────
+  Date: ***
+  Nodule(s): [Size, location, echogenicity, composition,
+  margins, calcifications]
+  TI-RADS category: ***
+  Recommendation: ***
+
+  PET/CT (if applicable)
+  ──────────────────────
+  Date: ***
+  Findings: ***
+
+  FNA / Pathology (if applicable)
+  ─────────────────────────────────
+  Date: ***
+  Bethesda classification: [I-VI]
+  Molecular testing: [Afirma/ThyroSeq result if performed]
+  Final pathology: ***
+
+LABORATORY DATA (if applicable)
+────────────────────────────────
+  TSH: ***
+  Free T4: ***
+  Thyroglobulin: *** [if post-thyroidectomy]
+  Other: ***
+
+SLEEP DATA (if applicable)
+───────────────────────────
+  Sleep study date: ***
+  AHI: ***/hr
+  Lowest O2 saturation: ***%
+  BMI: ***
+  Epworth Sleepiness Scale: ***/24
+  CPAP: [Not trialed / current (pressure, compliance, benefit) /
+         failed (reason)]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [relevant ENT history summary]
+presenting for [visit type]. [One-sentence trajectory statement.]
+
+  1. [Primary ENT condition]
+     [Brief assessment of current status, trajectory, and rationale.]
+
+  2. [Secondary ENT condition, if applicable]
+     [Brief assessment.]
+
+  3. [Other relevant conditions]
+     [Brief assessment.]
+
+PLAN
+────
+  1. [Primary ENT condition]
+     - [Specific action: procedure, medication change with dose,
+       test to order, referral]
+     - [Specific action]
+     - [Specific action]
+
+  2. [Secondary condition]
+     - [Specific action]
+
+  3. [Other conditions]
+     - [Specific action]
+
+  Follow-Up
+  ─────────
+  Return to ENT clinic in [interval].
+  [Specific criteria for earlier return.]
+
+DISPOSITION
+───────────
+[Patient counseled on ***, agrees with plan.
+Return precautions reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: reason for visit, interval history, ENT history, prior surgeries, current medications with doses, vitals, exam findings (ears, nose, throat, laryngoscopy, neck), audiometric data, imaging, labs, sleep study data, and any other relevant information.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| New patient evaluation | Change the visit type to "New patient" and add: "Include a complete ENT review of systems, full head and neck examination, and outside records review." |
+| Post-operative follow-up | Add: "This is a post-operative visit. Document the procedure performed, healing progress, pathology results if available, and any complications. Include post-op care instructions." |
+| Pediatric ENT | Add: "This is a pediatric patient. Include age-appropriate exam findings, growth parameters, parental concerns, and developmental considerations for hearing or speech." |
+| Pre-operative planning | Add: "This is a pre-operative planning visit. Document the indication for surgery, imaging reviewed, informed consent discussion including risks/benefits/alternatives, and pre-operative orders." |
+| Allergy-focused visit | Add: "This patient is being seen for allergic rhinitis or sinusitis with an allergy component. Include allergy testing results (skin prick or specific IgE), current immunotherapy status, and environmental controls." |
+
+---
+
+## Variations
+
+### Chronic sinusitis management
+
+Use this for patients with chronic rhinosinusitis (with or without nasal polyps) being managed medically or being evaluated for endoscopic sinus surgery. The note captures the complete medical therapy history, CT scoring, endoscopic findings, and surgical decision-making.
+
+<PromptPlayground tool="Claude" title="Chronic Sinusitis Management">
+You are an otolaryngologist writing a clinic note for a patient with chronic rhinosinusitis. Structure the note around disease severity assessment, adequacy of medical therapy, and surgical candidacy.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the Lund-Mackay CT score (/24) and correlate with symptoms.
+- Document nasal endoscopy findings systematically: septum, turbinates, middle meatus, sphenoethmoidal recess, polyps (graded by Lildholdt or Meltzer scale if provided).
+- List all medical therapies tried with duration and response: nasal steroids, irrigations, oral steroids, antibiotics (culture-directed if available), biologics.
+- For CRSwNP: document dupilumab or omalizumab status, eosinophil count, total IgE if available.
+- Specify whether maximal medical therapy has been completed (minimum: topical nasal steroids for 8-12 weeks plus saline irrigations plus at least one course of oral steroids or antibiotics).
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+CHRONIC RHINOSINUSITIS CLINIC VISIT
+══════════════════════════════════════════
+
+CRS CLASSIFICATION
+──────────────────
+  Type: [CRSwNP / CRSsNP / AFRS]
+  Duration: *** [months/years since diagnosis]
+  Prior sinus surgeries: [None / list with dates and procedures]
+
+SYMPTOM ASSESSMENT
+──────────────────
+  Nasal obstruction: [Severity: mild/moderate/severe, unilateral/bilateral]
+  Nasal drainage: [Anterior/posterior, color, consistency]
+  Facial pressure/pain: [Location, severity]
+  Olfactory function: [Normal / hyposmia / anosmia, duration]
+  Other: [Headache, cough, fatigue]
+  SNOT-22 score: ***/110 [if available]
+
+MEDICAL THERAPY HISTORY
+───────────────────────
+  Nasal corticosteroid: [Drug, dose, duration, response]
+  Saline irrigations: [Frequency, technique (squeeze bottle/neti pot),
+  additives (budesonide rinses)]
+  Oral corticosteroids: [Courses (number, dose, duration, response)]
+  Antibiotics: [Culture-directed? Agent, duration, response]
+  Biologics: [Dupilumab / omalizumab: dose, start date, response]
+  Leukotriene inhibitor: [Drug, dose, response]
+  Other: [Aspirin desensitization, allergy immunotherapy]
+
+  Maximal medical therapy completed: [Yes / No; specify what remains]
+
+NASAL ENDOSCOPY
+───────────────
+  Septum: [Midline / deviated (direction, severity)]
+  Inferior turbinates: [Normal / hypertrophied]
+  Middle meatus:
+    OD: [Patent / edema / polyps (grade) / purulent drainage]
+    OS: [Patent / edema / polyps (grade) / purulent drainage]
+  Sphenoethmoidal recess: [Patent / obstructed]
+  Nasopharynx: [Adenoid, Eustachian tube orifice]
+  Polyp grade (if applicable):
+    OD: [0-3]    OS: [0-3]
+
+CT SINUSES
+──────────
+  Date: ***
+  Lund-Mackay score: ***/24
+    Maxillary:   OD *** / OS ***
+    Anterior ethmoid: OD *** / OS ***
+    Posterior ethmoid: OD *** / OS ***
+    Sphenoid:    OD *** / OS ***
+    Frontal:     OD *** / OS ***
+    OMC:         OD *** / OS ***
+  Key findings: [Polyps, mucosal thickening, bony erosion,
+  fungal concretions, frontal recess obstruction]
+
+LABS (if applicable)
+────────────────────
+  Eosinophil count: ***
+  Total IgE: ***
+  Aspergillus IgE: ***
+  Sinus culture: [Organism, sensitivities]
+
+ASSESSMENT
+──────────
+[Summary with disease severity assessment and treatment response.]
+
+PLAN
+────
+  1. CRS management
+     - [Continue/modify medical therapy with specifics]
+     - [Surgical recommendation if appropriate: ESS, septoplasty,
+       turbinate reduction, polypectomy]
+     - [If surgery: discuss risks/benefits, schedule pre-op,
+       pre-op steroids/antibiotics]
+
+  2. [Associated conditions: allergy, asthma, GERD]
+     - [Specific actions]
+
+  3. Follow-up
+     - Return in [interval]
+     - [Post-operative follow-up plan if surgery scheduled]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: CRS history, symptoms, medical therapy history with responses, endoscopy findings, CT sinus report, labs, and any prior surgical history.]
+</PromptPlayground>
+
+### Head and neck cancer surveillance
+
+Use this for patients with a history of head and neck squamous cell carcinoma who are in post-treatment surveillance. The note centers on symptom monitoring, physical exam of the primary site and neck, surveillance imaging, and functional recovery (swallowing, speech, nutrition).
+
+<PromptPlayground tool="Claude" title="Head and Neck Cancer Surveillance">
+You are an otolaryngologist writing a surveillance visit note for a patient with a history of head and neck cancer who has completed primary treatment. Structure the note around recurrence monitoring, functional status, and treatment sequelae.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the original cancer: primary site, TNM stage, pathology, HPV/p16 status (for oropharyngeal), treatment received (surgery, radiation dose, chemotherapy regimen).
+- Document time since treatment completion.
+- Physical exam must include systematic assessment of primary site, bilateral neck, and oral cavity.
+- Surveillance imaging: PET/CT or CT neck with contrast, timing per NCCN guidelines.
+- Functional assessment: swallowing (diet consistency, aspiration risk, PEG status), speech, airway (tracheostomy status), dental health.
+- Weight trend and nutritional status (PEG dependence, oral intake adequacy).
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+HEAD AND NECK CANCER SURVEILLANCE
+══════════════════════════════════════════
+
+CANCER SUMMARY
+──────────────
+  Primary site: ***
+  Histology: ***
+  TNM stage: *** (AJCC 8th edition)
+  HPV/p16: [Positive / Negative / Not tested]
+  Treatment completed:
+    Surgery: [Date, procedure, margins, neck dissection levels]
+    Radiation: [Dose in Gy, fractions, field, dates]
+    Chemotherapy: [Regimen, cycles, dates]
+  Date treatment completed: ***
+  Time since treatment: ***
+
+INTERVAL HISTORY
+────────────────
+[Narrative: new masses, pain, dysphagia, odynophagia, voice
+change, otalgia, weight change, bleeding, skin changes in
+radiation field, dental issues, psychosocial adjustment.]
+
+PHYSICAL EXAMINATION
+────────────────────
+  Weight: *** (trend: ***)
+  Primary site inspection: ***
+  Oral cavity: [Mucosa, dentition, xerostomia severity]
+  Oropharynx: ***
+  Flexible laryngoscopy: [Vocal fold mobility, supraglottis,
+  glottis, subglottis, post-treatment changes vs concerning
+  findings]
+  Neck: [Bilateral palpation levels I-VI, fibrosis vs mass,
+  radiation changes]
+
+SURVEILLANCE IMAGING
+────────────────────
+  Last imaging: [Modality, date, findings]
+  Comparison to prior: ***
+  Next scheduled: ***
+
+FUNCTIONAL STATUS
+─────────────────
+  Swallowing: [Diet consistency (regular, soft, puree, NPO),
+  aspiration risk, modified barium swallow date and findings]
+  PEG tube: [In place (% nutrition via PEG) / removed (date) / never placed]
+  Speech: [Normal / impaired (type), speech therapy status]
+  Airway: [Natural airway / tracheostomy (status, decannulation plan)]
+  Dental: [Last dental evaluation, radiation caries, fluoride trays]
+  Hearing: [Cisplatin ototoxicity screening if applicable]
+
+LABS
+────
+  TSH: *** [if neck radiation]
+  Other: ***
+
+ASSESSMENT & PLAN
+─────────────────
+  1. [Cancer type], s/p [treatment], [time] post-treatment
+     - No evidence of recurrence / Concerning finding: ***
+     - Surveillance plan: [Next imaging, next visit, exam frequency]
+
+  2. Functional recovery
+     - [Swallowing, speech, nutrition management]
+
+  3. Treatment sequelae
+     - [Xerostomia, hypothyroidism, fibrosis, dental, hearing]
+
+  4. Follow-up
+     - Return in [interval per NCCN guidelines]
+     - [Return precautions: new mass, progressive dysphagia,
+       unexplained weight loss, persistent pain]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: cancer history, treatment details, interval symptoms, exam findings, surveillance imaging, functional status, labs.]
+</PromptPlayground>
+
+### Hearing loss evaluation
+
+Use this for patients presenting with hearing loss, tinnitus, or asymmetric hearing for diagnostic workup and management planning. The note structures the audiometric data, otologic exam, and decision-making around hearing amplification, surgery, or further workup.
+
+<PromptPlayground tool="Claude" title="Hearing Loss Evaluation">
+You are an otolaryngologist writing a clinic note for a patient being evaluated for hearing loss. Structure the note around audiometric findings, otologic examination, classification of hearing loss, and management plan.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document audiogram findings with PTA, SDS, tympanometry, and air-bone gaps.
+- Classify hearing loss: type (CHL, SNHL, mixed), laterality, severity, configuration (flat, sloping, reverse slope, notched).
+- For asymmetric SNHL or unilateral hearing loss: document whether MRI IAC has been ordered or completed to evaluate for vestibular schwannoma.
+- Document tinnitus: onset, laterality, character (tonal, pulsatile), severity, impact on daily life.
+- For hearing aid candidates: document hearing aid trial, benefit, settings, and patient goals.
+- For surgical candidates: document the condition (otosclerosis, cholesteatoma, chronic otitis media, ossicular discontinuity) and surgical plan.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+HEARING LOSS EVALUATION
+══════════════════════════════════════════
+
+CHIEF CONCERN
+─────────────
+***
+
+HEARING HISTORY
+───────────────
+  Onset: [Sudden / gradual]
+  Duration: ***
+  Laterality: [Unilateral (OD/OS) / bilateral]
+  Progression: [Stable / progressive]
+  Noise exposure: [Occupational, recreational, military]
+  Ototoxic medications: ***
+  Prior ear surgery: ***
+  Tinnitus: [Y/N, laterality, character, severity]
+  Vertigo/dizziness: [Y/N, description]
+  Aural fullness: [Y/N, laterality]
+  Family history of hearing loss: ***
+
+OTOLOGIC EXAMINATION
+────────────────────
+  OD:
+    Auricle: ***
+    EAC: ***
+    TM: [Intact/perforation, retraction, effusion, cholesteatoma]
+    Pneumatic otoscopy: ***
+  OS:
+    Auricle: ***
+    EAC: ***
+    TM: ***
+    Pneumatic otoscopy: ***
+  Tuning fork tests:
+    Weber: [Midline / lateralizes to OD / lateralizes to OS]
+    Rinne OD: [AC>BC / BC>AC]
+    Rinne OS: [AC>BC / BC>AC]
+
+AUDIOMETRIC DATA
+────────────────
+  Date: ***
+
+  Pure Tone Average:
+    OD: *** dB HL    OS: *** dB HL
+  Air-bone gap:
+    OD: *** dB       OS: *** dB
+  Speech Discrimination Score:
+    OD: ***% at *** dB    OS: ***% at *** dB
+  Speech Reception Threshold:
+    OD: *** dB        OS: *** dB
+  Tympanometry:
+    OD: Type ***      OS: Type ***
+  Acoustic reflexes: ***
+
+  Classification:
+    Type: [CHL / SNHL / Mixed]
+    Laterality: [Unilateral / bilateral / asymmetric]
+    Severity: OD [normal/mild/moderate/moderately severe/severe/profound]
+              OS [normal/mild/moderate/moderately severe/severe/profound]
+    Configuration: [Flat / sloping / reverse slope / notched at *** Hz]
+
+IMAGING (if applicable)
+───────────────────────
+  MRI IAC (date): ***
+  CT temporal bones (date): ***
+
+ASSESSMENT & PLAN
+─────────────────
+  1. [Hearing loss classification]
+     - [Etiology assessment]
+     - [Management: hearing aids / surgery / observation /
+       further workup]
+
+  2. [Tinnitus, if applicable]
+     - [Management plan]
+
+  3. Follow-up
+     - Repeat audiogram in [interval]
+     - Return in [interval]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: hearing history, otologic exam, audiogram results, imaging, tinnitus details, and hearing aid history.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+45-year-old female with CRS with nasal polyps, diagnosed 3 years ago. Failed fluticasone nasal spray for 6 months, budesonide irrigations for 4 months, two courses of oral prednisone (20 mg x 14 days each, temporary improvement), one course of doxycycline 100 mg x 21 days. She was started on dupilumab 300 mg q2 weeks 6 months ago with moderate improvement in nasal obstruction and anosmia, but symptoms have plateaued. Continued bilateral nasal obstruction and anosmia. Prior septoplasty in 2019. CT sinuses from last month: Lund-Mackay 18/24, bilateral ethmoid and maxillary opacification, bilateral frontal sinus mucosal thickening, bilateral polyps. Nasal endoscopy today: septum midline (s/p septoplasty), bilateral grade 2 polyps in middle meatus, mucopurulent drainage from left middle meatus, bilateral inferior turbinate hypertrophy. Eosinophil count 620, total IgE 185. Allergies: dust mites, grass on skin prick testing. Asthma, controlled on fluticasone/salmeterol. No aspirin sensitivity. She wants to discuss surgery.
+
+**LLM output:**
+
+OTOLARYNGOLOGY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Follow-up
+Interval since last visit: 3 months
+
+CHIEF CONCERN
+─────────────
+Persistent bilateral nasal obstruction and anosmia despite dupilumab therapy; seeks surgical consultation
+
+ENT HISTORY
+───────────
+  Primary diagnosis: Chronic rhinosinusitis with nasal polyps (CRSwNP), type 2 inflammatory
+  Timeline:
+    - 2023: Diagnosed with CRSwNP
+    - 2019: Septoplasty
+    - 2023-2025: Failed multiple medical therapies (see below)
+    - 9/25: Started dupilumab 300 mg q2 weeks
+  Prior ENT surgeries: Septoplasty (2019)
+
+INTERVAL HISTORY
+────────────────
+Patient reports moderate improvement in nasal obstruction and partial return of smell after starting dupilumab 6 months ago, but symptoms have plateaued over the past 2 months. She continues to have bilateral nasal obstruction that is worse on the left, persistent anosmia (no improvement in the past 8 weeks), and intermittent left-sided mucopurulent nasal drainage. She denies facial pressure, headache, or epistaxis. She has not required oral steroids since starting dupilumab. Her asthma remains well controlled on fluticasone/salmeterol with no exacerbations. She is interested in discussing endoscopic sinus surgery (ESS) for further improvement.
+
+CURRENT MEDICATIONS
+───────────────────
+  ENT-Specific Medications
+  ────────────────────────
+  Dupilumab 300 mg SQ q2 weeks (started 9/25)
+  Budesonide 0.5 mg/2 mL saline irrigations BID
+  Fluticasone propionate nasal spray 2 sprays each nostril daily
+
+  Other Medications
+  ─────────────────
+  Fluticasone/salmeterol 250/50 mcg 1 puff BID
+  Cetirizine 10 mg daily
+
+PHYSICAL EXAMINATION
+────────────────────
+  Vitals: BP 122/78, HR 72, SpO2 98% on RA
+
+  Nose:
+    External: Normal, well-healed septoplasty
+    Nasal endoscopy:
+      Septum: Midline (s/p septoplasty)
+      Inferior turbinates: Bilateral hypertrophy, moderate
+      Middle meatus:
+        OD: Grade 2 polyps, mild edema, no purulence
+        OS: Grade 2 polyps, mucopurulent drainage present
+      Sphenoethmoidal recess: Obstructed bilaterally by polyps
+      Nasopharynx: Patent
+
+  Oral Cavity: Unremarkable
+  Neck: No lymphadenopathy, no thyromegaly
+
+CT SINUSES
+──────────
+  Date: 2/26
+  Lund-Mackay score: 18/24
+    Maxillary: OD 2 / OS 2
+    Anterior ethmoid: OD 2 / OS 2
+    Posterior ethmoid: OD 2 / OS 2
+    Sphenoid: OD 1 / OS 1
+    Frontal: OD 1 / OS 1
+    OMC: OD 2 / OS 2
+  Key findings: Bilateral ethmoid and maxillary opacification with polyps. Bilateral frontal sinus mucosal thickening. No bony erosion. No fungal concretions.
+
+LABS
+────
+  Eosinophil count: 620/mcL (elevated)
+  Total IgE: 185 IU/mL
+  Allergy testing (skin prick): Positive for dust mites and grass
+
+ASSESSMENT
+──────────
+45-year-old female with type 2 inflammatory CRSwNP, persistent bilateral polyps and anosmia despite 6 months of dupilumab and maximal medical therapy. Lund-Mackay score 18/24 confirms significant residual disease burden. Left-sided mucopurulent drainage suggests superimposed acute component or fungal colonization. Dupilumab has produced partial response (improved obstruction, fewer steroid courses) but plateau suggests the current polyp burden exceeds what medical therapy alone can control.
+
+  1. CRSwNP, refractory to maximal medical therapy including biologic
+     Maximal medical therapy completed: topical and systemic steroids, antibiotics, saline irrigations, and dupilumab for 6 months. Partial but inadequate response. Surgical candidate.
+
+  2. Left mucopurulent drainage
+     May represent bacterial superinfection of obstructed sinuses. Culture at time of surgery will guide post-operative antibiotics.
+
+  3. Allergic rhinitis and asthma, controlled
+     Controlled on current regimen. Allergy management supports CRS control.
+
+PLAN
+────
+  1. CRSwNP, surgical planning
+     - Recommend bilateral ESS: total ethmoidectomy, maxillary antrostomy, frontal sinusotomy (Draf IIa), sphenoidotomy
+     - Discussed risks (bleeding, CSF leak, orbital injury, recurrence, need for revision), benefits (improved obstruction, drainage, potential olfactory recovery, improved biologic delivery), and alternatives (continue medical therapy alone)
+     - Patient wishes to proceed; schedule surgery
+     - Pre-op: oral prednisone 40 mg daily for 5 days prior to surgery to reduce polyp bulk
+     - Continue dupilumab through the perioperative period and post-operatively to reduce recurrence risk
+
+  2. Left-sided drainage
+     - Obtain intraoperative culture at time of ESS
+     - Hold antibiotics until culture results available unless clinical worsening before surgery
+
+  3. Allergic rhinitis
+     - Continue cetirizine and nasal irrigations
+     - Discuss allergen immunotherapy after surgical recovery to support long-term CRS control
+
+  Follow-Up
+  ─────────
+  Pre-operative visit in 2 weeks for consent and pre-op instructions.
+  Post-operative debridement at 1 week and 3 weeks after surgery.
+  Return precautions: unilateral clear nasal drainage (CSF leak concern), visual changes, worsening facial pain with fever.
+
+DISPOSITION
+───────────
+Patient counseled on surgical plan, risks, benefits, and alternatives. She understands the role of continued dupilumab post-operatively. Agrees with plan. Return precautions reviewed.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **Lund-Mackay scores need context.** A score of 18/24 tells you the CT is bad, but it does not tell you the patient is miserable. The SNOT-22 captures symptom burden. If you provide both, the model will use both. If you provide only the CT score, the note will lack the subjective severity that drives surgical decision-making.
+- **Polyp grading varies.** Brodsky is for tonsils; Lildholdt and Meltzer are for nasal polyps. If you provide a polyp grade, specify which scale. The model will use whatever you give it, which means it will use the wrong scale if you hand it the wrong scale.
+- **HPV status is staging-dependent.** For oropharyngeal squamous cell carcinoma, HPV-positive and HPV-negative tumors use different AJCC staging systems (8th edition). The model will apply the staging you provide; verify that it matches the correct HPV-stratified system.
+- **Audiogram interpretation is not just PTA.** A PTA of 40 dB HL with 92% SDS tells a different story than 40 dB HL with 52% SDS. The speech discrimination score drives hearing aid candidacy versus cochlear implant evaluation. Give the model both numbers.
+- **TI-RADS drives management, not the nodule size alone.** A 2.5 cm TI-RADS 2 nodule does not need FNA. A 1.5 cm TI-RADS 5 nodule does. The model documents what you provide but will not override your management plan with guideline-based recommendations unless prompted.
+- **Dupilumab response takes time.** If you are documenting a biologic follow-up at 3 months, the model may frame the response as inadequate when the drug may not have reached full effect. Biologics for CRSwNP are typically assessed at 6 months minimum.
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) - for inpatient notes on post-operative ENT patients
+- [Procedure Note](/templates/procedure-note) - for documenting endoscopic sinus surgery, tonsillectomy, or other ENT procedures
+- [Consult Note](/templates/consult-note) - for inpatient ENT consultations
+- [Referral Letter](/templates/referral-letter) - for patients being referred to your ENT practice

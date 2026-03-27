@@ -1,0 +1,167 @@
+---
+title: "Setting Up Claude Code on macOS"
+description: "A step-by-step guide to installing Claude Code on your Mac. No coding experience required. One command, five minutes, done."
+tags: [beginner, getting-started, claude, macos, setup, tools]
+lastUpdated: 2026-03-26
+featured: false
+socialPost: "Claude Code runs directly on your Mac — reads files, writes files, acts on your behalf. No coding experience required. One command, five minutes. Here's how to get started."
+---
+
+import Callout from '../../components/Callout.astro';
+
+You've used Claude through the website. You typed questions, got answers, copied text back and forth. That works fine. Claude Code is the next step: it runs directly on your computer, inside your terminal, and it can read files, write files, and do things on your behalf. Think of it as the difference between texting a consultant and having them sit down next to you at the workstation.
+
+This guide assumes you have never opened Terminal before. If you have, skip ahead to the installation step.
+
+---
+
+## What You Need Before You Start
+
+Two things:
+
+1. **A Mac running macOS 13 (Ventura) or later.** If you bought your Mac in 2022 or after, you're fine. To check: click the Apple menu in the top-left corner of your screen, then "About This Mac." The version number should be 13.0 or higher.
+
+2. **A Claude Pro, Max, or Teams account.** The free Claude plan doesn't include Claude Code. If you already pay for Claude at [claude.ai](https://claude.ai), you're set. If not, you'll need to upgrade first.
+
+That's it. No other software to install first. No "dependencies." No "prerequisites." Just your Mac and your Claude account.
+
+---
+
+## Step 1: Open Terminal
+
+Terminal is an app that comes with every Mac. It looks like a text window where you type commands. Doctors tend to find it intimidating, which is reasonable: it looks like something from 1983. But you only need it for about 60 seconds.
+
+**How to find it:**
+
+Press **Cmd + Space** to open Spotlight (the search bar). Type **Terminal**. Hit Enter. A window with a blinking cursor will appear.
+
+That's Terminal. You're going to paste one command into it.
+
+<Callout type="tip">
+  If you want to find Terminal again later, it lives in Applications > Utilities > Terminal. Or just use Spotlight every time. Spotlight is faster.
+</Callout>
+
+---
+
+## Step 2: Install Claude Code
+
+Copy this entire line, paste it into Terminal, and press Enter:
+
+```bash
+curl -fsSL https://claude.ai/install.sh | bash
+```
+
+The installer will run for 10 to 30 seconds. You'll see some text scroll by. When it finishes, you'll see a confirmation message.
+
+That's the installation. One line. Done.
+
+<Callout type="info">
+  What just happened? You told your Mac to download a small installer script from Anthropic's servers and run it. The script placed the Claude Code program in a folder on your computer. Nothing else changed. No system settings were modified. No other software was affected.
+</Callout>
+
+### If you prefer Homebrew
+
+If you already use Homebrew (you'll know if you do), you can install this way instead:
+
+```bash
+brew install --cask claude-code
+```
+
+The difference: the Homebrew version doesn't update itself automatically. You'd need to run `brew upgrade claude-code` periodically. The first method updates in the background on its own.
+
+---
+
+## Step 3: Run Claude Code for the First Time
+
+Close Terminal and reopen it (this ensures it picks up the new installation). Then type:
+
+```bash
+claude
+```
+
+Press Enter.
+
+Two things will happen:
+
+1. **A browser window will open** asking you to log in to your Claude account. Log in the way you normally would.
+
+2. **Terminal will show a welcome screen.** You'll see a text prompt where you can start typing questions, just like on the Claude website, but now it's running on your Mac.
+
+You're in. Claude Code is installed and authenticated.
+
+<Callout type="tip">
+  You only need to log in once. Claude Code remembers your credentials, so the next time you type `claude` in Terminal, it will start immediately.
+</Callout>
+
+---
+
+## Step 4: Try It
+
+Type something. Here are a few things to try:
+
+**Ask a question:**
+```
+What are the most common causes of acute pancreatitis?
+```
+
+**Ask it to read a file:**
+```
+Read ~/Desktop/patient-note.txt and summarize the clinical findings
+```
+
+**Ask it to write something:**
+```
+Write a prior authorization letter for a colonoscopy for a 52-year-old with iron deficiency anemia and save it to my Desktop
+```
+
+Claude Code can read and create files on your computer. It will ask your permission before doing anything. You'll see exactly what it wants to do, and you approve or deny each action.
+
+<Callout type="hipaa">
+  The same de-identification rules apply here as with any LLM. If you're working with clinical text, de-identify it first. Claude Code running on your Mac does not change the HIPAA considerations. The data still leaves your computer and reaches Anthropic's servers. Follow your institution's policies and the workflow in our <a href="/guides/llms-in-clinical-care-101">LLMs in Clinical Care 101</a> guide.
+</Callout>
+
+---
+
+## Useful Commands
+
+Once Claude Code is running, these commands work inside the session:
+
+| Command | What it does |
+|---|---|
+| `/help` | Shows all available commands |
+| `/clear` | Clears the conversation and starts fresh |
+| `/cost` | Shows how much of your usage quota you've consumed |
+| `Escape` | Cancels whatever Claude is currently doing |
+| `Ctrl + C` (twice) | Exits Claude Code entirely |
+
+To start Claude Code again later, open Terminal and type `claude`. That's all.
+
+---
+
+## If Something Goes Wrong
+
+**"command not found" after installation:** Close Terminal completely (Cmd + Q, not just closing the window) and reopen it. The installation added Claude Code to your system, but Terminal needs to restart to see it.
+
+**Browser doesn't open for login:** Copy the URL that appears in Terminal and paste it into your browser manually.
+
+**"You need a Pro plan" or similar:** Claude Code requires a paid Claude account. The free tier doesn't include it.
+
+**Anything else:** Run this command in Terminal for a diagnostic check:
+
+```bash
+claude doctor
+```
+
+It will identify common issues and suggest fixes.
+
+---
+
+## What's Next
+
+You have Claude Code on your Mac. You can talk to it in Terminal, ask it to read and write files, and use it for clinical documentation with the same de-identification workflow you'd use on the website.
+
+If you want to go further:
+
+- **[LLMs in Clinical Care 101](/guides/llms-in-clinical-care-101)**: The core workflow for using any LLM in clinical practice safely.
+- **[Prompting 101](/guides/prompting-101)**: How to write prompts that produce clinically useful output.
+- **[Prompt Templates](/templates)**: Ready-to-use templates for discharge summaries, prior authorizations, patient education, and more.

@@ -3,18 +3,17 @@ title: "Lifestyle Modification Plan"
 category: patient-education
 targetTool: any
 workflow: outpatient-visit-education
-tags: [patient-education, lifestyle, diet, exercise, behavioral-health]
-lastUpdated: 2026-03-22
+tags: [intermediate, patient-education, lifestyle, diet, exercise]
+lastUpdated: 2026-03-27
+socialPost: "\"Eat healthy and exercise more\" is not a plan. This template generates specific meals, actual exercise prescriptions, and a weekly schedule — tailored to the patient's condition, current habits, and real-world barriers."
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
 
-This template takes a condition, the patient's current habits, and clinical goals and produces an actionable, personalized lifestyle modification plan. The output includes specific diet, exercise, and behavioral recommendations, not generic "eat healthy and exercise" advice.
-
 ## When to use this
 
-Use this template when you need to create a specific, actionable lifestyle modification plan tailored to a patient's condition, habits, and barriers.
+"Eat healthy and exercise more" is not a plan. This template generates a specific, actionable lifestyle modification plan tailored to a patient's condition, current habits, and real-world barriers. The output includes actual meals, actual exercise prescriptions with starting points, and a weekly schedule the patient can follow starting Monday. The quality of the output depends heavily on the specificity of the input: "eats fast food 5 times a week, works night shift, lives alone" produces a far better plan than "hypertension."
 
 <Callout type="hipaa">
   De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, and any other direct identifiers.
@@ -25,208 +24,489 @@ Use this template when you need to create a specific, actionable lifestyle modif
 ## The prompt
 
 <PromptPlayground tool="Any LLM" title="Lifestyle Modification Plan">
-You are a physician creating a personalized lifestyle modification plan for a patient. The patient has no medical background. Write at a 6th grade reading level using short sentences and simple words.
+You are a physician creating a personalized lifestyle modification plan for a patient. The patient has no medical background. Your job is to turn clinical goals into daily actions the patient can actually follow.
 
-Be specific and actionable, not vague. Instead of "eat a healthy diet," say "eat 2 servings of vegetables at lunch and dinner." Instead of "exercise more," say "walk for 20 minutes after dinner, 5 days a week."
+### Rules
 
-Avoid medical jargon. If a medical term is unavoidable, define it in parentheses. Use bullet points for action items.
+- Write at a 6th grade reading level.
+- Keep sentences under 15 words when possible.
+- Define every medical term in parentheses on first use.
+- Use "you" and "your" throughout.
+- No abbreviations.
+- Be specific, not vague. "Walk for 20 minutes after dinner" not "exercise more." "Fill half your plate with vegetables" not "eat healthy."
+- Include serving sizes, meal examples, and portion descriptions.
+- Exercise prescriptions must include type, frequency, duration, intensity, and a starting point for sedentary patients.
+- Acknowledge barriers mentioned in the patient context.
+- Do not invent clinical details not provided below.
 
-Using the clinical information provided below, create a lifestyle modification plan with the following sections:
+### Vocabulary
 
-**1. Why These Changes Matter**
-Explain in 2–3 simple sentences how these lifestyle changes will help the patient's specific condition. Connect the changes to outcomes the patient cares about (feeling better, avoiding medication, preventing hospitalization).
+- Use "blood sugar" not "glucose"
+- Use "blood pressure" not "BP"
+- Use "heart rate" not "HR"
+- Use the simplest accurate word available
 
-**2. Diet**
-Provide specific, actionable dietary recommendations:
-- Foods to eat more of (with examples and serving sizes)
-- Foods to eat less of or avoid (with specific examples)
-- Meal timing or frequency guidance if relevant
-- A sample day of meals (breakfast, lunch, dinner, snacks)
-- Practical tips (meal prep, grocery shopping, eating out)
+### Output format
 
-**3. Exercise**
-Provide specific, actionable exercise recommendations:
-- Type of exercise (walking, swimming, strength training, etc.)
-- How often (days per week)
-- How long (minutes per session)
-- How hard (use simple descriptions: "you should be able to talk but not sing")
-- A beginner starting point if the patient is currently sedentary
-- Safety considerations or restrictions
+```
+YOUR LIFESTYLE PLAN
+══════════════════════════════════════════
 
-**4. Other Changes**
-Address other relevant behavioral modifications:
-- Sleep (specific habits, target hours)
-- Stress management (specific techniques, not just "reduce stress")
-- Smoking or alcohol cessation if applicable (specific first steps)
-- Weight management goals if applicable (realistic, time-bound)
+Why These Changes Matter for You
+────────────────────────────────
+[2-3 sentences connecting these changes to the
+patient's specific condition and goals. What will
+improve? What will they feel? Connect to outcomes
+they care about.]
 
-**5. Your Weekly Starter Plan**
-Create a simple Monday-through-Sunday starter plan that incorporates the above recommendations. Keep it realistic: small changes that build over time. Format as a table.
+Diet Plan
+─────────
+  Foods to Eat More Of
+  ────────────────────
+  - *** [with examples and serving sizes]
+  - ***
+  - ***
+  - ***
 
-**6. How to Track Your Progress**
-- What to measure or track (weight, blood pressure, blood sugar, symptoms, exercise minutes)
-- How often to check
-- A simple tracking method (app, notebook, calendar)
+  Foods to Eat Less Of
+  ────────────────────
+  - *** [with specific examples]
+  - ***
+  - ***
 
-**7. Setting Goals**
-Suggest 2–3 SMART goals (Specific, Measurable, Achievable, Relevant, Time-bound) the patient can start this week. For example: "Walk for 15 minutes after dinner at least 4 days this week."
+  Sample Day of Meals
+  ───────────────────
+  Breakfast: ***
+  Lunch: ***
+  Dinner: ***
+  Snack: ***
 
-**8. When to Check In With Your Doctor**
-- When the next follow-up should be
-- What progress to report
-- When to call sooner (if symptoms worsen or new symptoms appear)
+  Practical Tips
+  ──────────────
+  - ***
+  - ***
+  - ***
 
-End with an encouraging sentence that acknowledges change is hard but emphasizes small steps.
+Exercise Plan
+─────────────
+  What to Do
+  ──────────
+  Type: ***
+  How often: *** days per week
+  How long: *** minutes per session
+  How hard: *** [use simple description]
+
+  If You Are Starting from Zero
+  ─────────────────────────────
+  Week 1-2: ***
+  Week 3-4: ***
+  Week 5+: ***
+
+  Safety
+  ──────
+  Stop and sit down if: ***
+  Call your doctor if: ***
+
+Other Changes
+─────────────
+  Sleep
+  ─────
+  - ***
+  - ***
+
+  Stress
+  ──────
+  - ***
+  - ***
+
+  *** [Smoking, alcohol, or other relevant items]
+  ─────
+  - ***
+
+Your Weekly Starter Plan
+────────────────────────
+| Day       | Meals                    | Exercise        | Other       |
+|-----------|--------------------------|-----------------|-------------|
+| Monday    | ***                      | ***             | ***         |
+| Tuesday   | ***                      | ***             | ***         |
+| Wednesday | ***                      | ***             | ***         |
+| Thursday  | ***                      | ***             | ***         |
+| Friday    | ***                      | ***             | ***         |
+| Saturday  | ***                      | ***             | ***         |
+| Sunday    | ***                      | ***             | ***         |
+
+How to Track Progress
+─────────────────────
+  What to measure: ***
+  How often: ***
+  How to track it: ***
+
+  Your Goals for This Week
+  ────────────────────────
+  1. *** [specific, measurable, achievable]
+  2. ***
+  3. ***
+```
+
+Replace each *** with content specific to this patient's condition, habits, barriers, and clinical goals.
 
 ---
 PATIENT CONTEXT:
 Age/Sex: [AGE AND SEX]
 Condition: [DIAGNOSIS OR HEALTH GOAL]
-Current Lifestyle: [CURRENT DIET, EXERCISE HABITS, RELEVANT SOCIAL FACTORS IF KNOWN]
-Barriers: [ANY KNOWN BARRIERS, e.g., limited mobility, budget constraints, food desert, shift work]
+Current Lifestyle: [CURRENT DIET, EXERCISE HABITS, RELEVANT SOCIAL FACTORS]
+Barriers: [ANY KNOWN BARRIERS: limited mobility, budget constraints, food desert, shift work, etc.]
 
 CLINICAL INFORMATION:
-[Paste clinical goals (e.g., target blood pressure, A1c goal), current medications, and any exercise restrictions here]
+[Paste: clinical goals (e.g., target blood pressure, A1c goal), current medications, exercise restrictions]
 </PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Specific diet | Add: "Focus on [Mediterranean / DASH / low-carb / renal] diet recommendations" |
+| Heart failure | Add: "Include fluid restriction and daily weight monitoring. Sodium limit: *** mg/day." |
+| Budget constraints | Add: "The patient has a limited food budget. Recommend affordable, accessible foods. Include frozen and canned options." |
+| Cultural foods | Add: "Incorporate [CULTURE]-appropriate food examples and dietary patterns" |
+| Elderly / mobility | Add: "Account for limited mobility. Focus on seated exercises, fall prevention, and balance." |
+| Motivational framing | Add: "Use motivational interviewing language. Emphasize autonomy and patient choice." |
+| Comorbidities | Add: "Patient also has [COMORBIDITIES]. Ensure recommendations are safe for all conditions." |
+| Shift work | Add: "Patient works [SHIFT SCHEDULE]. Adapt meal timing and exercise schedule to their work hours." |
 
 ---
 
 ## Variations
 
-### Cardiac rehab focused
+### Cardiac rehab lifestyle plan
 
 <PromptPlayground tool="Any LLM" title="Cardiac Rehab Lifestyle Plan">
-You are a cardiologist creating a lifestyle modification plan for a patient recovering from a cardiac event (heart attack, stent, bypass surgery, or new heart failure diagnosis). The patient has no medical background. Write at a 6th grade reading level. Be specific and actionable.
+You are a cardiologist creating a lifestyle modification plan for a patient recovering from a cardiac event (heart attack, stent, bypass surgery, or new heart failure diagnosis). The patient has no medical background.
 
-Using the clinical information provided below, create a cardiac rehab lifestyle plan:
+### Rules
 
-**1. What Happened and Why These Changes Matter**
-2–3 sentences explaining the cardiac event and how lifestyle changes protect the heart going forward.
+- Write at a 6th grade reading level.
+- Keep sentences under 15 words when possible.
+- Use "you" and "your" throughout.
+- Be specific about sodium limits, exercise progression, and cardiac warning signs.
+- Include how to read nutrition labels for sodium and saturated fat.
+- Exercise progression must start low and build gradually with clear stop criteria.
 
-**2. Heart-Healthy Diet**
-- Specific sodium limit (e.g., "less than 2,000 mg of sodium per day — that is less than 1 teaspoon of salt")
-- Foods to eat: fruits, vegetables, whole grains, lean protein, healthy fats (with examples)
-- Foods to limit: fried food, processed meat, sugary drinks, fast food (with examples)
-- A sample heart-healthy day of meals
-- How to read nutrition labels for sodium and saturated fat
-- Tips for eating out heart-healthy
+### Output format
 
-**3. Exercise: Getting Moving Safely**
-- Starting point: short walks (5–10 minutes, 2–3 times a day)
-- Gradual increase: build to 30 minutes of moderate walking, 5 days a week
-- Warning signs to stop exercising: chest pain, unusual shortness of breath, dizziness, nausea
-- What counts as "moderate": you can talk but not sing
-- Activities to avoid until cleared by your doctor
-- Formal cardiac rehab program recommendation if applicable
+```
+YOUR HEART-HEALTHY LIFESTYLE PLAN
+══════════════════════════════════════════
 
-**4. Heart Numbers to Know**
-- Target blood pressure
-- Target cholesterol (LDL)
-- Target weight
-- What these numbers mean and why they matter
+What Happened and Why This Matters
+──────────────────────────────────
+[2-3 sentences explaining the cardiac event and how
+lifestyle changes protect the heart going forward.]
 
-**5. Medications and Lifestyle Together**
-How lifestyle changes work alongside medications. Emphasize: lifestyle changes do not replace medications; they work together.
+Heart-Healthy Diet
+──────────────────
+  Sodium Limit
+  ────────────
+  Less than 2,000 mg per day. That is less than
+  1 teaspoon of salt.
 
-**6. Weekly Starter Plan**
-Table format, Monday–Sunday, realistic for a post-cardiac patient.
+  Foods to Eat
+  ────────────
+  - ***
+  - ***
+  - ***
+  - ***
 
-**7. When to Call Your Doctor or 911**
-- Specific cardiac warning signs
-- Activity-related warning signs
+  Foods to Limit
+  ──────────────
+  - ***
+  - ***
+  - ***
+
+  Sample Heart-Healthy Day
+  ────────────────────────
+  Breakfast: ***
+  Lunch: ***
+  Dinner: ***
+  Snack: ***
+
+  How to Read a Nutrition Label
+  ─────────────────────────────
+  - Look for sodium: aim for less than *** mg per
+    serving
+  - Look for saturated fat: aim for less than *** g
+    per serving
+  - Check the serving size first
+
+  Eating Out Tips
+  ───────────────
+  - ***
+  - ***
+
+Getting Moving Safely
+─────────────────────
+  Starting Point (Weeks 1-2)
+  ──────────────────────────
+  - Walk 5-10 minutes, 2-3 times a day
+  - Flat ground only
+  - At a pace where you can talk comfortably
+
+  Building Up (Weeks 3-6)
+  ───────────────────────
+  - Build to 30 minutes of walking, 5 days a week
+  - Add 5 minutes per week
+  - Gentle hills are OK once you can walk 20 minutes
+    on flat ground
+
+  Stop Exercising and Sit Down If
+  ────────────────────────────────
+  - Chest pain or pressure
+  - Unusual shortness of breath
+  - Dizziness or lightheadedness
+  - Nausea
+
+  Avoid Until Cleared by Your Doctor
+  ──────────────────────────────────
+  - ***
+  - ***
+
+Heart Numbers to Know
+─────────────────────
+| Number           | Your Target | Why It Matters       |
+|------------------|-------------|----------------------|
+| Blood pressure   | ***         | ***                  |
+| LDL cholesterol  | ***         | ***                  |
+| Weight           | ***         | ***                  |
+
+Weekly Starter Plan
+───────────────────
+[Mon-Sun table with meals and exercise]
+
+When to Call Your Doctor or 911
+───────────────────────────────
+Go to the ER or call 911 if:
+- ***
+- ***
+- ***
+
+Call your doctor if:
+- ***
+- ***
+```
 
 ---
 PATIENT CONTEXT:
 [Paste: cardiac event, current medications, exercise restrictions, current habits, and clinical targets]
 </PromptPlayground>
 
-### Diabetes management
+### Diabetes management lifestyle plan
 
 <PromptPlayground tool="Any LLM" title="Diabetes Lifestyle Plan">
-You are an endocrinologist creating a lifestyle modification plan for a patient with type 2 diabetes. The patient has no medical background. Write at a 6th grade reading level. Be specific and actionable.
+You are an endocrinologist creating a lifestyle modification plan for a patient with type 2 diabetes. The patient has no medical background.
 
-Using the clinical information provided below, create a diabetes lifestyle plan:
+### Rules
 
-**1. Why These Changes Matter**
-2–3 sentences connecting lifestyle changes to blood sugar control, A1c, and long-term health.
+- Write at a 6th grade reading level.
+- Keep sentences under 15 words when possible.
+- Use "you" and "your" throughout.
+- Include carbohydrate basics and the plate method.
+- Exercise section must address blood sugar monitoring around activity.
+- Include specific blood sugar targets and what to do when numbers are too high or too low.
 
-**2. Diet: Managing Your Blood Sugar With Food**
-- Carbohydrate basics: what carbs are, how they affect blood sugar, and how to count them
-- Target carb range per meal (e.g., 30–45 grams per meal)
-- Foods that raise blood sugar quickly (white bread, juice, candy) vs. slowly (whole grains, beans, vegetables)
-- Plate method: fill half your plate with non-starchy vegetables, one quarter with lean protein, one quarter with whole grains
-- A sample day of meals with approximate carb counts
-- Snacking guidance
-- How to handle eating out
+### Output format
 
-**3. Exercise: How Movement Lowers Blood Sugar**
-- Walking after meals (even 10–15 minutes helps)
-- Target: 150 minutes per week of moderate exercise
-- How to start if currently sedentary
-- Blood sugar monitoring around exercise (check before and after; carry a snack)
-- When NOT to exercise (blood sugar above 300 or below 70)
+```
+YOUR DIABETES LIFESTYLE PLAN
+══════════════════════════════════════════
 
-**4. Blood Sugar Monitoring**
-- When to check (fasting, before meals, 2 hours after meals)
-- What the numbers mean (target ranges)
-- What to do when blood sugar is too high or too low
-- How to keep a log
+Why These Changes Matter
+────────────────────────
+[2-3 sentences connecting lifestyle to blood sugar
+control, A1c, and long-term health.]
 
-**5. Foot, Eye, and Kidney Care**
-Simple daily habits to prevent diabetes complications.
+Diet: Managing Your Blood Sugar with Food
+─────────────────────────────────────────
+  Carbohydrate Basics
+  ───────────────────
+  - What carbs are and how they affect blood sugar
+  - Target: *** grams of carbs per meal
 
-**6. Weekly Starter Plan**
-Table format with meals, exercise, and blood sugar checks.
+  The Plate Method
+  ────────────────
+  - Half your plate: non-starchy vegetables
+  - One quarter: lean protein
+  - One quarter: whole grains or starchy food
 
-**7. SMART Goals**
-3 specific goals for this week.
+  Foods That Raise Blood Sugar Quickly
+  ────────────────────────────────────
+  (Eat less of these)
+  - ***
+  - ***
+  - ***
+
+  Foods That Raise Blood Sugar Slowly
+  ───────────────────────────────────
+  (Eat more of these)
+  - ***
+  - ***
+  - ***
+
+  Sample Day with Carb Counts
+  ───────────────────────────
+  Breakfast (*** g carbs): ***
+  Lunch (*** g carbs): ***
+  Dinner (*** g carbs): ***
+  Snack (*** g carbs): ***
+
+Exercise: How Movement Lowers Blood Sugar
+─────────────────────────────────────────
+  - Walk after meals. Even 10-15 minutes helps.
+  - Target: 150 minutes per week
+  - Start with: ***
+  - Check blood sugar before and after exercise
+  - Carry a snack in case blood sugar drops
+  - Do NOT exercise if blood sugar is above 300 or
+    below 70
+
+Blood Sugar Monitoring
+──────────────────────
+  When to Check
+  ─────────────
+  - ***
+  - ***
+
+  Your Target Numbers
+  ───────────────────
+  | When                | Target          |
+  |---------------------|-----------------|
+  | Before eating       | ***             |
+  | 2 hours after eating| ***             |
+  | Bedtime             | ***             |
+
+  If Blood Sugar Is Too High (above ***)
+  ──────────────────────────────────────
+  - ***
+  - ***
+
+  If Blood Sugar Is Too Low (below ***)
+  ─────────────────────────────────────
+  - ***
+  - ***
+
+Foot, Eye, and Kidney Care
+──────────────────────────
+- Check your feet every day for cuts or sores
+- Eye exam once a year
+- Kidney blood test at least once a year
+
+Weekly Starter Plan
+───────────────────
+[Mon-Sun table with meals, exercise, and blood
+sugar checks]
+
+Your Goals for This Week
+────────────────────────
+1. ***
+2. ***
+3. ***
+```
 
 ---
 PATIENT CONTEXT:
 [Paste: current A1c, medications, current diet and exercise habits, barriers, clinical targets]
 </PromptPlayground>
 
-### Weight management
+### Weight management lifestyle plan
 
 <PromptPlayground tool="Any LLM" title="Weight Management Lifestyle Plan">
-You are a physician creating a sustainable weight management plan for a patient. The patient has no medical background. Write at a 6th grade reading level. Be specific, compassionate, and evidence-based. Frame this as building healthy habits, not "going on a diet."
+You are a physician creating a sustainable weight management plan for a patient. The patient has no medical background.
 
-Using the clinical information provided below, create a weight management plan:
+### Rules
 
-**1. Why Your Doctor Recommended This**
-2–3 sentences connecting weight management to the patient's specific health goals. Avoid shame or blame. Focus on health outcomes, not appearance.
+- Write at a 6th grade reading level.
+- Keep sentences under 15 words when possible.
+- Use "you" and "your" throughout.
+- Frame as building healthy habits, not "going on a diet."
+- Focus on health outcomes, not appearance.
+- No shame or blame language.
+- Include realistic expectations (1-2 pounds per week).
+- Portion descriptions should use hand-size comparisons.
 
-**2. Eating Habits (Not a "Diet")**
-- Small, sustainable changes (not a restrictive diet)
-- Portion awareness: hand-size comparisons for protein, grains, fats
-- Foods to eat more of (high volume, lower calorie: vegetables, fruits, lean protein, whole grains)
-- Foods to eat less of (high calorie, low satiety: sugary drinks, fried foods, large portions of refined carbs)
-- Hunger and fullness cues: eat slowly, stop when satisfied (not stuffed)
-- Meal timing: regular meals to avoid extreme hunger
-- Sample day of meals (balanced, satisfying, approximately [CALORIE TARGET] calories)
+### Output format
 
-**3. Movement**
-- Start with what is enjoyable and sustainable
-- Target: 150 minutes per week, building gradually
-- Focus on consistency over intensity
-- Include both cardio and strength training
-- Suggestions for people who dislike "exercise" (walking the dog, gardening, dancing, taking stairs)
+```
+YOUR HEALTHY HABITS PLAN
+══════════════════════════════════════════
 
-**4. Sleep, Stress, and Emotional Eating**
-- How sleep affects weight (target 7–9 hours)
-- Stress-eating awareness and alternatives
-- When to consider talking to a counselor about emotional eating patterns
+Why Your Doctor Recommended This
+────────────────────────────────
+[2-3 sentences connecting weight management to the
+patient's specific health goals. Focus on how they
+will feel, not how they will look.]
 
-**5. Realistic Expectations**
-- Healthy rate: 1–2 pounds per week
-- Plateaus are normal and do not mean failure
-- Non-scale victories to track (energy, sleep, clothes fit, blood pressure)
+Eating Habits (Not a "Diet")
+────────────────────────────
+  Small, Sustainable Changes
+  ──────────────────────────
+  - ***
+  - ***
+  - ***
 
-**6. Weekly Starter Plan**
-Table format. Small changes only. Build over weeks.
+  Portions at a Glance
+  ────────────────────
+  - Protein: palm of your hand
+  - Grains: your fist
+  - Fats: your thumb
+  - Vegetables: as much as you want
 
-**7. SMART Goals**
-3 achievable goals for this week.
+  Sample Day (about *** calories)
+  ───────────────────────────────
+  Breakfast: ***
+  Lunch: ***
+  Dinner: ***
+  Snack: ***
+
+  Hunger and Fullness
+  ───────────────────
+  - Eat slowly. Put your fork down between bites.
+  - Stop when you feel satisfied, not stuffed.
+  - Eat regular meals. Skipping meals leads to
+    overeating later.
+
+Movement
+────────
+  - Start with what you enjoy.
+  - Target: 150 minutes per week. Build gradually.
+  - Consistency matters more than intensity.
+  - Suggestions for people who do not like "exercise":
+    walking the dog, gardening, dancing, taking stairs
+
+Sleep, Stress, and Emotional Eating
+────────────────────────────────────
+  - Aim for 7-9 hours of sleep per night.
+  - Notice when you eat because you are stressed,
+    bored, or sad (not hungry).
+  - Alternatives: ***
+
+Realistic Expectations
+──────────────────────
+  - Healthy rate: 1-2 pounds per week
+  - Plateaus are normal. They do not mean failure.
+  - Track more than the scale: energy, sleep,
+    how your clothes fit, blood pressure
+
+Weekly Starter Plan
+───────────────────
+[Mon-Sun table with small changes only]
+
+Your Goals for This Week
+────────────────────────
+1. ***
+2. ***
+3. ***
+```
 
 ---
 PATIENT CONTEXT:
@@ -237,66 +517,146 @@ PATIENT CONTEXT:
 
 ## Example output
 
-**Why These Changes Matter**
+```
+YOUR LIFESTYLE PLAN
+══════════════════════════════════════════
 
-Making changes to your diet and activity can lower your blood pressure and reduce your risk of heart attack and stroke. These changes can work as well as some medications. Even small improvements — like cutting back on salt and walking more — can make a real difference in your numbers and how you feel day to day.
+Why These Changes Matter for You
+────────────────────────────────
+You had a heart attack 3 weeks ago. Making changes
+to your diet and activity protects your heart from
+another event. These changes can lower your blood
+pressure, bring down your cholesterol, and help
+you feel stronger. Even small improvements, like
+cutting back on salt and walking more, make a real
+difference.
 
-**Diet**
+Diet Plan
+─────────
+  Foods to Eat More Of
+  ────────────────────
+  - Fruits and vegetables: at least 5 servings a day
+    (1 serving = 1 cup raw vegetables or 1 medium
+    piece of fruit)
+  - Whole grains: oatmeal, brown rice, whole wheat
+    bread instead of white
+  - Lean protein: chicken, fish, beans, lentils
+  - Healthy fats: olive oil, avocado, a small handful
+    of nuts
 
-Foods to eat more of:
-- Fruits and vegetables: aim for at least 5 servings a day (1 serving = 1 cup of raw veggies or 1 medium piece of fruit)
-- Whole grains: brown rice, oatmeal, whole wheat bread instead of white
-- Lean protein: chicken, fish, beans, lentils
-- Low-fat dairy: skim milk, low-fat yogurt
+  Foods to Eat Less Of
+  ────────────────────
+  - Salt: less than 2,000 mg per day (about 1 teaspoon).
+    Check labels on canned soups, deli meat, and frozen
+    meals.
+  - Sugary drinks: soda, sweet tea, juice. Switch to
+    water, unsweetened tea, or water with lemon.
+  - Fried foods and fast food: once a week or less.
+  - Red and processed meat: limit to 2 times a week.
 
-Foods to eat less of:
-- Salt: aim for less than 2,300 mg per day (about 1 teaspoon). Check labels on canned soups, deli meat, and frozen meals — these are often very high in sodium.
-- Sugary drinks: soda, sweet tea, juice. Switch to water, unsweetened tea, or water with lemon.
-- Fried foods and fast food: limit to once per week or less.
+  Sample Day of Meals
+  ───────────────────
+  Breakfast: Oatmeal with blueberries and a small
+    handful of walnuts
+  Lunch: Turkey sandwich on whole wheat with lettuce,
+    tomato, mustard, and an apple
+  Dinner: Baked salmon, steamed broccoli, and brown rice
+  Snack: Baby carrots with hummus
 
-Sample day:
-- Breakfast: Oatmeal with berries and a handful of walnuts
-- Lunch: Turkey sandwich on whole wheat with lettuce, tomato, and an apple
-- Dinner: Baked chicken breast, steamed broccoli, and brown rice
-- Snack: Baby carrots with hummus
+  Practical Tips
+  ──────────────
+  - Cook extra on Sunday. Use leftovers for lunches.
+  - When eating out, ask for dressing on the side and
+    grilled instead of fried.
+  - Keep cut vegetables in the fridge for easy snacking.
 
-**Exercise**
+Exercise Plan
+─────────────
+  What to Do
+  ──────────
+  Type: Walking
+  How often: 5 days per week
+  How long: Build to 30 minutes per session
+  How hard: You should be able to talk but not sing
 
-Start here: Walk for 15 minutes after dinner, 5 days this week. Walk at a pace where you can talk comfortably but would not want to sing.
+  If You Are Starting from Zero
+  ─────────────────────────────
+  Week 1-2: Walk 10 minutes, twice a day, on flat ground
+  Week 3-4: Walk 15 minutes, once a day
+  Week 5+: Walk 20-30 minutes, once a day. Add gentle
+    hills when comfortable.
 
-Build up to: 30 minutes of walking, 5 days a week over the next 4 weeks. Add 5 minutes per week.
+  Safety
+  ──────
+  Stop and sit down if: You feel chest pain, pressure,
+    dizziness, unusual shortness of breath, or nausea.
+  Call your doctor if: Symptoms do not go away within
+    5 minutes of stopping, or if they happen often.
 
-Safety: If you feel chest pain, dizziness, or unusual shortness of breath, stop and sit down. Call your doctor if it does not pass quickly.
+Other Changes
+─────────────
+  Sleep
+  ─────
+  - Aim for 7-8 hours per night.
+  - Go to bed and wake up at the same time each day.
 
----
+  Stress
+  ──────
+  - Try slow breathing: 4 counts in, 4 counts out,
+    for 5 minutes.
+  - Talk to your doctor if you feel anxious, sad, or
+    overwhelmed. This is common after a heart attack.
 
-## How to customize
+  Smoking
+  ───────
+  - Quitting smoking is the single most important
+    thing you can do for your heart. Talk to your
+    doctor about nicotine patches, gum, or medication
+    that can help.
 
-| Element | How to Adjust |
-|---|---|
-| Diabetes | Add: "Focus on carbohydrate counting and blood sugar monitoring. Include a carb-counting guide." |
-| Heart failure | Add: "Include fluid restriction and daily weight monitoring. Emphasize sodium limits with specific gram targets." |
-| Obesity | Add: "Focus on sustainable caloric deficit. Avoid language about dieting; frame as long-term habits." |
-| Elderly | Add: "Account for mobility limitations. Focus on fall prevention and balance exercises." |
-| Budget constraints | Add: "The patient has limited food budget. Recommend affordable, accessible foods." |
-| Motivational interviewing | Add: "Use motivational interviewing language; emphasize autonomy and self-efficacy" |
-| Cultural considerations | Add: "Incorporate [CULTURE]-appropriate food examples and dietary patterns" |
-| Comorbidities | Add: "Patient also has [COMORBIDITIES]; ensure recommendations are safe for all conditions" |
-| Specific diet | Add: "Focus on [Mediterranean / DASH / low-carb / renal] diet recommendations" |
+Your Weekly Starter Plan
+────────────────────────
+| Day       | Meals                           | Exercise              | Other           |
+|-----------|---------------------------------|-----------------------|-----------------|
+| Monday    | Oatmeal / turkey wrap / salmon  | 10-min walk, morning  | Weigh yourself  |
+| Tuesday   | Yogurt + fruit / salad / chicken| 10-min walk, evening  | Check BP        |
+| Wednesday | Oatmeal / soup + bread / stir-fry| 10-min walk, morning | Breathing 5 min |
+| Thursday  | Eggs + toast / leftovers / fish | 10-min walk, evening  | Weigh yourself  |
+| Friday    | Smoothie / sandwich / pasta     | 10-min walk, morning  | Check BP        |
+| Saturday  | Pancakes (whole wheat) / salad  | 15-min walk           | Breathing 5 min |
+| Sunday    | Eggs + veggies / leftovers      | Rest or gentle walk   | Meal prep       |
+
+How to Track Progress
+─────────────────────
+  What to measure: Weight, blood pressure, exercise
+    minutes, and how you feel
+  How often: Weight and blood pressure every morning.
+    Exercise minutes daily.
+  How to track it: A notebook by the bathroom scale,
+    or the Notes app on your phone.
+
+  Your Goals for This Week
+  ────────────────────────
+  1. Walk for at least 10 minutes, 5 days this week.
+  2. Eat at least 3 servings of vegetables each day.
+  3. Do the slow breathing exercise at least twice.
+```
 
 ---
 
 ## Tips & pitfalls
 
-- The quality of the output depends heavily on the specificity of the input. Include current habits, not just the diagnosis: "patient currently eats fast food 5x/week and does not exercise" produces a much better plan than "patient has hypertension."
-- AI-generated diet plans should be reviewed for safety, especially for patients with diabetes, kidney disease, food allergies, or eating disorders.
-- This template pairs well with the **Follow-Up Visit Prep** template to help the patient track and report their progress.
-- Avoid overly ambitious plans. Patients are more likely to follow a plan with 2–3 small changes than one that overhauls their entire life at once. The "Weekly Starter Plan" section should reflect this.
-- For patients with cultural dietary preferences, include specific foods from their cuisine. A plan full of foods the patient does not eat will not be followed.
-- Weight-related recommendations should be framed compassionately. Focus on health behaviors and outcomes, not numbers on the scale.
+- **Input quality determines output quality.** "Patient has hypertension" produces generic advice. "52-year-old man, eats fast food 5 times a week, works night shift, does not exercise, smokes half a pack daily, lives alone, budget is tight" produces a plan the patient might actually follow.
+- **Review diet recommendations for safety.** Patients with diabetes, kidney disease, food allergies, or eating disorders need diet plans reviewed by a clinician who knows their full clinical picture. AI does not reliably catch renal potassium restrictions or carb-insulin interactions.
+- **Avoid overly ambitious plans.** Patients are more likely to follow a plan with 2-3 small changes than one that overhauls their entire life on Monday. The weekly starter plan should reflect that.
+- **Cultural dietary preferences matter.** A plan full of foods the patient does not eat will not be followed. Include the patient's typical cuisine in the prompt input.
+- **Weight-related content requires sensitivity.** Focus on health behaviors and outcomes, not numbers on the scale. Frame changes as building healthy habits, not punishing bad ones.
+- **Pair with the Follow-Up Visit Prep template.** The follow-up visit is where the patient reports how the plan is going, what worked, and what did not. The two templates function as a set.
+- **Medication and lifestyle are not either/or.** Make sure the plan states clearly that lifestyle changes work alongside medications, not instead of them.
 
 ---
 
 ## Related
 
-- [Follow-Up Visit Prep](/templates/follow-up-visit-prep) — help the patient track progress and prepare to discuss lifestyle changes at the next visit
+- [Follow-Up Visit Prep](/templates/follow-up-visit-prep): help the patient track progress and prepare to discuss lifestyle changes at the next visit
+- [Condition Explainer](/templates/condition-explainer): background on the diagnosis driving these lifestyle changes

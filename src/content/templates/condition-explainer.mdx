@@ -3,25 +3,22 @@ title: "Condition Explainer"
 category: patient-education
 targetTool: any
 workflow: outpatient-visit-education
-tags: [patient-education, diagnosis, condition, explainer]
-lastUpdated: 2026-03-22
+tags: [beginner, patient-education, diagnosis, condition, explainer]
+lastUpdated: 2026-03-27
+socialPost: "Patient just heard a diagnosis for the first time and stopped processing two sentences ago. Generate a plain-language handout: what they have, why they have it, what happens next, when to worry."
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
 
-This template takes a diagnosis and relevant clinical context and produces a clear, patient-friendly explanation. The output is written at a 6th grade reading level so patients can understand their condition, what to expect, and when to seek help.
-
 ## When to use this
 
-Use this template when you need to create a plain-language handout explaining a diagnosis to a patient who has no medical background.
+A patient just heard a diagnosis for the first time and is staring at you with the particular blankness that means they stopped processing two sentences ago. This template generates a plain-language handout that covers what they have, why they have it, what happens next, and when to worry. It works for any condition, from new-onset diabetes to a first seizure.
+
+Hand over the output as a take-home sheet to reinforce your conversation, not replace it.
 
 <Callout type="hipaa">
   De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
-</Callout>
-
-<Callout type="tip">
-  Adjust the reading level to your patient. The default is 6th grade (average US health literacy). For patients with higher literacy, you can raise this. For patients with limited English proficiency, simplify further and consider having the output translated by a qualified medical interpreter.
 </Callout>
 
 ---
@@ -29,42 +26,111 @@ Use this template when you need to create a plain-language handout explaining a 
 ## The prompt
 
 <PromptPlayground tool="Any LLM" title="Condition Explainer">
-You are a physician writing a patient education handout. Your goal is to explain a medical condition in plain language that a patient with no medical background can understand.
+You are a physician writing a patient education handout. Your goal is to explain a medical condition so clearly that a patient with no medical background walks away understanding what they have, what to do about it, and when to worry.
 
-Write at a 6th grade reading level. Use short sentences. Avoid medical jargon. If a medical term is unavoidable, define it in parentheses the first time you use it. Use bullet points for lists and action items.
+### Rules
 
-Using the clinical information provided below, create a patient education handout with the following sections:
+- Write at a 6th grade reading level.
+- Keep sentences under 15 words when possible.
+- Never use a medical term without defining it in parentheses the first time.
+- Use "you" and "your" throughout.
+- No abbreviations.
+- Use an everyday analogy to explain the core mechanism if one fits naturally.
+- Warning signs must be concrete and specific (e.g., "chest pain lasting more than 10 minutes"), never vague ("worsening symptoms").
+- Do not invent clinical details not provided below.
 
-**1. What You Have**
-Explain the diagnosis in 2–3 simple sentences. Use an analogy or comparison to everyday life if it helps.
+### Vocabulary
 
-**2. What Causes It**
-Briefly explain the most common causes or risk factors in plain language. Keep to 2–4 bullet points.
+- Use "blood sugar" not "glucose"
+- Use "blood pressure" not "BP"
+- Use "heart attack" not "MI"
+- Use the simplest accurate word available
 
-**3. What to Expect**
-Describe the typical symptoms, how the condition may progress, and what the patient might experience day-to-day. Be honest but reassuring where appropriate.
+### Output format
 
-**4. Your Treatment Plan**
-Explain what the doctor is recommending and why. Include:
-- Medications (what they do, not just the name)
-- Lifestyle changes (specific actions, not vague advice)
-- Procedures or follow-up tests if applicable
+```
+ABOUT YOUR CONDITION
+══════════════════════════════════════════
 
-**5. When to Get Help Right Away**
-List 3–5 specific warning signs that mean the patient should call their doctor or go to the emergency room. Be concrete (e.g., "chest pain that does not go away after 10 minutes" rather than "worsening symptoms").
+What You Have
+──────────────
+[2-3 sentences explaining the diagnosis in plain language.
+Use an analogy if it helps.]
 
-**6. Questions to Ask Your Doctor**
-Suggest 3–5 questions the patient can bring to their next appointment about this condition.
+What Causes It
+──────────────
+- ***
+- ***
+- ***
 
-Use "you" and "your" to address the patient directly. Avoid abbreviations.
+What to Expect
+──────────────
+[3-5 sentences describing typical symptoms, day-to-day
+experience, and how the condition may change over time.
+Be honest but not alarming.]
+
+Your Treatment Plan
+───────────────────
+  Medications
+  ───────────
+  - ***: what it does, how to take it
+  - ***: what it does, how to take it
+
+  Lifestyle Changes
+  ─────────────────
+  1. *** [specific action, not vague advice]
+  2. ***
+  3. ***
+
+  Tests or Follow-Up
+  ───────────────────
+  - ***
+  - ***
+
+When to Get Help Right Away
+───────────────────────────
+Go to the ER if:
+- ***
+- ***
+- ***
+- ***
+
+Call your doctor if:
+- ***
+- ***
+
+Questions for Your Doctor
+─────────────────────────
+1. ***
+2. ***
+3. ***
+4. ***
+5. ***
+```
+
+Replace each *** with content specific to the patient's condition and clinical details provided below.
 
 ---
 PATIENT CONTEXT (optional):
-[AGE, RELEVANT BACKGROUND, LANGUAGE PREFERENCES, ANY SPECIFIC CONCERNS THE PATIENT HAS RAISED]
+[Age, relevant background, language preferences, specific concerns the patient has raised]
 
 CLINICAL INFORMATION:
-[Paste the diagnosis, relevant history, and any treatment plan details here]
+[Paste the diagnosis, relevant history, and treatment plan details here]
 </PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Reading level | Change "6th grade" to "4th grade" for low health literacy or "8th grade" for more detail |
+| Condition type | Add: "This is a chronic condition; emphasize long-term management and that this is treatable, not curable" |
+| Specialty | Add: "This is a cardiology diagnosis. Include heart-specific lifestyle guidance." |
+| Caregiver audience | Add: "This handout is for the patient's family caregiver, not the patient directly" |
+| Length | Add: "Keep the entire handout under 300 words" |
+| Language | Add: "Write the explanation in [LANGUAGE]" |
+| Emotional weight | Add: "This is a frightening diagnosis. Use a warm, reassuring tone without minimizing the condition." |
 
 ---
 
@@ -73,32 +139,74 @@ CLINICAL INFORMATION:
 ### Pediatric version (explaining to parents)
 
 <PromptPlayground tool="Any LLM" title="Condition Explainer: For Parents">
-You are a pediatrician writing a handout for the parent or guardian of a child who has been diagnosed with a medical condition. The parent has no medical background. Write at a 6th grade reading level. Use short sentences. Avoid medical jargon.
+You are a pediatrician writing a handout for the parent or guardian of a child who has been diagnosed with a medical condition. The parent has no medical background.
 
-Using the clinical information provided below, create a parent education handout with the following sections:
+### Rules
 
-**1. What Your Child Has**
-Explain the diagnosis in 2–3 simple sentences. Use an analogy if it helps.
+- Write at a 6th grade reading level.
+- Keep sentences under 15 words when possible.
+- Define every medical term in parentheses on first use.
+- Use "your child" throughout.
+- No abbreviations.
+- Warning signs must be concrete: "your child's lips turn blue" not "respiratory distress."
+- Include guidance on school, play, and sleep where relevant.
 
-**2. What Causes It**
-Briefly explain the most common causes or risk factors in plain language. Keep to 2–4 bullet points.
+### Output format
 
-**3. What to Expect**
-Describe what your child might experience day-to-day. Include how the condition might affect school, play, sleep, and appetite. Be honest but reassuring.
+```
+ABOUT YOUR CHILD'S CONDITION
+══════════════════════════════════════════
 
-**4. How to Help Your Child**
-Explain the treatment plan in terms of what the parent needs to do:
-- Medications: what they do, how to give them, and tips for giving medicine to children
-- At-home care: specific actions (not vague advice)
-- What to tell the school or daycare
+What Your Child Has
+───────────────────
+[2-3 sentences in plain language. Use an analogy if helpful.]
 
-**5. When to Get Help Right Away**
-List 3–5 specific warning signs that mean the parent should call the doctor or go to the emergency room. Be concrete (e.g., "your child has trouble breathing or their lips turn blue" rather than "respiratory distress").
+What Causes It
+──────────────
+- ***
+- ***
+- ***
 
-**6. Questions to Ask Your Child's Doctor**
-Suggest 3–5 questions the parent can bring to the next appointment.
+What to Expect
+──────────────
+[How this may affect school, play, sleep, and appetite.
+Be honest but reassuring.]
 
-Use "your child" throughout. Avoid abbreviations.
+How to Help Your Child
+──────────────────────
+  Medications
+  ───────────
+  - ***: what it does, how to give it, tips for children
+
+  At-Home Care
+  ────────────
+  1. ***
+  2. ***
+
+  What to Tell School or Daycare
+  ──────────────────────────────
+  - ***
+  - ***
+
+When to Get Help Right Away
+───────────────────────────
+Go to the ER if:
+- ***
+- ***
+- ***
+
+Call your child's doctor if:
+- ***
+- ***
+
+Questions for Your Child's Doctor
+─────────────────────────────────
+1. ***
+2. ***
+3. ***
+4. ***
+5. ***
+```
 
 ---
 CHILD'S AGE: [AGE]
@@ -109,63 +217,142 @@ CLINICAL INFORMATION:
 ### Elderly patient version
 
 <PromptPlayground tool="Any LLM" title="Condition Explainer: Elderly Patient">
-You are a physician writing a patient education handout for an older adult patient. Write at a 5th grade reading level. Use short sentences. Use large, clear formatting. Avoid medical jargon entirely.
+You are a physician writing a patient education handout for an older adult. The patient may have limited vision, reduced health literacy, or both.
 
-Using the clinical information provided below, create a patient education handout with the following sections:
+### Rules
 
-**1. What You Have**
-Explain the diagnosis in 2–3 very simple sentences. Use an everyday comparison.
+- Write at a 5th grade reading level.
+- Use very short sentences: 10 words or fewer when possible.
+- Define every medical term in parentheses.
+- Bold all section headers.
+- No abbreviations.
+- Describe symptoms in daily-life terms: "You might feel tired after walking to the mailbox" not "exercise intolerance."
+- Medication instructions: name, what it does, when to take it (morning, evening, with meals).
+- Keep the entire handout to one page.
 
-**2. What Causes It**
-2–3 bullet points in plain language.
+### Output format
 
-**3. What You Might Notice**
-Describe symptoms in terms of daily life: "You might feel tired after walking to the mailbox" rather than "exercise intolerance."
+```
+ABOUT YOUR CONDITION
+══════════════════════════════════════════
 
-**4. What Your Doctor Wants You to Do**
-Simple, numbered steps. One action per line. Include:
-- Medications: name, what it is for, when to take it (morning/evening/with meals)
-- Things to do at home
-- Appointments to keep
+What You Have
+──────────────
+[2-3 very simple sentences. Use an everyday comparison.]
 
-**5. Warning Signs: Call Your Doctor or 911**
-List 4–5 specific warning signs in bold. Use everyday language (e.g., "Your feet or ankles swell up more than usual" rather than "peripheral edema").
+What Causes It
+──────────────
+- ***
+- ***
 
-**6. Who to Call**
-- Doctor's office: [placeholder]
-- After hours: [placeholder]
+What You Might Notice
+─────────────────────
+[Describe symptoms in terms of daily life.]
+
+What Your Doctor Wants You to Do
+────────────────────────────────
+1. ***
+2. ***
+3. ***
+4. ***
+
+Warning Signs: Call Your Doctor or 911
+──────────────────────────────────────
+- ***
+- ***
+- ***
+- ***
+
+Who to Call
+───────────
+- Doctor's office: ***
+- After hours: ***
 - Emergency: 911
-
-Keep the entire handout to one page. Use large text formatting cues (bold headers, bullet points, numbered lists). Avoid small print or dense paragraphs.
+```
 
 ---
 CLINICAL INFORMATION:
 [Paste the diagnosis, relevant history, and treatment plan here]
 </PromptPlayground>
 
-### Multilingual version
+### Chronic vs. acute condition
 
-<PromptPlayground tool="Any LLM" title="Condition Explainer: Bilingual">
-You are a physician writing a bilingual patient education handout. Create the handout in both English and [TARGET LANGUAGE, e.g., Spanish, Mandarin, Vietnamese, Arabic].
+<PromptPlayground tool="Any LLM" title="Condition Explainer: Chronic Condition">
+You are a physician writing a patient education handout for someone newly diagnosed with a chronic condition they will manage for the rest of their life. The patient has no medical background.
 
-Write at a 5th grade reading level in both languages. Use short sentences. Avoid medical jargon.
+### Rules
 
-Format the handout with English on the left and [TARGET LANGUAGE] on the right (or English first, then the full translation below — choose whichever is clearer).
+- Write at a 6th grade reading level.
+- Keep sentences under 15 words when possible.
+- Define every medical term in parentheses.
+- Use "you" and "your" throughout.
+- Emphasize that this condition is manageable, not a death sentence.
+- Be honest about the long-term nature without being discouraging.
+- Include concrete milestones ("At your 3-month check, your doctor will...").
+- Warning signs must be specific and actionable.
 
-Include the same sections as a standard condition explainer:
-1. What You Have
-2. What Causes It
-3. What to Expect
-4. Your Treatment Plan
-5. When to Get Help Right Away (this section is the most important to translate accurately)
-6. Questions to Ask Your Doctor
+### Output format
 
-Use "you" and "your" to address the patient directly in both languages.
+```
+LIVING WITH YOUR CONDITION
+══════════════════════════════════════════
 
-**Important:** This AI-generated translation is a starting point. It should be reviewed by a qualified medical interpreter before being given to the patient, especially the "When to Get Help" section.
+What You Have
+──────────────
+[2-3 sentences. Emphasize that this is a condition
+you manage, not something that defines you.]
+
+Why It Happens
+──────────────
+- ***
+- ***
+- ***
+
+What Life Looks Like Now
+────────────────────────
+[Honest description of day-to-day living with this
+condition. What changes, what stays the same.]
+
+Your Long-Term Plan
+───────────────────
+  Medications
+  ───────────
+  - ***: what it does, how to take it, how long
+
+  Lifestyle Changes That Make a Real Difference
+  ─────────────────────────────────────────────
+  1. ***
+  2. ***
+  3. ***
+
+  Your Check-In Schedule
+  ──────────────────────
+  - 1 month: ***
+  - 3 months: ***
+  - 6 months: ***
+  - Yearly: ***
+
+When to Get Help Right Away
+───────────────────────────
+Go to the ER if:
+- ***
+- ***
+- ***
+
+Call your doctor if:
+- ***
+- ***
+
+Questions for Your Doctor
+─────────────────────────
+1. ***
+2. ***
+3. ***
+4. ***
+5. ***
+```
 
 ---
-TARGET LANGUAGE: [LANGUAGE]
 CLINICAL INFORMATION:
 [Paste the diagnosis, relevant history, and treatment plan here]
 </PromptPlayground>
@@ -174,66 +361,108 @@ CLINICAL INFORMATION:
 
 ## Example output
 
-**What You Have**
+```
+ABOUT YOUR CONDITION
+══════════════════════════════════════════
 
-You have something called type 2 diabetes. This means your body has trouble using sugar from the food you eat for energy. Think of it like a lock and key: insulin is the key that lets sugar into your cells, and in diabetes, the key does not work as well as it should. So sugar builds up in your blood instead.
+What You Have
+──────────────
+You have type 2 diabetes. This means your body has
+trouble using sugar from the food you eat. Think of
+insulin as a key that opens your cells to let sugar
+in for energy. In diabetes, that key does not work
+well. Sugar builds up in your blood instead.
 
-**What Causes It**
+What Causes It
+──────────────
+- Your body does not respond to insulin the way it
+  used to (called insulin resistance)
+- Extra weight around the belly makes insulin work
+  less well
+- It runs in families
+- Not moving enough and eating a lot of sugar or
+  processed foods can make it worse
 
-- Your body does not respond to insulin as well as it used to (this is called insulin resistance)
-- Being overweight, especially around the belly, makes it harder for insulin to work
-- It runs in families: if your parents or siblings have diabetes, you are more likely to get it
-- Not being active enough and eating a lot of sugary or processed foods can make it worse
+What to Expect
+──────────────
+You may not feel different right now. Many people
+with type 2 diabetes feel fine at first. Over time,
+if blood sugar stays too high, you might feel more
+thirsty than usual. You might need to use the
+bathroom more often. You might feel tired. The good
+news: with treatment and changes to your daily
+habits, most people keep their blood sugar under
+control and feel well.
 
-**What to Expect**
+Your Treatment Plan
+───────────────────
+  Medications
+  ───────────
+  - Metformin 500 mg: helps your body use insulin
+    better. Take one pill twice a day with meals. You
+    may feel queasy at first. This usually gets better
+    after a week or two.
 
-You may not feel any different right now. Many people with type 2 diabetes feel fine at first. Over time, if blood sugar stays too high, you might notice you are more thirsty than usual, need to use the bathroom more often, or feel tired. The good news is that with treatment and lifestyle changes, many people keep their blood sugar under control and feel well.
+  Lifestyle Changes
+  ─────────────────
+  1. Fill half your plate with vegetables at each meal.
+     Cut back on sugary drinks, white bread, and sweets.
+  2. Walk for 20 to 30 minutes a day, at least 5 days
+     a week. Walking after meals helps your blood sugar
+     the most.
+  3. Check your blood sugar at home. Your doctor will
+     show you how.
 
-**Your Treatment Plan**
+  Tests or Follow-Up
+  ───────────────────
+  - A1c blood test in 3 months to see how your blood
+    sugar has been doing overall
+  - Eye exam within the next year
+  - Foot check at every visit
 
-- **Metformin** (a pill you take twice a day with meals): This helps your body use insulin better so your blood sugar goes down. You may feel a little queasy at first, but this usually gets better after a week or two.
-- **Diet changes:** Try to eat more vegetables, lean protein, and whole grains. Cut back on sugary drinks, white bread, and sweets. A good goal is to fill half your plate with vegetables at each meal.
-- **Exercise:** Walk for 20 to 30 minutes a day, at least 5 days a week. Walking after meals is especially helpful for blood sugar.
-- **Blood sugar checks:** Your doctor will show you how to check your blood sugar at home.
-
-**When to Get Help Right Away**
-
-Call your doctor or go to the emergency room if:
-- Your blood sugar is higher than 300 and you feel sick, confused, or very thirsty
-- You feel shaky, sweaty, or dizzy and your blood sugar is below 70
-- You have a cut or sore on your foot that is not healing after a few days
-- You have blurry vision that comes on suddenly
+When to Get Help Right Away
+───────────────────────────
+Go to the ER if:
+- Your blood sugar is above 300 and you feel sick,
+  confused, or very thirsty
+- You feel shaky, sweaty, or dizzy and your blood
+  sugar is below 70
 - You have chest pain or trouble breathing
 
----
+Call your doctor if:
+- A cut or sore on your foot is not healing after
+  a few days
+- You have blurry vision that comes on suddenly
+- Your blood sugar stays above 250 for more than
+  two days in a row
 
-## How to customize
-
-| Element | How to Adjust |
-|---|---|
-| Reading level | Add: "Write at a 4th grade reading level" or "Write for a health-literate audience" |
-| Condition type | Add: "This is a chronic condition; emphasize long-term management" |
-| Specialty | Add: "This is a cardiology diagnosis. Include heart-specific lifestyle guidance." |
-| Caregiver audience | Add: "This handout is for the patient's family caregiver, not the patient directly" |
-| Length | Add: "Keep the entire handout to one page (approximately 300 words)" |
-| Language | Add: "Write the explanation in [LANGUAGE]" (works well for Spanish, French, and other common languages) |
-| Chronic vs. acute | Add: "This is a chronic condition; emphasize long-term management" or "This is an acute episode; emphasize recovery timeline" |
-| Pediatric | Add: "This is for the parent/guardian of a child. Use 'your child' instead of 'you'." |
+Questions for Your Doctor
+─────────────────────────
+1. What should my blood sugar numbers be when I check
+   at home?
+2. Will I need to take insulin shots, or will the pill
+   be enough?
+3. Can I still eat my favorite foods sometimes?
+4. How often do I need to come back for check-ups?
+5. Should I see a diabetes educator or dietitian?
+```
 
 ---
 
 ## Tips & pitfalls
 
-- This template works for any diagnosis. For complex multi-system conditions, consider generating one handout per major diagnosis rather than combining them.
-- Always review the "When to Get Help" section carefully: this is the most safety-critical part of the output.
-- Consider printing or sharing digitally as a take-home resource alongside the verbal conversation. For complex diagnoses (e.g., cancer), the conversation itself matters more than the handout.
-- AI-generated translations should always be reviewed by a qualified medical interpreter before being given to a patient. The bilingual variation is a starting point, not a finished product.
-- For conditions with strong emotional weight (cancer, chronic illness, terminal diagnoses), the tone of the handout matters as much as the content. Review for sensitivity.
-- If the patient has specific questions or concerns, include them in the "Patient Context" section of the prompt for a more personalized handout.
+- **One diagnosis per handout.** For patients with multiple new diagnoses, generate separate handouts. A combined sheet overwhelms rather than informs.
+- **The "When to Get Help" section is the most safety-critical output.** Read it line by line. Make sure each warning sign is specific to this patient's condition, not a generic list.
+- **AI-generated analogies can mislead.** The "lock and key" analogy for insulin works. Analogies for cancer or autoimmune disease often oversimplify in harmful ways. Review every analogy before handing the sheet to a patient.
+- **Pair with a conversation, not a cold handoff.** Patients retain about 40-80% of what they hear in a visit, and nearly half of what they do retain is wrong. The handout reinforces your verbal explanation.
+- **Sensitive diagnoses need human tone-checking.** Cancer, chronic illness, and terminal diagnoses carry emotional weight that AI handles unevenly. Review for sensitivity before printing.
+- **Consider printing in large font for elderly patients.** The elderly variation is written for this, but any version benefits from 14-point type or larger.
+- **Include the patient's own questions.** If they asked "Will I go blind?" during the visit, add that to the Patient Context section so the handout addresses it directly.
 
 ---
 
 ## Related
 
-- [Discharge Instructions](/templates/discharge-instructions) — actionable take-home instructions that complement this condition explanation
-- [Medication Instructions](/templates/medication-instructions) — patient-friendly medication education to pair with the diagnosis handout
+- [Discharge Instructions](/templates/discharge-instructions): actionable take-home instructions that complement this condition explanation
+- [Medication Instructions](/templates/medication-instructions): patient-friendly medication education to pair with the diagnosis handout
+- [New Medication Guide](/templates/new-medication-guide): deep dive on a single new prescription

@@ -1,0 +1,780 @@
+---
+title: "Vascular Neurology / Stroke Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, stroke, vascular-neurology, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "NIHSS trends, TOAST classification, stenosis percentages, secondary prevention optimization, functional recovery. Stroke follow-up notes with disease-specific workup and risk factor data."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when writing an outpatient vascular neurology or stroke clinic follow-up note. Paste in your clinical data (index event details, etiology workup, imaging, secondary prevention regimen, residual deficits, rehabilitation status, and risk factors) and the LLM produces a structured clinic note with disease-specific documentation for ischemic stroke, TIA, carotid stenosis, intracranial stenosis, cerebral venous thrombosis, and cryptogenic stroke. The output format captures TOAST classification, secondary prevention optimization, and functional recovery trajectory.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Vascular Neurology / Stroke Clinic Visit Note">
+You are an experienced vascular neurologist writing an outpatient stroke clinic visit note. After receiving the clinical information below, produce a complete, structured stroke follow-up note.
+
+### Rules
+
+- Write in past tense for the index event and history; present tense for current status, exam findings, and plan.
+- Include specific numbers (NIHSS scores, stenosis percentages, BP readings, LDL, A1c, imaging dates) whenever available.
+- Use medical abbreviations throughout. Never spell out what an abbreviation stands for.
+- Reference dates in the format M/D/YY.
+- Document TOAST classification explicitly.
+- Document secondary prevention medications with doses.
+- Include risk factor modification targets with current values.
+- Do not infer or fabricate any clinical information not provided. Write "***" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "pmhx" = past medical history
+- "tPA" = alteplase
+- "NIHSS" = NIH Stroke Scale
+- "TOAST" = Trial of Org 10172 in Acute Stroke Treatment (stroke classification)
+- "CTA" = CT angiography
+- "MRA" = MR angiography
+- "CEA" = carotid endarterectomy
+- "CAS" = carotid artery stenting
+- "PFO" = patent foramen ovale
+- "ILR" = implantable loop recorder
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+VASCULAR NEUROLOGY / STROKE CLINIC VISIT
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[Post-stroke follow-up (*** months) / TIA follow-up /
+Carotid stenosis management / Cryptogenic stroke workup]
+
+INDEX EVENT
+───────────
+  Date: ***
+  Type: [Ischemic stroke / Hemorrhagic stroke / TIA]
+  Territory/Vessel: ***
+  NIHSS: Admission ***, Discharge ***, Current ***
+  Acute treatment: [tPA (door-to-needle time) /
+  Thrombectomy (door-to-groin time, TICI score) /
+  None (reason)]
+  Hospital course summary: [Brief, 2-3 sentences]
+
+STROKE ETIOLOGY
+───────────────
+  TOAST Classification: [Large artery atherosclerosis /
+  Cardioembolism / Small vessel occlusion / Other
+  determined etiology / Cryptogenic]
+  Rationale: [Brief explanation supporting classification]
+
+ETIOLOGIC WORKUP
+─────────────────
+  Vascular Imaging
+  ────────────────
+  CTA/MRA head and neck (date: ***):
+    Carotid: [Stenosis % (method: NASCET), side]
+    Intracranial: [Stenosis, occlusion, dissection]
+    Vertebrobasilar: ***
+
+  Cardiac Evaluation
+  ──────────────────
+  Echocardiogram (date: ***):
+    Type: [TTE / TEE]
+    EF: ***%
+    PFO: [Present (with/without atrial septal aneurysm) /
+    Absent]
+    Thrombus: [Present / absent]
+    Valvular: ***
+    Other: ***
+
+  Cardiac Monitoring
+  ──────────────────
+  Type: [Telemetry / Holter / 30-day event monitor / ILR]
+  Duration: ***
+  Findings: [AFib detected (burden ***%) / No arrhythmia /
+  Pending]
+  ILR: [Implanted (date) / planned / not indicated]
+
+  Cryptogenic Workup (if applicable)
+  ───────────────────────────────────
+  Bubble study: [Positive (grade) / Negative / Not done]
+  Prolonged cardiac monitoring: [Type, duration, result]
+  Hypercoagulable panel: [Results / pending / not indicated]
+  PFO closure candidacy: [Yes (RoPE score ***) / No /
+  Under discussion]
+
+  Carotid Management (if applicable)
+  ───────────────────────────────────
+  Stenosis: ***% [NASCET method]
+  Symptomatic: [Yes / No]
+  CEA/CAS: [Date / planned / not indicated]
+  Post-intervention imaging: ***
+
+SECONDARY PREVENTION
+────────────────────
+  Antiplatelet/Anticoagulation
+  ────────────────────────────
+  Current: [ASA *** mg / Clopidogrel 75 mg /
+  ASA + clopidogrel (DAPT; start date, planned duration) /
+  ASA-dipyridamole / Warfarin (INR target, last INR) /
+  DOAC (agent, dose)]
+  Rationale: ***
+
+  Statin
+  ──────
+  Current: [Agent, dose (high-intensity Y/N)]
+  LDL: *** (date: ***; goal &lt;70)
+
+  Blood Pressure
+  ──────────────
+  Current regimen: [Agents with doses]
+  Target: [&lt;130/80 or &lt;140/90 with rationale]
+  Recent BP (office): ***
+  Home BP readings: [Average if available]
+
+  Diabetes Management
+  ───────────────────
+  A1c: *** (date: ***; goal &lt;7)
+  Current regimen: ***
+
+  Lifestyle
+  ─────────
+  Smoking: [Never / former (quit date) / current (counseling, NRT)]
+  BMI: ***
+  Exercise: [Type, frequency, or "Sedentary"]
+  Alcohol: ***
+  Diet: ***
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph. Symptoms since last visit: new
+neurological symptoms (concern for recurrent event),
+headache, fatigue, mood. Functional recovery: ADLs,
+return to work status, driving. Medication adherence
+and side effects. Rehabilitation progress.]
+
+CURRENT MEDICATIONS
+───────────────────
+  Secondary prevention: ***
+  Antihypertensives: ***
+  Diabetes: ***
+  Other: ***
+
+PHYSICAL EXAMINATION
+────────────────────
+
+  Vitals
+  ──────
+  BP *** (office)  HR ***
+
+  General: ***
+  Cardiovascular: [Rhythm, murmurs, carotid bruits]
+
+  Neurological Exam
+  ─────────────────
+  NIHSS: ***/42 (itemized below)
+    [Consciousness: ***
+    Gaze: ***
+    Visual fields: ***
+    Facial palsy: ***
+    Motor arm (L/R): ***
+    Motor leg (L/R): ***
+    Ataxia: ***
+    Sensory: ***
+    Language: ***
+    Dysarthria: ***
+    Neglect: ***]
+
+  Additional exam:
+  Mental status: ***
+  Cranial nerves: ***
+  Motor: [Strength by muscle group, tone, pronator drift]
+  Sensory: ***
+  Coordination: ***
+  Gait: [Observed gait, assistive device, Romberg]
+
+RESIDUAL DEFICITS
+─────────────────
+  Motor: ***
+  Sensory: ***
+  Language: [Aphasia type and severity if applicable]
+  Visual field: ***
+  Cognitive: ***
+  Dysphagia: [Resolved / present (current diet texture)]
+  Other: ***
+
+REHABILITATION STATUS
+─────────────────────
+  PT: [Active / completed / not participating. Goals, progress.]
+  OT: [Active / completed. Goals, progress.]
+  Speech: [Active / completed. Goals, progress.]
+  Driving: [Status, OT driving evaluation date/result]
+  Return to work: [Status, accommodations, timeline]
+
+MOOD
+────
+  Depression screening: [PHQ-9: ***/27 or qualitative]
+  Post-stroke depression: [Present / absent / treated]
+  Current treatment: ***
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [stroke type, territory]
+on [date], [TOAST classification], s/p [acute treatment],
+now *** months out. [Recovery trajectory. Secondary
+prevention status. Outstanding workup items.]
+
+  1. [Stroke/TIA: type, etiology, recovery status]
+  2. [Secondary prevention optimization]
+  3. [Risk factor management (HTN, DM, lipids, smoking)]
+  4. [Residual deficits and rehabilitation]
+  5. [Mood / post-stroke depression]
+  6. [Return to function (driving, work)]
+
+PLAN
+────
+  1. [Stroke etiology / workup]
+     - [Complete outstanding workup (ILR, PFO closure
+       evaluation, hypercoagulable panel)]
+     - [Carotid management plan if applicable]
+
+  2. [Secondary prevention]
+     - [Antiplatelet/anticoagulation: continue / change]
+     - [Statin: high-intensity, dose optimization]
+     - [DAPT duration if applicable]
+
+  3. [Risk factor modification]
+     - [BP: target, medication adjustment]
+     - [DM: A1c target, regimen adjustment]
+     - [Lipids: LDL target, statin intensification]
+     - [Smoking cessation: NRT, counseling, varenicline]
+     - [Exercise prescription, weight management]
+
+  4. [Rehabilitation]
+     - [PT/OT/Speech: continue, modify, discharge]
+     - [Driving evaluation: schedule or defer]
+     - [Return to work plan]
+
+  5. [Post-stroke depression]
+     - [PHQ-9 follow-up, SSRI if indicated]
+
+  6. [Recurrence risk communication]
+     - [Stroke warning signs reviewed with patient/family]
+
+FOLLOW-UP
+─────────
+[Return interval, next imaging (carotid duplex, CTA,
+brain MRI), next labs (lipids, A1c, INR), coordination
+with cardiology/interventional if applicable.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste your de-identified stroke clinic data here: index event details, etiologic workup, imaging, secondary prevention regimen, current symptoms, exam findings, rehabilitation status, and risk factor data.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| TIA-focused visit | Add: "This is a TIA follow-up. Calculate ABCD2 score from the data provided. Emphasize rapid etiologic workup completion and early secondary prevention." |
+| Young stroke (&lt;50) | Add: "This is a young patient with stroke. Include extended workup: hypercoagulable panel, PFO evaluation, dissection imaging, vasculitis labs, toxicology, and migraine history." |
+| ICH follow-up | Replace secondary prevention section with: "BP management (target &lt;130/80), anticoagulation reversal status, repeat imaging schedule, surgical follow-up if applicable, and cerebral amyloid angiopathy evaluation." |
+| Carotid stenosis only | Remove stroke event sections. Add: "This is an asymptomatic carotid stenosis surveillance visit. Document stenosis percentage trend, medical optimization, and surgical candidacy." |
+| Telemedicine visit | Add: "This is a telemedicine encounter. Document exam limitations. Use patient-reported motor function, speech quality, and gait description." |
+
+---
+
+## Variations
+
+### Post-stroke 3-month follow-up
+
+Use this for the standard 3-month post-stroke follow-up, which is the visit where etiologic workup is typically completed, secondary prevention is optimized, and rehabilitation goals are reassessed.
+
+<PromptPlayground tool="Claude" title="Post-Stroke 3-Month Follow-Up">
+You are a vascular neurologist writing a 3-month post-stroke follow-up note. After receiving the clinical information below, produce a structured follow-up note focused on etiologic workup completion, secondary prevention optimization, and recovery trajectory.
+
+### Rules
+
+- Write in past tense for the index event; present tense for current status and plan.
+- Compare current NIHSS to discharge NIHSS to quantify recovery.
+- Document all etiologic workup results and identify outstanding items.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "NIHSS" = NIH Stroke Scale
+- "TOAST" = stroke classification
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+POST-STROKE 3-MONTH FOLLOW-UP
+══════════════════════════════════════════
+
+INDEX EVENT SUMMARY
+───────────────────
+  Date: ***
+  Type: *** [Territory]
+  NIHSS: Admission *** → Discharge *** → Current ***
+  Acute treatment: ***
+  TOAST: ***
+
+ETIOLOGIC WORKUP STATUS
+────────────────────────
+  Completed:
+    - [Test]: [Result (date)]
+    - [Test]: [Result (date)]
+  Outstanding:
+    - [Test]: [Reason pending]
+
+SECONDARY PREVENTION AUDIT
+──────────────────────────
+  Antiplatelet/AC: [Agent, dose. Appropriate for etiology?]
+  Statin: [Agent, dose. High-intensity?]
+  LDL: *** (goal &lt;70)
+  BP: *** (goal &lt;130/80). Regimen: ***
+  A1c: *** (goal &lt;7)
+  Smoking: ***
+
+RECOVERY ASSESSMENT
+───────────────────
+  NIHSS improvement: *** points (*** → ***)
+  Residual deficits: ***
+  Rehab status: [PT/OT/Speech: active/completed, progress]
+  Functional: [ADLs, driving, work]
+  mRS: ***/6
+
+MOOD SCREENING
+──────────────
+  PHQ-9: ***/27
+  Treatment: ***
+
+PLAN
+────
+  1. Workup: [Complete outstanding items]
+  2. Prevention: [Optimization needed]
+  3. Rehab: [Continue / goals met]
+  4. Risk factors: [Specific targets]
+  5. Mood: [Treatment if needed]
+  6. Follow-up: ***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: index event details, workup results, current prevention regimen, exam, recovery status, risk factors.]
+</PromptPlayground>
+
+### Cryptogenic stroke workup
+
+Use this for patients with cryptogenic (or embolic stroke of undetermined source) where the visit focuses on completing the extended etiologic workup and determining PFO closure candidacy.
+
+<PromptPlayground tool="Claude" title="Cryptogenic Stroke Workup Visit">
+You are a vascular neurologist writing a clinic visit note for a patient with cryptogenic stroke undergoing extended etiologic workup. After receiving the clinical information below, produce a structured note focused on workup progress and PFO closure candidacy.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Document each element of the cryptogenic workup (cardiac monitoring, bubble study, hypercoagulable panel, PFO evaluation) with results or pending status.
+- Calculate RoPE score if PFO is present and data is available.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "ESUS" = embolic stroke of undetermined source
+- "PFO" = patent foramen ovale
+- "RoPE" = Risk of Paradoxical Embolism
+- "ILR" = implantable loop recorder
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+CRYPTOGENIC STROKE WORKUP
+══════════════════════════════════════════
+
+INDEX EVENT
+───────────
+  Date: ***
+  Territory: ***
+  Infarct pattern: [Cortical / embolic / lacunar / multi-territory]
+  NIHSS: ***
+  TOAST: Cryptogenic / ESUS
+
+COMPLETED WORKUP
+────────────────
+  Test                          Result              Date
+  ────                          ──────              ────
+  CTA/MRA head and neck         ***                 ***
+  TTE                           ***                 ***
+  TEE                           ***                 ***
+  Bubble study                  ***                 ***
+  Telemetry ([duration])        ***                 ***
+  Holter/Event monitor          ***                 ***
+  ILR                           ***                 ***
+  Hypercoagulable panel         ***                 ***
+  ESR/CRP                       ***                 ***
+  HgbA1c                        ***                 ***
+  Lipid panel                   ***                 ***
+
+OUTSTANDING WORKUP
+──────────────────
+  - [Test needed]: [Rationale, scheduled date]
+
+PFO EVALUATION (if PFO present)
+───────────────────────────────
+  PFO: [Present / absent]
+  Atrial septal aneurysm: [Present / absent]
+  Shunt grade: [Small / moderate / large]
+  RoPE score: ***/10
+  PFO closure candidacy: [Yes / No / Under discussion]
+  Rationale: [Age, shunt size, no alternative etiology,
+  cortical infarct pattern]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. Cryptogenic stroke: [Workup status, leading hypotheses]
+  2. Outstanding workup: [Complete these items]
+  3. PFO: [Closure candidacy, interventional cardiology
+     referral if indicated]
+  4. Prolonged cardiac monitoring: [ILR if not yet placed,
+     or monitoring results]
+  5. Secondary prevention: [Current regimen while
+     workup continues]
+  6. Follow-up: [Return when outstanding workup complete]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: index event, workup results (completed and pending), PFO details, current prevention regimen.]
+</PromptPlayground>
+
+### Carotid stenosis management
+
+Use this for patients with symptomatic or asymptomatic carotid stenosis being managed medically or evaluated for intervention (CEA or CAS).
+
+<PromptPlayground tool="Claude" title="Carotid Stenosis Management Visit">
+You are a vascular neurologist writing a clinic visit note for a patient with carotid stenosis. After receiving the clinical information below, produce a structured management note.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Document stenosis percentage using NASCET criteria.
+- Distinguish symptomatic from asymptomatic stenosis.
+- Include surgical risk assessment if intervention is being considered.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "CEA" = carotid endarterectomy
+- "CAS" = carotid artery stenting
+- "NASCET" = North American Symptomatic Carotid Endarterectomy Trial
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+CAROTID STENOSIS MANAGEMENT
+══════════════════════════════════════════
+
+CAROTID PROFILE
+───────────────
+  Side: [Right / Left / Bilateral]
+  Stenosis: ***% (method: NASCET)
+  Symptomatic: [Yes (index event date, type) / No]
+  Contralateral: ***
+
+IMAGING TREND
+─────────────
+  [Date]: [Imaging modality]: ***% stenosis
+  [Date]: [Imaging modality]: ***% stenosis
+  [Date]: [Imaging modality]: ***% stenosis
+  Plaque characteristics: [Ulcerated, calcified, echolucent]
+
+INTERVENTION STATUS
+───────────────────
+  [No prior intervention / CEA (date, side) /
+  CAS (date, side)]
+  Post-intervention imaging: ***
+  Restenosis: ***
+
+SURGICAL CANDIDACY (if applicable)
+──────────────────────────────────
+  Indication: [Symptomatic ≥50% / Asymptomatic ≥70%
+  with life expectancy ≥3 years]
+  Surgical risk: [Low / elevated (cardiac, anatomic)]
+  Preferred approach: [CEA / CAS / medical management]
+  Vascular surgery consultation: ***
+
+MEDICAL OPTIMIZATION
+────────────────────
+  Antiplatelet: ***
+  Statin: *** (LDL: ***)
+  BP: *** (regimen: ***)
+  Smoking: ***
+  DM: *** (A1c: ***)
+
+EXAM
+────
+  Carotid bruits: ***
+  Neurological exam: [Focal deficits Y/N]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. Carotid stenosis: [Medical vs. surgical management.
+     Rationale for approach.]
+  2. Risk factor optimization: [Specific targets]
+  3. Imaging surveillance: [Next carotid duplex/CTA date]
+  4. Surgical: [CEA/CAS timeline if indicated]
+  5. Follow-up: ***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: carotid imaging history, stenosis details, prior interventions, risk factors, exam, current medications.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+67-year-old right-handed male presenting for 3-month follow-up after ischemic stroke. Index event 12/15/25: acute left MCA territory stroke (right hemiparesis and expressive aphasia). NIHSS 12 on arrival, received IV tPA at 45 minutes (door-to-needle), no thrombectomy (LVO not present on CTA). NIHSS improved to 6 at discharge, 3-day hospital stay. TOAST: cardioembolism from newly diagnosed AFib on telemetry. TTE: EF 55%, no thrombus, mild LAE. CTA head/neck: no significant stenosis. Started on apixaban 5mg BID, atorvastatin 80mg, lisinopril 20mg, amlodipine 5mg. PMHx: HTN (diagnosed 2018, poorly controlled), HLD, obesity (BMI 34), prediabetes (A1c 6.2 on 12/25). Former smoker (quit 2020, 20 pack-years). Current exam: NIHSS 3 (mild word-finding difficulty, right facial droop, right hand fine motor decreased). BP in office 142/86. Reports compliance with all meds. Home BP average 138/84 per log. Right hand dexterity improving, can write but slowly. Speech improving, occasional word-finding pauses. Walking independently without device. Returned to work part-time (accountant, using left hand for mouse). Not yet driving (OT eval scheduled 4/26). PHQ-9: 12/27 (moderate, not on treatment). Wife reports he is "not himself," more withdrawn and irritable. PT 2x/week (discharge planned in 1 month), OT 1x/week, speech therapy 1x/week. Labs 3/20/26: LDL 68, A1c 6.1, Cr 0.9.
+
+**LLM output:**
+
+VASCULAR NEUROLOGY / STROKE CLINIC VISIT
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Post-stroke follow-up (3 months)
+
+INDEX EVENT
+───────────
+  Date: 12/15/25
+  Type: Ischemic stroke
+  Territory/Vessel: Left MCA
+  NIHSS: Admission 12, Discharge 6, Current 3
+  Acute treatment: IV tPA, door-to-needle time 45 minutes. No thrombectomy (no LVO on CTA).
+  Hospital course summary: Admitted for L MCA ischemic stroke with right hemiparesis and expressive aphasia. Received IV tPA with improvement. AFib newly diagnosed on telemetry. Discharged on hospital day 3 on apixaban.
+
+STROKE ETIOLOGY
+───────────────
+  TOAST Classification: Cardioembolism
+  Rationale: Newly diagnosed AFib on inpatient telemetry with embolic-pattern L MCA territory infarct. No competing large artery or small vessel etiology.
+
+ETIOLOGIC WORKUP
+─────────────────
+  Vascular Imaging
+  ────────────────
+  CTA head and neck (12/15/25): No significant carotid or intracranial stenosis.
+
+  Cardiac Evaluation
+  ──────────────────
+  TTE (12/15/25): EF 55%, mild LAE, no intracardiac thrombus, no PFO, no significant valvular disease.
+
+  Cardiac Monitoring
+  ──────────────────
+  Inpatient telemetry: AFib detected, newly diagnosed. Burden not quantified.
+  ILR: Not indicated (etiology established).
+
+SECONDARY PREVENTION
+────────────────────
+  Antiplatelet/Anticoagulation
+  ────────────────────────────
+  Current: Apixaban 5 mg BID
+  Rationale: Cardioembolic stroke from AFib. CHA2DS2-VASc ≥2.
+
+  Statin
+  ──────
+  Current: Atorvastatin 80 mg daily (high-intensity)
+  LDL: 68 (3/20/26; at goal &lt;70)
+
+  Blood Pressure
+  ──────────────
+  Current regimen: Lisinopril 20 mg daily, amlodipine 5 mg daily
+  Target: &lt;130/80
+  Recent BP (office): 142/86
+  Home BP readings: Average 138/84
+
+  Diabetes Management
+  ───────────────────
+  A1c: 6.1 (3/20/26). Prediabetes. No pharmacologic treatment.
+
+  Lifestyle
+  ─────────
+  Smoking: Former (quit 2020, 20 pack-years)
+  BMI: 34 (obese)
+  Exercise: Not yet exercising beyond PT sessions
+  Alcohol: ***
+  Diet: ***
+
+INTERVAL HISTORY
+────────────────
+Patient reports steady improvement over the past 3 months. Right hand dexterity is improving; he can write but slowly and has adapted his workstation to use the mouse with his left hand. Speech is improving with occasional word-finding pauses during conversation but no significant communication barrier. He returned to work part-time as an accountant 6 weeks ago and tolerates 4-hour days. Walking independently without an assistive device. Reports compliance with all medications, no side effects from apixaban. Wife reports he is "not himself," more withdrawn and irritable than before the stroke. He has not been driving; OT driving evaluation is scheduled for 4/26. He denies any new neurological symptoms, recurrent weakness, speech worsening, or visual changes.
+
+CURRENT MEDICATIONS
+───────────────────
+  Secondary prevention: Apixaban 5 mg BID
+  Statin: Atorvastatin 80 mg daily
+  Antihypertensives: Lisinopril 20 mg daily, amlodipine 5 mg daily
+  Other: None
+
+PHYSICAL EXAMINATION
+────────────────────
+
+  Vitals
+  ──────
+  BP 142/86  HR ***
+
+  General: Alert, cooperative.
+  Cardiovascular: Irregularly irregular rhythm, no murmurs, no carotid bruits.
+
+  Neurological Exam
+  ─────────────────
+  NIHSS: 3/42
+    Consciousness: 0
+    Gaze: 0
+    Visual fields: 0
+    Facial palsy: 1 (mild right lower facial droop)
+    Motor arm R: 0
+    Motor arm L: 0
+    Motor leg R: 0
+    Motor leg L: 0
+    Ataxia: 0
+    Sensory: 0
+    Language: 1 (mild word-finding difficulty, no paraphasias)
+    Dysarthria: 0
+    Neglect: 0
+    Right hand fine motor: 1 (decreased dexterity, slow finger tapping)
+
+  Additional exam:
+  Mental status: Alert, oriented x4, engaged. Mild anomia on confrontation naming.
+  Motor: 5/5 strength all extremities. No pronator drift. Decreased fine motor dexterity right hand.
+  Gait: Normal, independent, no device.
+
+RESIDUAL DEFICITS
+─────────────────
+  Motor: Decreased right hand fine motor dexterity (improving)
+  Sensory: None
+  Language: Mild expressive aphasia (word-finding difficulty, improving)
+  Visual field: None
+  Cognitive: Mild word-finding difficulty in conversational speech
+  Dysphagia: Resolved
+  Other: Right lower facial droop (mild, cosmetic)
+
+REHABILITATION STATUS
+─────────────────────
+  PT: Active, 2x/week. Discharge planned in 1 month. Goals: endurance, balance.
+  OT: Active, 1x/week. Focus on right hand fine motor recovery.
+  Speech: Active, 1x/week. Word retrieval strategies, functional communication.
+  Driving: Not yet cleared. OT driving evaluation scheduled 4/26.
+  Return to work: Part-time since 6 weeks ago (4-hour days). Full-time return pending continued recovery and driving clearance.
+
+MOOD
+────
+  PHQ-9: 12/27 (moderate depression)
+  Post-stroke depression: Present, untreated
+  Current treatment: None
+
+ASSESSMENT
+──────────
+67-year-old right-handed male s/p L MCA ischemic stroke (12/15/25, cardioembolic, AFib), treated with IV tPA (door-to-needle 45 min), now 3 months out. NIHSS improved from 12 to 3 (9-point improvement). Residual mild expressive aphasia and right hand fine motor deficit, both improving. On apixaban for AFib-related secondary prevention. LDL at goal. BP above target despite dual antihypertensive therapy. PHQ-9 12, moderate post-stroke depression, untreated.
+
+  1. Ischemic stroke, L MCA, cardioembolic (AFib), recovering
+  2. Secondary prevention: anticoagulation appropriate; BP not at target
+  3. Risk factors: HTN above goal, obesity, prediabetes
+  4. Residual deficits: mild aphasia, right hand fine motor
+  5. Post-stroke depression, moderate, untreated
+  6. Driving and return to function
+
+PLAN
+────
+  1. Stroke / AFib
+     - Continue apixaban 5 mg BID (appropriate dose for age, weight, Cr)
+     - No repeat vascular imaging indicated (etiology established)
+     - Stroke warning signs reviewed with patient and wife
+
+  2. Blood pressure (not at target)
+     - Office 142/86, home average 138/84 (target &lt;130/80)
+     - Increase lisinopril from 20 mg to 40 mg daily
+     - Continue amlodipine 5 mg daily
+     - Recheck home BP in 2 weeks; call office with readings
+     - If still above target, add chlorthalidone 12.5 mg
+
+  3. Lipids / metabolic
+     - LDL 68, at goal on atorvastatin 80 mg (continue)
+     - A1c 6.1 (prediabetes, stable). Lifestyle counseling: weight loss, exercise.
+     - Recheck A1c in 6 months
+
+  4. Rehabilitation
+     - Continue PT 2x/week (anticipate discharge in 1 month)
+     - Continue OT 1x/week for right hand dexterity
+     - Continue speech therapy 1x/week
+     - OT driving evaluation 4/26; clear for driving if passes
+
+  5. Post-stroke depression
+     - PHQ-9 12 (moderate). Start sertraline 25 mg daily, increase to 50 mg after 1 week if tolerated.
+     - Discussed symptoms with patient and wife (withdrawal, irritability are common post-stroke)
+     - Recheck PHQ-9 at next visit
+
+  6. Weight management
+     - BMI 34; counsel on Mediterranean diet, goal weight loss 5-10%
+     - Increase physical activity beyond PT as tolerated (walking 30 min/day)
+
+FOLLOW-UP
+─────────
+Return in 3 months (6-month post-stroke). Labs prior to visit: lipid panel, A1c. Home BP log to be reviewed at next visit. Contact office if any new neurological symptoms, recurrent weakness, speech difficulty, or visual changes.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **TOAST classification requires your judgment.** The AI assigns TOAST based on the workup you describe, but borderline cases (small lacunar infarct in a patient with AFib) require clinical reasoning the AI cannot provide. Verify the classification matches your own assessment.
+- **NIHSS is a specific scale.** The AI will populate NIHSS items based on your exam description, but it may mismap exam findings to the NIHSS scoring rubric. A patient with "mild word-finding difficulty" could score 0 or 1 on the language item depending on severity. Score the NIHSS yourself.
+- **BP targets after stroke are nuanced.** The AI defaults to a target of less than 130/80 per AHA/ASA guidelines, but the optimal target in the acute post-stroke period (first 2 weeks) differs from the chronic secondary prevention target. If your patient is in the early post-stroke window, adjust accordingly.
+- **DAPT duration in non-cardioembolic stroke.** If your patient is on dual antiplatelet therapy (POINT or CHANCE protocol), the AI may not flag the transition from DAPT to monotherapy at 21 to 90 days. Document the planned transition date.
+- **Cryptogenic stroke workup is often incomplete at 3 months.** If the ILR has not yet been implanted or the monitoring period is ongoing, the TOAST classification should remain "cryptogenic" or "under investigation." The AI may prematurely assign a final classification.
+- **Post-stroke depression is underdiagnosed and undertreated.** The AI will document the PHQ-9 you provide, but if you do not screen, the note will have no mood section. Screen every stroke patient at every follow-up visit.
+- **Driving is a clinical and legal question.** The AI cannot determine when your patient is safe to drive. The plan should reflect your clinical judgment and, when available, the results of a formal OT driving evaluation.
+
+---
+
+## Related
+
+- [Emergency Department Note](/templates/ed-note) - the initial ED documentation from the acute stroke presentation
+- [SOAP Progress Note](/templates/progress-note-soap) - for inpatient stroke service daily notes
+- [Discharge Summary](/templates/discharge-summary-basic) - the hospital discharge summary that feeds into the outpatient follow-up
+- [Referral Letter](/templates/referral-letter) - for referring to vascular surgery, interventional cardiology, or cardiac electrophysiology

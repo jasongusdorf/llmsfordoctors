@@ -1,0 +1,795 @@
+---
+title: "Movement Disorders Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, movement-disorders, neurology, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "Medication timing maps, H&Y staging, MDS-UPDRS scores, motor fluctuations, DBS settings. Template for Parkinson's, dystonia, essential tremor, and RLS clinic notes."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when writing a movement disorders subspecialty clinic note. It captures the data that shapes management in this field: Hoehn and Yahr staging, MDS-UPDRS motor scores, levodopa dose timing and on/off correlation, motor fluctuations (wearing off, dyskinesia, freezing), non-motor symptom inventory (REM sleep behavior disorder, orthostatic hypotension, cognitive screening, hallucinations, impulse control disorders), DBS programming parameters, botulinum toxin injection schedules for dystonia, tremor rating scales, and restless legs syndrome severity. Paste in your clinical data and the LLM produces a note organized around the motor examination and the medication timing map that drives most therapeutic decisions.
+
+For patients with tremor or Parkinson's as one of several neurological complaints, the [general neurology template](/templates/clinic-neurology) may be sufficient.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Movement Disorders Clinic Visit">
+You are a movement disorders specialist writing an outpatient clinic note after evaluating a patient. After receiving the clinical information below, produce a complete, structured movement disorders clinic visit note.
+
+**Purpose:** Generate a movement disorders subspecialty clinic note that captures the motor examination with disease-specific rating scales, medication timing and motor fluctuation correlation, non-motor symptom screening, device management, and a plan organized around motor and non-motor domains.
+
+### Rules
+
+- Write the HPI as a narrative paragraph in past tense for history, present tense for current motor status.
+- For Parkinson's disease: document Hoehn and Yahr stage, MDS-UPDRS motor score (or components tested), motor fluctuations (wearing off timing, on-off phenomena, peak-dose dyskinesia, freezing of gait), and total daily levodopa equivalent dose (LED).
+- Document the motor exam with movement disorders specificity: tremor by type (rest, postural, kinetic, intention) and body part; rigidity; bradykinesia (finger tapping, hand movements, pronation-supination, toe tapping); postural instability (pull test); gait (stride length, arm swing, turning, freezing, festination).
+- Document medication timing: each levodopa dose with time of day, and the patient's on/off state relative to dosing.
+- Screen non-motor symptoms: REM sleep behavior disorder, constipation, orthostatic hypotension (with BP sitting and standing if available), cognitive changes (MoCA score), depression, hallucinations (formed visual, passage, presence), impulse control disorders (gambling, hypersexuality, compulsive shopping, binge eating).
+- For DBS: target, settings (voltage/current, frequency, pulse width for each contact), programmer, battery status, last adjustment date, and response.
+- For essential tremor: document FTM Tremor Rating Scale or equivalent, functional impact (writing, eating, drinking from a cup).
+- For dystonia: type (focal, segmental, generalized), body regions affected, botulinum toxin injection schedule (last date, muscles injected, units per muscle, total units, response).
+- For RLS: IRLS severity scale score, ferritin level, augmentation assessment, current treatment.
+- Document PT/OT status: LSVT BIG/LOUD, fall prevention program.
+- Document caregiver status and burden.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY.
+- Do not infer or fabricate any clinical information not provided. Write "***" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "PD" = Parkinson's disease
+- "ET" = essential tremor
+- "DBS" = deep brain stimulation
+- "LED" = levodopa equivalent dose
+- "MDS-UPDRS" = Movement Disorder Society Unified Parkinson's Disease Rating Scale
+- "H&Y" = Hoehn and Yahr
+- "RBD" = REM sleep behavior disorder
+- "ICD" = impulse control disorder
+- "MoCA" = Montreal Cognitive Assessment
+- "onabotA" = onabotulinumtoxinA
+- "IRLS" = International Restless Legs Severity Scale
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+MOVEMENT DISORDERS CLINIC VISIT
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[New patient / Follow-up]
+
+CHIEF COMPLAINT
+───────────────
+***
+
+PRIMARY DIAGNOSIS
+─────────────────
+[Parkinson's disease / Essential tremor / Dystonia (type) /
+Huntington's disease / RLS / Tardive dyskinesia / Other]
+
+HISTORY OF PRESENT ILLNESS
+───────────────────────────
+[Detailed narrative. Include: diagnosis history, age of onset,
+initial symptoms, progression, current motor status, medication
+response, interval changes since last visit. For follow-ups:
+focus on motor fluctuations, new symptoms, medication changes,
+falls, and functional decline.]
+
+MEDICATION TIMING MAP (Parkinson's)
+────────────────────────────────────
+  [Time]  [Medication and dose]        [On/Off state]
+  ──────  ─────────────────────────    ──────────────
+  ***     ***                          ***
+  ***     ***                          ***
+  ***     ***                          ***
+  ***     ***                          ***
+  Total daily levodopa equivalent dose (LED): *** mg
+
+  [Skip this section for non-PD diagnoses.]
+
+MOTOR FLUCTUATIONS (Parkinson's)
+────────────────────────────────
+  Wearing off: [Yes / No. If yes: timing relative to next dose,
+  symptoms during off state]
+  On-off phenomena: [Yes / No. If yes: predictable vs unpredictable]
+  Peak-dose dyskinesia: [Yes / No. If yes: severity (mild/moderate/
+  severe), body distribution, functionally limiting]
+  Diphasic dyskinesia: [Yes / No]
+  Freezing of gait: [Yes / No. If yes: triggers (turning, doorways,
+  open spaces), frequency, falls related to freezing]
+  Off-period dystonia: [Yes / No. If yes: location, timing (morning
+  foot dystonia)]
+
+  [Skip this section for non-PD diagnoses.]
+
+NON-MOTOR SYMPTOMS (Parkinson's)
+─────────────────────────────────
+  RBD: [Yes / No. Bed partner report.]
+  Constipation: [Yes / No. Treatment.]
+  Orthostatic hypotension: [Yes / No. BP sitting ***, standing ***.]
+  Cognitive: MoCA *** /30 (date). [Subjective complaints.]
+  Depression: [Screen result. PHQ-9 or GDS score.]
+  Anxiety: ***
+  Hallucinations: [Yes / No. Type: formed visual, passage,
+  presence. Insight retained / lost.]
+  Impulse control disorders: [Screened. Gambling / hypersexuality /
+  compulsive shopping / binge eating: Yes / No]
+  Sleep: [Insomnia, EDS, RBD, sleep fragmentation.]
+  Pain: ***
+  Drooling: ***
+  Urinary: [Frequency, urgency, nocturia.]
+
+  [Skip this section for non-PD diagnoses.]
+
+DISEASE-SPECIFIC DATA
+─────────────────────
+
+  Parkinson's disease staging
+  ───────────────────────────
+  H&Y stage: ***/5 (on medication)
+  MDS-UPDRS Part III (motor exam): ***/132
+
+  Essential tremor assessment
+  ───────────────────────────
+  FTM Tremor Rating Scale: ***
+  Functional impact: Writing ***, Eating ***, Drinking ***
+
+  Dystonia assessment
+  ───────────────────
+  Type: [Focal / Segmental / Generalized]
+  Regions affected: ***
+  BotoxA injection history:
+    Last injection date: ***
+    Muscles injected: [Muscle, units] x [number of sites]
+    Total units: ***
+    Response: ***
+    Duration of benefit: ***
+    Next scheduled: ***
+
+  RLS assessment
+  ──────────────
+  IRLS score: ***/40 ([Mild 1-10 / Moderate 11-20 /
+  Severe 21-30 / Very severe 31-40])
+  Ferritin: *** (goal &gt;75)
+  Augmentation: [Yes / No. If yes: describe pattern.]
+  Current treatment: ***
+
+  [Include only the subsection relevant to the patient's diagnosis.]
+
+DBS / DEVICE (if applicable)
+─────────────────────────────
+  Device: [Manufacturer, model]
+  Target: [STN / GPi / VIM]
+  Implant date: ***
+  Battery type: [Rechargeable / non-rechargeable]
+  Battery status: [Years remaining / impedance check]
+  Last programming: ***
+
+  Current settings
+  ────────────────
+  Left:  Contact ***, *** mA/V, *** Hz, *** usec
+  Right: Contact ***, *** mA/V, *** Hz, *** usec
+
+  Response to DBS: ***
+  Stimulation-related side effects: ***
+
+MOTOR EXAMINATION
+─────────────────
+
+  Tremor
+  ──────
+  Rest tremor:
+    RUE ***  LUE ***  RLE ***  LLE ***  Jaw/chin ***
+  Postural tremor:
+    RUE ***  LUE ***
+  Kinetic tremor:
+    RUE ***  LUE ***
+
+  Rigidity
+  ────────
+    Neck ***  RUE ***  LUE ***  RLE ***  LLE ***
+    [None / Mild / Moderate / Severe. Note cogwheeling.]
+
+  Bradykinesia
+  ────────────
+  Finger tapping:     R ***  L ***
+  Hand movements:     R ***  L ***
+  Pronation-supination: R ***  L ***
+  Toe tapping:        R ***  L ***
+  [Rate as: normal, mild slowing, moderate decrement,
+  severe decrement with arrests.]
+
+  Postural instability
+  ────────────────────
+  Pull test: [Retropulsion: 0-2 steps / &gt;2 steps / falls]
+
+  Gait
+  ────
+  Stride length: [Normal / reduced]
+  Arm swing: [Normal / reduced R / reduced L / absent]
+  Turning: [Normal / en bloc / requires multiple steps]
+  Freezing: [Observed / Not observed]
+  Festination: [Yes / No]
+  Assistive device: [None / cane / walker / wheelchair]
+
+  General neurologic exam
+  ───────────────────────
+  [Mental status, CN, sensory, reflexes, coordination if relevant.]
+
+FALL HISTORY
+────────────
+  Falls in past 3 months: ***
+  Circumstances: ***
+  Injuries: ***
+  Fall prevention measures: ***
+
+PHYSICAL / OCCUPATIONAL THERAPY
+───────────────────────────────
+  Current program: [LSVT BIG / LSVT LOUD / PT / OT / None]
+  Frequency: ***
+  Progress: ***
+  Assistive devices: ***
+
+CAREGIVER STATUS
+────────────────
+  Primary caregiver: ***
+  Caregiver burden: ***
+  Respite care: [In place / needed / not applicable]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [diagnosis, duration, staging].
+[One-sentence summary of current motor status and trajectory.]
+
+  1. [Primary movement disorder, current status]
+  2. [Motor complications or fluctuations]
+  3. [Non-motor symptoms requiring attention]
+  4. [Other relevant problems]
+
+PLAN
+────
+  1. [Motor management]
+     - [Medication timing adjustments / dose changes]
+     - [DBS programming changes if applicable]
+     - [BotoxA injection plan if applicable]
+
+  2. [Motor complications]
+     - [Wearing off, dyskinesia, freezing management]
+
+  3. [Non-motor management]
+     - [Cognitive, mood, autonomic, sleep]
+
+  4. [Rehabilitation and safety]
+     - [PT/OT referral or continuation, fall prevention]
+
+FOLLOW-UP
+─────────
+Return in [timeframe]. [Continue medication diary, fall log,
+contact if new symptoms.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste your de-identified movement disorders clinic data here: medication timing, motor exam, fluctuations, non-motor symptoms, DBS settings, therapy status, and functional status.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| DBS programming visit | Add: "This is a DBS programming visit. Focus the note on current settings, programming changes made today, patient response observed in clinic, and next adjustment plan." |
+| Botulinum toxin injection | Add: "This is a botulinum toxin injection visit for dystonia. Include a detailed injection table: each muscle, number of sites, units per site, total units, EMG guidance used, and comparison to prior injection pattern." |
+| Advanced PD | Add: "This patient has advanced PD. Include discussion of advanced therapies: LCIG/Duopa, subcutaneous apomorphine, DBS candidacy, and palliative care considerations." |
+| Telehealth | Add: "This is a telehealth visit. Document observable motor exam components (tremor, bradykinesia via finger tapping on camera, facial expression). Note that rigidity, pull test, and gait could not be assessed remotely." |
+| Huntington's disease | Add: "Include UHDRS (Unified Huntington's Disease Rating Scale) components: motor, cognitive (SDMT, Stroop), behavioral, and functional assessment. Document genetic testing status and family planning counseling." |
+
+---
+
+## Variations
+
+### Parkinson's motor fluctuation management
+
+Use this for Parkinson's patients where the primary focus is optimizing levodopa timing to reduce wearing off, manage dyskinesia, and address freezing of gait. The output format centers on the medication timing map and on/off state correlation.
+
+<PromptPlayground tool="Claude" title="Parkinson's Motor Fluctuation Management">
+You are a movement disorders specialist writing a clinic note for a Parkinson's disease patient with motor fluctuations. After receiving the clinical information below, produce a structured note focused on medication timing optimization.
+
+### Rules
+
+- Document every levodopa dose with the time taken and the patient's on/off state at each time point.
+- Calculate total daily LED.
+- Characterize the off state: motor symptoms (bradykinesia, tremor, rigidity, dystonia) and non-motor symptoms (anxiety, pain, urinary urgency).
+- Characterize dyskinesia: timing relative to dose (peak-dose, diphasic), severity, distribution, functional limitation.
+- Document freezing of gait: frequency, triggers, relationship to on vs off state.
+- For each medication change proposed, state the rationale and expected effect on fluctuations.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "PD" = Parkinson's disease
+- "C/L" = carbidopa-levodopa
+- "LED" = levodopa equivalent dose
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+PARKINSON'S MOTOR FLUCTUATION MANAGEMENT
+══════════════════════════════════════════
+
+PD HISTORY
+──────────
+  Diagnosis date: ***
+  H&Y stage: ***
+  Years on levodopa: ***
+  Duration of motor fluctuations: ***
+
+CURRENT MEDICATION TIMING
+─────────────────────────
+  Time    Medication/Dose              State
+  ─────   ───────────────────────────  ────────
+  ***     ***                          ***
+  ***     ***                          ***
+  ***     ***                          ***
+  ***     ***                          ***
+  ***     ***                          ***
+
+  Total daily C/L: *** mg levodopa
+  Total daily LED: *** mg
+  Number of daily doses: ***
+  Interdose interval: ***
+
+FLUCTUATION PATTERN
+───────────────────
+  Total ON time/day: *** hours
+  Total OFF time/day: *** hours
+  ON with dyskinesia: *** hours
+
+  Wearing off
+  ───────────
+  Present: [Yes / No]
+  Time before next dose when off begins: ***
+  Off-state symptoms: [Motor: ***, Non-motor: ***]
+  Morning off (pre-first dose): [Yes / No, duration]
+
+  Dyskinesia
+  ──────────
+  Present: [Yes / No]
+  Type: [Peak-dose / Diphasic / Both]
+  Timing relative to dose: ***
+  Distribution: ***
+  Severity: [Mild / Moderate / Severe]
+  Functionally limiting: [Yes / No]
+
+  Freezing of gait
+  ─────────────────
+  Present: [Yes / No]
+  Triggers: ***
+  On-state vs off-state freezing: ***
+  Falls related: [Yes / No]
+
+MOTOR EXAM (IN CURRENT STATE)
+─────────────────────────────
+  Examined in: [ON state / OFF state / Transitioning]
+  [Tremor, rigidity, bradykinesia, gait as in primary template.]
+
+MEDICATION ADJUSTMENT PLAN
+──────────────────────────
+  Change 1: [Specific change with rationale]
+  Change 2: [Specific change with rationale]
+  Expected effect: ***
+  Monitoring: ***
+
+  [Consider: dose fractionation, CR formulation, COMT inhibitor,
+  MAO-B inhibitor, amantadine for dyskinesia, apomorphine rescue.]
+
+ASSESSMENT & PLAN
+─────────────────
+[Summary assessment and complete plan.]
+
+FOLLOW-UP
+─────────
+***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: PD history, detailed medication timing with on/off state, fluctuation pattern, motor exam, and current functional status.]
+</PromptPlayground>
+
+### Botulinum toxin clinic (dystonia)
+
+Use this for botulinum toxin injection visits where the note needs to document the injection pattern, dosing by muscle, comparison to prior session, and response assessment.
+
+<PromptPlayground tool="Claude" title="Botulinum Toxin Injection Visit - Dystonia">
+You are a movement disorders specialist writing a clinic note for a botulinum toxin injection visit for dystonia. After receiving the clinical information below, produce a structured injection visit note.
+
+### Rules
+
+- Document the dystonia classification and body regions affected.
+- For each muscle injected: name, number of injection sites, units per site, total units, and whether EMG guidance was used.
+- Calculate total units administered (all muscles combined).
+- Compare to the prior injection session: same muscles, dose changes, and clinical rationale for any changes.
+- Document the response to the prior injection: onset of benefit, peak effect, duration, and any side effects (dysphagia, excessive weakness, diffusion effects).
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "onabotA" = onabotulinumtoxinA
+- "abobotA" = abobotulinumtoxinA
+- "incobotA" = incobotulinumtoxinA
+- "EMG" = electromyography
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+BOTULINUM TOXIN INJECTION VISIT
+══════════════════════════════════════════
+
+DIAGNOSIS
+─────────
+[Cervical dystonia / Blepharospasm / Limb dystonia /
+Oromandibular dystonia / Other]
+
+TOXIN TYPE
+──────────
+[onabotA / abobotA / incobotA], [units system]
+
+RESPONSE TO PRIOR INJECTION
+────────────────────────────
+  Prior injection date: ***
+  Onset of benefit: *** days
+  Peak effect: *** weeks
+  Duration of benefit: *** weeks
+  Side effects: ***
+
+CURRENT ASSESSMENT
+──────────────────
+  [Dystonia severity, pattern, and any changes since last injection.
+  Toronto Western Spasmodic Torticollis Rating Scale (TWSTRS)
+  or other rating if applicable.]
+
+INJECTION TABLE
+───────────────
+  Muscle             Sites   Units/Site   Total   EMG
+  ──────────────────  ─────  ──────────  ─────   ───
+  ***                 ***    ***          ***     [Y/N]
+  ***                 ***    ***          ***     [Y/N]
+  ***                 ***    ***          ***     [Y/N]
+  ***                 ***    ***          ***     [Y/N]
+
+  TOTAL UNITS: ***
+
+  Changes from prior session: ***
+  Rationale for changes: ***
+
+POST-INJECTION INSTRUCTIONS
+───────────────────────────
+  [Expected onset, activity restrictions, side effects to watch
+  for, when to call.]
+
+ASSESSMENT & PLAN
+─────────────────
+[Brief assessment and next injection plan.]
+
+FOLLOW-UP
+─────────
+Next injection in *** weeks (approximately ***).
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: dystonia diagnosis, prior injection response, current assessment, injection plan with muscles and doses.]
+</PromptPlayground>
+
+### Essential tremor follow-up
+
+Use this for essential tremor patients where the note focuses on tremor severity, functional impact, medication response, and consideration of advanced therapies (DBS, focused ultrasound).
+
+<PromptPlayground tool="Claude" title="Essential Tremor Follow-Up">
+You are a movement disorders specialist writing a follow-up note for a patient with essential tremor. After receiving the clinical information below, produce a structured note focused on tremor severity, functional impact, and treatment response.
+
+### Rules
+
+- Document tremor by type (postural, kinetic, rest if present) and body part, with severity rating.
+- Quantify functional impact: handwriting (sample if available), eating (fork, spoon), drinking from a cup, buttoning clothes, pouring liquids.
+- Document current medication(s) with dose, duration, response, and side effects.
+- List prior medications tried with max dose and reason for stopping.
+- If considering advanced therapies, document candidacy discussion (DBS, MRI-guided focused ultrasound thalamotomy).
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "ET" = essential tremor
+- "FTM" = Fahn-Tolosa-Marin (tremor rating scale)
+- "MRgFUS" = MRI-guided focused ultrasound
+- "VIM" = ventral intermediate nucleus
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+ESSENTIAL TREMOR FOLLOW-UP
+══════════════════════════════════════════
+
+DIAGNOSIS
+─────────
+Essential tremor, [duration since onset]
+
+TREMOR CHARACTERISTICS
+──────────────────────
+  Postural tremor: RUE ***, LUE ***
+  Kinetic tremor: RUE ***, LUE ***
+  Rest tremor: [Present / Absent]
+  Head tremor: [Yes / No]
+  Voice tremor: [Yes / No]
+  FTM Tremor Rating Scale: ***/80 (or components)
+
+FUNCTIONAL IMPACT
+─────────────────
+  Handwriting: ***
+  Eating with utensils: ***
+  Drinking from a cup: ***
+  Buttoning: ***
+  Pouring: ***
+  Social embarrassment: ***
+  Work impact: ***
+
+MEDICATIONS
+───────────
+  Current: [Agent, dose, duration, response, side effects]
+  Prior: [Agent, max dose, reason stopped]
+
+EXAMINATION
+───────────
+  [Detailed tremor exam: finger-to-nose, spiral drawing,
+  water pouring, postural hold, rest position.]
+
+ADVANCED THERAPY DISCUSSION
+───────────────────────────
+  [DBS candidacy / MRgFUS candidacy / Not yet indicated.]
+  [If discussed: patient preference, surgical risk factors.]
+
+ASSESSMENT & PLAN
+─────────────────
+[Assessment and management plan.]
+
+FOLLOW-UP
+─────────
+***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: tremor history, functional impact, current and prior medications, exam, and advanced therapy discussion.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+Follow-up, 71-year-old male with PD diagnosed 8 years ago, H&Y stage 3. Current meds: carbidopa-levodopa 25/100 at 7am, 11am, 3pm, 7pm (4 doses/day), entacapone 200mg with each C/L dose, pramipexole 0.5mg TID. Wearing off noted 45 minutes before each dose, with increased tremor, stiffness, and anxiety during off periods. Morning off lasts 45 minutes after first dose. Mild peak-dose dyskinesia (trunk and neck, not functionally limiting) for about 1 hour after each dose. Freezing of gait when turning in tight spaces, 2-3 times/week, caused 1 fall in the kitchen last month (no injury). No on-off fluctuations (predictable pattern). Non-motor: RBD confirmed by bed partner (kicking, yelling in sleep), constipation (managed with Miralax), orthostatic symptoms (lightheaded on standing, BP sitting 138/82, standing 112/68), MoCA 25/30 done today (lost points in delayed recall 3/5 and visuospatial 3/5), no hallucinations, ICD screen negative, PHQ-9 score 8 (mild depression). Exam in ON state: mild rest tremor LUE, moderate rigidity bilateral UE (R&gt;L, cogwheeling), moderate bradykinesia bilateral (finger tapping decrementing, L&gt;R), pull test 2 steps backward but recovers, gait with reduced stride and reduced L arm swing, en bloc turning, no freezing observed in clinic. No assistive device. In PT for fall prevention (1x/week, LSVT BIG 3 months ago). Wife is primary caregiver, reports increased burden. Total daily levodopa: 400mg. No DBS. No driving restrictions.
+
+**LLM output:**
+
+MOVEMENT DISORDERS CLINIC VISIT
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Follow-up
+
+CHIEF COMPLAINT
+───────────────
+Parkinson's disease, wearing off and freezing of gait
+
+PRIMARY DIAGNOSIS
+─────────────────
+Parkinson's disease, 8 years since diagnosis
+
+HISTORY OF PRESENT ILLNESS
+───────────────────────────
+The patient is a 71-year-old male with PD diagnosed 8 years ago, currently H&Y stage 3, presenting for follow-up. He is on carbidopa-levodopa 25/100 QID with entacapone and pramipexole 0.5 mg TID. He reports predictable wearing off approximately 45 minutes before each scheduled C/L dose, manifesting as increased tremor, stiffness, and anxiety. Morning off period lasts approximately 45 minutes after the first dose. He experiences mild peak-dose dyskinesia involving the trunk and neck, lasting about 1 hour after each dose, which he does not find functionally limiting. Freezing of gait occurs 2-3 times weekly, primarily when turning in tight spaces, and resulted in one fall in the kitchen last month without injury. Non-motor symptoms include RBD (confirmed by wife), constipation managed with Miralax, symptomatic orthostatic hypotension, and mild cognitive changes (MoCA 25/30). ICD screen is negative. PHQ-9 score 8 indicates mild depressive symptoms.
+
+MEDICATION TIMING MAP
+─────────────────────
+  Time    Medication/Dose                    State
+  ─────   ──────────────────────────────     ─────────
+  7:00    C/L 25/100 + entacapone 200 mg     Off to on (45 min lag)
+  7:00    Pramipexole 0.5 mg
+  11:00   C/L 25/100 + entacapone 200 mg     Wearing off by 10:15
+  13:00   Pramipexole 0.5 mg
+  15:00   C/L 25/100 + entacapone 200 mg     Wearing off by 14:15
+  19:00   C/L 25/100 + entacapone 200 mg     Wearing off by 18:15
+  19:00   Pramipexole 0.5 mg
+
+  Total daily C/L: 400 mg levodopa
+  Total daily LED: approximately 850 mg (C/L 400 + entacapone effect + pramipexole)
+  Number of daily C/L doses: 4
+  Interdose interval: 4 hours
+
+MOTOR FLUCTUATIONS
+──────────────────
+  Wearing off: Yes. Begins approximately 45 minutes before each dose (at ~3.25 hours post-dose). Off symptoms: tremor, rigidity, anxiety.
+  On-off phenomena: No (predictable pattern).
+  Peak-dose dyskinesia: Yes, mild. Trunk and neck, ~1 hour after each dose. Not functionally limiting.
+  Diphasic dyskinesia: No.
+  Freezing of gait: Yes. Triggers: turning in tight spaces. Occurs 2-3 times/week. Associated with falls (1 fall last month).
+  Off-period dystonia: Not reported.
+
+NON-MOTOR SYMPTOMS
+───────────────────
+  RBD: Yes. Wife reports kicking and yelling in sleep.
+  Constipation: Yes. Managed with Miralax.
+  Orthostatic hypotension: Yes. Symptomatic (lightheadedness on standing). BP sitting 138/82, standing 112/68 (systolic drop 26 mmHg).
+  Cognitive: MoCA 25/30 (3/26). Lost points in delayed recall (3/5) and visuospatial (3/5). No subjective decline in daily function.
+  Depression: PHQ-9 score 8 (mild).
+  Anxiety: Present during off periods.
+  Hallucinations: None.
+  Impulse control disorders: Screened, negative (gambling, hypersexuality, compulsive shopping, binge eating all denied).
+  Sleep: Disrupted by RBD. No excessive daytime somnolence reported.
+  Drooling: Not reported.
+  Urinary: Not reported.
+
+DISEASE-SPECIFIC DATA
+─────────────────────
+
+  Parkinson's disease staging
+  ───────────────────────────
+  H&Y stage: 3/5 (on medication)
+  MDS-UPDRS Part III (motor exam): *** (formal scoring not completed)
+
+MOTOR EXAMINATION (ON state)
+────────────────────────────
+
+  Tremor
+  ──────
+  Rest tremor:
+    RUE 0  LUE 1+ (mild)  RLE 0  LLE 0  Jaw/chin 0
+  Postural tremor:
+    RUE 0  LUE 0
+  Kinetic tremor:
+    RUE 0  LUE 0
+
+  Rigidity
+  ────────
+    Neck mild  RUE moderate (cogwheeling)  LUE moderate (cogwheeling)
+    RLE mild  LLE mild
+
+  Bradykinesia
+  ────────────
+  Finger tapping:      R moderate decrement  L moderate decrement (L worse)
+  Hand movements:      R moderate  L moderate (L worse)
+  Pronation-supination: ***
+  Toe tapping:         ***
+
+  Postural instability
+  ────────────────────
+  Pull test: Retropulsion 2 steps, recovers independently.
+
+  Gait
+  ────
+  Stride length: Reduced.
+  Arm swing: Reduced left, mildly reduced right.
+  Turning: En bloc, requires multiple steps.
+  Freezing: Not observed in clinic (reported at home).
+  Festination: No.
+  Assistive device: None.
+
+FALL HISTORY
+────────────
+  Falls in past 3 months: 1
+  Circumstances: Freezing while turning in the kitchen.
+  Injuries: None.
+  Fall prevention measures: PT weekly, cleared pathways at home.
+
+PHYSICAL / OCCUPATIONAL THERAPY
+───────────────────────────────
+  Current program: PT 1x/week for fall prevention and gait training. LSVT BIG completed 3 months ago.
+  Assistive devices: None currently.
+
+CAREGIVER STATUS
+────────────────
+  Primary caregiver: Wife
+  Caregiver burden: Increasing (per wife's report)
+  Respite care: Not currently in place
+
+ASSESSMENT
+──────────
+71-year-old male with PD (8 years, H&Y 3) on C/L QID + entacapone + pramipexole, with predictable wearing off, mild peak-dose dyskinesia, and freezing of gait causing falls. Non-motor burden is significant: RBD, symptomatic orthostatic hypotension, mild cognitive changes (MoCA 25), and mild depression. Caregiver burden increasing.
+
+  1. PD motor fluctuations: wearing off requiring medication optimization
+  2. Freezing of gait with falls
+  3. Orthostatic hypotension, symptomatic
+  4. Mild cognitive impairment (MoCA 25)
+  5. Mild depression (PHQ-9 8)
+  6. Caregiver burden
+
+PLAN
+────
+  1. Motor fluctuations / wearing off
+     - Shorten C/L interdose interval from 4 hours to 3.5 hours; add a 5th dose at 10:30pm (C/L 25/100 + entacapone 200 mg) to cover evening off period
+     - Continue entacapone with each dose
+     - Dyskinesia is mild and not limiting; monitor after dose frequency increase
+     - If wearing off persists despite fractionation, consider switch to C/L extended-release or addition of safinamide
+     - DBS referral discussion to be revisited if fluctuations not adequately managed with medication adjustments
+
+  2. Freezing of gait
+     - Continue PT with focus on cueing strategies (laser cane, metronome, visual targets)
+     - Consider trial of laser-equipped cane or rollator
+     - Home safety assessment through OT
+
+  3. Orthostatic hypotension
+     - Compression stockings, raise head of bed, increase fluid and salt intake
+     - If conservative measures insufficient, consider midodrine 5 mg TID or droxidopa
+     - Recheck orthostatic vitals at next visit
+     - Note: pramipexole may contribute; if orthostasis worsens, consider reducing pramipexole and replacing with additional C/L
+
+  4. Cognitive changes
+     - MoCA 25/30, mild visuospatial and memory deficits
+     - Recheck MoCA in 6 months for trend
+     - If progressive, consider neuropsychological testing and rivastigmine
+
+  5. Depression
+     - PHQ-9 8. Encourage exercise and social engagement
+     - If worsening, consider SSRI (sertraline preferred with PD)
+     - Off-period anxiety may improve with reduced off time
+
+  6. Caregiver support
+     - Discuss respite care options with social work
+     - Provide PD caregiver resources
+
+FOLLOW-UP
+─────────
+Return in 3 months. Continue medication diary with on/off timing. Fall log. Contact clinic if freezing worsens, new falls with injury, hallucinations, or significant mood change.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **The medication timing map drives the visit.** If the patient did not keep a medication diary, the model will use whatever timing you estimate. An inaccurate timing map leads to inaccurate fluctuation characterization. When the diary is unreliable, document that.
+- **ON vs OFF exam matters.** The model will state whether the exam was performed in the ON or OFF state, but it cannot infer this. Always specify. A "normal" motor exam in the ON state does not mean the patient is well controlled.
+- **Levodopa equivalent dose calculation.** The model will estimate LED, but the conversion factors vary by source (particularly for dopamine agonists and COMT inhibitors). Verify the calculation or use a validated LED calculator.
+- **Impulse control disorders are underreported.** The model includes an ICD screening field, but patients rarely volunteer these symptoms. If you screened using a structured questionnaire (QUIP), include the score. If you screened informally, note that.
+- **Orthostatic hypotension requires standing BP.** The model will calculate the drop if you provide both sitting and standing values. Without both values, the orthostatic assessment is incomplete. If you did not check standing BP, say so.
+- **DBS settings are precise and consequential.** The model will list whatever settings you provide, but it will not verify them against the device. Double-check contact numbers, amplitudes, and frequencies against the programmer readout.
+- **Caregiver burden is clinical data.** Document it. It influences discharge planning, home safety, medication management, and the decision to escalate care level.
+
+---
+
+## Related
+
+- [General Neurology Clinic Visit](/templates/clinic-neurology) - for movement disorders as one of several neurological problems
+- [Neuromuscular Medicine Clinic Visit](/templates/clinic-neuromuscular) - for patients with overlap between weakness and movement abnormalities
+- [Procedure Note](/templates/procedure-note) - for DBS programming or botulinum toxin injection documentation
+- [Disability / FMLA Letter](/templates/disability-fmla-letter) - for PD-related work restriction documentation
+- [Medication Instructions](/templates/medication-instructions) - patient-facing instructions for levodopa timing and new medications

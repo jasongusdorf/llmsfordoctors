@@ -1,0 +1,816 @@
+---
+title: "Hematology/Oncology Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, hematology-oncology, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "A clinic note template for hematology/oncology that captures staging, biomarker, treatment, and toxicity data that generic templates miss. Works across active treatment, survivorship, and benign hematology."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when writing a clinic visit note for a hematology or oncology patient you are following in your subspecialty practice. Covers the full spectrum: active cancer treatment, survivorship, benign hematology workups, and thrombophilia management. The output format captures disease-specific staging, biomarker, treatment, and toxicity data that generic note templates miss.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Hematology/Oncology Clinic Visit Note">
+You are an attending hematologist/oncologist writing an outpatient clinic visit note after seeing a patient in your subspecialty practice.
+
+**Purpose:** Generate a structured hematology/oncology clinic note from de-identified clinical data. The note must capture disease-specific staging, biomarkers, treatment history, current regimen details, toxicity grading, and surveillance data in a format ready for physician review and attestation.
+
+### Rules
+
+- Write interval history and treatment history in past tense. Write current clinical status, assessment, and plan in present tense.
+- Use medical abbreviations throughout. Expand only on first use within the note.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Grade toxicities by CTCAE v5.0 criteria when severity is described.
+- Document ECOG performance status as a number (0-4) with brief functional description.
+- Assessment by problem list. Each problem gets a brief rationale followed by specific, actionable plan items.
+- Include medication reconciliation with dose, route, frequency, and cycle timing for chemotherapy agents.
+- Do not infer or fabricate clinical information not provided. Write "[Verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "c/w" = consistent with
+- "ECOG PS" = Eastern Cooperative Oncology Group Performance Status
+- "CTCAE" = Common Terminology Criteria for Adverse Events
+- "RECIST" = Response Evaluation Criteria in Solid Tumors
+- "CR/PR/SD/PD" = complete response / partial response / stable disease / progressive disease
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+HEMATOLOGY/ONCOLOGY CLINIC VISIT
+══════════════════════════════════════════
+
+DATE: [M/D/YY]
+VISIT TYPE: [New patient / Follow-up / Survivorship / Pre-chemo]
+
+CANCER DIAGNOSIS (if applicable)
+─────────────────────────────────
+  Primary site: ***
+  Histology: ***
+  Stage: [TNM staging] — [AJCC edition]
+  Grade: ***
+  Biomarkers: [ER/PR/HER2, KRAS, EGFR, ALK, PD-L1, MSI, etc.]
+  Date of diagnosis: ***
+
+BENIGN HEMATOLOGY DIAGNOSIS (if applicable)
+────────────────────────────────────────────
+  Diagnosis: ***
+  Etiology: ***
+  Date of diagnosis: ***
+  Baseline labs: ***
+
+TREATMENT HISTORY
+─────────────────
+  Surgery
+  ───────
+  [Date, procedure, margins, lymph node status (x/y positive),
+  pathologic staging if different from clinical]
+
+  Chemotherapy
+  ────────────
+  [Regimen, number of cycles completed, dates, best response,
+  dose modifications and reason, reason for discontinuation
+  if applicable]
+
+  Radiation
+  ─────────
+  [Field, total dose in Gy, fractions, dates, acute toxicity]
+
+  Immunotherapy / Targeted Therapy
+  ────────────────────────────────
+  [Agent, dose, start date, duration, response, toxicities]
+
+  Prior Lines of Therapy (if multiple)
+  ─────────────────────────────────────
+  [Line 1: regimen, dates, best response, reason stopped]
+  [Line 2: regimen, dates, best response, reason stopped]
+
+CURRENT TREATMENT
+─────────────────
+  Regimen: ***
+  Cycle: *** of ***
+  Day: ***
+  Last infusion date: ***
+  Next scheduled: ***
+  Dose modifications: [None / describe with reason]
+
+ECOG PERFORMANCE STATUS
+───────────────────────
+  ECOG PS: ***/4 ([functional description])
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph. Symptoms since last visit, treatment
+tolerance, new complaints, functional status changes,
+hospitalizations, ED visits. Include pertinent positives
+and negatives relevant to disease and treatment.]
+
+TOXICITY ASSESSMENT
+───────────────────
+  [Toxicity 1]: Grade *** (CTCAE v5.0) — [management]
+  [Toxicity 2]: Grade *** — [management]
+  [Toxicity 3]: Grade *** — [management]
+  Dose reductions this cycle: [None / describe]
+
+REVIEW OF SYSTEMS
+─────────────────
+[Pertinent positives and negatives. Include: fatigue, appetite,
+weight change, pain, neuropathy, nausea, diarrhea, mucositis,
+skin changes, dyspnea, bleeding, infection symptoms.]
+
+PHYSICAL EXAMINATION
+────────────────────
+  Vitals
+  ──────
+  T ***  HR ***  BP ***  RR ***  SpO2 ***  Wt *** kg (*** from last visit)
+
+  General: ***
+  HEENT: [Mucositis assessment, scleral icterus]
+  Lymph nodes: [Cervical, supraclavicular, axillary, inguinal]
+  Cardiovascular: ***
+  Pulmonary: ***
+  Abdomen: [Hepatosplenomegaly assessment]
+  Extremities: [Edema, skin changes, port site]
+  Neurologic: [Neuropathy assessment if applicable]
+  Skin: [Rash, hand-foot syndrome, radiation dermatitis]
+
+LABORATORY DATA
+───────────────
+  CBC with Differential
+  ─────────────────────
+  WBC ***  ANC ***  Hgb ***  Plt ***
+  [Trend from prior: WBC ***, Hgb ***, Plt ***]
+
+  Comprehensive Metabolic Panel
+  ─────────────────────────────
+  Cr ***  BUN ***  Na ***  K ***
+  AST ***  ALT ***  Alk phos ***  T.bili ***
+  Albumin ***  LDH ***
+
+  Tumor Markers (with trend)
+  ──────────────────────────
+  [CEA / CA 19-9 / CA-125 / PSA / AFP / B2-microglobulin / other]
+  [Current value] (prior: [date: value], [date: value])
+
+  Iron Studies / Hematology-Specific (if applicable)
+  ──────────────────────────────────────────────────
+  [Ferritin, iron, TIBC, transferrin sat, reticulocyte count,
+  haptoglobin, LDH, peripheral smear findings]
+
+  Coagulation (if applicable)
+  ───────────────────────────
+  [PT/INR, PTT, anti-Xa level, D-dimer, fibrinogen]
+
+IMAGING / SURVEILLANCE
+──────────────────────
+  Last imaging: [Modality, date, key findings]
+  Response assessment: [CR / PR / SD / PD per RECIST 1.1]
+  Next imaging scheduled: ***
+  [Prior imaging comparison if relevant]
+
+CLINICAL TRIAL (if applicable)
+──────────────────────────────
+  Protocol: ***
+  Arm: ***
+  Cycle/timepoint: ***
+  Protocol-specific assessments due: ***
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [disease, stage, key biomarkers]
+[currently on / s/p] [treatment], presenting for [visit reason].
+
+  1. [Primary oncologic/hematologic problem]
+     [Brief clinical rationale: response status, trajectory]
+
+  2. [Treatment toxicity or complication]
+     [Rationale]
+
+  3. [Comorbidity or supportive care issue]
+     [Rationale]
+
+PLAN
+────
+  1. [Primary problem]
+     - [Specific action: continue/modify regimen, restage, etc.]
+     - [Lab or imaging orders]
+     - [Referrals]
+
+  2. [Toxicity management]
+     - [Dose modification decision]
+     - [Supportive medications]
+
+  3. [Supportive care / Symptom management]
+     - [Specific interventions]
+
+  Palliative Care / Goals of Care
+  ────────────────────────────────
+  [Goals of care discussion status, palliative care referral,
+  advance directive status. Write "Not applicable" for
+  early-stage curative-intent patients if appropriate.]
+
+  Survivorship (if applicable)
+  ────────────────────────────
+  [Late effects screening, secondary malignancy surveillance,
+  cardiotoxicity monitoring, bone health, psychosocial]
+
+FOLLOW-UP
+─────────
+  Next visit: ***
+  Pre-visit labs: ***
+  Imaging before next visit: ***
+  Return precautions: [Fever >100.4°F, uncontrolled bleeding,
+  new neurologic symptoms, etc.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: diagnosis, staging, treatment history, current regimen, interval symptoms, exam, labs, imaging, and any toxicities or complications.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Disease focus | Replace biomarker and staging sections with disease-specific fields (e.g., Rai staging for CLL, Ann Arbor for lymphoma, IPSS for MDS) |
+| Benign hematology only | Remove the cancer diagnosis, treatment history, and tumor marker sections. Expand the iron studies and coagulation sections |
+| Clinical trial patients | Expand the clinical trial section with protocol-specific response criteria and adverse event reporting requirements |
+| Palliative focus | Add: "Emphasize symptom burden assessment (ESAS), functional trajectory, and goals of care documentation" |
+| Multidisciplinary tumor board | Add: "Include a tumor board discussion summary section with participants, recommendations, and patient's decision" |
+
+---
+
+## Variations
+
+### Active chemotherapy follow-up
+
+Use this for patients on active cytotoxic chemotherapy who are returning for a pre-cycle assessment or mid-cycle toxicity check. Focuses on treatment tolerance, dose modification decisions, and lab clearance for the next cycle.
+
+<PromptPlayground tool="Claude" title="Active Chemotherapy Follow-Up">
+You are an attending oncologist writing a pre-cycle or mid-cycle follow-up note for a patient on active chemotherapy.
+
+### Rules
+
+- Write interval history in past tense. Write current status and plan in present tense.
+- Grade all toxicities by CTCAE v5.0.
+- Document ANC, platelets, and hepatic/renal function as treatment-clearance parameters.
+- State explicitly whether the patient clears for next cycle: dose, schedule, and any modifications.
+- Use medical abbreviations without expansion.
+- Reference dates in M/D/YY format.
+- Do not fabricate data. Write "[Verify before signing]" for missing information.
+
+### Vocabulary
+
+- "ANC" = absolute neutrophil count
+- "G-CSF" = granulocyte colony-stimulating factor
+- "DLT" = dose-limiting toxicity
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+CHEMOTHERAPY FOLLOW-UP
+══════════════════════════════════════════
+
+DATE: [M/D/YY]
+
+DIAGNOSIS: [Cancer type, stage, biomarkers]
+REGIMEN: [Protocol name]
+CYCLE: *** of ***   DAY: ***
+LAST INFUSION: [M/D/YY]
+
+ECOG PS: ***/4
+
+INTERVAL HISTORY
+────────────────
+[Symptoms since last treatment. Focus on: nausea/vomiting,
+fatigue, neuropathy, mucositis, diarrhea, infection symptoms,
+bleeding, pain, appetite, weight. Hospitalizations or ED visits.]
+
+TOXICITY LOG
+────────────
+  Toxicity           | Grade (CTCAE) | Management        | Trend
+  ─────────────────────────────────────────────────────────────────
+  [e.g., Neuropathy] | ***           | [e.g., gabapentin]| [improving/stable/worsening]
+  [e.g., Neutropenia]| ***           | [e.g., G-CSF]     | ***
+  [e.g., Nausea]     | ***           | [e.g., ondansetron]| ***
+
+  Cumulative dose modifications: [None / describe prior reductions]
+
+PHYSICAL EXAM
+─────────────
+  Vitals: T ***  HR ***  BP ***  Wt *** kg
+  General: ***
+  [Focused exam relevant to disease and treatment toxicities]
+  Port/PICC site: ***
+
+LABS (pre-cycle clearance)
+──────────────────────────
+  WBC ***  ANC ***  Hgb ***  Plt ***
+  Cr ***  AST ***  ALT ***  T.bili ***
+  [Tumor markers if due this cycle: ***]
+
+TREATMENT CLEARANCE DECISION
+────────────────────────────
+  ANC ≥ 1500: [Yes / No — value: ***]
+  Plt ≥ 100K: [Yes / No — value: ***]
+  Hepatic function adequate: [Yes / No]
+  Renal function adequate: [Yes / No]
+  Non-hematologic toxicities ≤ Grade 1: [Yes / No — specify]
+
+  DECISION: [Clear for cycle *** at full dose /
+  Clear with dose reduction (*** → ***) for [reason] /
+  Delay *** week(s) for [reason] /
+  Hold treatment pending [***]]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. [Cancer diagnosis, on treatment]
+     - [Continue/modify/hold regimen with rationale]
+     - [Pre-medications, hydration protocol]
+     - [Restaging imaging if due]
+
+  2. [Treatment toxicity]
+     - [Management plan]
+     - [Dose modification if indicated]
+
+  3. [Supportive care]
+     - [Antiemetics, growth factors, transfusion needs]
+
+NEXT VISIT
+──────────
+  Next cycle: [M/D/YY]
+  Pre-visit labs: [date]
+  Call if: fever >100.4°F, uncontrolled nausea/vomiting,
+  bleeding, new weakness or numbness
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: diagnosis, current regimen, cycle number, interval symptoms, toxicities, exam, labs.]
+</PromptPlayground>
+
+### Cancer survivorship visit
+
+Use this for patients who have completed active treatment and are in surveillance. Focuses on late effects screening, secondary malignancy risk, psychosocial health, and surveillance imaging schedules.
+
+<PromptPlayground tool="Claude" title="Cancer Survivorship Visit">
+You are an oncologist writing a survivorship follow-up note for a patient who has completed active cancer treatment.
+
+### Rules
+
+- Write treatment history in past tense. Write current status and plan in present tense.
+- Document time since treatment completion and current surveillance schedule.
+- Screen for late effects specific to the treatment received (cardiotoxicity for anthracyclines, neuropathy for taxanes/platinum, secondary malignancies for alkylators, endocrine effects for hormonal therapy).
+- Include psychosocial screening: fear of recurrence, return to work, mood, and functional status.
+- Use medical abbreviations without expansion.
+- Reference dates in M/D/YY format.
+- Do not fabricate data. Write "[Verify before signing]" for missing information.
+
+### Vocabulary
+
+- "NED" = no evidence of disease
+- "DFS" = disease-free survival
+- "LVEF" = left ventricular ejection fraction
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+CANCER SURVIVORSHIP VISIT
+══════════════════════════════════════════
+
+DATE: [M/D/YY]
+TIME SINCE DIAGNOSIS: ***
+TIME SINCE TREATMENT COMPLETION: ***
+
+CANCER HISTORY SUMMARY
+──────────────────────
+  Diagnosis: [Type, stage, biomarkers]
+  Treatment received:
+    Surgery: [date, procedure]
+    Chemotherapy: [regimen, cycles, dates]
+    Radiation: [field, dose, dates]
+    Other: [hormonal, targeted, immunotherapy with dates]
+  Best response: [CR / PR / other]
+  Current disease status: [NED / stable residual / other]
+
+INTERVAL HISTORY
+────────────────
+[Symptoms since last visit. Focus on: new lumps or masses,
+unexplained weight loss, pain, fatigue, cognitive changes,
+neuropathy, sexual health, mood, functional status,
+return to work/activities.]
+
+LATE EFFECTS SCREENING
+──────────────────────
+  Cardiac: [LVEF if anthracycline/trastuzumab exposure, symptoms]
+  Pulmonary: [PFTs if bleomycin/radiation exposure]
+  Endocrine: [Thyroid function if neck radiation, menopausal
+  symptoms, bone density if aromatase inhibitor]
+  Neurologic: [Neuropathy grade and trajectory]
+  Cognitive: [Self-reported cognitive changes]
+  Fertility: [Relevant if reproductive age]
+  Psychosocial: [PHQ-2, fear of recurrence screen, social support]
+
+PHYSICAL EXAM
+─────────────
+  Vitals: T ***  HR ***  BP ***  Wt *** kg
+  General: ***
+  [Disease-specific exam: breast, lymph nodes, skin,
+  surgical sites, organ-specific as indicated]
+
+LABS
+────
+  CBC: WBC ***  Hgb ***  Plt ***
+  CMP: [relevant values]
+  Tumor markers (if indicated): *** (trend: ***)
+
+SURVEILLANCE IMAGING
+────────────────────
+  Last imaging: [modality, date, result]
+  Next scheduled: [modality, date]
+  Adherence to surveillance schedule: [On track / overdue by ***]
+
+SECONDARY MALIGNANCY SCREENING
+──────────────────────────────
+  [Mammography, colonoscopy, skin exam, lung CT if applicable,
+  based on treatment exposures and guidelines]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. [Cancer type], [NED / status], [time] post-treatment
+     - Continue surveillance per [NCCN / ASCO] guidelines
+     - Next imaging: ***
+     - Next tumor markers: ***
+
+  2. Late effects of therapy
+     - [Specific monitoring and management]
+
+  3. Survivorship care
+     - [Exercise, nutrition, psychosocial referrals]
+     - [Bone health, cardiovascular risk reduction]
+     - [Genetic counseling if indicated]
+
+FOLLOW-UP
+─────────
+  Next visit: ***
+  Pre-visit labs: ***
+  Surveillance imaging before next visit: ***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: original cancer diagnosis, treatment history, time since completion, current symptoms, exam, labs, imaging, psychosocial status.]
+</PromptPlayground>
+
+### Anemia and benign hematology workup
+
+Use this for patients referred for anemia evaluation, thrombocytopenia, thrombophilia, or other non-malignant hematologic conditions. Structures the workup systematically and documents the diagnostic reasoning.
+
+<PromptPlayground tool="Claude" title="Benign Hematology Clinic Visit">
+You are an attending hematologist writing a clinic note for a patient with a benign hematologic condition (anemia, cytopenias, thrombophilia, VTE, coagulopathy, or hemoglobinopathy).
+
+### Rules
+
+- Write history in past tense. Write current status and plan in present tense.
+- Organize lab data by diagnostic category (iron studies, hemolysis labs, coagulation, etc.).
+- For VTE: document provoked vs. unprovoked, anticoagulation agent, duration plan, and bleeding risk assessment.
+- For anemia: include reticulocyte count interpretation and peripheral smear findings.
+- Use medical abbreviations without expansion.
+- Reference dates in M/D/YY format.
+- Do not fabricate data. Write "[Verify before signing]" for missing information.
+
+### Vocabulary
+
+- "IDA" = iron deficiency anemia
+- "TIBC" = total iron-binding capacity
+- "Tsat" = transferrin saturation
+- "VTE" = venous thromboembolism
+- "DVT" = deep vein thrombosis
+- "PE" = pulmonary embolism
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+BENIGN HEMATOLOGY CLINIC VISIT
+══════════════════════════════════════════
+
+DATE: [M/D/YY]
+VISIT TYPE: [New consult / Follow-up]
+REFERRING DIAGNOSIS: ***
+
+HEMATOLOGIC HISTORY
+───────────────────
+  Diagnosis: ***
+  Date of diagnosis: ***
+  Etiology (if established): ***
+  Prior workup: [Summary of testing done before referral]
+  Transfusion history: [Number, dates, product, last transfusion]
+
+  VTE History (if applicable)
+  ───────────────────────────
+  Event: [DVT / PE / other]
+  Date: ***
+  Provoked: [Yes (provocation: ***) / No / Uncertain]
+  Prior VTE events: ***
+  Thrombophilia testing: [Results or "pending" or "not yet done"]
+
+INTERVAL HISTORY
+────────────────
+[Symptoms since last visit or since referral. Focus on: fatigue,
+dyspnea on exertion, bleeding, bruising, pica, RLS, dysphagia,
+recurrent thrombosis, anticoagulation side effects.]
+
+MEDICATIONS
+───────────
+[Complete list with dose, route, frequency.
+Flag anticoagulants, iron supplements, ESAs, B12, folate.]
+
+PHYSICAL EXAM
+─────────────
+  Vitals: T ***  HR ***  BP ***  Wt *** kg
+  General: [Pallor, jaundice, nutritional status]
+  HEENT: [Glossitis, angular cheilitis, scleral icterus]
+  Lymph nodes: ***
+  Cardiovascular: [Flow murmur, tachycardia]
+  Abdomen: [Splenomegaly, hepatomegaly]
+  Extremities: [Edema, post-thrombotic changes, koilonychia]
+  Skin: [Petechiae, purpura, bruising]
+
+LABORATORY DATA
+───────────────
+  CBC with Differential
+  ─────────────────────
+  WBC ***  Hgb ***  Hct ***  MCV ***  Plt ***
+  RDW ***  Reticulocyte count *** (absolute: ***)
+  [Trend: Hgb on (date) ***, (date) ***, (date) ***]
+
+  Iron Studies
+  ────────────
+  Ferritin ***  Iron ***  TIBC ***  Tsat ***%
+
+  Hemolysis Labs
+  ──────────────
+  LDH ***  Haptoglobin ***  Indirect bili ***
+  Direct Coombs: ***
+
+  B12 / Folate
+  ────────────
+  B12 ***  Folate ***  MMA ***  Homocysteine ***
+
+  Coagulation (if applicable)
+  ───────────────────────────
+  PT ***  INR ***  PTT ***  Fibrinogen ***
+  Anti-Xa level: *** (trough / peak, date)
+  D-dimer: ***
+
+  Thrombophilia Panel (if applicable)
+  ────────────────────────────────────
+  Factor V Leiden: ***
+  Prothrombin gene mutation: ***
+  Antithrombin III: ***
+  Protein C: ***  Protein S: ***
+  Lupus anticoagulant: ***
+  Anticardiolipin Ab: ***  Beta-2 glycoprotein: ***
+
+  Peripheral Smear
+  ────────────────
+  [RBC morphology, WBC morphology, platelet estimate]
+
+  Special Studies
+  ───────────────
+  [Hgb electrophoresis, flow cytometry, bone marrow biopsy
+  results, EPO level, soluble transferrin receptor, etc.]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [diagnosis and key parameters]
+presenting for [visit reason].
+
+  1. [Primary hematologic diagnosis]
+     [Rationale: trajectory, response to treatment, diagnostic status]
+
+  2. [Secondary issue or complication]
+     [Rationale]
+
+PLAN
+────
+  1. [Primary diagnosis]
+     - [Treatment: iron replacement (dose, route, schedule),
+       anticoagulation (agent, dose, duration), B12, transfusion, etc.]
+     - [Additional workup needed]
+     - [Monitoring plan: labs and frequency]
+
+  2. [Secondary issue]
+     - [Specific interventions]
+
+  Anticoagulation Management (if applicable)
+  ──────────────────────────────────────────
+  Agent: ***  Dose: ***
+  Duration plan: [*** months / indefinite]
+  Bleeding risk assessment: [HAS-BLED or qualitative]
+  Next anti-Xa or INR: ***
+
+FOLLOW-UP
+─────────
+  Next visit: ***
+  Pre-visit labs: ***
+  Referrals: [GI for source, gyn, etc.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: referral reason, hematologic history, symptoms, medications, exam, labs, and any prior workup results.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+58-year-old male with stage IIIA (T2aN2M0) non-small cell lung cancer, adenocarcinoma, diagnosed 8/24. PD-L1 TPS 60%, EGFR/ALK/ROS1 negative, KRAS G12C positive. Completed concurrent chemoradiation with carboplatin/paclitaxel and 60 Gy in 30 fractions, finished 11/24. Started durvalumab consolidation 12/24, currently on cycle 8 (q2 weeks). ECOG 1. CT chest 3/10/26 showed continued partial response, 1.8 cm residual RUL mass (down from 4.2 cm at diagnosis). Today reporting mild fatigue, grade 1 hypothyroidism on levothyroxine since 2/26, no pneumonitis symptoms, no new rash. Labs today: WBC 6.2, Hgb 13.1, Plt 198, Cr 0.9, AST 22, ALT 28, TSH 3.8 (was 12.4 before levothyroxine), free T4 1.1. No cough, dyspnea, or hemoptysis. Exam unremarkable except for mild RUL crackles. ECOG 1. Last CT showed PR per RECIST.
+
+**LLM output:**
+
+HEMATOLOGY/ONCOLOGY CLINIC VISIT
+══════════════════════════════════════════
+
+DATE: 3/27/26
+VISIT TYPE: Follow-up, active immunotherapy
+
+CANCER DIAGNOSIS
+─────────────────────────────────
+  Primary site: Right upper lobe, lung
+  Histology: Adenocarcinoma, NSCLC
+  Stage: T2aN2M0, Stage IIIA (AJCC 8th edition)
+  Grade: [Verify before signing]
+  Biomarkers: PD-L1 TPS 60%, EGFR wild-type, ALK negative, ROS1 negative, KRAS G12C positive
+  Date of diagnosis: 8/24
+
+TREATMENT HISTORY
+─────────────────
+  Surgery
+  ───────
+  Not performed (unresectable Stage IIIA)
+
+  Chemotherapy
+  ────────────
+  Concurrent carboplatin AUC 2 weekly / paclitaxel 45 mg/m2 weekly with radiation, 8/24 to 11/24. Completed full course. No dose reductions.
+
+  Radiation
+  ─────────
+  60 Gy in 30 fractions to RUL primary and mediastinal nodes, 8/24 to 11/24. Acute toxicity: grade 1 esophagitis, resolved.
+
+  Immunotherapy
+  ─────────────
+  Durvalumab 10 mg/kg IV q2 weeks, consolidation. Started 12/24. Currently cycle 8. Planned duration: 12 months (through 11/26).
+
+CURRENT TREATMENT
+─────────────────
+  Regimen: Durvalumab 10 mg/kg IV q2 weeks (consolidation)
+  Cycle: 8 of approximately 26
+  Last infusion date: 3/13/26
+  Next scheduled: 3/27/26
+  Dose modifications: None
+
+ECOG PERFORMANCE STATUS
+───────────────────────
+  ECOG PS: 1/4 (ambulatory, able to carry out light work)
+
+INTERVAL HISTORY
+────────────────
+Patient reports mild fatigue that does not limit daily activities. No cough, dyspnea, hemoptysis, or chest pain. No skin rash, diarrhea, or colitis symptoms. Appetite is good; weight stable. He was diagnosed with immune-related hypothyroidism in 2/26 (TSH 12.4) and started on levothyroxine 50 mcg daily with good response. No arthralgias or myalgias. No ED visits or hospitalizations since last visit. Continues to work part-time.
+
+TOXICITY ASSESSMENT
+───────────────────
+  Hypothyroidism (immune-related): Grade 1 (CTCAE v5.0), managed with levothyroxine, TSH now normalized
+  Fatigue: Grade 1, stable, not limiting activity
+  Dose reductions this cycle: None
+
+REVIEW OF SYSTEMS
+─────────────────
+Negative for cough, dyspnea, hemoptysis, chest pain, rash, pruritus, diarrhea, abdominal pain, joint pain, muscle weakness, vision changes, headache, and new edema. Positive for mild fatigue as above.
+
+PHYSICAL EXAMINATION
+────────────────────
+  Vitals
+  ──────
+  T 98.4  HR 74  BP 128/76  RR 16  SpO2 97% on RA  Wt 82.1 kg (stable from last visit)
+
+  General: Alert, well-appearing, no acute distress.
+  HEENT: No mucositis, no scleral icterus. Thyroid non-enlarged, nontender.
+  Lymph nodes: No cervical, supraclavicular, or axillary lymphadenopathy.
+  Cardiovascular: RRR, no murmurs.
+  Pulmonary: Mild crackles RUL (chronic, post-radiation). No wheezes. No dullness to percussion.
+  Abdomen: Soft, NT, no hepatosplenomegaly.
+  Extremities: No edema, no clubbing.
+  Skin: No rash, no vitiligo.
+
+LABORATORY DATA
+───────────────
+  CBC with Differential
+  ─────────────────────
+  WBC 6.2  ANC [Verify before signing]  Hgb 13.1  Plt 198
+
+  Comprehensive Metabolic Panel
+  ─────────────────────────────
+  Cr 0.9  AST 22  ALT 28
+
+  Thyroid Function
+  ────────────────
+  TSH 3.8 (prior 12.4 on 2/10/26, pre-levothyroxine)  Free T4 1.1
+
+  Tumor Markers
+  ─────────────
+  Not routinely followed for NSCLC
+
+IMAGING / SURVEILLANCE
+──────────────────────
+  CT chest with contrast (3/10/26): RUL mass 1.8 cm, decreased from 2.4 cm on 12/26 scan and 4.2 cm at diagnosis. No new pulmonary nodules. Mediastinal lymphadenopathy resolved. No pleural effusion.
+  Response assessment: Partial response (PR) per RECIST 1.1
+  Next imaging scheduled: 6/26
+
+ASSESSMENT
+──────────
+58-year-old male with stage IIIA (T2aN2M0) NSCLC, adenocarcinoma, PD-L1 60%, KRAS G12C positive, currently on durvalumab consolidation cycle 8 with ongoing partial response.
+
+  1. Stage IIIA NSCLC, on durvalumab consolidation
+     CT shows continued PR. Tolerating immunotherapy well. On track for 12-month treatment course.
+
+  2. Immune-related hypothyroidism, Grade 1
+     TSH normalized on levothyroxine 50 mcg. No dose adjustment needed.
+
+  3. Post-radiation changes, RUL
+     Stable crackles on exam, no pneumonitis symptoms. No intervention needed.
+
+PLAN
+────
+  1. NSCLC, on durvalumab consolidation
+     - Continue durvalumab 10 mg/kg IV q2 weeks per schedule
+     - Proceed with cycle 8 infusion today
+     - Next restaging CT chest in 6/26 (approximately cycle 14)
+     - Discuss KRAS G12C targeted therapy (sotorasib/adagrasib) as option if future progression
+
+  2. Immune-related hypothyroidism
+     - Continue levothyroxine 50 mcg daily
+     - Recheck TSH in 6 weeks
+
+  3. Supportive care
+     - Fatigue: reassurance, encourage regular exercise, adequate sleep
+     - Continue PCP management of other comorbidities
+
+  Palliative Care / Goals of Care
+  ────────────────────────────────
+  Patient has curative intent with consolidation immunotherapy after definitive chemoradiation. Full code. Goals of care discussion not indicated at this time.
+
+FOLLOW-UP
+─────────
+  Next visit: 4/10/26 (pre-infusion)
+  Pre-visit labs: CBC, CMP, TSH
+  Imaging before next visit: None until 6/26
+  Return precautions: Fever, new cough or dyspnea (concern for pneumonitis), rash, diarrhea, new weakness or vision changes
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **Staging precision matters.** The AI may default to clinical staging when pathologic staging is available, or vice versa. Verify which staging system applies and that the TNM descriptors match your patient's actual workup.
+- **Biomarker completeness.** If you provide partial biomarker data ("PD-L1 positive"), the model may not flag the missing quantitative result. Always specify TPS percentage for PD-L1 and the specific mutation for molecular markers.
+- **CTCAE grading.** The model grades toxicities based on the symptom descriptions you provide, but it cannot examine the patient. A "mild rash" could be grade 1 or grade 2 depending on body surface area involved. Verify all grades against the actual CTCAE criteria.
+- **Treatment line counting.** For metastatic patients on later lines of therapy, the model may miscategorize which line a regimen represents if the treatment history is complex. Double-check line designations.
+- **RECIST requires imaging data.** The model may assign a RECIST category based on your narrative description, but formal RECIST assessment requires comparison to a defined baseline. Confirm the response category matches the radiologist's or your own measurements.
+- **Anticoagulation duration decisions.** For VTE patients, the model may suggest standard durations without accounting for individual bleeding risk or thrombophilia results. Apply your own risk-benefit analysis.
+- **Survivorship screening gaps.** The generic template may not include all recommended late-effects screening for a specific regimen. Cross-reference with NCCN survivorship guidelines for the specific agents your patient received.
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) — for inpatient progress notes on admitted oncology patients
+- [Consult Note](/templates/consult-note) — for writing the initial hematology/oncology consult
+- [Lab Interpretation](/templates/lab-interpretation) — for detailed workup interpretation of hematologic labs
+- [Referral Letter](/templates/referral-letter) — for referring patients to radiation oncology, surgery, or clinical trials

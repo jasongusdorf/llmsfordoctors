@@ -1,0 +1,522 @@
+---
+title: "History and Physical"
+category: note-writing
+targetTool: claude
+workflow: admission
+tags: [intermediate, note-writing, h-and-p, admission, inpatient]
+lastUpdated: 2026-03-27
+socialPost: "Paste your raw clinical data from the admission — HPI, exam, labs, imaging — and get a structured H&P with a problem-based assessment and plan. Useful on high-volume nights when the documentation backlog is widening."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when admitting a patient and you need a complete history and physical examination note for the medical record. Paste in your raw clinical data (HPI details, past history, exam findings, labs, imaging) and the LLM organizes it into a structured H&P with a problem-based assessment and plan. Particularly useful on high-volume admission nights when the documentation backlog starts to outpace the clinical work.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, admission/discharge dates, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="History and Physical">
+You are an excellent physician writing a comprehensive admission history and physical note. After receiving the clinical information below, produce a complete H&P.
+
+### Rules
+
+- Write the HPI as a detailed narrative paragraph in past tense. Include time course, symptom onset, progression, associated symptoms, pertinent positives and negatives, and what brought the patient to the hospital.
+- Write the ROS as a brief list of pertinent positives and negatives not already covered in the HPI. Do not repeat HPI content in the ROS.
+- Write the Physical Exam by system in concise paragraph prose. Report all findings provided; do not invent findings.
+- Write the Assessment as a one-line summary followed by a numbered problem list.
+- Write the Plan by problem, with specific, actionable items under each problem.
+- Include specific numbers (lab values, vitals, doses, dates) whenever available.
+- Use medical abbreviations throughout. Never spell out what an abbreviation stands for.
+- Reference dates in the format M/D/YY.
+- Do not infer or fabricate any clinical information not provided. If data is missing, write "[Obtain and document before signing]".
+- All historical sections (HPI, PMHx, PSHx, etc.) must be in past tense. Physical Exam and Assessment/Plan use present tense where appropriate.
+- Include all medication details: name, dose, route, frequency.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "pmhx" = past medical history
+- "pshx" = past surgical history
+- "fhx" = family history
+- "shx" = social history
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+HISTORY AND PHYSICAL
+══════════════════════════════════════════
+
+CHIEF COMPLAINT
+───────────────
+[One sentence in patient's own words or paraphrased.]
+
+HISTORY OF PRESENT ILLNESS
+───────────────────────────
+[Detailed narrative paragraph. Include: age, sex, relevant pmhx,
+presenting symptoms with onset and time course, progression,
+associated symptoms, pertinent positives and negatives, ED
+evaluation and interventions if applicable, and reason for
+admission. Write as one thorough paragraph.]
+
+PAST MEDICAL HISTORY
+────────────────────
+- ***
+- ***
+- ***
+
+PAST SURGICAL HISTORY
+─────────────────────
+- ***
+- ***
+
+FAMILY HISTORY
+──────────────
+- ***
+- ***
+
+SOCIAL HISTORY
+──────────────
+[Tobacco, alcohol, drugs, occupation, living situation,
+functional status, code status/advance directives if known.]
+
+HOME MEDICATIONS
+────────────────
+- [Medication, dose, route, frequency]
+- [Medication, dose, route, frequency]
+- [Medication, dose, route, frequency]
+
+ALLERGIES
+─────────
+[Drug: reaction] or "NKDA"
+
+REVIEW OF SYSTEMS
+─────────────────
+[Pertinent positives and negatives NOT already addressed in HPI.
+Organized by system. If comprehensive ROS was obtained, note
+"All other systems reviewed and negative."]
+
+PHYSICAL EXAMINATION
+────────────────────
+
+  Vitals
+  ──────
+  T ***  HR ***  BP ***  RR ***  SpO2 *** on [room air / O2 delivery]
+  Weight: *** kg  Height: *** cm  BMI: ***
+
+  General: ***
+  HEENT: ***
+  Neck: ***
+  Cardiovascular: ***
+  Pulmonary: ***
+  Abdomen: ***
+  Extremities: ***
+  Neurologic: ***
+  Skin: ***
+  Psychiatric: ***
+  [Include only examined systems. Write "[Deferred]" for
+  systems not examined.]
+
+LABS AND IMAGING
+────────────────
+
+  Labs (on presentation)
+  ──────────────────────
+  [List relevant labs with values and date. Format as:
+  CBC: WBC ***, Hgb ***, Plt ***
+  BMP: Na ***, K ***, Cl ***, CO2 ***, BUN ***, Cr ***, Glu ***
+  Additional labs as relevant.]
+
+  Imaging
+  ───────
+  [Modality (date): Key findings. Use the verb "showed" for
+  all imaging results.]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with pmhx of [***] presenting
+with [***], most consistent with [***].
+
+  1. [Problem #1]
+  2. [Problem #2]
+  3. [Problem #3]
+
+PLAN
+────
+  1. [Problem #1]
+     - [Specific action item]
+     - [Specific action item]
+
+  2. [Problem #2]
+     - [Specific action item]
+
+  3. [Problem #3]
+     - [Specific action item]
+
+  Prophylaxis: [DVT ppx, GI ppx if indicated]
+  Diet: ***
+  Activity: ***
+  IV access: ***
+  Code status: ***
+  Disposition: [Anticipated LOS, discharge planning considerations]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste your de-identified clinical data here: HPI details, past history, medications, allergies, exam findings, labs, imaging, and your assessment/plan.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Specialty focus | Add: "This is a [cardiology/pulmonology/GI] admission. Emphasize [specialty]-relevant history and exam findings." |
+| HPI length | Add: "Keep the HPI to 8-10 sentences maximum" or "Write a comprehensive HPI with full timeline." |
+| Assessment depth | Add: "Include a brief differential diagnosis for each problem." |
+| Trainee documentation | Add: "Include attestation statement: 'I have personally seen and examined the patient and reviewed the resident's note. I agree with the findings and plan as documented with the following additions/modifications: [***]'" |
+| Exam completeness | Add: "Include a complete 14-system ROS and 12-system physical exam for this admission." |
+
+---
+
+## Variations
+
+### ED-to-floor admission
+
+Use this when admitting a patient from the emergency department who has already been evaluated, treated, and dispositioned by the ED team.
+
+<PromptPlayground tool="Claude" title="ED-to-Floor Admission H&P">
+You are an excellent physician writing an admission H&P for a patient being admitted from the emergency department. After receiving the clinical information below, produce a complete H&P that incorporates the ED evaluation and your own assessment.
+
+### Rules
+
+- Write the HPI as a detailed narrative paragraph in past tense. Include the patient's initial presentation, ED evaluation (labs, imaging, interventions), ED diagnosis, and reason for admission.
+- Clearly distinguish between the ED assessment and your own admission assessment when they differ.
+- Write in past tense for historical sections; present tense for current exam and plan.
+- Include specific numbers (lab values, vitals, doses, dates) whenever available.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY.
+- Do not fabricate clinical information. Write "[Obtain and document before signing]" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "pmhx" = past medical history
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+ADMISSION H&P (ED-TO-FLOOR)
+══════════════════════════════════════════
+
+CHIEF COMPLAINT
+───────────────
+***
+
+HISTORY OF PRESENT ILLNESS
+───────────────────────────
+[Detailed narrative including: presenting symptoms, time course,
+ED evaluation (labs, imaging, interventions given), ED clinical
+course, and reason for admission. One thorough paragraph.]
+
+ED COURSE SUMMARY
+─────────────────
+  Arrival vitals: T ***  HR ***  BP ***  RR ***  SpO2 ***
+  Interventions: [IVF, medications given, procedures performed]
+  Disposition decision: [Reason for admission, admitting service]
+
+[Standard H&P sections: PMHx, PSHx, FHx, SHx, Medications,
+Allergies, ROS, Physical Exam, Labs/Imaging, Assessment, Plan
+as in the main template above.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: ED physician note, labs, imaging, your own exam findings, and your admission assessment/plan.]
+</PromptPlayground>
+
+### Direct admission
+
+Use this for patients admitted directly from a clinic or office without an ED evaluation.
+
+<PromptPlayground tool="Claude" title="Direct Admission H&P">
+You are an excellent physician writing an admission H&P for a patient being directly admitted from a clinic or outpatient setting. After receiving the clinical information below, produce a complete H&P.
+
+### Rules
+
+- Write the HPI as a detailed narrative paragraph in past tense. Include the outpatient evaluation that led to the admission decision.
+- Note the referring provider and reason for direct admission rather than ED referral.
+- Write in past tense for historical sections; present tense for current exam and plan.
+- Include specific numbers (lab values, vitals, doses, dates) whenever available.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY.
+- Do not fabricate clinical information. Write "[Obtain and document before signing]" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "pmhx" = past medical history
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+ADMISSION H&P (DIRECT ADMISSION)
+══════════════════════════════════════════
+
+CHIEF COMPLAINT
+───────────────
+***
+
+REFERRING PROVIDER
+──────────────────
+[Provider role and reason for direct admission]
+
+HISTORY OF PRESENT ILLNESS
+───────────────────────────
+[Detailed narrative including: outpatient symptoms, clinic
+evaluation, outpatient workup results, and the clinical
+rationale for direct admission. One thorough paragraph.]
+
+[Standard H&P sections: PMHx, PSHx, FHx, SHx, Medications,
+Allergies, ROS, Physical Exam, Labs/Imaging, Assessment, Plan
+as in the main template above.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: referring provider's note, outpatient workup, your exam findings, and your admission assessment/plan.]
+</PromptPlayground>
+
+### Subspecialty admission
+
+Use this for admissions to a subspecialty service (cardiology, GI, heme/onc, etc.) where the H&P needs to emphasize specialty-relevant history and workup.
+
+<PromptPlayground tool="Claude" title="Subspecialty Admission H&P">
+You are an excellent subspecialty physician writing an admission H&P for a patient being admitted to your service. After receiving the clinical information below, produce a complete H&P with subspecialty-relevant depth.
+
+### Rules
+
+- Write the HPI as a detailed narrative paragraph in past tense, with emphasis on the subspecialty-relevant history, prior workup, and disease trajectory.
+- Include prior relevant procedures, imaging, and specialist evaluations in the HPI or a dedicated "Prior Workup" section.
+- Write in past tense for historical sections; present tense for current exam and plan.
+- Include specific numbers (lab values, vitals, doses, dates) whenever available.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY.
+- Do not fabricate clinical information. Write "[Obtain and document before signing]" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "pmhx" = past medical history
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+SUBSPECIALTY ADMISSION H&P
+══════════════════════════════════════════
+
+ADMITTING SERVICE
+─────────────────
+***
+
+CHIEF COMPLAINT
+───────────────
+***
+
+HISTORY OF PRESENT ILLNESS
+───────────────────────────
+[Detailed narrative with subspecialty-relevant depth. Include:
+disease history and trajectory, prior relevant workup (imaging,
+labs, procedures, pathology), current presentation, and reason
+for admission.]
+
+PRIOR RELEVANT WORKUP
+─────────────────────
+[Chronological summary of prior subspecialty-relevant studies,
+procedures, and results. Include dates.]
+
+[Standard H&P sections: PMHx, PSHx, FHx, SHx, Medications,
+Allergies, ROS, Physical Exam, Labs/Imaging, Assessment, Plan
+as in the main template above.
+
+Note: Assessment and Plan should reflect subspecialty perspective.
+Include primary service and consulting service recommendations
+if applicable.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: referral information, prior workup, your exam findings, and your subspecialty assessment/plan.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+52-year-old male presenting with 2 days of worsening epigastric pain radiating to the back, nausea, vomiting x6 episodes, unable to tolerate PO. Pmhx: HTN, HLD, DM2, cholelithiasis (declined CCY 2 years ago), GERD. PSHx: appendectomy. Home meds: lisinopril 20mg daily, atorvastatin 40mg daily, metformin 1000mg BID, omeprazole 20mg daily. NKDA. Social: 2-3 beers/week, no tobacco, no drugs, works as an electrician, lives with wife. FHx: father with DM2 and CAD. Vitals: T 38.2, HR 108, BP 142/88, RR 20, SpO2 97% on RA. Exam: diaphoretic, tender epigastrium with voluntary guarding, no rebound, decreased BS, no jaundice. Labs: lipase 1,842, WBC 14.8, Hgb 15.2, Plt 244, Na 138, K 3.8, Cr 1.2 (baseline 0.9), Glu 268, AST 86, ALT 74, Alk Phos 142, T Bili 1.8, Lactate 1.4. RUQ US showed cholelithiasis with CBD 7mm, no cholecystitis. CT A/P with IV contrast showed peripancreatic fat stranding and fluid, no necrosis, no pseudocyst.
+
+**LLM output:**
+
+HISTORY AND PHYSICAL
+══════════════════════════════════════════
+
+CHIEF COMPLAINT
+───────────────
+"My stomach pain is getting worse and I can't keep anything down."
+
+HISTORY OF PRESENT ILLNESS
+───────────────────────────
+The patient is a 52-year-old male with pmhx of HTN, HLD, DM2, cholelithiasis (declined CCY in 2024), and GERD who presented on 3/27/26 with 2 days of worsening epigastric pain radiating to the back, associated with nausea and 6 episodes of nonbloody, nonbilious emesis, and inability to tolerate PO intake. He reported the pain began approximately 48 hours prior to presentation, initially mild and dull, progressing to severe (8/10) constant epigastric pain with radiation to the mid-back. He denied fever, diarrhea, hematemesis, melena, and hematochezia. He reported his last alcohol intake was 3 days prior (2 beers). He denied recent changes to medications or new medications. In the ED, he was found to be tachycardic to 108 and febrile to 38.2. Lipase returned at 1,842, and CT A/P (3/27/26) showed peripancreatic fat stranding and fluid without necrosis or pseudocyst. RUQ US (3/27/26) showed cholelithiasis with CBD 7 mm, no sonographic evidence of cholecystitis. He received 2 L NS, morphine 4 mg IV x2, ondansetron 4 mg IV, and was admitted for IV fluid resuscitation and pain management.
+
+PAST MEDICAL HISTORY
+────────────────────
+- HTN
+- HLD
+- DM2
+- Cholelithiasis (declined CCY, 2024)
+- GERD
+
+PAST SURGICAL HISTORY
+─────────────────────
+- Appendectomy
+
+FAMILY HISTORY
+──────────────
+- Father: DM2, CAD
+
+SOCIAL HISTORY
+──────────────
+Alcohol: 2-3 beers/week. Tobacco: none. Drugs: none. Occupation: electrician. Lives with wife. Code status: full code.
+
+HOME MEDICATIONS
+────────────────
+- Lisinopril 20 mg PO daily
+- Atorvastatin 40 mg PO daily
+- Metformin 1,000 mg PO BID
+- Omeprazole 20 mg PO daily
+
+ALLERGIES
+─────────
+NKDA
+
+REVIEW OF SYSTEMS
+─────────────────
+Negative for chest pain, SOB, dysuria, hematuria, rash, joint pain. All other systems reviewed and negative except as noted in HPI.
+
+PHYSICAL EXAMINATION
+────────────────────
+
+  Vitals
+  ──────
+  T 38.2  HR 108  BP 142/88  RR 20  SpO2 97% on RA
+
+  General: Alert, diaphoretic, appears uncomfortable, lying still in bed.
+  HEENT: Anicteric sclera, dry mucous membranes.
+  Neck: Supple, no JVD, no lymphadenopathy.
+  Cardiovascular: Tachycardic, regular rhythm, no murmurs, no LE edema.
+  Pulmonary: CTAB, no wheezes, no crackles.
+  Abdomen: Tender to palpation in the epigastrium with voluntary guarding. No rebound tenderness. Decreased BS. No hepatosplenomegaly. No jaundice.
+  Extremities: Warm, well-perfused, no edema.
+  Neurologic: Alert and oriented x3, no focal deficits.
+  Skin: Diaphoretic, no rash.
+
+LABS AND IMAGING
+────────────────
+
+  Labs (on presentation, 3/27/26)
+  ────────────────────────────────
+  CBC: WBC 14.8, Hgb 15.2, Plt 244
+  BMP: Na 138, K 3.8, Cr 1.2 (baseline 0.9), Glu 268
+  Hepatic: AST 86, ALT 74, Alk Phos 142, T Bili 1.8
+  Lipase: 1,842
+  Lactate: 1.4
+
+  Imaging
+  ───────
+  RUQ US (3/27/26): Showed cholelithiasis with CBD 7 mm. No gallbladder wall thickening, no pericholecystic fluid, no sonographic Murphy sign.
+  CT A/P with IV contrast (3/27/26): Showed peripancreatic fat stranding and free fluid consistent with acute pancreatitis. No pancreatic necrosis, no pseudocyst, no biliary ductal dilation proximal to the CBD.
+
+ASSESSMENT
+──────────
+52-year-old male with pmhx of cholelithiasis (declined CCY), HTN, HLD, and DM2 presenting with acute pancreatitis, most likely biliary etiology given cholelithiasis and mildly dilated CBD (7 mm) with transaminitis.
+
+  1. Acute biliary pancreatitis
+  2. AKI (Cr 1.2, baseline 0.9), likely prerenal
+  3. Hyperglycemia in setting of acute illness and DM2
+  4. Cholelithiasis, s/p declined CCY
+
+PLAN
+────
+  1. Acute biliary pancreatitis
+     - NPO with advancement to low-fat diet as tolerated when pain improving and tolerating PO
+     - Aggressive IVF resuscitation with LR at 200 mL/hr, reassess volume status and UOP in 6 hours
+     - Pain management: morphine PCA, transition to PO when tolerating
+     - Trend lipase, LFTs daily
+     - General surgery consult for CCY during this admission given recurrent biliary disease
+     - MRCP if concern for retained CBD stone (T Bili 1.8, CBD 7 mm)
+     - Monitor for signs of necrotizing pancreatitis or organ failure
+
+  2. AKI
+     - Likely prerenal in setting of vomiting and poor PO intake
+     - IVF resuscitation as above
+     - Recheck BMP in AM
+     - Hold metformin until Cr returns to baseline
+
+  3. Hyperglycemia
+     - Hold metformin (AKI)
+     - Insulin sliding scale with BG checks QID
+     - Consider basal insulin if persistently elevated
+     - A1c if not recent
+
+  4. Cholelithiasis
+     - General surgery consult for CCY during this admission
+     - Patient previously declined in 2024; discuss recurrent biliary complications and surgical risk
+
+  Prophylaxis: Enoxaparin 40 mg SQ daily (DVT ppx), PPI continued
+  Diet: NPO, advance as above
+  Activity: Ad lib
+  IV access: 2 peripheral IVs
+  Code status: Full code
+  Disposition: Anticipated LOS 3-5 days pending clinical improvement and surgical timing
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **HPI narrative structure.** The HPI should read as a story with a clear arc: who the patient is, what happened, and how they ended up in the hospital. If the LLM produces a bulleted list, re-run with emphasis on "narrative paragraph."
+- **ROS duplication.** The model frequently repeats HPI content in the ROS. Scan for duplication and remove it; a good ROS adds information, not echoes.
+- **Fabricated exam findings.** The AI may generate "normal" findings for systems you did not examine. If you did not examine it, it should say "[Deferred]," not "unremarkable."
+- **Lab value accuracy.** Always cross-reference lab values against the actual chart. The model may transpose digits, round values, or infer reference ranges.
+- **Assessment one-liner.** The model sometimes writes an overly generic summary. The one-liner should state the most likely diagnosis or clinical problem, not just repeat the chief complaint.
+- **Medication reconciliation.** The AI may omit home medications or add medications not on the patient's list. Cross-reference the full med list before signing.
+- **Prior workup gaps.** For patients with complex histories, the model may not include relevant prior studies (TTE, colonoscopy, biopsy results). Add these manually if they inform the current admission.
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) - the daily notes that follow this admission H&P
+- [Discharge Summary](/templates/discharge-summary-basic) - the bookend to this note at the end of the admission
+- [Consult Note](/templates/consult-note) - subspecialty input that feeds into the admission assessment
+- [Transfer Summary](/templates/transfer-summary) - when the patient moves to another facility

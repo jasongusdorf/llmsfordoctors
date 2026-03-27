@@ -4,7 +4,8 @@ category: literature-review
 targetTool: claude
 workflow: evidence-comparison
 tags: [advanced, literature-review, evidence, comparison, treatment]
-lastUpdated: 2026-03-22
+lastUpdated: 2026-03-27
+socialPost: "Side-by-side comparison of evidence across two or more treatment options — synthesizing across studies, not within a single article. For when you need to weigh competing approaches against the literature."
 ---
 
 import Callout from '../../components/Callout.astro';
@@ -12,9 +13,7 @@ import PromptPlayground from '../../components/PromptPlayground.astro';
 
 ## When to use this
 
-Use this template when you are comparing the evidence base for two or more treatment options, diagnostic tests, or clinical strategies. It is designed for synthesizing across studies (not summarizing a single article -- use the **Article Summary** template for that). Best suited for clinical questions where multiple studies exist and you want a structured side-by-side comparison to inform a treatment decision or guideline discussion.
-
-Compares the evidence for multiple treatment options across studies. Provide the clinical question and relevant study data, and get a structured comparison table with a synthesis of the evidence.
+Use this template when you need a structured, side-by-side comparison of the evidence for two or more treatment options. It synthesizes across studies (not within a single article; use the **Article Summary** template for that). Best suited for clinical questions where multiple trials exist and you want a critical comparison to inform a treatment decision or guideline discussion.
 
 <Callout type="evidence">
   This template helps organize evidence but does not replace a formal systematic review. Evidence quality assessments are approximate; verify against GRADE or Oxford levels of evidence frameworks for formal clinical decision-making.
@@ -25,36 +24,84 @@ Compares the evidence for multiple treatment options across studies. Provide the
 ## The prompt
 
 <PromptPlayground tool="Claude" title="Treatment Evidence Comparison">
-You are a clinical epidemiologist comparing treatment evidence for a clinical question.
+You are a clinical epidemiologist comparing treatment evidence for a physician audience.
 
-**Clinical Question:** [CLINICAL QUESTION, e.g., "What is the best first-line treatment for moderate ulcerative colitis?"]
+**Purpose:** Produce a structured, critical comparison of evidence across studies for a clinical question. Distinguish levels of evidence, identify gaps, and deliver a clinical bottom line.
 
-Given the study data below, produce:
+### Rules
+- Report effect sizes with 95% confidence intervals for every study.
+- Calculate NNT or NNH when absolute risk data are available.
+- Classify each study by level of evidence: RCT, observational, or expert opinion.
+- Note funding sources and conflicts of interest for each study.
+- Flag external validity concerns (who was excluded, what settings were studied).
+- Flag internal validity concerns (randomization, blinding, attrition, analysis method).
+- Do not fabricate study data, statistics, or citations. If information is missing from the provided data, state what is unavailable.
 
-**Evidence Summary Table**
+### Vocabulary
+- "Effect size" means the point estimate with 95% CI.
+- "NNT" means number needed to treat; "NNH" means number needed to harm.
+- "Grade of evidence" uses GRADE or Oxford levels: High, Moderate, Low, Very Low.
+- "Head-to-head" means a direct comparison trial between two active treatments.
 
-| Study | Design | N | Intervention | Comparator | Primary Outcome | Result (95% CI) | Quality |
-|-------|--------|---|-------------|------------|-----------------|-----------------|---------|
+### Output format
+
+```
+╔══════════════════════════════════════╗
+║  COMPARISON TABLE                    ║
+╚══════════════════════════════════════╝
+```
+
+| Treatment | Study | Design | N | Primary Outcome | Effect Size (95% CI) | NNT/NNH | Grade of Evidence |
+|-----------|-------|--------|---|-----------------|----------------------|---------|-------------------|
 | [Fill from data] | | | | | | | |
 
-**Head-to-Head Comparison**
-For each treatment option, summarize:
+```
+╔══════════════════════════════════════╗
+║  HEAD-TO-HEAD SUMMARY                ║
+╚══════════════════════════════════════╝
+```
+
+For each treatment option:
 - Number and quality of supporting studies
-- Magnitude of benefit (effect sizes)
+- Magnitude and direction of benefit (effect sizes with CIs)
 - Consistency of evidence across studies
-- Applicability to the clinical question
+- Funding sources and potential conflicts of interest
+- Whether comparisons are direct (head-to-head) or indirect (vs. placebo only)
 
-**Gaps in Evidence**
-What questions remain unanswered? What populations are underrepresented? Are there head-to-head trials, or only comparisons to placebo?
+```
+╔══════════════════════════════════════╗
+║  GAPS IN EVIDENCE                    ║
+╚══════════════════════════════════════╝
+```
 
-**Synthesis**
-In 3–5 sentences: Which treatment has the strongest evidence? For which patients? What are the key trade-offs (efficacy vs. safety vs. cost vs. adherence)?
+- What populations are underrepresented or excluded?
+- Are there head-to-head trials, or only indirect comparisons?
+- What outcomes have not been adequately studied (e.g., long-term safety, patient-reported outcomes)?
+- External vs. internal validity concerns for the body of evidence.
 
-Do not fabricate study data, statistics, or citations. If information is missing from the provided data, state what is unavailable.
+```
+╔══════════════════════════════════════╗
+║  CLINICAL BOTTOM LINE                ║
+╚══════════════════════════════════════╝
+```
+
+In 2-3 sentences: Which treatment has the strongest evidence? For which patients? What are the key trade-offs (efficacy vs. safety vs. cost vs. adherence)?
+
+```
+╔══════════════════════════════════════╗
+║  PATIENT-SPECIFIC CONSIDERATIONS     ║
+╚══════════════════════════════════════╝
+```
+
+- When would you choose Treatment A over B (and vice versa)?
+- Patient factors that shift the balance: age, comorbidities, cost, adherence, contraindications.
+- What shared decision-making points should be discussed?
 
 ---
-STUDY DATA:
-[Paste abstracts, data tables, or summaries of the relevant studies. Include study names/authors, designs, sample sizes, and key outcomes.]
+**Clinical Question:** [CLINICAL QUESTION, e.g., "What is the best first-line treatment for moderate ulcerative colitis?"]
+
+**STUDY DATA:**
+[Paste abstracts, data tables, or summaries of the relevant studies. Include study names/authors, designs, sample sizes, key outcomes, funding sources, and any reported conflicts of interest.]
 </PromptPlayground>
 
 ---
@@ -63,132 +110,148 @@ STUDY DATA:
 
 | Element | How to Adjust |
 |---------|---------------|
-| Scope | Add: "Limit the comparison to [RCTs only / studies from the last 5 years / studies in [population]]" |
-| Safety focus | Add: "Include a separate safety comparison table with adverse event rates for each treatment" |
+| Scope | Add: "Limit the comparison to [RCTs only / studies from the last 5 years / studies in (population)]" |
+| Safety focus | Add: "Include a separate safety comparison table with adverse event rates and NNH for each treatment" |
 | Cost-effectiveness | Add: "Include cost or cost-effectiveness data where available" |
 | Patient population | Add: "Focus on evidence specific to [elderly / pediatric / pregnant / renal impairment] patients" |
-| Format | Add: "Format the comparison as a decision matrix with rows=treatments, columns=criteria (efficacy, safety, cost, adherence)" |
-| Guideline alignment | Add: "Cross-reference findings against the current [SOCIETY] guideline recommendations" |
+| Guideline alignment | Add: "Cross-reference findings against the current [SOCIETY] guideline recommendations with recommendation grades" |
+| Format | Add: "Format the comparison as a decision matrix with rows = treatments, columns = criteria (efficacy, safety, cost, adherence)" |
 
 ---
 
 ## Variations
 
-### Drug comparison
+### Drug-vs-drug comparison
 
-Use this when comparing two or more medications for the same indication, with emphasis on pharmacology, efficacy, safety profiles, and practical prescribing considerations.
+Use this when comparing two or more medications for the same indication, with emphasis on pharmacology, efficacy, safety, and practical prescribing considerations.
 
-<PromptPlayground tool="Claude" title="Drug Comparison Evidence Review">
+<PromptPlayground tool="Claude" title="Drug-vs-Drug Evidence Comparison">
 You are a clinical pharmacologist comparing medications for a physician audience.
 
-**Clinical Question:** [e.g., "SGLT2 inhibitors vs. GLP-1 receptor agonists for cardiovascular risk reduction in type 2 diabetes"]
+**Purpose:** Produce a structured drug comparison with effect sizes, NNT/NNH, level of evidence classification, and a clinical bottom line.
 
-Given the study data below, produce:
+### Rules
+- Report effect sizes with 95% CIs for every drug.
+- Calculate NNT and NNH when absolute risk data are available.
+- Classify each trial by level of evidence (RCT, observational, expert opinion).
+- Note funding source and conflicts of interest for each key trial.
+- Note whether comparisons are head-to-head or indirect (vs. placebo only).
+- Do not fabricate study data, statistics, or drug information.
+
+### Output format
 
 **Drug Comparison Table**
 
-| Drug | Class | Mechanism | Key Trial(s) | Primary Efficacy Outcome | NNT | Key Safety Signal | Contraindications |
-|------|-------|-----------|---------------|--------------------------|-----|-------------------|-------------------|
-| [Fill from data] | | | | | | | |
+| Drug | Class | Key Trial(s) | Design | N | Primary Outcome | Effect Size (95% CI) | NNT/NNH | Evidence Grade | Funding |
+|------|-------|--------------|--------|---|-----------------|----------------------|---------|----------------|---------|
+| [Fill from data] | | | | | | | | | |
 
 **Efficacy Comparison**
-For each drug, summarize the strength and consistency of evidence for efficacy. Include effect sizes with 95% CIs. Note whether evidence is from head-to-head trials or indirect comparisons.
+For each drug: strength and consistency of evidence, effect sizes with CIs, and whether evidence is from head-to-head trials or indirect comparisons.
 
 **Safety Comparison**
-For each drug, list the most important adverse effects, discontinuation rates, and any black box warnings or REMS requirements. Highlight safety signals that differ between options.
+For each drug: most important adverse effects, discontinuation rates, black box warnings, REMS requirements. Include NNH where calculable.
 
-**Practical Prescribing Considerations**
-For each drug: route of administration, dosing frequency, monitoring requirements, drug interactions, cost (if available), insurance/formulary considerations, and patient adherence factors.
+**Practical Prescribing**
+For each drug: route, dosing frequency, monitoring requirements, drug interactions, cost, formulary considerations, adherence factors.
 
-**Clinical Decision Summary**
-In 3–5 sentences: For a typical patient with this indication, which drug would you start with and why? When would you choose each alternative?
-
-Do not fabricate study data, statistics, or drug information.
+**Clinical Bottom Line**
+In 2-3 sentences: For a typical patient with this indication, which drug has the strongest evidence? When would you choose each alternative? What are the key trade-offs?
 
 ---
-STUDY DATA:
+**Clinical Question:** [e.g., "SGLT2 inhibitors vs. GLP-1 receptor agonists for cardiovascular risk reduction in type 2 diabetes"]
+
+**STUDY DATA:**
 [Paste study summaries, trial data, or drug information for comparison]
 </PromptPlayground>
 
-### Surgical technique comparison
+### Surgical-vs-medical comparison
 
-Use this when comparing surgical or procedural approaches, with emphasis on operative outcomes, complications, recovery, and patient selection.
+Use this when comparing a surgical or procedural approach against medical management, with emphasis on operative outcomes, long-term efficacy, recovery, and patient selection.
 
-<PromptPlayground tool="Claude" title="Surgical Technique Evidence Comparison">
-You are a surgical outcomes researcher comparing procedural approaches for a clinical question.
+<PromptPlayground tool="Claude" title="Surgical vs. Medical Evidence Comparison">
+You are a surgical outcomes researcher comparing procedural vs. medical approaches for a physician audience.
 
-**Clinical Question:** [e.g., "Robotic vs. laparoscopic vs. open approach for rectal cancer resection"]
+**Purpose:** Produce a structured comparison of surgical and medical treatment options with critical appraisal, effect sizes, and patient-selection guidance.
 
-Given the study data below, produce:
+### Rules
+- Report effect sizes with 95% CIs for every study.
+- Calculate NNT/NNH when absolute risk data are available.
+- Classify each study by level of evidence.
+- Distinguish short-term surgical outcomes from long-term clinical outcomes.
+- Note funding sources and conflicts of interest.
+- Do not fabricate study data or statistics.
 
-**Technique Comparison Table**
+### Output format
 
-| Study | Design | N | Technique | Primary Outcome | Operative Time | Complication Rate | LOS | Quality |
-|-------|--------|---|-----------|-----------------|----------------|-------------------|-----|---------|
+**Comparison Table**
+
+| Study | Design | N | Approach | Primary Outcome | Effect Size (95% CI) | NNT/NNH | Complications | Evidence Grade |
+|-------|--------|---|----------|-----------------|----------------------|---------|---------------|----------------|
 | [Fill from data] | | | | | | | | |
 
 **Efficacy Comparison**
-For each technique, summarize evidence for the primary clinical outcome (e.g., oncologic outcomes, recurrence, functional results). Distinguish short-term surgical outcomes from long-term clinical outcomes.
+For each approach: evidence for the primary clinical outcome (e.g., disease-free survival, symptom resolution, functional recovery). Distinguish short-term surgical results from long-term outcomes.
 
-**Safety & Complications**
-For each technique: intraoperative complication rates, conversion rates (if applicable), 30-day morbidity, reoperation rates, mortality. Highlight statistically significant differences.
-
-**Recovery & Patient Experience**
-Length of stay, return to function, pain scores, patient-reported outcomes where available.
+**Safety and Complications**
+Surgical arm: intraoperative complications, 30-day morbidity, reoperation rates, mortality. Medical arm: adverse effects, treatment discontinuation, disease progression on therapy. Include NNH where calculable.
 
 **Patient Selection**
-For which patients is each technique most appropriate? Are there BMI, tumor stage, anatomic, or comorbidity criteria that favor one approach?
+For which patients is surgery favored? For which is medical management preferred? Are there risk scores, anatomic criteria, or comorbidity thresholds that guide the decision?
 
-**Synthesis**
-In 3–5 sentences: Which technique has the strongest evidence? Are outcomes equivalent, or does one approach dominate? What drives the choice in practice?
-
-Do not fabricate study data or statistics.
+**Clinical Bottom Line**
+In 2-3 sentences: Which approach has the strongest evidence, for which patients? When is the choice genuinely uncertain? What shared decision-making points matter most?
 
 ---
-STUDY DATA:
+**Clinical Question:** [e.g., "Bariatric surgery vs. intensive medical management for type 2 diabetes with BMI 35-40"]
+
+**STUDY DATA:**
 [Paste study summaries or trial data for comparison]
 </PromptPlayground>
 
-### Guideline comparison
+### Guideline-vs-guideline comparison
 
 Use this when comparing recommendations from two or more clinical practice guidelines on the same topic, with emphasis on where they agree, where they disagree, and why.
 
-<PromptPlayground tool="Claude" title="Clinical Guideline Comparison">
+<PromptPlayground tool="Claude" title="Guideline-vs-Guideline Comparison">
 You are a guideline methodologist comparing clinical practice guidelines for a physician audience.
 
-**Clinical Topic:** [e.g., "Management of community-acquired pneumonia"]
+**Purpose:** Produce a structured comparison of guideline recommendations, identify areas of agreement and disagreement, and deliver a clinical bottom line on which guideline to follow.
 
-Given the guideline texts below, produce:
+### Rules
+- Preserve original recommendation grades (Class/Level, GRADE, or other system) for each guideline.
+- Note each guideline's methodology (systematic review, Delphi, GRADE, expert consensus).
+- Identify which evidence each guideline cites for disagreements.
+- Note funding sources and conflicts of interest for each guideline panel.
+- Do not fabricate guideline recommendations or evidence grades.
 
-**Guideline Overview Table**
+### Output format
 
-| Guideline | Organization | Year | Methodology | Target Population | Key Differences |
-|-----------|-------------|------|-------------|-------------------|-----------------|
+**Guideline Overview**
+
+| Guideline | Organization | Year | Methodology | Target Population | Funding/COI |
+|-----------|-------------|------|-------------|-------------------|-------------|
 | [Fill from data] | | | | | |
 
 **Recommendation Comparison**
-For each major clinical decision point, compare recommendations side by side:
 
-| Clinical Decision | Guideline A | Guideline B | Agreement? |
-|-------------------|-------------|-------------|------------|
-| [e.g., First-line antibiotic] | [Recommendation + strength] | [Recommendation + strength] | [Yes / Partial / No] |
+| Clinical Decision | Guideline A Recommendation (Grade) | Guideline B Recommendation (Grade) | Agreement? |
+|-------------------|-------------------------------------|-------------------------------------|------------|
+| [e.g., First-line therapy] | [Recommendation + strength/level] | [Recommendation + strength/level] | [Yes / Partial / No] |
 
 **Where They Agree**
-List the recommendations that are consistent across guidelines. These represent areas of high confidence.
+Recommendations consistent across guidelines (areas of high confidence).
 
 **Where They Disagree**
-For each discrepancy:
-- What is the disagreement?
-- What evidence does each guideline cite?
-- What explains the difference? (different evidence review dates, different methodology, different values/preferences)
+For each discrepancy: the disagreement, what evidence each guideline cites, and what explains the difference (different evidence review dates, different methodology, different values/preferences).
 
-**Which Guideline to Follow**
-In 3–5 sentences: For your practice setting, which guideline is most applicable and why? When should you defer to one over the other?
-
-Do not fabricate guideline recommendations or evidence grades.
+**Clinical Bottom Line**
+In 2-3 sentences: For your practice setting, which guideline is most applicable and why? When should you defer to one over the other?
 
 ---
-GUIDELINE TEXTS:
+**Clinical Topic:** [e.g., "Management of community-acquired pneumonia"]
+
+**GUIDELINE TEXTS:**
 [Paste the relevant sections of each guideline for comparison]
 </PromptPlayground>
 
@@ -196,44 +259,79 @@ GUIDELINE TEXTS:
 
 ## Example output
 
-Here is what the main prompt produces when given study data for a drug comparison:
+Here is what the main prompt produces when given study data for a DOAC comparison:
 
 **Input provided:**
 Three key studies comparing DOACs vs. warfarin for stroke prevention in atrial fibrillation: RE-LY (dabigatran), ROCKET-AF (rivaroxaban), and ARISTOTLE (apixaban).
 
 **LLM output:**
 
-**Evidence Summary Table**
+```
+╔══════════════════════════════════════╗
+║  COMPARISON TABLE                    ║
+╚══════════════════════════════════════╝
+```
 
-| Study | Design | N | Intervention | Comparator | Primary Outcome | Result (95% CI) | Quality |
-|-------|--------|---|-------------|------------|-----------------|-----------------|---------|
-| RE-LY (2009) | Multicenter RCT | 18,113 | Dabigatran 150mg BID | Warfarin (INR 2-3) | Stroke or systemic embolism | RR 0.66 (0.53-0.82) | High |
-| ROCKET-AF (2011) | Multicenter RCT | 14,264 | Rivaroxaban 20mg daily | Warfarin (INR 2-3) | Stroke or systemic embolism | HR 0.79 (0.66-0.96) | High |
-| ARISTOTLE (2011) | Multicenter RCT | 18,201 | Apixaban 5mg BID | Warfarin (INR 2-3) | Stroke or systemic embolism | HR 0.79 (0.66-0.95) | High |
+| Treatment | Study | Design | N | Primary Outcome | Effect Size (95% CI) | NNT/NNH | Grade of Evidence |
+|-----------|-------|--------|---|-----------------|----------------------|---------|-------------------|
+| Dabigatran 150mg BID | RE-LY (2009) | Multicenter RCT | 18,113 | Stroke or systemic embolism | RR 0.66 (0.53-0.82) | NNT 172/yr | High |
+| Rivaroxaban 20mg daily | ROCKET-AF (2011) | Multicenter RCT | 14,264 | Stroke or systemic embolism | HR 0.79 (0.66-0.96) | NNT 209/yr | High |
+| Apixaban 5mg BID | ARISTOTLE (2011) | Multicenter RCT | 18,201 | Stroke or systemic embolism | HR 0.79 (0.66-0.95) | NNT 303/yr | High |
 
-**Head-to-Head Comparison**
-All three DOACs demonstrated non-inferiority or superiority to warfarin for stroke prevention. Dabigatran 150mg showed the largest point estimate for efficacy (34% RRR), though cross-trial comparisons are unreliable due to different patient populations. Apixaban (ARISTOTLE) is the only DOAC that also showed a statistically significant reduction in major bleeding AND all-cause mortality vs. warfarin. Rivaroxaban (ROCKET-AF) enrolled a higher-risk population (mean CHADS2 3.5 vs. 2.1 in RE-LY).
+> Funding: RE-LY (Boehringer Ingelheim), ROCKET-AF (Janssen/Bayer), ARISTOTLE (Bristol-Myers Squibb/Pfizer). All three trials were industry-sponsored.
 
-**Gaps in Evidence**
-No head-to-head RCTs between DOACs exist. All comparisons between DOACs are indirect. Populations with severe renal impairment, mechanical heart valves, and rheumatic mitral stenosis were excluded. Long-term data (>5 years) are limited for all three agents.
+```
+╔══════════════════════════════════════╗
+║  HEAD-TO-HEAD SUMMARY                ║
+╚══════════════════════════════════════╝
+```
 
-**Synthesis**
-All three DOACs are effective alternatives to warfarin for stroke prevention in non-valvular atrial fibrillation. Apixaban has the most favorable combined profile (reduced stroke, reduced major bleeding, reduced mortality vs. warfarin in a single trial). The choice between DOACs often comes down to dosing preference (daily vs. BID), renal function, cost, and formulary availability. Warfarin remains appropriate for patients with mechanical valves, severe renal impairment, or significant cost barriers.
+All three DOACs demonstrated non-inferiority or superiority to warfarin for stroke prevention. Dabigatran 150mg showed the largest point estimate for efficacy (34% RRR), though cross-trial comparisons are unreliable because of different patient populations. ROCKET-AF enrolled a higher-risk population (mean CHADS2 3.5 vs. 2.1 in RE-LY). Apixaban (ARISTOTLE) is the only DOAC that also showed statistically significant reductions in major bleeding (HR 0.69, 95% CI 0.60-0.80) and all-cause mortality (HR 0.89, 95% CI 0.80-0.998) vs. warfarin in a single trial. All three trials were industry-funded by the respective drug manufacturers.
+
+```
+╔══════════════════════════════════════╗
+║  GAPS IN EVIDENCE                    ║
+╚══════════════════════════════════════╝
+```
+
+No head-to-head RCTs between DOACs exist; all cross-DOAC comparisons are indirect and unreliable. Populations with severe renal impairment (CrCl &lt;25-30 mL/min), mechanical heart valves, and rheumatic mitral stenosis were excluded from all three trials. Long-term data beyond 2-3 years are limited. Real-world adherence (once-daily vs. twice-daily dosing) has not been tested in an RCT.
+
+```
+╔══════════════════════════════════════╗
+║  CLINICAL BOTTOM LINE                ║
+╚══════════════════════════════════════╝
+```
+
+All three DOACs are effective alternatives to warfarin for stroke prevention in non-valvular atrial fibrillation, with comparable or superior efficacy and generally lower bleeding risk. Apixaban has the most favorable combined profile in a single trial (reduced stroke, reduced major bleeding, reduced mortality). The choice between DOACs often comes down to dosing preference (daily vs. BID), renal function, cost, and formulary availability.
+
+```
+╔══════════════════════════════════════╗
+║  PATIENT-SPECIFIC CONSIDERATIONS     ║
+╚══════════════════════════════════════╝
+```
+
+- **Apixaban preferred when:** bleeding risk is a primary concern, elderly patients, moderate renal impairment.
+- **Rivaroxaban preferred when:** once-daily dosing is needed for adherence.
+- **Dabigatran preferred when:** reversibility matters (idarucizumab available), or patient has good renal function and low bleeding risk.
+- **Warfarin remains appropriate for:** mechanical valves, severe renal impairment, rheumatic mitral stenosis, or significant cost barriers.
+- Shared decision-making should address: bleeding vs. stroke risk, dosing convenience, cost, and availability of reversal agents.
 
 ---
 
 ## Tips & pitfalls
 
 - For formal evidence synthesis, use GRADE methodology or consult Cochrane reviews. This template is for rapid clinical synthesis, not publication-quality systematic review.
-- This template works best when you provide 3-5 key studies. For larger evidence bases, consider narrowing the scope or using a formal systematic review approach.
-- Pair with the **PICO Research Question Builder** template to first define the clinical question clearly before gathering evidence.
-- **Common AI failure mode:** The model may make cross-trial comparisons (comparing effect sizes from different RCTs as if they were head-to-head). Always note that indirect comparisons have significant limitations.
-- **Quality ratings:** The model's quality assessments are approximate. For formal guideline development or clinical decisions with high stakes, use validated tools (Cochrane Risk of Bias, Newcastle-Ottawa, GRADE).
-- **Missing data:** If you do not provide safety data, the model will not fabricate it, but it also will not flag that the safety comparison is incomplete. Explicitly ask for safety analysis if needed.
+- This template works best with 3-5 key studies. Larger evidence bases benefit from narrowing the scope or using a formal systematic review approach.
+- The model may make cross-trial comparisons (comparing effect sizes from different RCTs as if they were head-to-head). Always note that indirect comparisons have significant limitations.
+- Quality ratings are approximate. For formal guideline development or high-stakes clinical decisions, use validated tools (Cochrane Risk of Bias, Newcastle-Ottawa, GRADE).
+- If you do not provide safety data, the model will not fabricate it, but it also will not flag that the safety comparison is incomplete. Explicitly request safety analysis if needed.
+- Always verify NNT/NNH calculations against the original data. The model may miscalculate, particularly when converting from hazard ratios or when follow-up durations differ across studies.
+- Industry-funded trials are not inherently unreliable, but the funding source should be noted and considered when interpreting results, particularly for safety outcomes and selective reporting.
 
 ---
 
 ## Related
 
-- [PICO Research Question Builder](/templates/research-question) — define the clinical question before gathering evidence to compare
-- [Guideline Summary](/templates/guideline-summary) — summarize the guideline that synthesizes the evidence you are comparing
+- [Clinical Question Answerer](/templates/clinical-question) -- structure a bedside clinical question and get an evidence-based answer
+- [PICO Research Question Builder](/templates/research-question) -- define the clinical question before gathering evidence to compare
+- [Guideline Summary](/templates/guideline-summary) -- summarize the guideline that synthesizes the evidence you are comparing

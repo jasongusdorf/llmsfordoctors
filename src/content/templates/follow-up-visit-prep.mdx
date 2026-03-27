@@ -2,18 +2,20 @@
 title: "Follow-Up Visit Preparation"
 category: patient-education
 targetTool: any
-tags: [patient-education, follow-up, visit-prep, self-monitoring]
-lastUpdated: 2026-03-22
+workflow: outpatient-visit-education
+tags: [beginner, patient-education, follow-up, visit-prep, self-monitoring]
+lastUpdated: 2026-03-27
+socialPost: "Patients who show up with tracked data and specific questions have more productive visits. A template for generating the preparation guide they need before their next appointment."
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
 
-This template takes a condition and treatment history and produces a guide that helps patients prepare for their next doctor's visit. It includes what to track, questions to ask, and what to bring, so the visit is more productive for both patient and physician.
-
 ## When to use this
 
-Use this template when a patient has an upcoming follow-up visit and needs a guide for what to track, what to bring, and what questions to ask.
+Patients who show up to follow-up visits with tracked data and specific questions have more productive appointments and better outcomes. This template generates a preparation guide the patient can use in the days before their visit: what to track, what to bring, what questions to ask, and what to expect. It turns a passive "how are you feeling?" visit into one with actionable data on both sides.
+
+Hand this to the patient at discharge or at the end of their last visit so they have time to prepare.
 
 <Callout type="hipaa">
   De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, and any other direct identifiers.
@@ -24,51 +26,120 @@ Use this template when a patient has an upcoming follow-up visit and needs a gui
 ## The prompt
 
 <PromptPlayground tool="Any LLM" title="Follow-Up Visit Preparation">
-You are a physician creating a visit preparation guide to help a patient get the most out of their upcoming follow-up appointment. The patient has no medical background. Write at a 6th grade reading level using short sentences and simple words.
+You are a physician creating a visit preparation guide to help a patient get the most out of their upcoming follow-up appointment. The patient has no medical background.
 
-Avoid medical jargon. If a medical term is unavoidable, define it in parentheses. Use bullet points and tables for clarity.
+### Rules
 
-Using the clinical information provided below, create a follow-up visit preparation guide with the following sections:
+- Write at a 6th grade reading level.
+- Keep sentences under 15 words when possible.
+- Define every medical term in parentheses on first use.
+- Use "you" and "your" throughout.
+- No abbreviations.
+- Tracking instructions must be specific: what to measure, how often, and how to do it correctly.
+- Questions should be tailored to the condition and treatment, not generic.
+- Do not invent clinical details not provided below.
 
-**1. What to Track Before Your Visit**
-List 4–6 specific things the patient should monitor and record before their appointment. For each item, explain:
-- What to measure (e.g., blood pressure, blood sugar, weight, symptoms)
-- How often to measure it
-- How to measure it correctly
+### Vocabulary
 
-**2. Symptom Diary**
-Create a simple table the patient can fill out daily (or as appropriate). Include columns for:
-- Date
-- Relevant symptoms (specific to their condition)
-- Severity (1–10 scale)
-- Any triggers or notes
-- Medications taken
+- Use "blood sugar" not "glucose"
+- Use "blood pressure" not "BP"
+- Use the simplest accurate word available
 
-Format as a markdown table with 7 rows (one week).
+### Output format
 
-**3. Questions to Ask Your Doctor**
-List 5–7 specific, relevant questions the patient should consider asking at their visit. Tailor these to the condition and treatment, not generic questions. Examples of good questions are specific: "Should I keep taking [medication] if my blood pressure is consistently below 120/80?" rather than "Do I still need my medication?"
+```
+GETTING READY FOR YOUR VISIT
+══════════════════════════════════════════
 
-**4. What to Bring**
-Checklist of items to bring to the appointment:
-- Current medication list (or bring all medication bottles)
-- Symptom diary / tracking records
-- Insurance card and ID
-- List of questions (from section 3)
-- Any test results from other providers
-- A family member or friend to help remember what the doctor says (if desired)
+What to Track Before Your Visit
+───────────────────────────────
+Start tracking these *** days before your
+appointment:
 
-**5. What Your Doctor Will Likely Do**
-Explain what the patient can expect during the visit:
-- What the doctor will ask about
-- Physical exam components likely to be performed
-- Tests that may be ordered
-- Possible changes to the treatment plan
+- ***: How to measure it, how often, how to do
+  it correctly
+- ***: How to measure it, how often
+- ***: How to measure it, how often
+- ***: How to measure it, how often
+
+Symptom Diary
+─────────────
+Fill this out each day:
+
+| Date | *** | *** | *** | Notes | Meds Taken? |
+|------|-----|-----|-----|-------|-------------|
+| ___  | ___ | ___ | ___ | ___   | Yes / No    |
+| ___  | ___ | ___ | ___ | ___   | Yes / No    |
+| ___  | ___ | ___ | ___ | ___   | Yes / No    |
+| ___  | ___ | ___ | ___ | ___   | Yes / No    |
+| ___  | ___ | ___ | ___ | ___   | Yes / No    |
+| ___  | ___ | ___ | ___ | ___   | Yes / No    |
+| ___  | ___ | ___ | ___ | ___   | Yes / No    |
+
+[Customize the column headers to this patient's
+condition: e.g., blood sugar, pain level, swelling,
+shortness of breath, blood pressure.]
+
+Questions to Ask Your Doctor
+────────────────────────────
+1. ***
+2. ***
+3. ***
+4. ***
+5. ***
+6. ***
+7. ***
+
+[Make these specific to the condition and treatment.
+"Should my *** medication dose change since my ***
+has been running ***?" not "How am I doing?"]
+
+What to Bring
+─────────────
+- [ ] Your symptom diary (filled out)
+- [ ] Current medication list (or bring all bottles)
+- [ ] Insurance card and ID
+- [ ] This question list
+- [ ] Test results from other doctors (if any)
+- [ ] A family member or friend to help remember
+      what the doctor says (if you want)
+
+What Your Doctor Will Likely Do
+───────────────────────────────
+  They will ask about:
+  - ***
+  - ***
+
+  They will check:
+  - ***
+  - ***
+
+  They may order:
+  - ***
+
+  They may change:
+  - ***
+```
+
+Replace each *** with content specific to this patient's condition, treatment, and upcoming visit.
 
 ---
 CLINICAL INFORMATION:
-[Paste the diagnosis, current treatment plan, recent test results, and any specific concerns or goals for the next visit here]
+[Paste the diagnosis, current treatment plan, recent test results, and any specific concerns or goals for the next visit]
 </PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Post-surgical | Add: "This is a post-surgical follow-up. Include wound healing progress and functional milestones to report." |
+| Chronic disease | Add: "This patient has had this condition for [duration]. Focus on long-term management and treatment optimization." |
+| New diagnosis | Add: "This is the first follow-up after a new diagnosis. Include questions about prognosis and treatment options." |
+| Telehealth | Add: "This visit will be by video. Include tech setup tips and how to show the doctor relevant physical findings on camera." |
+| Multiple providers | Add: "This patient sees multiple specialists. Include a section on coordinating care and sharing records between providers." |
+| Pediatric | Add: "This visit is for a child. Address the guide to the parent/guardian." |
 
 ---
 
@@ -77,38 +148,65 @@ CLINICAL INFORMATION:
 ### Post-surgical follow-up
 
 <PromptPlayground tool="Any LLM" title="Post-Surgical Follow-Up Prep">
-You are a surgeon's office creating a visit preparation guide for a patient coming in for their post-surgical follow-up. The patient has no medical background. Write at a 6th grade reading level. Use short sentences.
+You are a surgeon's office creating a visit preparation guide for a patient coming in for their post-surgical follow-up. The patient has no medical background.
 
-Using the surgical information provided below, create a post-surgical follow-up guide:
+### Rules
 
-**1. What to Track Before Your Visit**
-- Wound appearance (redness, swelling, drainage — what to look for)
-- Pain level each day (1–10 scale)
-- Temperature (once a day)
-- Activity milestones reached (walking distance, stairs, return to daily activities)
-- Medications taken and any side effects
+- Write at a 6th grade reading level.
+- Keep sentences under 15 words when possible.
+- Use "you" and "your" throughout.
+- Include a wound photo log instruction.
+- Questions should focus on recovery milestones, restrictions, and return to normal life.
 
-**2. Wound Photo Log**
-Ask the patient to take a photo of their incision site every 2–3 days (same lighting and angle) and bring the photos to the visit. This helps the surgeon see how healing has progressed.
+### Output format
 
-**3. Questions to Ask Your Surgeon**
-5–7 specific questions, for example:
-- When can I shower / bathe / swim?
-- When can I drive?
-- When can I return to work?
-- Do my stitches/staples need to be removed at this visit?
-- Are there any activity restrictions still in place?
-- When is my next follow-up after this one?
+```
+GETTING READY FOR YOUR POST-SURGERY VISIT
+══════════════════════════════════════════
 
-**4. What to Bring**
-- List of current medications (including pain medications and how much you have been taking)
-- Wound photos
-- Questions list
-- Insurance card
-- A family member or friend if helpful
+What to Track Before Your Visit
+───────────────────────────────
+- Wound appearance: Look at your incision each day.
+  Note any redness, swelling, or drainage.
+- Pain level: Rate your pain 1-10 each morning.
+- Temperature: Check once a day.
+- Activity milestones: Note what you can do now that
+  you could not do last week (walking farther,
+  climbing stairs, getting dressed alone).
+- Medications: Write down what pain medicine you are
+  taking and how often.
 
-**5. What Will Happen at This Visit**
-Explain what the surgeon will likely do: examine the wound, remove stitches/staples if applicable, review imaging if applicable, update activity restrictions, and discuss next steps.
+Wound Photo Log
+───────────────
+Take a photo of your incision every 2-3 days.
+Use the same lighting and angle each time. Bring
+these photos to your visit. They help the surgeon
+see how healing has progressed.
+
+Questions to Ask Your Surgeon
+─────────────────────────────
+1. ***
+2. ***
+3. ***
+4. ***
+5. ***
+6. ***
+
+What to Bring
+─────────────
+- [ ] Your pain medication log
+- [ ] Wound photos on your phone
+- [ ] Your questions list
+- [ ] Insurance card
+- [ ] A family member or friend (if helpful)
+
+What Will Happen at This Visit
+──────────────────────────────
+- ***
+- ***
+- ***
+- ***
+```
 
 ---
 SURGICAL INFORMATION:
@@ -118,113 +216,253 @@ SURGICAL INFORMATION:
 ### Chronic disease management visit
 
 <PromptPlayground tool="Any LLM" title="Chronic Disease Follow-Up Prep">
-You are a physician creating a visit preparation guide for a patient with a chronic condition who has a routine follow-up appointment. The patient has no medical background. Write at a 6th grade reading level. Use short sentences.
+You are a physician creating a visit preparation guide for a patient with a chronic condition who has a routine follow-up appointment. The patient has no medical background.
 
-Using the clinical information provided below, create a chronic disease follow-up guide:
+### Rules
 
-**1. What to Track for 2 Weeks Before Your Visit**
-For each relevant metric, provide:
-- What to measure
-- How often
-- How to record it (simple log format)
+- Write at a 6th grade reading level.
+- Keep sentences under 15 words when possible.
+- Use "you" and "your" throughout.
+- Start tracking 2 weeks before the visit.
+- Create a tracking table specific to the condition.
+- Include a medication review section and a lifestyle check-in.
 
-Create a 2-week tracking table specific to the condition (e.g., blood pressure log for hypertension, blood sugar log for diabetes, symptom log for asthma, joint pain log for arthritis).
+### Output format
 
-**2. Medication Review Prep**
-Before your visit, review your medications and note:
-- Any medications you stopped taking and why
-- Any medications causing side effects
+```
+GETTING READY FOR YOUR CHECK-UP
+══════════════════════════════════════════
+
+What to Track for 2 Weeks Before Your Visit
+────────────────────────────────────────────
+[Condition-specific tracking table, e.g., blood
+pressure log for hypertension, blood sugar log
+for diabetes, symptom log for asthma]
+
+| Date | *** | *** | *** | Notes |
+|------|-----|-----|-----|-------|
+| ___  | ___ | ___ | ___ | ___   |
+[14 rows for 2 weeks]
+
+Medication Review
+─────────────────
+Before your visit, check these:
+- Any medications you stopped taking (and why)
+- Any side effects you are having
 - Any medications you are running low on
-- Any new medications from other doctors
-- Any over-the-counter medicines or supplements you started
+- Any new medicines from other doctors
+- Any supplements or over-the-counter medicines
+  you started
 
-**3. Lifestyle Check-In**
-Things to think about before the visit:
+Lifestyle Check-In
+──────────────────
+Think about these before the visit:
 - How well have you been following your diet plan?
 - How much exercise have you been getting?
-- How has your sleep been?
+- How is your sleep?
 - Have you been under more stress than usual?
-- Any new symptoms or changes in how you feel?
+- Any new symptoms or changes?
 
-**4. Questions to Ask**
-5–7 specific questions tailored to long-term management, for example:
-- Is my [condition] getting better, worse, or staying the same?
-- Do I need any changes to my medications?
-- When is my next [lab test / imaging / screening] due?
-- Are there any new treatments I should know about?
-- What is my goal for [relevant metric] at the next visit?
+Questions to Ask
+────────────────
+1. ***
+2. ***
+3. ***
+4. ***
+5. ***
 
-**5. What to Bring**
-Checklist tailored to chronic disease visits.
+What to Bring
+─────────────
+- [ ] 2-week tracking log (filled out)
+- [ ] Medication list or bottles
+- [ ] Questions list
+- [ ] Insurance card
+- [ ] Results from other doctors
 
-**6. What to Expect**
-What the doctor will likely review, examine, and order at a routine follow-up for this condition.
+What to Expect
+──────────────
+- ***
+- ***
+- ***
+```
 
 ---
 CLINICAL INFORMATION:
 [Paste: condition, duration, current treatment plan, recent labs/tests, and any specific concerns]
 </PromptPlayground>
 
+### Post-hospitalization follow-up
+
+<PromptPlayground tool="Any LLM" title="Post-Hospitalization Follow-Up Prep">
+You are a physician creating a visit preparation guide for a patient who was recently discharged from the hospital and has an upcoming follow-up appointment. The patient has no medical background.
+
+### Rules
+
+- Write at a 6th grade reading level.
+- Keep sentences under 15 words when possible.
+- Use "you" and "your" throughout.
+- Focus on how the patient has been doing since leaving the hospital.
+- Include medication reconciliation as a priority.
+- Include specific questions about new medications, symptoms since discharge, and activity level.
+
+### Output format
+
+```
+GETTING READY FOR YOUR FOLLOW-UP AFTER THE HOSPITAL
+══════════════════════════════════════════
+
+What to Track Since You Left the Hospital
+─────────────────────────────────────────
+- ***
+- ***
+- ***
+- ***
+
+Medication Check
+────────────────
+Before your visit, gather this information:
+- Are you taking all the new medications from
+  the hospital? If not, which ones and why?
+- Did you stop any of your old medications?
+- Are any medications causing side effects?
+- Do you have refills for everything?
+
+How You Have Been Feeling
+─────────────────────────
+Be ready to tell the doctor:
+- Are your symptoms better, worse, or the same
+  as when you left the hospital?
+- Have any new symptoms appeared?
+- How is your energy level?
+- How is your appetite?
+- Are you able to do daily activities?
+
+Questions to Ask
+────────────────
+1. ***
+2. ***
+3. ***
+4. ***
+5. ***
+
+What to Bring
+─────────────
+- [ ] Discharge paperwork from the hospital
+- [ ] All medication bottles (new and old)
+- [ ] Tracking notes since discharge
+- [ ] Questions list
+- [ ] Insurance card
+
+What to Expect
+──────────────
+- ***
+- ***
+- ***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: reason for hospitalization, discharge diagnoses, medication changes, discharge date, and specific follow-up goals]
+</PromptPlayground>
+
 ---
 
 ## Example output
 
-**What to Track Before Your Visit**
+```
+GETTING READY FOR YOUR VISIT
+══════════════════════════════════════════
 
-Your appointment is coming up. Here is what to track starting now:
+What to Track Before Your Visit
+───────────────────────────────
+Start tracking these 7 days before your appointment:
 
-- **Blood pressure:** Check it at the same time every morning before taking your medications. Sit quietly for 5 minutes first. Write down both numbers (e.g., 135/85).
-- **Weight:** Weigh yourself every morning after using the bathroom, before eating. Use the same scale each time.
-- **Swelling:** Look at your ankles and feet each evening. Note if they are more swollen than usual.
-- **Symptoms:** Write down any days you felt short of breath, tired, or dizzy. Note what you were doing when it happened.
-- **Medications:** Check off each day that you took all your medications. Note if you missed any doses and why.
+- Blood sugar: Check every morning before eating.
+  Wash your hands first. Use the same finger-stick
+  meter each time. Write down the number.
+- Blood sugar after meals: Check 2 hours after
+  lunch or dinner at least 3 times this week.
+- Weight: Weigh yourself every morning after using
+  the bathroom, before eating. Use the same scale.
+- Symptoms: Note any days you felt very tired, very
+  thirsty, or had blurry vision.
+- Medications: Check off each day that you took all
+  your medicines. Write down if you missed any and why.
 
-**Symptom Diary**
+Symptom Diary
+─────────────
+| Date | Fasting Blood Sugar | After-Meal Blood Sugar | How You Felt | Notes | Meds Taken? |
+|------|--------------------|-----------------------|--------------|-------|-------------|
+| ___  | ___                | ___                   | ___          | ___   | Yes / No    |
+| ___  | ___                | ___                   | ___          | ___   | Yes / No    |
+| ___  | ___                | ___                   | ___          | ___   | Yes / No    |
+| ___  | ___                | ___                   | ___          | ___   | Yes / No    |
+| ___  | ___                | ___                   | ___          | ___   | Yes / No    |
+| ___  | ___                | ___                   | ___          | ___   | Yes / No    |
+| ___  | ___                | ___                   | ___          | ___   | Yes / No    |
 
-| Date | Shortness of breath (1–10) | Swelling (none/mild/moderate/severe) | Fatigue (1–10) | Notes | Meds taken? |
-|---|---|---|---|---|---|
-| ___ | ___ | ___ | ___ | ___ | Yes / No |
-| ___ | ___ | ___ | ___ | ___ | Yes / No |
-| ___ | ___ | ___ | ___ | ___ | Yes / No |
-| ___ | ___ | ___ | ___ | ___ | Yes / No |
-| ___ | ___ | ___ | ___ | ___ | Yes / No |
-| ___ | ___ | ___ | ___ | ___ | Yes / No |
-| ___ | ___ | ___ | ___ | ___ | Yes / No |
+Questions to Ask Your Doctor
+────────────────────────────
+1. My fasting blood sugar has been running between
+   160 and 190 most mornings. Should my metformin
+   dose go up?
+2. I have been getting stomach cramps after taking
+   metformin. Is there a way to reduce this?
+3. Should I start checking my blood sugar more often,
+   or is once a day enough?
+4. My A1c was 8.1 last time. What number are we
+   trying to reach?
+5. I have been walking 15 minutes a day. Should I
+   do more?
+6. Are there foods I think are healthy but are
+   actually raising my blood sugar?
 
-**Questions to Ask Your Doctor**
-1. My blood pressure has been running around 145/90 most mornings. Should my medication dose be changed?
-2. I have been getting dizzy when I stand up. Could this be from my blood pressure medicine?
-3. My ankles are more swollen in the evenings. Is this something to worry about?
-4. Am I due for any blood tests at this visit?
-5. Should I be checking my blood pressure more or less often?
-6. Are there any foods I should be avoiding that I might not know about?
+What to Bring
+─────────────
+- [x] Your symptom diary (filled out)
+- [ ] Current medication list (or bring all bottles)
+- [ ] Insurance card and ID
+- [ ] This question list
+- [ ] Blood sugar meter (so the doctor can check
+      it matches the lab)
 
----
+What Your Doctor Will Likely Do
+───────────────────────────────
+  They will ask about:
+  - How your blood sugar numbers have been at home
+  - Whether you are having side effects from metformin
+  - How your diet and exercise changes are going
 
-## How to customize
+  They will check:
+  - Your feet (for nerve damage and circulation)
+  - Your blood pressure
+  - Your weight
 
-| Element | How to Adjust |
-|---|---|
-| Post-surgical | Add: "This is a post-surgical follow-up. Include wound healing progress and functional milestones to report." |
-| Chronic disease | Add: "This patient has had this condition for [duration]. Focus on long-term management and treatment optimization." |
-| New diagnosis | Add: "This is the first follow-up after a new diagnosis. Include questions about prognosis and treatment options." |
-| Telehealth | Add: "This visit will be by video. Include tech setup tips and how to show the doctor relevant physical findings on camera." |
-| Multiple providers | Add: "This patient sees multiple specialists. Include a section on coordinating care and sharing records between providers." |
+  They may order:
+  - A1c blood test (shows your average blood sugar
+    over the past 3 months)
+  - Kidney function blood test
+  - Cholesterol panel
+
+  They may change:
+  - Your metformin dose if blood sugar is still high
+  - Add a second medication if needed
+```
 
 ---
 
 ## Tips & pitfalls
 
-- This template is shared across the **Inpatient Discharge Education** and **Outpatient Visit Education** workflows. Use it any time a patient has an upcoming follow-up visit.
-- Patients who arrive prepared with tracked data and specific questions have more productive visits and better outcomes.
-- The symptom diary table is intentionally simple. For patients with complex tracking needs (e.g., diabetes with multiple daily blood sugars), consider supplementing with a dedicated tracking app recommendation.
-- Start tracking at least 1–2 weeks before the visit. A single day of data is much less useful than a trend over time.
-- The "Questions to Ask" section should be tailored to the patient's specific concerns. Generic questions like "How am I doing?" are less useful than specific ones like "My blood sugar has been above 200 every morning — should we change my insulin dose?"
-- For patients who see multiple specialists, include a reminder to bring records or summaries from other providers.
+- **Start tracking at least 1 week before the visit.** A single day of data is a snapshot. A week shows a trend. For chronic disease management, 2 weeks is even better.
+- **Generic questions waste visit time.** "How am I doing?" tells the doctor nothing. "My blood sugar has been above 200 every morning; should we change my insulin dose?" starts a productive conversation. Tailor the questions section to the patient's actual data.
+- **The symptom diary only works if it is simple.** More than 5 columns and patients stop filling it out. For complex conditions, choose the 3-4 most important metrics rather than trying to capture everything.
+- **Pair with the Lifestyle Modification Plan.** If the patient has an active lifestyle plan, the follow-up visit is where they report on adherence and obstacles. The two templates work as a set.
+- **For patients who see multiple specialists, add a coordination prompt.** Include a reminder to bring records or summaries from other providers, especially if medications were changed elsewhere.
+- **Telehealth visits need different prep.** Add device setup, lighting, and how to show the doctor relevant physical findings on camera (e.g., "hold your swollen ankle up to the camera").
 
 ---
 
 ## Related
 
-- [Lifestyle Modification Plan](/templates/lifestyle-modification-plan) — the plan the patient is tracking and reporting on at this visit
-- [Outpatient Visit Education Workflow](/workflows/outpatient-visit-education) — full workflow for pre- and post-visit patient education
+- [Lifestyle Modification Plan](/templates/lifestyle-modification-plan): the plan the patient is tracking and reporting on at this visit
+- [Condition Explainer](/templates/condition-explainer): background on the diagnosis being followed

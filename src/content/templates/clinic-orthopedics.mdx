@@ -1,0 +1,855 @@
+---
+title: "Orthopedic Surgery Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, orthopedics, surgical, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "Orthopedic clinic note template that captures range of motion, Kellgren-Lawrence grading, functional scores, and conservative treatment history — the exam-driven data that determines who needs surgery."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Orthopedic clinic notes are exam-driven in a way most surgical notes are not. A rotator cuff note without degrees of range of motion is incomplete. A knee osteoarthritis note without a Kellgren-Lawrence grade leaves the reader guessing at severity. This template identifies the primary musculoskeletal condition from your clinical data and organizes the note around the exam findings, imaging, functional scores, and conservative treatment history that determine whether a patient needs surgery, more physical therapy, or more time. It covers rotator cuff tears, knee osteoarthritis, ACL tears, lumbar disc herniation, hip fracture follow-up, and carpal tunnel syndrome.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Orthopedic Surgery Clinic Visit Note">
+You are an outpatient orthopedic surgeon writing a clinic visit note after seeing a patient for a musculoskeletal complaint. The patient's primary condition is one of: rotator cuff tear, knee osteoarthritis, ACL tear, lumbar disc herniation, hip fracture follow-up, or carpal tunnel syndrome. Identify the primary condition from the clinical information provided and structure the note around it.
+
+### Purpose
+
+Generate a complete, structured outpatient orthopedic clinic note from the clinical data below. The note must capture joint-specific examination findings with measured values, imaging interpretation, functional status scores, conservative treatment history, and an actionable plan.
+
+### Rules
+
+- Write in past tense for history and prior events; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use (e.g., "range of motion (ROM)"), then abbreviation only thereafter.
+- Include specific numbers: ROM in degrees (active and passive), strength grades, pain scores, imaging measurements.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Organize the Assessment as a problem list with the primary orthopedic condition first.
+- Plan items must be specific: procedure name, approach, PT prescription (frequency, duration, goals), injection details (type, site, volume), brace type, weight-bearing status. Never write "continue conservative management" without listing exactly what that means.
+- For rotator cuff: document tear size and location, retraction, fatty infiltration (Goutallier), muscle atrophy, special tests (Hawkins, Neer, empty can, drop arm, lag signs).
+- For knee OA: document Kellgren-Lawrence (KL) grade, compartment involvement, mechanical axis alignment, failed conservative treatments (PT duration, injection history with dates and response), and functional scores.
+- For ACL: document mechanism of injury, associated injuries (meniscus, collateral ligaments, chondral damage), pivot shift and Lachman grading, and graft options if surgery planned.
+- For lumbar spine: distinguish radiculopathy from myelopathy, document dermatomal and myotomal findings, straight leg raise, and EMG/nerve conduction study (NCS) results.
+- For hip fracture follow-up: document fracture type, fixation method, hardware status, weight-bearing progression, and functional milestones.
+- For carpal tunnel: document Phalen test, Tinel sign, thenar atrophy, two-point discrimination, and EMG/NCS severity grading.
+- Document surgical candidacy factors: BMI, hemoglobin A1c (diabetic patients), smoking status (cessation requirement), bone quality (DEXA if relevant).
+- Do not infer or fabricate any clinical information not provided. Write "[Not provided; verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "ROM" = range of motion
+- "MRC" = Medical Research Council (strength grading)
+- "VAS" = visual analog scale
+- "NRS" = numeric rating scale
+- "DASH" = Disabilities of the Arm, Shoulder and Hand
+- "WOMAC" = Western Ontario and McMaster Universities Osteoarthritis Index
+- "KOOS" = Knee injury and Osteoarthritis Outcome Score
+- "ODI" = Oswestry Disability Index
+- "KL" = Kellgren-Lawrence
+- "NCS" = nerve conduction study
+- "EMG" = electromyography
+- "SLR" = straight leg raise
+- "DEXA" = dual-energy X-ray absorptiometry
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+ORTHOPEDIC SURGERY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[New consultation / Follow-up / Post-operative / Pre-operative planning]
+Interval since last visit: [duration]
+Referring provider: ***
+
+CHIEF CONCERN
+─────────────
+***
+Affected side: [Right / Left / Bilateral]
+Dominant hand: [Right / Left]
+
+ORTHOPEDIC HISTORY
+──────────────────
+  Prior surgeries on this joint/region:
+    - [Date]: [Procedure, hardware placed, complications]
+  Contralateral joint status: ***
+  Other musculoskeletal conditions: ***
+
+DISEASE-SPECIFIC HISTORY
+─────────────────────────
+
+  [FOR ROTATOR CUFF:]
+  Rotator Cuff Details
+  ────────────────────
+    Mechanism/onset: [Traumatic / Atraumatic / Insidious]
+    Duration of symptoms: ***
+    MRI: [Date]
+      Tear type: [Full-thickness / Partial (bursal/articular), percentage]
+      Tendon(s): [Supraspinatus / Infraspinatus / Subscapularis / Teres minor]
+      Tear size: *** cm (AP) x *** cm (retraction)
+      Retraction: [Minimal / To humeral head / To glenoid]
+      Fatty infiltration: Goutallier grade [0-4]
+      Muscle atrophy: [None / Mild / Moderate / Severe]
+      Biceps tendon: [Normal / Subluxed / Torn]
+      Other findings: [Labral tear, AC joint arthropathy, bursitis]
+
+  [FOR KNEE OA:]
+  Knee Osteoarthritis Details
+  ───────────────────────────
+    Duration of symptoms: ***
+    X-ray: [Date, views obtained]
+      KL grade: [I / II / III / IV]
+      Compartment involvement: [Medial / Lateral / Patellofemoral / Tricompartmental]
+      Mechanical axis alignment: [Neutral / Varus *** degrees / Valgus *** degrees]
+      Joint space: [Preserved / Narrowed (*** mm) / Bone-on-bone]
+      Osteophytes: ***
+      Subchondral sclerosis/cysts: ***
+    MRI (if obtained): [Date, cartilage status, meniscal tears, bone edema]
+    Weight-bearing status: [Full / Antalgic gait / Assistive device]
+
+  [FOR ACL:]
+  ACL Tear Details
+  ────────────────
+    Mechanism of injury: [Noncontact pivot / Contact / Hyperextension]
+    Date of injury: ***
+    Associated injuries: [Meniscus (medial/lateral, tear type), MCL, LCL,
+      chondral damage, bone bruise pattern]
+    Instability episodes since injury: [Number, activity level]
+    MRI: [Date, findings]
+
+  [FOR LUMBAR DISC:]
+  Lumbar Spine Details
+  ────────────────────
+    Duration of symptoms: ***
+    Radiculopathy pattern: [Dermatomal level]
+    Red flags: [Cauda equina symptoms: saddle anesthesia, bowel/bladder
+      dysfunction, progressive motor weakness]
+    MRI: [Date]
+      Level(s) of herniation: ***
+      Type: [Protrusion / Extrusion / Sequestration]
+      Stenosis: [None / Mild / Moderate / Severe] at [level]
+      Nerve root compression: [Level, side]
+      Cord signal change: [None / Present (if cervical/thoracic)]
+    EMG/NCS: [Date, findings, if performed]
+
+  [FOR HIP FRACTURE FOLLOW-UP:]
+  Hip Fracture Details
+  ────────────────────
+    Fracture type: [Femoral neck (Garden I-IV) / Intertrochanteric /
+      Subtrochanteric / Periprosthetic]
+    Date of injury: ***
+    Procedure: [ORIF (hardware type) / Hemiarthroplasty / THA]
+    Date of surgery: ***
+    Weight-bearing status: [WBAT / TDWB / NWB, duration]
+
+  [FOR CARPAL TUNNEL:]
+  Carpal Tunnel Details
+  ─────────────────────
+    Duration of symptoms: ***
+    Dominant hand affected: [Yes / No]
+    Bilateral: [Yes / No]
+    Night symptoms: [Frequency, severity]
+    Daytime symptoms: [Numbness, tingling, weakness pattern]
+    EMG/NCS: [Date]
+      Severity: [Mild / Moderate / Severe]
+      Median motor latency: *** ms
+      Median sensory latency: *** ms
+      Fibrillation potentials: [Present / Absent]
+    Thenar atrophy: [None / Mild / Moderate / Severe]
+
+CONSERVATIVE TREATMENT HISTORY
+──────────────────────────────
+  Physical therapy:
+    - [Date range]: [Provider, frequency, protocol, progress/outcome]
+  Injections:
+    - [Date]: [Type (corticosteroid/HA/PRP), site, response, duration of relief]
+  Bracing/splinting: [Type, duration, compliance, effect]
+  Medications: [NSAIDs, acetaminophen, nerve agents; duration, response]
+  Activity modification: ***
+  Home exercise program: [Compliance, effectiveness]
+
+FUNCTIONAL STATUS
+─────────────────
+  Pain: [VAS or NRS ***/10]
+    Location: ***
+    Character: [Sharp / Dull / Burning / Aching]
+    Aggravating: ***
+    Alleviating: ***
+    Night pain: [Yes / No]
+  Functional score: [DASH *** / WOMAC *** / KOOS *** / ODI ***%]
+  Ambulatory status: [Independent / Assistive device (type), distance]
+  ADL limitations: ***
+  Work status: [Full duty / Modified / Disabled / Retired]
+  Sport/recreation: [Current level, goal level]
+
+VITAL SIGNS
+───────────
+  BP: ***
+  HR: ***
+  Weight: ***
+  BMI: ***
+
+PHYSICAL EXAMINATION
+────────────────────
+  Inspection: [Effusion, ecchymosis, deformity, atrophy, surgical scars,
+    swelling, alignment]
+  Palpation: [Tenderness location, crepitus]
+  Range of motion:
+    Active: [Joint-specific measurements in degrees]
+    Passive: [Joint-specific measurements in degrees]
+    [Comparison to contralateral side if applicable]
+  Strength (MRC grading):
+    [Muscle groups relevant to the condition, graded 0-5]
+  Special tests:
+    [Condition-specific tests with results: positive/negative/equivocal]
+      [Shoulder: Hawkins, Neer, Empty can, Drop arm, Lift-off,
+        Belly press, Speed, O'Brien]
+      [Knee: Lachman (grade, endpoint), Anterior drawer, Pivot shift,
+        McMurray, Varus/valgus stress at 0 and 30 degrees, Patellar
+        apprehension, J-sign]
+      [Spine: SLR (degrees, reproduction), Crossed SLR, Femoral
+        nerve stretch, Spurling]
+      [Wrist/hand: Phalen (time to symptoms), Tinel, Durkan,
+        Two-point discrimination (*** mm), Grip strength (*** kg)]
+  Neurovascular: [Sensation (dermatomal), pulses, capillary refill]
+  Gait: [Normal / Antalgic / Trendelenburg / Steppage / Other]
+
+  [FOR POST-OP:]
+  Wound/hardware exam:
+    Incision(s): ***
+    Hardware: [Palpable / Prominent / Painful / Migrated]
+
+IMAGING REVIEW
+──────────────
+  X-ray: [Date, views, findings]
+  MRI: [Date, key findings relevant to condition]
+  CT: [Date, findings, if applicable]
+  DEXA: [Date, T-score, if applicable]
+  Post-op imaging: [Hardware position, healing, alignment]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [primary orthopedic condition]
+presenting for [visit type]. [One-sentence trajectory statement.]
+
+  1. [Primary orthopedic condition]
+     [Brief assessment: severity, functional impact, conservative
+     treatment response, surgical indication or post-op recovery status.]
+
+  2. [Associated/secondary condition]
+     [Brief assessment.]
+
+  3. [Surgical candidacy factors, if pre-op]
+     [BMI, A1c, smoking, bone quality, medical optimization status.]
+
+PLAN
+────
+  1. [Primary orthopedic condition]
+     - [Specific action: schedule surgery (procedure, approach, implant type)
+       OR continue PT (frequency, duration, specific goals)
+       OR injection (type, site, volume, steroid dose)
+       OR brace (type, wear schedule)]
+     - [Specific action]
+     - [Specific action]
+
+  2. [Associated condition]
+     - [Specific action]
+
+  3. [Pre-operative optimization, if surgery planned]
+     - [A1c target, smoking cessation requirement with timeline]
+     - [DEXA/bone health optimization]
+     - [Pre-op labs, medical clearance]
+     - [Pre-op PT (prehabilitation protocol)]
+
+  Weight-Bearing / Activity
+  ─────────────────────────
+  [Current restrictions, progression plan, timeline]
+
+  Follow-Up
+  ─────────
+  Return to orthopedic clinic in [interval].
+  [Post-op milestone goals for next visit: ROM target, weight-bearing
+  progression, return to sport criteria.]
+  [Criteria for earlier return or ED visit.]
+
+DISPOSITION
+───────────
+[Patient counseled on ***, agrees with plan. Return precautions reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: chief complaint, affected side, mechanism, orthopedic history, conservative treatment history (PT, injections, bracing), functional status, pain scores, vitals, exam findings (ROM, strength, special tests), imaging results, EMG/NCS, and surgical candidacy information.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Sports medicine focus | Add: "This patient is an athlete. Document sport, position, level of competition, and season timeline. Include sport-specific functional goals and return-to-sport criteria (e.g., hop test, isokinetic strength ratios)." |
+| Pediatric orthopedics | Add: "This is a pediatric patient. Document Tanner stage, growth plate status, and skeletal maturity (bone age). Adjust surgical timing considerations for remaining growth." |
+| Trauma follow-up | Add: "This is a post-traumatic follow-up. Document fracture classification, reduction quality, healing stage (callus formation on X-ray), weight-bearing progression, and hardware status." |
+| Joint replacement pre-op class | Add: "Include pre-operative education checklist: DME ordered, home setup assessed, discharge plan (home vs SNF), blood management (iron studies, autologous donation), VTE prophylaxis plan." |
+| Workers' compensation | Add: "Document work-relatedness, employer, job requirements (lifting, standing, repetitive motion), current work restrictions, maximum medical improvement status, and impairment rating if applicable." |
+
+---
+
+## Variations
+
+### Total knee replacement pre-op planning
+
+Use this when a patient with knee osteoarthritis has failed conservative treatment and you are planning a total knee arthroplasty (TKA). The note documents the failed treatments, surgical indication, implant considerations, and the optimization checklist that must be completed before the operating room.
+
+<PromptPlayground tool="Claude" title="Total Knee Replacement Pre-Op Planning">
+You are an outpatient orthopedic surgeon writing a clinic note for a patient with knee osteoarthritis who is being planned for total knee arthroplasty. Structure the note around failed conservative treatment, surgical indication, pre-operative optimization, and operative planning.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document all failed conservative treatments with dates, duration, and reason for failure.
+- Specify KL grade and compartment involvement on most recent weight-bearing X-rays.
+- Assess surgical readiness: BMI (target &lt;40 for most protocols), A1c (&lt;8%, ideally &lt;7%), smoking cessation, dental clearance, MRSA/MSSA screening, VTE risk.
+- Plan must include implant considerations, anesthesia type preference, and post-op protocol.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+TOTAL KNEE ARTHROPLASTY PRE-OPERATIVE PLANNING
+══════════════════════════════════════════════════
+
+SURGICAL INDICATION
+───────────────────
+  Diagnosis: Knee osteoarthritis, [right / left / bilateral]
+  KL grade: ***
+  Compartment: [Medial / Lateral / Patellofemoral / Tricompartmental]
+  Alignment: [Varus *** degrees / Valgus *** degrees / Neutral]
+  Duration of symptoms: ***
+  Functional impact: [WOMAC or KOOS score, specific limitations]
+
+FAILED CONSERVATIVE TREATMENTS
+──────────────────────────────
+  Physical therapy:
+    - [Dates]: [Duration, frequency, outcome: "No sustained improvement
+      in pain or function after 12 weeks"]
+  Injections:
+    - [Date]: [Corticosteroid, response: "Relief for *** weeks, then recurrence"]
+    - [Date]: [Hyaluronic acid / PRP, response]
+  Bracing: [Type, duration, effect]
+  NSAIDs: [Drugs tried, duration, reason stopped (ineffective / side effects)]
+  Weight loss: [Attempted, result]
+  Activity modification: [Specific changes, effect on symptoms]
+
+EXAMINATION
+───────────
+  Gait: ***
+  Alignment: ***
+  ROM: Flexion *** degrees, extension *** degrees (flexion contracture: ***)
+  Ligament stability: [Varus/valgus, AP stability]
+  Effusion: [None / Mild / Moderate / Large]
+  Neurovascular: ***
+
+IMAGING
+───────
+  Weight-bearing AP: [KL grade, joint space *** mm, alignment]
+  Lateral: [Osteophytes, patellar tracking]
+  Sunrise/merchant: [PF compartment status]
+  Long-leg alignment films: [Mechanical axis, planned correction]
+
+PRE-OPERATIVE OPTIMIZATION CHECKLIST
+─────────────────────────────────────
+  BMI: *** [Target: &lt;40, ideally &lt;35]
+  A1c: *** [Target: &lt;8%, preferably &lt;7%]
+  Smoking: [Never / Cessation confirmed *** weeks prior / Active, must quit]
+  Dental clearance: [Obtained / Needed]
+  MRSA/MSSA screening: [Pending / Negative / Positive (decolonization plan)]
+  Nutritional status: [Albumin ***, transferrin ***]
+  Anemia: [Hgb ***, iron studies if low]
+  Cardiac clearance: [Not needed / Obtained / Pending]
+  VTE risk: [Caprini score ***, prophylaxis plan]
+  Current anticoagulation: [None / drug, bridging plan]
+  Home setup: [Ground floor bedroom, grab bars, toilet seat riser]
+  Support person: [Available / Not available, SNF consideration]
+
+SURGICAL PLAN
+─────────────
+  Procedure: Total knee arthroplasty, [right / left]
+  Approach: [Medial parapatellar / Midvastus / Subvastus]
+  Implant considerations: [Cruciate-retaining / Posterior-stabilized /
+    constrained; cemented / cementless; patellar resurfacing Y/N]
+  Anesthesia: [Spinal preferred / General, adductor canal block]
+  Tourniquet: [Planned / Not planned]
+  Tranexamic acid: [IV / Topical / Both]
+  Expected LOS: [Same-day / 1 night / 2 nights]
+  Post-op protocol: [Weight-bearing as tolerated, CPM, PT starting POD 0]
+  VTE prophylaxis: [Agent, duration]
+
+INFORMED CONSENT
+────────────────
+  Risks: infection (1-2%), VTE (DVT/PE), stiffness, instability,
+    periprosthetic fracture, neurovascular injury, implant
+    loosening/wear, persistent pain, need for revision
+  Benefits: pain relief, improved function, improved alignment
+  Alternatives: continued conservative management, osteotomy,
+    unicompartmental arthroplasty [if applicable]
+  Patient: [Wishes to proceed / Considering / Declines]
+
+TIMELINE
+────────
+  Pre-op visit: ***
+  Surgery date: ***
+  Anticipated discharge: ***
+  First post-op visit: ***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: knee OA history, failed treatments with dates, X-ray findings, functional scores, exam findings, medical history, BMI, A1c, smoking status, medications, home situation.]
+</PromptPlayground>
+
+### Rotator cuff repair post-op follow-up
+
+Use this for the patient returning after arthroscopic or open rotator cuff repair. The note is organized around healing milestones, ROM recovery, and the structured rehabilitation progression that determines when the patient can start strengthening and when they can return to overhead activity.
+
+<PromptPlayground tool="Claude" title="Rotator Cuff Post-Op Follow-Up">
+You are an outpatient orthopedic surgeon writing a clinic note for a patient following up after rotator cuff repair. Structure the note around healing assessment, rehabilitation progress, and milestone-based advancement of activity.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the procedure: open vs arthroscopic, tendon(s) repaired, repair configuration (single-row, double-row, transosseous equivalent), anchor count, biceps management.
+- ROM must be measured in degrees with comparison to pre-op values and expected milestones for this time point.
+- Document rehabilitation phase and specific restrictions: immobilization status, passive vs active-assist vs active ROM, when strengthening begins.
+- Wound and sling compliance assessment.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+ROTATOR CUFF REPAIR POST-OPERATIVE FOLLOW-UP
+══════════════════════════════════════════════
+
+PROCEDURE SUMMARY
+─────────────────
+  Procedure: [Arthroscopic / Mini-open / Open] rotator cuff repair
+  Date: ***
+  Post-operative week: ***
+  Tendon(s) repaired: ***
+  Repair type: [Single-row / Double-row / Transosseous equivalent]
+  Anchors: [Number, type]
+  Biceps: [Intact / Tenotomy / Tenodesis]
+  Concomitant procedures: [Subacromial decompression, distal clavicle
+    excision, labral repair]
+  Intraoperative findings: ***
+
+REHABILITATION PHASE
+────────────────────
+  Current phase: [I: Immobilization / II: Passive ROM / III: Active-assist /
+    IV: Active ROM / V: Strengthening / VI: Return to activity]
+  Sling: [Still wearing / Discontinued on ***]
+  Sling compliance: ***
+  PT status: [Frequency, provider, started date]
+  Home exercise compliance: ***
+
+INTERVAL RECOVERY
+─────────────────
+[Narrative: pain level and trend, sleep quality, sling tolerance,
+PT progress, any setbacks, current functional limitations,
+ability to perform ADLs.]
+
+EXAMINATION
+───────────
+  Inspection: [Incision healing, ecchymosis, swelling, deltoid atrophy]
+  Wound: [Well-healed / Concerns: ***]
+  Passive ROM:
+    Forward flexion: *** degrees (goal for this time point: ***)
+    External rotation at side: *** degrees (goal: ***)
+    Internal rotation: *** [vertebral level]
+  Active ROM (if phase-appropriate):
+    Forward flexion: *** degrees
+    External rotation: *** degrees
+    Abduction: *** degrees
+  Strength (if phase-appropriate):
+    Supraspinatus (empty can): ***/5
+    External rotation: ***/5
+    Internal rotation: ***/5
+    Subscapularis (lift-off/belly press): ***/5
+  Special tests: [Deferred if early post-op / Results if appropriate]
+  Neurovascular: Intact distally
+
+IMAGING
+───────
+  [X-ray if obtained: anchor position, no hardware migration]
+  [MRI if obtained (typically 6+ months): healing status]
+
+ASSESSMENT
+──────────
+[Summary: post-op week, procedure, rehabilitation phase, progress
+relative to expected milestones.]
+
+PLAN
+────
+  1. Rehabilitation progression
+     - [Advance to phase ***: specific new exercises permitted]
+     - [Continue restrictions: no *** until week ***]
+     - PT: [Frequency, specific goals for next phase]
+
+  2. Pain management
+     - [Current regimen, changes]
+
+  3. Milestones for next visit
+     - ROM goals: [Specific degrees for each direction]
+     - Strength goals: [If applicable]
+     - Functional goals: [Specific ADLs or activities]
+
+  4. Follow-up
+     - Return in [interval]
+     - [Expected phase advancement at next visit]
+     - [Criteria for concern: sudden loss of motion, new weakness,
+       wound drainage]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: procedure details, post-op week, current rehabilitation phase, PT progress, pain level, ROM measurements, strength (if applicable), wound status, any concerns.]
+</PromptPlayground>
+
+### Lumbar spine surgical consultation
+
+Use this when a patient with lumbar radiculopathy or stenosis has been referred for surgical evaluation. The note separates the neurological findings from the imaging, documents the conservative treatment that has failed, and frames the surgical recommendation around the specific pathology and level.
+
+<PromptPlayground tool="Claude" title="Lumbar Spine Surgical Consultation">
+You are an outpatient orthopedic spine surgeon writing a consultation note for a patient referred with lumbar pathology. Structure the note around neurological assessment, imaging correlation, failed conservative treatment, and surgical recommendation.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Clearly distinguish radiculopathy from mechanical back pain from neurogenic claudication.
+- Document neurological exam by level: L2-S1 dermatomal sensation, myotomal strength, reflexes (patellar, Achilles).
+- Correlate imaging findings with clinical presentation. State whether they match.
+- Document red flags screened: cauda equina syndrome (saddle anesthesia, urinary retention, fecal incontinence), progressive motor deficit, weight loss, fever, history of malignancy.
+- Document all failed conservative treatments with dates and response.
+- Surgical recommendation must specify: procedure, level(s), approach, decompression vs fusion, instrumentation.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+LUMBAR SPINE SURGICAL CONSULTATION
+══════════════════════════════════════════
+
+REFERRAL REASON
+───────────────
+Referred by [provider] for evaluation of ***.
+
+CLINICAL SYNDROME
+─────────────────
+  Primary pattern: [Radiculopathy / Neurogenic claudication / Mechanical
+    back pain / Myelopathy / Cauda equina]
+  Affected level(s): ***
+  Laterality: [Right / Left / Bilateral]
+  Duration: ***
+  Red flags: [None / Present: specify]
+
+SYMPTOM DETAILS
+───────────────
+  Back pain: [VAS ***/10, location, character]
+  Leg pain: [VAS ***/10, distribution (dermatomal pattern), character]
+  Numbness/tingling: [Distribution]
+  Weakness: [Subjective: foot drop, difficulty with stairs, etc.]
+  Claudication distance: [*** blocks/minutes before symptoms require sitting]
+  Bowel/bladder function: [Normal / Abnormal: specify]
+  ODI score: ***%
+
+NEUROLOGICAL EXAMINATION
+────────────────────────
+  Motor (MRC grading):
+    L2 (hip flexion): R ***/5, L ***/5
+    L3 (knee extension): R ***/5, L ***/5
+    L4 (ankle dorsiflexion): R ***/5, L ***/5
+    L5 (EHL / great toe extension): R ***/5, L ***/5
+    S1 (ankle plantarflexion / toe walk): R ***/5, L ***/5
+
+  Sensory (dermatomal):
+    L2-L3 (anterior thigh): ***
+    L4 (medial leg): ***
+    L5 (lateral leg, dorsum of foot): ***
+    S1 (lateral foot, sole): ***
+    Perianal (S2-S4): ***
+
+  Reflexes:
+    Patellar (L3-L4): R [0/1+/2+/3+], L [0/1+/2+/3+]
+    Achilles (S1): R [0/1+/2+/3+], L [0/1+/2+/3+]
+    Babinski: [Downgoing / Upgoing / Equivocal]
+
+  Provocative tests:
+    Straight leg raise: R *** degrees (positive/negative), L *** degrees
+    Crossed SLR: [Positive / Negative]
+    Femoral nerve stretch: [Positive / Negative]
+
+  Gait: [Normal / Antalgic / Wide-based / Foot drop]
+  Heel walk: [Normal / Weak]
+  Toe walk: [Normal / Weak]
+
+IMAGING REVIEW
+──────────────
+  MRI lumbar spine: [Date]
+    [Level-by-level findings:]
+    L3-L4: ***
+    L4-L5: ***
+    L5-S1: ***
+    Conus: [Normal termination at ***]
+  CT (if obtained): ***
+  X-ray (if obtained): [Alignment, instability on flexion-extension,
+    spondylolisthesis grade]
+
+  Clinical-imaging correlation: [Imaging findings at *** correlate
+    with the clinical findings of *** / Imaging and clinical exam
+    are discordant: ***]
+
+EMG/NCS (if performed)
+──────────────────────
+  Date: ***
+  Findings: ***
+  Correlation with clinical exam: ***
+
+FAILED CONSERVATIVE TREATMENTS
+──────────────────────────────
+  Physical therapy:
+    - [Dates, duration, frequency, specific protocol, outcome]
+  Epidural injections:
+    - [Date]: [Type (interlaminar/transforaminal), level, steroid,
+      response, duration of relief]
+  Medications: [NSAIDs, gabapentin/pregabalin, muscle relaxants;
+    duration, response, side effects]
+  Activity modification: ***
+  Chiropractic/other: ***
+
+ASSESSMENT
+──────────
+[Summary: clinical syndrome, level, severity, imaging correlation,
+and failed conservative treatment.]
+
+SURGICAL RECOMMENDATION
+───────────────────────
+  Procedure: ***
+  Level(s): ***
+  Approach: [Posterior / Anterior / Lateral / Combined]
+  Decompression: [Laminectomy / Laminotomy / Discectomy / Foraminotomy]
+  Fusion: [Not indicated / Indicated (reason: instability, spondylolisthesis,
+    deformity correction)]
+  Instrumentation: [None / Pedicle screws, interbody cage (TLIF/PLIF/ALIF/LLIF)]
+  Rationale: ***
+
+  Risks: [Infection, bleeding, nerve injury, dural tear/CSF leak,
+    hardware failure, pseudarthrosis, adjacent segment disease,
+    recurrent herniation, worsening symptoms]
+  Expected outcome: [Specific expectations: leg pain improvement
+    (80-90%), back pain improvement (variable), return to activity]
+  Alternatives: [Continued conservative care, different surgical approach]
+  Patient: [Wishes to proceed / Considering / Prefers continued
+    conservative management]
+
+PLAN
+────
+  1. Pre-operative requirements
+     - [Labs, imaging, medical clearance]
+     - [Optimization: smoking cessation, weight, A1c]
+  2. Surgical scheduling
+     - Target date: ***
+  3. Follow-up
+     - Pre-op visit: [date]
+     - [Additional studies if needed before surgery]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: symptoms, duration, neurological exam findings, MRI findings, EMG/NCS if done, conservative treatments tried with dates and response, functional limitations, ODI score, comorbidities.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+68-year-old female with right knee osteoarthritis. Symptoms for 4 years, progressive. KL grade IV on standing X-rays from 1/5/26, bone-on-bone medial compartment, 8 degrees varus. Failed 6 months PT (2x/week, completed 7/25-1/26, minimal improvement), 2 corticosteroid injections (triamcinolone 40 mg, 5/25 with 6 weeks relief, 11/25 with 2 weeks relief), and a hyaluronic acid injection series (Synvisc-One 9/25, no benefit). Current meds: acetaminophen 1000 TID, meloxicam 15 daily. WOMAC 72. VAS pain 7/10, worst with stairs and walking more than one block. Uses a cane. BMI 33, A1c 6.4, nonsmoker. Vitals: BP 138/82, HR 72, weight 187 lbs. Exam: antalgic gait, moderate effusion right knee, ROM flexion 105 active/110 passive (contralateral 125), extension deficit 5 degrees, varus alignment at stance, tenderness medial joint line, no ligamentous instability, crepitus with ROM.
+
+**LLM output:**
+
+ORTHOPEDIC SURGERY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+New consultation
+Interval since last visit: N/A (initial visit)
+Referring provider: [Not provided; verify before signing]
+
+CHIEF CONCERN
+─────────────
+Right knee pain limiting ambulation, worsening over 4 years
+Affected side: Right
+Dominant hand: [Not provided; verify before signing]
+
+ORTHOPEDIC HISTORY
+──────────────────
+  Prior surgeries on this joint/region: None
+  Contralateral joint status: [Not provided; verify before signing]
+  Other musculoskeletal conditions: [Not provided; verify before signing]
+
+DISEASE-SPECIFIC HISTORY
+─────────────────────────
+
+  Knee Osteoarthritis Details
+  ───────────────────────────
+    Duration of symptoms: 4 years, progressive
+    X-ray: 1/5/26, standing anteroposterior (AP) and lateral views
+      Kellgren-Lawrence (KL) grade: IV
+      Compartment involvement: Medial predominant, bone-on-bone
+      Mechanical axis alignment: Varus 8 degrees
+      Joint space: Absent in the medial compartment
+      Osteophytes: [Not provided; verify before signing]
+      Subchondral sclerosis/cysts: [Not provided; verify before signing]
+    MRI: Not obtained
+    Weight-bearing status: Ambulatory with a cane, limited to one block
+
+CONSERVATIVE TREATMENT HISTORY
+──────────────────────────────
+  Physical therapy:
+    - 7/2025 to 1/2026: 2 sessions per week for 6 months; minimal improvement in pain or function
+  Injections:
+    - 5/2025: Triamcinolone 40 mg, right knee, intra-articular; 6 weeks of partial relief, then recurrence
+    - 9/2025: Synvisc-One (hyaluronic acid), right knee; no benefit
+    - 11/2025: Triamcinolone 40 mg, right knee, intra-articular; 2 weeks of minimal relief
+  Bracing/splinting: [Not provided; verify before signing]
+  Medications: Acetaminophen 1000 mg three times daily, meloxicam 15 mg daily; partial relief only
+  Activity modification: Uses a cane; avoids stairs when possible
+
+FUNCTIONAL STATUS
+─────────────────
+  Pain: Numeric rating scale (NRS) 7/10
+    Location: Right knee, medial predominant
+    Aggravating: Stairs, walking beyond one block, standing from seated position
+    Alleviating: Rest, ice, acetaminophen
+    Night pain: [Not provided; verify before signing]
+  Functional score: Western Ontario and McMaster Universities Osteoarthritis Index (WOMAC) 72
+  Ambulatory status: Ambulatory with a cane, limited to one block on flat ground
+  ADL limitations: Difficulty with stairs, prolonged walking, rising from chairs
+  Work status: [Not provided; verify before signing]
+
+VITAL SIGNS
+───────────
+  BP: 138/82 mmHg
+  HR: 72 bpm
+  Weight: 187 lbs
+  BMI: 33
+
+PHYSICAL EXAMINATION
+────────────────────
+  Inspection: Moderate effusion, right knee. Varus alignment at stance. No ecchymosis. No surgical scars.
+  Palpation: Tenderness along the medial joint line. No lateral joint line tenderness. No popliteal fullness.
+  Range of motion:
+    Active: Flexion 105 degrees, extension deficit 5 degrees
+    Passive: Flexion 110 degrees, extension deficit 5 degrees
+    Contralateral (left): Flexion 125 degrees, full extension
+  Strength: Quadriceps 4+/5 (limited by pain), hamstrings 5/5
+  Special tests: Varus stress at 0 and 30 degrees: stable. Valgus stress: stable. Lachman: negative. No patellar apprehension.
+  Crepitus: Present with range of motion, medial predominant.
+  Neurovascular: Sensation intact. Dorsalis pedis and posterior tibial pulses 2+. Capillary refill brisk.
+  Gait: Antalgic, favoring right lower extremity, using single-point cane in the left hand.
+
+IMAGING REVIEW
+──────────────
+  X-ray (1/5/26): Standing AP and lateral views of the right knee. KL grade IV changes with complete loss of medial compartment joint space (bone-on-bone). Varus malalignment of 8 degrees. No hardware.
+
+ASSESSMENT
+──────────
+68-year-old female with right knee osteoarthritis, KL grade IV with bone-on-bone medial compartment disease and 8 degrees of varus malalignment, presenting for surgical consultation after exhausting conservative treatment over 18 months. Functional status continues to decline, and she is now limited to one-block ambulation with a cane.
+
+  1. Right knee osteoarthritis, KL grade IV, medial predominant
+     End-stage disease with complete medial joint space loss. Conservative treatment has failed: 6 months of physical therapy produced minimal improvement, corticosteroid injections provided progressively shorter relief (6 weeks, then 2 weeks), and hyaluronic acid was ineffective. WOMAC of 72 reflects severe functional impairment. She meets criteria for total knee arthroplasty (TKA).
+
+  2. Surgical candidacy
+     BMI 33 is acceptable (below 40 threshold). Hemoglobin A1c (A1c) 6.4% is within target. Nonsmoker. Blood pressure mildly elevated; medical optimization should be confirmed with her primary care physician.
+
+PLAN
+────
+  1. Right knee osteoarthritis
+     - Recommend right total knee arthroplasty
+     - Discussed in detail: procedure, expected outcomes (significant pain relief in 90% of patients, 15-20 year implant longevity), risks (infection, blood clot, stiffness, nerve injury, need for revision), and alternatives (continued conservative care, osteotomy not appropriate given tricompartmental involvement and age)
+     - Patient wishes to proceed
+
+  2. Pre-operative optimization
+     - Pre-op labs: CBC, BMP, PT/INR, urinalysis within 30 days
+     - MRSA/MSSA nasal screening at pre-op visit
+     - Dental clearance: recommended before surgery
+     - Medical clearance: send to primary care for cardiac risk assessment given BP 138/82
+     - Discontinue meloxicam 7 days before surgery
+     - Continue acetaminophen until morning of surgery
+     - Prehabilitation: continue home exercises focusing on quadriceps strengthening and ROM maintenance
+
+  3. Surgical planning
+     - Procedure: Right total knee arthroplasty, cemented, posterior-stabilized (given varus deformity)
+     - Patellar resurfacing: yes
+     - Anesthesia: spinal with adductor canal block preferred
+     - Tranexamic acid: IV protocol
+     - VTE prophylaxis: aspirin 81 mg BID for 4 weeks post-op (low VTE risk)
+     - Anticipated discharge: post-operative day 1
+
+  Follow-Up
+  ─────────
+  Pre-operative visit scheduled through surgical scheduling.
+  Surgery target: within 6-8 weeks pending clearances.
+  PT to begin post-operative day 0 with weight-bearing as tolerated.
+  First post-op visit at 2 weeks for staple removal and wound check.
+  Call clinic for increasing pain, swelling, redness, drainage, fever, or calf pain.
+
+DISPOSITION
+───────────
+Patient counseled on TKA procedure, expected recovery timeline (6 weeks for basic ADLs, 3 months for most activities, 6-12 months for maximal improvement), and pre-operative requirements. Agrees with plan. Return precautions reviewed.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **ROM must be in degrees.** "Decreased range of motion" is not a finding. The model documents specific degrees for active and passive ROM, but you must provide the measurements. If you write "limited flexion," the model will flag it as incomplete rather than guess.
+- **KL grade drives the conversation.** A KL II knee gets injections and PT. A KL IV knee gets a surgical discussion. The model uses KL grade to calibrate the plan, so include the grade or the specific X-ray findings that define it (joint space width, osteophytes, sclerosis, deformity).
+- **Conservative treatment dates matter for insurance.** Many payers require documented failure of 3-6 months of conservative treatment before authorizing arthroplasty. The model timestamps each treatment, but only if you provide the dates. "Tried PT" without dates is insufficient for prior authorization.
+- **Spine notes require level-by-level correlation.** The model will not assume that an L4-5 disc herniation causes the patient's L5 radiculopathy unless the clinical exam supports it. Provide dermatomal sensory findings, myotomal strength, and reflexes so the model can state whether imaging and exam correlate.
+- **Rotator cuff tear size determines repairability.** A massive, retracted tear with Goutallier grade 3-4 fatty infiltration may not be repairable. The model uses these MRI details to inform the surgical plan. Without them, it defaults to repair, which may not be the right recommendation.
+- **A1c and BMI are gatekeepers.** Many institutional protocols require A1c below 8% and BMI below 40 for elective arthroplasty. The model documents these values and flags optimization needs. If your institution has different thresholds, provide them in the input.
+- **Post-op ROM goals are time-dependent.** A patient at 6 weeks after rotator cuff repair should have different ROM than at 12 weeks. The model uses the post-operative week to set appropriate goals. Providing the wrong post-op day leads to inappropriate milestone expectations.
+
+---
+
+## Related
+
+- [Procedure Note](/templates/procedure-note) - for documenting the orthopedic operation
+- [Post-Procedure Care](/templates/post-procedure-care) - for post-op discharge instructions and home exercise programs
+- [Disability/FMLA Letter](/templates/disability-fmla-letter) - for work restriction documentation
+- [Referral Letter](/templates/referral-letter) - for patients being referred for orthopedic evaluation

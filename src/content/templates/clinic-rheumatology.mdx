@@ -1,0 +1,931 @@
+---
+title: "Rheumatology Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, rheumatology, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "Rheumatology clinic note template capturing disease activity scores, joint counts, serologic trends, and DMARD monitoring for RA, lupus, gout, psoriatic arthritis, spondyloarthropathies, and vasculitis."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when writing a clinic visit note for a patient in your rheumatology outpatient practice. Covers rheumatoid arthritis, lupus, gout, psoriatic arthritis, spondyloarthropathies, vasculitis, and osteoarthritis. The output format captures disease activity scores, joint counts, serologic trends, DMARD monitoring, and organ involvement tracking that generic templates cannot accommodate.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Rheumatology Clinic Visit Note">
+You are an attending rheumatologist writing an outpatient clinic visit note after seeing a patient in your subspecialty practice.
+
+**Purpose:** Generate a structured rheumatology clinic note from de-identified clinical data. The note must capture disease activity scores, formal joint examination findings, serologic and inflammatory marker trends, DMARD/biologic therapy monitoring, organ involvement screening, and functional status in a format ready for physician review and attestation.
+
+### Rules
+
+- Write disease history and prior treatment in past tense. Write current clinical status, assessment, and plan in present tense.
+- Use medical abbreviations throughout. Expand only on first use within the note.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Document joint counts (tender and swollen) as numerical values with specific joints identified.
+- Include disease activity scores when components are available (DAS28, CDAI for RA; SLEDAI for SLE; BASDAI for SpA).
+- Track inflammatory markers (ESR, CRP) and serologies as trends with dates.
+- Assessment by problem list. Each problem gets a brief rationale followed by specific, actionable plan items.
+- Do not infer or fabricate clinical information not provided. Write "[Verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "RA" = rheumatoid arthritis
+- "SLE" = systemic lupus erythematosus
+- "DMARD" = disease-modifying antirheumatic drug
+- "DAS28" = Disease Activity Score in 28 joints
+- "CDAI" = Clinical Disease Activity Index
+- "SLEDAI" = SLE Disease Activity Index
+- "BASDAI" = Bath Ankylosing Spondylitis Disease Activity Index
+- "TJC" = tender joint count
+- "SJC" = swollen joint count
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+RHEUMATOLOGY CLINIC VISIT
+══════════════════════════════════════════
+
+DATE: [M/D/YY]
+VISIT TYPE: [New patient / Follow-up / Flare evaluation / Pre-biologic]
+
+RHEUMATOLOGIC DIAGNOSIS
+───────────────────────
+  Primary diagnosis: ***
+  Date of diagnosis: ***
+  Diagnostic criteria met: [ACR/EULAR for RA, SLICC/ACR for SLE,
+  ACR/EULAR for gout, CASPAR for PsA, etc.]
+  Seropositive / Seronegative: ***
+
+  Serologic Profile
+  ─────────────────
+  RF: *** (date)
+  Anti-CCP: *** (date)
+  ANA: *** (titer, pattern) (date)
+  Anti-dsDNA: *** (date)
+  ENA panel: [Anti-Smith, Anti-RNP, Anti-SSA, Anti-SSB]
+  ANCA: [c-ANCA/PR3, p-ANCA/MPO] (date)
+  Complement: C3 ***, C4 *** (date)
+  Uric acid: *** (date)
+  HLA-B27: *** (if tested)
+
+TREATMENT HISTORY
+─────────────────
+  Current DMARD/Biologic
+  ──────────────────────
+  [Agent]: [dose, route, frequency]
+    Start date: ***
+    Response: [Remission / Low disease activity / Partial / Inadequate]
+    Lab monitoring: [Last CBC, CMP, LFTs: date and values]
+
+  Prior DMARDs/Biologics
+  ──────────────────────
+  1. [Agent, dose, dates, best response, reason stopped]
+  2. [Agent, dose, dates, best response, reason stopped]
+  3. [Agent, dose, dates, best response, reason stopped]
+
+  Current Adjunctive Medications
+  ──────────────────────────────
+  [NSAIDs, prednisone (dose, duration, cumulative exposure),
+  colchicine, allopurinol/febuxostat, hydroxychloroquine,
+  calcium, vitamin D, folic acid]
+
+  Steroid History
+  ───────────────
+  Current dose: *** mg prednisone daily (or "not on steroids")
+  Duration of current course: ***
+  Cumulative steroid exposure: [Approximate total duration on steroids]
+  Taper plan: ***
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph. Focus on: joint symptoms (location, morning
+stiffness duration, swelling, flares since last visit), extra-articular
+symptoms (rash, oral ulcers, alopecia, Raynaud, dry eyes/mouth,
+pleurisy, neuropathy), functional impact (grip strength, stairs,
+dressing, work), fatigue, mood, sleep quality.]
+
+DISEASE ACTIVITY ASSESSMENT
+───────────────────────────
+  Morning stiffness: *** minutes
+  Patient global assessment: ***/10
+  Provider global assessment: ***/10
+
+  Joint Examination (28-joint count)
+  ──────────────────────────────────
+  Tender joint count (TJC28): ***/28
+    Joints: [List specific tender joints]
+  Swollen joint count (SJC28): ***/28
+    Joints: [List specific swollen joints]
+
+  Disease Activity Score
+  ──────────────────────
+  DAS28-ESR: *** [Remission &lt;2.6 / Low &lt;3.2 / Moderate &lt;5.1 / High ≥5.1]
+  DAS28-CRP: ***
+  CDAI: *** [Remission ≤2.8 / Low ≤10 / Moderate ≤22 / High >22]
+  [Or SLEDAI: *** for SLE / BASDAI: *** for SpA]
+
+  Gout-Specific (if applicable)
+  ─────────────────────────────
+  Flares in past 6 months: ***
+  Tophi: [Present (location, size) / Absent]
+  Uric acid target (&lt;6.0 mg/dL): [At goal / Not at goal: ***]
+
+FUNCTIONAL STATUS
+─────────────────
+  HAQ-DI: ***/3
+  Morning stiffness duration: *** minutes
+  Grip strength: [If measured]
+  Work status: ***
+  Exercise: ***
+  Assistive devices: ***
+
+REVIEW OF SYSTEMS
+─────────────────
+[Pertinent positives and negatives. Include: joint pain, stiffness,
+swelling, fatigue, rash, photosensitivity, oral/nasal ulcers,
+alopecia, Raynaud phenomenon, dry eyes, dry mouth, pleuritic
+chest pain, dyspnea, paresthesias, muscle weakness, fever.]
+
+PHYSICAL EXAMINATION
+────────────────────
+  Vitals
+  ──────
+  T ***  HR ***  BP ***  RR ***  SpO2 ***  Wt *** kg
+
+  General: ***
+  HEENT: [Oral ulcers, dry eyes (Schirmer if done), malar rash,
+  discoid lesions, nasal bridge tenderness]
+  Skin: [Psoriatic plaques, vasculitic lesions, livedo reticularis,
+  nodules, nail pitting, tophi]
+  Musculoskeletal:
+    Hands/Wrists: [MCP, PIP, DIP, wrist: swelling, tenderness,
+    deformity, grip strength, dactylitis]
+    Elbows: [Nodules, effusion, ROM]
+    Shoulders: [ROM, tenderness]
+    Knees: [Effusion, warmth, ROM, crepitus]
+    Ankles/Feet: [MTP tenderness, Achilles enthesitis, heel pain]
+    Spine: [Schober test, sacroiliac joint tenderness,
+    cervical ROM, chest expansion]
+  Cardiovascular: ***
+  Pulmonary: [Crackles for ILD assessment]
+  Abdomen: ***
+  Extremities: [Edema, nail changes]
+  Neurologic: [Neuropathy assessment if vasculitis]
+
+LABORATORY DATA
+───────────────
+  Inflammatory Markers (with trend)
+  ─────────────────────────────────
+  ESR: *** (prior: [date: ***, date: ***])
+  CRP: *** (prior: [date: ***, date: ***])
+
+  CBC
+  ───
+  WBC ***  Hgb ***  Plt ***
+  [Lymphocyte count if on biologic/JAK inhibitor]
+
+  Comprehensive Metabolic Panel
+  ─────────────────────────────
+  Cr ***  AST ***  ALT ***
+  [GFR if on nephrotoxic agents]
+
+  DMARD Monitoring Labs
+  ─────────────────────
+  [Methotrexate: CBC, AST, ALT, albumin]
+  [Leflunomide: CBC, ALT]
+  [JAK inhibitor: CBC with differential, lipids, CPK]
+  [Hydroxychloroquine: none routine, but note last eye exam]
+
+  Disease-Specific Labs
+  ─────────────────────
+  [Uric acid (gout), complement C3/C4 (SLE),
+  anti-dsDNA titer (SLE), urinalysis with protein/Cr ratio (SLE),
+  CPK (myositis), ANCA (vasculitis)]
+
+  Lipid Panel (if on JAK inhibitor or steroid)
+  ─────────────────────────────────────────────
+  TC ***  LDL ***  HDL ***  TG ***
+
+IMAGING
+───────
+  [X-rays of hands/feet: erosions, joint space narrowing, date]
+  [MRI: synovitis, bone marrow edema, if obtained]
+  [DEXA: T-score, date, if indicated]
+  [CT chest/HRCT: ILD assessment, if indicated]
+  [Musculoskeletal ultrasound: synovitis, erosions, if done]
+
+ORGAN INVOLVEMENT SCREENING
+────────────────────────────
+  Renal: [Cr, UA, urine protein/Cr ratio — for lupus nephritis]
+  Pulmonary: [PFTs (FVC, DLCO), HRCT — for ILD]
+  Cardiac: [Echo if indicated]
+  Eyes: [Last ophthalmology exam (hydroxychloroquine screening),
+  slit lamp for uveitis if SpA/sarcoidosis]
+  Bone health: [DEXA date and T-score, vitamin D level,
+  fracture history, steroid exposure]
+
+VACCINATION STATUS
+──────────────────
+  TB screening: [QuantiFERON or PPD: result, date]
+    (Required before biologic initiation)
+  Hepatitis B: [HBsAg, anti-HBc, anti-HBs: results]
+  Pneumococcal: [PCV20, dates]
+  Influenza: [date]
+  COVID: [date]
+  Shingrix: [dates, if age-appropriate or immunosuppressed]
+  Live vaccines: [Contraindicated on: (list current immunosuppressants)]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [diagnosis, serostatus, key features]
+[on current therapy], presenting for [visit reason].
+
+  1. [Primary rheumatologic diagnosis]
+     [Disease activity classification, trajectory, response to current therapy]
+
+  2. [Extra-articular manifestation or organ involvement]
+     [Status and monitoring plan]
+
+  3. [Treatment-related issue]
+     [Lab monitoring, side effects, vaccination compliance]
+
+  4. [Bone health / Steroid complications]
+     [If applicable]
+
+PLAN
+────
+  1. [Primary diagnosis]
+     - [Continue / escalate / switch therapy with rationale]
+     - [Treat-to-target goal stated]
+     - [Steroid taper plan if applicable]
+     - [Imaging if needed for disease monitoring]
+
+  2. [Organ screening / Extra-articular disease]
+     - [Specific monitoring orders]
+     - [Referrals: ophthalmology, pulmonology, nephrology]
+
+  3. [DMARD monitoring]
+     - [Lab orders and frequency]
+     - [Drug level if applicable]
+     - [TB rescreen if indicated]
+
+  4. [Bone health]
+     - [Calcium, vitamin D, DEXA schedule]
+     - [Bisphosphonate if indicated]
+
+  5. [Supportive care]
+     - [PT/OT referral, splinting, joint injections planned]
+     - [Pain management]
+
+FOLLOW-UP
+─────────
+  Next visit: ***
+  Pre-visit labs: ***
+  Imaging before next visit: ***
+  Contact for: [Severe flare, fever on immunosuppression,
+  new rash, visual changes, hematuria]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: rheumatologic diagnosis, serology, treatment history, current medications, interval symptoms, joint exam findings, disease activity scores, labs, imaging, and organ involvement screening.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| RA-focused practice | Remove SLE, vasculitis, and gout sections. Expand the joint exam and DAS28/CDAI documentation |
+| SLE-focused | Replace joint count sections with SLEDAI components. Expand renal, hematologic, and CNS involvement sections |
+| Gout-focused | Remove serologies. Add crystal analysis, 24-hour urine uric acid, and dietary counseling documentation |
+| Pediatric rheumatology | Add: "Include growth parameters, JIA classification, uveitis screening schedule, and school function assessment" |
+| Pre-biologic workup | Add: "Include complete pre-biologic checklist: TB screening, hepatitis B/C, CBC baseline, immunization catch-up plan, pregnancy test if applicable" |
+
+---
+
+## Variations
+
+### RA on biologic therapy follow-up
+
+Use this for rheumatoid arthritis patients on biologic or targeted synthetic DMARD therapy. Focuses on disease activity monitoring, treatment response, infection screening, and treat-to-target strategy.
+
+<PromptPlayground tool="Claude" title="RA Biologic Therapy Follow-Up">
+You are an attending rheumatologist writing a follow-up note for an RA patient on biologic or targeted synthetic DMARD therapy.
+
+### Rules
+
+- Write history in past tense. Write current status and plan in present tense.
+- Calculate and document CDAI from provided components (TJC28, SJC28, patient global, provider global).
+- Document the treat-to-target goal explicitly.
+- Include infection screening and vaccination compliance.
+- List all prior biologics with reason for discontinuation.
+- Use medical abbreviations without expansion.
+- Reference dates in M/D/YY format.
+- Do not fabricate data. Write "[Verify before signing]" for missing information.
+
+### Vocabulary
+
+- "CDAI" = Clinical Disease Activity Index
+- "bDMARD" = biologic DMARD
+- "tsDMARD" = targeted synthetic DMARD
+- "MTX" = methotrexate
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+RA BIOLOGIC THERAPY FOLLOW-UP
+══════════════════════════════════════════
+
+DATE: [M/D/YY]
+
+RA SUMMARY
+──────────
+  Date of diagnosis: ***
+  Serostatus: [RF+/-, Anti-CCP+/-]
+  Erosive disease: [Yes / No]
+  Extra-articular manifestations: [Nodules, ILD, vasculitis, or "None"]
+
+CURRENT THERAPY
+───────────────
+  Biologic/tsDMARD: [Agent, dose, route, frequency, start date]
+  Anchor DMARD: [MTX dose, folic acid dose / or "biologic monotherapy"]
+  Prednisone: [Dose or "off steroids"]
+
+PRIOR BIOLOGICS
+───────────────
+  1. [Agent, dates, best CDAI achieved, reason stopped]
+  2. [Agent, dates, best CDAI achieved, reason stopped]
+  3. [Agent, dates, best CDAI achieved, reason stopped]
+
+DISEASE ACTIVITY
+────────────────
+  TJC28: ***/28  Joints: [list]
+  SJC28: ***/28  Joints: [list]
+  Patient global: ***/10
+  Provider global: ***/10
+  CDAI: *** [Remission ≤2.8 / Low ≤10 / Moderate ≤22 / High >22]
+  DAS28-CRP: ***
+  Prior CDAI (date): ***
+  Trajectory: [Improving / Stable / Worsening]
+
+  Morning stiffness: *** minutes
+  Flares since last visit: ***
+
+INTERVAL HISTORY
+────────────────
+[Joint symptoms, stiffness, functional changes, infections
+since last visit, injection site reactions, infusion reactions,
+medication adherence.]
+
+PHYSICAL EXAM
+─────────────
+  Vitals: T ***  HR ***  BP ***  Wt *** kg
+  MSK: [Detailed hand/wrist/knee/foot exam]
+  Skin: [Nodules, injection sites]
+  Pulmonary: [If ILD concern]
+
+LABS
+────
+  CBC: WBC ***  ANC ***  Lymphocytes ***  Hgb ***  Plt ***
+  CMP: Cr ***  AST ***  ALT ***
+  ESR: ***  CRP: ***
+  Lipids: *** (if on JAK inhibitor)
+  [Last TB screen: result, date]
+  [Last HBV screen: result, date]
+
+IMAGING
+───────
+  [X-ray hands/feet: erosion progression, date]
+  [MSK ultrasound if done: power Doppler, synovitis]
+
+SAFETY MONITORING
+─────────────────
+  Infections since last visit: [None / describe]
+  Malignancy screening: current
+  Cardiovascular risk: [ASCVD risk, if on JAK inhibitor]
+  Last ophthalmology exam: *** (if on HCQ)
+  Vaccinations: [Due / up to date]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. RA, [disease activity level] on [current biologic]
+     - Treat-to-target goal: [Remission / Low disease activity]
+     - [Continue current therapy / Escalate / Switch — rationale]
+     - [Steroid taper if applicable]
+     - [Joint injection today: [joint, agent, dose] / None]
+
+  2. DMARD monitoring
+     - [Lab results and action]
+     - [Next monitoring labs: date]
+
+  3. Bone health
+     - [DEXA, calcium, vitamin D, bisphosphonate]
+
+  4. Preventive care
+     - [Vaccinations, infection screening]
+
+FOLLOW-UP
+─────────
+  Next visit: *** (q*** months)
+  Pre-visit labs: CBC, CMP, ESR, CRP
+  Imaging: [If erosion monitoring due]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: RA history, serostatus, current and prior biologics, joint exam, disease activity scores, labs, imaging, infections, vaccination status.]
+</PromptPlayground>
+
+### SLE with renal involvement
+
+Use this for systemic lupus erythematosus patients, particularly those with lupus nephritis or at risk for it. Structures SLEDAI scoring, complement trends, renal monitoring, and immunosuppressive regimen documentation.
+
+<PromptPlayground tool="Claude" title="SLE with Renal Involvement Follow-Up">
+You are an attending rheumatologist writing a follow-up note for a patient with SLE, with emphasis on renal involvement.
+
+### Rules
+
+- Write history in past tense. Write current status and plan in present tense.
+- Calculate SLEDAI from provided components when possible.
+- Track complement (C3, C4) and anti-dsDNA as trends with dates.
+- Document renal function: Cr, GFR, urine protein/creatinine ratio, urinalysis with sediment.
+- Include lupus nephritis class if biopsy has been performed.
+- Use medical abbreviations without expansion.
+- Reference dates in M/D/YY format.
+- Do not fabricate data. Write "[Verify before signing]" for missing information.
+
+### Vocabulary
+
+- "SLEDAI" = SLE Disease Activity Index
+- "LN" = lupus nephritis
+- "UPCR" = urine protein-to-creatinine ratio
+- "MMF" = mycophenolate mofetil
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+SLE MANAGEMENT VISIT
+══════════════════════════════════════════
+
+DATE: [M/D/YY]
+
+SLE SUMMARY
+───────────
+  Date of diagnosis: ***
+  ACR/SLICC criteria met: [List]
+  Organ involvement: [Renal, skin, hematologic, CNS, serositis, etc.]
+  Lupus nephritis: [Class *** (biopsy date) / Not biopsied / No renal involvement]
+  SLICC Damage Index: ***/47 (date)
+
+SEROLOGIC PROFILE
+─────────────────
+  ANA: *** (titer, pattern)
+  Anti-dsDNA: *** (date) — trend: [date: ***, date: ***]
+  Anti-Smith: ***
+  Anti-RNP: ***
+  Anti-SSA/SSB: ***
+  Antiphospholipid antibodies: [aCL, B2GP1, LAC]
+
+  Complement Trend
+  ────────────────
+  C3: *** (date) — prior: [date: ***, date: ***]
+  C4: *** (date) — prior: [date: ***, date: ***]
+
+CURRENT THERAPY
+───────────────
+  Hydroxychloroquine: [dose, duration, last eye exam date]
+  Immunosuppressant: [MMF / azathioprine / cyclophosphamide / voclosporin / belimumab:
+  dose, start date]
+  Prednisone: [dose, taper schedule]
+  Other: [Belimumab, anifrolumab, rituximab — if applicable]
+
+RENAL MONITORING
+────────────────
+  Cr: *** (prior: [date: ***])
+  GFR: ***
+  UPCR: *** (prior: [date: ***, date: ***])
+  Urinalysis: [Protein, blood, RBC casts, WBC]
+  24-hour urine protein: *** (if done)
+  Renal biopsy: [Class, date, activity index, chronicity index]
+  Nephrology co-management: [Yes / No]
+
+INTERVAL HISTORY
+────────────────
+[Joint symptoms, rash (malar, discoid, photosensitivity),
+oral ulcers, alopecia, Raynaud, edema, foamy urine,
+fatigue, serositis symptoms, cognitive changes, mood.]
+
+SLEDAI COMPONENTS
+─────────────────
+  Seizure: [0/8]     Psychosis: [0/8]
+  Organic brain syndrome: [0/8]
+  Visual disturbance: [0/8]
+  Cranial nerve: [0/8]    Headache: [0/8]
+  CVA: [0/8]     Vasculitis: [0/8]
+  Arthritis: [0/4]    Myositis: [0/4]
+  Urinary casts: [0/4]    Hematuria: [0/4]
+  Proteinuria: [0/4]    Pyuria: [0/4]
+  Rash: [0/2]     Alopecia: [0/2]
+  Mucosal ulcers: [0/2]    Pleurisy: [0/2]
+  Pericarditis: [0/2]    Low complement: [0/2]
+  Increased DNA binding: [0/2]
+  Thrombocytopenia: [0/1]    Leukopenia: [0/1]
+  Fever: [0/1]
+
+  SLEDAI Total: ***/105
+
+PHYSICAL EXAM
+─────────────
+  Vitals: T ***  HR ***  BP ***  Wt *** kg
+  General: ***
+  Skin: [Malar rash, discoid lesions, photosensitivity,
+  vasculitic lesions, livedo reticularis, alopecia]
+  HEENT: [Oral/nasal ulcers, dry eyes]
+  MSK: [Joint swelling, tenderness, synovitis]
+  Cardiovascular: [Friction rub, murmur]
+  Pulmonary: [Effusion, crackles]
+  Abdomen: [Ascites, organomegaly]
+  Extremities: [Edema (quantify), Raynaud changes]
+  Neurologic: [Cranial nerves, cognition, focal findings]
+
+LABS
+────
+  CBC: WBC ***  Lymph ***  Hgb ***  Plt ***
+  CMP: Cr ***  GFR ***  Albumin ***
+  C3 ***  C4 ***  Anti-dsDNA ***
+  ESR ***  CRP ***
+  UPCR: ***
+  UA: [Protein, blood, casts]
+  [MMF level if applicable]
+  [Drug-specific monitoring: CBC for AZA, Cr for voclosporin]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. SLE, [SLEDAI score, activity level]
+     - [Serologic activity: complement, dsDNA trends]
+     - [Continue / adjust immunosuppression]
+     - [Steroid taper plan]
+     - Continue hydroxychloroquine [dose]
+
+  2. Lupus nephritis, Class ***
+     - [Renal function trend, proteinuria trend]
+     - [Treatment: induction vs. maintenance phase]
+     - [Nephrology follow-up plan]
+     - [BP goal &lt;130/80, ACEi/ARB if proteinuric]
+
+  3. Bone health
+     - [DEXA, calcium, vitamin D — especially if on chronic steroids]
+
+  4. Preventive care
+     - [Ophthalmology for HCQ screening: due date]
+     - [Vaccinations: no live vaccines on immunosuppression]
+     - [Cardiovascular risk management]
+     - [Pregnancy planning/contraception if reproductive age]
+
+FOLLOW-UP
+─────────
+  Next visit: ***
+  Pre-visit labs: CBC, CMP, C3, C4, anti-dsDNA, UPCR, UA
+  Nephrology: [Next appointment]
+  Contact for: [New edema, dark urine, severe headache, chest pain,
+  fever on immunosuppression]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: SLE history, organ involvement, serologies, current medications, renal function, urinalysis, complement trends, symptoms, exam findings.]
+</PromptPlayground>
+
+### Gout management
+
+Use this for patients with gout, including acute flare management, urate-lowering therapy initiation and titration, and chronic tophaceous disease monitoring.
+
+<PromptPlayground tool="Claude" title="Gout Management Visit">
+You are an attending rheumatologist writing a clinic note for a gout management visit.
+
+### Rules
+
+- Write history in past tense. Write current status and plan in present tense.
+- Document uric acid level with target (&lt;6.0 mg/dL, or &lt;5.0 for tophaceous gout) and trend.
+- Track flare frequency (flares per 6 months and per year).
+- Document tophi: location, size, and change from prior visit.
+- Include renal function (CKD stage affects allopurinol dosing).
+- Use medical abbreviations without expansion.
+- Reference dates in M/D/YY format.
+- Do not fabricate data. Write "[Verify before signing]" for missing information.
+
+### Vocabulary
+
+- "ULT" = urate-lowering therapy
+- "SUA" = serum uric acid
+- "MSU" = monosodium urate
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+GOUT MANAGEMENT VISIT
+══════════════════════════════════════════
+
+DATE: [M/D/YY]
+VISIT TYPE: [Acute flare / ULT titration / Maintenance / New diagnosis]
+
+GOUT HISTORY
+────────────
+  Date of diagnosis: ***
+  Crystal-proven: [Yes (joint, date) / Clinical diagnosis]
+  Joints involved (lifetime): [List]
+  Flare frequency: *** in past 6 months, *** in past year
+  Tophi: [Present (location, size) / Absent]
+  Complications: [Erosive disease, nephrolithiasis, CKD]
+
+URIC ACID TREND
+────────────────
+  Target: [&lt;6.0 mg/dL / &lt;5.0 mg/dL (tophaceous)]
+  Current SUA: *** (date)
+  Trend: [date: ***, date: ***, date: ***]
+  At target: [Yes / No — *** above target]
+
+CURRENT MEDICATIONS
+───────────────────
+  ULT: [Allopurinol / Febuxostat: dose, start date]
+  Flare prophylaxis: [Colchicine 0.6 mg daily/BID, duration]
+  Flare treatment PRN: [Colchicine, NSAID, prednisone — doses]
+  Other: [Relevant medications, especially diuretics, aspirin]
+
+INTERVAL HISTORY
+────────────────
+[Flares since last visit: number, joints, severity, duration,
+treatment used. ULT tolerance. Diet and alcohol intake.
+Renal symptoms. Medication adherence.]
+
+PHYSICAL EXAM
+─────────────
+  Vitals: T ***  HR ***  BP ***  Wt *** kg  BMI ***
+  MSK:
+    [Affected joints: swelling, erythema, warmth, tenderness, ROM]
+    Tophi exam: [Location, size in cm, change from prior]
+  Renal: [CVA tenderness]
+  Cardiovascular: [Comorbidity assessment]
+
+LABS
+────
+  SUA: ***
+  Cr: ***  GFR: *** (CKD stage: ***)
+  CBC: WBC ***  [If acute flare]
+  CMP: [If monitoring ULT]
+  24-hr urine uric acid: *** (if done — overproducer vs. underexcretor)
+  Lipids, A1c: [If metabolic syndrome screening due]
+
+IMAGING
+───────
+  [X-ray: erosions, tophi]
+  [DECT: MSU crystal deposits, if obtained]
+  [MSK ultrasound: double contour sign, tophi]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. Gout, [acute flare / intercritical / tophaceous]
+     - SUA *** ([at target / not at target])
+     - Flare frequency: *** (goal: zero)
+     - [ULT: continue / titrate dose (current → new dose) /
+       initiate with rationale]
+     - [Flare prophylaxis: continue colchicine for *** months
+       after reaching target / can discontinue]
+
+  2. Acute flare management (if applicable)
+     - [Agent, dose, duration]
+     - [Joint aspiration/injection if performed]
+
+  3. Comorbidities and risk factors
+     - [CKD: adjust ULT dosing]
+     - [HTN: avoid/stop thiazide if possible]
+     - [Metabolic syndrome: weight, A1c, lipids]
+     - [Diet counseling: limit alcohol, purine-rich foods, fructose]
+
+  4. Medications to review
+     - [Diuretics, low-dose aspirin, cyclosporine — ULT interactions]
+
+FOLLOW-UP
+─────────
+  Next visit: *** (q*** months during ULT titration)
+  Pre-visit labs: SUA, Cr, CBC
+  ULT dose titration: [Increase by *** if SUA not at target]
+  Contact for: [Severe flare unresponsive to PRN regimen, fever, rash]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: gout history, flare frequency, tophi, current ULT, uric acid trend, renal function, current flare details if applicable, exam, labs.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+55-year-old female with seropositive RA diagnosed 2019, RF positive (148 IU/mL), anti-CCP positive (>250 U). No erosive disease on last X-rays (2024). Currently on methotrexate 20 mg weekly (since 2020) and adalimumab 40 mg SQ q2 weeks (since 9/25 after failing etanercept for secondary loss of efficacy). Also on folic acid 1 mg daily, prednisone 5 mg daily (trying to taper). Here for 3-month follow-up. Reports significantly improved joint stiffness (morning stiffness now 15 min, was 90 min before adalimumab). Still has mild bilateral MCP tenderness. No swelling. No extra-articular symptoms. Tolerated adalimumab well, no injection site reactions. Had one URI in January, resolved without antibiotics. Labs: ESR 18 (was 42), CRP 0.4 (was 2.8), WBC 5.8, Hgb 13.2, Plt 220, AST 24, ALT 22, Cr 0.8. Last QuantiFERON negative 8/25. Flu and COVID vaccines up to date. DEXA T-score -1.8 lumbar spine (2024), on calcium and vitamin D. No eye exam done for HCQ (not currently on HCQ). Patient global 2/10, provider global 1/10. Exam: TJC 2 (bilateral 2nd MCPs), SJC 0.
+
+**LLM output:**
+
+RHEUMATOLOGY CLINIC VISIT
+══════════════════════════════════════════
+
+DATE: 3/27/26
+VISIT TYPE: Follow-up
+
+RHEUMATOLOGIC DIAGNOSIS
+───────────────────────
+  Primary diagnosis: Rheumatoid arthritis, seropositive
+  Date of diagnosis: 2019
+  Diagnostic criteria met: ACR/EULAR 2010
+  Seropositive: RF 148 IU/mL, Anti-CCP >250 U
+
+  Serologic Profile
+  ─────────────────
+  RF: 148 IU/mL (positive)
+  Anti-CCP: >250 U (positive)
+  ANA: [Verify before signing]
+
+TREATMENT HISTORY
+─────────────────
+  Current DMARD/Biologic
+  ──────────────────────
+  Adalimumab 40 mg SQ q2 weeks: start date 9/25
+    Response: Significant improvement in disease activity
+  Methotrexate 20 mg PO weekly: start date 2020
+    Folic acid 1 mg daily
+  Prednisone 5 mg daily: duration [Verify before signing], taper planned
+
+  Prior Biologics
+  ───────────────
+  1. Etanercept 50 mg SQ weekly, [dates], initial response then secondary loss of efficacy, switched to adalimumab 9/25
+
+INTERVAL HISTORY
+────────────────
+Patient reports significant improvement since starting adalimumab. Morning stiffness has decreased from 90 minutes to 15 minutes. She still notices mild tenderness at the bilateral 2nd MCP joints but denies swelling, warmth, or functional limitation. No extra-articular symptoms: no nodules, dry eyes, or shortness of breath. She tolerates adalimumab well with no injection site reactions and no infusion-related symptoms. She had one upper respiratory infection in 1/26 that resolved without antibiotics. No other infections. She is working full-time without limitations. She would like to taper off prednisone.
+
+DISEASE ACTIVITY ASSESSMENT
+───────────────────────────
+  Morning stiffness: 15 minutes
+  Patient global assessment: 2/10
+  Provider global assessment: 1/10
+
+  Joint Examination (28-joint count)
+  ──────────────────────────────────
+  Tender joint count (TJC28): 2/28
+    Joints: Bilateral 2nd MCPs
+  Swollen joint count (SJC28): 0/28
+
+  Disease Activity Score
+  ──────────────────────
+  CDAI: 5.0 (TJC 2 + SJC 0 + PGA 2 + EGA 1) — Low disease activity (≤10)
+  DAS28-ESR: [Verify before signing: requires ESR and patient global on 0-100 scale]
+  Prior CDAI (9/25): [Verify before signing]
+  Trajectory: Significantly improved from baseline
+
+FUNCTIONAL STATUS
+─────────────────
+  HAQ-DI: [Verify before signing]
+  Morning stiffness duration: 15 minutes (improved from 90 minutes)
+  Work status: Full-time, no limitations
+  Exercise: [Verify before signing]
+  Assistive devices: None
+
+REVIEW OF SYSTEMS
+─────────────────
+Positive for mild bilateral MCP tenderness. Negative for joint swelling, fatigue, rash, oral ulcers, dry eyes, dry mouth, Raynaud, dyspnea, chest pain, neuropathy, muscle weakness, and fever.
+
+PHYSICAL EXAMINATION
+────────────────────
+  Vitals
+  ──────
+  T [Verify before signing]  HR [Verify before signing]  BP [Verify before signing]  Wt [Verify before signing]
+
+  General: Well-appearing, no acute distress.
+  Musculoskeletal:
+    Hands/Wrists: Mild tenderness at bilateral 2nd MCP joints without swelling, warmth, or erythema. No synovitis. No deformity. Grip strength intact. No dactylitis.
+    Wrists, elbows, shoulders, knees, ankles, feet: No tenderness, no swelling, full ROM.
+  Skin: No rheumatoid nodules. Injection sites (thighs) without erythema or induration.
+  Pulmonary: Clear to auscultation bilaterally.
+
+LABORATORY DATA
+───────────────
+  Inflammatory Markers (with trend)
+  ─────────────────────────────────
+  ESR: 18 (prior: 9/25: 42)
+  CRP: 0.4 (prior: 9/25: 2.8)
+
+  CBC
+  ───
+  WBC 5.8  Hgb 13.2  Plt 220
+
+  Comprehensive Metabolic Panel
+  ─────────────────────────────
+  Cr 0.8  AST 24  ALT 22
+
+  DMARD Monitoring Labs
+  ─────────────────────
+  Methotrexate monitoring: CBC and LFTs normal (see above)
+
+IMAGING
+───────
+  X-ray hands/feet (2024): No erosions, no joint space narrowing.
+
+ORGAN INVOLVEMENT SCREENING
+────────────────────────────
+  Bone health: DEXA (2024) T-score -1.8 lumbar spine (osteopenia). On calcium and vitamin D. On chronic low-dose prednisone.
+
+VACCINATION STATUS
+──────────────────
+  TB screening: QuantiFERON negative 8/25
+  Influenza: Up to date
+  COVID: Up to date
+  Pneumococcal: [Verify before signing]
+  Shingrix: [Verify before signing]
+  Live vaccines: Contraindicated (on methotrexate and adalimumab)
+
+ASSESSMENT
+──────────
+55-year-old female with seropositive RA (RF+, anti-CCP+), non-erosive, on adalimumab and methotrexate, presenting for 3-month follow-up. She has reached low disease activity (CDAI 5.0) with significant improvement from baseline.
+
+  1. RA, low disease activity on adalimumab + methotrexate
+     CDAI 5.0 (low disease activity). Marked improvement in inflammatory markers (ESR 42 to 18, CRP 2.8 to 0.4) and morning stiffness (90 to 15 minutes). Residual tender joints only (2nd MCPs). No swelling.
+
+  2. Chronic prednisone, patient requests taper
+     On prednisone 5 mg daily. Now that disease activity is well controlled on biologic, taper is appropriate.
+
+  3. Osteopenia on chronic steroids
+     T-score -1.8, on calcium and vitamin D. Needs interval DEXA and consideration of pharmacologic osteoporosis treatment.
+
+PLAN
+────
+  1. RA management
+     - Continue adalimumab 40 mg SQ q2 weeks
+     - Continue methotrexate 20 mg PO weekly with folic acid 1 mg daily
+     - Treat-to-target goal: Remission (CDAI ≤2.8); currently in low disease activity. Reassess in 3 months.
+     - No radiographic progression on last films; repeat X-ray hands/feet in 2027
+
+  2. Prednisone taper
+     - Taper prednisone 5 mg to 4 mg daily for 4 weeks, then 3 mg daily for 4 weeks, then 2 mg daily for 4 weeks, then reassess
+     - If flare during taper, hold at current dose and reassess at next visit
+
+  3. Bone health
+     - Continue calcium 1200 mg and vitamin D 2000 IU daily
+     - Repeat DEXA (due 2026; schedule)
+     - If T-score worsens or remains ≤-2.0, start bisphosphonate
+
+  4. Preventive care
+     - Verify pneumococcal and Shingrix status; administer if due
+     - TB rescreening: Last QuantiFERON 8/25. Not due for rescreen at this time.
+     - Continue methotrexate and adalimumab lab monitoring q3 months
+
+FOLLOW-UP
+─────────
+  Next visit: 6/27/26
+  Pre-visit labs: CBC, CMP, ESR, CRP
+  Contact for: Severe flare, fever, signs of infection, injection site reactions
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **Disease activity score arithmetic.** The model calculates CDAI from the four components you provide (TJC28, SJC28, patient global 0-10, provider global 0-10). DAS28 requires the ESR or CRP value and a patient global on a 0-100 mm scale. If you provide a 0-10 patient global, the DAS28 may be miscalculated. Verify the inputs match the scale.
+- **Joint count specificity.** "Several swollen joints" is not a joint count. Provide exact numbers and name the joints. The model cannot examine the patient; it organizes what you give it.
+- **Biologic switching rationale.** The model documents what you tell it about why a biologic was stopped, but it cannot assess whether the switch was guideline-concordant. If you are documenting a primary nonresponse vs. secondary loss of efficacy, state which clearly.
+- **Steroid cumulative exposure.** The model tracks the current dose but does not calculate lifetime cumulative exposure unless you provide it. This matters for bone health documentation and DEXA timing.
+- **Pre-biologic checklists.** For new biologic starts, the model includes TB screening and hepatitis B status. Verify that your clinic's pre-biologic workup (pregnancy test, age-appropriate cancer screening, chest X-ray for some agents) is also complete.
+- **Vaccination contraindications.** The model flags that live vaccines are contraindicated on immunosuppression, but it cannot verify which specific vaccines are live vs. inactivated. Double-check: Shingrix is not live (safe); older Zostavax was live (contraindicated). The same applies to other recently updated vaccines.
+- **Extra-articular disease documentation.** If your RA patient has ILD, the model includes a pulmonary section only if you mention it. Proactively provide PFT and HRCT data for patients with known rheumatoid lung disease.
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) — for inpatient progress notes on admitted rheumatology patients
+- [Consult Note](/templates/consult-note) — for writing the initial rheumatology consult
+- [Lab Interpretation](/templates/lab-interpretation) — for interpreting autoimmune serologic panels
+- [Referral Letter](/templates/referral-letter) — for referring to orthopedics, ophthalmology, or pulmonology

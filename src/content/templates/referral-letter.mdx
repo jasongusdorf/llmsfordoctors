@@ -4,7 +4,8 @@ category: admin-billing
 targetTool: claude
 workflow: referral
 tags: [beginner, admin-billing, referral, documentation]
-lastUpdated: 2026-03-22
+lastUpdated: 2026-03-27
+socialPost: "A referral letter should answer one question clearly: why are you sending this patient? A template that gives the consultant enough context to provide a useful evaluation without duplicating your workup."
 ---
 
 import Callout from '../../components/Callout.astro';
@@ -12,9 +13,7 @@ import PromptPlayground from '../../components/PromptPlayground.astro';
 
 ## When to use this
 
-Use this template when you need to write a referral letter to a specialist, ensuring the consultant has enough clinical context to provide a useful evaluation without unnecessary duplicate workup.
-
-Generates a professional specialist referral letter with clinical context, relevant workup, and a clear referral question. Helps ensure the receiving specialist has everything they need to provide a useful consultation.
+Use this template when you need to write a referral letter to a specialist. A good referral letter gives the consultant enough clinical context to provide a useful evaluation without duplicating workup you have already completed. It should answer one question clearly: why are you sending this patient?
 
 <Callout type="hipaa">
   De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
@@ -27,53 +26,79 @@ Generates a professional specialist referral letter with clinical context, relev
 <PromptPlayground tool="Claude" title="Specialist Referral Letter">
 You are a primary care physician writing a referral letter to a specialist colleague.
 
-Using the information below, write a concise, professional referral letter:
+**Purpose:** Produce a professional, concise referral letter with clear clinical context, a specific referral question, completed workup with results and dates, and an explicit statement of what you need from the specialist.
 
-**Header**
+### Rules
+- State the referral question in the first sentence. The specialist should know why this patient is being referred before reading anything else.
+- Include ICD-10 codes for the relevant diagnosis when available.
+- List all workup already completed with results and dates. The goal is to prevent duplicate testing.
+- Cite relevant clinical guidelines when the referral is for a guideline-recommended evaluation (e.g., "Per AHA/ACC guidelines, referral for ICD evaluation is recommended for LVEF ≤35% on optimized GDMT").
+- State the urgency level and clinical rationale for urgency.
+- Specify what you are asking for: diagnostic evaluation, procedural intervention, co-management, or second opinion.
+- If the patient's insurance requires referral authorization, note the authorization number or state that authorization is pending.
+- Keep the letter to one page.
+
+### Vocabulary
+- "Referral question" = the specific clinical question you want the specialist to answer.
+- "Urgency" = Routine (weeks), Urgent (days), Emergent (same day / next day).
+
+### Output format
+
+```
+╔══════════════════════════════════════╗
+║  REFERRAL LETTER                     ║
+╚══════════════════════════════════════╝
+```
+
+**[Date]**
+**To:** Dr. [SPECIALIST NAME] / [SPECIALTY] Colleague
+**Re:** Referral for [REASON], [DIAGNOSIS (ICD-10)]
+**Urgency:** [Routine / Urgent / Emergent]
+
 Dear Dr. [SPECIALIST NAME / "[SPECIALTY] Colleague"],
 
 **Referral Question**
-State the specific clinical question or reason for referral in one clear sentence.
+[One clear sentence stating the specific clinical question or request.]
 
-**Clinical Summary**
-Concise narrative (1 paragraph) covering:
-- Key diagnoses relevant to the referral
-- Relevant symptom history, duration, and trajectory
-- What you've done so far (workup, treatments tried, response)
+**Patient Demographics**
+[Age, sex, relevant identifying information (de-identified).]
 
 **Relevant History**
-- Past medical/surgical history relevant to the referral
-- Current medications
-- Allergies
-- Social history if relevant (smoking, occupation, etc.)
+[Concise narrative (1 paragraph) covering key diagnoses relevant to the referral, symptom history, duration, trajectory, and what you have done so far.]
 
-**Workup to Date**
-- Lab results (relevant values with dates)
-- Imaging results (relevant findings with dates)
-- Prior specialist evaluations if applicable
+**Workup Already Completed**
 
-**What I'm Hoping For**
-Specifically what you'd like from the specialist:
-- Diagnostic evaluation
-- Procedural intervention
-- Co-management recommendations
-- Second opinion
+| Test / Evaluation | Date | Result |
+|-------------------|------|--------|
+| [Test name] | [Date] | [Key finding] |
 
-**Urgency**
-Routine / Urgent / Emergent, and why if urgent/emergent.
+**Current Treatment**
+[Current medications, doses, and duration relevant to the referral. Include response to treatment.]
+
+**Specific Questions for the Specialist**
+1. [Primary question]
+2. [Secondary question, if applicable]
+3. [Procedural request, if applicable]
+
+**Urgency and Rationale**
+[Routine / Urgent / Emergent] and why (what clinical feature drives the urgency).
 
 **Closing**
-Thank you for seeing this patient. Please contact me at [PHONE] if you need additional information.
+Thank you for seeing this patient. Please contact me at [PHONE] if you need additional information. [Authorization number, if applicable.]
 
-Keep the letter to one page. Be specific about what you've already done to avoid duplicate workup.
+Sincerely,
+[PHYSICIAN SIGNATURE]
 
 ---
-REFERRAL INFORMATION:
+**REFERRAL INFORMATION:**
 Referring To: [SPECIALTY]
 Referral Question: [WHAT YOU WANT TO KNOW OR HAVE DONE]
-Urgency: [ROUTINE / URGENT / EMERGENT]
+Urgency: [ROUTINE / URGENT / EMERGENT, and why if not routine]
+Diagnosis: [DIAGNOSIS AND ICD-10 CODE]
 Clinical Summary: [PATIENT'S RELEVANT CLINICAL INFORMATION]
-Workup Done: [LABS, IMAGING, TREATMENTS ALREADY TRIED]
+Workup Done: [LABS, IMAGING, TREATMENTS ALREADY TRIED, with dates and results]
+Current Medications: [RELEVANT MEDICATIONS WITH DOSES]
+Insurance: [PLAN TYPE, AUTHORIZATION NUMBER IF OBTAINED]
 </PromptPlayground>
 
 ---
@@ -84,8 +109,10 @@ Workup Done: [LABS, IMAGING, TREATMENTS ALREADY TRIED]
 |---------|---------------|
 | Brevity | Add: "Keep this to 3 paragraphs maximum; the specialist is busy" |
 | Complexity | Add: "This is a complex multi-system patient. Include a comprehensive problem list." |
-| Specific request | Add: "I am specifically requesting [EGD / nerve conduction study / surgical evaluation]" |
-| Insurance | Add: "Include a medical necessity statement for insurance referral authorization" |
+| Specific procedure | Add: "I am specifically requesting [EGD / nerve conduction study / surgical evaluation]" |
+| Insurance authorization | Add: "Include a medical necessity statement for insurance referral authorization" |
+| Guideline citation | Add: "Cite the specific clinical guideline that supports this referral (e.g., ACS/NCCN screening guideline, AHA/ACC ICD criteria)" |
+| Payer requirements | Add: "This patient has [HMO/PPO]. Include documentation elements required by [payer name] for specialist referral approval." |
 
 ---
 
@@ -93,81 +120,115 @@ Workup Done: [LABS, IMAGING, TREATMENTS ALREADY TRIED]
 
 ### Urgent referral
 
+Use this when the referral is time-sensitive and the specialist's triage team needs to prioritize this patient. Lead with the most alarming finding.
+
 <PromptPlayground tool="Claude" title="Urgent Specialist Referral">
 You are a physician writing an urgent referral letter to a specialist.
 
-Write a referral letter that:
+**Purpose:** Produce a referral letter that clearly communicates clinical urgency and ensures rapid triage.
 
-1. Clearly marks the referral as URGENT in the header and opening line
-2. States the specific clinical concern that makes this time-sensitive (e.g., suspected malignancy, acute neurological deficit, rapidly progressing condition)
-3. Provides a focused clinical summary emphasizing the acute findings and timeline of symptom progression
-4. Lists the most critical workup results that support the urgency
-5. States what you need from the specialist and the timeframe (e.g., "evaluation within 1-2 weeks")
-6. Includes your direct contact information for questions
-7. Notes if the patient has been instructed to go to the ED if symptoms worsen before the appointment
+### Rules
+- Mark URGENT prominently in the header and opening line.
+- Lead with the most alarming clinical finding, not the background.
+- Include the specific timeline: when symptoms started, how fast they are progressing, and when you need the patient seen.
+- State what the patient should do if symptoms worsen before the appointment (e.g., "instructed to present to ED").
+- Include your direct contact information for questions.
+- Keep it concise; urgent referrals must be easy to triage quickly.
+- Include ICD-10 codes.
 
-Keep the letter concise -- urgent referrals should be easy to triage quickly. Lead with the most alarming finding.
+### Output format
+
+**URGENT REFERRAL**
+[Date]
+To: [SPECIALTY]
+Re: URGENT referral for [REASON], [DIAGNOSIS (ICD-10)]
+
+[Most alarming finding first. Then clinical summary. Then workup. Then specific request and timeframe.]
 
 ---
-REFERRAL INFORMATION:
+**REFERRAL INFORMATION:**
 Referring To: [SPECIALTY]
 Urgency Reason: [WHY THIS CANNOT WAIT FOR ROUTINE SCHEDULING]
 Key Findings: [THE SPECIFIC FINDINGS DRIVING URGENCY]
 Clinical Summary: [FOCUSED CLINICAL INFORMATION]
-Workup Results: [CRITICAL LABS, IMAGING]
+Workup Results: [CRITICAL LABS, IMAGING WITH DATES AND RESULTS]
 What I Need: [SPECIFIC REQUEST AND TIMEFRAME]
 </PromptPlayground>
 
 ### Routine referral
 
+Use this for standard referrals where there is no time pressure. Emphasis on completeness and preventing duplicate workup.
+
 <PromptPlayground tool="Claude" title="Routine Specialist Referral">
 You are a primary care physician writing a routine referral letter.
 
-Write a concise referral letter that:
+**Purpose:** Produce a concise, complete referral letter that the specialist can read in under 60 seconds and know exactly why the patient is there.
 
-1. States the referral question clearly in one sentence
-2. Provides a brief clinical narrative (one paragraph) covering diagnosis, duration, and what you've tried
-3. Lists relevant medications and allergies
-4. Summarizes pertinent workup results (labs, imaging) with dates
-5. States specifically what you're hoping the specialist will do (evaluate, co-manage, perform a procedure, adjust medications)
-6. Closes with your contact information
+### Rules
+- State the referral question in one sentence.
+- Summarize clinical narrative in one paragraph: diagnosis, duration, what you have tried.
+- List all relevant workup with dates and results.
+- Specify what you want: evaluate, co-manage, perform a procedure, adjust medications.
+- Include ICD-10 codes and current medications.
+- Keep to half a page.
 
-This is a routine referral -- keep it to half a page. The specialist should be able to read it in under 60 seconds and know exactly why the patient is there.
+### Output format
+
+[Standard referral letter format, abbreviated]
+- Referral question (one sentence)
+- Clinical narrative (one paragraph)
+- Workup table (tests, dates, results)
+- Medications
+- Specific request
+- Contact information
 
 ---
-REFERRAL INFORMATION:
+**REFERRAL INFORMATION:**
 Referring To: [SPECIALTY]
 Referral Question: [WHAT YOU WANT TO KNOW OR HAVE DONE]
+Diagnosis: [DIAGNOSIS AND ICD-10 CODE]
 Clinical Summary: [BRIEF CLINICAL INFORMATION]
-Medications: [CURRENT RELEVANT MEDICATIONS]
+Medications: [CURRENT RELEVANT MEDICATIONS WITH DOSES]
 Workup Done: [LABS, IMAGING WITH DATES AND RESULTS]
 What I'm Hoping For: [SPECIFIC REQUEST]
 </PromptPlayground>
 
 ### Second opinion request
 
+Use this when the patient (or you) wants another specialist's perspective on a diagnosis or treatment plan, without transferring care.
+
 <PromptPlayground tool="Claude" title="Second Opinion Referral">
 You are a physician writing a referral letter requesting a second opinion from another specialist.
 
-Write a referral letter that:
+**Purpose:** Produce a referral letter that frames the second opinion as collegial and patient-centered, provides complete clinical data for independent evaluation, and specifies the questions you want addressed.
 
-1. States clearly that you are requesting a second opinion, not a transfer of care
-2. Explains why a second opinion is being sought: diagnostic uncertainty, treatment not producing expected results, patient/family request, complex or high-stakes decision (e.g., surgery vs. medical management)
-3. Summarizes the original specialist's evaluation and recommendations
-4. Provides the relevant clinical data the second specialist will need to form an independent opinion
-5. Lists the specific questions you want the second specialist to address
-6. States that you will continue to manage the patient and coordinate with both specialists
-7. Notes if the patient's insurance requires a referral for second opinions
+### Rules
+- State clearly this is a second opinion request, not a transfer of care.
+- Explain the reason: diagnostic uncertainty, treatment plateau, patient/family request, or high-stakes decision.
+- Summarize the original specialist's findings, assessment, and recommendations.
+- Provide the raw clinical data the second specialist needs to form an independent opinion.
+- Specify the questions you want addressed.
+- Note that you will continue to manage the patient and coordinate with both specialists.
+- Tone: collegial and professional. Frame as a benefit to the patient, not a critique.
+- Include ICD-10 codes.
 
-Tone: collegial and professional. Frame the second opinion as a benefit to the patient, not a critique of the first specialist.
+### Output format
+
+[Professional letter format]
+- Second opinion request statement
+- Reason for second opinion
+- Original specialist assessment summary
+- Clinical data (workup table with dates and results)
+- Specific questions for second specialist
+- Statement of ongoing management responsibility
 
 ---
-REFERRAL INFORMATION:
+**REFERRAL INFORMATION:**
 Referring To: [SPECIALTY]
 Original Specialist Assessment: [SUMMARY OF FIRST SPECIALIST'S FINDINGS AND RECOMMENDATIONS]
 Reason for Second Opinion: [DIAGNOSTIC UNCERTAINTY / TREATMENT PLATEAU / PATIENT REQUEST / HIGH-STAKES DECISION]
 Specific Questions: [WHAT YOU WANT THE SECOND SPECIALIST TO ADDRESS]
-Clinical Data: [RELEVANT CLINICAL INFORMATION, IMAGING, LABS]
+Clinical Data: [RELEVANT CLINICAL INFORMATION, IMAGING, LABS WITH DATES AND RESULTS]
 Current Management: [WHAT IS BEING DONE NOW]
 </PromptPlayground>
 
@@ -175,52 +236,75 @@ Current Management: [WHAT IS BEING DONE NOW]
 
 ## Example output
 
-> Dear Gastroenterology Colleague,
->
-> **Referral Question:** I am referring this patient for evaluation of iron deficiency anemia with a negative upper and lower endoscopic workup, and request your guidance on whether video capsule endoscopy or further evaluation is indicated.
->
-> **Clinical Summary**
-> This is a 58-year-old patient with a 6-month history of progressive iron deficiency anemia (hemoglobin declined from 12.1 to 9.4 g/dL over 4 months) despite oral iron supplementation. The patient reports fatigue and exertional dyspnea but denies melena, hematochezia, or weight loss. Prior workup includes EGD (normal, H. pylori negative) and colonoscopy (two diminutive hyperplastic polyps removed, no other pathology) both performed 3 months ago. Celiac serologies are negative. Ferritin remains low at 8 ng/mL despite 3 months of ferrous sulfate 325 mg twice daily with confirmed adherence.
->
-> **Relevant History**
-> - PMH: Hypertension, osteoarthritis (no NSAID use in 12 months)
-> - Medications: Lisinopril 10 mg daily, ferrous sulfate 325 mg BID, acetaminophen PRN
-> - Allergies: Sulfa (rash)
-> - Social: Non-smoker, no alcohol use
->
-> **Workup to Date**
-> - CBC (3/1/26): Hgb 9.4, MCV 74, RDW 18.2
-> - Iron studies (3/1/26): Ferritin 8, TIBC 450, iron saturation 8%
-> - Celiac panel (2/15/26): TTG-IgA negative, total IgA normal
-> - EGD (12/15/25): Normal esophagus, stomach, duodenum. Biopsies negative. CLO test negative.
-> - Colonoscopy (12/15/25): Two 3 mm hyperplastic polyps in sigmoid. Otherwise normal to terminal ileum.
->
-> **What I'm Hoping For**
-> Evaluation for a small bowel source of blood loss. I would appreciate your assessment of whether video capsule endoscopy, IV iron replacement, or other evaluation is the appropriate next step.
->
-> **Urgency:** Routine. Hemoglobin has been stable over the past 4 weeks.
->
-> Thank you for seeing this patient. Please contact me at [PHONE] if you need additional information.
->
-> Sincerely,
-> [PHYSICIAN SIGNATURE]
+Here is what the main prompt produces when given realistic referral information:
+
+**Input provided:**
+Referring to Gastroenterology. Referral question: evaluation of iron deficiency anemia with negative upper and lower endoscopy. Diagnosis: Iron deficiency anemia (D50.9). Urgency: Routine. Clinical summary: 58-year-old, 6-month history of progressive IDA (Hgb 12.1 to 9.4 over 4 months), on oral iron x 3 months with confirmed adherence, ferritin remains 8. EGD and colonoscopy 3 months ago both negative. Celiac serologies negative. Workup: CBC, iron studies, celiac panel, EGD, colonoscopy. Current meds: ferrous sulfate 325mg BID, lisinopril 10mg, acetaminophen PRN. No NSAIDs x 12 months.
+
+**LLM output:**
+
+```
+╔══════════════════════════════════════╗
+║  REFERRAL LETTER                     ║
+╚══════════════════════════════════════╝
+```
+
+**March 27, 2026**
+**To:** Gastroenterology Colleague
+**Re:** Referral for evaluation of iron deficiency anemia with negative EGD/colonoscopy, Iron Deficiency Anemia (D50.9)
+**Urgency:** Routine
+
+Dear Gastroenterology Colleague,
+
+**Referral Question**
+I am referring this 58-year-old patient for evaluation of persistent iron deficiency anemia despite 3 months of oral iron supplementation, with negative upper and lower endoscopy. I would like your guidance on whether video capsule endoscopy or alternative evaluation is indicated to identify a small bowel source of blood loss.
+
+**Relevant History**
+This patient has a 6-month history of progressive iron deficiency anemia. Hemoglobin declined from 12.1 to 9.4 g/dL over 4 months despite oral iron supplementation with confirmed adherence. The patient reports fatigue and exertional dyspnea but denies melena, hematochezia, or weight loss. Past medical history includes hypertension and osteoarthritis. No NSAID use in 12 months. Non-smoker, no alcohol use. Allergy: sulfa (rash).
+
+**Workup Already Completed**
+
+| Test / Evaluation | Date | Result |
+|-------------------|------|--------|
+| CBC | 3/1/26 | Hgb 9.4, MCV 74, RDW 18.2 |
+| Iron studies | 3/1/26 | Ferritin 8 ng/mL, TIBC 450, iron sat 8% |
+| Celiac panel | 2/15/26 | TTG-IgA negative, total IgA normal |
+| EGD | 12/15/25 | Normal esophagus, stomach, duodenum. Biopsies negative. CLO test negative. |
+| Colonoscopy | 12/15/25 | Two 3mm hyperplastic polyps (sigmoid, removed). Otherwise normal to terminal ileum. |
+
+**Current Treatment**
+Ferrous sulfate 325 mg BID (3 months, confirmed adherence), lisinopril 10 mg daily, acetaminophen PRN.
+
+**Specific Questions for the Specialist**
+1. Is video capsule endoscopy the appropriate next step to evaluate for a small bowel source?
+2. Should IV iron replacement be initiated given the persistent deficiency despite oral therapy?
+3. Are there additional diagnostic considerations I should pursue?
+
+**Urgency and Rationale**
+Routine. Hemoglobin has been stable over the past 4 weeks at 9.4 g/dL.
+
+Thank you for seeing this patient. Please contact me at [PHONE] if you need additional information.
+
+Sincerely,
+[PHYSICIAN SIGNATURE]
 
 ---
 
 ## Tips & pitfalls
 
-- The single most important element of a referral letter is a clear, specific referral question. "Please evaluate" is vague; "I am requesting evaluation for suspected small bowel source of GI blood loss given negative EGD and colonoscopy" tells the specialist exactly what you need.
-- List every relevant test you've already done with dates and results. The top frustration for specialists is repeating workup the PCP already completed.
-- For insurance plans that require referral authorization, include a medical necessity statement in the letter. Some plans will deny the specialist visit if the referral lacks a documented clinical rationale.
+- The single most important element of a referral letter is a clear, specific referral question. "Please evaluate" is vague. "I am requesting evaluation for suspected small bowel source of GI blood loss given negative EGD and colonoscopy" tells the specialist exactly what you need.
+- List every relevant test already completed with dates and results. The top frustration for specialists is repeating workup the referring physician already did.
+- For insurance plans requiring referral authorization, include a medical necessity statement in the letter. Some plans deny the specialist visit if the referral lacks a documented clinical rationale.
+- Common reasons referrals fail to produce useful consultations: vague referral question, missing workup data, not specifying what you want (evaluate only vs. co-manage vs. take over care vs. perform a procedure).
 - If the patient has been seen by another specialist for the same issue, include that evaluation and its findings to avoid duplication.
-- Common reasons referrals fail to result in useful consultations: vague referral question, missing workup data, not specifying what you want the specialist to do (evaluate only vs. co-manage vs. take over care).
-- Some insurance plans require formal referral authorization before the specialist visit. Verify the patient's plan requirements before sending the referral to avoid a coverage denial.
-- Always confirm the specialist is in-network for the patient's plan. An out-of-network referral without prior authorization can result in significant patient liability.
 - For urgent referrals, follow up the letter with a phone call to the specialist's office. Letters alone may not be triaged quickly enough.
+- Always confirm the specialist is in-network for the patient's plan. An out-of-network referral without prior authorization can result in significant patient liability.
+- Some plans require formal referral authorization before the specialist visit. Verify the patient's plan requirements and include the authorization number in the letter when available.
 
 ---
 
 ## Related
 
-- [Consult Note](/templates/consult-note) — the specialist's response to your referral
-- [Prior Authorization](/templates/prior-authorization) — may be required before the specialist visit depending on the patient's plan
+- [Consult Note](/templates/consult-note) -- the specialist's response to your referral
+- [Prior Authorization](/templates/prior-authorization) -- may be required before the specialist visit depending on the patient's plan
+- [Disability and FMLA Documentation](/templates/disability-fmla-letter) -- if the referral is for disability evaluation or functional capacity assessment

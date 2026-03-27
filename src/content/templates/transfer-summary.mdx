@@ -1,0 +1,504 @@
+---
+title: "Transfer Summary"
+category: note-writing
+targetTool: claude
+workflow: transfer
+tags: [intermediate, note-writing, transfer, snf, rehab, inpatient]
+lastUpdated: 2026-03-27
+socialPost: "Transferring to SNF, rehab, or LTACH. The receiving team needs a document concise enough to read quickly and detailed enough to manage the patient safely. A template organized around what they need to know right now."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when transferring a patient to a skilled nursing facility, rehab, long-term acute care hospital, or another hospital. The receiving team needs a specific kind of document: concise enough to read quickly, detailed enough to manage the patient safely. This template produces that document, organized around what the next team needs to know right now.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, admission/discharge dates, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Transfer Summary">
+You are an excellent physician writing a transfer summary for a patient being transferred to another facility. After receiving the clinical information below, produce a complete, structured transfer summary optimized for the receiving team.
+
+### Rules
+
+- Write in past tense for events that occurred during the hospitalization. Use present tense for the patient's current status and active needs.
+- Write in paragraph prose for the hospital course summary. Medication lists and pending items may use structured lists.
+- Include specific numbers (lab values, vitals, doses, dates) whenever available.
+- Use medical abbreviations throughout. Never spell out what an abbreviation stands for.
+- Reference dates in the format M/D/YY.
+- The medication list must be the current, reconciled list at time of transfer, including dose, route, and frequency for every medication.
+- Flag recent medication changes (started, stopped, or dose-adjusted within the past 7 days) with the date of change.
+- Include all pending results (cultures, pathology, outpatient labs) with expected turnaround time if known.
+- Do not infer or fabricate any clinical information not provided. Write "[Verify before transfer]" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "pmhx" = past medical history
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+TRANSFER SUMMARY
+══════════════════════════════════════════
+
+REASON FOR TRANSFER
+───────────────────
+[One to two sentences: why the patient is being transferred
+and to what type of facility.]
+
+PATIENT SUMMARY
+───────────────
+[Age]-year-old [male/female] with pmhx of [***] admitted
+on [date] for [***], hospital course notable for [***],
+now being transferred to [facility type] for [***].
+
+HOSPITAL COURSE SUMMARY
+────────────────────────
+[Concise paragraph covering: presenting complaint, key
+diagnoses made, significant interventions (procedures,
+surgeries, transfusions), complications, and clinical
+trajectory. One to two paragraphs maximum.]
+
+ACTIVE PROBLEMS
+───────────────
+  1. [Problem] - [current status and ongoing management needs]
+  2. [Problem] - [current status and ongoing management needs]
+  3. [Problem] - [current status and ongoing management needs]
+
+PENDING RESULTS
+───────────────
+  - [Test (date sent)]: Expected [timeframe]
+  - [Test (date sent)]: Expected [timeframe]
+  - [Write "None" if no pending results.]
+
+CURRENT MEDICATION LIST
+───────────────────────
+  [List every active medication with dose, route, frequency.
+  Mark recent changes:]
+  - [Medication, dose, route, frequency]
+  - [Medication, dose, route, frequency] *STARTED [date]*
+  - [Medication, dose, route, frequency] *STOPPED [date]*
+  - [Medication, dose, route, frequency] *DOSE CHANGED from [old] on [date]*
+
+ALLERGIES
+─────────
+[Drug: reaction] or "NKDA"
+
+FUNCTIONAL STATUS
+─────────────────
+  Mobility: [ambulatory / wheelchair / bed-bound / assistive device]
+  ADLs: [independent / needs assist with *** / dependent]
+  Weight-bearing status: [if applicable]
+  Cognitive status: [alert and oriented / baseline dementia / delirium]
+  Swallowing: [regular diet / modified texture / NPO / tube feeds]
+  O2 requirements: [room air / *** L NC / other]
+
+CODE STATUS
+───────────
+[Full code / DNR / DNI / DNR-DNI / comfort measures only]
+[Note if discussed with patient, family, or surrogate and date.]
+
+RECEIVING FACILITY INSTRUCTIONS
+───────────────────────────────
+  Wound care: [Instructions or "N/A"]
+  Drain/tube management: [Instructions or "N/A"]
+  Monitoring: [Specific vitals, neuro checks, I/Os, weights, etc.]
+  Labs to obtain: [Tests and timing, e.g., "BMP in 3 days"]
+  Follow-up appointments: [Specialty, timeframe]
+  Contact for questions: [Service and callback number]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste your de-identified clinical data here: hospital course, active problems, medications, functional status, pending results, and transfer destination.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Receiving facility type | Add: "This patient is being transferred to a [SNF / LTAC / rehab / outside hospital]. Emphasize the information most relevant to that setting." |
+| Wound care detail | Add: "Include detailed wound care instructions: location, size, stage, dressing type, frequency, and supplies needed." |
+| Rehab focus | Add: "Emphasize functional status, therapy recommendations (PT/OT/SLP), weight-bearing status, and cognitive baseline." |
+| Psychiatric needs | Add: "Include behavioral management plan, psychiatric medications with titration schedule, and safety precautions." |
+
+---
+
+## Variations
+
+### SNF / rehab transfer
+
+Use this for transfers to skilled nursing facilities or inpatient rehabilitation where functional status, therapy needs, and nursing-level detail are the priority.
+
+<PromptPlayground tool="Claude" title="SNF / Rehab Transfer Summary">
+You are an excellent physician writing a transfer summary for a patient being transferred to a skilled nursing facility or inpatient rehabilitation center. After receiving the clinical information below, produce a transfer summary emphasizing functional status and ongoing care needs.
+
+### Rules
+
+- Write in past tense for hospital events; present tense for current status and instructions.
+- Write in paragraph prose for the hospital course. Use structured lists for medications, functional status, and care instructions.
+- Include specific numbers (lab values, vitals, doses, dates) whenever available.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY.
+- Emphasize functional baseline, current functional status, therapy recommendations, and nursing care needs.
+- Include all pending results with expected turnaround.
+- Do not fabricate clinical information. Write "[Verify before transfer]" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "pmhx" = past medical history
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+SNF / REHAB TRANSFER SUMMARY
+══════════════════════════════════════════
+
+REASON FOR TRANSFER
+───────────────────
+***
+
+PATIENT SUMMARY
+───────────────
+[Brief one-liner as in main template.]
+
+HOSPITAL COURSE SUMMARY
+────────────────────────
+[Concise paragraph.]
+
+ACTIVE PROBLEMS
+───────────────
+[Numbered list with current status and ongoing needs.]
+
+FUNCTIONAL STATUS (DETAILED)
+────────────────────────────
+  Baseline (pre-admission): [Describe prior functional level]
+  Current:
+    Mobility: ***
+    Transfers: [Independent / min assist / max assist / total]
+    ADLs: [Bathing, dressing, toileting, feeding]
+    Cognitive: ***
+    Swallowing: ***
+    O2: ***
+    Weight-bearing: ***
+
+THERAPY RECOMMENDATIONS
+───────────────────────
+  PT: [Goals and frequency]
+  OT: [Goals and frequency]
+  SLP: [Goals and frequency, or "N/A"]
+
+NURSING CARE NEEDS
+──────────────────
+  Wound care: [Detailed instructions or "N/A"]
+  Drain/tube: [Management instructions or "N/A"]
+  Foley: [In place / date placed / plan for removal]
+  Blood glucose monitoring: [Frequency and insulin regimen]
+  Vitals frequency: ***
+  Fall precautions: [Yes/No, risk level]
+
+CURRENT MEDICATION LIST
+───────────────────────
+[Full reconciled list with recent changes flagged.]
+
+PENDING RESULTS
+───────────────
+[Tests, date sent, expected turnaround.]
+
+CODE STATUS
+───────────
+***
+
+FOLLOW-UP APPOINTMENTS
+──────────────────────
+[Specialty, timeframe, and any pre-visit labs needed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: hospital course, functional status details, therapy notes, medications, pending results, and care needs.]
+</PromptPlayground>
+
+### Hospital-to-hospital transfer
+
+Use this for transfers to another acute care hospital, typically for a higher level of care or specialized service not available at the sending facility.
+
+<PromptPlayground tool="Claude" title="Hospital-to-Hospital Transfer Summary">
+You are an excellent physician writing a transfer summary for a patient being transferred to another acute care hospital for a higher level of care or specialized services. After receiving the clinical information below, produce a transfer summary that gives the receiving team everything they need to assume care immediately.
+
+### Rules
+
+- Write in past tense for hospital events; present tense for current status and active management.
+- Write in paragraph prose for the hospital course.
+- Include specific numbers (lab values, vitals, doses, dates, drip rates) whenever available.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY.
+- Emphasize the clinical reason for transfer, what has been done, and what the receiving team needs to do next.
+- Include current drips, lines, and monitoring in detail.
+- Do not fabricate clinical information. Write "[Verify before transfer]" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "pmhx" = past medical history
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+HOSPITAL-TO-HOSPITAL TRANSFER SUMMARY
+══════════════════════════════════════════
+
+REASON FOR TRANSFER
+───────────────────
+[Why the patient needs a higher level of care or specialized service.]
+
+ACCEPTING SERVICE
+─────────────────
+[Service, accepting provider role if known]
+
+PATIENT SUMMARY
+───────────────
+[Brief one-liner.]
+
+HOSPITAL COURSE SUMMARY
+────────────────────────
+[Detailed paragraph. Emphasize the clinical problem requiring
+transfer, what has been done so far, and what remains to be done.]
+
+CURRENT CLINICAL STATUS
+───────────────────────
+  Vitals (most recent): T ***  HR ***  BP ***  RR ***  SpO2 ***
+  Hemodynamics: [Stable / vasopressors with doses]
+  Respiratory: [Vent settings or O2 delivery]
+  Neuro: [GCS, mental status]
+  Lines/access: [PIV, central line, arterial line]
+  Drips: [Current infusions with rates]
+  I/Os (last 24h): ***
+
+ACTIVE PROBLEMS
+───────────────
+[Numbered list with current status.]
+
+RECOMMENDED NEXT STEPS
+──────────────────────
+[What the receiving team should do on arrival. Specific,
+actionable items.]
+
+CURRENT MEDICATION LIST
+───────────────────────
+[Full reconciled list.]
+
+PENDING RESULTS
+───────────────
+[Tests, date sent, expected turnaround.]
+
+LABS AND IMAGING (MOST RECENT)
+──────────────────────────────
+[Key labs with values and dates. Key imaging with findings.]
+
+ALLERGIES
+─────────
+***
+
+CODE STATUS
+───────────
+***
+
+TRANSPORT CONSIDERATIONS
+────────────────────────
+[Level of transport needed (BLS/ALS/CCT), monitoring during
+transport, medications to continue en route.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: hospital course, current clinical status, reason for transfer, active problems, medications, and what the receiving team needs to know.]
+</PromptPlayground>
+
+### Step-down / floor transfer
+
+Use this for internal transfers between units within the same hospital (ICU to step-down, step-down to floor, or floor to floor).
+
+<PromptPlayground tool="Claude" title="Internal Unit Transfer Note">
+You are a physician writing a transfer note for a patient being moved between units within the same hospital. After receiving the clinical information below, produce a concise transfer note for the receiving team.
+
+### Rules
+
+- Write in past tense for ICU/prior unit events; present tense for current status and ongoing plan.
+- Keep this concise. The receiving team has access to the full chart; focus on what changed and what they need to continue.
+- Include specific numbers (lab values, vitals, doses, dates) whenever available.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY.
+- Do not fabricate clinical information. Write "[Verify before transfer]" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "pmhx" = past medical history
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+UNIT TRANSFER NOTE
+══════════════════════════════════════════
+
+TRANSFER
+────────
+[From unit] to [To unit] on [date]
+
+REASON FOR TRANSFER
+───────────────────
+[One sentence: why the patient is ready for the new level of care.]
+
+BRIEF SUMMARY
+──────────────
+[3-5 sentence summary: who the patient is, what brought them in,
+key ICU/prior unit interventions, and why they are stable for transfer.]
+
+ACTIVE PROBLEMS & PLAN
+───────────────────────
+  1. [Problem] - [current status, ongoing management]
+  2. [Problem] - [current status, ongoing management]
+  3. [Problem] - [current status, ongoing management]
+
+KEY CHANGES IN LAST 24 HOURS
+─────────────────────────────
+[What changed, what was discontinued, what was started.]
+
+CURRENT MEDICATIONS
+───────────────────
+[Full list with dose, route, frequency.]
+
+PENDING ITEMS
+─────────────
+[Results, consults, follow-up actions.]
+
+CODE STATUS
+───────────
+***
+
+DISPOSITION PLANNING
+────────────────────
+[Anticipated discharge date, barriers, pending needs.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: ICU/prior unit summary, active problems, current medications, and ongoing plan.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+78-year-old female with pmhx of HTN, DM2, AFib on warfarin, CKD III, and L hip OA, admitted 3/18/26 for L total hip arthroplasty (3/19/26), s/p uncomplicated surgery (EBL 350 mL), postop course notable for urinary retention requiring Foley (removed POD 2, voiding independently since), and postop Hgb drop to 7.8 requiring 1 unit pRBC on 3/20/26 (post-transfusion Hgb 9.1). Warfarin held preop, bridged with enoxaparin, warfarin restarted 3/21/26 (INR 1.4 on 3/24/26, target 2-3). PT/OT eval: amb 50 ft with walker and min assist, transfers with min assist, needs help with bathing and dressing. Baseline: ambulated independently with cane, independent ADLs. Discharge vitals: T 36.8, HR 74, BP 128/72, SpO2 97% RA. Current meds: warfarin 5mg daily (restarted 3/21/26), lisinopril 10mg daily, metformin 500mg BID, amlodipine 5mg daily, acetaminophen 1g TID, oxycodone 5mg Q6H PRN (using 2-3x daily), enoxaparin 40mg SQ daily (bridge until INR therapeutic), famotidine 20mg BID. NKDA. Pending: INR recheck 3/26/26. Orthopedic follow-up in 6 weeks. Transfer to rehab for continued PT/OT. Code status: full code. Weight-bearing: WBAT L hip.
+
+**LLM output:**
+
+TRANSFER SUMMARY
+══════════════════════════════════════════
+
+REASON FOR TRANSFER
+───────────────────
+The patient is being transferred to an inpatient rehabilitation facility for continued physical and occupational therapy following L total hip arthroplasty, as she has not yet returned to her functional baseline.
+
+PATIENT SUMMARY
+───────────────
+78-year-old female with pmhx of HTN, DM2, AFib on warfarin, CKD III, and L hip OA admitted on 3/18/26 for elective L total hip arthroplasty (3/19/26), postop course notable for urinary retention (resolved) and postop anemia requiring 1 unit pRBC, now clinically stable and being transferred to inpatient rehab for functional recovery.
+
+HOSPITAL COURSE SUMMARY
+────────────────────────
+The patient was admitted on 3/18/26 for preoperative optimization and underwent an uncomplicated L total hip arthroplasty on 3/19/26 (EBL 350 mL). Warfarin had been held preoperatively and she was bridged with enoxaparin. Postoperatively, she developed urinary retention requiring Foley catheter placement on POD 0; the Foley was removed on POD 2, and she voided independently thereafter. Hgb dropped to 7.8 on POD 1 (3/20/26), and she received 1 unit pRBC with post-transfusion Hgb 9.1. Warfarin was restarted on 3/21/26, with INR 1.4 on 3/24/26 (target 2-3); enoxaparin bridge continued until INR therapeutic. PT/OT evaluated the patient and recommended inpatient rehab given decreased mobility and ADL assistance needs compared to baseline. The surgical wound was clean, dry, and intact without signs of infection.
+
+ACTIVE PROBLEMS
+───────────────
+  1. S/p L total hip arthroplasty (3/19/26) - surgical wound clean and intact, WBAT, pain managed with acetaminophen and PRN oxycodone
+  2. AFib, anticoagulation management - warfarin restarted 3/21/26, INR subtherapeutic at 1.4 (3/24/26), enoxaparin bridge ongoing
+  3. Postop anemia - Hgb 9.1 post-transfusion (3/20/26), stable, no active bleeding
+  4. CKD III - Cr stable at baseline, monitor with medication adjustments
+  5. DM2 - glucose well controlled on home metformin
+
+PENDING RESULTS
+───────────────
+  - INR recheck due 3/26/26 (adjust warfarin dose per result; discontinue enoxaparin when INR 2.0-3.0 on two consecutive checks)
+
+CURRENT MEDICATION LIST
+───────────────────────
+  - Warfarin 5 mg PO daily *RESTARTED 3/21/26*
+  - Enoxaparin 40 mg SQ daily *STARTED 3/18/26 (bridge until INR therapeutic)*
+  - Lisinopril 10 mg PO daily
+  - Metformin 500 mg PO BID
+  - Amlodipine 5 mg PO daily
+  - Acetaminophen 1 g PO TID
+  - Oxycodone 5 mg PO Q6H PRN pain (currently using 2-3x/day)
+  - Famotidine 20 mg PO BID
+
+ALLERGIES
+─────────
+NKDA
+
+FUNCTIONAL STATUS
+─────────────────
+  Mobility: Ambulating 50 ft with front-wheeled walker and min assist (baseline: independent with cane)
+  Transfers: Min assist (baseline: independent)
+  ADLs: Needs assist with bathing and dressing (baseline: independent)
+  Cognitive status: Alert and oriented x3, no delirium
+  Swallowing: Regular diet
+  O2 requirements: Room air
+  Weight-bearing: WBAT L hip
+
+CODE STATUS
+───────────
+Full code
+
+RECEIVING FACILITY INSTRUCTIONS
+───────────────────────────────
+  Wound care: Surgical wound clean, dry, intact. Staples in place. Keep clean and dry. Staple removal per orthopedic follow-up.
+  Drain/tube management: N/A
+  Monitoring: Daily vitals. Monitor surgical site for signs of infection (erythema, drainage, warmth). Monitor for DVT symptoms (calf swelling, pain).
+  Labs to obtain: INR on 3/26/26 and every 3 days until therapeutic (target 2.0-3.0). Discontinue enoxaparin when INR 2.0-3.0 on two consecutive checks. Adjust warfarin dose as needed. CBC in 1 week to trend Hgb.
+  Follow-up appointments: Orthopedic surgery in 6 weeks for staple removal and imaging. PCP within 2 weeks for warfarin management and general follow-up.
+  Contact for questions: Orthopedic surgery service
+
+---
+
+## Tips & pitfalls
+
+- **Medication reconciliation is the highest-stakes section.** The receiving facility will use this list to enter orders. Every medication needs a dose, route, and frequency. Cross-reference the actual med rec before transfer.
+- **Recent changes matter most.** A medication that was started, stopped, or dose-adjusted during the hospitalization needs to be flagged with the date. The receiving provider cannot distinguish new from chronic without this context.
+- **Pending results get lost in transfer.** Cultures, pathology, and outpatient labs ordered during the admission may return results after transfer. Include every pending item, who should follow up, and what to do with the result.
+- **Functional status specificity.** "Deconditioned" tells the receiving rehab nothing. "Ambulating 50 ft with FWW and min assist, baseline independent with cane" tells them everything.
+- **Code status documentation.** If goals of care were discussed during the hospitalization, document the outcome of that conversation, not just the current code status. The receiving facility needs context, not just a checkbox.
+- **AI defaults to optimism.** The model may understate ongoing care needs or describe the patient as more independent than they are. Verify functional status against actual PT/OT documentation.
+- **Anticoagulation bridging.** Transfer summaries involving anticoagulation bridging are high-risk transitions. Spell out the target INR, when to recheck, and when to stop the bridge. Do not leave this to interpretation.
+
+---
+
+## Related
+
+- [Discharge Summary](/templates/discharge-summary-basic) - for patients going home rather than to another facility
+- [SOAP Progress Note](/templates/progress-note-soap) - the daily notes that inform this summary
+- [Handoff / Sign-Out](/templates/handoff-signout) - structured handoff for the covering team
+- [History and Physical](/templates/history-and-physical) - the admission note that started this hospitalization

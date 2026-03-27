@@ -1,0 +1,968 @@
+---
+title: "Nephrology Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, nephrology, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "eGFR trajectories, proteinuria quantification, dialysis adequacy metrics, bone mineral disease labs, KDIGO staging. Structured nephrology clinic notes with disease-specific data."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Nephrology clinic moves fast: CKD progression, dialysis adequacy, electrolyte management, transplant workups, and the occasional glomerulonephritis patient who needs both a plan and a paragraph explaining why you ordered the complement levels. This template covers the six conditions that fill the schedule: CKD, secondary hypertension, glomerulonephritis, electrolyte disorders, nephrolithiasis, and ESRD/dialysis management. Paste in the clinical data, and the LLM produces a structured note that tracks GFR trajectory over time, documents dialysis adequacy numbers, captures proteinuria trends, and organizes the bone mineral disease labs without you building the table from memory.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Nephrology Clinic Visit Note">
+You are an outpatient nephrologist writing a clinic visit note after seeing a patient for a follow-up or management visit. The patient's primary renal condition is one of: chronic kidney disease, secondary hypertension, glomerulonephritis, electrolyte disorders, nephrolithiasis, or ESRD/dialysis management. Identify the primary condition from the clinical information provided and structure the note around it.
+
+### Purpose
+
+Generate a complete, structured outpatient nephrology clinic note from the clinical data below. The note must capture disease-specific monitoring data (GFR trends, proteinuria, dialysis adequacy, electrolytes, bone mineral disease parameters), medication reconciliation with attention to nephrotoxins, assessment of disease trajectory, and a concrete plan with specific next steps.
+
+### Rules
+
+- Write in past tense for history and interval events; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use in the note (e.g., "estimated glomerular filtration rate (eGFR) 28 mL/min/1.73m2"), then abbreviation only thereafter.
+- Include specific numbers for all values: lab results, GFR, proteinuria quantification, dialysis adequacy metrics, BP readings.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Organize the Assessment as a problem list with the primary renal condition first.
+- Plan items must be specific and actionable: drug name with dose, specific lab panel to order, imaging study, referral destination. Never write "continue current management" without specifying what that management is.
+- For CKD patients: document CKD stage (GFR and albuminuria category per KDIGO), etiology, GFR trajectory over time (at least 2 data points), and SGLT2 inhibitor status.
+- For dialysis patients: document modality, access type and status, adequacy (Kt/V, URR), dry weight, and interdialytic weight gain.
+- For glomerulonephritis patients: document histologic diagnosis (if biopsy done), proteinuria trend, complement levels, and immunosuppression regimen.
+- Flag all nephrotoxin exposures (NSAIDs, contrast, aminoglycosides, lithium).
+- Do not infer or fabricate any clinical information not provided. Write "[Not provided; verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "eGFR" = estimated glomerular filtration rate
+- "CKD" = chronic kidney disease
+- "ESRD" = end-stage renal disease
+- "UACR" = urine albumin-to-creatinine ratio
+- "UPCR" = urine protein-to-creatinine ratio
+- "Kt/V" = dialysis adequacy (clearance x time / volume)
+- "URR" = urea reduction ratio
+- "ESA" = erythropoiesis-stimulating agent
+- "CKD-MBD" = chronic kidney disease-mineral and bone disorder
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+NEPHROLOGY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[Follow-up / New patient / Dialysis follow-up / Post-biopsy /
+  Transplant evaluation / Pre-operative]
+Interval since last visit: [duration]
+
+CHIEF CONCERN
+─────────────
+***
+
+RENAL HISTORY
+─────────────
+  Primary diagnosis: ***
+  Etiology: [Diabetic nephropathy / Hypertensive nephrosclerosis /
+    IgA nephropathy / FSGS / Membranous / Lupus nephritis /
+    ADPKD / Obstructive / Other]
+  Date of diagnosis: ***
+  Biopsy: [Date, findings / Not performed]
+  CKD stage: [G1-G5, A1-A3 per KDIGO] or [ESRD on dialysis]
+  Key history:
+    - [Dialysis start date, modality changes]
+    - [Transplant history]
+    - [Relevant surgeries: nephrectomy, access placement, stent]
+    - [AKI episodes, hospitalizations]
+
+DIALYSIS STATUS (if applicable)
+───────────────────────────────
+  Modality: [Hemodialysis (HD) / Peritoneal dialysis (PD) / Not on dialysis]
+  Schedule: [Days/week, hours/session]
+  Access:
+    Type: [AVF / AVG / Tunneled dialysis catheter / PD catheter]
+    Location: [e.g., left forearm radiocephalic AVF]
+    Status: [Functional / Maturing / Thrombosed / Infected]
+    Last access intervention: [Date, type]
+  Adequacy (most recent):
+    Kt/V: *** (target ≥1.2 for HD, ≥1.7 weekly for PD)
+    URR: ***% (target ≥65%)
+  Dry weight: *** kg
+  Interdialytic weight gain (average): *** kg
+  Last dialysis session: [Date]
+  Missed sessions (past month): ***
+
+TRANSPLANT STATUS (if applicable)
+─────────────────────────────────
+  Candidacy: [Not yet indicated / Evaluation in progress / Listed /
+    Not a candidate (reason)]
+  Workup completion: [***% complete; pending: specify]
+  Living donor: [Evaluation in progress / None identified]
+  Blood type: ***
+  PRA: ***%
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph covering symptoms and events since last visit.
+Include: edema (location, change), weight change, urine output changes,
+foamy urine, hematuria, flank pain, fatigue, nausea, pruritus,
+cramping (dialysis patients), dietary adherence (sodium, potassium,
+phosphorus, fluid restriction), missed dialysis sessions,
+hospitalizations, ED visits, AKI episodes, medication changes
+by other providers.]
+
+CURRENT MEDICATIONS
+───────────────────
+  Renal Medications
+  ─────────────────
+  ACEi/ARB: [drug, dose]
+  SGLT2 inhibitor: [drug, dose]
+  Diuretics: [drug, dose]
+  Phosphate binders: [drug, dose, timing with meals]
+  ESA: [drug, dose, frequency, route]
+  Iron: [IV iron: drug, dose, last infusion date / PO iron: drug, dose]
+  Vitamin D analog: [calcitriol / paricalcitol, dose]
+  Calcimimetic: [cinacalcet, dose]
+  Sodium bicarbonate: [dose]
+  Potassium binder: [patiromer / SZC, dose]
+
+  Antihypertensives
+  ─────────────────
+  [List all BP medications with doses]
+
+  Nephrotoxin Screen
+  ──────────────────
+  NSAIDs: [Y/N, frequency]
+  Recent IV contrast: [Y/N, date]
+  Aminoglycosides: [Y/N]
+  Lithium: [Y/N]
+  Other nephrotoxins: ***
+
+  Other Medications
+  ─────────────────
+  ***
+
+VITAL SIGNS
+───────────
+  BP (office): ***
+  Home BP (average, if available): ***
+  HR: ***
+  Weight: *** [pre-dialysis / dry weight: ***]
+  Edema assessment: ***
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: ***
+  Cardiovascular: ***
+  Pulmonary: ***
+  Abdomen: [Distension, tenderness, transplant kidney if applicable,
+    PD catheter exit site if applicable]
+  Extremities: Edema [none / trace / 1+ / 2+ / 3+, location].
+  Vascular access: [AVF/AVG: thrill, bruit, aneurysm, steal signs.
+    Catheter: exit site, tunnel, signs of infection]
+  Skin: [Excoriations from pruritus, calciphylaxis signs]
+
+DIAGNOSTICS
+───────────
+
+  Renal Function Trend
+  ────────────────────
+  Date        Cr (mg/dL)   eGFR (mL/min)   UACR/UPCR
+  ──────────  ──────────   ─────────────    ──────────
+  M/D/YY      ***          ***              ***
+  M/D/YY      ***          ***              ***
+  M/D/YY      ***          ***              ***
+
+  eGFR trajectory: [Stable / Declining at *** mL/min/year / Improving]
+
+  Electrolytes
+  ────────────
+  Na: ***  K: ***  Cl: ***  CO2: ***  BUN: ***  Cr: ***
+  Ca: ***  Phos: ***  Mg: ***
+  [Trends from prior if relevant]
+
+  Bone Mineral Disease Panel
+  ──────────────────────────
+  PTH (intact): *** pg/mL (target for CKD stage: ***)
+  Calcium: *** mg/dL
+  Phosphorus: *** mg/dL (target: 2.5-4.5)
+  Vitamin D (25-OH): *** ng/mL
+  Alkaline phosphatase: ***
+  DEXA: [Date, T-scores if available]
+
+  Anemia Panel
+  ────────────
+  Hgb: *** g/dL (target: 10-11.5 for CKD/ESRD)
+  Iron: ***  TIBC: ***  Ferritin: ***  TSAT: ***%
+  Reticulocyte count: ***
+
+  Proteinuria Quantification
+  ──────────────────────────
+  UACR: *** mg/g (prior: *** on M/D/YY)
+  or UPCR: *** mg/g (prior: *** on M/D/YY)
+  or 24-hour urine protein: *** mg/day
+  Trend: [Improving / Stable / Worsening]
+
+  Urinalysis
+  ──────────
+  [Protein, blood, RBC casts, WBC, bacteria]
+
+  Imaging
+  ───────
+  [Renal US, CT abdomen, renal Doppler, VCUG, MAG3 scan]
+
+  Other Studies
+  ─────────────
+  [Kidney biopsy results, complement levels, ANCA, anti-GBM,
+  anti-PLA2R, serum/urine protein electrophoresis, free light chains]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [relevant renal history summary]
+presenting for [visit type]. [One-sentence trajectory statement.]
+
+  1. [Primary renal condition]
+     [Brief assessment: current stage/severity, trajectory,
+     key data supporting assessment.]
+
+  2. [Secondary renal condition, if applicable]
+     [Brief assessment.]
+
+  3. [Relevant comorbidities affecting renal management]
+     [Brief assessment.]
+
+  [For CKD patients, include:]
+  CKD Staging and Trajectory
+  ──────────────────────────
+  CKD stage: G*** A*** (eGFR ***, UACR/UPCR ***)
+  eGFR trend: *** mL/min/year decline
+  KDIGO risk category: [Low / Moderate / High / Very high]
+  Projected time to ESRD: [if calculable]
+  Renal replacement therapy planning: [Not yet / Initiated / Complete]
+
+  [For dialysis patients, include:]
+  Dialysis Adequacy Summary
+  ─────────────────────────
+  Kt/V: *** (target: ***)
+  Access: [Type, status]
+  Volume management: [At dry weight / Above dry weight by *** kg]
+  Anemia: Hgb *** on ESA [drug, dose]
+  CKD-MBD: PTH ***, Ca ***, Phos ***
+
+PLAN
+────
+  1. [Primary renal condition]
+     - [Specific action: ACEi/ARB dose titration, SGLT2i initiation,
+       immunosuppression change, dialysis prescription adjustment,
+       access intervention, transplant workup step]
+     - [Specific action]
+     - [Specific action]
+
+  2. [Hypertension management]
+     - BP target: [&lt;130/80 or individualized]
+     - [Medication changes with specific doses]
+
+  3. [CKD-MBD management]
+     - [Phosphate binder adjustment, vitamin D dosing, calcimimetic change]
+
+  4. [Anemia management]
+     - [ESA dose change, iron repletion plan]
+
+  5. [Electrolyte management]
+     - [Specific interventions: bicarbonate, potassium binder, etc.]
+
+  6. [Nephrotoxin avoidance]
+     - [Specific counseling: avoid NSAIDs, minimize contrast, etc.]
+
+  Monitoring
+  ──────────
+  - Labs: [Specific panels and timing]
+  - Imaging: [If indicated]
+  - Dialysis adequacy: [Next Kt/V]
+  - Proteinuria: [Next UACR/UPCR timing]
+
+  Referrals
+  ─────────
+  [Vascular surgery for access, transplant surgery, dietitian,
+  social work for dialysis planning, urology]
+
+  Follow-Up
+  ─────────
+  Return to nephrology clinic in [interval].
+  [Specific criteria for earlier return or ED visit.]
+
+DISPOSITION
+───────────
+[Patient counseled on ***, agrees with plan.
+Return precautions reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: reason for visit, renal diagnosis and stage, interval symptoms, dialysis data if applicable, current medications with doses, vitals including BP, exam findings, labs (BMP, CBC, iron studies, PTH, vitamin D, proteinuria, UA), imaging, biopsy results, and transplant status.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Transplant evaluation | Add: "This is a kidney transplant evaluation visit. Include the transplant checklist: cardiac clearance, cancer screening, dental clearance, psychosocial evaluation, insurance authorization, and immunological workup (PRA, crossmatch, HLA typing)." |
+| Post-transplant | Add: "This patient is post-kidney transplant. Document immunosuppression regimen (calcineurin inhibitor trough, mycophenolate dose, prednisone), allograft function, rejection surveillance (DSA, protocol biopsy), and BK virus monitoring." |
+| Pediatric nephrology | Add: "This is a pediatric patient. Include growth percentiles, age-appropriate GFR calculation, and developmental assessment." |
+| Pregnancy and CKD | Add: "This patient is pregnant or planning pregnancy. Document CKD stage, teratogenic medication review, BP target in pregnancy, proteinuria monitoring plan, and obstetric nephrology coordination." |
+| Stone prevention | Add: "This patient has recurrent nephrolithiasis. Include 24-hour urine results (volume, calcium, oxalate, citrate, uric acid, sodium, pH, supersaturation), stone analysis, and metabolic prevention strategy." |
+
+---
+
+## Variations
+
+### CKD progression management
+
+Use this for the patient with established CKD (stages 3-5, not yet on dialysis) being followed for disease progression, GDMT optimization, and renal replacement therapy planning. The note centers on GFR trajectory, proteinuria management, and complication prevention.
+
+<PromptPlayground tool="Claude" title="CKD Progression Management">
+You are an outpatient nephrologist writing a clinic visit note for a patient with CKD stages 3-5 (not yet on dialysis). Structure the note around GFR trajectory, proteinuria management, CKD complication prevention, and renal replacement therapy planning.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document CKD stage per KDIGO (GFR category G1-G5 and albuminuria category A1-A3).
+- Plot GFR trend with at least 2 data points and calculate approximate annual rate of decline.
+- Document proteinuria trend (UACR or UPCR) with at least 2 data points.
+- Assess each CKD complication domain: hypertension, anemia, CKD-MBD, metabolic acidosis, hyperkalemia, volume.
+- Document nephroprotective medication status: ACEi/ARB (maximal dose?), SGLT2i, and finerenone if applicable.
+- For CKD stage 4-5: document renal replacement therapy education and modality selection progress.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+CKD MANAGEMENT VISIT
+══════════════════════════════════════════
+
+CKD PROFILE
+────────────
+  Etiology: ***
+  Current stage: G*** A*** (eGFR ***, UACR ***)
+  Date CKD first documented: ***
+  Biopsy: [Date, findings / Not performed]
+  Comorbidities driving progression: [DM / HTN / GN / ADPKD / Other]
+
+GFR TRAJECTORY
+──────────────
+  Date        Cr (mg/dL)   eGFR (mL/min/1.73m2)
+  ──────────  ──────────   ────────────────────
+  M/D/YY      ***          ***
+  M/D/YY      ***          ***
+  M/D/YY      ***          ***
+
+  Annual eGFR decline: approximately *** mL/min/year
+  [Normal age-related decline: ~1 mL/min/year after age 40.
+   Decline &gt;5 mL/min/year = rapid progression.]
+
+PROTEINURIA TREND
+─────────────────
+  Date        UACR (mg/g) or UPCR (mg/g)
+  ──────────  ─────────────────────────────
+  M/D/YY      ***
+  M/D/YY      ***
+  Trend: [Improving / Stable / Worsening]
+
+NEPHROPROTECTIVE THERAPY STATUS
+───────────────────────────────
+  ACEi/ARB: [Drug, current dose, max dose, barrier to titration]
+  SGLT2i: [Drug, dose / Not started (reason) / Contraindicated (reason)]
+  Finerenone: [If diabetic CKD with albuminuria: started / not started / not indicated]
+  BP target: &lt;130/80 (or individualized: ***)
+  Current BP: ***
+  Home BP average: ***
+
+CKD COMPLICATION DOMAINS
+────────────────────────
+  Hypertension
+  ────────────
+  Current BP: ***
+  Home average: ***
+  Regimen: [List antihypertensives with doses]
+  At target: [Y/N]
+
+  Anemia
+  ──────
+  Hgb: *** (target: 10-11.5 g/dL)
+  Iron: TSAT ***%, Ferritin ***
+  ESA: [Not started / Drug, dose, frequency]
+  Iron repletion: [IV iron last dose / PO iron dose / Replete]
+
+  CKD-MBD
+  ───────
+  PTH: *** (target for CKD stage: ***)
+  Ca: ***  Phos: ***
+  Vitamin D (25-OH): ***
+  Phosphate binder: [Drug, dose]
+  Vitamin D supplement: [Drug, dose]
+
+  Metabolic Acidosis
+  ──────────────────
+  CO2: *** (target ≥22 mEq/L)
+  Sodium bicarbonate: [Dose / Not needed]
+
+  Hyperkalemia
+  ────────────
+  K: ***
+  Potassium binder: [Drug, dose / Not needed]
+  Dietary counseling: [Done / Needs reinforcement]
+
+  Volume
+  ──────
+  Edema: ***
+  Diuretic: [Drug, dose / Not needed]
+  Fluid restriction: [Y/N, target]
+
+NEPHROTOXIN REVIEW
+──────────────────
+  NSAIDs: [Use Y/N, counseled to avoid]
+  Recent contrast exposure: [Y/N]
+  Other nephrotoxins: ***
+
+RENAL REPLACEMENT THERAPY PLANNING
+───────────────────────────────────
+  [For CKD stage 4-5:]
+  Education provided: [Y/N, date]
+  Modality preference: [HD / PD / Transplant / Conservative / Undecided]
+  Access planning: [AVF referral date / PD catheter plan / Not yet indicated]
+  Transplant evaluation: [Status]
+
+ASSESSMENT AND PLAN
+───────────────────
+  1. CKD G*** A***, [etiology], [trajectory]
+     - Nephroprotective therapy: [ACEi/ARB titration, SGLT2i status,
+       finerenone consideration]
+     - Proteinuria management: [Target and strategy]
+     - BP management: [Specific medication changes]
+
+  2. CKD-MBD
+     - [Phosphate binder, vitamin D, calcimimetic adjustments]
+
+  3. Anemia
+     - [ESA and iron management plan]
+
+  4. Metabolic acidosis
+     - [Bicarbonate dosing]
+
+  5. Renal replacement planning (if stage 4-5)
+     - [Next step: access referral, transplant eval, education]
+
+  6. Monitoring
+     - Labs: [BMP, CBC, iron studies, PTH, vitamin D, UACR; timing]
+     - Follow-up in [interval]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: CKD stage, etiology, GFR and creatinine history with dates, proteinuria history, current medications with doses, BP readings, labs (BMP, CBC, iron studies, PTH, vitamin D, UACR), dialysis planning status, transplant status.]
+</PromptPlayground>
+
+### Dialysis follow-up
+
+Use this for patients on hemodialysis or peritoneal dialysis returning for routine management. The note is structured around dialysis adequacy, access status, anemia and bone mineral disease management, and volume control.
+
+<PromptPlayground tool="Claude" title="Dialysis Follow-Up Visit">
+You are an outpatient nephrologist writing a clinic visit note for a patient on maintenance dialysis (hemodialysis or peritoneal dialysis). Structure the note around dialysis adequacy, access status, anemia, CKD-MBD, volume management, and transplant status.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document dialysis modality, schedule, and access type with status.
+- Report adequacy metrics: Kt/V (target ≥1.2 for HD, ≥1.7 weekly for PD), URR (target ≥65%).
+- Document dry weight and average interdialytic weight gain.
+- Track Hgb, iron indices, PTH, Ca, Phos trends.
+- Document ESA and IV iron doses with most recent administration dates.
+- Note missed sessions and reason.
+- Document residual renal function if present.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+DIALYSIS FOLLOW-UP
+══════════════════════════════════════════
+
+DIALYSIS PRESCRIPTION
+─────────────────────
+  Modality: [In-center HD / Home HD / CAPD / APD]
+  Schedule: [Days/week, hours/session]
+  Dialyzer: ***
+  Blood flow rate: *** mL/min
+  Dialysate: [Composition, K bath, Ca bath]
+  Dry weight: *** kg (last adjusted: M/D/YY)
+  Anticoagulation: [Heparin dose / Heparin-free]
+
+ACCESS
+──────
+  Type: [AVF / AVG / Tunneled catheter / PD catheter]
+  Location: ***
+  Date placed: ***
+  Status: [Functional / Maturing / Thrombosed / Infected / Stenotic]
+  Flow: [Adequate / Reduced]
+  Physical exam: [Thrill Y/N, bruit Y/N, aneurysm Y/N,
+    steal signs Y/N, arm edema Y/N]
+  Recent interventions: [Fistulogram, angioplasty, thrombectomy, revision]
+  Catheter exit site: [Clean / Erythema / Drainage]
+
+ADEQUACY
+────────
+  Most recent Kt/V: *** (date: ***) [target ≥1.2 HD / ≥1.7 wkly PD]
+  URR: ***% (date: ***) [target ≥65%]
+  Trend: [Adequate / Declining / Improving]
+  Residual urine output: [*** mL/day / Anuric]
+  Missed sessions (past month): *** [reason if applicable]
+
+INTERDIALYTIC ISSUES
+────────────────────
+  Average weight gain between sessions: *** kg
+  Intradialytic hypotension: [Frequency, management]
+  Cramping: [Y/N]
+  Access complications: [Bleeding, clotting, infection]
+  Dietary adherence: [Na, K, Phos, fluid restriction]
+
+INTERVAL HISTORY
+────────────────
+[Narrative: symptoms between sessions, hospitalizations,
+access issues, dietary compliance, volume symptoms,
+pruritus, restless legs, sleep, appetite.]
+
+CKD COMPLICATION MANAGEMENT
+───────────────────────────
+
+  Anemia
+  ──────
+  Hgb: *** [trend: *** → *** over past 3 months]
+  ESA: [Drug, dose, frequency, last administered]
+  Iron: IV [drug], last dose *** mg on M/D/YY
+  TSAT: ***%  Ferritin: ***
+  Target: Hgb 10-11.5 g/dL, TSAT &gt;20%, Ferritin &gt;200
+
+  CKD-MBD
+  ───────
+  PTH: *** [target for ESRD: 2-9x upper normal, roughly 150-600 pg/mL]
+  Ca: ***  Phos: ***  ALP: ***
+  Phosphate binder: [Drug, dose, with meals]
+  Vitamin D analog: [Drug, dose]
+  Calcimimetic: [Drug, dose]
+
+  Metabolic
+  ─────────
+  K (pre-dialysis): ***
+  CO2 (pre-dialysis): ***
+  Albumin: *** [nutrition marker]
+
+TRANSPLANT STATUS
+─────────────────
+  [Active on list / Evaluation in progress / Not a candidate / Not pursuing]
+  [If listed: blood type, PRA, time on list, cross-match status]
+
+ASSESSMENT AND PLAN
+───────────────────
+  1. ESRD on [HD/PD], [adequacy status]
+     - Dialysis prescription: [Changes to time, frequency, blood flow,
+       dialysate, dry weight adjustment]
+     - Missed sessions: [Counseling, barrier assessment]
+
+  2. Vascular/PD access
+     - [Access plan: surveillance, intervention, maturation timeline]
+
+  3. Anemia
+     - ESA: [Dose adjustment: increase/decrease/hold with rationale]
+     - Iron: [Next IV iron dose and date, or iron replete]
+
+  4. CKD-MBD
+     - [Binder, vitamin D, calcimimetic adjustments]
+
+  5. Volume/BP
+     - [Dry weight adjustment, fluid restriction, BP meds]
+
+  6. Transplant
+     - [Status update]
+
+  7. Follow-up in [interval]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: dialysis modality and schedule, access type and status, most recent adequacy labs (Kt/V, URR), dry weight, interdialytic weight gains, Hgb, iron studies, PTH, Ca, Phos, albumin, pre-dialysis K and bicarb, ESA and iron doses, missed sessions, transplant status, interval symptoms.]
+</PromptPlayground>
+
+### Glomerulonephritis monitoring
+
+Use this for patients with biopsy-proven or clinically diagnosed glomerulonephritis being followed for treatment response, proteinuria trends, and immunosuppression management.
+
+<PromptPlayground tool="Claude" title="Glomerulonephritis Monitoring">
+You are an outpatient nephrologist writing a clinic visit note for a patient with glomerulonephritis. Structure the note around histologic diagnosis, proteinuria and renal function trends, immunosuppression management, and response assessment.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the histologic or clinical diagnosis with biopsy findings if available.
+- Track proteinuria (UPCR or 24-hour urine protein) and GFR trends with at least 2 data points.
+- Document immunosuppression regimen with doses, duration, and side effects.
+- Include serologic markers relevant to the specific GN type (complement levels, anti-dsDNA, ANCA, anti-PLA2R, anti-GBM).
+- Classify treatment response: complete remission, partial remission, no response, relapse.
+- Note infection prophylaxis on immunosuppression (PJP prophylaxis, hepatitis B, vaccinations).
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+GLOMERULONEPHRITIS CLINIC VISIT
+══════════════════════════════════════════
+
+GN CLASSIFICATION
+─────────────────
+  Diagnosis: [IgA nephropathy / Membranous nephropathy / FSGS /
+    Minimal change disease / Lupus nephritis (ISN/RPS class) /
+    ANCA vasculitis / Anti-GBM / Membranoproliferative GN /
+    C3 glomerulopathy / Other]
+  Biopsy date: ***
+  Biopsy findings: [Light microscopy, IF, EM key findings]
+  Secondary etiology evaluation: [Completed / Pending]
+
+DISEASE ACTIVITY MARKERS
+────────────────────────
+  Proteinuria Trend
+  ─────────────────
+  Date        UPCR (mg/g) or 24h protein (mg/day)   eGFR
+  ──────────  ─────────────────────────────────────   ────
+  M/D/YY      ***                                     ***
+  M/D/YY      ***                                     ***
+  M/D/YY      ***                                     ***
+
+  Serologic Markers (disease-specific)
+  ────────────────────────────────────
+  [IgA: IgA level, C3, C4]
+  [Membranous: anti-PLA2R titer, C3, C4]
+  [Lupus: anti-dsDNA, C3, C4, ANA]
+  [ANCA vasculitis: PR3-ANCA or MPO-ANCA titer]
+  [Anti-GBM: anti-GBM titer]
+  Current values: ***
+  Trend: [Declining (favorable) / Rising (concerning) / Stable]
+
+  Response Assessment
+  ───────────────────
+  [Complete remission: proteinuria &lt;300 mg/day with stable GFR
+   Partial remission: &gt;50% reduction in proteinuria, still &gt;300 mg/day
+   No response: &lt;50% reduction or worsening
+   Relapse: recurrence of proteinuria after prior remission]
+
+IMMUNOSUPPRESSION
+─────────────────
+  Induction: [Regimen, dates, duration]
+  Maintenance: [Current regimen with doses]
+    Corticosteroids: [Drug, dose, taper schedule]
+    Steroid-sparing agent: [Drug, dose, start date]
+    Calcineurin inhibitor: [Drug, dose, trough level]
+    Other: [Rituximab last infusion date, cyclophosphamide cumulative dose]
+  Side effects: ***
+  Duration of current therapy: ***
+
+INFECTION PROPHYLAXIS
+─────────────────────
+  PJP prophylaxis: [TMP-SMX / Dapsone / Atovaquone / Not indicated]
+  Hepatitis B status: [HBsAg, anti-HBs, anti-HBc]
+  Vaccinations: [Flu, pneumococcal, COVID, hepatitis B]
+  Infection episodes since last visit: ***
+
+INTERVAL HISTORY
+────────────────
+[Narrative: edema, foamy urine, hematuria, weight change,
+medication side effects, infections, flare symptoms.]
+
+EXAM AND DIAGNOSTICS
+────────────────────
+  [BP, weight, edema, relevant exam findings.
+  Labs: BMP, CBC, albumin, cholesterol, urinalysis with microscopy,
+  proteinuria quantification, serologic markers.]
+
+ASSESSMENT AND PLAN
+───────────────────
+  1. [GN diagnosis], [response status]
+     - Immunosuppression: [Continue / Taper / Intensify / Switch, with
+       specific dose changes and rationale]
+     - Proteinuria management: [ACEi/ARB titration, SGLT2i]
+     - BP target: &lt;130/80 (or per specific GN guidelines)
+
+  2. Infection prevention
+     - [Prophylaxis continuation, vaccination updates]
+
+  3. Monitoring
+     - Labs: [UPCR, BMP, CBC, serologic markers, drug levels; timing]
+     - Consider repeat biopsy if: [Criteria]
+
+  4. Follow-up in [interval]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: GN diagnosis with biopsy findings, proteinuria history with dates, GFR trend, serologic markers, current immunosuppression with doses, infection prophylaxis, vaccination status, side effects, interval symptoms, exam, labs.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+58-year-old female with CKD stage 4 from diabetic nephropathy and hypertensive nephrosclerosis, T2DM x 20 years, HTN. No biopsy. eGFR trend: 38 (3/25), 32 (9/25), 28 (3/26). Cr today 2.1. UACR 1840 mg/g (was 1520 in 9/25, 980 in 3/25). On lisinopril 40 mg daily (max dose), dapagliflozin 10 mg daily (started 9/25), amlodipine 10 mg daily, metoprolol succinate 50 mg daily, furosemide 20 mg daily, sevelamer 800 mg TID with meals, calcitriol 0.25 mcg daily, epoetin alfa 4000 units subQ weekly (started 1/26), sodium bicarbonate 650 mg TID. Home BP average 142/88. Office BP 148/92. HR 72. Weight 187 lbs (was 184 in 9/25). Labs today: Na 138, K 5.1, CO2 20, BUN 48, Cr 2.1, Ca 9.0, Phos 5.8, Mg 2.0, Hgb 9.8 (was 9.2 in 1/26 when ESA started), ferritin 180, TSAT 18%, PTH 289, 25-OH vitamin D 22, albumin 3.4, A1c 7.8. UA: 3+ protein, no blood, no casts. No NSAIDs. Last contrast 2 years ago. She reports increased fatigue, mild bilateral ankle swelling, no foamy urine change, no hematuria. Adhering to low-sodium diet "most of the time." Not yet educated on dialysis modalities. No transplant evaluation started. She has a daughter interested in being a living donor.
+
+**LLM output:**
+
+NEPHROLOGY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Follow-up
+Interval since last visit: 6 months
+
+CHIEF CONCERN
+─────────────
+CKD progression, worsening proteinuria, fatigue
+
+RENAL HISTORY
+─────────────
+  Primary diagnosis: Chronic kidney disease (CKD), stage G4 A3
+  Etiology: Diabetic nephropathy and hypertensive nephrosclerosis
+  Date of diagnosis: [Not provided; verify before signing]
+  Biopsy: Not performed
+  CKD stage: G4 A3 (estimated glomerular filtration rate (eGFR) 28 mL/min/1.73m2, urine albumin-to-creatinine ratio (UACR) 1840 mg/g)
+  Key history:
+    - Type 2 diabetes mellitus (T2DM) x 20 years
+    - Hypertension
+    - No AKI episodes documented
+    - No prior dialysis or transplant
+
+INTERVAL HISTORY
+────────────────
+Patient reports increased fatigue over the past several months, which she attributes to "feeling worn down." She notes mild bilateral ankle swelling that is worse at the end of the day and improves overnight. She denies changes in urine appearance (no increase in foaminess, no hematuria, no decrease in urine volume). She reports adherence to a low-sodium diet "most of the time" but acknowledges occasional lapses. She denies nausea, vomiting, pruritus, muscle cramps, or bone pain. No hospitalizations or ED visits since last visit. She has not yet received education on dialysis modalities. Her daughter has expressed interest in being a living donor but no formal evaluation has started.
+
+CURRENT MEDICATIONS
+───────────────────
+  Renal Medications
+  ─────────────────
+  ACEi: Lisinopril 40 mg daily (maximum dose)
+  SGLT2 inhibitor (SGLT2i): Dapagliflozin 10 mg daily (started 9/25)
+  Diuretic: Furosemide 20 mg daily
+  Phosphate binder: Sevelamer 800 mg three times daily with meals
+  Erythropoiesis-stimulating agent (ESA): Epoetin alfa 4000 units subcutaneous weekly (started 1/26)
+  Vitamin D analog: Calcitriol 0.25 mcg daily
+  Sodium bicarbonate 650 mg three times daily
+
+  Antihypertensives
+  ─────────────────
+  Lisinopril 40 mg daily (dual role: renoprotection + BP)
+  Amlodipine 10 mg daily
+  Metoprolol succinate 50 mg daily
+
+  Nephrotoxin Screen
+  ──────────────────
+  NSAIDs: No
+  Recent IV contrast: No (last exposure 2 years ago)
+  Aminoglycosides: No
+  Lithium: No
+
+VITAL SIGNS
+───────────
+  BP (office): 148/92 mmHg
+  Home BP (average): 142/88 mmHg
+  HR: 72 bpm
+  Weight: 187 lbs (up 3 lbs from 184 lbs in 9/25)
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: [Not provided; verify before signing]
+  Cardiovascular: [Not provided; verify before signing]
+  Extremities: Mild bilateral ankle edema.
+  Skin: [Not provided; verify before signing]
+
+DIAGNOSTICS
+───────────
+
+  Renal Function Trend
+  ────────────────────
+  Date        Cr (mg/dL)   eGFR (mL/min/1.73m2)   UACR (mg/g)
+  ──────────  ──────────   ────────────────────     ──────────
+  3/25        [~1.7]       38                        980
+  9/25        [~1.9]       32                        1520
+  3/26        2.1          28                        1840
+
+  eGFR trajectory: Declining at approximately 10 mL/min/year. This exceeds the threshold for rapid progression (>5 mL/min/year).
+  Proteinuria trajectory: Worsening despite ACEi at max dose and SGLT2i. Rising from 980 to 1840 mg/g over 12 months.
+
+  Electrolytes
+  ────────────
+  Na 138, K 5.1, Cl [Not provided], CO2 20, BUN 48, Cr 2.1
+  Ca 9.0, Phos 5.8, Mg 2.0
+
+  Bone Mineral Disease Panel
+  ──────────────────────────
+  Intact parathyroid hormone (PTH): 289 pg/mL (target for CKD stage 4: approximately 2-9x upper limit of normal)
+  Calcium: 9.0 mg/dL
+  Phosphorus: 5.8 mg/dL (above target of 2.5-4.5)
+  Vitamin D (25-OH): 22 ng/mL (insufficient)
+  Alkaline phosphatase: [Not provided; verify before signing]
+
+  Anemia Panel
+  ────────────
+  Hgb: 9.8 g/dL (improved from 9.2 on 1/26 since starting ESA)
+  Ferritin: 180 ng/mL
+  Transferrin saturation (TSAT): 18% (below target of &gt;20%)
+  Reticulocyte count: [Not provided; verify before signing]
+
+  Proteinuria Quantification
+  ──────────────────────────
+  UACR: 1840 mg/g (prior: 1520 on 9/25, 980 on 3/25)
+  Trend: Worsening
+
+  Urinalysis
+  ──────────
+  3+ protein, no blood, no casts.
+
+  Other
+  ─────
+  A1c: 7.8%
+  Albumin: 3.4 g/dL
+
+ASSESSMENT
+──────────
+58-year-old female with CKD stage G4 A3 from diabetic nephropathy and hypertensive nephrosclerosis, presenting for follow-up with evidence of rapid eGFR decline (10 mL/min/year), worsening proteinuria despite maximal ACEi and SGLT2i, uncontrolled hypertension, suboptimal anemia management, and hyperphosphatemia.
+
+  1. CKD G4 A3, rapidly progressing
+     eGFR has declined from 38 to 28 over 12 months (10 mL/min/year), well above the threshold for rapid progression. Proteinuria continues to worsen despite lisinopril at maximum dose and dapagliflozin (started 6 months ago). At this rate, she may reach ESRD within 2-3 years. Renal replacement therapy planning is now urgent.
+
+  2. Hypertension, uncontrolled
+     Office BP 148/92, home average 142/88, both above the target of &lt;130/80. Already on lisinopril 40, amlodipine 10, metoprolol 50. Needs additional agent.
+
+  3. Renal anemia, improving on ESA
+     Hgb improved from 9.2 to 9.8 since starting epoetin alfa in 1/26. TSAT 18% is below target, limiting ESA response.
+
+  4. CKD-mineral and bone disorder (CKD-MBD)
+     Phosphorus 5.8 (elevated), PTH 289 (within acceptable range for CKD4 but at upper end), vitamin D 22 (insufficient). Sevelamer dose may be inadequate.
+
+  5. Metabolic acidosis
+     CO2 20, below the target of ≥22 despite current sodium bicarbonate.
+
+  6. Hyperkalemia risk
+     K 5.1 on ACEi, SGLT2i, and CKD4. Not critical but needs monitoring, especially if adding finerenone.
+
+  CKD Staging and Trajectory
+  ──────────────────────────
+  CKD stage: G4 A3 (eGFR 28, UACR 1840)
+  eGFR trend: -10 mL/min/year (rapid progression)
+  KDIGO risk category: Very high
+  Projected time to ESRD: approximately 2-3 years at current rate
+  Renal replacement therapy planning: Not yet initiated; needs immediate attention
+
+PLAN
+────
+  1. CKD, rapidly progressing
+     - Continue lisinopril 40 mg daily (maximum dose; renoprotective)
+     - Continue dapagliflozin 10 mg daily (only 6 months in; may not have shown full proteinuria benefit yet; continue and reassess at next visit)
+     - Start finerenone 10 mg daily for additional proteinuria reduction in diabetic kidney disease (FIDELIO-DKD, FIGARO-DKD evidence); requires K monitoring. Hold if K rises above 5.5. Recheck BMP in 1 week after starting.
+     - Recheck UACR in 3 months to assess combined effect of SGLT2i + finerenone
+     - Refer to kidney transplant center for evaluation; daughter interested in living donor evaluation, initiate both recipient and donor workups
+     - Schedule renal replacement therapy education session (modality options: HD, PD, transplant, conservative management)
+
+  2. Hypertension
+     - Add chlorthalidone 12.5 mg daily (synergistic with loop diuretic at this GFR; also helps with volume)
+     - Increase furosemide from 20 mg daily to 40 mg daily for edema and BP
+     - Target BP &lt;130/80
+     - Continue home BP monitoring; bring log to next visit
+     - Recheck BMP in 1 week (monitoring Cr, K, Na with diuretic changes and finerenone start)
+
+  3. Anemia
+     - Continue epoetin alfa 4000 units subQ weekly (Hgb trending up appropriately)
+     - TSAT 18%, below the 20% target: administer IV iron sucrose 200 mg x 5 doses (total 1 g); schedule infusions
+     - Recheck CBC and iron studies in 4 weeks after iron repletion
+     - Target Hgb 10-11.5 g/dL
+
+  4. CKD-MBD
+     - Increase sevelamer from 800 mg TID to 1600 mg TID with meals (phosphorus 5.8, above target)
+     - Start ergocalciferol 50,000 IU weekly x 8 weeks for vitamin D insufficiency (25-OH of 22), then 2000 IU daily maintenance
+     - Continue calcitriol 0.25 mcg daily
+     - Recheck PTH, Ca, Phos, vitamin D in 3 months
+
+  5. Metabolic acidosis
+     - Increase sodium bicarbonate from 650 mg TID to 1300 mg TID (CO2 still 20, target ≥22)
+     - Recheck BMP in 1 week
+
+  6. Diabetic management
+     - A1c 7.8%, reasonable for CKD stage 4 (avoid hypoglycemia)
+     - Defer to endocrinology/PCP for glycemic management adjustments
+     - Dapagliflozin provides some A1c benefit
+
+  Monitoring
+  ──────────
+  - BMP: 1 week (post-finerenone, post-diuretic changes, post-bicarb increase)
+  - CBC + iron studies: 4 weeks (post-iron repletion)
+  - UACR: 3 months
+  - PTH, Ca, Phos, vitamin D: 3 months
+  - A1c: 3 months
+
+  Referrals
+  ─────────
+  - Kidney transplant center: recipient evaluation + living donor workup for daughter
+  - Renal replacement therapy education (in-clinic or dedicated educator)
+  - Dietitian: reinforce low-sodium, low-phosphorus, potassium-conscious diet
+  - Vascular surgery for AVF evaluation (preemptive; given rapid progression)
+
+  Follow-Up
+  ─────────
+  Return to nephrology clinic in 6 weeks (earlier than usual given multiple medication changes and rapid CKD progression). Call clinic for worsening edema, shortness of breath, decreased urine output, or K-related symptoms (palpitations, muscle weakness).
+
+DISPOSITION
+───────────
+Patient counseled on CKD trajectory, the importance of transplant evaluation, renal replacement therapy options, finerenone initiation and potassium monitoring, dietary adherence, and the plan for IV iron infusions. She is interested in pursuing transplant evaluation and her daughter is willing to start donor workup. Agrees with plan. Return precautions reviewed.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **GFR trajectory is the most important number in a CKD note.** A single eGFR is a snapshot; the slope tells you the story. If you provide only one data point, the model cannot assess trajectory. Always include at least two eGFR values with dates. A decline of more than 5 mL/min/year qualifies as rapid progression and should change the management plan.
+- **Proteinuria quantification method matters.** UACR and UPCR are not interchangeable. UACR is more sensitive for diabetic kidney disease; UPCR captures non-albumin proteins (relevant in myeloma kidney, for instance). The model may not distinguish these unless you specify which was ordered.
+- **Dialysis adequacy numbers need context.** A Kt/V of 1.2 meets the minimum for HD, but a patient who is symptomatic with adequate Kt/V may benefit from increased dialysis time or frequency. The model documents the number; the clinical judgment about whether that number is sufficient for this patient is yours.
+- **PTH targets are ranges, not thresholds.** KDIGO recommends keeping PTH in the range of 2-9 times the upper limit of normal for ESRD patients, which is deliberately broad. The model may apply a more rigid cutoff. A PTH of 400 in an asymptomatic dialysis patient may not require intervention.
+- **Potassium management gets tricky on ACEi + SGLT2i + finerenone.** All three affect potassium. SGLT2i modestly lowers K, ACEi raises it, finerenone raises it. The net effect varies. Monitor closely after stacking these agents, especially in CKD4-5.
+- **Nephrotoxin documentation is medicolegally important.** Documenting that you screened for NSAID use and counseled the patient to avoid them protects you. The model includes this section, but only if you provide the data. If you do not mention NSAIDs in your input, the model may leave the section blank.
+- **Transplant planning has a long lead time.** It takes 6-12 months to complete a transplant evaluation. For a patient with rapid CKD progression, the referral should happen at stage 4, not stage 5. If the model does not prompt this, add it.
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) - for inpatient notes on admitted nephrology patients
+- [Consult Note](/templates/consult-note) - for inpatient nephrology consultations
+- [Referral Letter](/templates/referral-letter) - for patients being referred to your nephrology clinic
+- [Lab Interpretation](/templates/lab-interpretation) - for working through complex electrolyte panels
+- [Medication Reconciliation](/templates/medication-reconciliation) - for the detailed medication list with renal dosing

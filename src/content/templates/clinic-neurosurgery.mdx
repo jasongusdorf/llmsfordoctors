@@ -1,0 +1,863 @@
+---
+title: "Neurosurgery Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, neurosurgery, surgical, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "Dermatomal exams, mJOA scores, Karnofsky performance status, imaging correlation, surgical candidacy. Neurosurgery notes organized around the exam findings that drive decisions."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Neurosurgery clinic notes live or die on the neurological exam. A spine note without dermatomal findings is guesswork. A brain tumor note without Karnofsky performance status gives oncology nothing to work with. This template identifies the primary neurosurgical condition and structures the note around the exam findings, imaging details, and functional measures that drive the surgical decision. It handles lumbar stenosis and disc herniation, brain tumors, cervical myelopathy, hydrocephalus, trigeminal neuralgia, and Chiari malformation: the conditions that fill most neurosurgery outpatient schedules.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Neurosurgery Clinic Visit Note">
+You are an outpatient neurosurgeon writing a clinic visit note after seeing a patient. The patient's primary neurosurgical condition is one of: lumbar stenosis or disc herniation, brain tumor, cervical myelopathy, hydrocephalus, trigeminal neuralgia, or Chiari malformation. Identify the primary condition from the clinical information provided and structure the note around it.
+
+### Purpose
+
+Generate a complete, structured outpatient neurosurgery clinic note from the clinical data below. The note must capture a thorough neurological examination, disease-specific imaging interpretation, functional status assessment, and a concrete surgical or surveillance plan.
+
+### Rules
+
+- Write in past tense for history and prior events; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use (e.g., "modified Japanese Orthopedic Association (mJOA) score"), then abbreviation only thereafter.
+- Include specific numbers: MRC strength grades, reflex grading, tumor measurements, stenosis severity.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Organize the Assessment as a problem list with the primary neurosurgical condition first.
+- Plan items must be specific: procedure name, approach, levels, implant type, imaging interval, medication changes. Never write "surgical intervention may be warranted" without specifying what surgery.
+- For spine: clearly distinguish radiculopathy from myelopathy. Document exam by nerve root level. State whether imaging correlates with the clinical syndrome.
+- For brain tumor: document tumor type, grade, molecular markers, prior treatments, current size relative to prior imaging, and Karnofsky performance status (KPS).
+- For cervical myelopathy: document mJOA score, Hoffman sign, clonus, gait assessment, hand dexterity (grip-release test), and cord signal change on MRI.
+- For hydrocephalus: document shunt type, valve setting, symptoms of malfunction (headache pattern, gait change, cognitive decline, urinary incontinence), and last imaging comparison.
+- For trigeminal neuralgia: document Burchiel classification, trigger zones, pain distribution (V1/V2/V3), medication trials with doses and response.
+- For Chiari: document tonsillar descent measurement, syrinx status, cine MRI flow study results, and symptom correlation.
+- Do not infer or fabricate any clinical information not provided. Write "[Not provided; verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "MRC" = Medical Research Council (strength grading)
+- "mJOA" = modified Japanese Orthopedic Association
+- "KPS" = Karnofsky performance status
+- "ODI" = Oswestry Disability Index
+- "ACDF" = anterior cervical discectomy and fusion
+- "SLR" = straight leg raise
+- "EHL" = extensor hallucis longus
+- "CSF" = cerebrospinal fluid
+- "VP" = ventriculoperitoneal
+- "MVD" = microvascular decompression
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+NEUROSURGERY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[New consultation / Follow-up / Post-operative / Surveillance]
+Interval since last visit: [duration]
+Referring provider: ***
+
+CHIEF CONCERN
+─────────────
+***
+
+NEUROSURGICAL HISTORY
+─────────────────────
+  Prior neurosurgical procedures:
+    - [Date]: [Procedure, approach, levels/location, hardware, complications]
+    - [Date]: [Procedure]
+  Current implanted hardware/devices: [None / Shunt type and setting /
+    Spinal instrumentation (levels) / Bone flap status / Stimulator]
+
+DISEASE-SPECIFIC HISTORY
+─────────────────────────
+
+  [FOR LUMBAR STENOSIS/DISC HERNIATION:]
+  Lumbar Spine Details
+  ────────────────────
+    Clinical syndrome: [Radiculopathy / Neurogenic claudication /
+      Cauda equina / Mechanical back pain]
+    Duration: ***
+    Laterality: [Right / Left / Bilateral]
+    Dermatomal distribution: ***
+    Red flags: [Cauda equina screen: saddle anesthesia (Y/N), urinary
+      retention (Y/N), fecal incontinence (Y/N), progressive motor
+      deficit (Y/N)]
+    ODI score: ***%
+    Claudication distance: [*** blocks/minutes]
+    MRI lumbar spine: [Date]
+      Level-by-level:
+        L3-L4: ***
+        L4-L5: ***
+        L5-S1: ***
+      Conus: [Terminates at ***]
+    EMG/nerve conduction study (NCS): [Date, findings]
+    Clinical-imaging correlation: ***
+
+  [FOR BRAIN TUMOR:]
+  Brain Tumor Details
+  ───────────────────
+    Tumor type: ***
+    WHO grade: ***
+    Molecular markers: [IDH, 1p/19q, MGMT, ATRX, Ki-67, other]
+    Location: ***
+    Current size: *** cm (largest dimension)
+    Prior size: *** cm on [date]
+    Growth rate: ***
+    Prior treatments:
+      Surgery: [Date(s), extent of resection (GTR/STR/biopsy)]
+      Radiation: [Date, type (IMRT/SRS/proton), dose/fractions, field]
+      Chemotherapy: [Regimen, dates, cycles completed, response]
+    KPS: ***/100
+    Seizure history: [None / Controlled / Uncontrolled, AED regimen]
+    Steroid use: [None / Dexamethasone *** mg, duration, taper plan]
+
+  [FOR CERVICAL MYELOPATHY:]
+  Cervical Myelopathy Details
+  ───────────────────────────
+    Duration: ***
+    Progression: [Stable / Stepwise / Progressive]
+    mJOA score: ***/18 [components: motor upper *** /5, motor lower *** /5,
+      sensory *** /3, sphincter *** /3, upper extremity function *** /2]
+    Symptoms: [Hand clumsiness, gait imbalance, grip weakness,
+      Lhermitte phenomenon, sphincter dysfunction]
+    MRI cervical spine: [Date]
+      Level(s) of compression: ***
+      Cord compression: [Mild / Moderate / Severe]
+      Cord signal change: [T2 hyperintensity: Y/N, level(s)]
+      Disc/osteophyte complex: ***
+      OPLL: [Present / Absent]
+      Canal diameter: *** mm at narrowest level
+    CT cervical spine: [If obtained, bony anatomy detail]
+
+  [FOR HYDROCEPHALUS:]
+  Hydrocephalus Details
+  ─────────────────────
+    Etiology: [Communicating / Obstructive / NPH / Post-hemorrhagic /
+      Post-infectious / Congenital]
+    Shunt: [Type (VP / VA / LP), valve (manufacturer, model)]
+    Current setting: *** cmH2O
+    Implant date: ***
+    Last revision: [Date, reason]
+    Total revisions: ***
+    Symptoms of concern: [Headache pattern, gait change, cognitive
+      decline, urinary incontinence, visual changes]
+    CT/MRI: [Date, ventricular size, comparison to prior]
+    Shunt series X-ray: [Date, catheter continuity, position]
+
+  [FOR TRIGEMINAL NEURALGIA:]
+  Trigeminal Neuralgia Details
+  ────────────────────────────
+    Burchiel classification: [Type 1 (classic) / Type 2 (atypical)]
+    Duration: ***
+    Side: [Right / Left]
+    Division(s): [V1 / V2 / V3]
+    Trigger zones: ***
+    Attack frequency: ***
+    Attack duration: ***
+    Remission periods: ***
+    MRI brain with thin-cut posterior fossa: [Date, neurovascular
+      compression: Y/N, vessel (SCA/AICA/vein), tumor excluded]
+    Medication trials:
+      - Carbamazepine: [Max dose, response, side effects]
+      - Oxcarbazepine: [Max dose, response, side effects]
+      - Other: [Drug, dose, response]
+
+  [FOR CHIARI MALFORMATION:]
+  Chiari Details
+  ──────────────
+    Type: [I / II]
+    Tonsillar descent: *** mm below the foramen magnum
+    Syrinx: [Present: location, extent *** levels, max diameter *** mm / Absent]
+    Cine MRI CSF flow study: [Date, findings: obstruction at foramen
+      magnum Y/N, flow pattern]
+    Symptoms: [Suboccipital headache (Valsalva-provoked), neck pain,
+      extremity numbness, weakness, swallowing difficulty, balance]
+    Associated conditions: [Scoliosis, basilar invagination,
+      tethered cord, Ehlers-Danlos]
+    MRI brain/cervical spine: [Date, findings]
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph: symptom progression or improvement, functional
+changes, new neurological symptoms, hospitalizations, medication
+changes, rehabilitation progress.]
+
+CURRENT MEDICATIONS
+───────────────────
+  Neurological medications: [Antiepileptics, steroids, pain medications,
+    muscle relaxants with doses]
+  Anticoagulants: ***
+  Other: ***
+  Allergies: ***
+
+NEUROLOGICAL EXAMINATION
+────────────────────────
+  Mental status: [Alert/oriented, speech fluency, cognition screen]
+  Cranial nerves:
+    II: [Pupils (size, reactivity), visual fields, fundoscopy if checked]
+    III, IV, VI: [Extraocular movements, nystagmus]
+    V: [Sensation V1/V2/V3, masseter strength, corneal reflex]
+    VII: [Facial symmetry, strength]
+    VIII: [Hearing]
+    IX, X: [Palate elevation, gag, voice]
+    XI: [Trapezius, SCM strength]
+    XII: [Tongue: midline, atrophy, fasciculations]
+
+  Motor (MRC grading):
+    Upper extremity:
+      Deltoid: R ***/5, L ***/5
+      Biceps: R ***/5, L ***/5
+      Triceps: R ***/5, L ***/5
+      Wrist extension: R ***/5, L ***/5
+      Grip: R ***/5, L ***/5
+      Finger abduction (interossei): R ***/5, L ***/5
+    Lower extremity:
+      Hip flexion (iliopsoas): R ***/5, L ***/5
+      Knee extension (quadriceps): R ***/5, L ***/5
+      Ankle dorsiflexion: R ***/5, L ***/5
+      EHL (great toe extension): R ***/5, L ***/5
+      Ankle plantarflexion: R ***/5, L ***/5
+
+  Sensory:
+    Light touch: [By dermatome, upper and lower extremity]
+    Pinprick: [By dermatome]
+    Proprioception: [Great toe, fingers]
+    Vibration: [Tuning fork at malleoli, fingers]
+
+  Reflexes:
+    Biceps (C5-6): R [0-4+], L [0-4+]
+    Triceps (C7): R [0-4+], L [0-4+]
+    Brachioradialis (C6): R [0-4+], L [0-4+]
+    Patellar (L3-4): R [0-4+], L [0-4+]
+    Achilles (S1): R [0-4+], L [0-4+]
+    Hoffman sign: [Positive / Negative, bilateral]
+    Babinski sign: [Downgoing / Upgoing / Equivocal, bilateral]
+    Clonus: [Absent / Present (*** beats, location)]
+    Inverted radial reflex: [Present / Absent]
+
+  Coordination: [Finger-to-nose, heel-to-shin, rapid alternating movements]
+  Grip-release test: [*** cycles in 10 seconds (normal ≥20)]
+
+  Gait: [Normal / Spastic / Ataxic / Wide-based / Antalgic / Steppage]
+  Tandem gait: [Normal / Impaired]
+  Romberg: [Positive / Negative]
+
+  Provocative tests (spine):
+    Straight leg raise: R *** degrees, L *** degrees
+    Spurling: [Positive / Negative, side, reproduction of symptoms]
+    Lhermitte: [Positive / Negative]
+
+  [Post-op specific:]
+  Wound: [Incision healing, CSF leak signs, pseudomeningocele]
+  Hardware: [Palpable, tender, prominent]
+
+IMAGING REVIEW
+──────────────
+  MRI: [Date, detailed findings as relevant to condition]
+  CT: [Date, findings]
+  X-ray: [Date, alignment, hardware position, dynamic views]
+  Comparison to prior: [Date of prior study, interval change]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [primary neurosurgical condition]
+presenting for [visit type]. [One-sentence trajectory statement.]
+
+  1. [Primary neurosurgical condition]
+     [Brief assessment: severity, progression, imaging findings,
+     surgical indication or post-op recovery status.]
+
+  2. [Secondary condition]
+     [Brief assessment.]
+
+  3. [Other relevant conditions]
+     [Brief assessment.]
+
+PLAN
+────
+  1. [Primary neurosurgical condition]
+     - [Specific action: schedule surgery (procedure, approach, level),
+       order surveillance imaging, adjust medications, continue
+       observation with timeline]
+     - [Specific action]
+
+  2. [Secondary condition]
+     - [Specific action]
+
+  3. [Post-operative management, if applicable]
+     - [Activity restrictions, brace/collar, weight-bearing]
+     - [Wound care]
+     - [Hardware-related instructions]
+
+  Imaging
+  ───────
+  [Next MRI/CT: date and indication]
+
+  Follow-Up
+  ─────────
+  Return to neurosurgery clinic in [interval].
+  [Specific neurological changes requiring urgent evaluation:
+  progressive weakness, bowel/bladder dysfunction, acute severe
+  headache, new seizure, wound drainage.]
+
+DISPOSITION
+───────────
+[Patient counseled on ***, agrees with plan. Return precautions reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: chief complaint, neurosurgical history, disease-specific details, current medications, neurological exam findings, imaging results, functional status scores, and any prior conservative treatments.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Pediatric neurosurgery | Add: "This is a pediatric patient. Include developmental milestones, head circumference percentile, fontanelle status (if applicable), and age-appropriate neurological exam." |
+| Functional neurosurgery | Add: "This patient is being evaluated for functional neurosurgery (DBS, epilepsy surgery, spasticity). Document the specific functional indication, response to medical therapy, and relevant electrophysiology or monitoring data." |
+| Neuro-oncology co-management | Add: "This is a joint neuro-oncology visit. Include tumor board recommendations, chemotherapy cycle and response, radiation treatment summary, and RANO criteria for response assessment." |
+| Peripheral nerve | Add: "This patient has a peripheral nerve condition. Document the specific nerve, electrodiagnostic findings (EMG/NCS with specific values), Tinel sign location, and Seddon/Sunderland classification." |
+| Second opinion | Add: "This is a second opinion consultation. Review the outside provider's recommendation, your independent assessment of the imaging and clinical findings, and your agreement or disagreement with rationale." |
+
+---
+
+## Variations
+
+### Spine surgery consultation (lumbar stenosis)
+
+Use this when a patient with lumbar stenosis or disc herniation has been referred for neurosurgical evaluation. The note is structured around the clinical-imaging correlation that determines whether surgery will help, and which surgery to offer.
+
+<PromptPlayground tool="Claude" title="Lumbar Spine Surgical Consultation">
+You are an outpatient neurosurgeon writing a consultation note for a patient referred with lumbar stenosis or disc herniation. Structure the note around neurological assessment, clinical-imaging correlation, failed conservative treatment, and surgical recommendation.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Distinguish radiculopathy (single root, dermatomal) from neurogenic claudication (bilateral, positional, distance-limited) from cauda equina (emergency).
+- Document neurological exam by root level: L2 through S1.
+- State explicitly whether the imaging findings correlate with the clinical syndrome. If they do not, flag this.
+- Document all failed conservative treatments with dates, duration, and response.
+- Surgical recommendation must specify: decompression alone vs decompression with fusion, levels, approach (posterior/lateral/anterior), and rationale.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+LUMBAR SPINE NEUROSURGICAL CONSULTATION
+══════════════════════════════════════════
+
+REFERRAL AND CLINICAL SYNDROME
+──────────────────────────────
+  Referred by: ***
+  Clinical pattern: [Radiculopathy / Neurogenic claudication /
+    Cauda equina / Mechanical back pain]
+  Duration: ***
+  Laterality: ***
+  ODI score: ***%
+
+RED FLAG SCREEN
+───────────────
+  Saddle anesthesia: [Y/N]
+  Urinary retention/incontinence: [Y/N]
+  Fecal incontinence: [Y/N]
+  Progressive motor deficit: [Y/N]
+  Fever/weight loss/cancer history: [Y/N]
+
+NEUROLOGICAL EXAMINATION BY LEVEL
+──────────────────────────────────
+  [Detailed motor, sensory, reflex exam as in main template.]
+
+  Provocative tests:
+    SLR: R *** degrees, L *** degrees
+    Crossed SLR: ***
+    Femoral nerve stretch: ***
+
+  Gait: ***
+  Heel walk (L5): ***
+  Toe walk (S1): ***
+
+IMAGING
+───────
+  MRI lumbar spine: [Date]
+    [Level-by-level findings with specific attention to:]
+    - Disc: [Normal / Bulge / Protrusion / Extrusion / Sequestration]
+    - Central canal: [Patent / Stenosis: mild/moderate/severe, AP diameter]
+    - Lateral recess: [Patent / Stenosis: mild/moderate/severe]
+    - Foraminal: [Patent / Stenosis, nerve root impingement]
+    - Facet: [Normal / Hypertrophy / Cyst]
+    - Ligamentum flavum: [Normal / Hypertrophied]
+
+  X-ray: [Alignment, spondylolisthesis (grade, level), dynamic
+    instability on flexion-extension]
+
+  Clinical-imaging correlation:
+  [Explicit statement: "The L4-5 lateral recess stenosis on
+  imaging correlates with the patient's L5 radiculopathy
+  (EHL weakness, dorsal foot numbness)" OR "Imaging shows
+  multilevel disease but the clinical exam localizes to L5-S1."]
+
+CONSERVATIVE TREATMENT HISTORY
+──────────────────────────────
+  [Detailed as in main template: PT, injections with dates
+  and response, medications.]
+
+ASSESSMENT
+──────────
+[Summary: clinical syndrome, level, severity, imaging correlation,
+treatment history.]
+
+SURGICAL RECOMMENDATION
+───────────────────────
+  Procedure: ***
+  Levels: ***
+  Approach: [Posterior midline / Tubular MIS / Lateral (LLIF/OLIF) / Anterior]
+  Decompression: [Laminectomy / Hemilaminectomy / Laminotomy / Microdiscectomy / Foraminotomy]
+  Fusion: [Not indicated / Indicated]
+    Rationale for fusion: [Instability / Spondylolisthesis /
+      Recurrent herniation / Deformity correction / None]
+    If fusion: [Instrumentation (pedicle screws, interbody cage
+      type: TLIF/PLIF/ALIF/LLIF), bone graft plan]
+
+  Expected outcome: [Leg pain improvement 80-90%, back pain
+    improvement variable (50-70%), functional improvement]
+  Risks: [Infection, bleeding, nerve root injury, dural tear
+    (1-5%), recurrent herniation (5-10%), pseudarthrosis,
+    adjacent segment disease, hardware failure]
+  Alternatives: [Continued conservative care, epidural injections,
+    alternative surgical approach]
+
+PLAN
+────
+  1. [Specific surgical or conservative recommendation]
+  2. Pre-operative requirements: ***
+  3. Follow-up: ***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: symptoms, duration, neurological exam, MRI findings, conservative treatments with dates and response, functional status, ODI score.]
+</PromptPlayground>
+
+### Brain tumor post-op surveillance
+
+Use this for the patient with a known brain tumor returning for routine surveillance imaging and clinical assessment. The note is built around the comparison between current and prior imaging, the patient's functional trajectory, and the decision about continuing the current surveillance or treatment plan.
+
+<PromptPlayground tool="Claude" title="Brain Tumor Surveillance Visit">
+You are an outpatient neurosurgeon writing a clinic note for a patient with a known brain tumor returning for surveillance. Structure the note around imaging comparison, neurological status, functional trajectory, and the treatment or surveillance plan.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the tumor type, grade, molecular markers, and all prior treatments.
+- Compare current MRI to the last study: size change, enhancement pattern, edema, mass effect, new findings.
+- Document KPS and compare to the prior visit.
+- Document seizure control, steroid use, and any treatment-related toxicity.
+- Surveillance MRI interval must be specified with rationale (based on tumor grade and treatment status).
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+BRAIN TUMOR SURVEILLANCE VISIT
+══════════════════════════════════════════
+
+TUMOR SUMMARY
+─────────────
+  Diagnosis: ***
+  WHO grade: ***
+  Molecular markers: [IDH ***, 1p/19q ***, MGMT ***, other]
+  Location: ***
+  Date of diagnosis: ***
+
+TREATMENT HISTORY
+─────────────────
+  Surgery:
+    - [Date]: [Procedure, extent of resection (GTR/STR/biopsy)]
+    - [Date]: [Subsequent procedures]
+  Radiation: [Date, modality, dose/fractions]
+  Chemotherapy: [Regimen, cycles, dates, completion status]
+  Current treatment: [None (surveillance only) / Active: specify]
+
+INTERVAL HISTORY
+────────────────
+[Narrative: neurological symptoms, seizures (frequency, type,
+breakthrough events), headaches, cognitive changes, functional
+level, medication side effects, steroid use.]
+
+FUNCTIONAL STATUS
+─────────────────
+  KPS: ***/100 (prior: ***/100 on [date])
+  Work/activity: ***
+  Driving: [Yes / No / Restricted]
+  Seizures since last visit: [None / *** (type, frequency)]
+  AED regimen: [Drug, dose, level if checked, side effects]
+  Steroid: [None / Dexamethasone *** mg, duration]
+
+NEUROLOGICAL EXAMINATION
+────────────────────────
+  [Focused exam relevant to tumor location. Cranial nerves, motor,
+  sensory, coordination, gait. Compare to prior exam.]
+
+  Changes from prior exam: [None / New findings: ***]
+
+IMAGING COMPARISON
+──────────────────
+  Current MRI: [Date]
+    Size: *** cm (prior: *** cm on [date])
+    Enhancement: [None / Nodular / Ring / Stable / New / Increased]
+    FLAIR/T2 signal: [Stable / Increased / Decreased]
+    Edema: [None / Mild / Moderate / Severe, change from prior]
+    Mass effect: [None / Midline shift *** mm]
+    New findings: [None / ***]
+    Surgical cavity: [Stable / Evolving / Concerning for recurrence]
+
+  RANO assessment: [Complete response / Partial response /
+    Stable disease / Progressive disease]
+
+ASSESSMENT
+──────────
+[Summary: tumor type, grade, treatment status, current imaging
+finding, functional trajectory.]
+
+PLAN
+────
+  1. Tumor surveillance/management
+     - Imaging assessment: [Stable / Concerning for progression /
+       Pseudoprogression consideration]
+     - Next MRI: [Date, interval (e.g., every 3 months for grade IV,
+       every 6 months for low-grade, annual for benign)]
+     - [If progressive: options discussed (re-resection, re-irradiation,
+       clinical trial, change in chemotherapy, best supportive care)]
+
+  2. Seizure management
+     - [AED adjustment or continuation]
+     - [AED level if applicable]
+
+  3. Steroid management
+     - [Taper plan or continuation rationale]
+
+  4. Referrals/coordination
+     - [Neuro-oncology, radiation oncology, neuropsychology,
+       rehabilitation, palliative care]
+
+  5. Follow-up
+     - Return in [interval]
+     - [Neurological changes requiring earlier evaluation]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: tumor diagnosis and molecular markers, treatment history, interval symptoms, seizure history, medications, neurological exam, current and prior MRI findings with dates, KPS.]
+</PromptPlayground>
+
+### Shunt follow-up
+
+Use this for the hydrocephalus patient returning for shunt evaluation. The note is structured around symptoms of shunt malfunction, imaging comparison for ventricular size, and the valve adjustment or surgical decision.
+
+<PromptPlayground tool="Claude" title="Shunt Follow-Up Visit">
+You are an outpatient neurosurgeon writing a clinic note for a patient with a cerebrospinal fluid shunt returning for follow-up. Structure the note around symptoms of shunt malfunction, imaging comparison, and shunt management.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document shunt type, valve manufacturer and model, current setting, implant date, revision history.
+- Screen for malfunction symptoms: headache (positional character), gait change, cognitive decline, urinary incontinence, visual changes.
+- Screen for over-drainage: postural headache (worse upright, better supine), subdural collections.
+- Compare current imaging to baseline (last known good scan): ventricular size, catheter position, subdural collections.
+- Document shunt series X-ray if obtained: catheter continuity, kinks, disconnections, valve position.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+SHUNT FOLLOW-UP VISIT
+══════════════════════════════════════════
+
+SHUNT DETAILS
+─────────────
+  Etiology of hydrocephalus: ***
+  Shunt type: [VP / VA / LP]
+  Valve: [Manufacturer, model, programmable Y/N]
+  Current setting: *** cmH2O
+  Implant date: ***
+  Total revisions: ***
+  Last revision: [Date, reason, component replaced]
+
+MALFUNCTION SCREEN
+──────────────────
+  Headache: [None / Present: character, positional component,
+    severity, frequency]
+  Gait: [Normal / Changed: describe]
+  Cognition: [Normal / Changed: describe (memory, processing speed)]
+  Urinary: [Normal / Incontinence / Urgency / New]
+  Vision: [Normal / Blurred / Diplopia / Papilledema]
+  Nausea/vomiting: [None / Present]
+  Seizures: [None / Describe]
+  Abdominal pain (distal catheter): [None / Present]
+
+OVER-DRAINAGE SCREEN
+────────────────────
+  Postural headache: [None / Worse upright, better supine]
+  Subdural collections: [None on imaging / Present: *** mm, stable/new]
+  Slit ventricles on imaging: [Y/N]
+
+INTERVAL HISTORY
+────────────────
+[Narrative: symptom changes, functional trajectory, hospitalizations,
+ED visits, developmental progress (pediatric), academic/work
+performance.]
+
+NEUROLOGICAL EXAMINATION
+────────────────────────
+  [Focused exam: mental status, gait, coordination, cranial nerves
+  (especially papilledema check), upward gaze (Parinaud sign),
+  head circumference (pediatric).]
+
+  Shunt hardware exam: [Valve palpation: pumps/refills appropriately,
+    tenderness, skin integrity over hardware, tract palpation]
+
+IMAGING
+───────
+  CT/MRI brain: [Date]
+    Ventricular size: [Evans ratio ***, temporal horns ***, third ventricle ***]
+    Comparison: [Date of baseline/prior study]
+    Change: [Stable / Larger (concern for malfunction) / Smaller
+      (concern for over-drainage)]
+    Periventricular edema: [None / Present (transependymal flow)]
+    Subdural collections: [None / Present: size, density]
+    Catheter tip position: ***
+
+  Shunt series: [Date, if obtained]
+    Catheter continuity: [Intact / Disconnection at ***]
+    Valve position: ***
+    Distal catheter: [Position in peritoneum/atrium, kinks, migration]
+
+ASSESSMENT
+──────────
+[Summary: hydrocephalus etiology, shunt type, current symptom status,
+imaging findings, and shunt function assessment.]
+
+PLAN
+────
+  1. Shunt management
+     - Assessment: [Functioning appropriately / Suspected malfunction /
+       Over-drainage]
+     - Valve adjustment: [None / Reprogrammed from *** to *** cmH2O,
+       rationale: ***]
+     - [If malfunction suspected: OR for shunt exploration/revision,
+       components to check/replace]
+
+  2. [Symptom management]
+     - [Headache treatment, AED adjustment, etc.]
+
+  3. Imaging
+     - Next CT/MRI: [Date, interval]
+     - [If valve adjusted: repeat imaging in *** weeks to assess response]
+
+  4. Follow-up
+     - Return in [interval]
+     - [MRI safety: programmable valve must be checked after any MRI]
+     - [Emergency symptoms: severe headache, altered consciousness,
+       new vomiting, wound redness]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: hydrocephalus history, shunt details (type, valve, setting, revisions), current symptoms, neurological exam, imaging (CT/MRI with ventricular measurements, shunt series), and comparison to prior imaging.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+55-year-old male referred for progressive hand clumsiness and gait imbalance over 8 months. Dropping objects frequently. Difficulty with buttons. Wife notes he "shuffles" when walking. No neck pain. No bowel or bladder dysfunction. No trauma. PMH: HTN, hyperlipidemia. Meds: amlodipine 5, atorvastatin 40. No prior surgeries. MRI cervical spine (2/20/26): multilevel spondylosis, most severe at C4-5 and C5-6. C4-5: disc-osteophyte complex with moderate canal stenosis, AP diameter 8 mm, mild cord compression. C5-6: disc-osteophyte complex with severe canal stenosis, AP diameter 6 mm, cord compression with T2 hyperintensity in the cord. C3-4: mild stenosis, no cord compression. No instability on flexion-extension X-rays. Exam: mJOA 13/18. Grip-release 14 cycles/10 sec bilateral. Motor: deltoids 5/5 bil, biceps 5/5, triceps 4+/5 bil, grip 4/5 bil, interossei 4/5 bil, hip flexors 5/5, quads 5/5, ankle DF 5/5, EHL 5/5, plantarflexion 5/5. Sensory: diminished light touch C6-C8 bilateral hands. Reflexes: biceps 3+, triceps 3+, brachioradialis 3+, patellar 3+, Achilles 2+ bilateral. Hoffman positive bilateral. Babinski downgoing. No clonus. Gait: mildly spastic, wide-based, unsteady on tandem. Romberg positive. Lhermitte negative.
+
+**LLM output:**
+
+NEUROSURGERY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+New consultation
+Interval since last visit: N/A (initial visit)
+Referring provider: [Not provided; verify before signing]
+
+CHIEF CONCERN
+─────────────
+Progressive hand clumsiness and gait imbalance over 8 months
+
+NEUROSURGICAL HISTORY
+─────────────────────
+  Prior neurosurgical procedures: None
+  Current implanted hardware/devices: None
+
+DISEASE-SPECIFIC HISTORY
+─────────────────────────
+
+  Cervical Myelopathy Details
+  ───────────────────────────
+    Duration: 8 months, progressive
+    Progression: Gradually progressive hand dysfunction and gait imbalance
+    Modified Japanese Orthopedic Association (mJOA) score: 13/18
+    Symptoms: Dropping objects, difficulty with buttons (fine motor loss), shuffling gait. No neck pain. No Lhermitte phenomenon. No bowel or bladder dysfunction.
+    MRI cervical spine: 2/20/26
+      C3-4: Mild stenosis, no cord compression
+      C4-5: Disc-osteophyte complex, moderate canal stenosis, anteroposterior (AP) diameter 8 mm, mild cord compression, no cord signal change
+      C5-6: Disc-osteophyte complex, severe canal stenosis, AP diameter 6 mm, cord compression with T2 hyperintensity
+      C6-7: [Not provided; verify before signing]
+      Cord signal change: T2 hyperintensity at C5-6
+      OPLL: Absent
+    Flexion-extension X-rays: No instability
+    CT cervical spine: Not obtained
+
+INTERVAL HISTORY
+────────────────
+Patient reports a progressive 8-month course of bilateral hand clumsiness. He drops objects several times daily and has difficulty with buttons and fine manipulation. His wife notes a shuffling quality to his gait that has worsened over the past 3-4 months. He denies neck pain, radicular arm pain, and Lhermitte phenomenon. Bowel and bladder function remain intact. No prior trauma. No prior neck treatment (physical therapy, injections, or chiropractic care). He has not fallen, though he reports feeling unsteady on uneven ground.
+
+CURRENT MEDICATIONS
+───────────────────
+  Neurological medications: None
+  Anticoagulants: None
+  Other: Amlodipine 5 mg daily, atorvastatin 40 mg daily
+  Allergies: [Not provided; verify before signing]
+
+NEUROLOGICAL EXAMINATION
+────────────────────────
+  Mental status: Alert and oriented, speech fluent, no cognitive deficits apparent.
+
+  Cranial nerves: II-XII intact. No papilledema.
+
+  Motor (Medical Research Council (MRC) grading):
+    Upper extremity:
+      Deltoid: R 5/5, L 5/5
+      Biceps: R 5/5, L 5/5
+      Triceps: R 4+/5, L 4+/5
+      Wrist extension: [Not provided; verify before signing]
+      Grip: R 4/5, L 4/5
+      Finger abduction (interossei): R 4/5, L 4/5
+    Lower extremity:
+      Hip flexion: R 5/5, L 5/5
+      Knee extension: R 5/5, L 5/5
+      Ankle dorsiflexion: R 5/5, L 5/5
+      Extensor hallucis longus (EHL): R 5/5, L 5/5
+      Ankle plantarflexion: R 5/5, L 5/5
+
+  Sensory:
+    Light touch: Diminished in C6, C7, and C8 distributions bilaterally. Intact in lower extremities.
+    Pinprick: [Not provided; verify before signing]
+    Proprioception: [Not provided; verify before signing]
+
+  Reflexes:
+    Biceps (C5-6): R 3+, L 3+
+    Triceps (C7): R 3+, L 3+
+    Brachioradialis (C6): R 3+, L 3+
+    Patellar (L3-4): R 3+, L 3+
+    Achilles (S1): R 2+, L 2+
+    Hoffman sign: Positive bilaterally
+    Babinski sign: Downgoing bilaterally
+    Clonus: Absent
+
+  Coordination: [Not provided; verify before signing]
+  Grip-release test: 14 cycles in 10 seconds bilaterally (normal ≥20; abnormal)
+
+  Gait: Mildly spastic, wide-based. Unsteady on tandem gait.
+  Romberg: Positive
+  Lhermitte: Negative
+
+IMAGING REVIEW
+──────────────
+  MRI cervical spine (2/20/26): Multilevel cervical spondylosis. Most significant at C5-6 with severe canal stenosis (AP diameter 6 mm), cord compression, and intramedullary T2 signal change indicating myelomalacia. C4-5 with moderate stenosis (AP diameter 8 mm) and mild cord compression without signal change. C3-4 with mild stenosis only.
+  Flexion-extension X-rays: No dynamic instability.
+
+ASSESSMENT
+──────────
+55-year-old male with cervical spondylotic myelopathy presenting for neurosurgical consultation. He has an 8-month progressive course with bilateral hand dysfunction (grip weakness, loss of fine motor control) and spastic gait. mJOA score is 13/18, indicating moderate myelopathy. The neurological exam demonstrates upper motor neuron signs (hyperreflexia, bilateral Hoffman sign, spastic gait) and lower motor neuron findings at C5-6 (grip and interossei weakness). The exam correlates with imaging: the most severe compression is at C5-6 with cord signal change.
+
+  1. Cervical spondylotic myelopathy, moderate severity (mJOA 13/18)
+     Progressive myelopathy with functional decline. Cord signal change at C5-6 indicates structural cord injury. Bilateral Hoffman sign and hyperreflexia confirm upper motor neuron dysfunction. The natural history of symptomatic cervical myelopathy with cord signal change favors surgical decompression; untreated myelopathy typically progresses.
+
+  2. Multilevel cervical stenosis
+     While C5-6 is the primary pathology, moderate stenosis at C4-5 also contributes. C3-4 is mild and does not require decompression at this time.
+
+PLAN
+────
+  1. Cervical myelopathy: surgical decompression recommended
+     - Procedure: Anterior cervical discectomy and fusion (ACDF), C4-5 and C5-6
+     - Rationale for approach: Two-level anterior disease without posterior compression. ACDF addresses the disc-osteophyte complexes directly. No instability, so posterior approach is not preferred. Anterior approach allows direct decompression of ventral pathology and avoids posterior muscle dissection.
+     - Alternative considered: Posterior laminoplasty (would address multilevel stenosis including C3-4 but provides indirect decompression; preferred for 3 or more levels or posterior compression)
+     - Risks discussed: C5 palsy (3-5%), dysphagia (transient 10-15%, persistent 1-2%), hoarseness/recurrent laryngeal nerve injury, hardware failure, pseudarthrosis (5-10% for two-level), adjacent segment disease (2-3% per year), esophageal injury (rare), spinal cord injury (rare), hematoma requiring return to OR, incomplete symptom improvement
+     - Expected outcome: Halt of myelopathic progression expected. Hand function and gait may improve partially; degree of recovery depends on duration and severity of cord injury. Cord signal change may limit recovery potential.
+     - Patient wishes to proceed
+
+  2. Pre-operative requirements
+     - CT cervical spine for bony anatomy and surgical planning
+     - Pre-op labs: CBC, BMP, PT/INR, type and screen
+     - Medical clearance from primary care (hypertension management perioperatively)
+     - No anticoagulation to manage
+     - Continue amlodipine and atorvastatin perioperatively
+
+  3. Post-operative plan
+     - Cervical collar for 6 weeks
+     - Swallow evaluation post-operatively if dysphagia
+     - Flexion-extension X-rays at 6 weeks, 3 months, 6 months, 12 months
+
+  Follow-Up
+  ─────────
+  Pre-operative visit through surgical scheduling.
+  Surgery target: within 4-6 weeks.
+  Return to ED for acute worsening of hand weakness, new gait inability, bowel or bladder dysfunction, or severe neck pain with arm weakness.
+
+DISPOSITION
+───────────
+Patient counseled on cervical myelopathy, natural history without treatment, surgical options, expected recovery timeline, and risks. Agrees with plan for ACDF C4-5 and C5-6. Return precautions reviewed.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **mJOA score is the currency of cervical myelopathy.** A score of 18 is normal; below 12 is severe. The model calculates it from the component scores you provide. If you give a total without components, it uses the total but cannot identify which domains are most affected. Always provide the breakdown.
+- **Cord signal change on MRI changes the prognosis.** T2 hyperintensity in the spinal cord indicates myelomalacia and predicts less complete recovery after surgery. The model uses this finding to temper outcome expectations in the plan. Make sure you specify whether signal change is present.
+- **Brain tumor molecular markers drive everything.** An IDH-mutant, 1p/19q-codeleted oligodendroglioma has a fundamentally different treatment algorithm and prognosis than an IDH-wildtype glioblastoma. The model uses molecular data to frame the surveillance plan and expected trajectory. If you paste pathology without molecular markers, the note will be incomplete.
+- **Shunt valve settings must be verified after MRI.** Programmable valves can be reset by MRI magnetic fields. The model includes this reminder in the plan, but it is your responsibility to verify the setting post-MRI. If you adjust the valve in clinic, provide the old and new setting so the model documents the change and rationale.
+- **Level-by-level spine imaging matters.** "Multilevel stenosis" is not useful. The model needs to know which levels are stenotic, how severely, and whether there is cord or root compression at each level to generate a surgical plan that addresses the right levels.
+- **Trigeminal neuralgia medication doses determine surgical candidacy.** If the patient has not tried carbamazepine at a therapeutic dose (800-1200 mg/day), most neurosurgeons would not offer microvascular decompression. Provide the maximum dose tried and the reason it was stopped.
+- **Hoffman sign is bilateral until proven otherwise.** Unilateral Hoffman may be a normal variant. Bilateral Hoffman in the context of hand clumsiness and gait disturbance is a myelopathic sign. The model documents laterality, so specify which side(s) are positive.
+
+---
+
+## Related
+
+- [Procedure Note](/templates/procedure-note) - for documenting the neurosurgical operation
+- [Consult Note](/templates/consult-note) - for inpatient neurosurgical consultations
+- [Discharge Summary](/templates/discharge-summary-basic) - for post-operative discharge documentation
+- [Referral Letter](/templates/referral-letter) - for patients being referred for neurosurgical evaluation

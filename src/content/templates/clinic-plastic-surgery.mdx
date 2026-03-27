@@ -1,0 +1,734 @@
+---
+title: "Plastic Surgery Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, plastic-surgery, surgical, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "Expander volumes, Mohs defect dimensions, ROM measurements, grip strength, scar maturation. Plastic surgery notes structured around the measurements that guide reconstruction."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Plastic surgery clinic notes require dimensional precision that other surgical subspecialties do not. A breast reconstruction follow-up needs expander fill volume, symmetry assessment, and coordination with the oncology radiation timeline. A Mohs defect consultation needs defect dimensions, depth, and a reconstruction ladder analysis. A hand surgery visit needs range of motion measured in degrees at each joint, grip strength, and two-point discrimination. This template covers the six conditions that fill most plastic surgery outpatient schedules: breast reconstruction, skin cancer excision and reconstruction, carpal tunnel release, hand injuries, burn contractures, and facial trauma. The output format captures wound assessment, functional measurements, and photographic documentation references that generic surgical note templates miss entirely.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Plastic Surgery Clinic Visit Note">
+You are an attending plastic surgeon writing an outpatient clinic visit note after seeing a patient. The patient's primary condition is one of: breast reconstruction, skin cancer excision/reconstruction, carpal tunnel or hand surgery, hand injury, burn contracture, or facial trauma. Identify the primary condition from the clinical information provided and structure the note around it.
+
+### Purpose
+
+Generate a complete, structured plastic surgery clinic note from the clinical data below. The note must capture wound or scar assessment with dimensions, functional measurements, photographic comparison references, disease-specific data, and a concrete surgical or rehabilitative plan.
+
+### Rules
+
+- Write in past tense for history and interval events; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use in the note (e.g., "deep inferior epigastric perforator (DIEP) flap"), then abbreviation only thereafter.
+- Include specific measurements: wound dimensions (length x width x depth in cm), range of motion (degrees), grip strength (kg or lbs), two-point discrimination (mm), expander fill volumes (mL).
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Organize the Assessment as a problem list with the primary reconstructive or surgical issue first.
+- Plan items must be specific and actionable: procedure name, flap type, graft type, therapy protocol, medication dose.
+- For breast reconstruction: document reconstruction type, stage, expander volume, symmetry, cancer treatment coordination (radiation timing, chemotherapy completion), and nipple reconstruction status.
+- For skin cancer: document lesion type, Breslow depth (melanoma), margins, Mohs defect size and location, reconstruction plan (primary closure, local flap, skin graft, free flap).
+- For hand: document affected structures, ROM by joint in degrees, grip and pinch strength, sensation (2-point discrimination), tendon glide assessment.
+- For burns: document TBSA, depth, graft donor sites, scar maturation (color, texture, height), pressure garment compliance, and ROM at burn sites.
+- Reference photography: note comparison to prior visit photographs with standard angles.
+- Do not infer or fabricate any clinical information not provided. Write "[Not provided; verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "DIEP" = deep inferior epigastric perforator
+- "TRAM" = transverse rectus abdominis myocutaneous
+- "LD" = latissimus dorsi
+- "BCC" = basal cell carcinoma
+- "SCC" = squamous cell carcinoma
+- "SLNB" = sentinel lymph node biopsy
+- "ROM" = range of motion
+- "2PD" = two-point discrimination
+- "DASH" = Disabilities of the Arm, Shoulder and Hand
+- "TBSA" = total body surface area
+- "STSG" = split-thickness skin graft
+- "FTSG" = full-thickness skin graft
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+PLASTIC SURGERY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[Follow-up / New consultation / Post-operative / Pre-operative]
+Interval since last visit: [duration]
+
+CHIEF CONCERN
+─────────────
+***
+
+SURGICAL HISTORY
+────────────────
+  Primary diagnosis: ***
+  Surgical timeline:
+    - [Date]: [Procedure, approach, findings]
+    - [Date]: [Procedure]
+  Relevant non-plastic surgery history: ***
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph covering changes since last visit.
+Disease-specific content:
+- Breast reconstruction: expander comfort, skin envelope
+  quality, symmetry concerns, radiation skin changes, pain
+- Skin cancer: wound healing, new lesions, sun protection
+- Hand: pain, stiffness, function, therapy compliance,
+  return to activities
+- Burn: scar maturation, itching, tightness, contracture
+  progression, garment compliance, psychosocial adjustment
+- Facial trauma: cosmetic concerns, functional deficits
+  (nasal obstruction, malocclusion, numbness), healing]
+
+CURRENT MEDICATIONS
+───────────────────
+  ***
+  [Include pain management, antibiotics, scar treatments
+  (silicone sheets, steroid injections), topicals]
+
+WOUND / SCAR / RECONSTRUCTION ASSESSMENT
+─────────────────────────────────────────
+  Site(s): ***
+  Dimensions: *** cm x *** cm [x *** cm depth if wound]
+  Color: [Pink / red / purple / pale / hyperpigmented /
+  hypopigmented]
+  Texture: [Flat / raised / hypertrophic / keloid / atrophic]
+  Pliability: [Soft / firm / rigid]
+  Symptoms: [Pain, itching, tenderness, tightness]
+  Contracture: [None / present (joint affected, ROM limitation)]
+  Comparison to prior photographs: [Improved / stable / worsened;
+  specific changes noted]
+
+BREAST RECONSTRUCTION (if applicable)
+──────────────────────────────────────
+  Reconstruction type: [Implant / DIEP / TRAM / LD / other]
+  Stage: [Expander placement / expansion / exchange / revision /
+         nipple reconstruction / completed]
+  Expander/Implant:
+    Side: [Right / Left / Bilateral]
+    Current fill volume: *** mL (goal: *** mL)
+    Fill today: [*** mL added / none]
+    Skin envelope: [Adequate / thin / tight / radiation changes]
+  Symmetry assessment: [Good / acceptable / requires revision;
+  specific asymmetry described]
+  Nipple reconstruction: [Not yet / completed (date) / tattooing
+  scheduled / completed]
+  Cancer treatment coordination:
+    Chemotherapy: [Completed (date) / ongoing / not indicated]
+    Radiation: [Completed (date) / planned (timing relative to
+    reconstruction) / not indicated]
+
+SKIN CANCER / MOHS DEFECT (if applicable)
+──────────────────────────────────────────
+  Lesion type: [BCC / SCC / Melanoma / other]
+  Location: ***
+  Breslow depth (melanoma): *** mm
+  Ulceration (melanoma): [Present / Absent]
+  Mohs defect: *** cm x *** cm, depth to [subcutaneous /
+  perichondrium / periosteum / muscle / bone]
+  Margins: [Clear / positive (location)]
+  SLNB: [Performed (result) / not indicated / pending]
+  Reconstruction plan: [Primary closure / Local flap (type) /
+  Regional flap / Skin graft (STSG/FTSG, donor site) / Free flap /
+  Second intention / Staged]
+
+HAND EXAMINATION (if applicable)
+────────────────────────────────
+  Injured/affected structures: ***
+  Wound/incision: ***
+
+  Range of Motion (degrees):
+    [Joint]           Active    Passive    Prior visit
+    ──────────────────────────────────────────────────
+    ***               ***°      ***°       ***°
+    ***               ***°      ***°       ***°
+    [Document each affected joint: MCP, PIP, DIP, wrist
+    flexion/extension, pronation/supination]
+
+  Grip strength: *** kg (contralateral: *** kg)
+  Pinch strength (tip/key/3-jaw): *** kg
+  Sensation:
+    2PD: *** mm [nerve territory: median / ulnar / radial]
+    Semmes-Weinstein: ***
+    Tinel sign: [Location, positive/negative]
+  Tendon glide: [Full / limited at ***]
+  DASH score: ***/100
+
+BURN ASSESSMENT (if applicable)
+───────────────────────────────
+  Original injury: [Date, mechanism, TBSA ***%, depth]
+  Graft donor sites: [Location, healing status]
+  Scar assessment by site:
+    [Site 1]: *** cm x *** cm, [color, texture, height,
+    Vancouver Scar Scale if used]
+    [Site 2]: ***
+  ROM at burn sites:
+    [Joint]: ***° (goal: ***°)
+  Pressure garments: [Y/N, compliance, fit assessment]
+  Scar management: [Silicone, massage, steroid injection,
+  laser treatment]
+
+FACIAL TRAUMA (if applicable)
+─────────────────────────────
+  Original injury: [Date, mechanism, fractures, soft tissue]
+  Prior repairs: ***
+  Current assessment:
+    Cosmetic: [Symmetry, contour, scar quality]
+    Functional: [Nasal airway, occlusion, sensation (V1/V2/V3),
+    facial nerve function (House-Brackmann grade)]
+    Hardware: [In place / symptomatic / requires removal]
+
+PHYSICAL EXAMINATION
+────────────────────
+  Vitals: ***
+  General: ***
+  Wound/reconstruction-specific exam: [detailed above]
+  Regional lymph nodes (if oncologic): ***
+
+PHOTOGRAPHY
+───────────
+  Photos taken today: [Yes, standard views / No]
+  Comparison to: [Date of prior photos, changes noted]
+
+DIAGNOSTICS (if applicable)
+───────────────────────────
+  Imaging: ***
+  Pathology: ***
+  Labs: ***
+  EMG/NCS (hand): ***
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [relevant surgical history]
+presenting for [visit type]. [One-sentence trajectory statement.]
+
+  1. [Primary reconstructive/surgical condition]
+     [Brief assessment of current status, trajectory.]
+
+  2. [Secondary condition, if applicable]
+     [Brief assessment.]
+
+  3. [Functional status / rehabilitation progress]
+     [Brief assessment.]
+
+PLAN
+────
+  1. [Primary condition]
+     - [Specific action: procedure planned, expander fill,
+       therapy modification, scar treatment]
+     - [Specific action]
+
+  2. [Secondary condition]
+     - [Specific action]
+
+  3. Rehabilitation / Scar management
+     - [OT/PT orders, splinting, pressure garments,
+       silicone, laser]
+
+  Follow-Up
+  ─────────
+  Return in [interval].
+  [Specific criteria for earlier return.]
+
+DISPOSITION
+───────────
+[Patient counseled on ***, agrees with plan.
+Return precautions reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: reason for visit, surgical history, interval symptoms, wound/scar assessment, measurements (dimensions, ROM, grip strength), photography comparison, medications, exam findings, and any diagnostics.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Microsurgery focus | Add: "This is a free flap reconstruction or replantation follow-up. Document flap viability (color, turgor, capillary refill, Doppler signal), donor site healing, and sensory recovery." |
+| Aesthetic surgery | Add: "This is an aesthetic surgery consultation or follow-up. Document patient goals, photographic analysis with standard aesthetic landmarks, and discuss realistic expectations." |
+| Pediatric plastic surgery | Add: "This is a pediatric patient. Include growth considerations, developmental impact, parental input, and age-appropriate activity restrictions." |
+| Lymphedema | Add: "This patient has lymphedema. Document circumferential measurements at standard points, pitting vs non-pitting, cellulitis history, compression garment status, and therapy compliance." |
+| Wound care clinic | Add: "This is a chronic wound follow-up. Document wound bed appearance (granulation, slough, necrotic tissue percentage), wound VAC settings if applicable, offloading compliance, and nutrition status." |
+
+---
+
+## Variations
+
+### Breast reconstruction follow-up
+
+Use this for patients at any stage of breast reconstruction after mastectomy. The note tracks expander status, flap viability, symmetry, coordination with oncologic treatment, and progression through the reconstruction sequence.
+
+<PromptPlayground tool="Claude" title="Breast Reconstruction Follow-Up">
+You are a plastic surgeon writing a clinic note for a patient undergoing or recovering from breast reconstruction after mastectomy. Structure the note around reconstruction stage, tissue/implant status, symmetry, and oncologic coordination.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the reconstruction type and current stage in the multi-step process.
+- For tissue expander: current volume, fill today, skin envelope assessment, goal volume, number of fills remaining.
+- For flap reconstruction: flap type, viability (color, turgor, Doppler), donor site healing.
+- Document symmetry with specific asymmetries noted (volume, position, inframammary fold, ptosis).
+- Coordinate with oncology: radiation timing and skin effects, chemotherapy schedule.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+BREAST RECONSTRUCTION FOLLOW-UP
+══════════════════════════════════════════
+
+RECONSTRUCTION SUMMARY
+──────────────────────
+  Cancer diagnosis: ***
+  Mastectomy: [Date, type (simple, skin-sparing, nipple-sparing),
+  side (right/left/bilateral)]
+  Reconstruction type: [Implant-based / DIEP / TRAM / LD +
+  implant / other]
+  Current stage: [Expander placement / Active expansion /
+  Pre-exchange / Post-exchange / Revision / Nipple reconstruction /
+  Completed]
+
+ONCOLOGIC COORDINATION
+──────────────────────
+  Chemotherapy: [Completed M/D/YY / Ongoing (cycle *** of ***) /
+  Not indicated]
+  Radiation: [Completed M/D/YY / Planned (start date) / Not
+  indicated / Ongoing]
+  Hormonal therapy: [Agent, start date]
+  Next oncology visit: ***
+
+INTERVAL HISTORY
+────────────────
+[Pain, tightness, skin changes, cosmetic concerns, activity
+level, emotional adjustment, contralateral breast concerns.]
+
+RECONSTRUCTION EXAMINATION
+──────────────────────────
+  Expander/Implant Status (if applicable)
+  ───────────────────────────────────────
+  Side: [R / L / Bilateral]
+  Current volume: R *** mL / L *** mL
+  Goal volume: R *** mL / L *** mL
+  Skin envelope: [Healthy / thin / erythematous / radiation
+  changes / capsular contracture (Baker grade)]
+  Position: [Appropriate / high-riding / lateral displacement]
+  Port palpable and accessible: [Y/N]
+  Fill today: [R +*** mL (total *** mL) / L +*** mL (total *** mL)
+  / No fill today (reason)]
+
+  Flap Status (if applicable)
+  ────────────────────────────
+  Flap type: ***
+  Color: [Pink, healthy / pale / congested]
+  Turgor: [Soft / firm / tense]
+  Capillary refill: *** seconds
+  Doppler signal: [Present / absent]
+  Fat necrosis: [None / palpable (location, size)]
+  Donor site: [Well-healed / dehiscence / seroma / hernia /
+  bulge / pain]
+
+  Symmetry Assessment
+  ────────────────────
+  Volume: [Symmetric / R larger / L larger by approximately *** cc]
+  Position: [Symmetric / asymmetric (describe)]
+  Inframammary fold: [Symmetric / asymmetric]
+  Ptosis: [Symmetric / asymmetric]
+  Nipple position: [N/A / symmetric / asymmetric]
+
+  Incisions: [Well-healed / dehiscence / hypertrophic / keloid]
+  Capsular contracture: [Baker I / II / III / IV]
+
+PHOTOGRAPHY
+───────────
+  Standard views: [AP, oblique, lateral taken today]
+  Comparison: [Improved / stable / changed from M/D/YY]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. Breast reconstruction, [type], [stage]
+     - [Next step: fill, exchange, revision, nipple reconstruction,
+       tattoo, completion]
+     - [Timing relative to radiation/chemo if applicable]
+
+  2. Contralateral breast (if applicable)
+     - [Symmetry procedure planned: mastopexy, reduction, augmentation]
+
+  3. Donor site (if flap)
+     - [Management]
+
+  4. Follow-up
+     - Return in [interval]
+     - Next fill: [date / N/A]
+     - Next stage: [procedure, approximate timing]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: mastectomy details, reconstruction type, current stage, expander volumes, skin status, flap status, oncology treatment timeline, symmetry concerns, photos comparison, and any complications.]
+</PromptPlayground>
+
+### Mohs defect reconstruction planning
+
+Use this for patients referred after Mohs micrographic surgery with a defect requiring reconstruction. The note documents the defect, analyzes reconstruction options using the reconstructive ladder, and outlines the surgical plan.
+
+<PromptPlayground tool="Claude" title="Mohs Defect Reconstruction Planning">
+You are a plastic surgeon writing a consultation note for a patient referred after Mohs surgery for skin cancer with a defect requiring reconstruction. Structure the note around defect analysis, reconstruction options, and surgical planning.
+
+### Rules
+
+- Write in past tense for Mohs history; present tense for current assessment and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the defect: location (anatomic subunit), dimensions (length x width x depth), structures exposed, tissue loss type.
+- Analyze reconstruction options using the reconstructive ladder: secondary intention, primary closure, skin graft (STSG vs FTSG), local flap (type), regional flap, free flap.
+- Justify the recommended reconstruction: why higher-rung options are needed (aesthetic subunit, functional preservation, wound healing concerns).
+- Document the original skin cancer: type, Breslow depth (melanoma), margins, number of Mohs stages.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+MOHS DEFECT RECONSTRUCTION CONSULTATION
+══════════════════════════════════════════
+
+SKIN CANCER SUMMARY
+────────────────────
+  Type: [BCC (subtype) / SCC / Melanoma / other]
+  Location: [Anatomic subunit]
+  Mohs stages: ***
+  Final margins: Clear
+  Breslow depth (melanoma): ***
+  Prior skin cancers: ***
+
+DEFECT ANALYSIS
+───────────────
+  Location: [Precise anatomic subunit]
+  Dimensions: *** cm x *** cm
+  Depth: [Subcutaneous / perichondrium / periosteum / muscle /
+  bone / through-and-through]
+  Structures exposed: ***
+  Adjacent structures at risk: [Eyelid margin, nasal valve,
+  lip vermilion, ear cartilage, facial nerve branches]
+  Aesthetic subunit: ***
+  Tissue type lost: [Skin only / skin + subcutaneous /
+  skin + cartilage / full thickness]
+
+RECONSTRUCTION ANALYSIS
+───────────────────────
+  [For each option, state feasibility and rationale for/against:]
+  Secondary intention: [Feasible / Not recommended because ***]
+  Primary closure: [Feasible / Not recommended because ***]
+  Skin graft (STSG/FTSG): [Feasible / Not recommended because ***]
+  Local flap: [Type considered (advancement, rotation,
+  transposition, interpolation), feasibility, pros/cons]
+  Regional flap: [If applicable]
+  Free flap: [If applicable]
+
+  Recommended reconstruction: ***
+  Rationale: ***
+
+EXAMINATION
+───────────
+  Defect: [As described above, with photo reference]
+  Surrounding tissue: [Laxity, sun damage, prior scars,
+  available donor tissue]
+  Regional lymph nodes: ***
+
+SURGICAL PLAN
+─────────────
+  Procedure: ***
+  Approach: [Single-stage / staged (number of stages)]
+  Anesthesia: [Local / local with sedation / general]
+  Setting: [Office / ambulatory surgery center / hospital]
+  Donor site (if graft/flap): ***
+  Expected outcome: ***
+  Risks specific to this reconstruction: ***
+
+CONSENT DISCUSSION
+──────────────────
+  Discussed: risks (bleeding, infection, flap loss, graft loss,
+  scar, asymmetry, need for revision, [site-specific risks]),
+  benefits, alternatives.
+  Patient wishes to proceed / will consider and call to schedule.
+
+FOLLOW-UP
+─────────
+  Surgery scheduled: [date / pending scheduling]
+  Post-operative visits: [1 week, 2 weeks, etc.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: skin cancer type, Mohs details, defect location and dimensions, structures exposed, surrounding tissue quality, patient concerns, and any relevant medical history affecting wound healing.]
+</PromptPlayground>
+
+### Hand surgery post-operative rehabilitation
+
+Use this for patients following hand surgery (carpal tunnel release, tendon repair, fracture fixation, nerve repair) during the rehabilitation phase. The note tracks range of motion recovery, strength return, therapy progress, and functional milestones.
+
+<PromptPlayground tool="Claude" title="Hand Surgery Post-Op Rehabilitation">
+You are a plastic or hand surgeon writing a post-operative rehabilitation visit note for a patient recovering from hand surgery. Structure the note around functional recovery: ROM, strength, sensation, therapy progress, and return-to-activity milestones.
+
+### Rules
+
+- Write in past tense for surgical history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document ROM at each affected joint in degrees (active and passive).
+- Document grip and pinch strength with comparison to contralateral hand.
+- Document sensation in specific nerve territories with 2PD or Semmes-Weinstein.
+- For tendon repairs: document tendon glide protocol, active vs passive ROM restrictions by week.
+- For nerve repairs: document Tinel sign advancement, sensory recovery, motor recovery.
+- For fractures: document radiographic healing, hardware status, weight-bearing restrictions.
+- Include therapy compliance and home exercise program adherence.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+HAND SURGERY REHABILITATION VISIT
+══════════════════════════════════════════
+
+SURGICAL SUMMARY
+────────────────
+  Procedure: ***
+  Date: ***
+  Hand: [Right / Left]   Dominance: [Dominant / Non-dominant]
+  Findings at surgery: ***
+  Post-operative protocol: ***
+
+  Weeks post-op: ***
+
+INTERVAL HISTORY
+────────────────
+[Pain level, swelling, stiffness, functional progress, therapy
+compliance, home exercises, return to work/activities status.]
+
+THERAPY STATUS
+──────────────
+  Therapist: ***
+  Frequency: *** sessions/week
+  Current protocol phase: [Protective / Early active / Active /
+  Strengthening / Return to activity]
+  Splint: [Type, wearing schedule]
+  Home exercises: [Compliant / partially compliant / non-compliant]
+
+HAND EXAMINATION
+────────────────
+  Inspection: [Edema, ecchymosis, incision healing, sutures]
+  Wound: ***
+
+  Range of Motion (degrees):
+    Joint          Active    Passive    Contralateral    Goal
+    ─────────────────────────────────────────────────────────
+    Wrist flex     ***°      ***°       ***°             ***°
+    Wrist ext      ***°      ***°       ***°             ***°
+    MCP flex       ***°      ***°       ***°             ***°
+    PIP flex       ***°      ***°       ***°             ***°
+    DIP flex       ***°      ***°       ***°             ***°
+    [Additional joints as applicable]
+
+    Total active motion (TAM): ***° (contralateral: ***°)
+
+  Grip strength: *** kg (contralateral: *** kg, ***% of opposite)
+  Pinch:
+    Tip: *** kg    Key: *** kg    3-jaw: *** kg
+
+  Sensation:
+    Median nerve territory: 2PD *** mm / Semmes-Weinstein ***
+    Ulnar nerve territory: 2PD *** mm / Semmes-Weinstein ***
+    Tinel sign: [Location, positive/negative]
+
+  Tendon glide: [Full / limited at ***]
+  Provocative tests: [Phalen, Tinel, Finkelstein, as applicable]
+
+  DASH score: ***/100 (prior: ***)
+
+IMAGING (if applicable)
+───────────────────────
+  X-ray (date): [Fracture healing, hardware position, alignment]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. [Procedure], *** weeks post-op
+     - Recovery trajectory: [On track / delayed / ahead of schedule]
+     - [Advance protocol to next phase / continue current phase]
+     - [Therapy orders: frequency, new exercises, splint changes]
+
+  2. [Complication, if applicable]
+     - [Management]
+
+  3. Return to activity
+     - Work: [Restricted / light duty / full duty / timeline]
+     - Sport/hobby: [Restrictions, clearance criteria]
+
+  4. Follow-up
+     - Return in [interval]
+     - Continue therapy *** sessions/week
+     - Next milestone: ***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: procedure performed, date, current symptoms, therapy status, ROM measurements, grip strength, sensation, imaging, and functional goals.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+52-year-old female, s/p left mastectomy for stage IIA (T2N0M0) invasive ductal carcinoma 3 months ago, ER+/PR+/HER2-. She completed 4 cycles of dose-dense AC followed by 4 cycles of paclitaxel, finished 6 weeks ago. No radiation planned. Tissue expander placed at time of mastectomy. Current fill volume left 320 mL, goal 450 mL. She has been coming every 2 weeks for fills of 60 mL. Skin envelope looks healthy, no erythema, no capsular contracture. Port is palpable. She reports mild tightness after fills that resolves in 2-3 days. No pain, no drainage, no fever. Incision well-healed, faint scar. She wants to discuss timing of exchange to permanent implant and whether she needs a contralateral procedure for symmetry. Right breast is a C cup with mild ptosis. She is on tamoxifen 20 mg daily, started 1 month ago. No complications from tamoxifen. Photos taken today show mild volume asymmetry (left smaller than right) and the left inframammary fold is approximately 1 cm higher than the right.
+
+**LLM output:**
+
+PLASTIC SURGERY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Follow-up, tissue expander fill visit
+Interval since last visit: 2 weeks
+
+CHIEF CONCERN
+─────────────
+Tissue expander fill; discussion of timing for exchange to permanent implant and contralateral symmetry procedure
+
+SURGICAL HISTORY
+────────────────
+  Primary diagnosis: Left breast reconstruction, s/p mastectomy for invasive ductal carcinoma
+  Surgical timeline:
+    - 12/25: Left simple mastectomy with immediate tissue expander placement for stage IIA (T2N0M0) ER+/PR+/HER2- invasive ductal carcinoma
+  Relevant history: Completed neoadjuvant dose-dense doxorubicin/cyclophosphamide (AC) x 4 cycles followed by paclitaxel x 4 cycles, finished 2/26. No radiation indicated (T2N0). Tamoxifen 20 mg daily started 2/26.
+
+INTERVAL HISTORY
+────────────────
+Patient reports mild tightness in the left chest after each fill that resolves within 2-3 days. No pain between fills. No drainage, redness, fever, or skin breakdown. She is sleeping comfortably. She has been tolerating fills of 60 mL every 2 weeks without difficulty. She completed chemotherapy 6 weeks ago and has been on tamoxifen for 1 month without side effects. She is eager to discuss the timeline for exchange to a permanent implant and is concerned about the size difference between her reconstructed and native breasts.
+
+CURRENT MEDICATIONS
+───────────────────
+  Tamoxifen 20 mg daily
+  Acetaminophen 500 mg PRN for post-fill discomfort (uses rarely)
+
+BREAST RECONSTRUCTION EXAMINATION
+──────────────────────────────────
+  Expander Status
+  ───────────────
+  Side: Left
+  Current fill volume: 320 mL (goal: 450 mL)
+  Fill today: +60 mL (new total: 380 mL)
+  Fills remaining: Approximately 1-2 more fills to reach goal
+  Skin envelope: Healthy, no erythema, no thinning, no radiation changes
+  Position: Appropriate
+  Port palpable and accessible: Yes
+  Capsular contracture: Baker I (soft, natural appearance)
+
+  Incision: Well-healed, faint linear scar along the inframammary fold, no hypertrophy, no dehiscence.
+
+  Symmetry Assessment
+  ────────────────────
+  Volume: Left smaller than right (380 mL expander vs approximately C cup native breast). Will approach symmetry at goal fill of 450 mL.
+  Inframammary fold: Left approximately 1 cm higher than right
+  Ptosis: Right breast mild ptosis; left reconstruction lacks ptosis (expected at expander stage)
+  Nipple: Left nipple not yet reconstructed; right nipple in natural position
+
+  Right (native) breast: C cup, mild ptosis, no masses, no skin changes.
+
+PHOTOGRAPHY
+───────────
+  Standard views (AP, bilateral oblique, lateral) taken today.
+  Comparison to 3/13/26: Progressive improvement in left breast mound projection with fill. Volume asymmetry decreasing.
+
+ONCOLOGIC COORDINATION
+──────────────────────
+  Chemotherapy: Completed 2/26
+  Radiation: Not indicated
+  Hormonal therapy: Tamoxifen 20 mg daily, started 2/26
+  Next oncology visit: [Not provided; verify before signing]
+
+ASSESSMENT
+──────────
+52-year-old female with left breast reconstruction using tissue expander, s/p mastectomy for stage IIA IDC (12/25), chemotherapy completed 2/26, no radiation planned. She is progressing well through expansion, now at 380 mL after today's fill with a goal of 450 mL. Skin envelope is healthy with no capsular contracture. Mild volume asymmetry and inframammary fold discrepancy are expected at this stage and will be addressed at exchange.
+
+  1. Left breast reconstruction, tissue expander, active expansion phase
+     On track. One to two fills remaining before exchange.
+
+  2. Contralateral breast asymmetry
+     Right breast mild ptosis with anticipated volume mismatch. A contralateral mastopexy (with or without reduction) at the time of exchange will improve symmetry.
+
+  3. Left nipple reconstruction
+     Not yet addressed. Will plan after exchange, once breast mound shape and position are finalized.
+
+PLAN
+────
+  1. Left breast reconstruction
+     - Filled 60 mL today (320 to 380 mL); tolerated well
+     - Next fill in 2 weeks: plan 60 mL (to 440 mL), then final fill to 450 mL at subsequent visit
+     - Target exchange to permanent implant approximately 6-8 weeks after final fill (estimated 6/26)
+     - At exchange: plan to lower the left inframammary fold by 1 cm with capsulotomy for symmetry
+     - Implant selection: will discuss silicone gel implant (smooth round, moderate-plus profile) at pre-exchange visit with sizers
+
+  2. Contralateral symmetry
+     - Recommend right mastopexy at the time of implant exchange to match projection and eliminate ptosis
+     - Discussed options: mastopexy alone vs mastopexy with minor reduction
+     - Patient is interested; will finalize at pre-exchange consultation
+
+  3. Nipple reconstruction
+     - Plan for approximately 3 months after exchange, once implant settles and symmetry is confirmed
+     - Will discuss options: local flap (C-V flap) with subsequent areolar tattooing
+
+  Follow-Up
+  ─────────
+  Return in 2 weeks for next expander fill.
+  Pre-exchange consultation after final fill to discuss implant selection and contralateral mastopexy.
+  Return sooner for redness, warmth, fever, skin breakdown, or sudden change in expander shape.
+
+DISPOSITION
+───────────
+Patient counseled on timeline for exchange (approximately 6/26), contralateral mastopexy option, and nipple reconstruction staging. She understands this is a multi-stage process. Agrees with plan. Return precautions reviewed.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **Photography is the medical record.** The model will reference comparison to prior photographs if you mention it in your input, but it cannot see the photos. The note documents what changed; the photos prove it. Always take standard-angle photos at every visit.
+- **ROM needs both sides.** A PIP flexion of 70 degrees means nothing without the contralateral comparison. If the uninjured side flexes to 100 degrees, you have a 30-degree deficit. If it flexes to 75, the patient is nearly recovered. The model will calculate the percentage if you provide both numbers.
+- **Expander volume is not implant size.** Patients and notes sometimes conflate these. The final implant may be a different volume than the maximum expander fill. The model documents what you provide; make sure you distinguish expander volume from planned implant volume.
+- **Scar maturation takes 12-18 months.** A hypertrophic scar at 3 months may flatten on its own. The model will document current scar status, but do not let the note imply that early hypertrophy means revision is needed. Include the time since surgery as context.
+- **DASH scores require the questionnaire.** The model will include a DASH score if you provide one, but it cannot calculate it from your clinical narrative. Administer the questionnaire to the patient before the visit and enter the result.
+- **Baker classification is subjective but consequential.** Baker II (feels firm, looks normal) does not require intervention. Baker III (feels firm, looks distorted) and IV (painful, hard, distorted) usually do. The model documents the grade you assign; verify it matches what you felt and saw.
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) - for inpatient notes on post-operative plastic surgery patients
+- [Procedure Note](/templates/procedure-note) - for documenting reconstructive procedures, flap surgery, or hand operations
+- [Consult Note](/templates/consult-note) - for inpatient plastic surgery consultations (Mohs defects, hand injuries, burns)
+- [Referral Letter](/templates/referral-letter) - for patients being referred from dermatology, oncology, or orthopedics

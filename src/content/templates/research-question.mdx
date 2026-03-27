@@ -4,7 +4,8 @@ category: literature-review
 targetTool: claude
 workflow: research-question
 tags: [beginner, literature-review, pico, research, search-strategy]
-lastUpdated: 2026-03-22
+lastUpdated: 2026-03-27
+socialPost: "Convert a plain-language clinical question into PICO format, generate MeSH terms, and get a ready-to-paste PubMed search string with recommended study designs. Start your literature review here."
 ---
 
 import Callout from '../../components/Callout.astro';
@@ -12,12 +13,10 @@ import PromptPlayground from '../../components/PromptPlayground.astro';
 
 ## When to use this
 
-Use this template when you have a clinical question and need to formulate it into a structured, searchable format. It converts a plain-language question into PICO format, generates MeSH terms, and produces a ready-to-paste PubMed search string. Ideal for evidence-based medicine assignments, starting a literature review, or systematically answering a clinical question that came up on rounds.
-
-Turns a clinical question into a structured PICO format and generates a literature search strategy. Describe your clinical question in plain language and get a formatted PICO, MeSH terms, and a ready-to-use PubMed search string. Perfect for evidence-based medicine assignments, research projects, or answering clinical questions systematically.
+Use this template when you have a clinical question and need to formulate it into a structured, searchable format. It converts a plain-language question into PICO format, generates MeSH terms, produces a ready-to-paste PubMed search string, and recommends study designs. Ideal for evidence-based medicine assignments, starting a literature review, or systematically answering a clinical question from rounds.
 
 <Callout type="tip">
-  PICO stands for Population, Intervention, Comparison, Outcome. It's the standard framework for formulating searchable clinical questions. This template handles therapy, diagnosis, prognosis, and etiology question types.
+  PICO stands for Population, Intervention, Comparison, Outcome. It is the standard framework for formulating searchable clinical questions. This template handles therapy, diagnosis, prognosis, and etiology question types.
 </Callout>
 
 ---
@@ -25,36 +24,99 @@ Turns a clinical question into a structured PICO format and generates a literatu
 ## The prompt
 
 <PromptPlayground tool="Claude" title="PICO Research Question Builder">
-You are a medical librarian helping a clinician formulate a research question and search strategy.
+You are a medical librarian and clinical epidemiologist helping a clinician formulate a research question and search strategy.
 
-Given the clinical question below, provide:
+**Purpose:** Convert a plain-language clinical question into a structured PICO framework, generate a search strategy, and recommend appropriate study designs with sample size considerations.
 
-**PICO Breakdown**
-- **P (Population):** Who are the patients? (age, sex, condition, setting)
-- **I (Intervention/Exposure):** What is being done or studied?
+### Rules
+- Classify the question type (Therapy / Diagnosis / Prognosis / Etiology / Prevention) and match the recommended study design to that type.
+- For each PICO element, provide both MeSH terms and free-text synonyms.
+- Generate a ready-to-paste PubMed search string using Boolean operators.
+- Identify potential confounders relevant to the question.
+- Recommend primary and secondary endpoints that are clinically meaningful (not surrogate endpoints, unless no patient-centered endpoint exists).
+- Suggest sample size considerations based on published trials with similar designs.
+- Do not fabricate MeSH terms. Flag any terms you are uncertain about and recommend verification in the NLM MeSH Browser.
+
+### Vocabulary
+- "PICO" = Population, Intervention, Comparison, Outcome.
+- "MeSH" = Medical Subject Headings (NLM controlled vocabulary).
+- "NNT" = Number needed to treat. "MCID" = Minimal clinically important difference.
+- Study design hierarchy: Systematic review > RCT > Cohort > Case-control > Cross-sectional > Case series > Expert opinion.
+
+### Output format
+
+```
+╔══════════════════════════════════════╗
+║  PICO FRAMEWORK                      ║
+╚══════════════════════════════════════╝
+```
+
+- **P (Population):** Who are the patients? (age, sex, condition, setting, inclusion/exclusion criteria)
+- **I (Intervention/Exposure):** What is being done or studied? (specific intervention, dose, duration, delivery)
 - **C (Comparison):** What is the alternative? (placebo, standard care, another intervention)
-- **O (Outcome):** What do we want to know? (mortality, symptom relief, diagnosis accuracy, etc.)
+- **O (Outcome):** What do we want to know? (primary and secondary endpoints, measurement tools, timepoints)
 
-**Question Type**
-Classify as: Therapy / Diagnosis / Prognosis / Etiology / Prevention
+**Question Type:** [Therapy / Diagnosis / Prognosis / Etiology / Prevention]
 
-**Formatted Clinical Question**
+**Formatted Clinical Question:**
 "In [P], does [I] compared to [C] improve [O]?"
 
-**Search Strategy**
-- **MeSH Terms:** List relevant MeSH headings for each PICO element
+```
+╔══════════════════════════════════════╗
+║  STUDY DESIGN RECOMMENDATION         ║
+╚══════════════════════════════════════╝
+```
+
+- **Best design for this question:** [RCT / Cohort / Case-control / Cross-sectional / Systematic review]
+- **Justification:** Why this design matches the question type.
+- **Blinding strategy:** [Open-label / Single-blind / Double-blind] with rationale.
+- **Randomization strategy:** [Simple / Stratified / Block / Cluster] with stratification variables.
+
+```
+╔══════════════════════════════════════╗
+║  SAMPLE SIZE CONSIDERATIONS          ║
+╚══════════════════════════════════════╝
+```
+
+- What is the clinically meaningful difference (MCID)?
+- Assumptions for power calculation: effect size, alpha, power, expected dropout rate.
+- Rough sample size range based on similar published trials.
+
+```
+╔══════════════════════════════════════╗
+║  PRIMARY AND SECONDARY ENDPOINTS     ║
+╚══════════════════════════════════════╝
+```
+
+- **Primary endpoint:** [Clinically meaningful outcome with measurement method and timepoint]
+- **Secondary endpoints:** [2-3 additional outcomes]
+- **Safety endpoints:** [Key adverse outcomes to monitor]
+
+```
+╔══════════════════════════════════════╗
+║  POTENTIAL CONFOUNDERS               ║
+╚══════════════════════════════════════╝
+```
+
+List the most important potential confounders and explain why each could bias the results.
+
+```
+╔══════════════════════════════════════╗
+║  SEARCH STRATEGY                     ║
+╚══════════════════════════════════════╝
+```
+
+- **MeSH Terms:** Relevant MeSH headings for each PICO element
 - **Keywords:** Alternative text words and synonyms for each element
 - **PubMed Search String:** A ready-to-paste Boolean search query combining MeSH and keywords with AND/OR operators
 - **Filters to Consider:** Study type, date range, language, human subjects
+- **Databases:** PubMed, Embase, Cochrane CENTRAL (with any syntax differences noted)
 
-**Suggested Study Designs**
-What types of studies would best answer this question? (RCT, systematic review, cohort, etc.)
-
-**Alternative PICO Formulations**
-Suggest 1–2 alternative framings of the question that might yield additional relevant results.
+**Alternative PICO Formulations:**
+1-2 alternative framings that might yield additional relevant results.
 
 ---
-CLINICAL QUESTION:
+**CLINICAL QUESTION:**
 [Describe your clinical question in plain language, e.g., "Is apixaban better than warfarin for preventing stroke in elderly patients with atrial fibrillation?"]
 </PromptPlayground>
 
@@ -64,40 +126,50 @@ CLINICAL QUESTION:
 
 | Element | How to Adjust |
 |---------|---------------|
-| Database | Add: "Also generate search strings for [Embase / CINAHL / Cochrane Library]" |
+| Database | Add: "Also generate search strings for [Embase / CINAHL / Cochrane Library] with adapted syntax" |
 | Scope | Add: "Narrow the search to [systematic reviews and meta-analyses only]" |
 | Teaching | Add: "Explain each step of the PICO process as if teaching a medical student" |
 | Multiple questions | Add: "I have several related questions; group them and create a combined search strategy" |
+| Study registration | Add: "Also generate a ClinicalTrials.gov search strategy for ongoing or planned studies" |
+| Protocol development | Add: "Format the output as a PROSPERO-ready protocol outline" |
 
 ---
 
 ## Variations
 
-### PICO for RCT design
+### RCT design
 
-Use this when you are designing a randomized controlled trial and need to formalize your research question, define your endpoints, and plan your study methodology.
+Use this when you are designing a randomized controlled trial and need to formalize your research question, define endpoints, plan methodology, and estimate sample size.
 
 <PromptPlayground tool="Claude" title="PICO for RCT Design">
 You are a clinical trialist helping a physician-researcher design a randomized controlled trial.
 
-Given the research question below, produce a structured RCT planning document:
+**Purpose:** Produce a structured RCT planning document with PICO framework, study design recommendations, sample size considerations, and a search strategy for existing evidence.
+
+### Rules
+- Specify inclusion/exclusion criteria precisely enough to guide enrollment.
+- Primary outcome must be clinically meaningful (not a surrogate endpoint unless justified).
+- Recommend a sample size range based on similar published trials.
+- Identify key threats to internal validity.
+- Do not fabricate data or statistical estimates. Flag assumptions clearly.
+
+### Output format
 
 **PICO Breakdown**
-- **P (Population):** Target population with specific inclusion/exclusion criteria
-- **I (Intervention):** Specific intervention with dose, duration, and delivery method
-- **C (Comparator):** Control arm (placebo, active comparator, usual care) with justification
-- **O (Outcomes):** Primary and secondary outcomes with measurement tools and timepoints
+- **P:** Target population with specific inclusion/exclusion criteria
+- **I:** Specific intervention with dose, duration, and delivery method
+- **C:** Control arm (placebo, active comparator, usual care) with justification
+- **O:** Primary and secondary outcomes with measurement tools and timepoints
 
 **Study Design Recommendations**
-- Recommended design: [Parallel / Crossover / Cluster / Factorial / Non-inferiority / Superiority]
-- Justification for design choice
-- Blinding strategy: [Open-label / Single-blind / Double-blind] with rationale
-- Randomization strategy: [Simple / Stratified / Block / Cluster] with stratification variables
+- Design type: [Parallel / Crossover / Cluster / Factorial / Non-inferiority / Superiority]
+- Blinding strategy with rationale
+- Randomization strategy with stratification variables
 
 **Sample Size Considerations**
-- What is the clinically meaningful difference (minimal clinically important difference)?
-- What assumptions would go into a power calculation? (effect size, alpha, power, expected dropout)
-- Suggest a rough sample size range based on similar published trials
+- MCID for the primary outcome
+- Power calculation assumptions (effect size, alpha, power, expected dropout)
+- Rough sample size range from similar published trials
 
 **Potential Pitfalls**
 - Key threats to internal validity
@@ -105,104 +177,108 @@ Given the research question below, produce a structured RCT planning document:
 - Ethical considerations
 
 **Search for Existing Evidence**
-- MeSH terms and PubMed search string to find existing trials on this topic
-- How to search ClinicalTrials.gov for ongoing or planned studies
-
-Do not fabricate data or statistical estimates. Flag assumptions clearly.
+- PubMed search string for existing trials on this topic
+- ClinicalTrials.gov search strategy for ongoing studies
 
 ---
-RESEARCH QUESTION:
+**RESEARCH QUESTION:**
 [Describe your research question in plain language]
 </PromptPlayground>
 
-### PECO for observational studies
+### Observational study design
 
-Use this when your clinical question involves an exposure rather than an intervention (e.g., risk factors, prognosis, harm), which requires an observational study design rather than an RCT.
+Use this when your clinical question involves an exposure rather than an intervention (e.g., risk factors, prognosis, harm), requiring an observational study design.
 
 <PromptPlayground tool="Claude" title="PECO for Observational Study Design">
 You are a clinical epidemiologist helping a researcher formulate a question for an observational study.
 
-Given the clinical question below, provide:
+**Purpose:** Convert a clinical question into PECO format with appropriate observational study design, confounder identification, and search strategy.
+
+### Rules
+- Use PECO (Population, Exposure, Comparison, Outcome) instead of PICO.
+- Recommend the best observational design for the question type.
+- Identify the most important confounders and explain why each could bias results.
+- Recommend STROBE-compliant reporting standards.
+- Do not fabricate data or references.
+
+### Output format
 
 **PECO Breakdown**
-- **P (Population):** Target population with specific eligibility criteria
-- **E (Exposure):** The exposure, risk factor, or prognostic factor being studied
-- **C (Comparison):** The unexposed or reference group
-- **O (Outcome):** The outcome of interest with measurement method
+- **P:** Target population with eligibility criteria
+- **E:** Exposure, risk factor, or prognostic factor
+- **C:** Unexposed or reference group
+- **O:** Outcome of interest with measurement method
 
-**Question Type**
-Classify as: Etiology / Prognosis / Harm / Risk Factor / Natural History
+**Question Type:** [Etiology / Prognosis / Harm / Risk Factor / Natural History]
 
-**Formatted Research Question**
+**Formatted Question:**
 "In [P], is [E] compared to [C] associated with [O]?"
 
 **Recommended Study Design**
-- Best design for this question: [Cohort / Case-control / Cross-sectional / Nested case-control]
-- Why this design is appropriate
-- Key methodological considerations (temporality, confounding, selection bias)
+- Best design: [Cohort / Case-control / Cross-sectional / Nested case-control]
+- Justification and key methodological considerations (temporality, confounding, selection bias)
 
 **Confounding Variables**
-List the most important potential confounders that should be measured and adjusted for. Explain why each is a confounder (associated with both exposure and outcome).
+List the most important confounders with explanation of why each is a confounder (associated with both exposure and outcome).
 
 **Search Strategy**
-- **MeSH Terms:** Relevant MeSH headings for each PECO element
-- **Keywords:** Alternative text words and synonyms
-- **PubMed Search String:** Ready-to-paste Boolean query
-- **Observational study filters:** STROBE-compliant study types, cohort and case-control study filters
+- MeSH Terms for each PECO element
+- PubMed search string with observational study filters
 
 **Alternative PECO Formulations**
-1–2 alternative framings that might capture additional relevant literature.
-
-Do not fabricate data or references.
+1-2 alternative framings that might capture additional literature.
 
 ---
-CLINICAL QUESTION:
-[Describe your clinical question, e.g., "Does long-term shift work increase the risk of cardiovascular disease in nurses?"]
+**CLINICAL QUESTION:**
+[Describe your question, e.g., "Does long-term shift work increase the risk of cardiovascular disease in nurses?"]
 </PromptPlayground>
 
-### Systematic review question
+### Systematic review / meta-analysis protocol
 
 Use this when you are planning a systematic review and need a tightly defined, protocol-ready research question with comprehensive search strategy and PROSPERO registration components.
 
-<PromptPlayground tool="Claude" title="Systematic Review Question Development">
+<PromptPlayground tool="Claude" title="Systematic Review Protocol Development">
 You are a systematic review methodologist helping a researcher develop a protocol-ready review question.
 
-Given the research topic below, produce:
+**Purpose:** Produce a PROSPERO-ready systematic review protocol with precisely defined PICO/PECO, comprehensive multi-database search strategy, and data synthesis plan.
+
+### Rules
+- Specify eligibility criteria precisely (study designs, publication types, language, dates).
+- Generate search strings for multiple databases (PubMed, Embase, Cochrane CENTRAL).
+- Recommend appropriate risk of bias assessment tools based on expected study designs.
+- Outline a data synthesis plan including conditions for meta-analysis.
+- Do not fabricate references. Flag assumptions about the evidence base.
+
+### Output format
 
 **Review Question**
-A precisely worded systematic review question suitable for PROSPERO registration.
+A precisely worded question suitable for PROSPERO registration.
 
 **PICO/PECO Breakdown**
-- **P:** Specific population with explicit inclusion and exclusion criteria
-- **I/E:** Intervention or exposure, with any subgroups
-- **C:** Comparator(s), including whether no-comparator studies will be included
-- **O:** Primary and secondary outcomes, with minimum follow-up duration if applicable
+With explicit inclusion and exclusion criteria for each element.
 
 **Eligibility Criteria**
-- Study designs to include: [RCTs only / RCTs + observational / all designs]
-- Publication types: [Full publications / conference abstracts / preprints]
-- Language restrictions
-- Date restrictions (with justification)
+- Study designs to include
+- Publication types (full publications, conference abstracts, preprints)
+- Language and date restrictions (with justification)
 
 **Comprehensive Search Strategy**
 For each database:
-- **PubMed/MEDLINE:** Full search string with MeSH terms and text words
-- **Embase:** Adapted search string with Emtree terms
-- **Cochrane CENTRAL:** Adapted search string
-- **Additional sources:** Grey literature, ClinicalTrials.gov, reference list searching, citation tracking
+- PubMed/MEDLINE: Full search string with MeSH and text words
+- Embase: Adapted with Emtree terms
+- Cochrane CENTRAL: Adapted search string
+- Additional: grey literature, ClinicalTrials.gov, reference list searching, citation tracking
 
 **Risk of Bias Assessment**
-Recommended tool for assessing bias (Cochrane RoB 2, ROBINS-I, Newcastle-Ottawa, etc.) based on expected study designs.
+Recommended tool (Cochrane RoB 2, ROBINS-I, Newcastle-Ottawa, etc.) based on expected study designs.
 
 **Data Synthesis Plan**
-- Will meta-analysis be possible? What conditions would make it appropriate?
+- Conditions for meta-analysis
 - Anticipated sources of heterogeneity
 - Planned subgroup analyses
 
-Do not fabricate references. Flag any assumptions about the existing evidence base.
-
 ---
-RESEARCH TOPIC:
+**RESEARCH TOPIC:**
 [Describe the topic area and what you want to systematically review]
 </PromptPlayground>
 
@@ -217,19 +293,70 @@ Here is what the main prompt produces when given a realistic clinical question:
 
 **LLM output:**
 
-**PICO Breakdown**
-- **P (Population):** Adults (>=18 years) who have undergone primary total hip arthroplasty for osteoarthritis. Any surgical approach. Excludes revision arthroplasty, fracture-related arthroplasty, and patients with significant neurological comorbidity limiting mobility.
+```
+╔══════════════════════════════════════╗
+║  PICO FRAMEWORK                      ║
+╚══════════════════════════════════════╝
+```
+
+- **P (Population):** Adults (>=18 years) undergoing primary total hip arthroplasty for osteoarthritis. Any surgical approach. Excludes revision arthroplasty, fracture-related arthroplasty, and patients with neurological comorbidity limiting mobility.
 - **I (Intervention):** Early physical therapy, defined as PT initiated within 24 hours of surgery (day of surgery or POD0), with structured mobilization protocol.
 - **C (Comparison):** Standard post-operative recovery protocol, typically PT initiated on POD1 or POD2, at the discretion of the surgical team.
-- **O (Outcome):** 30-day all-cause hospital readmission rate. Secondary outcomes: length of stay, 30-day complications (DVT, PE, wound infection, dislocation), patient-reported functional outcomes (HOOS-JR, TUG test), and time to independent ambulation.
+- **O (Outcome):** Primary: 30-day all-cause hospital readmission rate. Secondary: length of stay, 30-day complications (DVT, PE, wound infection, dislocation), patient-reported functional outcomes (HOOS-JR, TUG test), time to independent ambulation.
 
-**Question Type**
-Therapy
+**Question Type:** Therapy
 
-**Formatted Clinical Question**
+**Formatted Clinical Question:**
 "In adults undergoing primary total hip arthroplasty, does early physical therapy (within 24 hours of surgery) compared to standard post-operative PT timing reduce 30-day hospital readmission rates?"
 
-**Search Strategy**
+```
+╔══════════════════════════════════════╗
+║  STUDY DESIGN RECOMMENDATION         ║
+╚══════════════════════════════════════╝
+```
+
+- **Best design:** Pragmatic RCT (parallel group). The intervention is a workflow change, making a pragmatic design more relevant than an explanatory trial.
+- **Blinding:** Single-blind (outcome assessor blinded). Patients and therapists cannot be blinded to PT timing.
+- **Randomization:** Stratified block randomization. Stratify by surgical approach (anterior vs. posterior) and age group (&lt;65 vs. ≥65).
+
+```
+╔══════════════════════════════════════╗
+║  SAMPLE SIZE CONSIDERATIONS          ║
+╚══════════════════════════════════════╝
+```
+
+- **MCID:** A 3-4% absolute reduction in 30-day readmission (from ~8% baseline to ~4-5%) would be clinically meaningful.
+- **Power calculation assumptions:** Alpha 0.05, power 80%, baseline readmission rate 8%, expected reduction to 5%, 15% dropout rate.
+- **Estimated sample size:** Approximately 900-1,200 patients per arm. Large joint registry studies with similar endpoints have enrolled 1,000-5,000 patients.
+
+```
+╔══════════════════════════════════════╗
+║  PRIMARY AND SECONDARY ENDPOINTS     ║
+╚══════════════════════════════════════╝
+```
+
+- **Primary:** 30-day all-cause readmission (binary, ascertained from hospital records).
+- **Secondary:** Length of index hospitalization (hours), 30-day complication rate, HOOS-JR score at 6 weeks, TUG test at discharge.
+- **Safety:** Fall rate during inpatient PT, wound dehiscence, prosthetic dislocation during early mobilization.
+
+```
+╔══════════════════════════════════════╗
+║  POTENTIAL CONFOUNDERS               ║
+╚══════════════════════════════════════╝
+```
+
+- **BMI:** Higher BMI associated with both delayed mobilization and higher readmission rates.
+- **Age:** Older patients have longer recovery times and higher baseline readmission risk.
+- **Comorbidity burden (CCI):** More comorbidities independently predict readmission.
+- **Surgical approach:** Anterior approach may enable faster mobilization independent of PT timing.
+- **Discharge destination:** Home vs. skilled nursing facility affects readmission risk.
+
+```
+╔══════════════════════════════════════╗
+║  SEARCH STRATEGY                     ║
+╚══════════════════════════════════════╝
+```
+
 - **MeSH Terms:**
   - P: "Arthroplasty, Replacement, Hip"[MeSH]
   - I: "Early Ambulation"[MeSH], "Physical Therapy Modalities"[MeSH]
@@ -240,12 +367,9 @@ Therapy
   - O: "readmission" OR "rehospitalization" OR "30-day readmission"
 - **PubMed Search String:**
   `("Arthroplasty, Replacement, Hip"[MeSH] OR "total hip arthroplasty"[tiab] OR "total hip replacement"[tiab]) AND ("Early Ambulation"[MeSH] OR "early mobilization"[tiab] OR "same-day mobilization"[tiab] OR "early physical therapy"[tiab] OR "accelerated rehabilitation"[tiab]) AND ("Patient Readmission"[MeSH] OR "readmission"[tiab] OR "rehospitalization"[tiab])`
-- **Filters:** Humans, English, 2015-present (to reflect current surgical and rehabilitation practices)
+- **Filters:** Humans, English, 2015-present (reflecting current surgical and rehabilitation practices).
 
-**Suggested Study Designs**
-Best evidence: RCTs or systematic reviews of RCTs. Pragmatic trials are most relevant given the workflow nature of the intervention. Large retrospective cohort studies from joint registries may provide complementary real-world data.
-
-**Alternative PICO Formulations**
+**Alternative PICO Formulations:**
 1. "In adults undergoing total hip arthroplasty, does same-day mobilization compared to next-day mobilization reduce length of stay?" (narrower intervention, different outcome)
 2. "In adults undergoing total hip or total knee arthroplasty, does early PT compared to standard PT improve 90-day functional outcomes?" (broader population, longer-term outcome)
 
@@ -254,17 +378,18 @@ Best evidence: RCTs or systematic reviews of RCTs. Pragmatic trials are most rel
 ## Tips & pitfalls
 
 - The generated PubMed search string is a starting point. You will likely need to iterate, broadening or narrowing based on the number of results.
-- MeSH terms may not be perfectly matched; verify against the MeSH Browser at nlm.nih.gov/mesh/.
-- For systematic reviews, the search strategy needs to be more comprehensive (multiple databases, hand-searching references). Use the **Systematic review question** variation above for protocol-grade search strategies.
-- **Common AI failure mode:** The model may generate MeSH terms that do not exist or have been retired. Always verify MeSH headings in the NLM MeSH Browser before running the search.
-- **Search string syntax:** PubMed, Embase, and Cochrane use different Boolean syntax. A search string generated for PubMed will not work directly in Embase without adaptation.
-- **Over-specified PICO:** If your initial search returns very few results, the PICO may be too narrow. Try broadening the population or outcome, or remove one PICO element from the search string.
-- **Question type matters:** Therapy questions are best answered by RCTs. Prognosis questions by cohort studies. Diagnosis questions by cross-sectional studies with a reference standard. The model's study design suggestion should match the question type.
+- MeSH terms may not be perfectly matched. Always verify against the MeSH Browser at nlm.nih.gov/mesh/ before running your final search.
+- PubMed, Embase, and Cochrane use different Boolean syntax. A search string generated for PubMed will not work directly in Embase without adaptation.
+- The model may generate MeSH terms that do not exist or have been retired. Verify all MeSH headings before running the search.
+- If your initial search returns very few results, the PICO may be too narrow. Try broadening the population or outcome, or remove one PICO element from the search string.
+- Question type matters for study design: therapy questions are best answered by RCTs, prognosis questions by cohort studies, diagnosis questions by cross-sectional studies with a reference standard. The model's study design suggestion should match the question type.
+- For systematic reviews, the search strategy needs to be more comprehensive (multiple databases, hand-searching references). Use the **Systematic review protocol** variation for protocol-grade search strategies.
 
 ---
 
 ## Related
 
-- [Article Summary](/templates/article-summary) — summarize studies found from your PICO search
-- [Evidence Comparison](/templates/evidence-comparison) — compare the studies your search returns
-- [Journal Club Prep](/templates/journal-club-prep) — prepare a critical appraisal of the key study you find
+- [Clinical Question Answerer](/templates/clinical-question) -- get an evidence-based answer to a bedside clinical question
+- [Article Summary](/templates/article-summary) -- summarize studies found from your PICO search
+- [Evidence Comparison](/templates/evidence-comparison) -- compare the studies your search returns
+- [Journal Club Prep](/templates/journal-club-prep) -- prepare a critical appraisal of the key study you find

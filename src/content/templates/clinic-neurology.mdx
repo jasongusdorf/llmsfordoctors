@@ -1,0 +1,729 @@
+---
+title: "General Neurology Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, neurology, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "A neurology clinic note template covering the six conditions that fill most general neurology schedules: migraine, epilepsy, peripheral neuropathy, stroke follow-up, MS, and Parkinson's."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when writing an outpatient general neurology clinic note after seeing a patient for a new or follow-up visit. Covers the six conditions that fill most general neurology schedules: migraine and headache disorders, epilepsy, peripheral neuropathy, stroke follow-up, multiple sclerosis, and Parkinson's disease. Paste in your clinical data (history, neurological exam, imaging, electrodiagnostics, medications, and functional status) and the LLM produces a structured clinic note with a disease-specific assessment and plan.
+
+For subspecialty visits where the disease-specific data collection runs deeper (headache diaries, seizure logs, motor fluctuation timing, EMG patterns), use the dedicated headache, epilepsy, movement disorders, or neuromuscular templates instead.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="General Neurology Clinic Visit">
+You are a board-certified neurologist writing an outpatient clinic note after evaluating a patient. After receiving the clinical information below, produce a complete, structured neurology clinic visit note.
+
+**Purpose:** Generate a comprehensive general neurology outpatient visit note that captures the full neurological examination, relevant diagnostics, disease-specific assessment, and a plan organized by neurological problem.
+
+### Rules
+
+- Write the HPI as a narrative paragraph in past tense for history, present tense for current symptoms.
+- Document the neurological exam in full, organized by domain: mental status, cranial nerves, motor (strength by muscle group, tone), sensory (light touch, pinprick, vibration, proprioception), reflexes (with numeric grading 0-4), coordination (finger-nose, heel-shin), and gait (tandem, Romberg).
+- Include symptom onset, time course (acute, subacute, chronic), progression pattern (progressive, relapsing-remitting, static), laterality, and timing.
+- For each problem in the assessment, write a brief clinical rationale before the plan.
+- Reference imaging (MRI brain/spine, CT/CTA) with dates and key findings.
+- Reference electrodiagnostics (EEG, EMG/NCS) with dates and findings when available.
+- List current neurologic medications with doses. Include drug levels if applicable (e.g., antiseizure medication levels).
+- Document functional impact: work status, driving status, ADL independence.
+- Use medical abbreviations throughout. Never spell out what an abbreviation stands for.
+- Reference dates in the format M/D/YY.
+- Do not infer or fabricate any clinical information not provided. Write "***" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "pmhx" = past medical history
+- "LUE/RUE/LLE/RLE" = left/right upper/lower extremity
+- "DTR" = deep tendon reflexes
+- "F-N-F" = finger-nose-finger
+- "H-S" = heel-shin
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+NEUROLOGY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[New patient / Follow-up]
+
+CHIEF COMPLAINT
+───────────────
+***
+
+HISTORY OF PRESENT ILLNESS
+───────────────────────────
+[Detailed narrative paragraph. Include: demographics, relevant pmhx,
+symptom onset and time course (acute/subacute/chronic), progression
+pattern (progressive/relapsing-remitting/static), laterality,
+associated symptoms, pertinent positives and negatives, functional
+impact. For follow-up visits, include interval history since last visit.]
+
+REVIEW OF SYSTEMS
+─────────────────
+[Neurologic ROS: headache, seizures, weakness, numbness/tingling,
+vision changes, speech difficulty, swallowing difficulty, gait
+instability, tremor, memory changes, bowel/bladder dysfunction.
+Pertinent non-neurologic ROS.]
+
+PAST MEDICAL HISTORY
+────────────────────
+***
+
+PAST SURGICAL HISTORY
+─────────────────────
+***
+
+MEDICATIONS
+───────────
+[Current medications with doses. Flag neurologic medications separately.]
+
+  Neurologic medications
+  ──────────────────────
+  [Agent, dose, frequency, duration on current dose]
+
+  Other medications
+  ─────────────────
+  ***
+
+ALLERGIES
+─────────
+***
+
+SOCIAL HISTORY
+──────────────
+[Tobacco, alcohol, drugs. Occupation. Living situation.
+Driving status. Exercise.]
+
+FAMILY HISTORY
+──────────────
+[Neurologic family history: seizures, stroke, dementia,
+movement disorders, neuropathy, MS.]
+
+NEUROLOGICAL EXAMINATION
+────────────────────────
+
+  Mental Status
+  ─────────────
+  [Alertness, orientation, attention (serial 7s or spell WORLD
+  backward), language (fluency, comprehension, repetition, naming),
+  memory (registration, recall), fund of knowledge.]
+
+  Cranial Nerves
+  ──────────────
+  II: Visual acuity ***, visual fields ***, pupils *** (reactive)
+  III/IV/VI: EOMs ***, no nystagmus
+  V: Facial sensation intact to LT V1-V3 bilaterally, masseter ***
+  VII: Face symmetric, forehead wrinkling ***, smile ***
+  VIII: Hearing grossly intact bilaterally
+  IX/X: Palate elevates symmetrically, gag ***
+  XI: SCM and trapezius *** bilaterally
+  XII: Tongue midline, no atrophy or fasciculations
+
+  Motor
+  ─────
+  Tone: [Normal / increased / decreased] [upper and lower extremities]
+  Bulk: [Normal / atrophy (specify distribution)]
+
+  Strength (MRC 0-5):
+              RUE    LUE    RLE    LLE
+  Deltoid     ***    ***    ***    ---
+  Biceps      ***    ***    ***    ---
+  Triceps     ***    ***    ***    ---
+  Wrist ext   ***    ***    ***    ---
+  Grip        ***    ***    ***    ---
+  IP          ***    ***    ***    ---
+  Iliopsoas   ---    ---    ***    ***
+  Quad        ---    ---    ***    ***
+  Hamstring   ---    ---    ***    ***
+  Tib ant     ---    ---    ***    ***
+  Gastroc     ---    ---    ***    ***
+  EHL         ---    ---    ***    ***
+
+  Sensory
+  ───────
+  Light touch: ***
+  Pinprick: ***
+  Vibration: [Normal / reduced at (location), with proximal gradient to ***]
+  Proprioception: [Intact / impaired at (joint)]
+
+  Reflexes (0-4)
+  ──────────────
+              Right    Left
+  Biceps      ***      ***
+  Triceps     ***      ***
+  Brachio     ***      ***
+  Patellar    ***      ***
+  Achilles    ***      ***
+  Plantar     [Flexor / Extensor / Mute]  [Flexor / Extensor / Mute]
+
+  Coordination
+  ────────────
+  F-N-F: [Intact / dysmetric] bilaterally
+  H-S: [Intact / dysmetric] bilaterally
+  Rapid alternating movements: ***
+
+  Gait
+  ────
+  Regular gait: ***
+  Tandem gait: ***
+  Romberg: [Negative / Positive]
+
+DIAGNOSTIC DATA
+───────────────
+
+  Imaging
+  ───────
+  [Modality (date): Key findings.]
+
+  Electrodiagnostics
+  ──────────────────
+  [EEG (date): Findings.]
+  [EMG/NCS (date): Findings.]
+
+  Labs
+  ────
+  [Relevant labs with dates and values.]
+
+  Drug Levels
+  ───────────
+  [Medication, level, date drawn, therapeutic range.]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [diagnoses] presenting for
+[new evaluation / follow-up]. [One-sentence clinical trajectory.]
+
+  1. [Neurologic problem #1]
+  2. [Neurologic problem #2]
+  3. [Neurologic problem #3]
+
+PLAN
+────
+  1. [Problem #1]
+     - [Action item]
+     - [Action item]
+
+  2. [Problem #2]
+     - [Action item]
+
+  3. [Problem #3]
+     - [Action item]
+
+FUNCTIONAL STATUS
+─────────────────
+  Work: [Full duty / modified / disability / retired]
+  Driving: [Active / restricted / suspended / not applicable]
+  ADLs: [Independent / requires assistance with ***]
+
+FOLLOW-UP
+─────────
+Return to clinic in [timeframe]. [Sooner if specific symptoms.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste your de-identified neurology clinic data here: history, exam, imaging, electrodiagnostics, labs, medications, and functional status.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| New patient depth | Add: "This is a new patient evaluation. Include a comprehensive past neurologic history and detailed review of outside records." |
+| Follow-up brevity | Add: "This is a routine follow-up. Keep the HPI focused on interval changes since the last visit. Abbreviated exam is acceptable." |
+| Cognitive screening | Add: "Include MoCA or MMSE score with subscores in the mental status section." |
+| Telehealth | Add: "This is a telehealth visit. Document limitations of the remote neurological exam. Note which exam components could not be assessed." |
+| Billing optimization | Add: "Document MDM complexity to support a [level 4 / level 5] E/M code. Include data reviewed, complexity of the problem, and risk of management." |
+
+---
+
+## Variations
+
+### New patient neurological evaluation
+
+Use this for new patient consultations where a comprehensive neurological history, review of outside records, and full diagnostic workup plan are needed.
+
+<PromptPlayground tool="Claude" title="New Patient Neurology Evaluation">
+You are a board-certified neurologist writing a new patient evaluation note for an outpatient neurology consultation. After receiving the clinical information below, produce a comprehensive new patient neurology note.
+
+### Rules
+
+- Write the HPI as a detailed narrative paragraph covering the full timeline of the neurological complaint from onset to present.
+- Document review of outside records: prior imaging, labs, EMG/NCS, EEG, and specialist notes.
+- Perform and document a complete neurological examination by domain (mental status, cranial nerves, motor, sensory, reflexes, coordination, gait).
+- Include the referring provider's question and your response to it.
+- Write the assessment as a clinical synthesis, not just a problem list.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "pmhx" = past medical history
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+NEW PATIENT NEUROLOGY EVALUATION
+══════════════════════════════════════════
+
+REASON FOR REFERRAL
+───────────────────
+[Referring provider's question / reason for consultation.]
+
+CHIEF COMPLAINT
+───────────────
+***
+
+HISTORY OF PRESENT ILLNESS
+───────────────────────────
+[Comprehensive narrative. Include: full timeline from first symptom
+to present, prior evaluations and treatments, response to prior
+therapies, symptom progression pattern, functional decline if any.
+This should read as the complete story.]
+
+OUTSIDE RECORDS REVIEWED
+────────────────────────
+[List records reviewed with dates and key findings:
+- MRI brain (date): ***
+- EMG/NCS (date): ***
+- Labs (date): ***
+- Prior neurology notes (date, provider): ***]
+
+[Full ROS, PMH, PSH, Medications, Allergies, Social, Family sections.]
+
+NEUROLOGICAL EXAMINATION
+────────────────────────
+[Complete exam by domain as in the primary template.]
+
+ASSESSMENT & SYNTHESIS
+──────────────────────
+[Clinical synthesis paragraph: Integrate the history, exam findings,
+and diagnostic data into a coherent clinical picture. State most
+likely diagnosis with supporting evidence. Discuss the differential
+with reasoning for and against each consideration.]
+
+PLAN
+────
+  Diagnostics ordered
+  ───────────────────
+  [Imaging, labs, electrodiagnostics ordered with rationale.]
+
+  Treatment initiated
+  ───────────────────
+  [Medications started with dose, rationale, side effects counseled.]
+
+  Referrals
+  ─────────
+  [PT/OT, speech therapy, other subspecialties.]
+
+  Patient education
+  ─────────────────
+  [Diagnosis explained, prognosis discussed, red flags to watch for.]
+
+FOLLOW-UP
+─────────
+Return in [timeframe] for [reason].
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: referral reason, complete history, outside records, exam, and any available diagnostics.]
+</PromptPlayground>
+
+### Neuropathy workup visit
+
+Use this for patients presenting with numbness, tingling, or weakness where the primary task is evaluating and classifying a peripheral neuropathy. The output format captures the workup checklist and EMG/NCS correlation.
+
+<PromptPlayground tool="Claude" title="Neuropathy Workup Visit">
+You are a neurologist writing a clinic note for a patient being evaluated for peripheral neuropathy. After receiving the clinical information below, produce a structured neuropathy evaluation note.
+
+### Rules
+
+- Classify the neuropathy by pattern: length-dependent vs non-length-dependent, axonal vs demyelinating, sensory vs motor vs sensorimotor.
+- Document the sensory exam with specific attention to modalities and distribution (stocking-glove, patchy, dermatomal).
+- Reference EMG/NCS findings and correlate them with the clinical picture.
+- Include the neuropathy workup labs ordered or reviewed: glucose/A1c, B12, TSH, SPEP/UPEP, ANA, ESR/CRP, HIV, hepatitis panel, methylmalonic acid. Note which have returned and which are pending.
+- Document functional impact: balance, falls, foot drop, hand dexterity.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "NCS" = nerve conduction studies
+- "SNAP" = sensory nerve action potential
+- "CMAP" = compound muscle action potential
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+NEUROPATHY EVALUATION
+══════════════════════════════════════════
+
+CHIEF COMPLAINT
+───────────────
+***
+
+HISTORY OF PRESENT ILLNESS
+───────────────────────────
+[Narrative: onset, distribution (feet first vs hands, symmetric vs
+asymmetric), progression, tempo, associated symptoms (pain, burning,
+weakness, autonomic), prior workup, treatments tried.]
+
+NEUROLOGICAL EXAMINATION
+────────────────────────
+[Focused neuropathy exam. Emphasize:
+- Sensory: LT, pinprick, vibration (128 Hz tuning fork at great toe,
+  medial malleolus, etc.), proprioception by joint
+- Motor: distal strength (EHL, tib ant, intrinsic hand muscles)
+- Reflexes: ankle reflexes specifically
+- Gait: tandem, heel walking, toe walking, Romberg]
+
+ELECTRODIAGNOSTIC DATA
+──────────────────────
+  EMG/NCS (date): ***
+  Pattern: [Axonal / Demyelinating / Mixed]
+  Distribution: [Length-dependent / Non-length-dependent / Multifocal]
+  Modality: [Sensory / Motor / Sensorimotor]
+  Severity: [Mild / Moderate / Severe]
+
+NEUROPATHY WORKUP LABS
+──────────────────────
+  Glucose: ***          A1c: ***
+  B12: ***              Methylmalonic acid: ***
+  TSH: ***              ESR/CRP: ***
+  SPEP: ***             UPEP: ***
+  ANA: ***              HIV: ***
+  Hepatitis panel: ***
+  [Other: ***]
+
+NEUROPATHY CLASSIFICATION
+─────────────────────────
+[One-sentence classification integrating clinical and EDx data.
+Example: "Length-dependent, axonal, sensorimotor polyneuropathy,
+moderate severity, most consistent with diabetic etiology."]
+
+ASSESSMENT & PLAN
+─────────────────
+[Assessment with differential and plan for further workup
+or treatment.]
+
+FOLLOW-UP
+─────────
+***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: neuropathy history, exam, EMG/NCS results, lab results, and current treatments.]
+</PromptPlayground>
+
+### Stroke prevention follow-up
+
+Use this for outpatient follow-up of patients with a history of ischemic stroke or TIA. The output format captures secondary prevention metrics, vascular risk factor management, and functional recovery.
+
+<PromptPlayground tool="Claude" title="Stroke Prevention Follow-Up">
+You are a neurologist writing an outpatient follow-up note for a patient with a history of ischemic stroke or TIA. After receiving the clinical information below, produce a structured stroke follow-up note focused on secondary prevention.
+
+### Rules
+
+- Document the index event: type (ischemic stroke, TIA, hemorrhagic), date, vascular territory, mechanism (TOAST classification: large artery atherosclerosis, cardioembolism, small vessel, other, cryptogenic).
+- Capture secondary prevention metrics: antithrombotic therapy, statin with LDL target, BP goal, A1c if diabetic, smoking cessation status.
+- Document functional recovery: mRS score, residual deficits, rehabilitation status.
+- Include follow-up imaging (carotid ultrasound, MRA, CTA, echocardiogram) with dates and findings.
+- Document driving status and return-to-work status.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "mRS" = modified Rankin Scale
+- "TOAST" = Trial of Org 10172 in Acute Stroke Treatment (classification)
+- "CEA" = carotid endarterectomy
+- "CAS" = carotid artery stenting
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+STROKE FOLLOW-UP VISIT
+══════════════════════════════════════════
+
+INDEX EVENT
+───────────
+  Type: [Ischemic stroke / TIA / Hemorrhagic stroke]
+  Date: ***
+  Vascular territory: ***
+  Mechanism (TOAST): [Large artery / Cardioembolic / Small vessel /
+                       Other / Cryptogenic]
+  Acute treatment: [tPA / thrombectomy / conservative]
+
+INTERVAL HISTORY
+────────────────
+[Narrative: symptoms since last visit, new neurologic symptoms,
+medication adherence, side effects, rehabilitation progress.]
+
+SECONDARY PREVENTION METRICS
+─────────────────────────────
+  Antithrombotic: [Agent, dose, adherence]
+  Statin: [Agent, dose] | LDL: *** (goal &lt;70 for atherosclerotic)
+  BP: *** (goal ***)
+  A1c: *** (if diabetic)
+  Smoking: [Never / former / current, cessation plan]
+  Weight/BMI: ***
+  Exercise: [Frequency and type]
+
+NEUROLOGICAL EXAMINATION
+────────────────────────
+[Focused exam with attention to residual deficits from index event.]
+
+VASCULAR IMAGING
+────────────────
+  [Carotid US (date): ***]
+  [MRA/CTA (date): ***]
+  [Echo/TEE (date): ***]
+  [Cardiac monitoring (date, type): ***]
+
+FUNCTIONAL STATUS
+─────────────────
+  mRS: ***/6
+  Residual deficits: ***
+  Rehabilitation: [PT/OT/speech, frequency, progress]
+  Driving: [Cleared / restricted / not yet cleared]
+  Work: [Returned / modified / not returned]
+  ADLs: [Independent / assistance needed with ***]
+
+ASSESSMENT & PLAN
+─────────────────
+[Assessment of secondary prevention adequacy, functional recovery
+trajectory, and plan for risk factor optimization.]
+
+FOLLOW-UP
+─────────
+***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: stroke history, current medications, interval symptoms, exam, labs (lipids, A1c, CBC), imaging, and functional status.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+New patient, 58-year-old male, referred by PCP for 6-month progressive bilateral foot numbness. Started in toes, now up to mid-shin. Occasional burning pain at night. No weakness, no falls. PMHx: type 2 DM (A1c 7.8 three months ago), HTN, HLD. Meds: metformin 1000 BID, lisinopril 20 daily, atorvastatin 40 daily. NKDA. Social: former smoker (20 pack-years, quit 5 years ago), 2 beers/week, retired electrician. FHx: father with DM, mother with stroke. EMG/NCS done last month at outside facility: axonal sensorimotor polyneuropathy, moderate severity, length-dependent. Labs from PCP: glucose 142, A1c 7.8, B12 485, TSH 2.1, BMP wnl, CBC wnl. No SPEP or UPEP done. Exam: alert, oriented x3, CN II-XII intact, strength 5/5 throughout, tone normal, sensation decreased to pinprick and LT below mid-shin bilaterally (stocking pattern), vibration absent at great toes bilaterally, reduced at medial malleoli, proprioception intact at great toes, reflexes 2+ at biceps/triceps/patella bilaterally, absent at ankles bilaterally, plantars mute bilaterally, F-N-F intact, H-S intact, gait steady, tandem intact, Romberg negative. No foot ulcers.
+
+**LLM output:**
+
+NEUROLOGY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+New patient
+
+CHIEF COMPLAINT
+───────────────
+Bilateral foot numbness, progressive over 6 months
+
+HISTORY OF PRESENT ILLNESS
+───────────────────────────
+The patient is a 58-year-old right-handed male with pmhx of type 2 DM (A1c 7.8 on 3/26), HTN, and HLD, referred by his PCP for evaluation of progressive bilateral foot numbness. Symptoms began approximately 6 months ago as numbness in the toes bilaterally, which has gradually ascended to the level of the mid-shins. He reports occasional burning pain in the feet at night that sometimes disrupts sleep. He denies weakness, falls, gait instability, upper extremity numbness, bowel or bladder dysfunction, and back pain. No prior neurology evaluation. EMG/NCS performed at an outside facility last month demonstrated a length-dependent axonal sensorimotor polyneuropathy of moderate severity. His PCP initiated a basic lab workup; SPEP/UPEP have not been obtained.
+
+REVIEW OF SYSTEMS
+─────────────────
+Positive for foot numbness, burning foot pain. Negative for headache, seizures, weakness, vision changes, speech difficulty, swallowing difficulty, tremor, memory changes, bowel/bladder dysfunction. All other systems reviewed and negative.
+
+PAST MEDICAL HISTORY
+────────────────────
+Type 2 DM, HTN, HLD.
+
+PAST SURGICAL HISTORY
+─────────────────────
+None.
+
+MEDICATIONS
+───────────
+
+  Neurologic medications
+  ──────────────────────
+  None.
+
+  Other medications
+  ─────────────────
+  Metformin 1000 mg PO BID, lisinopril 20 mg PO daily, atorvastatin 40 mg PO daily.
+
+ALLERGIES
+─────────
+NKDA
+
+SOCIAL HISTORY
+──────────────
+Former smoker (20 pack-years, quit 5 years ago). Alcohol: 2 beers/week. No illicit drugs. Retired electrician. Lives independently. Currently driving without restrictions.
+
+FAMILY HISTORY
+──────────────
+Father: DM. Mother: stroke. No family history of neuropathy, seizures, or dementia.
+
+NEUROLOGICAL EXAMINATION
+────────────────────────
+
+  Mental Status
+  ─────────────
+  Alert, oriented x3. Appropriate. Language fluent, no deficits.
+
+  Cranial Nerves
+  ──────────────
+  II-XII intact.
+
+  Motor
+  ─────
+  Tone: Normal throughout.
+  Bulk: Normal, no atrophy.
+
+  Strength (MRC 0-5):
+              RUE    LUE    RLE    LLE
+  Deltoid     5      5      ---    ---
+  Biceps      5      5      ---    ---
+  Triceps     5      5      ---    ---
+  Wrist ext   5      5      ---    ---
+  Grip        5      5      ---    ---
+  IP          5      5      ---    ---
+  Iliopsoas   ---    ---    5      5
+  Quad        ---    ---    5      5
+  Hamstring   ---    ---    5      5
+  Tib ant     ---    ---    5      5
+  Gastroc     ---    ---    5      5
+  EHL         ---    ---    5      5
+
+  Sensory
+  ───────
+  Light touch: Decreased below mid-shin bilaterally (stocking distribution).
+  Pinprick: Decreased below mid-shin bilaterally (stocking distribution).
+  Vibration: Absent at great toes bilaterally, reduced at medial malleoli.
+  Proprioception: Intact at great toes bilaterally.
+
+  Reflexes (0-4)
+  ──────────────
+              Right    Left
+  Biceps      2+       2+
+  Triceps     2+       2+
+  Patellar    2+       2+
+  Achilles    0        0
+  Plantar     Mute     Mute
+
+  Coordination
+  ────────────
+  F-N-F: Intact bilaterally.
+  H-S: Intact bilaterally.
+
+  Gait
+  ────
+  Regular gait: Steady, normal stride and arm swing.
+  Tandem gait: Intact.
+  Romberg: Negative.
+  No foot ulcers on inspection.
+
+DIAGNOSTIC DATA
+───────────────
+
+  Electrodiagnostics
+  ──────────────────
+  EMG/NCS (2/26, outside facility): Length-dependent axonal sensorimotor polyneuropathy, moderate severity.
+
+  Labs
+  ────
+  Glucose 142, A1c 7.8 (3/26), B12 485, TSH 2.1, BMP wnl, CBC wnl.
+  SPEP/UPEP: Not obtained.
+
+ASSESSMENT
+──────────
+58-year-old male with type 2 DM (suboptimally controlled, A1c 7.8) presenting for evaluation of progressive bilateral foot numbness over 6 months. Exam and EDx findings are consistent with a length-dependent axonal sensorimotor polyneuropathy of moderate severity. Diabetic etiology is the most likely explanation given his glycemic control, but the workup is incomplete.
+
+  1. Length-dependent axonal sensorimotor polyneuropathy, likely diabetic
+  2. Neuropathic pain, nocturnal
+  3. Type 2 DM, suboptimally controlled (A1c 7.8)
+
+PLAN
+────
+  1. Polyneuropathy
+     - Complete neuropathy workup: order SPEP, UPEP, ANA, ESR, methylmalonic acid, HIV, hepatitis B/C panel
+     - Review outside EMG/NCS report for full details; consider repeat if incomplete
+     - Most likely diabetic neuropathy given clinical pattern, but awaiting labs to exclude concurrent etiologies
+     - Foot care counseling: daily foot inspection, well-fitting shoes, avoid walking barefoot
+     - Referral to podiatry for baseline foot assessment
+
+  2. Neuropathic pain
+     - Start gabapentin 300 mg PO QHS, titrate to 300 mg TID over 2 weeks as tolerated
+     - Counseled on common side effects: sedation, dizziness
+     - If inadequate response at 900 mg/day, will consider duloxetine as add-on or alternative
+
+  3. Diabetes management
+     - Reinforced importance of glycemic control for neuropathy progression
+     - Recommend PCP optimize DM regimen targeting A1c &lt;7.0
+     - A1c recheck in 3 months
+
+FUNCTIONAL STATUS
+─────────────────
+  Work: Retired
+  Driving: Active, no restrictions
+  ADLs: Independent
+
+FOLLOW-UP
+─────────
+Return to clinic in 3 months with lab results. Sooner if new weakness, worsening numbness above the knees, or falls.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **The neurological exam is the billing backbone.** A complete, structured neuro exam supports higher E/M complexity. The AI will fill in "***" for exam components you did not provide. Replace these with actual findings or remove them; do not sign a note with unfilled placeholders.
+- **EMG/NCS correlation matters.** The model will report EDx findings as you provide them but may not critique them. If the clinical picture and EDx pattern do not match (e.g., demyelinating NCS with a purely axonal exam), flag that discrepancy yourself.
+- **Drug levels need context.** For antiseizure medications, the AI will list levels if you provide them, but it will not interpret a level as subtherapeutic or supratherapeutic without explicit reference ranges. Include the therapeutic range in your input.
+- **Driving status is medicolegal.** The model includes a driving status field, but it will not apply your state's seizure-free interval or other reporting requirements. Verify this independently.
+- **Functional status is not decoration.** Documenting work status, ADL independence, and driving eligibility supports disability evaluations, prior authorizations, and longitudinal tracking. Do not skip this section.
+- **The model defaults to common diagnoses.** If your patient has an atypical presentation (inflammatory neuropathy, paraneoplastic syndrome, genetic condition), you may need to steer the assessment explicitly. The AI will not generate a rare diagnosis on its own from ambiguous data.
+
+---
+
+## Related
+
+- [Headache Medicine Clinic Visit](/templates/clinic-headache) - subspecialty headache template with diary data, CGRP tracking, and disability scores
+- [Epilepsy Clinic Visit](/templates/clinic-epilepsy) - seizure diary, AED management, surgical candidacy, and driving status
+- [Movement Disorders Clinic Visit](/templates/clinic-movement-disorders) - Parkinson's motor fluctuations, DBS settings, dystonia injections
+- [Neuromuscular Medicine Clinic Visit](/templates/clinic-neuromuscular) - EMG-driven evaluations, MG scoring, ALS functional tracking
+- [History and Physical](/templates/history-and-physical) - for inpatient neurology admissions
+- [Consult Note](/templates/consult-note) - for inpatient neurology consultations

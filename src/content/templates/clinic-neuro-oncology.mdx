@@ -1,0 +1,654 @@
+---
+title: "Neuro-Oncology Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, neuro-oncology, neurology, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "A neuro-oncology clinic note template that captures RANO criteria response, molecular markers, steroid management, and seizure control — the data that defines follow-up in this subspecialty."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when writing an outpatient neuro-oncology clinic visit note. Paste in your clinical data (tumor history, treatment timeline, imaging results, exam findings, labs, and current symptoms) and the LLM produces a structured clinic note with disease-specific documentation for gliomas, brain metastases, meningiomas, CNS lymphoma, and leptomeningeal disease. The output format captures molecular markers, treatment response by RANO criteria, steroid management, and seizure control, the details that define neuro-oncology follow-up.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Neuro-Oncology Clinic Visit Note">
+You are an experienced neuro-oncologist writing an outpatient clinic visit note. After receiving the clinical information below, produce a complete, structured neuro-oncology visit note.
+
+### Rules
+
+- Write in past tense for history and treatment events; present tense for current status, exam findings, and plan.
+- Include specific numbers (tumor dimensions, lab values, steroid doses, KPS, seizure frequency, MRI dates) whenever available.
+- Use medical abbreviations throughout. Never spell out what an abbreviation stands for.
+- Reference dates in the format M/D/YY.
+- Document molecular markers, treatment timeline, and imaging response using RANO criteria when applicable.
+- For chemotherapy, document agent, dose, cycle number, and schedule (e.g., temozolomide 200 mg/m2 days 1-5/28).
+- Document steroid use with current dose, duration, taper plan, and side effects.
+- Do not infer or fabricate any clinical information not provided. Write "***" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "pmhx" = past medical history
+- "GBM" = glioblastoma
+- "TMZ" = temozolomide
+- "GTR" = gross total resection
+- "STR" = subtotal resection
+- "KPS" = Karnofsky Performance Status
+- "ECOG" = Eastern Cooperative Oncology Group
+- "RANO" = Response Assessment in Neuro-Oncology
+- "TTFields" = tumor-treating fields
+- "AED" = antiepileptic drug
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+NEURO-ONCOLOGY CLINIC VISIT
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[New patient / Follow-up / Imaging review / Treatment check]
+
+TUMOR PROFILE
+─────────────
+  Histology: ***
+  WHO Grade: ***
+  Molecular Markers
+  ─────────────────
+    IDH: [mutant / wild-type]
+    MGMT promoter: [methylated / unmethylated]
+    1p/19q: [co-deleted / intact]
+    ATRX: [lost / retained]
+    TERT promoter: [mutant / wild-type]
+    H3K27M: [mutant / wild-type / not tested]
+    Other: ***
+  Location: ***
+  Laterality: [left / right / midline / bilateral]
+
+TREATMENT HISTORY
+─────────────────
+  Surgery
+  ───────
+  [Date, procedure, extent of resection (GTR, STR, biopsy),
+  residual disease on post-op MRI. Multiple surgeries listed
+  chronologically.]
+
+  Radiation
+  ─────────
+  [Type (WBRT, SRS, IMRT, proton), total dose, fractions,
+  treatment dates, fields. E.g., "60 Gy in 30 fractions,
+  completed 8/15/25."]
+
+  Chemotherapy
+  ────────────
+  [Agent, dose, schedule, cycle number, dates.
+  E.g., "TMZ 200 mg/m2 days 1-5/28, currently cycle 4/6,
+  started 9/1/25."
+  Prior agents with reason for discontinuation.
+  Clinical trial protocol if applicable.]
+
+  Tumor-Treating Fields
+  ─────────────────────
+  [Device (Optune), start date, average daily compliance
+  hours, skin care issues. Write "N/A" if not applicable.]
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph. Symptoms since last visit: headache,
+nausea, fatigue, personality or cognitive changes, new
+neurological symptoms. Seizure history: type, frequency
+since last visit, breakthrough events, AED adherence.
+Steroid-related symptoms: hyperglycemia, myopathy,
+insomnia, weight gain, mood changes.
+Functional status: work, driving, ADLs.]
+
+CURRENT MEDICATIONS
+───────────────────
+  Chemotherapy: ***
+  AEDs: [Agent, dose, level if checked]
+  Steroids: [Dexamethasone dose, duration, taper plan]
+  VTE prophylaxis: [Agent, dose, or "none"]
+  Other: ***
+
+PHYSICAL EXAMINATION
+────────────────────
+
+  Performance Status
+  ──────────────────
+  KPS: ***/100
+  ECOG: ***/4
+
+  General: ***
+  HEENT: ***
+  Cardiovascular: ***
+  Pulmonary: ***
+  Abdomen: ***
+  Extremities: ***
+  Skin: [Scalp incision status, TTFields skin changes if applicable]
+
+  Neurological Exam
+  ─────────────────
+  Mental status: [Alertness, orientation, language, attention]
+  Cranial nerves: ***
+  Motor: [Strength by muscle group, any focal deficits]
+  Sensory: ***
+  Coordination: ***
+  Gait: ***
+  Reflexes: ***
+  [Note any change from prior exam.]
+
+COGNITIVE ASSESSMENT
+────────────────────
+  MoCA: ***/30 (date: ***)
+  Prior MoCA: ***/30 (date: ***)
+  Subjective complaints: ***
+  Neuropsych testing: [Date, key findings, or "not done"]
+
+MRI SURVEILLANCE
+────────────────
+  Last MRI: [Date]
+  Comparison: [Date of prior MRI]
+  Findings: [Tumor size, enhancement pattern, edema,
+  mass effect, new lesions. Report measurements.]
+  RANO Assessment: [Complete response / Partial response /
+  Stable disease / Progressive disease]
+  Pseudoprogression considered: [Yes/No, rationale]
+  Radiation necrosis considered: [Yes/No, rationale]
+
+LABS
+────
+  CBC: WBC ***, ANC ***, Hgb ***, Plt ***
+  CMP: [LFTs, glucose, Cr]
+  AED levels: ***
+  Other: ***
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [tumor type, WHO grade,
+key molecular markers] s/p [treatment summary], now
+[current status: on adjuvant therapy cycle X / surveillance /
+progressive disease].
+
+  1. [Primary tumor problem]
+  2. [Seizure management]
+  3. [Steroid management]
+  4. [Treatment toxicity if applicable]
+  5. [Other active problems]
+
+PLAN
+────
+  1. [Primary tumor management]
+     - [Imaging plan: next MRI date]
+     - [Treatment continuation or change]
+     - [Clinical trial consideration if applicable]
+
+  2. [Seizure management]
+     - [AED adjustment, level monitoring]
+
+  3. [Steroid management]
+     - [Taper schedule or continuation rationale]
+
+  4. [Supportive care]
+     - [VTE prophylaxis, bone health, PCP prophylaxis if on steroids]
+     - [Cognitive rehabilitation referral if indicated]
+
+  5. [Goals of care / Advance care planning]
+     - [Advance directives status, hospice timing if applicable]
+
+FOLLOW-UP
+─────────
+[Return interval, next MRI date, next labs, coordination
+with radiation oncology / medical oncology / neurosurgery.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste your de-identified neuro-oncology clinic data here: tumor history, molecular markers, treatment timeline, MRI results, exam findings, symptoms, labs, and current medications.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Brain metastases focus | Replace molecular markers section with: "Primary cancer: [type, stage]. Number of brain metastases, locations, largest dimension. Systemic therapy status and extracranial disease burden." |
+| Meningioma surveillance | Simplify treatment history. Add: "Growth rate on serial imaging (mm/year). Symptomatic vs. incidental." |
+| Pediatric neuro-oncology | Add: "Include developmental milestones, school performance, and growth parameters. Use weight-based dosing." |
+| Clinical trial patient | Add: "Document protocol number, treatment arm, cycle/day, protocol-required assessments, and any protocol deviations." |
+| Telemedicine visit | Add: "This is a telemedicine encounter. Note exam limitations. Document patient-reported neurological status in lieu of formal exam." |
+
+---
+
+## Variations
+
+### GBM on temozolomide follow-up
+
+Use this for patients with glioblastoma on adjuvant temozolomide who are returning for routine treatment monitoring between MRI scans.
+
+<PromptPlayground tool="Claude" title="GBM Temozolomide Follow-Up">
+You are a neuro-oncologist writing a follow-up visit note for a patient with glioblastoma on adjuvant temozolomide. After receiving the clinical information below, produce a focused treatment monitoring note.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Document TMZ dose, cycle number, schedule (5/28 vs 21/28), and tolerability.
+- Include CBC with differential (absolute neutrophil count and platelet count are critical for TMZ monitoring).
+- Document KPS and any interval neurological changes.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "GBM" = glioblastoma
+- "TMZ" = temozolomide
+- "ANC" = absolute neutrophil count
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+GBM TREATMENT FOLLOW-UP
+══════════════════════════════════════════
+
+TUMOR SUMMARY
+─────────────
+  Diagnosis: GBM, WHO grade 4
+  IDH: ***   MGMT: ***
+  Surgery: [Date, extent]
+  Chemoradiation: [Dates, completed/ongoing]
+
+TMZ STATUS
+──────────
+  Current cycle: ***/6 (or ***/12)
+  Schedule: [5/28 or 21/28]
+  Dose: *** mg/m2 (*** mg actual)
+  Last cycle dates: ***
+  Tolerability: [Nausea, fatigue, cytopenias, constipation]
+  Dose modifications: [None / describe]
+
+INTERVAL SYMPTOMS
+─────────────────
+[Narrative: headache, seizures, fatigue, cognitive changes,
+steroid side effects, new neurological symptoms.]
+
+EXAM
+────
+  KPS: ***/100
+  Focused neuro exam: [Mental status, cranial nerves, motor,
+  gait. Note changes from prior.]
+
+LABS
+────
+  CBC: WBC ***, ANC ***, Hgb ***, Plt ***
+  [Flag if ANC &lt;1500 or Plt &lt;100,000]
+  CMP: ***
+  AED level: ***
+
+LAST MRI
+────────
+  Date: ***
+  RANO: ***
+  Next MRI due: ***
+
+PLAN
+────
+  1. TMZ: [Continue / hold / dose-reduce / discontinue. Rationale.]
+  2. Seizures: ***
+  3. Steroids: ***
+  4. Supportive: [Antiemetics, PCP prophylaxis, VTE prophylaxis]
+  5. Next visit: ***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: TMZ cycle details, labs, symptoms, exam, last MRI summary.]
+</PromptPlayground>
+
+### Brain metastases surveillance
+
+Use this for patients with brain metastases from systemic cancer who are on MRI surveillance after SRS or WBRT.
+
+<PromptPlayground tool="Claude" title="Brain Metastases Surveillance Visit">
+You are a neuro-oncologist writing a surveillance visit note for a patient with brain metastases. After receiving the clinical information below, produce a structured follow-up note focused on imaging response, neurological status, and coordination with medical oncology.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Document each metastasis by location and size trend across serial imaging.
+- Include systemic disease status and current oncologic therapy.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "SRS" = stereotactic radiosurgery
+- "WBRT" = whole brain radiation therapy
+- "met" = metastasis
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+BRAIN METASTASES SURVEILLANCE
+══════════════════════════════════════════
+
+PRIMARY CANCER
+──────────────
+  Type: ***
+  Stage: ***
+  Key mutations/biomarkers: ***
+  Current systemic therapy: ***
+  Extracranial disease status: [Stable / progressive / NED]
+
+BRAIN METASTASES HISTORY
+────────────────────────
+  Number at diagnosis: ***
+  Treatment: [SRS / WBRT / surgery / combination. Dates, doses.]
+  Prior brain-directed treatments (chronological): ***
+
+CURRENT MRI ([date])
+────────────────────
+  Comparison: [Prior MRI date]
+  Lesion-by-lesion:
+    1. [Location]: [Size, enhancement, change from prior]
+    2. [Location]: [Size, enhancement, change from prior]
+    3. [Location]: [Size, enhancement, change from prior]
+  New lesions: [Yes (number, location) / None]
+  Radiation necrosis: [Suspected / absent]
+  Leptomeningeal enhancement: [Present / absent]
+  Overall assessment: [Stable / improved / progressive]
+
+INTERVAL SYMPTOMS
+─────────────────
+[Narrative: headache, seizures, focal deficits, cognitive
+changes, steroid use.]
+
+EXAM
+────
+  KPS: ***/100
+  Neurological exam: [Focused findings, changes from prior.]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. Brain metastases: [Stable / progressive. Treatment plan:
+     continue surveillance / SRS to new lesions / WBRT /
+     surgery / change systemic therapy.]
+  2. Seizures: ***
+  3. Steroids: ***
+  4. Coordination: [Next MRI date, communication with
+     medical oncology regarding systemic therapy.]
+  5. Follow-up: ***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: primary cancer details, treatment history, MRI findings, symptoms, exam.]
+</PromptPlayground>
+
+### Meningioma observation
+
+Use this for patients with meningiomas (incidental or symptomatic) being followed with serial imaging rather than active treatment.
+
+<PromptPlayground tool="Claude" title="Meningioma Observation Visit">
+You are a neuro-oncologist writing an observation visit note for a patient with a meningioma on serial imaging surveillance. After receiving the clinical information below, produce a structured follow-up note.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Document tumor size on serial imaging with growth rate if calculable.
+- Include symptoms attributable to mass effect or tumor location.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+MENINGIOMA OBSERVATION VISIT
+══════════════════════════════════════════
+
+TUMOR PROFILE
+─────────────
+  Location: ***
+  WHO Grade: [1 / 2 / 3 / unknown (not resected)]
+  Discovery: [Incidental / symptomatic. Date.]
+  Size at diagnosis: ***
+  Biopsy/surgery: [Yes (date, extent) / No (observation only)]
+
+IMAGING TREND
+─────────────
+  [Date]: [Size]
+  [Date]: [Size]
+  [Date]: [Size]
+  Growth rate: [mm/year or "Stable"]
+  Current imaging ([date]):
+    Size: ***
+    Edema: [Present / absent]
+    Mass effect: [Describe / none]
+    Enhancement pattern: ***
+    Comparison: ***
+
+INTERVAL SYMPTOMS
+─────────────────
+[Narrative: headache, seizures, vision changes, focal
+deficits attributable to tumor location. Functional impact.]
+
+EXAM
+────
+  Neurological exam: [Focused on deficits related to
+  tumor location. Note changes from prior.]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. Meningioma, [location]: [Stable / growing. Continue
+     observation vs. recommend intervention.]
+     - Next MRI: [Date, interval rationale (6 months vs.
+       12 months based on growth pattern)]
+     - Surgical consultation: [Not indicated / recommended
+       if growing or symptomatic]
+  2. Symptoms: ***
+  3. Follow-up: ***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: tumor details, imaging history with measurements, symptoms, exam.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+56-year-old right-handed male, diagnosed with GBM left temporal lobe 7/25. IDH wild-type, MGMT methylated, ATRX retained, TERT mutant. S/p STR 7/10/25 with 1.2 cm residual enhancing disease on post-op MRI. Completed concurrent chemoradiation (60 Gy/30 fx with daily TMZ 75 mg/m2) on 9/5/25. Now on adjuvant TMZ 200 mg/m2 days 1-5/28, currently completed cycle 4, started 10/1/25. On Optune since 10/1/25, averaging 20 hrs/day with mild scalp irritation. Seizure history: two focal aware seizures (left hand tingling, 30 seconds each) in 8/25, none since starting levetiracetam 750 mg BID. Dexamethasone tapered off 10/15/25. Today reports mild fatigue, no headache, no nausea, no new neuro symptoms. Working part-time from home. Driving. KPS 80. Exam: alert, oriented x4, fluent speech, CN intact, RUE 4+/5 grip (stable from post-op), LUE 5/5, LE 5/5 bilat, normal gait. MoCA 26/30 today (25/30 on 11/1/25). MRI 1/20/26: stable 1.0 cm enhancing lesion left temporal, no new enhancement, stable FLAIR, no new lesions. RANO stable disease. CBC today: WBC 5.2, ANC 2100, Hgb 13.1, Plt 185. CMP wnl. Levetiracetam level 22 (therapeutic). VTE history: DVT right leg 9/25, on enoxaparin 1 mg/kg BID.
+
+**LLM output:**
+
+NEURO-ONCOLOGY CLINIC VISIT
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Follow-up
+
+TUMOR PROFILE
+─────────────
+  Histology: Glioblastoma
+  WHO Grade: 4
+  Molecular Markers
+  ─────────────────
+    IDH: wild-type
+    MGMT promoter: methylated
+    1p/19q: ***
+    ATRX: retained
+    TERT promoter: mutant
+    H3K27M: ***
+    Other: None
+  Location: Left temporal lobe
+  Laterality: Left
+
+TREATMENT HISTORY
+─────────────────
+  Surgery
+  ───────
+  7/10/25: STR left temporal craniotomy. Post-op MRI showed 1.2 cm residual enhancing disease.
+
+  Radiation
+  ─────────
+  60 Gy in 30 fractions with concurrent TMZ 75 mg/m2, completed 9/5/25.
+
+  Chemotherapy
+  ────────────
+  Adjuvant TMZ 200 mg/m2 days 1-5/28, cycle 4 of 6 completed. Started 10/1/25. No dose modifications. Concurrent TMZ 75 mg/m2 during radiation (7/25 to 9/5/25).
+
+  Tumor-Treating Fields
+  ─────────────────────
+  Optune started 10/1/25. Average compliance 20 hours/day. Mild scalp irritation at array sites.
+
+INTERVAL HISTORY
+────────────────
+Patient reports mild fatigue, which he attributes to TMZ. He denies headache, nausea, vomiting, vision changes, personality changes, or new neurological symptoms. No seizures since starting levetiracetam in 8/25; his last events were two focal aware seizures (left hand tingling, lasting 30 seconds each) prior to AED initiation. Dexamethasone was tapered off on 10/15/25 without recurrence of symptoms. He is working part-time from home and continues to drive.
+
+CURRENT MEDICATIONS
+───────────────────
+  Chemotherapy: TMZ 200 mg/m2 days 1-5/28 (cycle 5 upcoming)
+  AEDs: Levetiracetam 750 mg BID (level 22, therapeutic)
+  Steroids: None (tapered off 10/15/25)
+  VTE prophylaxis: Enoxaparin 1 mg/kg BID (DVT right leg 9/25)
+  Other: None
+
+PHYSICAL EXAMINATION
+────────────────────
+
+  Performance Status
+  ──────────────────
+  KPS: 80/100
+  ECOG: 1/4
+
+  General: Alert, comfortable, well-appearing.
+  HEENT: Scalp incision well-healed. Mild erythema at Optune array sites.
+  Cardiovascular: RRR, no murmurs.
+  Pulmonary: CTAB.
+  Abdomen: Soft, NT, ND.
+  Extremities: No edema. No calf tenderness bilaterally.
+  Skin: Mild scalp irritation at TTFields array sites, no breakdown.
+
+  Neurological Exam
+  ─────────────────
+  Mental status: Alert, oriented x4, fluent speech, intact naming and repetition.
+  Cranial nerves: II-XII intact.
+  Motor: RUE grip 4+/5 (stable from post-op baseline), LUE 5/5, bilateral LE 5/5.
+  Sensory: Intact to light touch throughout.
+  Coordination: FNF intact bilaterally.
+  Gait: Normal, tandem intact.
+  Reflexes: 2+ symmetric, toes downgoing.
+
+COGNITIVE ASSESSMENT
+────────────────────
+  MoCA: 26/30 (today)
+  Prior MoCA: 25/30 (11/1/25)
+  Subjective complaints: None reported.
+  Neuropsych testing: Not done.
+
+MRI SURVEILLANCE
+────────────────
+  Last MRI: 1/20/26
+  Comparison: Prior MRI (date not specified)
+  Findings: Stable 1.0 cm enhancing lesion left temporal lobe (previously 1.2 cm post-op). Stable surrounding FLAIR signal. No new areas of enhancement. No new lesions. No midline shift.
+  RANO Assessment: Stable disease
+  Pseudoprogression considered: No
+  Radiation necrosis considered: No
+
+LABS
+────
+  CBC: WBC 5.2, ANC 2100, Hgb 13.1, Plt 185
+  CMP: WNL
+  AED levels: Levetiracetam 22 (therapeutic)
+  Other: None
+
+ASSESSMENT
+──────────
+56-year-old right-handed male with GBM, WHO grade 4, IDH wild-type, MGMT methylated, left temporal lobe, s/p STR 7/10/25, chemoradiation completed 9/5/25, now on adjuvant TMZ cycle 4 of 6 with concurrent TTFields. Disease stable by RANO criteria on most recent MRI. Neurologically stable with residual mild RUE weakness at post-operative baseline. Seizure-free on levetiracetam. Off steroids.
+
+  1. GBM, stable disease on adjuvant TMZ + TTFields
+  2. Seizure disorder, controlled on levetiracetam
+  3. VTE (DVT right leg 9/25), on therapeutic enoxaparin
+  4. Mild RUE weakness, stable, post-surgical
+
+PLAN
+────
+  1. GBM, adjuvant therapy
+     - Continue TMZ 200 mg/m2 days 1-5/28, proceed with cycle 5
+     - Continue Optune; counsel on maintaining ≥18 hours/day compliance
+     - Next MRI brain with and without contrast: 3/20/26 (q8-week schedule)
+     - CBC prior to cycle 5 start; hold TMZ if ANC &lt;1500 or Plt &lt;100,000
+
+  2. Seizures
+     - Continue levetiracetam 750 mg BID
+     - Level therapeutic; no dose adjustment needed
+
+  3. VTE
+     - Continue enoxaparin 1 mg/kg BID
+     - Indefinite anticoagulation given active malignancy
+
+  4. Supportive care
+     - PCP prophylaxis not indicated (off steroids)
+     - Continue scalp care for TTFields irritation (barrier cream, array rotation)
+     - MoCA stable at 26; no neuropsych referral at this time
+
+  5. Goals of care
+     - Advance directives: [Verify before signing]
+     - Patient functioning well, working part-time; continue current trajectory
+
+FOLLOW-UP
+─────────
+Return in 4 weeks for cycle 5 check. MRI brain 3/20/26. Labs (CBC, CMP) 1 week prior to next cycle. Coordinate with medical oncology regarding systemic VTE management.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **Molecular markers matter.** The AI will list whatever you provide, but it cannot interpret the clinical significance of molecular combinations. IDH-mutant, 1p/19q co-deleted oligodendroglioma has a fundamentally different prognosis and treatment approach than IDH wild-type GBM. Verify that your assessment reflects the correct molecular context.
+- **RANO criteria require comparison.** The AI will assign a RANO category based on your description, but RANO assessment requires formal comparison of enhancing and non-enhancing disease across time points. Confirm the AI's RANO call against your own reading or the radiologist's report.
+- **Pseudoprogression vs. true progression.** This is a clinical judgment the AI cannot make. If your patient is within 3 to 6 months of completing chemoradiation and the MRI shows increased enhancement, the note should document your reasoning for or against pseudoprogression, not just state a conclusion.
+- **Steroid documentation.** Neuro-oncology notes live and die by steroid documentation. The AI may note the current dose but miss the trajectory. Document peak dose, duration, taper schedule, and steroid-related complications (hyperglycemia, myopathy, PCP risk, bone density).
+- **TMZ hematologic monitoring.** The critical lab values for TMZ safety (ANC and platelet count) must be verified before each cycle. The AI will not flag dangerously low counts unless the prompt tells it to. Always confirm the threshold logic in the plan matches your institutional protocol.
+- **TTFields compliance.** The 75% daily compliance threshold (18 hours/day) correlates with survival benefit in the EF-14 trial data. If your patient is below this, the plan should address adherence barriers.
+- **Advance care planning.** For progressive GBM, the median survival from recurrence is 6 to 9 months. The AI will include a goals-of-care section, but the content depends entirely on what you provide. Document these conversations even when brief.
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) - for inpatient neuro-oncology progress notes during admissions
+- [Consult Note](/templates/consult-note) - when neurosurgery or radiation oncology is requesting your input
+- [Referral Letter](/templates/referral-letter) - for referring patients to neuro-oncology from primary care or general neurology
+- [Discharge Summary](/templates/discharge-summary-basic) - for post-surgical or post-treatment hospital discharges

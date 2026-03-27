@@ -1,0 +1,769 @@
+---
+title: "Epilepsy Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, epilepsy, neurology, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "Epilepsy clinic note template capturing seizure diary data, ASM regimen with levels, EEG and MRI results, device parameters, SUDEP counseling, and driving eligibility — organized around the seizure control cycle."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when writing an epilepsy subspecialty clinic note. It captures the data that drives epilepsy management: seizure diary (types, frequency, last seizure date, clusters, status epilepticus history), antiseizure medication (ASM) regimen with levels, EEG findings, MRI epilepsy protocol results, surgical candidacy, VNS/RNS/DBS device parameters, rescue medication plans, driving eligibility, women's health considerations, bone health, SUDEP counseling, and psychosocial screening. Paste in your clinical data and the LLM produces a note organized around the seizure control cycle and the decision tree between medical, surgical, and device-based management.
+
+For patients with seizures as one complaint among several neurological issues, the [general neurology template](/templates/clinic-neurology) may suffice.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Epilepsy Clinic Visit">
+You are an epileptologist writing an outpatient epilepsy clinic note after evaluating a patient. After receiving the clinical information below, produce a complete, structured epilepsy clinic visit note.
+
+**Purpose:** Generate an epilepsy subspecialty clinic note that captures seizure diary data, ASM management with levels, EEG and imaging findings, surgical evaluation status, driving eligibility, safety counseling, and a plan organized around seizure control.
+
+### Rules
+
+- Write the HPI as a narrative paragraph in past tense for history, present tense for current seizure pattern.
+- Quantify seizure burden: seizure types with semiology, frequency (per week or month), date of last seizure, any clusters, history of status epilepticus.
+- Document seizure semiology for each seizure type: aura, motor features, impairment of awareness, duration, post-ictal state.
+- Document the ASM regimen: current agents with doses, most recent levels (date drawn, value, therapeutic range), side effects.
+- List all prior ASMs with max dose reached and reason for stopping (inefficacy vs intolerance, with specific side effect).
+- Apply drug-resistant epilepsy criteria: failed 2 or more appropriate ASMs at adequate doses and duration.
+- Document EEG: most recent study (routine, ambulatory, video-EEG), date, findings (interictal discharges, seizure localization, normal).
+- Document MRI: epilepsy protocol findings (lesional vs non-lesional).
+- If applicable, document surgical evaluation status (phase I/II, Wada, neuropsych), VNS/RNS/DBS (settings, response, battery).
+- Document rescue medication: agent, dose, caregiver training status.
+- Document driving: state law seizure-free interval, last seizure date, driving eligibility status, DMV reporting if required.
+- Document women's health: contraception (note enzyme-inducing ASM interactions), folic acid supplementation, pregnancy planning status.
+- Document bone health: vitamin D supplementation, DEXA if on enzyme-inducing ASMs long-term.
+- Document safety: seizure precautions (bathing, heights, swimming), SUDEP counseling (documented as provided or deferred with reason).
+- Screen for mood: NDDI-E score or PHQ-9, employment status, disability status.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY.
+- Do not infer or fabricate any clinical information not provided. Write "***" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "ASM" = antiseizure medication
+- "DRE" = drug-resistant epilepsy
+- "VNS" = vagus nerve stimulator
+- "RNS" = responsive neurostimulation
+- "SUDEP" = sudden unexpected death in epilepsy
+- "NDDI-E" = Neurological Disorders Depression Inventory for Epilepsy
+- "GTCS" = generalized tonic-clonic seizure
+- "FIAS" = focal impaired awareness seizure
+- "FAS" = focal aware seizure
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+EPILEPSY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[New patient / Follow-up]
+
+CHIEF COMPLAINT
+───────────────
+***
+
+EPILEPSY CLASSIFICATION
+───────────────────────
+  Epilepsy type: [Focal / Generalized / Combined / Unknown]
+  Epilepsy syndrome: [If identified]
+  Etiology: [Structural / Genetic / Infectious / Metabolic /
+  Immune / Unknown]
+
+HISTORY OF PRESENT ILLNESS
+───────────────────────────
+[Detailed narrative. Include: epilepsy diagnosis history,
+age of onset, presumed etiology, current seizure control,
+interval changes since last visit, breakthrough events,
+medication adherence, and triggers identified.]
+
+SEIZURE DIARY
+─────────────
+
+  Seizure type 1: [FAS / FIAS / GTCS / other]
+  ─────────────────────────────────────────────
+  Semiology: [Aura (type), motor features, awareness status,
+  duration, post-ictal state]
+  Frequency: *** per [week / month]
+  Last occurrence: ***
+
+  Seizure type 2 (if applicable): ***
+  ─────────────────────────────────────
+  Semiology: ***
+  Frequency: ***
+  Last occurrence: ***
+
+  Clusters: [Yes (describe) / No]
+  Status epilepticus history: [Yes (date, treatment) / No]
+  Seizure-free interval: ***
+
+ANTISEIZURE MEDICATIONS
+───────────────────────
+
+  Current regimen
+  ────────────────
+  1. [Agent]: *** mg [frequency]
+     Level: *** (drawn ***), therapeutic range ***
+     Side effects: ***
+
+  2. [Agent]: *** mg [frequency]
+     Level: *** (drawn ***), therapeutic range ***
+     Side effects: ***
+
+  Prior ASMs
+  ──────────
+  [Agent, max dose, duration, reason stopped]
+  1. ***
+  2. ***
+  3. ***
+
+  Drug-resistant epilepsy criteria: [Met / Not met]
+  [If met: Failed *** appropriate ASMs at adequate doses.]
+
+RESCUE MEDICATION
+─────────────────
+  Agent: [Intranasal midazolam / rectal diazepam / other]
+  Dose: ***
+  Caregiver trained: [Yes / No]
+  Last used: ***
+
+DIAGNOSTIC DATA
+───────────────
+
+  EEG
+  ───
+  Most recent: [Routine / Ambulatory / Video-EEG] (date)
+  Findings: [Interictal discharges (location, laterality),
+  seizure captured (localization), normal, or other findings]
+
+  MRI Brain
+  ─────────
+  Epilepsy protocol (date): [Lesional (describe) / Non-lesional /
+  Findings: ***]
+
+  Other studies
+  ─────────────
+  [PET, SPECT, MEG, neuropsych, Wada if applicable.]
+
+SURGICAL / DEVICE EVALUATION
+─────────────────────────────
+  Surgical candidate: [Yes / No / Under evaluation / Not applicable]
+  [If under evaluation: phase I/II status, Wada results,
+  neuropsych summary, surgical conference recommendation.]
+
+  Neuromodulation device (if applicable)
+  ──────────────────────────────────────
+  Device: [VNS / RNS / DBS]
+  Implant date: ***
+  Current settings: ***
+  Response: ***
+  Battery status: ***
+  Last programming: ***
+
+NEUROLOGICAL EXAMINATION
+────────────────────────
+  Mental status: ***
+  Cranial nerves: ***
+  Motor: ***
+  Sensory: ***
+  Reflexes: ***
+  Coordination: ***
+  Gait: ***
+
+DRIVING STATUS
+──────────────
+  State seizure-free requirement: ***
+  Last seizure date: ***
+  Current driving eligibility: [Eligible / Not eligible,
+  eligible on *** / Restricted]
+  DMV reporting: [Required / Not required / Filed on ***]
+
+WOMEN'S HEALTH (if applicable)
+──────────────────────────────
+  Contraception: [Method. Note if on enzyme-inducing ASM
+  (carbamazepine, phenytoin, phenobarbital, oxcarbazepine,
+  perampanel) that reduces hormonal contraception efficacy.]
+  Folic acid: [Dose. Standard: 0.4-0.8 mg; high-risk: 4 mg.]
+  Pregnancy status/planning: ***
+  Teratogenicity counseling: [Documented / Deferred]
+
+BONE HEALTH
+───────────
+  Vitamin D: [Supplementing / level ***]
+  DEXA: [Date, results / Not indicated / Due]
+  Enzyme-inducing ASM: [Yes (agent) / No]
+
+SAFETY & SUDEP COUNSELING
+─────────────────────────
+  Seizure precautions reviewed: [Yes / No]
+  (Bathing, heights, swimming, driving, heavy machinery)
+  SUDEP counseling: [Provided / Previously provided (date) /
+  Deferred (reason)]
+
+PSYCHOSOCIAL SCREENING
+──────────────────────
+  NDDI-E score: *** (cutoff &ge;15 suggests major depression)
+    OR
+  PHQ-9 score: ***
+  Employment: [Employed / unemployed / disability / student]
+  Social support: ***
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [epilepsy classification and
+etiology] presenting for [new evaluation / follow-up].
+[One-sentence summary of seizure control and trajectory.]
+
+  1. [Epilepsy diagnosis and control status]
+  2. [ASM management / side effects]
+  3. [Additional relevant problems]
+
+PLAN
+────
+  1. [Seizure management]
+     - [ASM changes: dose adjustment, new agent, taper]
+     - [Diagnostic next steps: EEG, imaging]
+     - [Surgical/device considerations]
+
+  2. [ASM monitoring]
+     - [Level checks, CBC, LFTs, metabolic panel as needed]
+
+  3. [Safety and counseling]
+     - [Driving, SUDEP, seizure precautions, women's health]
+
+FOLLOW-UP
+─────────
+Return in [timeframe]. [Seizure diary, lab draws before next visit,
+contact if seizure frequency increases or new seizure type.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste your de-identified epilepsy clinic data here: seizure diary, medications with levels, EEG, MRI, device settings, driving status, women's health data, and psychosocial screening.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Surgical evaluation | Add: "This patient is being evaluated for epilepsy surgery. Include a detailed summary of Phase I/II data, neuropsych results, Wada findings, and surgical conference recommendation." |
+| Pediatric epilepsy | Add: "This is a pediatric patient. Include developmental milestones, school performance, ketogenic diet status if applicable, and caregiver seizure action plan." |
+| First seizure visit | Add: "This is a first-seizure evaluation. Include the risk stratification for recurrence, decision rationale for starting vs deferring ASM, and patient counseling on seizure precautions." |
+| Telehealth | Add: "This is a telehealth visit. Document that the neurological exam was limited to observable components. Note driving counseling was provided verbally." |
+| VNS programming | Add: "Include VNS interrogation data: current settings (output current, frequency, pulse width, on/off times, magnet settings), impedance, battery estimate, and programming changes made today." |
+
+---
+
+## Variations
+
+### Drug-resistant epilepsy surgical evaluation
+
+Use this for patients with drug-resistant epilepsy who are being evaluated for surgical candidacy. The note structure captures the presurgical workup data that drives the surgical conference discussion.
+
+<PromptPlayground tool="Claude" title="Drug-Resistant Epilepsy Surgical Evaluation">
+You are an epileptologist writing a note for a patient with drug-resistant epilepsy being evaluated for surgical candidacy. After receiving the clinical information below, produce a structured presurgical evaluation note.
+
+### Rules
+
+- Confirm drug-resistant epilepsy criteria: document all ASMs tried with doses, durations, and reasons for failure.
+- Summarize presurgical workup data: video-EEG (seizure semiology, interictal and ictal localization), MRI epilepsy protocol, PET, neuropsychological testing, Wada if performed, and any invasive monitoring.
+- State whether the data are concordant or discordant across modalities.
+- Document the surgical conference recommendation if available.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "DRE" = drug-resistant epilepsy
+- "VEEG" = video-EEG monitoring
+- "SOZ" = seizure onset zone
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+DRUG-RESISTANT EPILEPSY: SURGICAL EVALUATION
+══════════════════════════════════════════
+
+EPILEPSY SUMMARY
+─────────────────
+  Epilepsy type: ***
+  Age of onset: ***
+  Etiology: ***
+  Duration of epilepsy: ***
+  Current seizure frequency: ***
+
+ASM HISTORY (DRE DOCUMENTATION)
+───────────────────────────────
+  [Complete list of all ASMs tried: agent, max dose, duration,
+  reason for failure (inefficacy/intolerance)]
+  1. ***
+  2. ***
+  [DRE criteria: Failed *** adequate ASM trials.]
+
+PRESURGICAL WORKUP
+──────────────────
+
+  Video-EEG monitoring
+  ────────────────────
+  Date: ***
+  Duration: ***
+  Seizures captured: [Number, semiology]
+  Interictal EEG: [Discharge location and laterality]
+  Ictal EEG: [SOZ localization]
+
+  MRI epilepsy protocol
+  ─────────────────────
+  Date: ***
+  Findings: [Lesional (type, location) / Non-lesional]
+
+  PET (if obtained)
+  ─────────────────
+  Date: ***
+  Findings: [Hypometabolism location]
+
+  Neuropsychological testing
+  ──────────────────────────
+  Date: ***
+  Summary: [Memory lateralization, cognitive baseline,
+  risk for postoperative deficits]
+
+  Wada test (if obtained)
+  ───────────────────────
+  Date: ***
+  Language dominance: ***
+  Memory lateralization: ***
+
+  Invasive monitoring (if applicable)
+  ────────────────────────────────────
+  Type: [sEEG / subdural grids]
+  SOZ: ***
+  Eloquent cortex mapping: ***
+
+DATA CONCORDANCE
+────────────────
+  [Summary: Are semiology, scalp EEG, MRI, PET, and neuropsych
+  concordant? Point to a single focus? Discordances noted.]
+
+SURGICAL CONFERENCE RECOMMENDATION
+───────────────────────────────────
+  Date: ***
+  Recommendation: [Proceed with resection (type) /
+  Additional testing needed / Neuromodulation (VNS/RNS/DBS) /
+  Not a surgical candidate (reason)]
+  Expected seizure freedom rate: ***
+
+ASSESSMENT & PLAN
+─────────────────
+[Clinical synthesis and next steps.]
+
+FOLLOW-UP
+─────────
+***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: complete ASM history, video-EEG results, MRI, PET, neuropsych, Wada, invasive monitoring, and surgical conference recommendations.]
+</PromptPlayground>
+
+### Epilepsy in pregnancy
+
+Use this for pregnant patients with epilepsy or those actively planning pregnancy, where the note needs to capture teratogenicity risk, ASM level monitoring, folic acid dosing, and obstetric coordination.
+
+<PromptPlayground tool="Claude" title="Epilepsy in Pregnancy Management">
+You are an epileptologist writing a clinic note for a pregnant patient with epilepsy (or a patient planning pregnancy). After receiving the clinical information below, produce a structured note focused on seizure management during pregnancy.
+
+### Rules
+
+- Document the ASM regimen with attention to teratogenicity: classify each ASM by risk (valproate highest risk; lamotrigine, levetiracetam generally preferred).
+- Document ASM levels with gestational timing (levels may drop significantly during pregnancy, especially lamotrigine).
+- Document folic acid dose (4 mg recommended for patients on ASMs, ideally started 3 months preconception).
+- Track seizure frequency by trimester.
+- Document obstetric coordination: OB provider, high-risk OB referral, anatomy scan, delivery planning.
+- Note breastfeeding considerations for each ASM.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "ASM" = antiseizure medication
+- "GA" = gestational age
+- "EGA" = estimated gestational age
+- "LTG" = lamotrigine
+- "LEV" = levetiracetam
+- "VPA" = valproate
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+EPILEPSY IN PREGNANCY
+══════════════════════════════════════════
+
+EPILEPSY HISTORY
+────────────────
+  Epilepsy type: ***
+  Seizure types: ***
+  Pre-pregnancy seizure frequency: ***
+  Pre-pregnancy ASM regimen: ***
+
+PREGNANCY STATUS
+────────────────
+  EGA: *** weeks
+  Trimester: [1st / 2nd / 3rd / Postpartum]
+  OB provider: [Identified / high-risk referral made]
+  Pregnancy: [Planned / Unplanned]
+
+SEIZURE CONTROL DURING PREGNANCY
+─────────────────────────────────
+  Seizure frequency this trimester: ***
+  Any GTCS during pregnancy: [Yes (date, duration) / No]
+  Seizure triggers during pregnancy: ***
+
+ASM MANAGEMENT
+──────────────
+  Current ASM: [Agent, dose, frequency]
+  Teratogenicity risk: [Low / moderate / high]
+  Pre-pregnancy level: ***
+  Most recent level (date, GA): ***
+  Level trend: [Stable / declining / dose adjusted]
+  Dose adjustments made: ***
+
+FOLIC ACID
+──────────
+  Dose: *** mg (recommended: 4 mg for patients on ASMs)
+  Started: [Preconception / first trimester / ***]
+
+OBSTETRIC COORDINATION
+──────────────────────
+  Anatomy scan: [Date, findings / pending]
+  Delivery plan: [Vaginal / cesarean if indicated]
+  Vitamin K: [Standard neonatal dose; if on enzyme-inducing ASM,
+  maternal supplementation considered]
+  Postpartum ASM plan: [Dose adjustment anticipated, level checks]
+
+BREASTFEEDING PLAN
+──────────────────
+  ASM breastfeeding safety: [Agent: compatible / caution / avoid]
+  Plan: ***
+
+ASSESSMENT & PLAN
+─────────────────
+[Assessment and management plan.]
+
+FOLLOW-UP
+─────────
+***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: epilepsy history, current ASM with levels, pregnancy status, seizure frequency during pregnancy, OB coordination, and folic acid status.]
+</PromptPlayground>
+
+### New-onset seizure follow-up
+
+Use this for patients presenting after a first unprovoked seizure, where the note needs to capture recurrence risk stratification, the decision to start or defer ASM, and initial counseling.
+
+<PromptPlayground tool="Claude" title="New-Onset Seizure Follow-Up">
+You are a neurologist writing a follow-up note for a patient after a first unprovoked seizure. After receiving the clinical information below, produce a structured note focused on recurrence risk assessment and the treatment decision.
+
+### Rules
+
+- Document the seizure event in detail: semiology, duration, witnesses, post-ictal state, precipitants.
+- Risk-stratify for recurrence: 2-year recurrence risk is approximately 40-50% after a first unprovoked seizure, higher with an abnormal EEG, structural lesion on MRI, nocturnal seizure, or prior brain injury.
+- Document the treatment decision: ASM started vs. deferred, with clinical rationale.
+- If ASM started: agent selection rationale, starting dose, titration plan, side effect counseling.
+- Document driving restrictions: state-specific seizure-free interval requirement.
+- Provide seizure first aid education.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "ASM" = antiseizure medication
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+NEW-ONSET SEIZURE FOLLOW-UP
+══════════════════════════════════════════
+
+SEIZURE EVENT
+─────────────
+  Date: ***
+  Setting: [Where, what the patient was doing]
+  Semiology: [Aura, motor features, awareness, duration, post-ictal]
+  Witnessed: [Yes (by whom) / No]
+  Precipitants: [Sleep deprivation, alcohol, illness, other / None]
+  ER evaluation: [Yes (workup summary) / No]
+
+RECURRENCE RISK FACTORS
+───────────────────────
+  EEG: [Normal / Abnormal (findings)]
+  MRI brain: [Normal / Abnormal (findings)]
+  Nocturnal seizure: [Yes / No]
+  Prior brain injury: [Yes (type) / No]
+  Family history of epilepsy: [Yes / No]
+  Estimated 2-year recurrence risk: [Baseline ~40% /
+  Elevated due to *** / Lower risk]
+
+TREATMENT DECISION
+──────────────────
+  Decision: [ASM started / ASM deferred]
+  Rationale: [Clinical reasoning]
+  [If started:]
+    Agent: ***
+    Starting dose: ***
+    Titration plan: ***
+    Side effects counseled: ***
+  [If deferred:]
+    Reasons: ***
+    Conditions for reconsidering: ***
+
+DRIVING COUNSELING
+──────────────────
+  State seizure-free requirement: ***
+  Earliest driving eligibility: ***
+  Patient counseled: [Yes]
+
+SAFETY COUNSELING
+─────────────────
+  Seizure precautions: [Bathing, heights, swimming, heavy machinery]
+  Seizure first aid reviewed with: [Patient / family / caregiver]
+  When to call 911: [Seizure &gt;5 min, repeated seizures, injury,
+  first seizure in water]
+
+ASSESSMENT & PLAN
+─────────────────
+[Assessment and next steps.]
+
+FOLLOW-UP
+─────────
+***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: seizure event details, EEG results, MRI results, risk factors, treatment decision, and counseling provided.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+Follow-up, 34-year-old female with focal epilepsy, left temporal, structural (left hippocampal sclerosis on MRI). Epilepsy onset age 12. Current seizure types: focal aware seizures (FAS) with deja vu aura 3-4/month, focal impaired awareness seizures (FIAS) with oral automatisms and right hand picking 1-2/month, last FIAS 2 weeks ago, last GTCS 8 months ago. On levetiracetam 1500mg BID (level 28, drawn 3/10/26, range 12-46) and lacosamide 200mg BID (level 8.2, drawn 3/10/26, range 5-10). Prior ASMs: carbamazepine (max 800mg BID, 2 years, stopped for hyponatremia), oxcarbazepine (max 600mg BID, 18 months, stopped for hyponatremia), lamotrigine (max 200mg BID, 3 years, stopped for rash). DRE criteria met. Side effects: LEV irritability (mild, managed), lacosamide dizziness at higher doses (kept at current dose). No rescue medication currently. Routine EEG 6 months ago: left temporal interictal sharp waves. MRI epilepsy protocol 2 years ago: left hippocampal sclerosis with volume loss, no other lesions. Discussed surgical evaluation at last visit; patient now interested in pursuing. Not driving (state requires 6 months seizure-free, last GTCS 8 months ago but last FIAS 2 weeks ago). Works part-time as graphic designer. On OCP, not planning pregnancy. Folic acid 0.8mg. Vitamin D 2000 IU. NDDI-E 12. No bathing alone. SUDEP counseling provided at last visit. Lives with partner.
+
+**LLM output:**
+
+EPILEPSY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Follow-up
+
+CHIEF COMPLAINT
+───────────────
+Focal epilepsy, follow-up, interested in surgical evaluation
+
+EPILEPSY CLASSIFICATION
+───────────────────────
+  Epilepsy type: Focal
+  Epilepsy syndrome: Mesial temporal lobe epilepsy
+  Etiology: Structural (left hippocampal sclerosis)
+
+HISTORY OF PRESENT ILLNESS
+───────────────────────────
+The patient is a 34-year-old female with focal epilepsy since age 12, secondary to left hippocampal sclerosis, presenting for follow-up. She meets criteria for drug-resistant epilepsy, having failed 5 appropriate ASM trials. On her current regimen of levetiracetam 1500 mg BID and lacosamide 200 mg BID, she continues to have focal aware seizures (deja vu aura) 3-4 times/month and focal impaired awareness seizures with oral automatisms and right hand picking 1-2 times/month. Her last FIAS occurred 2 weeks ago. Her last GTCS was 8 months ago. She has been interested in pursuing surgical evaluation since their discussion at the last visit and is now ready to proceed. Medication adherence is good. She reports mild irritability on levetiracetam, which is tolerable. No new seizure types or triggers identified.
+
+SEIZURE DIARY
+─────────────
+
+  Seizure type 1: FAS (deja vu aura)
+  ────────────────────────────────────
+  Semiology: Deja vu sensation, no motor features, awareness preserved, duration 15-30 seconds, no post-ictal symptoms
+  Frequency: 3-4 per month
+  Last occurrence: ***
+
+  Seizure type 2: FIAS
+  ─────────────────────
+  Semiology: Deja vu aura followed by impaired awareness, oral automatisms (lip smacking), right hand picking, duration 60-90 seconds, post-ictal confusion 5-10 minutes
+  Frequency: 1-2 per month
+  Last occurrence: 2 weeks ago (3/26)
+
+  Seizure type 3: GTCS (bilateral tonic-clonic)
+  ───────────────────────────────────────────────
+  Frequency: Last event 8 months ago
+  Last occurrence: approximately 7/25
+
+  Clusters: No
+  Status epilepticus history: No
+  Seizure-free interval: Not seizure-free (ongoing FAS and FIAS)
+
+ANTISEIZURE MEDICATIONS
+───────────────────────
+
+  Current regimen
+  ────────────────
+  1. Levetiracetam: 1500 mg BID
+     Level: 28 mcg/mL (drawn 3/10/26), therapeutic range 12-46
+     Side effects: Mild irritability, tolerable
+
+  2. Lacosamide: 200 mg BID
+     Level: 8.2 mcg/mL (drawn 3/10/26), therapeutic range 5-10
+     Side effects: Dizziness at higher doses (dose kept at current level)
+
+  Prior ASMs
+  ──────────
+  1. Carbamazepine, max 800 mg BID, 2 years, stopped for hyponatremia
+  2. Oxcarbazepine, max 600 mg BID, 18 months, stopped for hyponatremia
+  3. Lamotrigine, max 200 mg BID, 3 years, stopped for rash
+
+  Drug-resistant epilepsy criteria: Met
+  Failed 5 appropriate ASMs at adequate doses (carbamazepine, oxcarbazepine, lamotrigine, levetiracetam, lacosamide).
+
+RESCUE MEDICATION
+─────────────────
+  Agent: None currently prescribed
+  Caregiver trained: N/A
+
+DIAGNOSTIC DATA
+───────────────
+
+  EEG
+  ───
+  Routine EEG (9/25): Left temporal interictal sharp waves. No seizures captured.
+
+  MRI Brain
+  ─────────
+  Epilepsy protocol (3/24): Left hippocampal sclerosis with volume loss. No other structural lesion.
+
+SURGICAL / DEVICE EVALUATION
+─────────────────────────────
+  Surgical candidate: Under evaluation (patient now interested in pursuing)
+  Prior workup: MRI lesional (left HS), EEG concordant (left temporal IEDs)
+  Next steps: Video-EEG monitoring, neuropsychological testing, MRI re-read with volumetrics
+
+NEUROLOGICAL EXAMINATION
+────────────────────────
+  Mental status: Alert, oriented x3, language fluent, memory grossly intact
+  Cranial nerves: II-XII intact
+  Motor: 5/5 strength throughout, tone normal
+  Sensory: Intact to LT, pinprick throughout
+  Reflexes: 2+ and symmetric, plantars flexor bilaterally
+  Coordination: F-N-F intact bilaterally
+  Gait: Normal, tandem intact
+
+DRIVING STATUS
+──────────────
+  State seizure-free requirement: 6 months seizure-free
+  Last seizure date: 2 weeks ago (FIAS)
+  Current driving eligibility: Not eligible (ongoing FIAS)
+  DMV reporting: ***
+
+WOMEN'S HEALTH
+──────────────
+  Contraception: OCP (note: current ASMs are not enzyme-inducing; no interaction)
+  Folic acid: 0.8 mg daily
+  Pregnancy status/planning: Not currently planning pregnancy
+  Teratogenicity counseling: ***
+
+BONE HEALTH
+───────────
+  Vitamin D: 2000 IU daily
+  DEXA: Not indicated (not on enzyme-inducing ASMs currently)
+
+SAFETY & SUDEP COUNSELING
+─────────────────────────
+  Seizure precautions reviewed: Yes (does not bathe alone)
+  SUDEP counseling: Previously provided (last visit)
+
+PSYCHOSOCIAL SCREENING
+──────────────────────
+  NDDI-E score: 12 (below cutoff of 15; no major depression indicated)
+  Employment: Part-time graphic designer
+  Social support: Lives with partner
+
+ASSESSMENT
+──────────
+34-year-old female with drug-resistant left mesial temporal lobe epilepsy (structural, left hippocampal sclerosis) on levetiracetam and lacosamide, with ongoing focal aware and focal impaired awareness seizures. GTCS have been controlled for 8 months. DRE criteria met with 5 ASM failures. The presurgical workup data are promising: lesional MRI concordant with left temporal EEG discharges. The patient is now ready to pursue surgical evaluation.
+
+  1. Drug-resistant focal epilepsy, left temporal, ongoing seizures
+  2. Surgical evaluation candidacy
+  3. Driving restriction, ongoing
+
+PLAN
+────
+  1. Seizure management
+     - Continue levetiracetam 1500 mg BID and lacosamide 200 mg BID (levels therapeutic)
+     - No ASM changes at this time pending surgical evaluation
+     - Prescribe rescue medication: intranasal midazolam 5 mg, instruct partner on use for seizures lasting &gt;3 minutes
+
+  2. Surgical evaluation
+     - Schedule inpatient video-EEG monitoring (5-7 days) for seizure capture and ictal localization
+     - Order neuropsychological testing (pre-surgical baseline)
+     - Request updated epilepsy protocol MRI with hippocampal volumetrics
+     - Will present at surgical conference after workup complete
+
+  3. Driving
+     - Patient is not driving (ongoing FIAS)
+     - Reviewed state seizure-free requirements
+
+  4. Women's health and bone health
+     - Continue OCP (no enzyme-inducing ASM interaction)
+     - Continue folic acid 0.8 mg and vitamin D 2000 IU
+     - If pregnancy considered in future, discuss ASM optimization before conception
+
+FOLLOW-UP
+─────────
+Return in 3 months, sooner if video-EEG monitoring can be scheduled earlier. Continue seizure diary. Labs (LEV and lacosamide levels, CBC, CMP) 1 week before next visit. Contact clinic if new seizure type, increase in GTCS, or safety concern.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **Seizure diary accuracy is everything.** The model takes your seizure frequency numbers at face value. If the patient is a poor historian or did not keep a diary, document that limitation. "Patient estimates 2-3 seizures per month but does not keep a seizure diary" changes the clinical confidence level.
+- **ASM levels need timing context.** A levetiracetam level of 28 is meaningless without knowing whether it was a trough, random, or post-dose draw. The model will list the level as you provide it but will not flag timing issues.
+- **Drug-resistant epilepsy is a specific term.** The ILAE definition requires failure of 2 appropriately chosen ASMs at adequate doses and durations. The model will apply this criterion if you provide the ASM history, but verify that the doses you list were truly adequate. Stopping an ASM at a subtherapeutic dose does not count as a true failure.
+- **Driving laws vary by state.** The model includes a driving status section, but it does not know your state's specific seizure-free interval requirement or mandatory reporting laws. Fill in the correct state requirement.
+- **SUDEP counseling must be documented.** The model includes a SUDEP counseling field, but many clinicians defer this discussion. If you deferred, document why. If you provided it, document that the patient acknowledged the information. This is medicolegally important.
+- **Women's health is not optional.** Enzyme-inducing ASMs reduce hormonal contraception efficacy. Valproate carries the highest teratogenicity risk. The model flags these if the data is provided, but it will not generate a warning about a drug interaction you did not mention. Review the contraception-ASM interaction yourself.
+- **The surgical evaluation section is a checklist, not a recommendation.** The model will document the workup status you provide but will not recommend for or against surgery. That decision belongs to the surgical conference.
+
+---
+
+## Related
+
+- [General Neurology Clinic Visit](/templates/clinic-neurology) - for seizures as one of several neurological problems
+- [Headache Medicine Clinic Visit](/templates/clinic-headache) - topiramate and valproate overlap between epilepsy and headache management
+- [Procedure Note](/templates/procedure-note) - for VNS implantation or programming documentation
+- [Disability / FMLA Letter](/templates/disability-fmla-letter) - for epilepsy-related work restriction documentation

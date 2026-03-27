@@ -1,0 +1,687 @@
+---
+title: "Headache Medicine Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, headache, neurology, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "A headache medicine clinic note template that captures diary metrics, acute treatment frequency, CGRP therapy tracking, onabotulinumtoxinA schedules, MIDAS/HIT-6 scores, and disability documentation."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when writing a headache medicine subspecialty clinic note. It captures the data that a headache specialist actually needs: headache diary metrics (headache days per month, migraine days per month), acute treatment frequency, medication overuse patterns, preventive therapy response with quantified percent reduction, CGRP-targeted therapy tracking, onabotulinumtoxinA schedules, disability scores (MIDAS, HIT-6), and trigger analysis. Paste in your clinical data and the LLM produces a structured note organized around the treatment response cycle that drives headache management.
+
+For patients with headache as one of several neurological problems, the [general neurology template](/templates/clinic-neurology) may be more appropriate.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Headache Medicine Clinic Visit">
+You are a headache medicine specialist writing an outpatient clinic note after evaluating a patient with a headache disorder. After receiving the clinical information below, produce a complete, structured headache clinic visit note.
+
+**Purpose:** Generate a headache subspecialty clinic note that captures headache diary metrics, acute and preventive treatment response, disability impact, and a management plan organized around treatment optimization.
+
+### Rules
+
+- Write the HPI as a narrative paragraph in past tense for history, present tense for current headache pattern.
+- Quantify the headache burden: headache days/month, migraine days/month, average severity (0-10), peak severity, average duration.
+- Document acute treatment: agents used, frequency (days/month), effectiveness, time to relief. Flag medication overuse (&ge;10 days/month for triptans/opioids/combination analgesics, &ge;15 days/month for simple analgesics).
+- Document preventive therapy: current agent, dose, duration on current dose, response (% reduction in headache days from baseline), side effects. List all prior preventives tried with reason for discontinuation.
+- For CGRP-targeted therapies: specific agent, dose, frequency, response, insurance/prior authorization status.
+- For onabotulinumtoxinA: last injection date, injection pattern, total units, response, next scheduled date.
+- Include disability score: MIDAS score or HIT-6 with interpretation.
+- Document identified triggers and lifestyle factors: menstrual cycle, dietary, sleep, stress, weather, caffeine intake.
+- Screen for red flags: thunderclap onset, positional component, systemic symptoms, progressive pattern, new neurological deficits.
+- Document comorbid conditions relevant to headache management: anxiety, depression, sleep disorder, neck pain.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY.
+- Do not infer or fabricate any clinical information not provided. Write "***" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "HA" = headache
+- "MOH" = medication overuse headache
+- "CGRP" = calcitonin gene-related peptide
+- "MIDAS" = Migraine Disability Assessment
+- "HIT-6" = Headache Impact Test
+- "onabotA" = onabotulinumtoxinA
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+HEADACHE MEDICINE CLINIC VISIT
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[New patient / Follow-up]
+
+CHIEF COMPLAINT
+───────────────
+***
+
+HISTORY OF PRESENT ILLNESS
+───────────────────────────
+[Detailed narrative. Include: headache diagnosis history, age of
+onset, prior evaluations, current headache pattern and how it has
+changed over time. For follow-ups: interval changes since last visit,
+treatment response, new symptoms.]
+
+CURRENT HEADACHE PATTERN
+────────────────────────
+  Headache days/month: ***
+  Migraine days/month: ***
+  Average severity (0-10): ***
+  Peak severity (0-10): ***
+  Average duration: ***
+  Typical features: [Location, quality, associated symptoms
+  (photophobia, phonophobia, nausea, aura)]
+  Aura: [Yes/No. If yes: type (visual, sensory, language, motor),
+  duration, frequency]
+
+ACUTE TREATMENT
+───────────────
+  Agent(s): [Drug, dose, route]
+  Frequency of use: *** days/month
+  Effectiveness: [Adequate / Partial / Inadequate]
+  Time to meaningful relief: ***
+  Medication overuse: [Yes (agent, frequency) / No]
+
+PREVENTIVE THERAPY
+──────────────────
+
+  Current preventive(s)
+  ─────────────────────
+  Agent: ***
+  Dose: ***
+  Duration on current dose: ***
+  Response: ***% reduction in HA days from baseline of *** days/month
+  Side effects: ***
+
+  CGRP-targeted therapy (if applicable)
+  ──────────────────────────────────────
+  Agent: ***
+  Dose/frequency: ***
+  Start date: ***
+  Response: ***
+  Prior authorization: [Approved / Pending / Denied / Not applicable]
+
+  OnabotulinumtoxinA (if applicable)
+  ───────────────────────────────────
+  Last injection date: ***
+  Injection pattern: [Standard PREEMPT / modified]
+  Total units: ***
+  Response: ***
+  Next scheduled: ***
+
+  Prior preventives tried
+  ───────────────────────
+  [Agent, max dose reached, duration, reason stopped
+  (inefficacy / intolerance / other)]
+  1. ***
+  2. ***
+  3. ***
+
+DISABILITY ASSESSMENT
+─────────────────────
+  MIDAS score: *** [Grade I-IV]
+    OR
+  HIT-6 score: *** [Little/some/substantial/severe impact]
+  Work/school days missed (past 3 months): ***
+  Days with reduced productivity (past 3 months): ***
+
+TRIGGERS & LIFESTYLE
+────────────────────
+  Menstrual: [Yes, pure menstrual / menstrually related / No / N/A]
+  Dietary: ***
+  Sleep: [Hours/night, quality, sleep disorder]
+  Stress: ***
+  Weather/barometric: ***
+  Caffeine: [mg/day or cups/day]
+  Exercise: [Type, frequency]
+  Hydration: ***
+
+RED FLAG SCREENING
+──────────────────
+  Thunderclap onset: [Yes / No]
+  Positional component: [Yes / No]
+  Progressive pattern: [Yes / No]
+  Systemic symptoms (fever, weight loss): [Yes / No]
+  New neurological deficits: [Yes / No]
+  Papilledema: [Yes / No]
+
+COMORBIDITIES
+─────────────
+  Anxiety: ***
+  Depression: ***
+  Sleep disorder: ***
+  Neck pain / cervicogenic component: ***
+  Other: ***
+
+EXAMINATION
+───────────
+  General: ***
+  Vital signs: BP ***, HR ***
+  Head/neck: [Pericranial tenderness, cervical ROM, trigger points,
+  TMJ, occipital nerve tenderness]
+  Neurologic: [Mental status, CN, motor, sensory, coordination, gait.
+  Fundoscopic exam if applicable.]
+
+IMAGING
+───────
+  MRI brain (date): ***
+  [MRA/MRV if applicable (date): ***]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [headache diagnosis/diagnoses].
+[One-sentence summary of current treatment response and trajectory.]
+
+  1. [Primary headache diagnosis]
+  2. [Secondary headache diagnosis if applicable]
+  3. [Comorbidity affecting management]
+
+PLAN
+────
+  1. [Headache diagnosis #1]
+     Acute treatment: [Continue / change / add]
+     Preventive treatment: [Continue / titrate / switch / add]
+     - [Specific action items]
+
+  2. [Additional diagnoses]
+     - [Action items]
+
+  Lifestyle modifications
+  ───────────────────────
+  - [Specific recommendations]
+
+  Patient education
+  ─────────────────
+  - [Counseling provided]
+
+FOLLOW-UP
+─────────
+Return in [timeframe]. [Maintain headache diary. Contact if ***.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste your de-identified headache clinic data here: headache diary data, current and prior treatments, disability scores, exam, imaging, and lifestyle factors.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| New patient intake | Add: "This is a new patient evaluation. Include a comprehensive headache history from onset, all prior imaging, and a full list of prior treatments with reasons for failure." |
+| CGRP therapy review | Add: "Focus the plan on CGRP therapy assessment. Include documentation to support continued prior authorization: baseline headache frequency, response metrics, and prior preventive failures." |
+| Pediatric/adolescent | Add: "This is an adolescent patient. Include school attendance impact, screen time, and parental report of symptoms. Avoid medications not FDA-approved for pediatric migraine." |
+| Telehealth | Add: "This is a telehealth visit. Document limitations of remote exam. Note that fundoscopic exam was deferred." |
+| Prior auth support | Add: "Include a summary paragraph at the end documenting medical necessity for [specific treatment], listing prior preventive failures, current disability, and clinical rationale." |
+
+---
+
+## Variations
+
+### Chronic migraine on CGRP therapy
+
+Use this for quarterly or semi-annual follow-up visits focused on assessing CGRP monoclonal antibody or gepant response, supporting prior authorization renewals, and determining whether to continue, switch, or add therapy.
+
+<PromptPlayground tool="Claude" title="Chronic Migraine CGRP Therapy Follow-Up">
+You are a headache medicine specialist writing a follow-up note for a chronic migraine patient on CGRP-targeted therapy. After receiving the clinical information below, produce a structured follow-up note focused on treatment response assessment.
+
+### Rules
+
+- Quantify treatment response: baseline headache frequency (pre-treatment), current frequency, percent reduction, and whether the patient has met the &ge;50% responder threshold.
+- Document the specific CGRP agent, dose, route, frequency, start date, and number of doses/injections received.
+- List all prior preventive failures (agent, max dose, duration, reason stopped) to support ongoing authorization.
+- Include acute medication use frequency to track for medication overuse.
+- Document side effects: constipation, injection site reactions, hypersensitivity, and any new concerns.
+- Include disability score comparison (current vs. prior visit vs. baseline).
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "CM" = chronic migraine
+- "CGRP" = calcitonin gene-related peptide
+- "mAb" = monoclonal antibody
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+CHRONIC MIGRAINE: CGRP THERAPY FOLLOW-UP
+══════════════════════════════════════════
+
+DIAGNOSIS
+─────────
+Chronic migraine [with / without aura]
+
+CGRP THERAPY STATUS
+───────────────────
+  Agent: ***
+  Dose/route/frequency: ***
+  Start date: ***
+  Doses received to date: ***
+
+TREATMENT RESPONSE
+──────────────────
+  Baseline (pre-treatment):
+    Headache days/month: ***
+    Migraine days/month: ***
+    MIDAS / HIT-6: ***
+
+  Current:
+    Headache days/month: ***
+    Migraine days/month: ***
+    MIDAS / HIT-6: ***
+
+  Percent reduction in migraine days: ***%
+  Meets &ge;50% responder threshold: [Yes / No]
+
+  Acute medication use: *** days/month (previously *** days/month)
+
+SIDE EFFECTS
+────────────
+  [Constipation, injection site reactions, other. "None reported"
+  if applicable.]
+
+PRIOR PREVENTIVE FAILURES
+─────────────────────────
+  1. [Agent, max dose, duration, reason stopped]
+  2. ***
+  3. ***
+
+EXAMINATION
+───────────
+  [Focused exam.]
+
+ASSESSMENT & PLAN
+─────────────────
+  [Assessment of CGRP therapy response and plan.]
+  - Continue / switch / add therapy
+  - Prior authorization: [renewal submitted / due on ***]
+  - Acute treatment plan adjustments
+
+FOLLOW-UP
+─────────
+***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: CGRP agent details, headache diary data (before and after treatment), disability scores, side effects, prior preventive history, and exam.]
+</PromptPlayground>
+
+### Medication overuse headache detox
+
+Use this for patients with medication overuse headache where the primary goal is documenting the overuse pattern, initiating a bridge/detox strategy, and setting expectations for the withdrawal period.
+
+<PromptPlayground tool="Claude" title="Medication Overuse Headache Management">
+You are a headache medicine specialist writing a clinic note for a patient with medication overuse headache. After receiving the clinical information below, produce a structured note focused on documenting the overuse pattern, bridge strategy, and detox plan.
+
+### Rules
+
+- Document the specific overused agent(s), frequency of use (days/month), duration of overuse pattern, and how the pattern developed.
+- Apply ICHD-3 criteria for MOH: headache &ge;15 days/month in a patient with a pre-existing headache disorder, with regular overuse of acute headache medication for &gt;3 months.
+- Document the bridge/transitional therapy plan with specific agents, doses, and duration.
+- Set patient expectations: rebound worsening during withdrawal, timeline to improvement (typically 2-8 weeks), success rates.
+- Document the preventive therapy plan (start or optimize during detox).
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "MOH" = medication overuse headache
+- "ICHD-3" = International Classification of Headache Disorders, 3rd edition
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+MEDICATION OVERUSE HEADACHE MANAGEMENT
+══════════════════════════════════════════
+
+PRIMARY HEADACHE DIAGNOSIS
+──────────────────────────
+[Underlying headache disorder: chronic migraine, episodic migraine
+transformed to chronic, tension-type, etc.]
+
+MEDICATION OVERUSE PATTERN
+──────────────────────────
+  Overused agent(s): ***
+  Frequency: *** days/month
+  Duration of overuse: ***
+  How pattern developed: [Narrative: escalation history]
+  ICHD-3 MOH criteria met: [Yes / No]
+    - Headache &ge;15 days/month: [Yes / No]
+    - Acute medication &ge;10-15 days/month (per class): [Yes / No]
+    - Duration &gt;3 months: [Yes / No]
+
+CURRENT HEADACHE BURDEN
+───────────────────────
+  Total headache days/month: ***
+  Migraine days/month: ***
+  Severity (average): ***
+  Disability (MIDAS / HIT-6): ***
+
+DETOX STRATEGY
+──────────────
+  Approach: [Abrupt discontinuation / taper / outpatient bridge /
+  inpatient if severe]
+
+  Bridge therapy
+  ──────────────
+  [Agent, dose, route, frequency, duration]
+
+  Rescue medication (limited use)
+  ───────────────────────────────
+  [Agent, dose, max *** days/month]
+
+  Preventive therapy (initiated or optimized)
+  ────────────────────────────────────────────
+  [Agent, dose, titration schedule]
+
+PATIENT COUNSELING
+──────────────────
+  - Expected rebound worsening: [Duration, severity]
+  - Timeline to improvement: ***
+  - Acute medication limits going forward: [Max days/month]
+  - Headache diary: [Instructions]
+
+ASSESSMENT & PLAN
+─────────────────
+[Summary assessment and complete plan.]
+
+FOLLOW-UP
+─────────
+***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: overuse history, current headache pattern, prior treatments, disability scores, and exam.]
+</PromptPlayground>
+
+### Cluster headache management
+
+Use this for patients with cluster headache where the note needs to capture cycle pattern, acute abortive treatment (oxygen, sumatriptan), transitional therapy, and preventive strategy based on episodic versus chronic classification.
+
+<PromptPlayground tool="Claude" title="Cluster Headache Management">
+You are a headache medicine specialist writing a clinic note for a patient with cluster headache. After receiving the clinical information below, produce a structured note capturing the cluster pattern, acute and preventive treatment, and cycle management.
+
+### Rules
+
+- Classify as episodic or chronic cluster headache per ICHD-3 criteria.
+- Document the cluster cycle: typical duration, frequency of cycles per year, current cycle start date, attacks per day, attack duration, and time of day.
+- Document autonomic features: lacrimation, conjunctival injection, nasal congestion/rhinorrhea, ptosis, miosis, eyelid edema, forehead/facial sweating, restlessness.
+- Document acute treatment: high-flow oxygen (flow rate, mask type, response time), injectable sumatriptan (dose, response), other abortives.
+- Document transitional therapy: verapamil (dose, titration, EKG monitoring), corticosteroid bridge (agent, dose, taper schedule), greater occipital nerve block.
+- Document preventive therapy: verapamil, lithium, galcanezumab, topiramate, melatonin.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "CH" = cluster headache
+- "TAC" = trigeminal autonomic cephalalgia
+- "GON" = greater occipital nerve
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+CLUSTER HEADACHE MANAGEMENT
+══════════════════════════════════════════
+
+DIAGNOSIS
+─────────
+[Episodic / Chronic] cluster headache, [active cycle / remission]
+
+CLUSTER PATTERN
+───────────────
+  Classification: [Episodic / Chronic]
+  Typical cycle duration: ***
+  Cycles per year: ***
+  Current cycle: [Start date ***, duration so far ***]
+  Attacks per day: ***
+  Attack duration: ***
+  Typical time of day: ***
+  Side: [Strictly unilateral, right / left / side-shifting]
+
+AUTONOMIC FEATURES
+──────────────────
+  Lacrimation: [Yes / No]
+  Conjunctival injection: [Yes / No]
+  Nasal congestion/rhinorrhea: [Yes / No]
+  Ptosis/miosis: [Yes / No]
+  Eyelid edema: [Yes / No]
+  Facial sweating: [Yes / No]
+  Restlessness/agitation: [Yes / No]
+
+ACUTE TREATMENT
+───────────────
+  High-flow O2: [Flow rate, mask type, duration, response time]
+  Sumatriptan: [Dose, route (SC/nasal), response time]
+  Other: ***
+
+TRANSITIONAL THERAPY
+────────────────────
+  [Agent, dose, duration/taper schedule]
+  Corticosteroid bridge: ***
+  GON block: [Date, response]
+
+PREVENTIVE THERAPY
+──────────────────
+  Current agent: [Verapamil dose, other]
+  EKG monitoring: [Date, PR interval]
+  Prior preventives: ***
+
+EXAMINATION
+───────────
+  [Focused exam including CN, pupil asymmetry, Horner's assessment.]
+
+ASSESSMENT & PLAN
+─────────────────
+[Assessment of cycle status and treatment response, plan for
+acute, transitional, and preventive management.]
+
+FOLLOW-UP
+─────────
+***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: cluster history, cycle pattern, current treatments, EKG results, and exam.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+Follow-up, 38-year-old female with chronic migraine with aura, on erenumab 140mg monthly (started 9 months ago) and topiramate 100mg BID. Baseline before erenumab: 22 headache days/month, 18 migraine days/month, MIDAS 86. Current: 10 headache days/month, 7 migraine days/month, MIDAS 32. Uses sumatriptan 100mg PO as acute treatment, currently 4 days/month, effective within 2 hours. Previously tried propranolol (120mg, 4 months, stopped for fatigue and exercise intolerance), amitriptyline (50mg, 3 months, stopped for weight gain and sedation), valproate (1000mg, 6 months, stopped for weight gain and hair loss). Topiramate side effects: mild word-finding difficulty, paresthesias in hands. Triggers: menstrual (2 days before menses, consistently), sleep deprivation, stress. Sleeps 6-7 hours/night, caffeine 2 cups coffee/day, exercises 3x/week. No aura in past 3 months. PHQ-9 score 6 (mild). No MOH. MRI brain 2 years ago was normal. Exam: BP 118/72, no pericranial tenderness, CN intact, neuro exam normal. Erenumab prior auth approved through 12/26. HIT-6 score 58.
+
+**LLM output:**
+
+HEADACHE MEDICINE CLINIC VISIT
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Follow-up
+
+CHIEF COMPLAINT
+───────────────
+Chronic migraine, quarterly follow-up
+
+HISTORY OF PRESENT ILLNESS
+───────────────────────────
+The patient is a 38-year-old female with chronic migraine with aura, diagnosed approximately 10 years ago, who presents for quarterly follow-up. She was started on erenumab 140 mg monthly 9 months ago, added to topiramate 100 mg BID, after failing three prior preventive agents. At baseline before erenumab initiation, she experienced 22 headache days/month with 18 migraine days/month and a MIDAS score of 86 (Grade IV, severe disability). She currently reports 10 headache days/month and 7 migraine days/month, representing a 61% reduction in migraine days. She has not experienced aura episodes in the past 3 months. She continues to use sumatriptan 100 mg PO for acute treatment approximately 4 days/month with adequate response within 2 hours. No medication overuse. She reports mild word-finding difficulty and hand paresthesias on topiramate, which she considers tolerable.
+
+CURRENT HEADACHE PATTERN
+────────────────────────
+  Headache days/month: 10
+  Migraine days/month: 7
+  Average severity (0-10): ***
+  Peak severity (0-10): ***
+  Average duration: ***
+  Typical features: ***
+  Aura: History of visual aura, none in past 3 months
+
+ACUTE TREATMENT
+───────────────
+  Agent(s): Sumatriptan 100 mg PO
+  Frequency of use: 4 days/month
+  Effectiveness: Adequate
+  Time to meaningful relief: Within 2 hours
+  Medication overuse: No
+
+PREVENTIVE THERAPY
+──────────────────
+
+  Current preventive(s)
+  ─────────────────────
+  Agent: Erenumab 140 mg SC monthly + topiramate 100 mg BID
+  Duration on current regimen: 9 months (erenumab)
+  Response: 61% reduction in migraine days (18 to 7 days/month)
+  Side effects: Topiramate: mild word-finding difficulty, hand paresthesias. Erenumab: none reported.
+
+  CGRP-targeted therapy
+  ──────────────────────
+  Agent: Erenumab
+  Dose/route/frequency: 140 mg SC monthly
+  Start date: approximately 6/25
+  Response: 61% reduction in migraine days
+  Prior authorization: Approved through 12/26
+
+  Prior preventives tried
+  ───────────────────────
+  1. Propranolol, max 120 mg, 4 months, stopped for fatigue and exercise intolerance
+  2. Amitriptyline, max 50 mg, 3 months, stopped for weight gain and sedation
+  3. Valproate, max 1000 mg, 6 months, stopped for weight gain and hair loss
+
+DISABILITY ASSESSMENT
+─────────────────────
+  MIDAS score: 32 (Grade III, moderate disability); baseline 86 (Grade IV)
+  HIT-6 score: 58 (substantial impact)
+  Work/school days missed (past 3 months): ***
+  Days with reduced productivity (past 3 months): ***
+
+TRIGGERS & LIFESTYLE
+────────────────────
+  Menstrual: Yes, menstrually related (2 days before menses, consistent trigger)
+  Dietary: Not identified
+  Sleep: 6-7 hours/night
+  Stress: Identified as trigger
+  Weather/barometric: Not identified
+  Caffeine: 2 cups coffee/day (~200 mg)
+  Exercise: 3x/week
+  Hydration: ***
+
+RED FLAG SCREENING
+──────────────────
+  Thunderclap onset: No
+  Positional component: No
+  Progressive pattern: No (improving on current therapy)
+  Systemic symptoms: No
+  New neurological deficits: No
+  Papilledema: No
+
+COMORBIDITIES
+─────────────
+  Anxiety: Not reported
+  Depression: PHQ-9 score 6 (mild)
+  Sleep disorder: Not reported
+  Neck pain: Not reported
+
+EXAMINATION
+───────────
+  General: Well-appearing, in no acute distress.
+  Vital signs: BP 118/72, HR ***
+  Head/neck: No pericranial tenderness. Cervical ROM full. No occipital nerve tenderness.
+  Neurologic: Alert, oriented. CN II-XII intact. Motor strength 5/5 throughout. Sensory intact. Coordination intact. Gait normal.
+
+IMAGING
+───────
+  MRI brain (approximately 3/24): Normal.
+
+ASSESSMENT
+──────────
+38-year-old female with chronic migraine with aura on dual preventive therapy (erenumab 140 mg + topiramate 100 mg BID). Treatment response is robust: 61% reduction in migraine days from baseline of 18 to 7 days/month, with MIDAS improving from 86 to 32. She has crossed the 50% responder threshold. Acute treatment use is appropriate at 4 days/month without overuse.
+
+  1. Chronic migraine with aura, improving on dual preventive therapy
+  2. Mild topiramate side effects (word-finding, paresthesias)
+  3. Menstrually related migraine exacerbation
+
+PLAN
+────
+  1. Chronic migraine
+     Acute treatment: Continue sumatriptan 100 mg PO PRN, max 9 days/month
+     Preventive treatment: Continue erenumab 140 mg SC monthly (responding well, &ge;50% threshold met) and topiramate 100 mg BID
+     - Erenumab PA approved through 12/26; will submit renewal documentation 2 months prior
+     - Consider topiramate dose reduction to 50 mg BID at next visit if migraine control remains stable, given cognitive side effects
+     - If migraine days continue to decrease, may attempt topiramate taper in 6 months
+
+  2. Menstrual migraine
+     - Consider adding mini-prophylaxis: naproxen 500 mg BID starting 2 days before expected menses through day 3 of menses
+     - Track menstrual-associated attacks in headache diary separately
+
+  Lifestyle modifications
+  ───────────────────────
+  - Optimize sleep to 7-8 hours/night
+  - Continue regular exercise
+  - Maintain headache diary
+
+  Patient education
+  ─────────────────
+  - Discussed robust response to erenumab; plan to continue
+  - Counseled on option to reduce topiramate if control remains stable
+  - Reviewed menstrual mini-prophylaxis strategy
+
+FOLLOW-UP
+─────────
+Return in 3 months. Maintain headache diary with separate tracking of menstrual-associated attacks. Contact clinic if headache days increase above 15/month or new aura symptoms develop.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **Headache diary data is the foundation.** The model will use whatever numbers you provide. If the patient did not keep a diary, say so; do not estimate frequency and let the model build a treatment response narrative on fabricated numbers.
+- **Medication overuse thresholds vary by drug class.** The model applies the standard ICHD-3 cutoffs (&ge;10 days for triptans, opioids, combination analgesics; &ge;15 days for simple analgesics), but verify these against your clinical judgment. A patient using sumatriptan 9 days/month is not technically overusing but is close enough to warrant discussion.
+- **CGRP prior authorization documentation.** The note structure is designed to capture the data points insurers require: baseline frequency, current frequency, percent reduction, prior preventive failures. Review this section before submitting for PA renewal; missing a required data point can delay approval.
+- **OnabotulinumtoxinA timing.** The model will document the injection date and schedule you provide, but it will not calculate the interval or flag if the patient is overdue. Track this independently.
+- **Disability scores need context.** A MIDAS of 32 is Grade III, but the model may not comment on whether the score represents improvement or worsening unless you provide the comparison point. Always include the baseline or prior score.
+- **The model may understate menstrual migraine.** Menstrually related migraine affects treatment strategy (mini-prophylaxis, continuous OCP, etc.), but the model will only address it if you flag the menstrual association in your input.
+- **Topiramate cognitive effects are dose-dependent.** The model will list side effects you report but may not suggest dose reduction. If cognitive side effects are present, consider whether the plan should include a taper trial.
+
+---
+
+## Related
+
+- [General Neurology Clinic Visit](/templates/clinic-neurology) - for headache as one of several neurological problems
+- [Epilepsy Clinic Visit](/templates/clinic-epilepsy) - topiramate and valproate overlap; shared medication management considerations
+- [Prior Authorization](/templates/prior-authorization) - for standalone CGRP therapy authorization letters
+- [Medication Instructions](/templates/medication-instructions) - patient-facing instructions for new headache preventives

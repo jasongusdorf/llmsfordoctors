@@ -4,7 +4,8 @@ category: clinical-reasoning
 targetTool: claude
 workflow: risk-stratification
 tags: [advanced, clinical-reasoning, risk-assessment, decision-support]
-lastUpdated: 2026-03-22
+lastUpdated: 2026-03-27
+socialPost: "Apply validated clinical scoring tools to a patient presentation: calculates the score, shows the math, interprets the risk category with guideline-based recommendations, and compares alternative scoring systems."
 ---
 
 import Callout from '../../components/Callout.astro';
@@ -12,16 +13,10 @@ import PromptPlayground from '../../components/PromptPlayground.astro';
 
 ## When to use this
 
-Use this template when you need to apply one or more validated clinical scoring tools to a patient presentation to support risk stratification, disposition decisions, or treatment thresholds.
-
-Applies validated clinical scoring tools to a patient presentation to support risk stratification and disposition decisions. Provide the clinical data and specify which scoring tools to apply.
+Use this template when you need to apply validated clinical scoring tools to a patient presentation. It calculates the score, shows the math, interprets the risk category with guideline-based recommendations, and compares across alternative scoring systems when more than one applies.
 
 <Callout type="hipaa">
   De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
-</Callout>
-
-<Callout type="evidence">
-  Risk scores are decision-support tools, not decision-making tools. They are validated at the population level and may not apply to every individual patient. Clinical judgment always supersedes a calculated score.
 </Callout>
 
 ---
@@ -29,23 +24,87 @@ Applies validated clinical scoring tools to a patient presentation to support ri
 ## The prompt
 
 <PromptPlayground tool="Claude" title="Clinical Risk Stratification">
-You are an experienced clinician applying validated risk stratification tools to a clinical presentation.
+You are an experienced clinician applying validated risk stratification tools to a clinical presentation. Calculate and interpret the requested scoring tools following the rules, vocabulary, and output format below.
 
-Given the clinical data below, calculate and interpret the requested scoring tools:
+### Rules
 
-For each score:
+1. Use the published, validated criteria for each score. Do not modify or approximate scoring criteria.
+2. Show every component criterion explicitly, with its point value and whether it is met or not met in this case.
+3. If a required data point for a score is missing, note it and calculate the range of possible scores (best-case and worst-case).
+4. Do not fabricate event rates, risk percentages, or validation data. If citing a risk percentage, state the source study or calculator.
+5. Reference current guideline recommendations (ACC/AHA, ESC, ATS, IDSA) where applicable, with the guideline name.
+6. When multiple scores are calculated, compare them explicitly. Note any discordance and recommend which score is most applicable to this clinical scenario.
+7. State the limitations of each score: which populations it was validated in, where it may overestimate or underestimate risk, and patient-specific factors that the score does not capture.
+8. Acknowledge that risk scores are decision-support tools, not decision-making tools. Clinical judgment always supersedes a calculated score.
 
-**[Score Name]**
-- Show each component criterion and whether it is met (with the point value)
-- **Total Score:** [X] points
-- **Risk Category:** [Low / Intermediate / High]
-- **Interpretation:** What this score means clinically (expected event rate, recommended disposition, guideline-based next step)
-- **Caveat:** Any population in which this score is not validated or should be used with caution
+### Vocabulary
 
-**Comparison & Synthesis**
-If multiple scores are calculated, compare the risk stratifications and note any discordance. Recommend which score is most applicable to this clinical scenario and why.
+- MACE: major adverse cardiac event
+- ASCVD: atherosclerotic cardiovascular disease
+- RCRI: Revised Cardiac Risk Index (Lee Index)
+- ACS NSQIP: American College of Surgeons National Surgical Quality Improvement Program
+- CHA2DS2-VASc: scoring system for stroke risk in atrial fibrillation
+- HAS-BLED: scoring system for bleeding risk on anticoagulation
+- qSOFA: quick Sequential Organ Failure Assessment
+- NEWS2: National Early Warning Score 2
+- VTE: venous thromboembolism
+- NNT: number needed to treat
+- NNH: number needed to harm
 
-Do not fabricate score criteria, cutoff values, or validation data. Use the published scoring criteria. If a required data point for a score is missing, note it and calculate the range of possible scores.
+### Output format
+
+```
+╔══════════════════════════════════════════════════╗
+║         [SCORE NAME] CALCULATION                  ║
+╠══════════════════════════════════════════════════╣
+║ Criterion                    │ Met?  │ Points    ║
+║──────────────────────────────┼───────┼───────────║
+║ [Criterion 1]                │ Yes   │ +[N]      ║
+║ [Criterion 2]                │ No    │ 0         ║
+║ [Criterion 3]                │ Yes   │ +[N]      ║
+║ [Continue for all criteria]                       ║
+║──────────────────────────────┼───────┼───────────║
+║ TOTAL                        │       │ [X] pts   ║
+╠══════════════════════════════════════════════════╣
+║              RISK CATEGORY                        ║
+╠══════════════════════════════════════════════════╣
+║ Score [X] = [Low / Intermediate / High] risk      ║
+║ Expected event rate: [X]% at [timeframe]          ║
+║ Source: [validation study or calculator]           ║
+╠══════════════════════════════════════════════════╣
+║          CLINICAL IMPLICATIONS                    ║
+╠══════════════════════════════════════════════════╣
+║ Guideline recommendation: [specific guideline-    ║
+║   based action at this risk level, e.g.,          ║
+║   "ACC/AHA recommends observation with serial     ║
+║   troponins and stress testing before discharge"] ║
+║ Disposition guidance: [admit / observe /           ║
+║   discharge with follow-up]                        ║
+╠══════════════════════════════════════════════════╣
+║     RECOMMENDED ACTIONS BASED ON SCORE            ║
+╠══════════════════════════════════════════════════╣
+║ 1. [Specific action with timeframe]               ║
+║ 2. [Specific action]                              ║
+║ 3. [Specific action]                              ║
+╠══════════════════════════════════════════════════╣
+║    COMPARISON TO ALTERNATIVE SCORING SYSTEMS      ║
+╠══════════════════════════════════════════════════╣
+║ [Alternative score]: Would yield [X] pts =        ║
+║   [risk category]. [Concordant / Discordant]      ║
+║   with primary score.                             ║
+║ Recommended score for this scenario: [which one   ║
+║   and why]                                        ║
+╠══════════════════════════════════════════════════╣
+║          CAVEATS / LIMITATIONS                    ║
+╠══════════════════════════════════════════════════╣
+║ • Validated in: [population]                      ║
+║ • May overestimate risk if: [condition]            ║
+║ • May underestimate risk if: [condition]           ║
+║ • Does not account for: [patient-specific          ║
+║   factors not captured by the score]               ║
+╚══════════════════════════════════════════════════╝
+[Repeat entire block for each additional score]
+```
 
 ---
 CLINICAL DATA:
@@ -56,7 +115,7 @@ Labs: [RELEVANT LAB VALUES]
 History: [RELEVANT PAST HISTORY AND RISK FACTORS]
 
 SCORES TO CALCULATE:
-[List the specific scoring tools, e.g., HEART score, Wells criteria for PE, CHA₂DS₂-VASc, CURB-65, MELD, Child-Pugh, qSOFA, NEWS2, PERC, Ottawa ankle rules]
+[List the specific scoring tools, e.g., HEART score, Wells criteria for PE, CHA2DS2-VASc, CURB-65, MELD, Child-Pugh, qSOFA, NEWS2, PERC, Ottawa ankle rules]
 </PromptPlayground>
 
 ---
@@ -66,9 +125,10 @@ SCORES TO CALCULATE:
 | Element | How to Adjust |
 |---------|---------------|
 | Score selection | Add: "Only calculate [SPECIFIC SCORE]" or "Recommend the most appropriate score for this presentation" |
-| Population | Add: "This is a [pediatric/geriatric/pregnant] patient; note any validation limitations" |
-| Serial scoring | Add: "Here are prior scores/data from [DATE]: [DATA]. Compare trend." |
-| Disposition | Add: "I need to make a disposition decision; emphasize score-based disposition recommendations" |
+| Population | Add: "This is a [pediatric / geriatric / pregnant] patient. Note any validation limitations for this population." |
+| Serial scoring | Add: "Here are prior scores/data from [DATE]: [DATA]. Compare the trend and clinical trajectory." |
+| Disposition | Add: "I need to make a disposition decision. Emphasize score-based disposition recommendations with specific thresholds." |
+| Net benefit | Add: "Calculate both treatment-benefit and treatment-risk scores and provide a net risk-benefit analysis." |
 
 ---
 
@@ -77,34 +137,56 @@ SCORES TO CALCULATE:
 ### Surgical Risk Assessment
 
 <PromptPlayground tool="Claude" title="Pre-Operative Risk Stratification">
-You are a perioperative medicine consultant performing a pre-operative risk assessment.
+You are a perioperative medicine consultant performing a pre-operative risk assessment. Calculate and interpret perioperative risk scores following the rules, vocabulary, and output format below.
 
-Given the patient data and planned surgery below, calculate and interpret the relevant perioperative risk scores:
+### Rules
 
-**Scores to Calculate:**
-Apply each of the following that is appropriate for this case:
-- **Revised Cardiac Risk Index (RCRI / Lee Index)** — cardiac risk
-- **ACS NSQIP Surgical Risk Calculator** — overall morbidity and mortality (describe the inputs needed)
-- **Caprini Score** — VTE risk
-- **STOP-BANG** — obstructive sleep apnea screening
-- **ASA Physical Status Classification** — overall fitness for anesthesia
+1. Apply each of the following scores that is appropriate for this case: RCRI (cardiac risk), ACS NSQIP (overall morbidity/mortality), Caprini Score (VTE risk), STOP-BANG (obstructive sleep apnea screening), ASA Physical Status Classification.
+2. Use published, validated criteria. Do not fabricate event rates or risk percentages.
+3. Show every component for each score with its point value.
+4. If data needed for a score is missing, state what is needed and calculate the possible range.
+5. Provide a perioperative risk synthesis that integrates all calculated scores into a single risk profile.
+6. Include a pre-operative optimization checklist with specific, actionable items.
 
-For each score:
-- Show each component and whether it is met
-- **Total Score** and **Risk Category**
-- **Clinical Implication**: What this score means for perioperative planning (need for further cardiac testing, level of post-op monitoring, VTE prophylaxis intensity, etc.)
-- **Caveat**: Limitations of this score for this specific patient or procedure
+### Vocabulary
 
-**Perioperative Risk Synthesis**
-In 3–4 sentences: What is the overall perioperative risk profile? Are there any risk factors that warrant further optimization before surgery? What is the recommended level of post-operative monitoring?
+- RCRI: Revised Cardiac Risk Index
+- ACS NSQIP: American College of Surgeons National Surgical Quality Improvement Program
+- METs: metabolic equivalents (functional capacity)
+- ASA: American Society of Anesthesiologists
+- VTE: venous thromboembolism
+- STOP-BANG: snoring, tiredness, observed apnea, blood pressure, BMI, age, neck circumference, gender
 
-**Pre-Operative Optimization Checklist**
-Bulleted list of specific actions to take before surgery based on the risk assessment (e.g., cardiology clearance, medication adjustments, beta-blocker consideration, glycemic optimization).
+### Output format
 
-Rules:
-- Use the published, validated criteria for each score.
-- Do not fabricate event rates or risk percentages. Cite the validation source if possible.
-- If data needed for a score is missing, state what is needed.
+```
+╔══════════════════════════════════════════════════╗
+║        [SCORE NAME] CALCULATION                   ║
+╠══════════════════════════════════════════════════╣
+║ [Component table as in main template]             ║
+║ Total: [X] pts = [Risk Category]                  ║
+║ Clinical implication: [what this means for        ║
+║   perioperative planning]                         ║
+║ Caveat: [limitations for this patient/procedure]  ║
+║                                                   ║
+║ [Repeat for each score]                           ║
+╠══════════════════════════════════════════════════╣
+║       PERIOPERATIVE RISK SYNTHESIS                ║
+╠══════════════════════════════════════════════════╣
+║ Overall risk profile: [summary in 3-4 sentences] ║
+║ Factors warranting further optimization:          ║
+║ • [Factor and recommended action]                 ║
+║ Recommended post-op monitoring level:             ║
+║   [floor / step-down / ICU]                       ║
+╠══════════════════════════════════════════════════╣
+║     PRE-OPERATIVE OPTIMIZATION CHECKLIST          ║
+╠══════════════════════════════════════════════════╣
+║ 1. [Specific action, e.g., "Cardiology clearance ║
+║    for RCRI ≥3"]                                   ║
+║ 2. [Action with timeline]                         ║
+║ 3. [Action]                                       ║
+╚══════════════════════════════════════════════════╝
+```
 
 ---
 PATIENT DATA:
@@ -127,35 +209,56 @@ Expected Blood Loss: [MINIMAL / MODERATE / SIGNIFICANT]
 ### Cardiovascular Risk Assessment
 
 <PromptPlayground tool="Claude" title="Cardiovascular Risk Stratification">
-You are a cardiologist applying cardiovascular risk stratification tools to a clinical presentation.
+You are a cardiologist applying cardiovascular risk stratification tools to a clinical presentation. Calculate and interpret requested cardiovascular risk scores following the rules, vocabulary, and output format below.
 
-Given the patient data below, calculate and interpret the requested cardiovascular risk scores:
+### Rules
 
-**Scores to Calculate:**
-Apply each of the following that is relevant:
-- **HEART Score** (for chest pain evaluation)
-- **TIMI Risk Score** (for ACS risk)
-- **CHA₂DS₂-VASc** (for stroke risk in atrial fibrillation)
-- **HAS-BLED** (for bleeding risk on anticoagulation)
-- **ASCVD 10-Year Risk** (Pooled Cohort Equations, for primary prevention)
-- **Wells Score for PE** (if pulmonary embolism is in the differential)
+1. Apply each of the following scores that is relevant: HEART Score (chest pain), TIMI Risk Score (ACS), CHA2DS2-VASc (stroke risk in atrial fibrillation), HAS-BLED (bleeding risk on anticoagulation), ASCVD 10-Year Risk (primary prevention), Wells Score for PE.
+2. Use current published scoring criteria. Reference ACC/AHA or ESC guideline recommendations where applicable.
+3. If both a treatment-benefit score (e.g., CHA2DS2-VASc) and a treatment-risk score (e.g., HAS-BLED) are calculated, explicitly weigh benefit versus risk and state the recommendation.
+4. Do not fabricate event rates. If citing a risk percentage, state the source.
+5. Show every criterion with point values.
+6. For ASCVD risk, state the treatment threshold (7.5% for statin consideration per ACC/AHA 2018 guidelines) and the patient's distance from it.
 
-For each score applied:
-- Show each criterion and whether it is met (with point value)
-- **Total Score** and **Risk Category**
-- **Guideline-Based Recommendation**: What current ACC/AHA or ESC guidelines recommend at this risk level (e.g., statin initiation threshold, anticoagulation indication, safe discharge criteria)
-- **Caveat**: Populations or scenarios where this score may overestimate or underestimate risk
+### Vocabulary
 
-**Net Risk-Benefit Analysis**
-If both a treatment-benefit score (e.g., CHA₂DS₂-VASc) and a treatment-risk score (e.g., HAS-BLED) are calculated, explicitly weigh the benefit vs. risk and state the recommendation.
+- HEART: History, ECG, Age, Risk factors, Troponin
+- TIMI: Thrombolysis in Myocardial Infarction
+- CHA2DS2-VASc: Congestive heart failure, Hypertension, Age, Diabetes, Stroke/TIA, Vascular disease, Age, Sex category
+- HAS-BLED: Hypertension, Abnormal renal/liver function, Stroke, Bleeding history, Labile INR, Elderly, Drugs/alcohol
+- ASCVD: Atherosclerotic Cardiovascular Disease (Pooled Cohort Equations)
+- PCE: Pooled Cohort Equations
 
-**Synthesis**
-In 2–3 sentences: What is the patient's overall cardiovascular risk profile? What is the single most important risk-modifying intervention?
+### Output format
 
-Rules:
-- Use current published scoring criteria.
-- Reference current guideline recommendations (ACC/AHA, ESC) where applicable.
-- Do not fabricate event rates. If citing a risk percentage, state the source.
+```
+╔══════════════════════════════════════════════════╗
+║     [SCORE NAME] CALCULATION                      ║
+╠══════════════════════════════════════════════════╣
+║ [Component table with criteria, met/not, points] ║
+║ Total: [X] pts = [Risk Category]                 ║
+║ Guideline recommendation: [ACC/AHA or ESC        ║
+║   recommendation at this risk level]              ║
+║ Caveat: [overestimates/underestimates in whom]   ║
+║                                                   ║
+║ [Repeat for each score]                           ║
+╠══════════════════════════════════════════════════╣
+║       NET RISK-BENEFIT ANALYSIS                   ║
+║       (if benefit + risk scores calculated)       ║
+╠══════════════════════════════════════════════════╣
+║ Treatment benefit: [annual stroke risk reduced    ║
+║   from X% to Y% with anticoagulation]            ║
+║ Treatment risk: [annual major bleeding risk X%]   ║
+║ Net recommendation: [treat / defer / shared       ║
+║   decision with rationale]                        ║
+╠══════════════════════════════════════════════════╣
+║                 SYNTHESIS                         ║
+╠══════════════════════════════════════════════════╣
+║ Overall CV risk profile: [2-3 sentences]          ║
+║ Most important risk-modifying intervention:       ║
+║   [single action]                                 ║
+╚══════════════════════════════════════════════════╝
+```
 
 ---
 PATIENT DATA:
@@ -166,7 +269,7 @@ Risk Factors: [HTN, DM, HYPERLIPIDEMIA, SMOKING, FAMILY HISTORY, OBESITY]
 Vitals: [HR, BP, RR, O2 SAT]
 Labs: [TROPONIN, BNP, LIPID PANEL, HBA1C, CREATININE]
 ECG: [KEY FINDINGS]
-Imaging: [ECHO, STRESS TEST, CATHETERIZATION RESULTS IF AVAILABLE]
+Imaging: [ECHO, STRESS TEST, CATH RESULTS IF AVAILABLE]
 
 SCORES TO CALCULATE:
 [List specific scores, or state "Calculate all applicable cardiovascular risk scores"]
@@ -175,42 +278,70 @@ SCORES TO CALCULATE:
 ### Readmission Risk Assessment
 
 <PromptPlayground tool="Claude" title="Readmission Risk Assessment">
-You are a hospital medicine physician assessing a patient's risk of 30-day readmission prior to discharge.
+You are a hospital medicine physician assessing a patient's risk of 30-day readmission prior to discharge. Perform a structured readmission risk assessment following the rules, vocabulary, and output format below.
 
-Given the patient data below, perform a structured readmission risk assessment:
+### Rules
 
-**HOSPITAL Score** (if applicable)
-Calculate the HOSPITAL score for 30-day readmission:
-- Show each component and its point value
-- **Total Score** and **Risk Category** (low / intermediate / high)
-- **Expected readmission rate** for this risk category
+1. Calculate HOSPITAL score and LACE index using published criteria. Show every component with point values.
+2. Do not fabricate readmission statistics. Cite expected readmission rates only from validated sources.
+3. Identify disease-specific readmission risk factors for the primary discharge diagnosis.
+4. Focus on modifiable risk factors. Quantifying risk is only useful if it drives specific interventions.
+5. For each modifiable risk factor, recommend a specific intervention with a responsible team member and timeline.
+6. Do not use generic discharge language ("ensure follow-up"). Specify the follow-up interval, the provider, and what to do if the appointment cannot be scheduled.
 
-**LACE Index** (if applicable)
-Calculate the LACE index:
-- Length of stay, Acuity of admission, Comorbidities (Charlson), Emergency department visits in prior 6 months
-- **Total Score** and **Risk Category**
+### Vocabulary
 
-**Disease-Specific Risk Factors**
-For the primary discharge diagnosis, list the known disease-specific readmission risk factors that apply to this patient (e.g., HF: EF &lt;25%, renal dysfunction, prior HF admission within 6 months).
+- HOSPITAL: Hemoglobin, discharge from Oncology, Sodium, Procedure, Type of admission, number of Admissions, Length of stay
+- LACE: Length of stay, Acuity of admission, Comorbidities (Charlson), Emergency department visits
+- CCI: Charlson Comorbidity Index
+- SNF: skilled nursing facility
+- TCM: transitional care management
+- HF: heart failure
+- COPD: chronic obstructive pulmonary disease
+- EF: ejection fraction
 
-**Modifiable Risk Factors**
-Identify factors that can be addressed before or immediately after discharge:
-- Medication access and adherence barriers
-- Follow-up appointment scheduling
-- Social determinants (housing, transportation, caregiver support)
-- Health literacy and discharge understanding
-- Transitional care needs (home health, SNF, telehealth)
+### Output format
 
-**Discharge Risk Mitigation Plan**
-For each modifiable risk factor identified, recommend a specific intervention with responsible team member and timeline.
-
-**High-Risk Flag Summary**
-In 2–3 sentences: Is this patient high-risk for readmission? What is the single most impactful intervention to reduce that risk?
-
-Rules:
-- Use validated scoring criteria.
-- Focus on actionable, modifiable risk factors — not just risk quantification.
-- Do not fabricate readmission statistics.
+```
+╔══════════════════════════════════════════════════╗
+║      HOSPITAL SCORE CALCULATION                   ║
+╠══════════════════════════════════════════════════╣
+║ [Component table with criteria, values, points]  ║
+║ Total: [X] pts = [Low / Intermediate / High]     ║
+║ Expected 30-day readmission rate: [X]%            ║
+╠══════════════════════════════════════════════════╣
+║         LACE INDEX CALCULATION                    ║
+╠══════════════════════════════════════════════════╣
+║ [Component table with criteria, values, points]  ║
+║ Total: [X] pts = [Risk Category]                 ║
+╠══════════════════════════════════════════════════╣
+║     DISEASE-SPECIFIC RISK FACTORS                 ║
+╠══════════════════════════════════════════════════╣
+║ Primary diagnosis: [diagnosis]                    ║
+║ Applicable risk factors in this patient:          ║
+║ • [Factor]: [present / absent]                    ║
+║ • [Factor]: [present / absent]                    ║
+╠══════════════════════════════════════════════════╣
+║       MODIFIABLE RISK FACTORS                     ║
+╠══════════════════════════════════════════════════╣
+║ Risk Factor        │ Intervention       │ Owner  ║
+║────────────────────┼────────────────────┼────────║
+║ [Factor]           │ [Specific action]  │ [Who]  ║
+║ [Factor]           │ [Specific action]  │ [Who]  ║
+╠══════════════════════════════════════════════════╣
+║     DISCHARGE RISK MITIGATION PLAN                ║
+╠══════════════════════════════════════════════════╣
+║ 1. [Action with timeline and responsible party]   ║
+║ 2. [Action]                                       ║
+║ 3. [Action]                                       ║
+╠══════════════════════════════════════════════════╣
+║          HIGH-RISK FLAG SUMMARY                   ║
+╠══════════════════════════════════════════════════╣
+║ [2-3 sentences: Is this patient high-risk?        ║
+║  Single most impactful intervention to reduce     ║
+║  readmission risk?]                               ║
+╚══════════════════════════════════════════════════╝
+```
 
 ---
 PATIENT DATA:
@@ -233,59 +364,130 @@ Follow-Up Plan: [SCHEDULED APPOINTMENTS, PENDING RESULTS]
 
 > **Prompt used:** Clinical Risk Stratification for a patient with chest pain.
 >
-> **Clinical data provided:** 52M presenting with 4 hours of substernal chest pain, dull, non-radiating, onset at rest. PMH: HTN, hyperlipidemia, former smoker (quit 5 years ago). Vitals: HR 88, BP 142/88, RR 16, O2 99% RA, Temp 36.8C. Labs: troponin I 0.04 ng/mL (ULN 0.04), creatinine 1.0. ECG: no ST changes, normal sinus rhythm. Scores to calculate: HEART score, TIMI risk score.
+> **Clinical data provided:** 52M presenting with 4 hours of substernal chest pain, dull, non-radiating, onset at rest. Past medical history (PMH): HTN, hyperlipidemia, former smoker (quit 5 years ago). Vitals: HR 88, BP 142/88, RR 16, O2 99% on room air, Temp 36.8C. Labs: troponin I 0.04 ng/mL (upper limit of normal [ULN] 0.04), creatinine 1.0. ECG: no ST changes, normal sinus rhythm. Scores to calculate: HEART score, TIMI risk score.
 
-**HEART Score**
+```
+╔══════════════════════════════════════════════════╗
+║          HEART SCORE CALCULATION                  ║
+╠══════════════════════════════════════════════════╣
+║ Criterion                    │ Met?  │ Points    ║
+║──────────────────────────────┼───────┼───────────║
+║ History: moderately          │ Yes   │ +1        ║
+║   suspicious (chest pain at                       ║
+║   rest, dull, non-radiating,                      ║
+║   no classic radiation or                         ║
+║   diaphoresis)                                    ║
+║ ECG: normal                  │ Yes   │ 0         ║
+║ Age: 52 (45-64 range)       │ Yes   │ +1        ║
+║ Risk factors: HTN,           │ Yes   │ +2        ║
+║   hyperlipidemia, former                          ║
+║   smoker (≥3 risk factors)                        ║
+║ Troponin: at ULN (0.04,     │ Yes   │ +1        ║
+║   equals the 99th                                 ║
+║   percentile cutoff)                              ║
+║──────────────────────────────┼───────┼───────────║
+║ TOTAL                        │       │ 5 pts     ║
+╠══════════════════════════════════════════════════╣
+║              RISK CATEGORY                        ║
+╠══════════════════════════════════════════════════╣
+║ Score 5 = Moderate risk (score 4-6)               ║
+║ Expected 30-day MACE rate: 12-17%                 ║
+║ Source: Backus et al., Int J Cardiol 2013         ║
+╠══════════════════════════════════════════════════╣
+║          CLINICAL IMPLICATIONS                    ║
+╠══════════════════════════════════════════════════╣
+║ ACC/AHA guideline recommendation: Observation     ║
+║ with serial troponins and further risk             ║
+║ stratification (stress testing or coronary CTA)   ║
+║ before discharge. Not safe for immediate          ║
+║ discharge.                                         ║
+╠══════════════════════════════════════════════════╣
+║     RECOMMENDED ACTIONS BASED ON SCORE            ║
+╠══════════════════════════════════════════════════╣
+║ 1. Serial troponins at 3 and 6 hours              ║
+║ 2. Observation unit or telemetry admission         ║
+║ 3. Stress test or coronary CTA before discharge   ║
+║ 4. Cardiology consultation if troponin rises       ║
+╠══════════════════════════════════════════════════╣
+║          CAVEATS / LIMITATIONS                    ║
+╠══════════════════════════════════════════════════╣
+║ • Validated in: ED chest pain populations         ║
+║ • Troponin assay cutoffs vary by institution.     ║
+║   Confirm 0.04 is your lab's 99th percentile.     ║
+║ • HEART score does not account for cocaine use,   ║
+║   recent PCI, or known severe CAD.                ║
+╚══════════════════════════════════════════════════╝
 
-| Component | Finding | Points |
-|-----------|---------|--------|
-| **H**istory | Moderately suspicious (chest pain at rest, dull, non-radiating, no classic radiation or diaphoresis) | 1 |
-| **E**CG | Normal | 0 |
-| **A**ge | 52 years (45–64) | 1 |
-| **R**isk factors | HTN, hyperlipidemia, former smoker (3 or more risk factors) | 2 |
-| **T**roponin | At the upper limit of normal (0.04, equals ULN) | 1 |
+╔══════════════════════════════════════════════════╗
+║      TIMI RISK SCORE (UA/NSTEMI) CALCULATION      ║
+╠══════════════════════════════════════════════════╣
+║ Criterion                    │ Met?  │ Points    ║
+║──────────────────────────────┼───────┼───────────║
+║ Age ≥65                      │ No    │ 0         ║
+║ ≥3 CAD risk factors          │ Yes   │ +1        ║
+║ Known CAD (≥50% stenosis)    │ No    │ 0         ║
+║ ASA use in past 7 days       │ N/S   │ 0         ║
+║ ≥2 anginal episodes in 24h   │ No    │ 0         ║
+║ ST deviation ≥0.5mm          │ No    │ 0         ║
+║ Positive cardiac marker      │ No*   │ 0         ║
+║──────────────────────────────┼───────┼───────────║
+║ TOTAL                        │       │ 1 pt      ║
+║                                                   ║
+║ *Troponin at ULN, not clearly positive            ║
+║  N/S = not stated                                 ║
+╠══════════════════════════════════════════════════╣
+║              RISK CATEGORY                        ║
+╠══════════════════════════════════════════════════╣
+║ Score 1 = Low risk                                ║
+║ Expected 14-day MACE rate: ~5%                    ║
+║ Source: Antman et al., JAMA 2000                  ║
+╠══════════════════════════════════════════════════╣
+║          CAVEATS / LIMITATIONS                    ║
+╠══════════════════════════════════════════════════╣
+║ • Validated in: Clinical trial populations with   ║
+║   confirmed ACS, not undifferentiated ED chest    ║
+║   pain. May underperform in initial ED triage.    ║
+║ • Missing data (ASA use) may affect score.        ║
+╚══════════════════════════════════════════════════╝
 
-- **Total Score:** 5 points
-- **Risk Category:** Moderate risk
-- **Interpretation:** A HEART score of 5 places this patient in the moderate-risk category (score 4–6), with an estimated 30-day MACE rate of approximately 12–17%. Guidelines suggest observation, serial troponins, and further risk stratification (stress testing or coronary CTA) rather than immediate discharge.
-- **Caveat:** The HEART score was validated primarily in ED chest pain populations. Troponin assay cutoffs vary by institution — confirm that 0.04 is your lab's 99th percentile.
-
-**TIMI Risk Score for UA/NSTEMI**
-
-| Component | Finding | Points |
-|-----------|---------|--------|
-| Age ≥65 | No (52 years) | 0 |
-| ≥3 CAD risk factors | Yes (HTN, hyperlipidemia, former smoker) | 1 |
-| Known CAD (≥50% stenosis) | No known CAD | 0 |
-| ASA use in past 7 days | Not stated | 0 |
-| ≥2 anginal episodes in 24h | Not stated (only 1 episode described) | 0 |
-| ST deviation ≥0.5mm | No | 0 |
-| Positive cardiac marker | Borderline (troponin at ULN, not clearly positive) | 0 |
-
-- **Total Score:** 1 point
-- **Risk Category:** Low risk
-- **Interpretation:** A TIMI score of 1 suggests a low risk of 14-day all-cause mortality, new or recurrent MI, or urgent revascularization (approximately 5%). This would suggest a less aggressive strategy may be appropriate.
-- **Caveat:** The TIMI score was derived from clinical trial populations with confirmed ACS, not undifferentiated ED chest pain. It may underperform in the initial ED evaluation compared to the HEART score.
-
-**Comparison & Synthesis**
-There is discordance between the two scores: the HEART score places this patient at moderate risk (score 5), while the TIMI score suggests low risk (score 1). This discordance is expected — the HEART score was designed for undifferentiated ED chest pain and captures this patient's risk factor burden and borderline troponin more effectively. In this clinical scenario, the HEART score is more applicable, and the moderate-risk classification should guide management: serial troponins at 3 and 6 hours, observation, and further risk stratification with stress testing or coronary CTA before discharge.
+╔══════════════════════════════════════════════════╗
+║    COMPARISON TO ALTERNATIVE SCORING SYSTEMS      ║
+╠══════════════════════════════════════════════════╣
+║ HEART score: 5 pts = Moderate risk                ║
+║ TIMI score: 1 pt = Low risk                       ║
+║ Discordance: Yes                                  ║
+║                                                   ║
+║ The HEART score was designed for                   ║
+║ undifferentiated ED chest pain and captures this  ║
+║ patient's risk factor burden and borderline        ║
+║ troponin more effectively than the TIMI score,    ║
+║ which was derived from clinical trial populations ║
+║ with confirmed ACS.                               ║
+║                                                   ║
+║ Recommended score for this scenario: HEART score. ║
+║ The moderate-risk classification should guide     ║
+║ management: serial troponins at 3 and 6 hours,   ║
+║ observation, and stress testing or coronary CTA   ║
+║ before discharge.                                  ║
+╚══════════════════════════════════════════════════╝
+```
 
 ---
 
 ## Tips & pitfalls
 
-- Common scoring tools this works well with: HEART, Wells (PE and DVT), CHA₂DS₂-VASc, HAS-BLED, CURB-65, qSOFA, NEWS2, MELD, Child-Pugh, PERC, Glasgow-Blatchford, ABCD², CRB-65, APACHE II.
-- If you're unsure which score to use, paste the clinical scenario and ask: "What validated risk scores apply to this presentation?"
-- For serial assessments, paste both time points and ask for trend comparison.
-- **AI models can confabulate score criteria and cutoff values.** Always verify the calculated score against a trusted source like MDCalc. A single incorrect criterion point can shift the risk category.
-- **Risk scores do not replace clinical judgment.** A patient can have a low risk score and still have a life-threatening diagnosis. Use scores as one input, not the sole decision driver.
-- **Be aware of score validation populations.** Many scores were validated in specific populations (e.g., HEART in ED chest pain, CURB-65 in community-acquired pneumonia). Applying a score outside its validated population may give misleading results.
-- **AI may not account for patient-specific factors that override a score** (e.g., a low HEART score in a patient with known severe CAD and prior stent thrombosis). Integrate the score with the full clinical picture.
+- If you are unsure which score to use, paste the clinical scenario and add: "Recommend the most appropriate validated risk scores for this presentation."
+- AI models can confabulate score criteria and cutoff values. Always verify the calculated score against a trusted source like MDCalc. A single incorrect criterion point can shift the risk category and change management.
+- Risk scores do not replace clinical judgment. A patient can have a low risk score and still have a life-threatening diagnosis. Use scores as one input, not the sole decision driver.
+- Be aware of score validation populations. HEART was validated in ED chest pain. CURB-65 was validated in community-acquired pneumonia (CAP). Applying a score outside its validated population may give misleading results.
+- AI may not account for patient-specific factors that override a score. A low HEART score in a patient with known severe coronary artery disease (CAD) and prior stent thrombosis demands a different clinical response than the score alone would suggest.
+- For serial assessments, paste both time points and ask for trend comparison. A rising score over 24 hours may change management even if the current score remains in the same risk category.
+- Common scoring tools this template handles well: HEART, Wells (PE and DVT), CHA2DS2-VASc, HAS-BLED, CURB-65, qSOFA, NEWS2, MELD, Child-Pugh, PERC, Glasgow-Blatchford, ABCD2, APACHE II, RCRI, Caprini, STOP-BANG.
 
 ---
 
 ## Related
 
-- [DDx Generator](/templates/ddx-generator) — generate the differential that risk scores help prioritize
-- [Workup Planner](/templates/workup-planner) — plan the workup based on risk-stratified priorities
-- [Lab Interpretation](/templates/lab-interpretation) — interpret results that may change the risk category
+- [DDx Generator](/templates/ddx-generator) -- generate the differential that risk scores help prioritize
+- [Workup Planner](/templates/workup-planner) -- plan the workup based on risk-stratified priorities
+- [Lab Interpretation](/templates/lab-interpretation) -- interpret results that may change the risk category

@@ -1,0 +1,832 @@
+---
+title: "Sleep Medicine Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, sleep-medicine, neurology, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "AHI, PAP compliance, Epworth scores, disorder-specific assessments: a prompt template that structures sleep medicine follow-up documentation."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when writing an outpatient sleep medicine clinic visit note. Paste in your clinical data (sleep study results, PAP compliance data, symptom scores, sleep diary, medications, and exam findings) and the LLM produces a structured clinic note with disease-specific documentation for obstructive sleep apnea, narcolepsy, REM sleep behavior disorder, insomnia, restless legs syndrome, and circadian rhythm disorders. The output format captures AHI, PAP compliance metrics, Epworth scores, and the disorder-specific assessments that define sleep medicine follow-up.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Sleep Medicine Clinic Visit Note">
+You are an experienced sleep medicine physician writing an outpatient clinic visit note. After receiving the clinical information below, produce a complete, structured sleep medicine visit note.
+
+### Rules
+
+- Write in past tense for history and study results; present tense for current status, exam findings, and plan.
+- Include specific numbers (AHI, SpO2, sleep latency, PAP compliance hours, ESS, ISI, ferritin) whenever available.
+- Use medical abbreviations throughout. Never spell out what an abbreviation stands for.
+- Reference dates in the format M/D/YY.
+- Document PAP compliance data with objective download metrics (average hours, percentage of nights, residual AHI, leak data).
+- Do not infer or fabricate any clinical information not provided. Write "***" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "pmhx" = past medical history
+- "OSA" = obstructive sleep apnea
+- "CSA" = central sleep apnea
+- "AHI" = apnea-hypopnea index
+- "RDI" = respiratory disturbance index
+- "CPAP" = continuous positive airway pressure
+- "BiPAP" = bilevel positive airway pressure
+- "ASV" = adaptive servo-ventilation
+- "ESS" = Epworth Sleepiness Scale
+- "ISI" = Insomnia Severity Index
+- "MSLT" = Multiple Sleep Latency Test
+- "SOREMP" = sleep onset REM period
+- "RBD" = REM sleep behavior disorder
+- "RLS" = restless legs syndrome
+- "PLMS" = periodic limb movements of sleep
+- "PLMI" = periodic limb movement index
+- "CBT-I" = cognitive behavioral therapy for insomnia
+- "WASO" = wake after sleep onset
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+SLEEP MEDICINE CLINIC VISIT
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[New patient / Follow-up / PAP compliance review /
+Sleep study review / Titration follow-up]
+
+PRIMARY SLEEP DIAGNOSIS
+───────────────────────
+  Diagnosis: ***
+  Severity: [Mild (AHI 5-15) / Moderate (AHI 15-30) /
+  Severe (AHI ≥30)]  [or appropriate severity for
+  non-OSA diagnoses]
+  Date of diagnosis: ***
+  Additional sleep diagnoses: ***
+
+SLEEP STUDY DATA
+────────────────
+  Study type: [In-lab PSG / Home sleep test / Split-night /
+  MSLT]
+  Date: ***
+
+  Respiratory
+  ───────────
+  AHI: *** events/hr
+  [Obstructive: ***, Central: ***, Mixed: ***]
+  RDI: *** events/hr
+  Lowest SpO2: ***%
+  Time SpO2 &lt;90%: *** minutes (***% of TST)
+  Positional data:
+    Supine AHI: ***
+    Non-supine AHI: ***
+    [Positional component: Yes / No]
+
+  Sleep Architecture
+  ──────────────────
+  Total recording time: ***
+  Total sleep time (TST): *** minutes
+  Sleep efficiency: ***%
+  Sleep latency: *** minutes
+  REM latency: *** minutes
+  Sleep stages: N1 ***%, N2 ***%, N3 ***%, REM ***%
+  PLMI: *** events/hr
+
+  MSLT (if performed)
+  ───────────────────
+  Mean sleep latency: *** minutes
+  SOREMPs: ***/5 (naps: ***)
+  Interpretation: [Consistent with narcolepsy type 1 /
+  narcolepsy type 2 / idiopathic hypersomnia /
+  normal / insufficient sleep]
+
+PAP THERAPY (if applicable)
+───────────────────────────
+  Device: [CPAP / BiPAP / ASV / auto-PAP]
+  Settings: [Pressure *** cmH2O / IPAP *** EPAP *** /
+  Pressure range ***]
+  Mask type: [Nasal / nasal pillows / full face]
+  Compliance data (download date: ***):
+    Average usage: *** hours/night
+    Nights ≥4 hours: ***%
+    Residual AHI: ***
+    Leak data: [Acceptable / elevated (*** L/min)]
+    90-day usage: *** hours/night, ***% nights ≥4 hrs
+  Medicare compliance met: [Yes / No (***% of nights)]
+
+HYPOGLOSSAL NERVE STIMULATOR (if applicable)
+─────────────────────────────────────────────
+  Device: Inspire
+  Implant date: ***
+  Settings: [Voltage, rate, pulse width]
+  Compliance: *** hours/night
+  Post-activation sleep study: AHI ***
+  Response: [Responder (≥50% AHI reduction and AHI &lt;20) /
+  Non-responder]
+  Side effects: [Tongue discomfort, abrasion]
+
+SYMPTOM ASSESSMENT
+──────────────────
+  Sleepiness
+  ──────────
+  ESS: ***/24 (prior: ***/24)
+  [ESS ≥10 = excessive daytime sleepiness]
+  Subjective sleepiness: ***
+  Drowsy driving: [Yes / No]
+
+  Snoring
+  ───────
+  [Severity, bed partner report, change from baseline]
+
+  Insomnia (if applicable)
+  ────────────────────────
+  ISI: ***/28 (prior: ***/28)
+  [ISI 0-7 none, 8-14 subthreshold, 15-21 moderate, 22-28 severe]
+  Sleep diary data:
+    Bedtime: ***
+    Wake time: ***
+    Sleep onset latency: *** minutes
+    WASO: *** minutes
+    Total sleep time: ***
+    Sleep efficiency: ***%
+  CBT-I: [Completed / in progress / not started / referred]
+
+  REM Sleep Behavior Disorder (if applicable)
+  ────────────────────────────────────────────
+  Dream enactment: [Frequency, severity]
+  Injury events: [Patient / bed partner]
+  Bed safety measures: [Mattress on floor, padded rails,
+  separate sleeping, sharp objects removed]
+  Alpha-synuclein risk: [Counseled on neurodegenerative
+  risk Y/N]
+
+  Restless Legs Syndrome (if applicable)
+  ──────────────────────────────────────
+  IRLS severity score: ***/40
+  Symptoms: [Frequency, timing, distribution]
+  Augmentation: [Present / absent. Describe if present:
+  earlier onset, spread to arms, shorter relief duration]
+  Ferritin: *** (date: ***)
+  Current treatment: ***
+  Prior agents tried: [Agent, reason for discontinuation]
+
+  Circadian Rhythm (if applicable)
+  ────────────────────────────────
+  Chronotype: [Morning / evening / variable]
+  Sleep-wake schedule: [Weekday ***, weekend ***]
+  Light exposure: ***
+  Melatonin: [Dose, timing]
+
+WEIGHT AND COMORBIDITIES
+────────────────────────
+  BMI: *** (prior: ***)
+  Weight trend: ***
+  Neck circumference: ***
+  Comorbidities related to sleep disorder:
+    HTN: ***
+    AFib: ***
+    Heart failure: ***
+    Depression: ***
+    Other: ***
+
+CURRENT MEDICATIONS
+───────────────────
+  Sleep-related: [PAP, medications for sleepiness,
+  insomnia, RLS, RBD]
+  Stimulants: [Modafinil / armodafinil / solriamfetol /
+  pitolisant / methylphenidate. Dose, schedule.]
+  Sedative-hypnotics: [Agent, dose, frequency, duration of use]
+  Sodium oxybate: [Dose, schedule if applicable]
+  RLS medications: [Gabapentin, pregabalin, dopamine agonist
+  (with augmentation assessment), opioid]
+  RBD medications: [Melatonin (dose), clonazepam (dose)]
+  Other: ***
+
+PHYSICAL EXAMINATION
+────────────────────
+
+  Vitals
+  ──────
+  BP ***  HR ***  BMI ***  Neck circumference ***
+
+  General: ***
+  HEENT: [Mallampati class (I-IV), tonsil size (0-4),
+  retrognathia, nasal patency, septal deviation]
+  Neck: ***
+  Cardiovascular: [Rhythm, murmurs]
+  Pulmonary: ***
+  Extremities: [Edema]
+  Neurological: [Brief, relevant to sleep pathology]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [primary sleep diagnosis,
+severity] presenting for [visit type]. [Treatment response
+summary: PAP compliance, symptom improvement, or
+persistent issues.]
+
+  1. [Primary sleep diagnosis and treatment status]
+  2. [Secondary sleep diagnosis if applicable]
+  3. [Comorbidity management related to sleep]
+  4. [Daytime function / sleepiness]
+  5. [Other active problems]
+
+PLAN
+────
+  1. [Primary sleep disorder]
+     - [PAP: continue / adjust settings / mask change /
+       compliance counseling / alternative therapy]
+     - [Medication adjustment for narcolepsy / RLS / insomnia]
+     - [Sleep study: repeat, titration, MSLT if needed]
+     - [Surgical: Inspire evaluation, ENT referral, bariatric]
+
+  2. [Sleepiness / daytime function]
+     - [Stimulant adjustment if applicable]
+     - [Driving safety counseling]
+
+  3. [Comorbidities]
+     - [Weight management, BP optimization, AFib management]
+     - [Depression treatment]
+
+  4. [Behavioral / non-pharmacologic]
+     - [Sleep hygiene counseling]
+     - [CBT-I referral / continuation]
+     - [Positional therapy]
+     - [Weight loss goal]
+
+  5. [Safety]
+     - [RBD bed safety measures]
+     - [Drowsy driving counseling]
+
+FOLLOW-UP
+─────────
+[Return interval, next PAP download, repeat sleep study
+if indicated, lab schedule (ferritin for RLS), referrals.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste your de-identified sleep medicine clinic data here: sleep study results, PAP compliance data, symptom scores, sleep diary, medications, exam findings, weight, and comorbidities.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Pediatric sleep | Add: "This is a pediatric patient. Include adenotonsillar size, growth parameters, school performance, and behavioral assessment. AHI thresholds differ: AHI ≥1 is abnormal in children." |
+| Dental sleep medicine | Add: "Patient is being managed with an oral appliance (mandibular advancement device). Document device type, settings (advancement mm), compliance, efficacy testing (repeat sleep study on device), and dental side effects (TMJ, bite changes)." |
+| Perioperative sleep evaluation | Add: "This is a pre-operative sleep evaluation. Document STOP-BANG score, OSA severity, PAP compliance, and perioperative recommendations for anesthesia (PAP in PACU, monitoring, opioid caution)." |
+| Telemedicine visit | Add: "This is a telemedicine encounter. Physical exam is limited. Rely on PAP download data, patient-reported symptoms, and remote compliance review." |
+| CDL/commercial driver evaluation | Add: "This is a DOT/commercial driver sleep evaluation. Document AHI, treatment compliance (must use PAP ≥4 hours on 70% of nights), ESS, and fitness-for-duty determination." |
+
+---
+
+## Variations
+
+### OSA PAP compliance follow-up
+
+Use this for patients with obstructive sleep apnea returning for PAP compliance review, the most common sleep medicine follow-up visit type.
+
+<PromptPlayground tool="Claude" title="OSA PAP Compliance Follow-Up">
+You are a sleep medicine physician writing a PAP compliance follow-up note for a patient with obstructive sleep apnea. After receiving the clinical information below, produce a focused compliance review note.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Document objective PAP compliance data (average hours, % nights, residual AHI, leak).
+- Compare ESS before and after treatment.
+- Include BMI trend and comorbidity impact.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "OSA" = obstructive sleep apnea
+- "AHI" = apnea-hypopnea index
+- "CPAP" = continuous positive airway pressure
+- "ESS" = Epworth Sleepiness Scale
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+OSA PAP COMPLIANCE REVIEW
+══════════════════════════════════════════
+
+OSA SUMMARY
+───────────
+  Severity: [Mild / Moderate / Severe]
+  Diagnostic AHI: ***
+  Lowest SpO2: ***%
+  Study date: ***
+
+PAP DATA (download: ***)
+────────────────────────
+  Device: [CPAP / Auto-PAP / BiPAP]
+  Settings: ***
+  Mask: ***
+
+  30-Day Compliance
+  ─────────────────
+  Average usage: *** hrs/night
+  Nights used: ***%
+  Nights ≥4 hrs: ***%
+  Residual AHI: ***
+  Leak: [Acceptable / Elevated]
+
+  90-Day Compliance
+  ─────────────────
+  Average usage: *** hrs/night
+  Nights ≥4 hrs: ***%
+
+  Medicare/Insurance compliance: [Met / Not met]
+
+SYMPTOM RESPONSE
+────────────────
+  ESS: Baseline *** → Current ***
+  Daytime sleepiness: [Resolved / improved / unchanged]
+  Snoring: [Resolved / improved / unchanged]
+  Morning headache: ***
+  Nocturia: ***
+  Bed partner report: ***
+
+BARRIERS TO COMPLIANCE (if suboptimal)
+──────────────────────────────────────
+  [Mask discomfort / claustrophobia / aerophagia /
+  dry mouth / nasal congestion / rain-out / pressure
+  intolerance / mask leak / removes in sleep /
+  nocturia disrupting use / travel]
+
+WEIGHT / COMORBIDITIES
+──────────────────────
+  BMI: *** (prior: ***)
+  BP: ***
+  Comorbidities: ***
+
+ASSESSMENT & PLAN
+─────────────────
+  1. OSA on PAP: [Compliant and effective / compliant
+     but residual AHI elevated / non-compliant.
+     Specify intervention.]
+     - [Pressure adjustment / mask refit / heated
+       humidification / chin strap / nasal steroid /
+       switch to auto-PAP / switch to BiPAP]
+     - [If non-compliant: compliance counseling, identify
+       barriers, consider alternatives (oral appliance,
+       Inspire, positional therapy, weight loss surgery)]
+
+  2. Residual sleepiness (if ESS still elevated):
+     - [Evaluate for comorbid sleep disorder, insufficient
+       sleep, depression. Consider stimulant if PAP-optimized.]
+
+  3. Weight management:
+     - [Goal, dietary counseling, GLP-1 agonist discussion,
+       bariatric referral if BMI ≥35]
+
+  4. Comorbidities: [BP optimization, AFib management]
+
+  5. Follow-up: [Return interval, next PAP download,
+     repeat sleep study if indicated]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: OSA details, PAP compliance download data, symptoms, ESS, weight, comorbidities.]
+</PromptPlayground>
+
+### Narcolepsy management
+
+Use this for patients with narcolepsy type 1 or type 2 where the focus is on medication optimization, symptom control (excessive daytime sleepiness, cataplexy, disrupted nocturnal sleep), and functional status.
+
+<PromptPlayground tool="Claude" title="Narcolepsy Management Visit">
+You are a sleep medicine physician writing a clinic visit note for a patient with narcolepsy. After receiving the clinical information below, produce a structured narcolepsy management note.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Document cataplexy (frequency, triggers, severity) separately from sleepiness.
+- Include MSLT data with mean sleep latency and SOREMPs.
+- Document all wake-promoting and anti-cataplexy medications with doses and schedules.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "NT1" = narcolepsy type 1
+- "NT2" = narcolepsy type 2
+- "MSLT" = Multiple Sleep Latency Test
+- "SOREMP" = sleep onset REM period
+- "ESS" = Epworth Sleepiness Scale
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+NARCOLEPSY MANAGEMENT VISIT
+══════════════════════════════════════════
+
+DIAGNOSIS
+─────────
+  Type: [NT1 (cataplexy + MSLT) / NT2 (MSLT only)]
+  Orexin/Hypocretin level: *** (if measured)
+  MSLT (date: ***):
+    Mean sleep latency: *** minutes
+    SOREMPs: ***/5
+
+SYMPTOM STATUS
+──────────────
+  Daytime Sleepiness
+  ──────────────────
+  ESS: ***/24 (prior: ***)
+  Frequency of sleep attacks: ***
+  Duration of naps: ***
+  Impact on function: [School / work / driving]
+  Drowsy driving: [Yes / No]
+
+  Cataplexy (NT1)
+  ────────────────
+  Frequency: *** episodes/[week/month]
+  Triggers: [Laughter, surprise, anger, other]
+  Severity: [Partial (facial, knee buckling) /
+  Complete (fall)]
+  Injuries: ***
+  Change from prior: [Improved / stable / worse]
+
+  Other Symptoms
+  ──────────────
+  Hypnagogic/hypnopompic hallucinations: ***
+  Sleep paralysis: ***
+  Disrupted nocturnal sleep: ***
+  Weight changes: ***
+  Mood: ***
+
+CURRENT MEDICATIONS
+───────────────────
+  Wake-promoting agents:
+    [Modafinil / armodafinil: dose, schedule]
+    [Solriamfetol: dose]
+    [Pitolisant: dose]
+    [Methylphenidate / amphetamine: dose, schedule]
+
+  Anti-cataplexy / combination:
+    [Sodium oxybate (Xyrem/Xywav): dose, schedule
+    (first dose, second dose timing)]
+    [Venlafaxine / fluoxetine: dose]
+
+  Other: ***
+
+  Prior medications tried: [Agent, reason for
+  discontinuation (inefficacy, side effects, cost)]
+
+SLEEP HYGIENE
+─────────────
+  Scheduled naps: [Yes (timing, duration) / No]
+  Bedtime: ***
+  Wake time: ***
+  Total sleep time: ***
+  Sleep hygiene adherence: ***
+
+FUNCTIONAL STATUS
+─────────────────
+  School/Work: [Performance, accommodations, disability]
+  Driving: [Status, restrictions, state reporting]
+  Social impact: ***
+
+ASSESSMENT & PLAN
+─────────────────
+  1. Narcolepsy [type]: [Sleepiness control (ESS trend),
+     cataplexy control, medication tolerability.]
+     - [Medication adjustment: dose increase, agent change,
+       combination therapy]
+     - [Sodium oxybate: titration schedule if initiating]
+
+  2. Cataplexy: [Frequency assessment, medication
+     optimization, safety measures]
+
+  3. Functional: [Work/school accommodations, driving
+     clearance, disability documentation if needed]
+
+  4. Behavioral: [Scheduled naps, sleep extension,
+     sleep hygiene]
+
+  5. Monitoring: [Drug screening (if on stimulants),
+     BP/HR (solriamfetol), LFTs, weight]
+
+  6. Follow-up: ***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: narcolepsy diagnosis, MSLT results, symptoms (sleepiness, cataplexy), medications, functional status, sleep schedule.]
+</PromptPlayground>
+
+### Insomnia CBT-I follow-up
+
+Use this for patients with chronic insomnia who are undergoing or have completed cognitive behavioral therapy for insomnia (CBT-I), the first-line treatment for chronic insomnia.
+
+<PromptPlayground tool="Claude" title="Insomnia CBT-I Follow-Up Visit">
+You are a sleep medicine physician writing a follow-up visit note for a patient with chronic insomnia engaged in CBT-I. After receiving the clinical information below, produce a structured note focused on insomnia metrics, CBT-I progress, and sleep diary data.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Document sleep diary data: bedtime, wake time, sleep onset latency, WASO, total sleep time, sleep efficiency.
+- Track ISI score over time.
+- Document CBT-I components in use (stimulus control, sleep restriction, cognitive restructuring, sleep hygiene, relaxation).
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "ISI" = Insomnia Severity Index
+- "CBT-I" = cognitive behavioral therapy for insomnia
+- "SOL" = sleep onset latency
+- "WASO" = wake after sleep onset
+- "SE" = sleep efficiency
+- "TIB" = time in bed
+- "TST" = total sleep time
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+INSOMNIA CBT-I FOLLOW-UP
+══════════════════════════════════════════
+
+INSOMNIA PROFILE
+────────────────
+  Type: [Sleep onset / sleep maintenance / early morning
+  awakening / mixed]
+  Duration: ***
+  Comorbidities contributing: [Depression, anxiety, pain,
+  OSA, RLS, medications, substance use]
+
+ISI TREND
+─────────
+  [Date]: ISI ***
+  [Date]: ISI ***
+  [Date]: ISI ***
+  Current: ISI ***/28
+
+SLEEP DIARY (past 2 weeks average)
+──────────────────────────────────
+  Bedtime: ***
+  Lights out: ***
+  SOL: *** minutes
+  Number of awakenings: ***
+  WASO: *** minutes
+  Final awakening: ***
+  Out of bed: ***
+  TIB: *** hours
+  TST: *** hours
+  SE: ***%
+  [Target SE ≥85%]
+
+CBT-I PROGRESS
+──────────────
+  Session number: ***
+  Therapist: ***
+  Components in use:
+    Sleep restriction: [Prescribed TIB: *** hours.
+    Adherence: ***]
+    Stimulus control: [Adherence: following rules Y/N]
+    Cognitive restructuring: [Target cognitions addressed]
+    Relaxation training: [Type, practice frequency]
+    Sleep hygiene: [Key recommendations]
+
+  Patient-reported response: ***
+  Barriers: ***
+
+MEDICATIONS
+───────────
+  Current sedative-hypnotics: [Agent, dose, frequency,
+  duration of use, taper plan]
+  Medications contributing to insomnia: [Stimulants,
+  steroids, SSRIs, beta-blockers, etc.]
+  Prior sleep medications tried: ***
+
+ASSESSMENT & PLAN
+─────────────────
+  1. Chronic insomnia: [ISI trend, SE trend, CBT-I
+     response. Responding / partial response / refractory.]
+     - [CBT-I: continue current protocol / adjust TIB
+       (increase by 15 min if SE ≥85%) / address
+       specific barrier]
+     - [Medication taper: schedule if applicable]
+     - [If CBT-I refractory: consider adjunctive medication
+       (suvorexant, lemborexant, low-dose trazodone)]
+
+  2. Comorbid conditions: [Depression/anxiety treatment,
+     OSA management, pain control, substance use]
+
+  3. Follow-up: [Next CBT-I session, next clinic visit,
+     sleep diary review]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: insomnia history, ISI scores, sleep diary data, CBT-I progress, medications, comorbidities.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+52-year-old male with severe OSA (AHI 48, lowest SpO2 78%, diagnostic PSG 6/25). On CPAP 12 cmH2O with nasal pillows since 7/25. Returning for 6-month compliance review. PAP download 3/20/26: average 3.2 hours/night, 45% nights used, 32% nights with 4 or more hours, residual AHI 2.1, leak within normal limits. ESS 14 (was 18 at diagnosis). Reports mask discomfort after 3-4 hours (nose bridge pressure), removes CPAP in sleep most nights. Snoring resolved when using CPAP per wife. No drowsy driving. BMI 36 (was 37 at diagnosis, lost 8 lbs). Neck 18 inches. BP 148/92 on lisinopril 20mg and amlodipine 10mg. A1c 7.1 (type 2 DM on metformin 1000mg BID). PHQ-9 6. Mallampati III, tonsils 2+. No nasal obstruction. Regular rhythm. PMHx: HTN, T2DM, GERD. Not interested in surgery. Interested in oral appliance or other options.
+
+**LLM output:**
+
+SLEEP MEDICINE CLINIC VISIT
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+PAP compliance review (6 months)
+
+PRIMARY SLEEP DIAGNOSIS
+───────────────────────
+  Diagnosis: Obstructive sleep apnea
+  Severity: Severe (AHI 48)
+  Date of diagnosis: 6/25
+  Additional sleep diagnoses: None
+
+SLEEP STUDY DATA
+────────────────
+  Study type: In-lab PSG
+  Date: 6/25
+
+  Respiratory
+  ───────────
+  AHI: 48 events/hr
+  Lowest SpO2: 78%
+  Time SpO2 &lt;90%: ***
+  Positional data: ***
+
+  Sleep Architecture
+  ──────────────────
+  TST: ***
+  Sleep efficiency: ***%
+  PLMI: ***
+
+PAP THERAPY
+───────────
+  Device: CPAP
+  Settings: 12 cmH2O
+  Mask: Nasal pillows
+
+  Compliance data (download: 3/20/26):
+
+  30-Day Compliance
+  ─────────────────
+  Average usage: 3.2 hrs/night
+  Nights used: 45%
+  Nights ≥4 hrs: 32%
+  Residual AHI: 2.1
+  Leak: Within normal limits
+
+  90-Day Compliance
+  ─────────────────
+  Average usage: 3.2 hrs/night
+  Nights ≥4 hrs: 32%
+
+  Medicare/Insurance compliance: Not met (32% nights ≥4 hrs; requires 70%)
+
+SYMPTOM RESPONSE
+────────────────
+  Sleepiness
+  ──────────
+  ESS: 14/24 (prior 18/24 at diagnosis)
+  Subjective sleepiness: Improved but persistent. Reports afternoon fatigue.
+  Drowsy driving: None
+
+  Snoring
+  ───────
+  Resolved when CPAP in use per wife. Recurs on nights without CPAP.
+
+BARRIERS TO COMPLIANCE
+──────────────────────
+  Primary barrier: Mask discomfort (nasal bridge pressure) after 3 to 4 hours of use. Patient removes CPAP during sleep most nights. Leak data is acceptable, suggesting mask fit is adequate while in use. Not a claustrophobia or aerophagia issue. Patient is motivated but frustrated by discomfort.
+
+WEIGHT AND COMORBIDITIES
+────────────────────────
+  BMI: 36 (prior 37 at diagnosis; lost 8 lbs)
+  Neck circumference: 18 inches
+  HTN: BP 148/92 on lisinopril 20 mg and amlodipine 10 mg (above target)
+  T2DM: A1c 7.1 on metformin 1000 mg BID
+  GERD: Present
+  Depression: PHQ-9 6/27 (minimal)
+
+CURRENT MEDICATIONS
+───────────────────
+  Sleep-related: CPAP 12 cmH2O
+  Other: Lisinopril 20 mg daily, amlodipine 10 mg daily, metformin 1000 mg BID
+
+PHYSICAL EXAMINATION
+────────────────────
+
+  Vitals
+  ──────
+  BP 148/92  HR ***  BMI 36  Neck circumference 18 inches
+
+  General: Alert, obese male, in no distress.
+  HEENT: Mallampati III, tonsil size 2+. No nasal obstruction. No septal deviation. No retrognathia.
+  Neck: Thick, 18 inches circumference. No thyromegaly.
+  Cardiovascular: Regular rhythm, no murmurs.
+  Pulmonary: CTAB.
+  Extremities: No edema.
+
+ASSESSMENT
+──────────
+52-year-old male with severe OSA (AHI 48) on CPAP 12 cmH2O, presenting for 6-month compliance review. PAP is effective when used (residual AHI 2.1, snoring resolved, ESS improved from 18 to 14), but compliance is suboptimal: average 3.2 hours/night with only 32% of nights meeting the 4-hour threshold. Primary barrier is nasal pillow discomfort causing mid-sleep removal. Insurance compliance criteria not met. Patient has lost 8 lbs (BMI 37 to 36). ESS remains elevated at 14, indicating persistent excessive daytime sleepiness. BP above target despite two agents.
+
+  1. Severe OSA, suboptimal PAP compliance despite effective therapy
+  2. Persistent daytime sleepiness (ESS 14)
+  3. HTN, uncontrolled (likely contributed to by undertreated OSA)
+  4. T2DM, A1c 7.1 (near goal)
+  5. Obesity (BMI 36)
+
+PLAN
+────
+  1. OSA / PAP compliance
+     - Current mask (nasal pillows) causing bridge pressure and mid-sleep removal
+     - Trial mask refit: switch to nasal cradle mask (e.g., DreamWear or AirFit N30i) to eliminate bridge pressure. Schedule DME mask fitting within 2 weeks.
+     - If nasal cradle fails: trial full-face mask
+     - Compliance counseling: reviewed importance of ≥4 hours/night. Discussed insurance compliance requirements.
+     - Ramp feature: confirm enabled (may help with sleep onset comfort)
+     - If mask change does not improve compliance in 6 weeks: oral appliance referral to dental sleep medicine for mandibular advancement device (patient expressed interest). Note: with AHI 48, oral appliance is less likely to fully correct OSA; will require efficacy testing with repeat sleep study on device.
+     - Patient declines surgical options at this time
+
+  2. Persistent sleepiness
+     - ESS 14 despite partial CPAP use. Primary driver likely undertreated OSA from suboptimal compliance.
+     - Optimize PAP compliance first. If ESS remains ≥10 after 3 months of improved compliance, consider solriamfetol for residual sleepiness.
+     - Confirm adequate total sleep time (sleep diary at next visit)
+
+  3. Hypertension
+     - BP 148/92 on dual therapy. Undertreated OSA contributing.
+     - Add chlorthalidone 12.5 mg daily
+     - Recheck BP in 4 weeks
+     - Emphasize that improved CPAP compliance may independently lower BP
+
+  4. Weight management
+     - BMI 36, down from 37. Encouraged by weight loss (8 lbs).
+     - Continue dietary modification, target 5-10% total body weight loss
+     - Discuss GLP-1 agonist with PCP (dual benefit for T2DM and weight)
+     - Bariatric surgery: patient aware this is an option if medical weight loss plateaus
+
+  5. Diabetes
+     - A1c 7.1 on metformin 1000 mg BID. Near goal. Defer escalation pending weight management strategy.
+     - Recheck A1c in 3 months
+
+FOLLOW-UP
+─────────
+Return in 6 weeks after mask refit. Bring PAP data download. If compliance not improved, will proceed with oral appliance referral. Labs (A1c, lipids) in 3 months. Home BP log at next visit.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **PAP compliance data is objective; do not let the AI reinterpret it.** The AI will document the numbers you provide, but verify that the download data matches exactly. An average of 3.2 hours per night and 32% of nights at 4 or more hours are two different metrics that tell different stories. Both matter.
+- **Medicare compliance criteria are specific.** Medicare requires PAP use 4 or more hours per night on 70% or more of nights during a consecutive 30-day period within the first 90 days. The AI will document the numbers but may not flag whether the threshold is met. Know the criteria and document clearly.
+- **Residual AHI on PAP matters.** A residual AHI above 5 on CPAP suggests mask leak (even if the machine reports low leak), positional events, or central apneas emerging on therapy (treatment-emergent CSA). The AI will note the number; the clinical interpretation is yours.
+- **ESS is subjective and has known limitations.** An ESS of 10 in a truck driver and an ESS of 10 in a retired person carry different clinical weight. The AI treats the score the same way regardless of context. Document the functional impact alongside the number.
+- **RBD counseling is a sensitive conversation.** REM sleep behavior disorder is a strong predictor of alpha-synucleinopathies (Parkinson's disease, Lewy body dementia, multiple system atrophy). The AI may include "alpha-synuclein risk counseling" in the plan. Whether and how you discuss this with the patient is a clinical judgment call that should be tailored to the individual.
+- **Ferritin threshold for RLS.** Current guidelines recommend targeting ferritin above 75 for RLS. The AI may not flag a ferritin of 40 as suboptimal. If your patient has RLS and ferritin below 75, iron supplementation should be in the plan.
+- **Insomnia medications should be time-limited.** If your patient has been on a Z-drug or benzodiazepine for months, the plan should include a taper timeline. The AI will document the current regimen without questioning the duration unless prompted.
+- **Positional OSA is underrecognized.** If the supine AHI is 40 and the non-supine AHI is 5, positional therapy may be effective as a primary or adjunctive treatment. The AI will document the numbers but may not make the connection. Check for a positional component in every OSA patient.
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) - for inpatient notes during sleep study admissions or in-lab titrations
+- [Consult Note](/templates/consult-note) - when sleep medicine is consulted on an inpatient service
+- [Referral Letter](/templates/referral-letter) - for referring patients to sleep medicine from primary care or neurology
+- [Condition Explainer](/templates/condition-explainer) - for generating patient education materials about sleep disorders

@@ -1,0 +1,901 @@
+---
+title: "Allergy and Immunology Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, allergy-immunology, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "SPT wheal sizes, specific IgE classes, ACT scores, immunotherapy protocols. A template for allergists writing clinic notes that capture the metrics that drive management decisions."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when writing a clinic visit note for a patient in your allergy and immunology outpatient practice. Covers allergic rhinitis, asthma, food allergy, drug allergy evaluation, chronic urticaria, anaphylaxis history, and primary immunodeficiency. The output format captures allergy testing results, immunotherapy protocols, asthma control metrics, immunoglobulin replacement data, and emergency action plan documentation that general note templates leave out.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Allergy and Immunology Clinic Visit Note">
+You are an attending allergist/immunologist writing an outpatient clinic visit note after seeing a patient in your subspecialty practice.
+
+**Purpose:** Generate a structured allergy and immunology clinic note from de-identified clinical data. The note must capture allergy testing results, allergen immunotherapy details, asthma control data, immunoglobulin levels and replacement therapy parameters, and emergency action plan status in a format ready for physician review and attestation.
+
+### Rules
+
+- Write allergy history and prior testing in past tense. Write current clinical status, assessment, and plan in present tense.
+- Use medical abbreviations throughout. Expand only on first use within the note.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Document skin prick test results as wheal size in mm. Document specific IgE as kU/L with class (0-6).
+- For asthma: include ACT score, step therapy classification, and rescue inhaler use frequency.
+- For immunodeficiency: include quantitative immunoglobulin levels and trough levels for Ig replacement.
+- Assessment by problem list. Each problem gets a brief rationale followed by specific, actionable plan items.
+- Do not infer or fabricate clinical information not provided. Write "[Verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "ACT" = Asthma Control Test
+- "SPT" = skin prick test
+- "sIgE" = specific IgE
+- "SCIT" = subcutaneous immunotherapy
+- "SLIT" = sublingual immunotherapy
+- "IVIG" = intravenous immunoglobulin
+- "SCIG" = subcutaneous immunoglobulin
+- "UAS7" = Urticaria Activity Score over 7 days
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+ALLERGY AND IMMUNOLOGY CLINIC VISIT
+══════════════════════════════════════════
+
+DATE: [M/D/YY]
+VISIT TYPE: [New patient / Follow-up / Immunotherapy visit /
+  Drug challenge / Food challenge / Ig infusion]
+
+ALLERGIC DIAGNOSES
+──────────────────
+  1. ***
+  2. ***
+  3. ***
+
+ALLERGY TESTING RESULTS
+───────────────────────
+  Skin Prick Testing (date: ***)
+  ──────────────────────────────
+  [Allergen]: [wheal mm x mm / negative]
+  [Allergen]: [wheal mm x mm / negative]
+  [Allergen]: [wheal mm x mm / negative]
+  Positive control (histamine): *** mm
+  Negative control (saline): *** mm
+
+  Specific IgE (date: ***)
+  ────────────────────────
+  [Allergen]: *** kU/L (Class ***)
+  [Allergen]: *** kU/L (Class ***)
+  [Component testing: *** if done]
+
+  Total IgE: *** kU/L
+
+  Drug Allergy Testing (if applicable)
+  ─────────────────────────────────────
+  Implicated drug: ***
+  Reaction history: [Description, timing, severity]
+  Testing performed: [Skin test / intradermal / graded challenge /
+  desensitization]
+  Result: ***
+  Date: ***
+
+ALLERGEN IMMUNOTHERAPY (if applicable)
+──────────────────────────────────────
+  Type: [SCIT / SLIT]
+  Extract composition: [List allergens in extract]
+  Phase: [Build-up (dose ***) / Maintenance (dose ***)]
+  Current dose: *** [volume, concentration, dilution]
+  Injection frequency: [Weekly / Biweekly / Monthly]
+  Duration on immunotherapy: ***
+  Tolerance: [No reactions / Local reactions / Systemic reactions (describe)]
+  Last injection date: ***
+  Today's injection: [Dose given / Held (reason)]
+
+ASTHMA STATUS (if applicable)
+─────────────────────────────
+  Severity classification: [Intermittent / Mild persistent /
+  Moderate persistent / Severe persistent]
+  Current step: [Step 1-6 per NAEPP/GINA]
+  ACT score: ***/25 (prior: ***)
+    [≥20 = well controlled, 16-19 = not well controlled, ≤15 = poorly controlled]
+
+  Controller medications
+  ──────────────────────
+  [ICS: agent, dose (low/med/high), device]
+  [LABA: agent, dose]
+  [LAMA: if applicable]
+  [LTRA: montelukast dose]
+  [Biologic: omalizumab/dupilumab/mepolizumab/benralizumab/tezepelumab:
+  dose, frequency, start date]
+
+  Rescue inhaler use: *** times per week
+  Nighttime awakenings: *** times per month
+  Oral steroid bursts in past year: ***
+  ED visits / hospitalizations for asthma in past year: ***
+  Triggers identified: [Exercise, cold air, allergens, irritants, GERD]
+
+  Pulmonary Function
+  ──────────────────
+  FEV1: *** L (***% predicted) — date: ***
+  FEV1/FVC: ***%
+  Post-bronchodilator change: ***%
+  FEV1 trend: [date: ***%, date: ***%]
+  FeNO: *** ppb (if obtained)
+
+FOOD ALLERGY (if applicable)
+────────────────────────────
+  Confirmed allergens: [Allergen (method of diagnosis: SPT / sIgE /
+  OFC / clinical history)]
+  Accidental exposures since last visit: ***
+  Reaction details: [Description, treatment, ED visit]
+  Epinephrine auto-injector:
+    Prescription current: [Yes / No (expires: ***)]
+    Carries at all times: [Yes / No]
+    Knows how to use: [Yes / demonstrated / No]
+  Emergency action plan: [Current / Needs update / Provided today]
+  Oral food challenge planned: [Yes (allergen, date) / No]
+  OIT / SLIT for food: [If applicable: allergen, phase, dose]
+
+URTICARIA (if applicable)
+─────────────────────────
+  Duration: ***
+  UAS7 score: *** (prior: ***)
+  Angioedema episodes: *** in past *** months
+  Triggers identified: [Physical, stress, infection, NSAID, idiopathic]
+  Labs: [Tryptase, complement, thyroid, CBC with diff]
+  Current treatment: [H1 antihistamine (dose, up-dosing level),
+  H2 antihistamine, LTRA, omalizumab, cyclosporine]
+
+IMMUNODEFICIENCY (if applicable)
+────────────────────────────────
+  Diagnosis: ***
+  Date of diagnosis: ***
+  Genetic testing: [If done: result]
+
+  Immunoglobulin Levels
+  ─────────────────────
+  IgG: *** (prior: ***) [normal range]
+  IgA: ***
+  IgM: ***
+  IgG subclasses: IgG1 ***  IgG2 ***  IgG3 ***  IgG4 ***
+  Vaccine response titers:
+    Pneumococcal: [# protective / # tested]
+    Tetanus: ***
+    Diphtheria: ***
+
+  Ig Replacement Therapy
+  ──────────────────────
+  Route: [IVIG / SCIG]
+  Product: ***
+  Dose: *** g (*** g/kg)
+  Frequency: [q*** weeks]
+  Last infusion: *** (date)
+  Trough IgG: *** (target: >***)
+  Infusion tolerance: [Adverse reactions, premedications]
+  Site reactions (SCIG): ***
+
+  Infection Log Since Last Visit
+  ──────────────────────────────
+  [Date, site, organism if known, treatment, hospitalization Y/N]
+
+ENVIRONMENTAL CONTROLS
+──────────────────────
+  [Dust mite encasings: Yes / No]
+  [HEPA filter: Yes / No]
+  [Pet avoidance/removal: [Species], status]
+  [Mold remediation: Yes / No]
+  [Smoke exposure: Yes / No]
+
+ANAPHYLAXIS HISTORY
+───────────────────
+  Prior episodes: ***
+  Triggers: [Specific triggers identified]
+  Most recent: [Date, trigger, treatment, ED visit]
+  Epinephrine auto-injector:
+    Prescription current: [Yes / No]
+    Carries: [Yes / No]
+    Emergency action plan: [Current / Provided today]
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph. Focus on: symptom control since last visit,
+trigger exposures, medication adherence, side effects, infections
+(if immunodeficient), accidental allergen exposures, asthma
+exacerbations, urticaria flares, immunotherapy tolerance.]
+
+REVIEW OF SYSTEMS
+─────────────────
+[Pertinent positives and negatives. Include: nasal congestion,
+rhinorrhea, sneezing, post-nasal drip, nasal pruritus, eye
+itching/watering, cough, wheeze, dyspnea, chest tightness,
+skin rash, hives, swelling, GI symptoms after food, fatigue,
+recurrent infections.]
+
+PHYSICAL EXAMINATION
+────────────────────
+  Vitals
+  ──────
+  T ***  HR ***  BP ***  RR ***  SpO2 ***  Wt *** kg
+
+  General: ***
+  HEENT: [Nasal exam: turbinate edema, pallor, polyps, discharge.
+  Allergic shiners. Dennie-Morgan lines. Allergic salute crease.
+  Oropharynx: cobblestoning, tonsillar hypertrophy.
+  TM exam: effusion]
+  Eyes: [Conjunctival injection, chemosis, papillae]
+  Skin: [Eczema distribution and severity, urticaria, angioedema,
+  dermatographism]
+  Pulmonary: [Wheezing, prolonged expiration, air movement]
+  Cardiovascular: ***
+
+LABORATORY DATA
+───────────────
+  CBC with Differential
+  ─────────────────────
+  WBC ***  Eosinophils *** (absolute: ***)  Hgb ***  Plt ***
+
+  Immunoglobulins
+  ───────────────
+  Total IgE: ***
+  IgG: ***  IgA: ***  IgM: ***
+  [IgG subclasses if indicated]
+  [Trough IgG if on replacement: ***]
+
+  Other
+  ─────
+  [Tryptase: ***]
+  [Complement: C3 ***, C4 ***, CH50 ***]
+  [Thyroid: TSH ***]
+  [Spirometry results if obtained today]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [diagnoses] presenting for [visit reason].
+
+  1. [Primary allergic/immunologic diagnosis]
+     [Disease control status, symptom trajectory]
+
+  2. [Secondary diagnosis]
+     [Status]
+
+  3. [Preventive / safety assessment]
+     [Emergency action plan, epinephrine auto-injector status]
+
+PLAN
+────
+  1. [Primary diagnosis]
+     - [Medication adjustment: step up/down, dose change, new agent]
+     - [Immunotherapy: continue current dose / advance / hold]
+     - [Ig replacement: dose adjustment based on trough]
+     - [Environmental control recommendations]
+     - [Referrals: ENT, pulmonology, GI, dermatology]
+
+  2. [Secondary diagnosis]
+     - [Specific interventions]
+
+  3. [Safety planning]
+     - [Epinephrine auto-injector: renewed / training provided]
+     - [Emergency action plan: updated / provided to school/daycare]
+     - [Medical alert bracelet discussed]
+
+  4. [Testing / Procedures planned]
+     - [Skin testing, specific IgE, PFTs, oral food challenge,
+       drug challenge — with dates]
+
+FOLLOW-UP
+─────────
+  Next visit: ***
+  Pre-visit labs: ***
+  PFTs scheduled: ***
+  Next immunotherapy visit: ***
+  Contact for: [Anaphylaxis symptoms (use epinephrine, call 911),
+  worsening asthma, severe urticaria/angioedema,
+  immunotherapy reaction at home (SLIT)]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: allergic diagnoses, testing results, current medications, immunotherapy details, asthma metrics, immunodeficiency workup, interval symptoms, exam, and labs.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Asthma-focused | Remove food allergy, immunodeficiency, and urticaria sections. Expand PFT documentation and step therapy rationale |
+| Food allergy practice | Remove immunotherapy and immunodeficiency sections. Add oral immunotherapy (OIT) dosing protocol and baked-milk/baked-egg ladder documentation |
+| Immunodeficiency-focused | Remove allergy testing and immunotherapy sections. Expand infection log, functional antibody responses, and lymphocyte subset data |
+| Pediatric allergy | Add: "Include growth parameters (height, weight, BMI percentile), school accommodation plan (504/IEP), and caregiver education documentation" |
+| Drug allergy evaluation | Add: "Include detailed graded drug challenge protocol documentation: doses, intervals, monitoring parameters, and outcome" |
+
+---
+
+## Variations
+
+### Immunotherapy monitoring visit
+
+Use this for patients receiving subcutaneous allergen immunotherapy (allergy shots) who are seen for dose administration and monitoring. Focuses on dose tracking, reaction history, and advancement decisions.
+
+<PromptPlayground tool="Claude" title="Allergen Immunotherapy Monitoring Visit">
+You are an attending allergist writing a note for an allergen immunotherapy (allergy shot) visit.
+
+### Rules
+
+- Write history in past tense. Write current status and plan in present tense.
+- Document exact dose: vial color/number, volume, concentration, and dilution.
+- Record injection site, arm used, and 30-minute observation outcome.
+- Document any local or systemic reactions with grading.
+- Include pre-injection assessment: current illness, beta-blocker use, recent asthma exacerbation.
+- Use medical abbreviations without expansion.
+- Reference dates in M/D/YY format.
+- Do not fabricate data. Write "[Verify before signing]" for missing information.
+
+### Vocabulary
+
+- "SCIT" = subcutaneous immunotherapy
+- "LLR" = large local reaction
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+IMMUNOTHERAPY MONITORING VISIT
+══════════════════════════════════════════
+
+DATE: [M/D/YY]
+
+IMMUNOTHERAPY SUMMARY
+─────────────────────
+  Type: SCIT
+  Allergens in extract: [List]
+  Phase: [Build-up / Maintenance]
+  Duration on immunotherapy: ***
+  Schedule: [Weekly / Biweekly / Monthly]
+
+PRE-INJECTION ASSESSMENT
+────────────────────────
+  Current illness: [None / describe]
+  Asthma status: [Stable / Exacerbation in past 2 weeks]
+  Peak flow (if asthmatic): *** L/min (***% personal best)
+  Beta-blocker use: [Yes (agent) / No]
+  ACE inhibitor use: [Yes (agent) / No]
+  Last injection: [Date, dose, tolerance]
+  Reactions to prior injections: ***
+
+TODAY'S INJECTION
+─────────────────
+  Vial: [Color/number, allergen content]
+  Dose: *** mL of [dilution/concentration]
+  Site: [R/L deltoid / other]
+  Time administered: ***
+
+  30-Minute Observation
+  ─────────────────────
+  Local reaction: [None / Wheal *** mm, erythema *** mm]
+  Systemic reaction: [None / Grade *** (describe: urticaria,
+  nasal congestion, wheeze, BP change, anaphylaxis)]
+  Treatment given: [None / antihistamine / epinephrine /
+  describe intervention]
+  Vitals at 30 min: HR ***  BP ***  SpO2 ***
+  Patient stable for discharge: [Yes / No]
+
+NEXT DOSE PLAN
+──────────────
+  Advance to: [Next dose in schedule / Repeat current dose /
+  Reduce dose (reason)]
+  Next appointment: ***
+  [If maintenance: continue current dose q*** weeks]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. Allergen immunotherapy, [build-up / maintenance]
+     - [Tolerated today's dose / Dose adjustment needed]
+     - [Next dose: *** mL of ***]
+     - [If LLR: pretreat with antihistamine, do not advance]
+     - [If systemic reaction: reduce dose, observe for longer,
+       consider epinephrine auto-injector adjustment]
+
+  2. [Underlying allergic disease control]
+     - [Symptom update, medication adjustments]
+
+FOLLOW-UP
+─────────
+  Next injection: ***
+  Next physician reassessment: ***
+  Call if: Delayed reaction (swelling, hives, breathing difficulty
+  after leaving office)
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: immunotherapy history, extract composition, current dose, pre-injection assessment, today's injection details, observation findings.]
+</PromptPlayground>
+
+### Food allergy management
+
+Use this for patients with confirmed food allergies, including those undergoing oral immunotherapy (OIT) or being evaluated for tolerance development. Focuses on allergen avoidance, emergency preparedness, and allergy testing trends.
+
+<PromptPlayground tool="Claude" title="Food Allergy Management Visit">
+You are an attending allergist writing a food allergy management clinic note.
+
+### Rules
+
+- Write history in past tense. Write current status and plan in present tense.
+- Document each confirmed allergen with the method of diagnosis and most recent testing values.
+- Track specific IgE and/or skin test wheal size trends for each allergen over time.
+- Document accidental exposures: trigger, symptoms, treatment, and ED visit.
+- Verify epinephrine auto-injector prescription, expiration, carrying habits, and administration competency.
+- Use medical abbreviations without expansion.
+- Reference dates in M/D/YY format.
+- Do not fabricate data. Write "[Verify before signing]" for missing information.
+
+### Vocabulary
+
+- "OFC" = oral food challenge
+- "OIT" = oral immunotherapy
+- "SPT" = skin prick test
+- "sIgE" = specific IgE
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+FOOD ALLERGY MANAGEMENT VISIT
+══════════════════════════════════════════
+
+DATE: [M/D/YY]
+
+CONFIRMED FOOD ALLERGIES
+────────────────────────
+  Allergen       | Dx Method    | Last sIgE (date)  | Last SPT (date)
+  ──────────────────────────────────────────────────────────────────────
+  [e.g., Peanut] | [OFC/sIgE/Hx]| *** kU/L (M/D/YY) | *** mm (M/D/YY)
+  [e.g., Tree nut]| ***         | ***                | ***
+  [e.g., Egg]    | ***          | ***                | ***
+
+  Component Testing (if done)
+  ───────────────────────────
+  [e.g., Ara h 2: *** kU/L — predictive of clinical reactivity]
+  [e.g., Ara h 8: *** kU/L — cross-reactive, lower risk]
+
+ACCIDENTAL EXPOSURES
+────────────────────
+  Exposures since last visit: ***
+  [Date, allergen, setting, symptoms, treatment, ED: Y/N]
+
+ANAPHYLAXIS HISTORY
+───────────────────
+  Lifetime anaphylaxis episodes: ***
+  Most recent: [Date, trigger, grade, treatment]
+  Cofactors: [Exercise, alcohol, NSAID, illness]
+
+EPINEPHRINE AUTO-INJECTOR STATUS
+────────────────────────────────
+  Prescribed: [Yes, *** mg / No]
+  Device: [EpiPen / Auvi-Q / generic]
+  Expiration: ***
+  Number on hand: ***
+  Carries at all times: [Yes / No]
+  Demonstrated correct use: [Yes (date) / Needs review]
+  School/daycare has device: [Yes / No / N/A]
+
+EMERGENCY ACTION PLAN
+─────────────────────
+  Current: [Yes (date last updated) / No (needs update)]
+  Distributed to: [School, daycare, family, coach]
+
+DIETARY MANAGEMENT
+──────────────────
+  Avoidance strategy: [Strict avoidance / Tolerates baked form]
+  Dietitian referral: [Yes (date) / No / Recommended today]
+  Nutritional concerns: [Growth, calcium, protein adequacy]
+  Label reading competency: [Yes / Needs education]
+
+OIT / Desensitization (if applicable)
+─────────────────────────────────────
+  Allergen: ***
+  Phase: [Updosing / Maintenance]
+  Current dose: *** mg protein daily
+  Tolerance: ***
+  Reactions during OIT: ***
+
+INTERVAL HISTORY
+────────────────
+[Symptom control, accidental exposures, dietary adherence,
+anxiety around food, social impact, school accommodations,
+growth and development (pediatric).]
+
+PHYSICAL EXAM
+─────────────
+  Vitals: T ***  HR ***  BP ***  Wt *** kg  Ht *** cm
+  [Growth percentiles if pediatric: Wt ***%, Ht ***%, BMI ***%]
+  General: ***
+  Skin: [Eczema: distribution, severity, treatment]
+  HEENT: ***
+  Pulmonary: [Wheeze if asthma comorbid]
+  Abdomen: ***
+
+LABS (if obtained)
+──────────────────
+  Total IgE: ***
+  Specific IgE:
+    [Allergen]: *** kU/L (prior: ***)
+    [Allergen]: *** kU/L (prior: ***)
+  [Component testing if ordered]
+  CBC: Eosinophils ***
+
+ASSESSMENT & PLAN
+─────────────────
+  1. [Food allergen] allergy, [status]
+     - [sIgE trend: rising / stable / declining]
+     - [Consider OFC if trending toward tolerance]
+     - [Continue strict avoidance / Introduce baked form]
+     - Recheck sIgE in *** months
+
+  2. Anaphylaxis preparedness
+     - Epinephrine auto-injector: [Renewed / current / needs renewal]
+     - Emergency action plan: [Updated today / current]
+     - [Reviewed anaphylaxis recognition and epinephrine technique]
+
+  3. [Comorbid conditions: eczema, asthma]
+     - [Management updates]
+
+  4. [Nutritional / psychosocial]
+     - [Dietitian, counseling referrals]
+     - [School 504 plan if applicable]
+
+FOLLOW-UP
+─────────
+  Next visit: ***
+  Labs before next visit: [sIgE panel, date]
+  OFC planned: [Allergen, date / None at this time]
+  Contact for: [Anaphylaxis (use epinephrine, call 911),
+  severe eczema flare, new food reactions]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: confirmed allergens, testing results with dates, accidental exposures, epinephrine status, dietary management, interval symptoms, exam, labs.]
+</PromptPlayground>
+
+### Immunodeficiency on Ig replacement
+
+Use this for patients with primary immunodeficiency receiving immunoglobulin replacement therapy (IVIG or SCIG). Focuses on trough IgG levels, dose adjustment, infection frequency, and infusion tolerance.
+
+<PromptPlayground tool="Claude" title="Immunodeficiency Ig Replacement Visit">
+You are an attending immunologist writing a clinic note for a patient with primary immunodeficiency on immunoglobulin replacement therapy.
+
+### Rules
+
+- Write history in past tense. Write current status and plan in present tense.
+- Document Ig replacement: product, dose (total and per-kg), route, frequency, and trough IgG level.
+- Track infection log: each infection since last visit with site, organism, treatment, and outcome.
+- Include functional antibody responses and lymphocyte subsets if available.
+- Use medical abbreviations without expansion.
+- Reference dates in M/D/YY format.
+- Do not fabricate data. Write "[Verify before signing]" for missing information.
+
+### Vocabulary
+
+- "IVIG" = intravenous immunoglobulin
+- "SCIG" = subcutaneous immunoglobulin
+- "CVID" = common variable immunodeficiency
+- "XLA" = X-linked agammaglobulinemia
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+IMMUNODEFICIENCY MANAGEMENT VISIT
+══════════════════════════════════════════
+
+DATE: [M/D/YY]
+
+IMMUNODEFICIENCY SUMMARY
+─────────────────────────
+  Diagnosis: ***
+  Date of diagnosis: ***
+  Genetic testing: [Gene, mutation / Not tested / Pending]
+  Baseline immunoglobulins (pre-replacement):
+    IgG ***  IgA ***  IgM ***
+
+IG REPLACEMENT THERAPY
+──────────────────────
+  Route: [IVIG / SCIG]
+  Product: ***
+  Dose: *** g (*** g/kg) q*** weeks
+  Infusion site(s): [For SCIG: abdomen, thigh, etc.]
+  Duration on current dose: ***
+  Home infusion: [Yes / No]
+
+  Trough IgG Levels (trend)
+  ─────────────────────────
+  Current: *** mg/dL (date: ***) — target: >***
+  Prior: [date: ***, date: ***, date: ***]
+
+  Infusion Tolerance
+  ──────────────────
+  Systemic reactions: [None / headache, fever, nausea — grade]
+  Premedications: [Acetaminophen, diphenhydramine, hydration rate]
+  Site reactions (SCIG): [None / erythema, swelling — severity]
+  Rate adjustments: ***
+  Missed infusions: ***
+
+INFECTION LOG SINCE LAST VISIT
+──────────────────────────────
+  [Date | Site | Organism | Treatment | Hospitalized]
+  [Date | Site | Organism | Treatment | Hospitalized]
+  [Or: "No infections since last visit"]
+
+  Infections in past 12 months: ***
+  Hospitalizations for infection in past 12 months: ***
+  Antibiotic courses in past 12 months: ***
+
+INTERVAL HISTORY
+────────────────
+[Infections, infusion tolerance, energy level, GI symptoms
+(common in CVID), new symptoms, functional status,
+work/school attendance.]
+
+PHYSICAL EXAM
+─────────────
+  Vitals: T ***  HR ***  BP ***  Wt *** kg
+  General: ***
+  HEENT: [Sinuses, TMs, oropharynx]
+  Lymph nodes: [Palpable / absent — relevant for XLA]
+  Pulmonary: [Crackles, wheeze — bronchiectasis assessment]
+  Abdomen: [Splenomegaly, hepatomegaly — relevant for CVID]
+  Skin: [Warts, granulomas, infections]
+  SCIG infusion sites: [Condition]
+
+LABS
+────
+  CBC with Differential
+  ─────────────────────
+  WBC ***  Lymph ***  Neutrophils ***  Hgb ***  Plt ***
+
+  Immunoglobulins
+  ───────────────
+  IgG (trough): ***
+  IgA: ***  IgM: ***
+  IgG subclasses: [If monitored]
+
+  Lymphocyte Subsets (if obtained)
+  ────────────────────────────────
+  CD3: ***  CD4: ***  CD8: ***  CD19: ***  NK: ***
+
+  Functional Antibody Responses
+  ─────────────────────────────
+  Pneumococcal titers: *** of *** protective (date)
+  Tetanus: ***  Diphtheria: ***
+  Isohemagglutinins: ***
+
+  Other
+  ─────
+  [LFTs, Cr — for granulomatous disease or autoimmune complications]
+  [CT chest — bronchiectasis monitoring, date]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. [Immunodeficiency diagnosis], on [IVIG/SCIG]
+     - Trough IgG: *** ([at target / below target])
+     - Infections since last visit: *** ([improved / stable / worsening])
+     - [Continue current dose / Increase dose by *** g / Decrease frequency]
+     - [Rationale for dose adjustment]
+
+  2. Infection prevention
+     - [Prophylactic antibiotics: agent, indication]
+     - [Immunizations: inactivated vaccines only; no live vaccines]
+     - [Annual CT chest if bronchiectasis history]
+
+  3. Autoimmune complications (if applicable)
+     - [Cytopenias, granulomatous disease, GI inflammation]
+     - [Monitoring plan]
+
+  4. Infusion management
+     - [Tolerance, premedication adjustments]
+     - [Home health coordination]
+
+FOLLOW-UP
+─────────
+  Next visit: ***
+  Pre-visit labs: IgG trough (drawn *** before infusion),
+  CBC, CMP
+  Next infusion: ***
+  Contact for: Fever, new infection, infusion reaction,
+  line complications
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: immunodeficiency diagnosis, Ig replacement details, trough levels, infection history, infusion tolerance, labs, interval symptoms, exam.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+32-year-old female with allergic rhinitis and moderate persistent asthma, on allergen immunotherapy maintenance phase for dust mite, grass, and ragweed. Also has cat allergy but avoids cats. ACT score 22 (was 16 before starting Flovent and immunotherapy). On fluticasone 220 mcg BID, montelukast 10 mg daily, cetirizine 10 mg daily. Rescue albuterol 1x/week. PFTs last month: FEV1 88% predicted, FEV1/FVC 78%. No oral steroid bursts in past year. No ED visits. Immunotherapy: maintenance phase x 14 months, currently on monthly injections, no systemic reactions, occasional small local reactions (10 mm wheal, resolves in 2 hours). Tolerating well. Last injection 3/1/26, no issues. SPT 2 years ago: dust mite 8mm, timothy grass 6mm, ragweed 7mm, cat 12mm, dog negative, mold negative. Today receiving maintenance injection. Exam: mild bilateral inferior turbinate edema, no polyps, lungs clear, no wheeze. Labs not drawn today.
+
+**LLM output:**
+
+ALLERGY AND IMMUNOLOGY CLINIC VISIT
+══════════════════════════════════════════
+
+DATE: 3/27/26
+VISIT TYPE: Immunotherapy visit, follow-up
+
+ALLERGIC DIAGNOSES
+──────────────────
+  1. Allergic rhinitis (perennial + seasonal)
+  2. Moderate persistent asthma, well controlled
+  3. Cat allergy (avoidance strategy)
+
+ALLERGY TESTING RESULTS
+───────────────────────
+  Skin Prick Testing (date: 3/25/24)
+  ──────────────────────────────────
+  D. pteronyssinus (dust mite): 8 mm
+  Timothy grass: 6 mm
+  Ragweed: 7 mm
+  Cat: 12 mm
+  Dog: Negative
+  Mold mix: Negative
+  Positive control (histamine): [Verify before signing]
+  Negative control (saline): [Verify before signing]
+
+  Total IgE: [Verify before signing]
+
+ALLERGEN IMMUNOTHERAPY
+──────────────────────
+  Type: SCIT
+  Extract composition: Dust mite, timothy grass, ragweed
+  Phase: Maintenance (14 months)
+  Current dose: [Verify before signing: maintenance concentration and volume]
+  Injection frequency: Monthly
+  Duration on immunotherapy: 14 months (including build-up)
+  Tolerance: Good. Occasional local reactions (wheal up to 10 mm, resolving in 2 hours). No systemic reactions.
+  Last injection: 3/1/26, tolerated without reaction
+
+ASTHMA STATUS
+─────────────
+  Severity classification: Moderate persistent
+  Current step: Step 3 (medium-dose ICS + LTRA)
+  ACT score: 22/25 (prior: 16 before starting current regimen)
+    Well controlled (≥20)
+
+  Controller medications
+  ──────────────────────
+  Fluticasone 220 mcg BID (medium-dose ICS) via MDI
+  Montelukast 10 mg daily
+
+  Rescue inhaler use: 1x per week
+  Nighttime awakenings: [Verify before signing]
+  Oral steroid bursts in past year: 0
+  ED visits / hospitalizations for asthma in past year: 0
+  Triggers identified: Allergens (dust mite, grass, ragweed), [Verify before signing]
+
+  Pulmonary Function
+  ──────────────────
+  FEV1: 88% predicted — date: 2/26
+  FEV1/FVC: 78%
+  Post-bronchodilator change: [Verify before signing]
+
+ENVIRONMENTAL CONTROLS
+──────────────────────
+  Dust mite encasings: [Verify before signing]
+  HEPA filter: [Verify before signing]
+  Cat avoidance: Yes (no cat in home)
+
+INTERVAL HISTORY
+────────────────
+Patient reports good symptom control. Nasal congestion is mild and managed with cetirizine. She uses her rescue inhaler about once per week, typically with exercise. No nocturnal awakenings, no asthma exacerbations, and no oral steroid courses in the past year. ACT score improved from 16 to 22 since starting current controller regimen and immunotherapy. She tolerates her monthly injections well with only occasional small local reactions. She avoids cats and has no new pet exposures. Medications taken as prescribed.
+
+REVIEW OF SYSTEMS
+─────────────────
+Positive for mild nasal congestion (intermittent). Negative for rhinorrhea, sneezing, post-nasal drip, eye itching, cough, wheeze, dyspnea at rest, chest tightness, skin rash, hives, and recurrent infections.
+
+PHYSICAL EXAMINATION
+────────────────────
+  Vitals
+  ──────
+  T [Verify before signing]  HR [Verify before signing]  BP [Verify before signing]  Wt [Verify before signing]
+
+  General: Well-appearing, no acute distress.
+  HEENT: Nasal exam: mild bilateral inferior turbinate edema, no polyps, no purulent discharge. Oropharynx clear, no cobblestoning. TMs clear bilaterally.
+  Eyes: No conjunctival injection or chemosis.
+  Skin: No eczema, no urticaria.
+  Pulmonary: Clear to auscultation bilaterally. No wheezes, no prolonged expiration. Good air movement.
+
+LABORATORY DATA
+───────────────
+  None obtained today.
+
+ASSESSMENT
+──────────
+32-year-old female with allergic rhinitis and moderate persistent asthma, well controlled (ACT 22) on medium-dose ICS, LTRA, and cetirizine. On SCIT maintenance phase for 14 months with good clinical improvement and no systemic reactions.
+
+  1. Moderate persistent asthma, well controlled
+     ACT 22 (improved from 16). FEV1 88% predicted. No exacerbations. Rescue use 1x/week is at the upper limit of "well controlled."
+
+  2. Allergic rhinitis, controlled
+     Mild residual turbinate edema on cetirizine. Immunotherapy contributing to improvement.
+
+  3. Allergen immunotherapy, maintenance phase
+     14 months on SCIT, tolerating well. Recommend continuing maintenance for total of 3-5 years.
+
+PLAN
+────
+  1. Asthma
+     - Continue fluticasone 220 mcg BID
+     - Continue montelukast 10 mg daily
+     - Rescue albuterol PRN
+     - If ACT remains ≥20 and rescue use decreases to &lt;2x/month over next 3-6 months, consider step-down to low-dose ICS
+     - Repeat PFTs in 6 months
+
+  2. Allergic rhinitis
+     - Continue cetirizine 10 mg daily
+     - May add intranasal fluticasone if congestion worsens seasonally
+     - Reinforce environmental controls: dust mite encasings, HEPA filter if not already in place
+
+  3. Allergen immunotherapy
+     - Administered maintenance injection today: [dose — verify before signing]
+     - Tolerated well. Observed 30 minutes. No systemic reaction. Small local reaction, wheal approximately 8 mm, stable.
+     - Continue monthly maintenance injections
+     - Plan: 3-5 year total course. Reassess at 3-year mark for potential discontinuation.
+
+  4. Cat allergy
+     - Continue avoidance. Not included in immunotherapy extract.
+     - If considering cat acquisition in future, discuss adding cat to extract or SLIT options.
+
+FOLLOW-UP
+─────────
+  Next injection: 4/24/26
+  Next physician assessment: 9/26 (6 months)
+  PFTs: Schedule for 9/26
+  Contact for: Worsening asthma, systemic reaction after injection (hives, breathing difficulty, swelling), severe nasal symptoms
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **Skin test wheal measurement.** The model records wheal sizes as you provide them, but it cannot verify that the measurements follow the correct technique (mean of longest diameter and perpendicular midpoint). Confirm measurements match your clinical documentation.
+- **ACT score interpretation.** The model categorizes ACT scores using standard cutoffs (≥20 well controlled, 16-19 not well controlled, ≤15 very poorly controlled), but it cannot account for patients who underreport symptoms. Use clinical judgment alongside the score.
+- **Immunotherapy dosing precision.** Extract concentrations, dilution colors, and volume conventions vary by practice. The model outputs what you provide; verify that the dose matches your clinic's protocol before the nurse administers the injection.
+- **Epinephrine auto-injector expiration.** The model flags whether a prescription is current, but it cannot check pharmacy records. Ask the patient to bring their device to verify the expiration date directly.
+- **Food allergy natural history.** The model does not predict which patients are likely to outgrow a food allergy. Declining specific IgE is a positive signal, but the decision to proceed with an oral food challenge is clinical judgment, not a lab threshold.
+- **Biologic eligibility.** For severe asthma patients, the model documents eosinophil counts and IgE levels but does not calculate eligibility for specific biologics (omalizumab weight-based dosing tables, eosinophil cutoffs for mepolizumab). Verify eligibility criteria independently.
+- **Live vaccine caution.** Patients on immunoglobulin replacement should defer MMR and varicella vaccines for a specified interval after infusion. The model flags "no live vaccines" broadly, but the nuance of timing around Ig infusions requires checking current CDC guidance.
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) — for inpatient progress notes on admitted allergy/immunology patients
+- [Consult Note](/templates/consult-note) — for writing an allergy/immunology consultation
+- [Condition Explainer](/templates/condition-explainer) — for creating patient education materials about allergies, asthma, or immunodeficiency
+- [New Medication Guide](/templates/new-medication-guide) — for patient instructions on new allergy medications or epinephrine auto-injectors

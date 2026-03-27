@@ -1,0 +1,828 @@
+---
+title: "Pulmonology Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, pulmonology, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "A pulmonology clinic note template that knows to document PFT trends, GOLD classification, CPAP compliance data, or Lung-RADS category depending on the diagnosis. Six conditions, all covered."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+You finished clinic, and now the notes need writing. This template covers the six conditions that fill most pulmonology schedules: COPD, asthma, interstitial lung disease, pulmonary nodules, obstructive sleep apnea, and pulmonary hypertension. Paste in your clinical data, and the LLM produces a structured note that knows to document PFT trends, GOLD classification, inhaler technique, CPAP compliance data, or nodule size and Lung-RADS category depending on why the patient is there. The disease-specific fields are baked in so you do not have to build the structure from scratch each time.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Pulmonology Clinic Visit Note">
+You are an outpatient pulmonologist writing a clinic visit note after seeing a patient for a follow-up or management visit. The patient's primary pulmonary condition is one of: COPD, asthma, interstitial lung disease, pulmonary nodules, obstructive sleep apnea, or pulmonary hypertension. Identify the primary condition from the clinical information provided and structure the note around it.
+
+### Purpose
+
+Generate a complete, structured outpatient pulmonology clinic note from the clinical data below. The note must capture disease-specific monitoring data (PFTs, imaging, sleep studies, oxygen requirements), medication reconciliation including inhaler devices and technique, assessment of disease trajectory, and a concrete plan with specific next steps.
+
+### Rules
+
+- Write in past tense for history and interval events; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use in the note (e.g., "forced expiratory volume in 1 second (FEV1) 1.2 L (42% predicted)"), then abbreviation only thereafter.
+- Include specific numbers for all values: PFT results with percent predicted, nodule measurements in mm, oxygen flow rates, AHI values, CPAP pressures.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Organize the Assessment as a problem list with the primary pulmonary condition first.
+- Plan items must be specific and actionable: inhaler changes with device type, oxygen prescription parameters, imaging interval, referral destination. Never write "continue current management" without specifying what that management is.
+- For COPD patients: document GOLD stage, group classification, exacerbation history (past 12 months), and step therapy level.
+- For asthma patients: document Asthma Control Test (ACT) score, step therapy level, rescue inhaler use per week.
+- For pulmonary nodule patients: document size, location, morphology, growth rate, Lung-RADS category, and surveillance timeline.
+- For ILD patients: document PFT trends (FVC, DLCO), imaging progression, and antifibrotic therapy if applicable.
+- Document smoking status with pack-years for all patients.
+- Do not infer or fabricate any clinical information not provided. Write "[Not provided; verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "FEV1" = forced expiratory volume in 1 second
+- "FVC" = forced vital capacity
+- "DLCO" = diffusing capacity of the lungs for carbon monoxide
+- "TLC" = total lung capacity
+- "GOLD" = Global Initiative for Chronic Obstructive Lung Disease
+- "ACT" = Asthma Control Test
+- "AHI" = apnea-hypopnea index
+- "Lung-RADS" = Lung CT Screening Reporting and Data System
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+PULMONOLOGY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[Follow-up / New patient / Nodule surveillance / Pre-operative]
+Interval since last visit: [duration]
+
+CHIEF CONCERN
+─────────────
+***
+
+PULMONARY HISTORY
+─────────────────
+  Primary diagnosis: ***
+  Date of diagnosis: ***
+  Disease classification: [GOLD stage / Asthma severity step / ILD subtype /
+    Nodule Lung-RADS / OSA severity / PH WHO group]
+  Key history:
+    - [Relevant surgical/procedural history: lung biopsy, lobectomy,
+      bronchoscopy, thoracentesis]
+    - [Hospitalizations for pulmonary exacerbations: dates, frequency]
+    - [Intubation history]
+
+SMOKING AND EXPOSURE HISTORY
+────────────────────────────
+  Tobacco: [Never / Former / Current]
+  Pack-years: ***
+  Cessation date: *** [or current cessation plan]
+  Vaping: [Yes / No]
+  Occupational exposures: ***
+  Environmental exposures: [Mold, birds, chemicals, dust]
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph covering symptoms and events since last visit.
+Include: dyspnea (with exertion level), cough (productive vs dry),
+sputum (color, quantity), wheezing, hemoptysis, chest tightness,
+exercise tolerance (specific distances or activities), sleep quality,
+daytime somnolence, ED visits, hospitalizations, steroid courses,
+antibiotic courses. Quantify rescue inhaler use per week.]
+
+VACCINATIONS
+────────────
+  Pneumococcal (PCV20 or PCV15+PPSV23): [date / status]
+  Influenza: [date / status]
+  COVID-19: [date of last dose]
+  RSV: [date / status, if age-appropriate]
+
+CURRENT MEDICATIONS
+───────────────────
+  Inhalers
+  ────────
+  [For each inhaler: drug name, device type (MDI, DPI, SMI, nebulizer),
+  dose, frequency, technique assessed (Y/N), spacer use (Y/N)]
+
+  Oral Medications
+  ────────────────
+  ***
+
+  Oxygen
+  ──────
+  [Home O2: Y/N. If yes: L/min, continuous vs exertional,
+  qualifying SpO2 or ABG, last reassessment date]
+
+  CPAP/BiPAP (if applicable)
+  ──────────────────────────
+  [Device, pressure settings, mask type, humidification]
+
+  Other Pulmonary Medications
+  ───────────────────────────
+  [Phosphodiesterase inhibitors, endothelin receptor antagonists,
+  prostacyclins, antifibrotics, biologics, etc.]
+
+VITAL SIGNS
+───────────
+  BP: ***
+  HR: ***
+  RR: ***
+  SpO2: *** on [room air / O2 at *** L/min]
+  Weight: *** [trend from last visit]
+  BMI: ***
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: ***
+  HEENT: [Nasal polyps, oropharyngeal crowding (Mallampati), neck circumference]
+  Cardiovascular: ***
+  Pulmonary: [Breath sounds, adventitious sounds (location, quality),
+    air movement, chest wall expansion, accessory muscle use,
+    percussion, egophony]
+  Extremities: [Clubbing, edema, cyanosis]
+  Musculoskeletal: [Kyphosis, chest wall deformity if relevant]
+
+DIAGNOSTICS
+───────────
+
+  Pulmonary Function Tests
+  ────────────────────────
+  Date: ***
+  FEV1: *** L (***% predicted) [prior: *** L (***%) on M/D/YY]
+  FVC: *** L (***% predicted) [prior: *** L (***%) on M/D/YY]
+  FEV1/FVC: ***% [prior: ***%]
+  DLCO: *** (***% predicted) [prior: *** (***%) on M/D/YY]
+  TLC: *** L (***% predicted)
+  Bronchodilator response: [Positive / Negative, % change in FEV1]
+
+  Imaging
+  ───────
+  [CT chest: date, findings, nodule measurements if applicable,
+  comparison to prior]
+  [CXR: date, findings]
+
+  Sleep Study (if applicable)
+  ───────────────────────────
+  Date: ***
+  AHI: *** events/hr
+  Lowest SpO2: ***%
+  Study type: [In-lab PSG / Home sleep test]
+
+  CPAP Compliance Data (if applicable)
+  ─────────────────────────────────────
+  Average hours/night: ***
+  % nights used (≥4 hrs): ***%
+  Residual AHI on CPAP: ***
+  Mask leak: ***
+
+  6-Minute Walk Test (if applicable)
+  ──────────────────────────────────
+  Date: ***
+  Distance: *** meters
+  Nadir SpO2: ***%
+  Borg dyspnea score: ***/10
+
+  Labs
+  ────
+  [ABG, CBC, alpha-1 antitrypsin, eosinophil count, IgE,
+  specific IgE panels, autoimmune serologies as relevant]
+
+  Other Studies
+  ─────────────
+  [Bronchoscopy, BAL, lung biopsy, right heart catheterization,
+  V/Q scan, CT pulmonary angiography]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [relevant pulmonary history summary]
+presenting for [visit type]. [One-sentence trajectory statement.]
+
+  1. [Primary pulmonary condition]
+     [Brief assessment: current control/severity, trajectory
+     compared to last visit, key data supporting assessment.]
+
+  2. [Secondary pulmonary condition, if applicable]
+     [Brief assessment.]
+
+  3. [Relevant comorbidities affecting pulmonary management]
+     [Brief assessment.]
+
+  [For COPD patients, include:]
+  COPD Classification
+  ───────────────────
+  GOLD spirometric stage: [1 / 2 / 3 / 4]
+  Exacerbation history (past 12 months):
+    Moderate (steroid/antibiotic courses): ***
+    Severe (hospitalization): ***
+  Group: [A / B / E]
+  mMRC dyspnea: ***/4
+
+  [For asthma patients, include:]
+  Asthma Control Assessment
+  ─────────────────────────
+  ACT score: ***/25 [≥20 well-controlled, 16-19 not well-controlled,
+    ≤15 very poorly controlled]
+  Step therapy level: [1-6]
+  Rescue inhaler use: *** times/week
+  Night awakenings: *** times/month
+  Exacerbations past 12 months: ***
+  Eosinophil count: ***
+  IgE: ***
+
+PLAN
+────
+  1. [Primary pulmonary condition]
+     - [Specific action: inhaler change with device and dose,
+       steroid taper schedule, antifibrotic start/adjustment,
+       oxygen prescription change, CPAP pressure change]
+     - [Specific action]
+     - [Specific action]
+
+  2. [Secondary condition]
+     - [Specific action]
+
+  3. [Comorbidities]
+     - [Specific action]
+
+  Monitoring
+  ──────────
+  - PFTs: [Next scheduled date or order now]
+  - Imaging: [Next CT, CXR, or other; specify interval]
+  - Labs: [Specific labs to order]
+  - Sleep study/CPAP download: [Next review date]
+  - 6-minute walk test: [If indicated]
+
+  Referrals
+  ─────────
+  [Pulmonary rehab, thoracic surgery, sleep medicine, allergy/immunology,
+  smoking cessation program, transplant evaluation]
+
+  Follow-Up
+  ─────────
+  Return to pulmonology clinic in [interval].
+  [Specific criteria for earlier return or ED visit.]
+
+DISPOSITION
+───────────
+[Patient counseled on ***, agrees with plan.
+Return precautions reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: reason for visit, interval history, pulmonary diagnosis and classification, smoking history, current medications with inhaler devices and doses, vitals including SpO2, exam findings, PFTs, imaging, sleep study data, CPAP compliance, and any other relevant studies.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Lung cancer screening | Add: "This patient is being seen for lung cancer screening eligibility assessment. Document eligibility criteria (age, smoking history), shared decision-making, and Lung-RADS classification for any findings." |
+| Pre-surgical clearance | Add: "This is a pre-operative pulmonary risk assessment. Include predicted postoperative FEV1, exercise capacity, and specific risk reduction recommendations." |
+| Oxygen qualification | Add: "This visit includes oxygen qualification testing. Document qualifying SpO2 or PaO2 at rest and with exertion, and write the O2 prescription with specific parameters." |
+| Biologic therapy | Add: "This patient is on or being considered for biologic therapy. Document phenotyping data (eosinophils, IgE, FeNO), prior biologic trials, and response assessment." |
+| Transplant evaluation | Add: "This patient is being evaluated for lung transplantation. Include disease-specific transplant referral criteria, comorbidity assessment, and psychosocial factors." |
+
+---
+
+## Variations
+
+### COPD management
+
+Use this for the patient with established COPD returning for ongoing management. The note is built around GOLD classification, exacerbation prevention, inhaler optimization, and comorbidity screening.
+
+<PromptPlayground tool="Claude" title="COPD Management Visit">
+You are an outpatient pulmonologist writing a clinic visit note for a patient with established COPD. Structure the note around GOLD classification, exacerbation history, inhaler therapy optimization, and comorbidity management.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document GOLD spirometric stage (1-4) and group (A, B, or E) with supporting data.
+- Quantify exacerbation history for the past 12 months: moderate (required steroids/antibiotics) and severe (required hospitalization).
+- Document each inhaler with device type and assess technique.
+- Include mMRC dyspnea scale score with supporting functional description.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+COPD CLINIC VISIT
+══════════════════════════════════════════
+
+COPD CLASSIFICATION
+───────────────────
+  GOLD spirometric stage: [1 / 2 / 3 / 4]
+    FEV1: *** L (***% predicted), date: ***
+    FEV1/FVC: ***%
+  Exacerbation history (past 12 months):
+    Moderate (steroid/antibiotic courses): ***
+    Severe (ED visit/hospitalization): ***
+  Group: [A / B / E]
+  mMRC dyspnea: ***/4
+    ["0: breathless only with strenuous exercise"
+     "1: breathless hurrying on the level"
+     "2: walks slower than people of same age"
+     "3: stops for breath after walking ~100 yards"
+     "4: too breathless to leave the house"]
+
+SMOKING STATUS
+──────────────
+  Status: [Current / Former / Never]
+  Pack-years: ***
+  Cessation: [Date quit / Current plan / Counseling offered]
+
+INTERVAL HISTORY
+────────────────
+[Narrative: dyspnea trend, cough, sputum, exacerbations since
+last visit with dates and treatment, ED visits, hospitalizations,
+rescue inhaler frequency, exercise tolerance (specific distances),
+nocturnal symptoms, oxygen use patterns.]
+
+CURRENT INHALER REGIMEN
+───────────────────────
+  Maintenance:
+    [Drug] via [device type (MDI/DPI/SMI/nebulizer)], [dose], [frequency]
+    Technique: [Adequate / Needs correction: specify issue]
+    Spacer: [Y/N]
+
+    [Drug] via [device type], [dose], [frequency]
+    Technique: [Adequate / Needs correction]
+
+  Rescue:
+    [Drug] via [device type], [dose], PRN
+    Use: *** times/week
+
+  Inhaler technique globally assessed: [Y/N]
+
+OXYGEN
+──────
+  Home O2: [Y/N]
+  [If yes: L/min, continuous vs exertional, qualifying data, last reassessment]
+
+PFT TRENDS
+──────────
+  Date        FEV1 (L)   FEV1 (% pred)   FVC (L)   FEV1/FVC   DLCO (% pred)
+  ──────────  ─────────  ──────────────   ────────  ─────────  ─────────────
+  M/D/YY      ***        ***              ***       ***        ***
+  M/D/YY      ***        ***              ***       ***        ***
+
+EXAM HIGHLIGHTS
+───────────────
+  SpO2: *** on [RA / O2]
+  Pulmonary: [Air movement, adventitious sounds, accessory muscle use]
+  Cardiac: [Cor pulmonale signs: RV heave, loud P2, tricuspid regurg murmur]
+  Extremities: [Edema, clubbing]
+
+COMORBIDITY SCREEN
+──────────────────
+  Cardiovascular risk: ***
+  Osteoporosis screening: [DEXA date / status]
+  Depression/anxiety: [Screened Y/N, result]
+  Lung cancer screening: [Eligible Y/N, last LDCT]
+
+ASSESSMENT AND PLAN
+───────────────────
+  1. COPD, GOLD stage ***, group ***
+     - Inhaler changes: [Specific: "Add LAMA (tiotropium HandiHaler 18 mcg
+       daily)" or "Step up to ICS/LABA/LAMA triple therapy
+       (fluticasone/umeclidinium/vilanterol Ellipta 100/62.5/25 mcg daily)"]
+     - Exacerbation prevention: [Action plan reviewed, prednisone burst
+       prescribed for home use Y/N, azithromycin prophylaxis considered]
+     - Smoking cessation: [Specific plan]
+     - Pulmonary rehabilitation: [Referral / ongoing / completed]
+
+  2. [Comorbidities]
+     - [Specific actions]
+
+  3. Monitoring
+     - PFTs in [interval]
+     - LDCT in [interval] if screening-eligible
+     - Vaccinations: [Update needed]
+
+  4. Follow-up in [interval]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: COPD stage, PFT results with dates, exacerbation history, current inhalers with devices and doses, smoking status, O2 use, symptoms, vitals, exam.]
+</PromptPlayground>
+
+### Pulmonary nodule surveillance
+
+Use this for patients being tracked for incidentally discovered or screen-detected pulmonary nodules. The note is organized around nodule characterization, risk stratification, and surveillance protocol.
+
+<PromptPlayground tool="Claude" title="Pulmonary Nodule Surveillance">
+You are an outpatient pulmonologist writing a clinic visit note for a patient under surveillance for one or more pulmonary nodules. Structure the note around nodule characterization, risk assessment, and evidence-based surveillance intervals.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document each nodule separately: location (lobe, segment if known), size (longest diameter in mm), morphology (solid, part-solid, ground-glass), and change from prior imaging.
+- Calculate and document the growth rate or volume doubling time if serial imaging is available.
+- Assign Lung-RADS category if this is a screening-detected nodule.
+- Document risk factors for malignancy: smoking history, family history of lung cancer, prior cancer history, occupational exposures.
+- Surveillance intervals must follow Fleischner Society guidelines (incidental) or Lung-RADS (screening) with the specific guideline cited.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+PULMONARY NODULE SURVEILLANCE
+══════════════════════════════════════════
+
+NODULE INVENTORY
+────────────────
+  Nodule #1
+    Location: [Lobe, segment]
+    Size: *** mm (M/D/YY) → *** mm (M/D/YY) → *** mm (M/D/YY)
+    Morphology: [Solid / Part-solid / Ground-glass]
+    Growth: [Stable / Growing, volume doubling time *** days]
+    Lung-RADS: [1 / 2 / 3 / 4A / 4B / 4X] (if screening)
+
+  Nodule #2 (if applicable)
+    [Same fields]
+
+DETECTION CONTEXT
+─────────────────
+  How found: [Incidental / Lung cancer screening / Other]
+  Initial CT date: ***
+  Number of surveillance CTs to date: ***
+
+MALIGNANCY RISK FACTORS
+───────────────────────
+  Smoking: [Current / Former (quit date, pack-years) / Never]
+  Family history of lung cancer: [Y/N, first-degree]
+  Personal cancer history: ***
+  Occupational/environmental exposures: ***
+  Upper lobe location: [Y/N]
+  Spiculated margins: [Y/N]
+  Emphysema: [Y/N]
+
+INTERVAL HISTORY
+────────────────
+[Narrative: new symptoms (cough, hemoptysis, weight loss, bone pain),
+changes since last visit, anxiety about surveillance.]
+
+IMAGING REVIEW
+──────────────
+  Most recent CT: [Date, findings in detail]
+  Comparison: [Date of prior, specific changes noted]
+  Radiologist impression: ***
+
+ASSESSMENT
+──────────
+  [Overall risk assessment for each nodule.]
+  [Guideline applied: Fleischner Society 2017 / Lung-RADS v2022]
+
+PLAN
+────
+  1. Nodule surveillance
+     - Next CT chest without contrast in [interval per guideline]
+       (Fleischner recommendation for [size/type/risk category]:
+       [cite specific recommendation])
+     - [If biopsy indicated: modality, timing, rationale]
+     - [If PET/CT indicated: rationale]
+
+  2. Risk reduction
+     - Smoking cessation: [plan]
+     - Lung cancer screening: [eligibility, enrollment status]
+
+  3. Follow-up
+     - Return after next CT for review
+     - [Criteria for earlier imaging: new symptoms]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: nodule details (size, location, morphology), all CT dates and measurements, detection context, smoking history, cancer history, risk factors, symptoms.]
+</PromptPlayground>
+
+### ILD monitoring
+
+Use this for patients with established interstitial lung disease (IPF, NSIP, hypersensitivity pneumonitis, or other ILD subtypes) being followed for disease progression, treatment response, and transplant candidacy.
+
+<PromptPlayground tool="Claude" title="ILD Monitoring Visit">
+You are an outpatient pulmonologist writing a clinic visit note for a patient with established interstitial lung disease. Structure the note around ILD subtype, PFT trajectory, imaging progression, antifibrotic therapy, and transplant considerations.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document ILD subtype with the basis for diagnosis (biopsy, multidisciplinary discussion, HRCT pattern).
+- Track FVC and DLCO trends with at least 2 data points and percent change.
+- A decline in FVC of ≥5% absolute over 6-12 months or ≥10% over any period is clinically significant; flag it.
+- Document oxygen requirements at rest and with exertion.
+- For patients on antifibrotic therapy: document drug, dose, tolerability, and side effects.
+- Note transplant candidacy and evaluation status.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+ILD CLINIC VISIT
+══════════════════════════════════════════
+
+ILD CLASSIFICATION
+──────────────────
+  Subtype: [IPF / NSIP / Hypersensitivity pneumonitis / CTD-ILD /
+    Sarcoidosis / Unclassifiable / Other]
+  Diagnosis basis: [Surgical lung biopsy / Multidisciplinary discussion /
+    HRCT pattern (UIP, NSIP, etc.) / Transbronchial biopsy + BAL]
+  Date of diagnosis: ***
+  UIP pattern confidence: [Definite / Probable / Indeterminate] (if applicable)
+
+INTERVAL HISTORY
+────────────────
+[Narrative: dyspnea progression (quantify: "now stops after 1 block,
+was doing 3 blocks six months ago"), cough, oxygen use changes,
+hospitalizations, acute exacerbations, medication tolerability,
+new exposures or triggers.]
+
+PFT TRAJECTORY
+──────────────
+  Date        FVC (L)   FVC (% pred)   DLCO (% pred)   TLC (% pred)
+  ──────────  ────────  ────────────   ─────────────   ────────────
+  M/D/YY      ***       ***            ***             ***
+  M/D/YY      ***       ***            ***             ***
+
+  FVC change over [interval]: [***% absolute decline / stable]
+  DLCO change over [interval]: [***% decline / stable]
+  Trajectory: [Stable / Slow decline / Rapid decline / Improving]
+
+OXYGEN STATUS
+─────────────
+  Rest: SpO2 *** on [RA / O2 at *** L/min]
+  Exertion: SpO2 *** on [RA / O2 at *** L/min] (from 6MWT or clinic walk)
+  Home O2 prescribed: [Y/N, parameters]
+  Change from prior: [New requirement / Increased / Stable / Decreased]
+
+IMAGING
+───────
+  Most recent HRCT: [Date, findings, comparison to prior]
+  Extent of disease: [describe]
+  New findings: [Honeycombing progression, traction bronchiectasis,
+  ground-glass changes, etc.]
+
+CURRENT THERAPY
+───────────────
+  Antifibrotic: [Pirfenidone dose / Nintedanib dose / None]
+    Tolerability: [Good / Side effects: specify (GI, photosensitivity,
+    LFT elevation, diarrhea)]
+    Duration of therapy: ***
+  Immunosuppression (if CTD-ILD or HP): [Drug, dose]
+  Antigen avoidance (if HP): [Status]
+  Other: ***
+
+6-MINUTE WALK TEST
+──────────────────
+  Date: ***
+  Distance: *** meters (prior: *** meters on M/D/YY)
+  Nadir SpO2: ***%
+  Supplemental O2 during test: [Y/N, L/min]
+
+TRANSPLANT STATUS
+─────────────────
+  Candidacy: [Not yet indicated / Evaluation in progress / Listed /
+    Not a candidate (reason)]
+  Referring criteria met: [FVC &lt;80% predicted / DLCO &lt;40% predicted /
+    ≥5% FVC decline in 6 months / Desaturation &lt;88% on 6MWT /
+    Hospitalization for respiratory decline]
+
+ASSESSMENT AND PLAN
+───────────────────
+  1. [ILD subtype], [trajectory]
+     - Antifibrotic therapy: [Continue / Start / Adjust / Discontinue, with rationale]
+     - Oxygen: [Adjustment if needed]
+     - Pulmonary rehabilitation: [Status]
+
+  2. Transplant evaluation
+     - [Status and next steps]
+
+  3. Monitoring
+     - PFTs in [interval]
+     - HRCT in [interval]
+     - 6MWT in [interval]
+     - Labs: [LFTs if on antifibrotic, other]
+
+  4. Follow-up in [interval]
+     - [Criteria for earlier return]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: ILD subtype and diagnosis basis, PFT history with dates, HRCT findings, oxygen status, current therapy and tolerability, 6MWT results, transplant status, interval symptoms.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+71-year-old male, former smoker (45 pack-years, quit 2019), COPD diagnosed 2018. GOLD stage 3, group E (2 moderate exacerbations and 1 hospitalization in the past year). PFTs from 1/8/26: FEV1 0.98 L (38% predicted), FVC 2.8 L (72% predicted), FEV1/FVC 35%, DLCO 52% predicted. Prior PFTs 7/15/25: FEV1 1.12 L (43% predicted). Currently on fluticasone furoate/umeclidinium/vilanterol (Trelegy Ellipta) 100/62.5/25 mcg daily, albuterol HFA MDI PRN (uses 4-5 times/week). Home O2 at 2L continuous, qualifying SpO2 was 86% on room air during 6MWT (9/2025). mMRC dyspnea 3. He walks about 100 yards before stopping. No pulmonary rehab yet. Pneumococcal PCV20 given 2024. Flu shot 10/2025. COVID booster 9/2025. Vitals: BP 138/82, HR 78, RR 20, SpO2 91% on 2L NC, weight 162 lbs (164 last visit). Exam: diminished breath sounds bilaterally, prolonged expiratory phase, no wheezes at rest, no accessory muscle use at rest, barrel chest. No edema, no clubbing. Labs: CBC wnl, eosinophils 180. No alpha-1 antitrypsin level on file.
+
+**LLM output:**
+
+PULMONOLOGY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Follow-up
+Interval since last visit: 6 months
+
+CHIEF CONCERN
+─────────────
+COPD management, worsening exercise tolerance, recurrent exacerbations
+
+PULMONARY HISTORY
+─────────────────
+  Primary diagnosis: Chronic obstructive pulmonary disease (COPD)
+  Date of diagnosis: 2018
+  Disease classification: Global Initiative for Chronic Obstructive Lung Disease (GOLD) spirometric stage 3, group E
+  Key history:
+    - 2 moderate exacerbations requiring steroids/antibiotics in the past 12 months
+    - 1 severe exacerbation requiring hospitalization in the past 12 months
+    - No intubation history
+    - No prior thoracic surgery
+
+SMOKING AND EXPOSURE HISTORY
+────────────────────────────
+  Tobacco: Former smoker
+  Pack-years: 45
+  Cessation date: 2019
+  Vaping: No
+  Occupational exposures: [Not provided; verify before signing]
+
+INTERVAL HISTORY
+────────────────
+Patient reports progressive decline in exercise tolerance since last visit. He currently walks approximately 100 yards on flat ground before stopping due to dyspnea, compared to about a block (roughly 300 feet) six months ago. He uses his rescue albuterol inhaler 4-5 times per week, predominantly before planned exertion. He has had 2 exacerbations treated with oral prednisone and antibiotics in the outpatient setting and 1 hospitalization for a COPD exacerbation since last visit. He uses home oxygen at 2 L/min continuously. He denies hemoptysis, fever, chest pain, or new sputum production. He has not started pulmonary rehabilitation. He endorses morning cough with scant white sputum.
+
+VACCINATIONS
+────────────
+  Pneumococcal (PCV20): 2024
+  Influenza: 10/2025
+  COVID-19: 9/2025
+  RSV: [Not provided; verify before signing]
+
+CURRENT MEDICATIONS
+───────────────────
+  Inhalers
+  ────────
+  Fluticasone furoate/umeclidinium/vilanterol (Trelegy Ellipta) 100/62.5/25 mcg, 1 inhalation daily
+    Technique: [Not provided; verify before signing]
+  Albuterol hydrofluoroalkane (HFA) metered-dose inhaler (MDI), 2 puffs PRN
+    Use: 4-5 times/week
+    Spacer: [Not provided; verify before signing]
+
+  Oxygen
+  ──────
+  Home O2: 2 L/min via nasal cannula, continuous
+  Qualifying data: SpO2 86% on room air during 6-minute walk test (6MWT), 9/2025
+
+VITAL SIGNS
+───────────
+  BP: 138/82 mmHg
+  HR: 78 bpm
+  RR: 20
+  SpO2: 91% on 2L NC
+  Weight: 162 lbs (down 2 lbs from 164 lbs at last visit)
+  BMI: [Not provided; verify before signing]
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: Alert, comfortable at rest, no acute distress.
+  HEENT: [Not provided; verify before signing]
+  Cardiovascular: [Not provided; verify before signing]
+  Pulmonary: Barrel chest. Diminished breath sounds bilaterally. Prolonged expiratory phase. No wheezes at rest. No accessory muscle use at rest. Good air movement with slow exhalation.
+  Extremities: No edema, no clubbing, no cyanosis.
+
+DIAGNOSTICS
+───────────
+
+  Pulmonary Function Tests
+  ────────────────────────
+  Date: 1/8/26
+  Forced expiratory volume in 1 second (FEV1): 0.98 L (38% predicted) [prior: 1.12 L (43%) on 7/15/25]
+  Forced vital capacity (FVC): 2.8 L (72% predicted)
+  FEV1/FVC: 35%
+  Diffusing capacity of the lungs for carbon monoxide (DLCO): 52% predicted
+  Total lung capacity (TLC): [Not provided; verify before signing]
+
+  PFT Trend
+  ─────────
+  Date        FEV1 (L)   FEV1 (% pred)
+  ──────────  ─────────  ──────────────
+  7/15/25     1.12       43%
+  1/8/26      0.98       38%
+  Change:     -0.14 L    -5% absolute decline over 6 months
+
+  Labs
+  ────
+  CBC: Within normal limits
+  Eosinophils: 180 cells/mcL
+  Alpha-1 antitrypsin: Not on file
+
+ASSESSMENT
+──────────
+71-year-old male, former smoker (45 pack-years), with severe COPD presenting for follow-up with worsening airflow limitation, declining exercise tolerance, and frequent exacerbations despite maximal inhaled triple therapy.
+
+  1. COPD, GOLD stage 3, group E, worsening
+     FEV1 has declined from 1.12 L (43% predicted) to 0.98 L (38% predicted) over 6 months, a clinically significant 5% absolute decline. He has had 3 exacerbations in the past year (2 moderate, 1 severe). mMRC dyspnea 3 with functional limitation to 100 yards. Currently on ICS/LAMA/LABA triple therapy with persistent symptoms and exacerbations.
+
+  COPD Classification
+  ───────────────────
+  GOLD spirometric stage: 3 (FEV1 38% predicted)
+  Exacerbation history (past 12 months):
+    Moderate: 2
+    Severe: 1
+  Group: E
+  mMRC dyspnea: 3/4 ("stops for breath after walking approximately 100 yards on the level")
+
+  2. Supplemental oxygen requirement
+     Qualifying SpO2 86% on RA during 6MWT (9/2025). Currently on 2 L/min continuous. SpO2 91% on 2L in clinic today.
+
+  3. Alpha-1 antitrypsin status unknown
+     No level on file. Should be checked at least once in any patient with COPD.
+
+PLAN
+────
+  1. COPD, GOLD stage 3, group E
+     - Continue Trelegy Ellipta 100/62.5/25 mcg daily (already on maximal ICS/LAMA/LABA triple therapy)
+     - Eosinophils 180: below threshold for biologic consideration (typically ≥300 for mepolizumab in COPD); recheck at next visit
+     - Add roflumilast 500 mcg daily for exacerbation reduction given group E with ≥2 exacerbations despite triple therapy (counsel on GI side effects, weight loss monitoring)
+     - Prescribe prednisone 40 mg daily x 5 days and azithromycin 250 mg daily x 5 days for home action plan in event of exacerbation
+     - Refer to pulmonary rehabilitation (priority)
+     - Assess inhaler technique at next visit; ensure spacer use with albuterol MDI
+
+  2. Supplemental oxygen
+     - Continue home O2 at 2 L/min continuous
+     - May need uptitration with exertion; repeat 6MWT in 3 months to assess
+     - Consider portable concentrator for improved mobility and rehab participation
+
+  3. Alpha-1 antitrypsin
+     - Order alpha-1 antitrypsin level today
+
+  4. Preventive care
+     - Discuss RSV vaccination (Arexvy or Abrysvo) at next visit
+     - Flu and COVID boosters up to date
+     - Lung cancer screening: former smoker, 45 pack-years, quit 2019; qualifies for annual low-dose CT (LDCT). Order LDCT if not done in past 12 months.
+
+  Monitoring
+  ──────────
+  - PFTs in 6 months
+  - 6MWT in 3 months
+  - Alpha-1 antitrypsin level (today)
+  - CBC with differential at next visit (recheck eosinophils)
+  - LDCT chest (order if not current)
+
+  Follow-Up
+  ─────────
+  Return to pulmonology clinic in 3 months (sooner if exacerbation, worsening dyspnea, or inability to perform activities of daily living).
+
+DISPOSITION
+───────────
+Patient counseled on roflumilast side effects, importance of pulmonary rehabilitation, and home exacerbation action plan. Agrees with plan. Return precautions reviewed.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **Inhaler device matters as much as the drug.** The model will document the medication name, but verify it captures the delivery device (Ellipta, Respimat, HandiHaler, MDI with spacer, nebulizer). A prescription for "tiotropium" without specifying HandiHaler vs Respimat is incomplete.
+- **PFT trends tell the story.** A single PFT value is a snapshot. Two or more values with dates show trajectory. Always feed the model at least two data points when available. A 5% absolute FVC decline over 6-12 months is clinically significant in ILD; a 100 mL annual FEV1 decline in COPD is faster than expected.
+- **CPAP compliance data has specific thresholds.** Medicare defines compliance as ≥4 hours/night on ≥70% of nights over 30 consecutive days. The model may flag "3.8 hours" as suboptimal without noting whether the patient is below the Medicare compliance threshold. Check this.
+- **Lung-RADS vs Fleischner.** Screening-detected nodules follow Lung-RADS. Incidentally found nodules follow Fleischner Society guidelines. The model sometimes conflates the two. Verify which guideline it applied.
+- **Eosinophil thresholds vary by context.** In COPD, ≥300 cells/mcL supports ICS use and biologic consideration (mepolizumab). In asthma, ≥150 may be relevant for biologic phenotyping. The model may not apply the correct threshold for the diagnosis.
+- **Oxygen prescriptions need five elements.** Flow rate, delivery device, continuous vs exertional, qualifying data (SpO2 or PaO2), and reassessment date. If any of these are missing from the output, add them.
+- **Do not accept vague exacerbation counts.** "Multiple exacerbations" is not a plan-driving data point. "2 moderate (steroid/antibiotic courses in 3/26 and 8/25) and 1 severe (hospitalized 11/25)" is. The distinction between 1 and 2 exacerbations changes the GOLD group classification.
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) - for inpatient notes on admitted pulmonary patients
+- [Consult Note](/templates/consult-note) - for inpatient pulmonology consultations
+- [Discharge Summary](/templates/discharge-summary-basic) - for COPD or asthma exacerbation discharges
+- [Referral Letter](/templates/referral-letter) - for patients being referred to your pulmonary clinic
+- [Medication Instructions](/templates/medication-instructions) - for patient-facing inhaler education

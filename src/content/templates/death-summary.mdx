@@ -1,0 +1,521 @@
+---
+title: "Death Summary"
+category: note-writing
+targetTool: claude
+workflow: death-summary
+tags: [intermediate, note-writing, death-summary, inpatient, documentation]
+lastUpdated: 2026-03-27
+socialPost: "A death summary serves legal, clinical, and administrative purposes — it's the definitive account of what happened, why, and what was communicated to the family. A template for getting this note right."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when documenting a patient's death in the medical record. A death summary serves a legal, clinical, and administrative purpose: it is the definitive account of what happened, why, and what was communicated to the family. Getting this note right matters in ways that extend well beyond the chart.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, admission/discharge dates, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Death Summary">
+You are an excellent physician writing a death summary for the medical record. After receiving the clinical information below, produce a complete, structured death summary documenting the hospital course, events leading to death, pronouncement details, and family communication.
+
+### Rules
+
+- Write in past tense throughout. This is a retrospective document.
+- Write the hospital course and events leading to death as narrative paragraphs. Other sections may use structured entries.
+- Include specific numbers (lab values, vitals, doses, dates, times) whenever available.
+- Use medical abbreviations throughout. Never spell out what an abbreviation stands for.
+- Reference dates in the format M/D/YY and times in 24-hour format (e.g., 14:32).
+- Be factual and precise. Do not editorialize or speculate on causation beyond what the clinical data supports.
+- Document family communication with specificity: who was informed, by whom, when, and their response.
+- Document the pronouncement with the clinical findings confirming death.
+- Do not infer or fabricate any clinical information not provided. Write "[Verify and complete before signing]" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "pmhx" = past medical history
+- "TOD" = time of death
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+DEATH SUMMARY
+══════════════════════════════════════════
+
+ADMISSION SUMMARY
+──────────────────
+[Age]-year-old [male/female] with pmhx of [***] admitted
+on [date] for [***]. [One to two sentences summarizing the
+reason for admission and initial clinical status.]
+
+HOSPITAL COURSE
+───────────────
+[Detailed narrative paragraph(s) covering the full hospital
+course from admission to the events preceding death. Include:
+key diagnoses, significant interventions, complications,
+consultations, clinical trajectory, and code status changes.
+Organized chronologically.]
+
+EVENTS LEADING TO DEATH
+───────────────────────
+[Detailed narrative of the final clinical deterioration. Include:
+timeline of events (with dates and times), vital sign changes,
+interventions attempted, response to interventions, and the
+clinical decision-making process. If resuscitation was attempted,
+document the code: duration, interventions (CPR, defibrillation,
+medications), and outcome. If comfort measures were in place,
+document the transition to comfort care and the clinical course
+thereafter.]
+
+TIME OF DEATH AND PRONOUNCEMENT
+────────────────────────────────
+  Date and time of death: [M/D/YY at HH:MM]
+  Pronounced by: [Physician role]
+  Pronouncement exam:
+    - No spontaneous respirations observed for *** minutes
+    - No heart sounds auscultated for *** minutes
+    - No carotid pulse palpated
+    - Pupils fixed and dilated bilaterally
+    - No response to central stimulation
+  [Additional findings if applicable.]
+
+CAUSE OF DEATH
+──────────────
+  Immediate cause: ***
+  Due to (or as a consequence of): ***
+  Due to (or as a consequence of): ***
+  Other significant conditions: ***
+
+FAMILY COMMUNICATION
+────────────────────
+  [Who was notified: relationship to patient]
+  [Notified by: physician role]
+  [Date and time of notification: M/D/YY at HH:MM]
+  [In person / by phone]
+  [Family response and any requests noted.]
+  [If family was present at time of death, document this.]
+
+AUTOPSY DECISION
+────────────────
+  Autopsy: [Requested / Declined / Not discussed]
+  [If discussed: by whom, with whom, and their decision.]
+  [If requested: reason and disposition of request.]
+
+MEDICAL EXAMINER / CORONER
+──────────────────────────
+  [Notified: Yes / No / Not indicated]
+  [If notified: date, time, case number if assigned, and
+  whether ME/coroner accepted or declined jurisdiction.]
+
+DISPOSITION
+───────────
+  [Funeral home if known, or "Pending family arrangements"]
+  [Organ/tissue donation: discussed / not applicable / referral made]
+  [Personal belongings: returned to family / secured per protocol]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste your de-identified clinical data here: admission summary, hospital course, events leading to death, pronouncement details, family communication, and autopsy decision.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| ICU death | Add: "This patient died in the ICU. Include ventilator settings, vasopressor doses, and hemodynamic data in the events leading to death." |
+| Pediatric death | Add: "This is a pediatric death. Include developmental context, parental communication details, and child life involvement if applicable." |
+| Medical examiner case | Add: "This death was reported to the medical examiner. Include the ME case number, whether jurisdiction was accepted, and any instructions from the ME regarding the body." |
+| Organ donation | Add: "Organ procurement was involved. Include the OPO contact, timeline of referral, and outcome of the evaluation." |
+
+---
+
+## Variations
+
+### Expected death (comfort care)
+
+Use this when a patient died following a transition to comfort-focused care, where death was anticipated and the clinical focus was on symptom management.
+
+<PromptPlayground tool="Claude" title="Death Summary: Expected Death (Comfort Care)">
+You are an excellent physician writing a death summary for a patient who died following a transition to comfort-focused care. After receiving the clinical information below, produce a complete death summary emphasizing the goals-of-care discussion, transition to comfort measures, and symptom management.
+
+### Rules
+
+- Write in past tense throughout.
+- Write the hospital course and comfort care transition as narrative paragraphs.
+- Include specific numbers (dates, times, medication doses) whenever available.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY and times in 24-hour format.
+- Document the goals-of-care conversation with specificity: participants, decision-makers, key points discussed, and the decision reached.
+- Document symptom management: what was used, for what symptoms, and the patient's comfort level.
+- Be factual. Do not editorialize.
+- Do not fabricate clinical information. Write "[Verify and complete before signing]" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "pmhx" = past medical history
+- "TOD" = time of death
+- "CMO" = comfort measures only
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+DEATH SUMMARY (COMFORT CARE)
+══════════════════════════════════════════
+
+ADMISSION SUMMARY
+──────────────────
+***
+
+HOSPITAL COURSE
+───────────────
+[Narrative covering the clinical course, disease progression,
+and the clinical rationale for the goals-of-care discussion.]
+
+GOALS-OF-CARE DISCUSSION
+─────────────────────────
+  Date: [M/D/YY]
+  Participants: [Family members, patient if able, clinical team]
+  Decision-maker: [Patient / surrogate (relationship)]
+  Key points discussed: [Prognosis, treatment options, patient's
+  values and wishes, recommendation]
+  Decision: [Transition to CMO / withdrawal of life-sustaining
+  treatment / specific limitations]
+  Palliative care involved: [Yes/No]
+
+TRANSITION TO COMFORT CARE
+──────────────────────────
+[Narrative: what was discontinued, what was started for symptom
+management, and the clinical course from transition to death.
+Include: timing of transition, medications for comfort (morphine,
+ativan, scopolamine, etc. with doses), discontinuation of
+monitoring, labs, imaging, and non-comfort medications.]
+
+SYMPTOM MANAGEMENT
+──────────────────
+  Pain: [Medication, dose, route, frequency, response]
+  Dyspnea: [Medication, dose, route, frequency, response]
+  Secretions: [Medication if used]
+  Agitation: [Medication if used]
+  [Other symptoms as applicable.]
+
+TIME OF DEATH AND PRONOUNCEMENT
+────────────────────────────────
+[As in main template.]
+
+CAUSE OF DEATH
+──────────────
+[As in main template.]
+
+FAMILY COMMUNICATION
+────────────────────
+[As in main template. Note whether family was present at bedside.]
+
+AUTOPSY DECISION
+────────────────
+***
+
+DISPOSITION
+───────────
+***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: hospital course, goals-of-care discussion details, comfort care medications, pronouncement details, and family communication.]
+</PromptPlayground>
+
+### Unexpected death
+
+Use this when a patient died unexpectedly, whether from a sudden clinical deterioration, cardiac arrest, or other acute event that was not anticipated.
+
+<PromptPlayground tool="Claude" title="Death Summary: Unexpected Death">
+You are an excellent physician writing a death summary for a patient who died unexpectedly during hospitalization. After receiving the clinical information below, produce a complete death summary with detailed documentation of the acute event and resuscitation efforts.
+
+### Rules
+
+- Write in past tense throughout.
+- Write the hospital course and resuscitation narrative in detailed chronological order with timestamps.
+- Include specific numbers (vital signs, lab values, medication doses, defibrillation energy, CPR duration) whenever available.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY and times in 24-hour format.
+- Document the code with precision: initial rhythm, all interventions (compressions, defibrillation, medications with doses and times), pulse checks, and the decision to terminate resuscitation.
+- Be factual. Do not speculate on causation beyond what the data supports.
+- Do not fabricate clinical information. Write "[Verify and complete before signing]" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "pmhx" = past medical history
+- "TOD" = time of death
+- "ROSC" = return of spontaneous circulation
+- "PEA" = pulseless electrical activity
+- "VF" = ventricular fibrillation
+- "VT" = ventricular tachycardia
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+DEATH SUMMARY (UNEXPECTED DEATH)
+══════════════════════════════════════════
+
+ADMISSION SUMMARY
+──────────────────
+***
+
+HOSPITAL COURSE (PRE-EVENT)
+───────────────────────────
+[Narrative of the hospital course up to the acute event.
+Include the patient's clinical trajectory and any warning
+signs in retrospect.]
+
+ACUTE EVENT AND RESUSCITATION
+─────────────────────────────
+[Detailed chronological narrative with timestamps:
+- How the event was discovered (telemetry alarm, nurse found
+  patient unresponsive, rapid response called, etc.)
+- Initial assessment: rhythm, responsiveness, vitals
+- Code called at [time]
+- CPR initiated at [time]
+- Initial rhythm: [VF / VT / PEA / asystole]
+- Interventions in order:
+  [Each defibrillation: energy, time]
+  [Each medication: drug, dose, route, time]
+  [Each rhythm/pulse check: rhythm found, time]
+  [Any ROSC: duration, subsequent loss if applicable]
+- Duration of resuscitation: *** minutes
+- Decision to terminate: [by whom, rationale]
+- Time of death: [HH:MM]]
+
+TIME OF DEATH AND PRONOUNCEMENT
+────────────────────────────────
+[As in main template.]
+
+CAUSE OF DEATH
+──────────────
+[As in main template. If unclear, state: "Pending further
+investigation / autopsy."]
+
+FAMILY COMMUNICATION
+────────────────────
+[As in main template. Note timing relative to the event:
+were they notified before, during, or after resuscitation?
+Were they present?]
+
+MEDICAL EXAMINER / CORONER
+──────────────────────────
+[Notification details. Unexpected deaths often require ME
+notification per institutional and state policy.]
+
+AUTOPSY DECISION
+────────────────
+***
+
+DISPOSITION
+───────────
+***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: hospital course, details of the acute event, resuscitation efforts with times and interventions, pronouncement, and family communication.]
+</PromptPlayground>
+
+### Death in OR / during procedure
+
+Use this when a patient died during a surgical procedure or other interventional procedure.
+
+<PromptPlayground tool="Claude" title="Death Summary: Intraoperative / Intraprocedural Death">
+You are an excellent physician writing a death summary for a patient who died during a surgical or interventional procedure. After receiving the clinical information below, produce a complete death summary with detailed documentation of the intraoperative events.
+
+### Rules
+
+- Write in past tense throughout.
+- Write the intraoperative narrative in detailed chronological order with timestamps.
+- Include specific numbers (vital signs, EBL, medications, transfusions, vent settings) whenever available.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY and times in 24-hour format.
+- Document the procedure being performed, the point at which clinical deterioration occurred, intraoperative resuscitation efforts, and the decision to terminate resuscitation.
+- Document anesthesia involvement and their interventions.
+- Be factual. Do not speculate on causation.
+- Do not fabricate clinical information. Write "[Verify and complete before signing]" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "pmhx" = past medical history
+- "TOD" = time of death
+- "EBL" = estimated blood loss
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+DEATH SUMMARY (INTRAOPERATIVE/INTRAPROCEDURAL)
+══════════════════════════════════════════
+
+ADMISSION SUMMARY
+──────────────────
+***
+
+PRE-OPERATIVE STATUS
+────────────────────
+[Patient's clinical condition going into the procedure.
+Include: indication for procedure, ASA class if available,
+pre-op vitals, relevant pre-op labs, and consent details.]
+
+PROCEDURE AND INTRAOPERATIVE EVENTS
+────────────────────────────────────
+[Detailed chronological narrative:
+- Procedure being performed
+- Anesthesia type and induction
+- Intraoperative course up to the point of deterioration
+- Description of the acute event (hemorrhage, arrest, etc.)
+- Intraoperative resuscitation efforts with timestamps
+- Anesthesia interventions (pressors, blood products, airway
+  management changes)
+- Surgical interventions to control the complication
+- Duration of resuscitation
+- Decision to terminate
+- TOD]
+
+EBL
+───
+***
+
+BLOOD PRODUCTS ADMINISTERED
+───────────────────────────
+[Type, units, and timing.]
+
+TIME OF DEATH AND PRONOUNCEMENT
+────────────────────────────────
+[As in main template.]
+
+CAUSE OF DEATH
+──────────────
+[As in main template.]
+
+FAMILY COMMUNICATION
+────────────────────
+[As in main template. Include: were they in the surgical
+waiting area? Who went to speak with them? What was communicated?]
+
+MEDICAL EXAMINER / CORONER
+──────────────────────────
+[Intraoperative deaths typically require ME notification.]
+
+AUTOPSY DECISION
+────────────────
+***
+
+DISPOSITION
+───────────
+***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: pre-op status, procedure details, intraoperative events, resuscitation efforts, pronouncement, and family communication.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+84-year-old male with pmhx of metastatic pancreatic adenocarcinoma (dx 11/25, liver and peritoneal mets), CHF (EF 35%), CKD IV, DM2, HTN. Admitted 3/14/26 for failure to thrive, progressive weakness, and poor PO intake over 2 weeks. Hospital course: CT A/P (3/15/26) showed disease progression with new peritoneal carcinomatosis and malignant ascites. Palliative paracentesis on 3/16/26 removed 3.2L. Oncology consulted, recommended no further systemic therapy given functional decline (ECOG 4). Palliative care consulted 3/16/26. Goals-of-care meeting on 3/17/26 with patient's wife (HCP) and two adult children; patient nonverbal but previously expressed wish for no aggressive measures if cancer progressed. Family decided CMO. Transitioned to CMO on 3/17/26 at 15:00. Discontinued all labs, vitals, IV fluids, and non-comfort meds. Started morphine 2mg IV Q2H PRN for pain/dyspnea, lorazepam 0.5mg IV Q4H PRN for agitation, scopolamine patch for secretions. Patient comfortable, no signs of distress per nursing. Family at bedside continuously. Patient died on 3/19/26. Pronounced at 06:48 by the night hospitalist. No respirations x2 min, no heart sounds x2 min, no carotid pulse, pupils fixed and dilated. Wife and daughter present at bedside. Family declined autopsy. ME not indicated (expected death from known terminal illness). Organ donation not applicable given metastatic disease.
+
+**LLM output:**
+
+DEATH SUMMARY
+══════════════════════════════════════════
+
+ADMISSION SUMMARY
+──────────────────
+84-year-old male with pmhx of metastatic pancreatic adenocarcinoma (dx 11/25, liver and peritoneal mets), CHF (EF 35%), CKD IV, DM2, and HTN admitted on 3/14/26 for failure to thrive, progressive weakness, and poor PO intake over 2 weeks.
+
+HOSPITAL COURSE
+───────────────
+The patient was admitted on 3/14/26 with progressive functional decline in the setting of known metastatic pancreatic adenocarcinoma. CT A/P (3/15/26) showed disease progression with new peritoneal carcinomatosis and worsening malignant ascites compared to prior imaging. A palliative paracentesis was performed on 3/16/26, removing 3.2 L of ascitic fluid with symptomatic relief. Oncology was consulted and recommended no further systemic therapy given the patient's functional decline (ECOG 4) and progressive disease despite prior treatment. Palliative care was consulted on 3/16/26 to assist with goals-of-care discussion and symptom management.
+
+A goals-of-care meeting was held on 3/17/26 with the patient's wife (healthcare proxy) and two adult children. The patient was nonverbal but had previously expressed to his family that he did not want aggressive measures if his cancer progressed. After discussion of the patient's prognosis, current functional status, and previously expressed wishes, the family decided to transition to comfort measures only. The transition to CMO was initiated on 3/17/26 at 15:00. All labs, vital sign monitoring, IV fluids, and non-comfort medications were discontinued. Morphine 2 mg IV Q2H PRN was started for pain and dyspnea, lorazepam 0.5 mg IV Q4H PRN for agitation, and a scopolamine patch was placed for management of secretions. Nursing assessments documented the patient as comfortable without signs of distress throughout the comfort care period. Family remained at bedside continuously from the time of transition.
+
+EVENTS LEADING TO DEATH
+───────────────────────
+Following the transition to CMO on 3/17/26, the patient remained comfortable with adequate symptom control on morphine and lorazepam. His oral intake ceased entirely by 3/18/26. Respirations became progressively shallow and irregular through the evening of 3/18/26. The patient was noted to have agonal breathing patterns by nursing overnight. On 3/19/26 at approximately 06:40, the bedside nurse observed cessation of respirations and notified the night hospitalist.
+
+TIME OF DEATH AND PRONOUNCEMENT
+────────────────────────────────
+  Date and time of death: 3/19/26 at 06:48
+  Pronounced by: Night hospitalist
+  Pronouncement exam:
+    - No spontaneous respirations observed for 2 minutes
+    - No heart sounds auscultated for 2 minutes
+    - No carotid pulse palpated
+    - Pupils fixed and dilated bilaterally
+    - No response to central stimulation
+
+CAUSE OF DEATH
+──────────────
+  Immediate cause: Metastatic pancreatic adenocarcinoma
+  Due to (or as a consequence of): Pancreatic adenocarcinoma with liver and peritoneal metastases
+  Other significant conditions: CHF (EF 35%), CKD IV
+
+FAMILY COMMUNICATION
+────────────────────
+  Wife (healthcare proxy) and adult daughter were present at bedside at the time of death. The night hospitalist spoke with both at 06:50 on 3/19/26. They were aware death was imminent and had been at bedside continuously. They expressed gratitude for the care provided and had no immediate questions. The second adult child was notified by phone by the wife.
+
+AUTOPSY DECISION
+────────────────
+  Autopsy: Declined by wife (healthcare proxy) on 3/19/26.
+
+MEDICAL EXAMINER / CORONER
+──────────────────────────
+  Not indicated. Expected death from known terminal illness per institutional and state guidelines.
+
+DISPOSITION
+───────────
+  Funeral home: Pending family arrangements.
+  Organ/tissue donation: Not applicable given metastatic malignancy.
+  Personal belongings: Released to wife at bedside.
+
+---
+
+## Tips & pitfalls
+
+- **Timestamps are legal documents.** The time of death, time of pronouncement, and time of family notification all carry legal weight. Verify every time against your actual records before signing.
+- **Cause of death chain.** The cause-of-death sequence follows a specific format for death certificates: immediate cause, due to (sequential underlying causes), and contributing conditions. The AI may not format this correctly for your state's death certificate requirements. Verify the chain against the actual death certificate form.
+- **Family communication specificity.** "Family was notified" is insufficient. Document who specifically was told, by whom, when, how (in person vs. phone), and their response. This protects everyone involved.
+- **Code documentation.** If CPR was performed, the AI may abbreviate the code narrative. Every intervention, rhythm check, and medication dose with timestamp should be documented. Cross-reference the code sheet.
+- **Medical examiner reporting.** State laws vary on which deaths require ME notification. The AI does not know your state's reporting requirements. Verify whether ME notification was required and whether it was completed.
+- **Autopsy discussion.** Document who was asked, who declined or consented, and when. If the autopsy was not discussed, document why (e.g., "Not discussed per family request" or "Deferred to ME").
+- **Do not speculate on causation.** The death summary should present facts. If the cause of death is uncertain, write "Pending autopsy" or "Cause of death uncertain; clinical suspicion for [***]." Do not write definitive causal statements the clinical data cannot support.
+
+---
+
+## Related
+
+- [Discharge Summary](/templates/discharge-summary-basic) - the parallel document for patients who survive to discharge
+- [SOAP Progress Note](/templates/progress-note-soap) - the daily notes that document the hospital course leading up to death
+- [Transfer Summary](/templates/transfer-summary) - when the patient transfers to another facility before death
+- [History and Physical](/templates/history-and-physical) - the admission note that began the final hospitalization

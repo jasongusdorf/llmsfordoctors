@@ -1,180 +1,120 @@
 ---
-title: "Medication Instructions: Plain Language"
+title: "Medication Instructions"
 category: patient-education
-targetTool: claude
+targetTool: any
 workflow: medication-education
-tags: [beginner, patient-education, medications, instructions, health-literacy]
-lastUpdated: 2026-03-22
+tags: [beginner, patient-education, medications, pharmacy, safety]
+lastUpdated: 2026-03-27
+socialPost: "Patient going home on 6 medications with 3 changes. Generate a plain-language medication reference sheet covering the full regimen: what each does, how to take it, side effects, interactions, missed doses."
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
 
-Generates plain-language medication instructions for patients. Provide the medication details and get a clear explanation of what the medication does, how to take it, what to watch for, and when to call the doctor. Ideal for new prescriptions at discharge or in clinic.
-
 ## When to use this
 
-Use this template when you need to create simple, patient-friendly medication instruction sheets for one or more medications, especially at discharge or when starting a new prescription.
+Your patient is going home on 6 medications with 3 changes and a look on their face that says they will not remember any of this by tomorrow. This template generates a plain-language medication reference sheet covering the full regimen: what each medication does, how to take it, side effects to watch for, dangerous signs, interactions, and what to do about missed doses. It works best for batch medication education (multiple meds at once), especially at discharge. For a deep dive on a single new prescription, use the New Medication Guide template instead.
 
 <Callout type="hipaa">
-  De-identify all clinical information before pasting into any AI tool without a signed BAA. Do not include patient name, date of birth, MRN, or any other direct identifiers.
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Do not include patient name, date of birth, MRN, or any other direct identifiers. Medication names and doses alone are generally not identifiable.
 </Callout>
 
 ---
 
 ## The prompt
 
-<PromptPlayground tool="Claude" title="Medication Instructions: Plain Language">
-You are a pharmacist explaining a new medication to a patient. Write at a 6th grade reading level. Use short sentences. Avoid medical jargon.
+<PromptPlayground tool="Any LLM" title="Medication Instructions">
+You are a pharmacist creating a plain-language medication reference sheet for a patient. The patient has no medical background. Your job is to make sure they understand every medication they are taking: what it does, how to take it, what to watch for, and what to do if something goes wrong.
 
-For each medication listed below, create a simple instruction sheet:
+### Rules
 
-**[Medication Name] ([Brand Name if common])**
+- Write at a 6th grade reading level.
+- Keep sentences under 15 words when possible.
+- Define every medical term in parentheses on first use.
+- Use "you" and "your" throughout.
+- No abbreviations.
+- For each medication, include: what it does, how to take it, common side effects, dangerous side effects, and missed dose instructions.
+- Side effects should describe what the patient will feel, not medical terminology.
+- Warning signs must be concrete: "unusual bruising on your arms or legs" not "bleeding diathesis."
+- Do not invent clinical details not provided below.
 
-**What is this medicine for?**
-One sentence explaining why you are taking this medication.
+### Vocabulary
 
-**How do I take it?**
-- Dose: [how much]
-- When: [how often, what time of day]
-- With or without food
-- Any special instructions (e.g., "take with a full glass of water," "do not crush or chew")
+- Use "blood thinner" alongside warfarin/Eliquis/etc.
+- Use "water pill" alongside furosemide/Lasix
+- Use "blood pressure medicine" not "antihypertensive"
+- Use "blood sugar medicine" not "oral hypoglycemic"
+- Use the simplest accurate word available
 
-**What should I avoid?**
-Foods, drinks, other medications, or activities to avoid while taking this medication (e.g., "Do not drink grapefruit juice," "Avoid driving until you know how this affects you").
+### Output format
 
-**Common side effects**
-List 3–5 common side effects and what to do about them (e.g., "You may feel dizzy; sit down until it passes").
+```
+YOUR MEDICATION GUIDE
+══════════════════════════════════════════
 
-**When to call your doctor**
-Warning signs that need medical attention (e.g., "Call your doctor right away if you notice unusual bruising or bleeding").
+Your Medication List
+────────────────────
+| Medication         | What It's For | Dose     | When to Take It      |
+|--------------------|---------------|----------|----------------------|
+| ***                | ***           | ***      | ***                  |
+| ***                | ***           | ***      | ***                  |
+| ***                | ***           | ***      | ***                  |
 
-**When to get emergency help**
-Severe reactions that require going to the ER.
+──────────────────────────────────────────
 
-**Important reminders**
-- Do not stop taking this medication without talking to your doctor
-- Keep out of reach of children
-- Store at room temperature unless told otherwise
+*** [Medication 1 Name (Brand Name)]
+─────────────────────────────────────
+  What it does: ***
 
----
-MEDICATIONS:
-[List each medication with dose, frequency, and indication, e.g., "Metformin 500mg twice daily for diabetes"]
-</PromptPlayground>
+  How to take it:
+  1. ***
+  2. ***
+  3. ***
 
----
+  Common side effects:
+  - ***: [what it feels like and what to do]
+  - ***: [what it feels like and what to do]
+  - ***: [what it feels like and what to do]
 
-## Variations
+  Dangerous signs (call your doctor right away):
+  - ***
+  - ***
 
-### Elderly patient (large text, simple language)
+  Things to avoid:
+  - ***
+  - ***
 
-<PromptPlayground tool="Claude" title="Medication Instructions: Elderly Patient">
-You are a pharmacist explaining medications to an older adult patient. Write at a 4th grade reading level. Use very short sentences. Use large, clear formatting. Avoid all medical jargon.
+  If you miss a dose: ***
 
-For each medication listed below, create a simple instruction sheet:
+──────────────────────────────────────────
 
-**[Medication Name]**
+*** [Medication 2 Name (Brand Name)]
+─────────────────────────────────────
+  [Same structure as above]
 
-**What is it for?**
-One very simple sentence.
+──────────────────────────────────────────
 
-**How to take it:**
-- Take [NUMBER] pill(s)
-- Take it in the [MORNING / EVENING / WITH MEALS]
-- Take it [WITH FOOD / ON AN EMPTY STOMACH]
+Drug and Food Interactions
+──────────────────────────
+- ***
+- ***
+- ***
 
-**Do NOT:**
-- List 2–3 things to avoid, one per line
+Important Reminders
+───────────────────
+- Do not stop any medication without talking to
+  your doctor first.
+- Keep all medications out of reach of children.
+- Store at room temperature unless told otherwise.
+- Bring this list to every doctor visit.
+```
 
-**Watch for these problems:**
-- List 2–3 side effects in everyday language (e.g., "feeling dizzy when you stand up" not "orthostatic hypotension")
-
-**Call your doctor if:**
-- 2–3 specific warning signs in bold
-
-Keep each medication to half a page maximum. Use numbered steps. One instruction per line. No paragraphs.
-
----
-MEDICATIONS:
-[List each medication with dose, frequency, and indication]
-</PromptPlayground>
-
-### Pediatric dosing for parents
-
-<PromptPlayground tool="Claude" title="Medication Instructions: For Parents">
-You are a pediatric pharmacist explaining a child's medication to their parent or caregiver. Write at a 6th grade reading level. Use short sentences. Avoid medical jargon.
-
-For each medication listed below, create a parent instruction sheet:
-
-**[Medication Name] for your child**
-
-**What is this medicine for?**
-One sentence explaining why the doctor prescribed this for your child.
-
-**How to give it:**
-- Dose: [EXACT AMOUNT — use mL for liquids, include syringe markings]
-- When: [How often and what time of day]
-- With or without food
-- How to give it to a child who resists (mix with applesauce, follow with a drink, etc.)
-- What to do if your child spits it out or vomits within 30 minutes
-
-**What to watch for:**
-- 3–5 common side effects and what they look like in a child
-- What is normal vs. what needs a doctor's call
-
-**Call your child's doctor if:**
-- 3–4 specific warning signs
-
-**Go to the ER if:**
-- 2–3 serious reactions
-
-**Storage:**
-- Where to keep the medicine
-- Whether it needs refrigeration
-- When it expires after opening (if applicable)
-
-**Reminders:**
-- Give the full course even if your child feels better (if applicable)
-- Keep out of reach of all children
-- Use the measuring syringe provided, not a kitchen spoon
+Replace each *** with details specific to the medications listed below.
 
 ---
 MEDICATIONS:
-[List each medication with the child's weight/age, dose, frequency, and indication]
+[List each medication with dose, frequency, indication, and whether it is new, changed, or continuing. Example: "Metformin 500mg twice daily for diabetes (NEW)" or "Lisinopril 10mg daily for blood pressure (no change)"]
 </PromptPlayground>
-
----
-
-## Example output
-
-**Metformin (Glucophage)**
-
-**What is this medicine for?**
-Metformin helps lower your blood sugar. It makes your body use insulin better so sugar does not build up in your blood.
-
-**How do I take it?**
-- Take 1 tablet (500 mg) two times a day
-- Take it with breakfast and with dinner
-- Always take it with food to avoid an upset stomach
-- Swallow the tablet whole with a full glass of water — do not crush or chew it
-
-**What should I avoid?**
-- Limit alcohol. Drinking too much alcohol while taking metformin can cause a dangerous drop in blood sugar.
-- Tell your doctor before having any scan that uses contrast dye (the kind where they inject something into your vein). You may need to stop metformin for a few days.
-
-**Common side effects**
-- Upset stomach or nausea — this usually gets better after the first week or two. Taking it with food helps.
-- Diarrhea — eat smaller meals and drink plenty of water. Tell your doctor if it does not improve.
-- Metallic taste in your mouth — this usually goes away on its own.
-
-**When to call your doctor**
-- Nausea, vomiting, or diarrhea that does not go away after 2 weeks
-- You feel very tired or weak for no clear reason
-- You have muscle pain or cramping that is unusual for you
-
-**When to get emergency help**
-- **You feel very cold, dizzy, or have trouble breathing** — this could be a rare but serious reaction called lactic acidosis
-- **Your blood sugar drops very low** (shaking, sweating, confusion) — eat or drink something with sugar and call 911 if it does not improve in 15 minutes
 
 ---
 
@@ -182,25 +122,354 @@ Metformin helps lower your blood sugar. It makes your body use insulin better so
 
 | Element | How to Adjust |
 |---------|---------------|
-| Reading level | Add: "Write at a [4th/8th/10th] grade reading level" |
+| Reading level | Change to "4th grade" for low health literacy or "8th grade" for more detail |
 | Language | Add: "Write in [LANGUAGE]" |
-| Multiple meds | Add: "Create a combined medication schedule showing what to take and when throughout the day" |
+| Daily schedule format | Add: "Also create a daily medication schedule table showing what to take at each time of day (morning, noon, evening, bedtime)" |
 | Visual format | Add: "Format as a table with columns: Time of Day, Medication, Dose, Special Instructions" |
+| Side effect depth | Add: "For each medication, list only the 2 most common side effects and the 1 most dangerous side effect. Keep it brief." |
+| Caregiver | Add: "Address instructions to the patient's caregiver who is managing the medications" |
+| Multiple prescribers | Add: "Note which doctor prescribed each medication" |
+
+---
+
+## Variations
+
+### Elderly patient / polypharmacy
+
+<PromptPlayground tool="Any LLM" title="Medication Instructions: Elderly / Polypharmacy">
+You are a pharmacist creating a medication guide for an older adult patient who takes many medications. The patient may have limited vision and needs very simple instructions.
+
+### Rules
+
+- Write at a 4th grade reading level.
+- Use very short sentences: 10 words or fewer.
+- One instruction per line.
+- No paragraphs. Use numbered steps and bullet points only.
+- Format for large-print readability.
+- Organize by time of day, not by medication.
+- Bold medication names and times.
+
+### Output format
+
+```
+YOUR DAILY MEDICATION SCHEDULE
+══════════════════════════════════════════
+
+MORNING (with breakfast)
+────────────────────────
+1. *** pill(s) of *** [what it's for]
+2. *** pill(s) of *** [what it's for]
+
+EVENING (with dinner)
+─────────────────────
+1. *** pill(s) of *** [what it's for]
+
+BEDTIME
+───────
+1. *** pill(s) of *** [what it's for]
+
+──────────────────────────────────────────
+
+DO NOT
+──────
+- ***
+- ***
+- ***
+
+CALL YOUR DOCTOR IF
+───────────────────
+- ***
+- ***
+- ***
+
+CALL 911 IF
+───────────
+- ***
+- ***
+```
+
+---
+MEDICATIONS:
+[List each medication with dose, frequency, and indication]
+</PromptPlayground>
+
+### Pediatric medications (for parents)
+
+<PromptPlayground tool="Any LLM" title="Medication Instructions: For Parents">
+You are a pediatric pharmacist explaining a child's medications to their parent or caregiver. The parent has no medical background.
+
+### Rules
+
+- Write at a 6th grade reading level.
+- Keep sentences under 15 words when possible.
+- Use "your child" throughout.
+- Liquid doses must include mL and syringe markings.
+- Include tips for giving medicine to children who resist.
+- Include what to do if the child spits it out or vomits within 30 minutes.
+- Storage instructions must include whether refrigeration is needed and when the medication expires after opening.
+
+### Output format
+
+```
+YOUR CHILD'S MEDICATION GUIDE
+══════════════════════════════════════════
+
+*** [Medication Name] for Your Child
+─────────────────────────────────────
+  What it does: ***
+
+  How to give it:
+  1. Dose: *** mL (mark on syringe: ***)
+  2. When: ***
+  3. With or without food: ***
+  4. Use the measuring syringe provided. Do not
+     use a kitchen spoon.
+
+  Tips for giving medicine:
+  - ***
+  - ***
+
+  If your child spits it out: ***
+  If your child vomits within 30 minutes: ***
+
+  What to watch for:
+  - *** [common side effects and what they look
+    like in a child]
+  - ***
+
+  Call your child's doctor if:
+  - ***
+  - ***
+
+  Go to the ER if:
+  - ***
+  - ***
+
+  Storage:
+  - ***
+  - Expires after opening: ***
+
+  Reminders:
+  - Give the full course even if your child feels
+    better (if applicable)
+  - Keep out of reach of all children
+```
+
+---
+MEDICATIONS:
+[List each medication with child's weight/age, dose, frequency, and indication]
+</PromptPlayground>
+
+### Controlled substance medication guide
+
+<PromptPlayground tool="Any LLM" title="Medication Instructions: Controlled Substance">
+You are a physician creating a medication guide for a patient who has been prescribed a controlled substance. The patient has no medical background. Be direct and clear about safety without being judgmental.
+
+### Rules
+
+- Write at a 6th grade reading level.
+- Keep sentences under 15 words when possible.
+- Use "you" and "your" throughout.
+- Include maximum daily amount.
+- Include safe storage and disposal instructions.
+- Include overdose warning signs.
+- Be honest about dependency risk without stigmatizing.
+- Bold all critical safety information.
+
+### Output format
+
+```
+YOUR MEDICATION GUIDE: ***
+══════════════════════════════════════════
+
+What This Medication Does
+─────────────────────────
+[2-3 sentences.]
+
+How to Take It
+──────────────
+- Dose: ***
+- How often: ***
+- Maximum in 24 hours: ***
+- Take exactly as prescribed. Do not take more
+  than directed.
+
+Safety Rules
+────────────
+- Do not drive or use heavy machines while taking
+  this medication.
+- Do not drink alcohol. The combination can be
+  dangerous.
+- Do not share this medication with anyone.
+- Keep it in a locked cabinet away from children
+  and visitors.
+- Do not stop suddenly without talking to your
+  doctor. [if applicable: gradual tapering is needed]
+
+Common Side Effects
+───────────────────
+- ***
+- ***
+- ***
+
+Call 911 If You Notice
+──────────────────────
+- Extreme drowsiness or you cannot stay awake
+- Very slow or shallow breathing
+- Blue or gray lips or fingertips
+- The person cannot be woken up
+
+Safe Storage and Disposal
+─────────────────────────
+- Store in a locked cabinet or lockbox.
+- Keep a count of your pills.
+- When done: return unused pills to a pharmacy
+  drop-off. Do not flush or throw in the trash.
+
+Refills
+───────
+- ***
+```
+
+---
+MEDICATION INFORMATION:
+[Paste the controlled substance name, dose, frequency, indication, and duration of treatment]
+</PromptPlayground>
+
+---
+
+## Example output
+
+```
+YOUR MEDICATION GUIDE
+══════════════════════════════════════════
+
+Your Medication List
+────────────────────
+| Medication              | What It's For         | Dose     | When to Take It              |
+|-------------------------|-----------------------|----------|------------------------------|
+| Metoprolol              | Slows heart, lowers BP| 25 mg    | Twice a day with meals       |
+| Lisinopril              | Lowers blood pressure | 10 mg    | Once every morning           |
+| Atorvastatin (Lipitor)  | Lowers cholesterol    | 40 mg    | Once at bedtime              |
+| Aspirin                 | Prevents blood clots  | 81 mg    | Once every morning with food |
+| Clopidogrel (Plavix)    | Prevents stent clots  | 75 mg    | Once every morning           |
+
+──────────────────────────────────────────
+
+Metoprolol 25 mg (Lopressor)
+─────────────────────────────
+  What it does: Slows down your heart rate and
+  lowers your blood pressure. This reduces the
+  work your heart has to do.
+
+  How to take it:
+  1. Take 1 tablet twice a day: morning and evening
+  2. Take with food
+  3. Take at the same times each day
+
+  Common side effects:
+  - Tiredness: You may feel more tired than usual,
+    especially in the first week. This usually
+    gets better.
+  - Dizziness: Stand up slowly. Sit down if you
+    feel unsteady.
+  - Cold hands and feet: This is normal. Wear warm
+    socks and gloves.
+
+  Dangerous signs (call your doctor right away):
+  - Your heart rate drops below 50 beats per minute
+  - You faint or nearly faint
+  - You have trouble breathing when lying down
+
+  Things to avoid:
+  - Do not stop taking this medicine suddenly.
+    Stopping without your doctor's guidance can
+    cause a dangerous spike in heart rate and
+    blood pressure.
+
+  If you miss a dose: Take it as soon as you
+  remember. If it is less than 4 hours until your
+  next dose, skip the missed one. Never take two
+  doses at once.
+
+──────────────────────────────────────────
+
+Clopidogrel 75 mg (Plavix)
+───────────────────────────
+  What it does: This is a blood thinner. It stops
+  blood cells from clumping together. This keeps
+  your new stent open and prevents blood clots.
+
+  How to take it:
+  1. Take 1 tablet every morning
+  2. You can take it with or without food
+  3. Take it at the same time each day
+
+  Common side effects:
+  - Bruising more easily: Small bruises are normal.
+  - Minor bleeding: Small cuts may take longer to
+    stop bleeding. Apply pressure for a few extra
+    minutes.
+
+  Dangerous signs (call your doctor right away):
+  - Unusual or heavy bruising
+  - Blood in your urine (pink or red) or stool
+    (black or tarry)
+  - A nosebleed that will not stop after 10 minutes
+    of pressure
+  - Vomiting blood or material that looks like
+    coffee grounds
+
+  Things to avoid:
+  - Do not take ibuprofen (Advil, Motrin) or aspirin
+    beyond what your doctor prescribed. These increase
+    bleeding risk.
+  - Tell your dentist and any new doctor that you
+    take a blood thinner.
+
+  If you miss a dose: Take it as soon as you
+  remember that day. If it is the next day, skip
+  the missed dose and take your regular dose.
+  Do not double up.
+
+──────────────────────────────────────────
+
+Drug and Food Interactions
+──────────────────────────
+- Avoid grapefruit and grapefruit juice while
+  taking atorvastatin. It increases the amount of
+  medicine in your blood.
+- Avoid ibuprofen (Advil, Motrin) and naproxen
+  (Aleve). These can increase bleeding risk with
+  your blood thinners and raise blood pressure.
+  Use Tylenol (acetaminophen) for pain instead.
+- Limit alcohol to 1 drink or less per day.
+
+Important Reminders
+───────────────────
+- Do not stop any medication without talking to
+  your doctor first. Some of these medications are
+  dangerous to stop suddenly.
+- Keep all medications out of reach of children.
+- Store at room temperature unless told otherwise.
+- Bring this list to every doctor visit.
+```
 
 ---
 
 ## Tips & pitfalls
 
-- Always verify medication instructions against the prescribing information and your institution's patient education resources.
-- For high-risk medications (anticoagulants, insulin, opioids), consider supplementing with standardized institutional handouts.
-- This works well for discharge medication education; pair with the **Discharge Instructions** template.
-- The AI may list side effects that are technically possible but very rare. Review the list and keep only the most common and most clinically important side effects to avoid overwhelming the patient.
-- For patients on multiple medications, use the "combined medication schedule" customization to create a single daily schedule rather than separate sheets. Patients are more likely to follow a single schedule than to cross-reference 5 separate handouts.
-- Verify drug interactions carefully. The AI may miss interactions with the patient's other medications or supplements if those are not listed in the input.
+- **Verify every name, dose, and frequency against the actual med rec.** AI can generate plausible but wrong dosing. This is the highest-risk section in any patient education output.
+- **Cross-reference interactions against a drug reference.** AI may miss interactions with the patient's other medications or supplements if those are not listed in the input. Lexicomp, Micromedex, or UpToDate are the standard references.
+- **Trim the side effect list.** AI tends to list every technically possible side effect, including very rare ones. Keep the 2-3 most common and the 1-2 most dangerous. A list of 15 side effects overwhelms more than it informs.
+- **For polypharmacy, create a single daily schedule.** Patients are more likely to follow one consolidated schedule than cross-reference 5 separate instruction sheets. Use the elderly/polypharmacy variation or the daily schedule customization.
+- **High-risk medications need institutional backup.** For anticoagulants, insulin, opioids, and chemotherapy, the AI output is a starting draft. Pair it with your institution's standardized medication education handouts.
+- **The "Things to Avoid" section is actionable and error-prone.** Drug-food and drug-drug interactions are among the most useful items for patients and also among the most error-prone for AI. Double-check this section.
+- **Controlled substances have their own variation.** Use it. The safety rules, storage instructions, and overdose warning signs are different enough to warrant a dedicated prompt.
 
 ---
 
 ## Related
 
-- [New Medication Guide](/templates/new-medication-guide) — in-depth guide for a single new medication vs. this template's batch format
-- [Discharge Instructions](/templates/discharge-instructions) — broader discharge education that includes medications
+- [New Medication Guide](/templates/new-medication-guide): in-depth guide for a single new medication
+- [Discharge Instructions](/templates/discharge-instructions): broader discharge education that includes a medication section

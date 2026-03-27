@@ -1,0 +1,858 @@
+---
+title: "Neuromuscular Medicine Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, neuromuscular, neurology, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "EMG patterns, FVC trends, MG-ADL scores, immunotherapy response: a prompt template for neuromuscular clinic notes that captures what drives management."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when writing a neuromuscular medicine subspecialty clinic note. It captures the data that drives diagnosis and management across the neuromuscular disease spectrum: EMG/NCS findings with pattern classification (axonal vs demyelinating, distribution, severity), disease-specific scoring (MG-ADL, QMG, ALSFRS-R), antibody panels, CK trends, FVC measurements (seated and supine), immunotherapy regimens, multidisciplinary clinic coordination, assistive device inventory, and advance care planning. Paste in your clinical data and the LLM produces a note organized around the functional assessment and treatment response that define longitudinal neuromuscular care.
+
+For patients with neuropathy as a single complaint in a general neurology setting, the [general neurology template](/templates/clinic-neurology) or its neuropathy workup variation may be more appropriate.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Neuromuscular Medicine Clinic Visit">
+You are a neuromuscular medicine specialist writing an outpatient clinic note after evaluating a patient. After receiving the clinical information below, produce a complete, structured neuromuscular medicine clinic visit note.
+
+**Purpose:** Generate a neuromuscular subspecialty clinic note that captures EMG/NCS data, disease-specific functional scores, strength testing by MRC grade, respiratory function, immunotherapy management, multidisciplinary coordination, assistive devices, and advance care planning where applicable.
+
+### Rules
+
+- Write the HPI as a narrative paragraph in past tense for history, present tense for current functional status.
+- Document EMG/NCS: date, findings, pattern classification (axonal vs demyelinating, length-dependent vs non-length-dependent vs multifocal, sensory vs motor vs sensorimotor, severity).
+- For myasthenia gravis: document MG-ADL score, QMG score, antibody status (AChR, MuSK, LRP4), thymectomy status, current immunotherapy regimen (pyridostigmine dose, steroid dose, steroid-sparing agent with dose and duration), crisis history.
+- For ALS: document ALSFRS-R score (with subscores and trend from prior visits), FVC (seated and supine, with trend), site of onset, El Escorial criteria category, current disease-modifying therapy (riluzole, edaravone, tofersen if SOD1), and multidisciplinary clinic status.
+- For ALS functional domains: speech (intelligibility, AAC device), swallowing (PEG status, aspiration risk, diet texture), respiratory (BiPAP use, hours/night, settings), mobility (wheelchair, power vs manual, assistive devices).
+- For myopathy: CK level with trend, muscle biopsy results, genetic testing, steroid response if inflammatory.
+- Document strength by MRC grade (0-5) for key muscle groups, with attention to proximal vs distal pattern and respiratory muscles.
+- Document sensory exam: modality-specific (vibration, pinprick, light touch, proprioception), distribution.
+- Document reflexes with grading (0-4) and pattern (areflexia, hyporeflexia, hyperreflexia).
+- Document autonomic testing if applicable (QSART, tilt table).
+- Document pulmonary function: FVC trend for neuromuscular disease patients.
+- Document PT/OT: current program, assistive devices, orthotics (AFO, wrist splints).
+- Document advance care planning: particularly for ALS (ventilator decisions, feeding tube, palliative care, hospice).
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY.
+- Do not infer or fabricate any clinical information not provided. Write "***" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "MG" = myasthenia gravis
+- "ALS" = amyotrophic lateral sclerosis
+- "ALSFRS-R" = ALS Functional Rating Scale - Revised
+- "MG-ADL" = MG Activities of Daily Living
+- "QMG" = Quantitative Myasthenia Gravis score
+- "AChR" = acetylcholine receptor
+- "MuSK" = muscle-specific kinase
+- "FVC" = forced vital capacity
+- "BiPAP" = bilevel positive airway pressure
+- "PEG" = percutaneous endoscopic gastrostomy
+- "AAC" = augmentative and alternative communication
+- "NCS" = nerve conduction studies
+- "CMAP" = compound muscle action potential
+- "SNAP" = sensory nerve action potential
+- "MRC" = Medical Research Council (grading)
+- "AFO" = ankle-foot orthosis
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+NEUROMUSCULAR MEDICINE CLINIC VISIT
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[New patient / Follow-up / Multidisciplinary clinic]
+
+CHIEF COMPLAINT
+───────────────
+***
+
+PRIMARY DIAGNOSIS
+─────────────────
+[Peripheral neuropathy (type) / Myasthenia gravis / ALS /
+GBS follow-up / Myopathy (type) / Carpal tunnel syndrome / Other]
+
+HISTORY OF PRESENT ILLNESS
+───────────────────────────
+[Detailed narrative. Include: diagnosis history, onset and
+progression, current functional status, interval changes since
+last visit, treatment response, new symptoms, medication
+adherence and side effects.]
+
+DISEASE-SPECIFIC SCORING
+─────────────────────────
+
+  Myasthenia gravis
+  ──────────────────
+  MG-ADL score: ***/24 (prior: ***)
+  QMG score: ***/39 (prior: ***)
+  Antibodies: [AChR *** / MuSK *** / LRP4 *** / Seronegative]
+  Thymoma: [Yes / No / Thymectomy (date)]
+  Crisis history: [Number, most recent date, precipitant]
+
+  ALS
+  ───
+  ALSFRS-R total: ***/48 (prior: ***, date: ***)
+  Rate of decline: *** points/month
+
+    Subscores
+    ─────────
+    Bulbar (speech, salivation, swallowing): ***/12
+    Fine motor (handwriting, cutting food, dressing): ***/12
+    Gross motor (turning, walking, climbing): ***/12
+    Respiratory (dyspnea, orthopnea, resp insufficiency): ***/12
+
+  Site of onset: [Bulbar / Limb (specify)]
+  El Escorial: [Definite / Probable / Possible / Suspected]
+  Date of symptom onset: ***
+  Date of diagnosis: ***
+
+  Myopathy
+  ────────
+  CK: *** (trend: ***)
+  Biopsy: [Date, findings]
+  Genetic testing: [Gene, result]
+  Steroid response (if inflammatory): ***
+
+  Neuropathy (if primary diagnosis)
+  ─────────────────────────────────
+  Classification: [Axonal / Demyelinating / Mixed]
+  Distribution: [Length-dependent / Non-length-dependent / Multifocal]
+  Modality: [Sensory / Motor / Sensorimotor]
+  Etiology: ***
+
+  [Include only the subsection relevant to the patient's diagnosis.]
+
+IMMUNOTHERAPY (MG / inflammatory neuropathy / myopathy)
+───────────────────────────────────────────────────────
+  Pyridostigmine: *** mg [frequency] (MG only)
+  Corticosteroid: *** mg [frequency], duration ***
+  Steroid-sparing agent: [Agent, dose, duration, response]
+  IVIG / PLEX: [Frequency, last dose, response]
+  Biologic: [Eculizumab, ravulizumab, efgartigimod, rozanolixizumab,
+  zilucoplan; dose, frequency, response]
+  Meningococcal vaccination: [Date, if on complement inhibitor]
+
+DISEASE-MODIFYING THERAPY (ALS)
+───────────────────────────────
+  Riluzole: [50 mg BID / not tolerated / not on]
+  Edaravone: [Route, cycle status]
+  Tofersen: [If SOD1-positive; dose, frequency]
+  Other clinical trial: ***
+
+ELECTRODIAGNOSTIC DATA
+──────────────────────
+  EMG/NCS (date): ***
+  Findings: ***
+  Pattern: ***
+  Comparison to prior (date): [Stable / progressed / improved]
+
+LABS
+────
+  [Relevant labs based on diagnosis:]
+
+  Neuropathy panel
+  ────────────────
+  Glucose ***, A1c ***, B12 ***, TSH ***, SPEP ***, UPEP ***
+  ANA ***, ESR/CRP ***, HIV ***, Hepatitis ***
+  Other: ***
+
+  Myopathy / MG labs
+  ──────────────────
+  CK ***, aldolase ***, ESR ***, ANA ***
+  Myositis-specific antibodies: ***
+
+  ALS labs
+  ────────
+  CK ***, CBC ***, CMP ***
+
+PULMONARY FUNCTION
+──────────────────
+  FVC seated: *** L (***% predicted) [date]
+  FVC supine: *** L (***% predicted) [date]
+  FVC trend: [Stable / declining at ***% per month]
+  Maximal inspiratory pressure (MIP): ***
+  Maximal expiratory pressure (MEP): ***
+  [Prior FVC for comparison: *** (date)]
+
+NEUROLOGICAL EXAMINATION
+────────────────────────
+
+  Strength (MRC 0-5)
+  ───────────────────
+              RUE    LUE    RLE    LLE
+  Deltoid     ***    ***    ---    ---
+  Biceps      ***    ***    ---    ---
+  Triceps     ***    ***    ---    ---
+  Wrist ext   ***    ***    ---    ---
+  Grip        ***    ***    ---    ---
+  FDI         ***    ***    ---    ---
+  Iliopsoas   ---    ---    ***    ***
+  Quad        ---    ---    ***    ***
+  Hamstring   ---    ---    ***    ***
+  Tib ant     ---    ---    ***    ***
+  Gastroc     ---    ---    ***    ***
+  EHL         ---    ---    ***    ***
+
+  Pattern: [Proximal / Distal / Proximal and distal / Bulbar]
+
+  Neck flexion: ***
+  Neck extension: ***
+
+  Bulbar exam (ALS / MG)
+  ───────────────────────
+  Speech: [Normal / Dysarthric (type, severity)]
+  Tongue: [Atrophy / Fasciculations / Normal]
+  Palate: [Symmetric / asymmetric elevation]
+  Jaw: ***
+  Swallow: ***
+
+  Sensory
+  ───────
+  Light touch: ***
+  Pinprick: ***
+  Vibration: ***
+  Proprioception: ***
+  Distribution: ***
+
+  Reflexes (0-4)
+  ──────────────
+              Right    Left
+  Biceps      ***      ***
+  Triceps     ***      ***
+  Brachio     ***      ***
+  Patellar    ***      ***
+  Achilles    ***      ***
+  Plantar     ***      ***
+
+  Pattern: [Areflexia / Hyporeflexia / Normal / Hyperreflexia
+  (note UMN signs if present)]
+
+  Fasciculations: [Present (distribution) / Absent]
+
+  Gait
+  ────
+  ***
+  Assistive device: ***
+
+  Fatigability testing (MG)
+  ─────────────────────────
+  Sustained upgaze: *** seconds to ptosis
+  Repetitive deltoid abduction: *** reps to fatigue
+  Counting to 50: [Normal / voice fatigues at ***]
+
+ALS FUNCTIONAL DOMAINS (if applicable)
+───────────────────────────────────────
+
+  Speech
+  ──────
+  Intelligibility: [Normal / Mildly reduced / Significantly reduced /
+  Non-verbal]
+  AAC device: [In use / Ordered / Not yet needed / Discussed]
+
+  Swallowing
+  ──────────
+  Diet: [Regular / Soft / Pureed / Tube feeds]
+  PEG: [In place (date) / Planned / Discussed / Deferred]
+  Aspiration risk: [Low / Moderate / High]
+  Weight: *** (trend: ***)
+
+  Respiratory
+  ───────────
+  BiPAP: [In use (hours/night, settings) / Ordered / Recommended /
+  Not yet indicated]
+  Cough assist: [In use / Not yet needed]
+  Symptoms: [Orthopnea, morning headaches, daytime somnolence]
+
+  Mobility
+  ────────
+  Ambulation: [Independent / With device / Wheelchair-dependent]
+  Wheelchair: [Power / Manual / Not yet needed]
+  Home modifications: ***
+  Transportation: ***
+
+PHYSICAL / OCCUPATIONAL THERAPY
+───────────────────────────────
+  Current program: ***
+  Frequency: ***
+  Assistive devices: [AFO, wrist splint, reacher, adaptive utensils]
+  Orthotics: ***
+  Speech therapy: ***
+
+ADVANCE CARE PLANNING (ALS / progressive NMD)
+──────────────────────────────────────────────
+  Goals of care discussion: [Documented / Deferred / In progress]
+  Healthcare proxy: [Named / Not yet]
+  Advance directive: [Completed / In progress / Not yet]
+  Ventilator decision: [Accepts long-term vent / Declines /
+  Not yet discussed / Undecided]
+  Hospice: [Discussed / Referred / Not yet appropriate]
+  Palliative care: [Involved / Referred / Not yet]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [diagnosis, duration].
+[One-sentence summary of disease trajectory and functional status.]
+
+  1. [Primary neuromuscular diagnosis and status]
+  2. [Treatment response or disease progression]
+  3. [Functional domain requiring intervention]
+  4. [Other relevant problems]
+
+PLAN
+────
+  1. [Disease management]
+     - [Immunotherapy changes / disease-modifying therapy]
+     - [Monitoring: labs, levels, imaging, PFTs]
+
+  2. [Functional management]
+     - [Respiratory: BiPAP, cough assist, PFT schedule]
+     - [Swallowing: diet, PEG, SLP]
+     - [Mobility: PT/OT, devices, orthotics]
+     - [Speech: SLP, AAC]
+
+  3. [Supportive care]
+     - [Symptom management: pain, spasticity, pseudobulbar affect,
+     sialorrhea]
+     - [Advance care planning next steps]
+
+  4. [Multidisciplinary coordination]
+     - [Pulmonology, GI, palliative care, social work, nutrition]
+
+FOLLOW-UP
+─────────
+Return in [timeframe]. [Labs before next visit, PFT schedule,
+contact if respiratory worsening, new weakness, or MG crisis
+symptoms.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste your de-identified neuromuscular clinic data here: diagnosis, disease-specific scores, EMG/NCS, labs, PFTs, strength exam, functional status, immunotherapy, devices, and advance care planning status.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| ALS multidisciplinary clinic | Add: "This is a multidisciplinary ALS clinic visit. Include separate sections for each discipline seen today: neurology, pulmonary, nutrition, PT/OT, SLP, social work, palliative care. Summarize each team's assessment and recommendations." |
+| MG crisis documentation | Add: "This patient has a history of myasthenic crisis. Include a crisis action plan: warning signs, when to go to ER, medication adjustments to avoid, and emergency contact information." |
+| Post-IVIG visit | Add: "This is a post-IVIG infusion follow-up. Document the infusion details (brand, dose, duration, premedication), response assessment, next infusion date, and any infusion reactions." |
+| Telehealth | Add: "This is a telehealth visit. Document observable exam components (facial strength, tongue, speech, visible muscle atrophy, functional tasks on camera). Note that formal strength testing, reflexes, and sensory exam could not be assessed remotely." |
+| Genetic counseling | Add: "Include genetic testing results, implications for family members, genetic counseling status, and reproductive counseling if applicable." |
+
+---
+
+## Variations
+
+### ALS multidisciplinary visit
+
+Use this for ALS clinic visits where the patient is seen by the multidisciplinary team (neurology, pulmonary, nutrition, PT/OT, SLP, social work, palliative care) and the note needs to integrate assessments from multiple disciplines.
+
+<PromptPlayground tool="Claude" title="ALS Multidisciplinary Clinic Visit">
+You are a neurologist writing a comprehensive ALS multidisciplinary clinic note. The patient has been evaluated by multiple disciplines today. After receiving the clinical information below, produce a structured note integrating all team assessments.
+
+### Rules
+
+- Document the ALSFRS-R total and subscores with comparison to the prior visit.
+- Document FVC seated and supine with trend.
+- Include a section for each discipline seen: neurology, pulmonary, nutrition, PT/OT, SLP, social work, palliative care. Not all may apply to every visit.
+- For each discipline: summarize the assessment and specific recommendations.
+- Document weight trend (critical for ALS prognosis and PEG timing).
+- Document advance care planning status and any changes discussed today.
+- Flag time-sensitive decisions: PEG placement (best when FVC &gt;50%), BiPAP initiation, AAC device ordering.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "ALSFRS-R" = ALS Functional Rating Scale - Revised
+- "FVC" = forced vital capacity
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+ALS MULTIDISCIPLINARY CLINIC VISIT
+══════════════════════════════════════════
+
+DIAGNOSIS
+─────────
+ALS, [site of onset], El Escorial: ***
+Symptom onset: ***
+Diagnosis date: ***
+
+FUNCTIONAL SCORES
+─────────────────
+  ALSFRS-R: ***/48 (prior: ***, date: ***)
+  Rate of decline: *** points/month
+  FVC seated: ***% (prior: ***%)
+  FVC supine: ***% (prior: ***%)
+  Weight: *** (prior: ***, change: ***)
+  BMI: ***
+
+DISEASE-MODIFYING THERAPY
+─────────────────────────
+  ***
+
+NEUROLOGY ASSESSMENT
+────────────────────
+  [Interval history, exam changes, medication adjustments.]
+
+PULMONARY ASSESSMENT
+────────────────────
+  FVC trend: ***
+  Symptoms: [Orthopnea, morning headaches, dyspnea]
+  BiPAP: [Status, settings, compliance]
+  Cough assist: ***
+  Recommendations: ***
+
+NUTRITION ASSESSMENT
+────────────────────
+  Weight trend: ***
+  Caloric intake: ***
+  Swallowing: [Diet texture, safety]
+  PEG: [Status, timing discussion]
+  Recommendations: ***
+
+PT / OT ASSESSMENT
+──────────────────
+  Mobility: ***
+  Falls: ***
+  Equipment: [Current, new needs]
+  Home modifications: ***
+  Recommendations: ***
+
+SLP ASSESSMENT
+──────────────
+  Speech intelligibility: ***
+  Swallow function: ***
+  AAC: [Status, needs]
+  Recommendations: ***
+
+SOCIAL WORK
+───────────
+  Insurance / disability: ***
+  Caregiver support: ***
+  Community resources: ***
+  Recommendations: ***
+
+PALLIATIVE CARE (if seen)
+─────────────────────────
+  Goals of care: ***
+  Symptom management: ***
+  Advance directive status: ***
+  Recommendations: ***
+
+ADVANCE CARE PLANNING
+─────────────────────
+  Healthcare proxy: ***
+  Advance directive: ***
+  Ventilator decision: ***
+  Hospice discussion: ***
+
+COMBINED PLAN
+─────────────
+  [Integrated plan from all disciplines.]
+
+FOLLOW-UP
+─────────
+***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: ALS history, ALSFRS-R scores, FVC, weight, assessments from each discipline, current treatments, and advance care planning status.]
+</PromptPlayground>
+
+### Myasthenia gravis immunotherapy management
+
+Use this for MG patients where the primary focus is immunotherapy optimization: assessing steroid taper progress, steroid-sparing agent response, complement inhibitor or FcRn antagonist management, and crisis prevention.
+
+<PromptPlayground tool="Claude" title="Myasthenia Gravis Immunotherapy Management">
+You are a neuromuscular specialist writing a clinic note for a myasthenia gravis patient focused on immunotherapy management. After receiving the clinical information below, produce a structured note centered on treatment response and optimization.
+
+### Rules
+
+- Document MG-ADL and QMG scores with comparison to baseline and prior visit.
+- Document the complete immunotherapy regimen: pyridostigmine dose and timing, corticosteroid dose and taper schedule, steroid-sparing agent (type, dose, duration, response), and biologic therapy if applicable.
+- For complement inhibitors (eculizumab, ravulizumab) or FcRn antagonists (efgartigimod, rozanolixizumab): document dose, frequency, response, meningococcal vaccination status, and monitoring labs.
+- Document steroid side effects: weight, glucose, bone density, cataracts, mood.
+- Track the steroid taper: current dose, taper schedule, any flares during taper.
+- Document crisis risk: prior crises, current respiratory function, triggers to avoid.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "MG" = myasthenia gravis
+- "MG-ADL" = MG Activities of Daily Living
+- "QMG" = Quantitative MG
+- "AChR" = acetylcholine receptor
+- "MuSK" = muscle-specific kinase
+- "FcRn" = neonatal Fc receptor
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+MYASTHENIA GRAVIS: IMMUNOTHERAPY MANAGEMENT
+══════════════════════════════════════════
+
+MG CLASSIFICATION
+─────────────────
+  Antibody: [AChR+ / MuSK+ / LRP4+ / Seronegative]
+  MGFA class: ***
+  Thymoma: [Yes / No / Thymectomy (date, pathology)]
+
+DISEASE ACTIVITY SCORES
+───────────────────────
+  MG-ADL: ***/24 (baseline ***, prior visit ***)
+  QMG: ***/39 (baseline ***, prior visit ***)
+  Trajectory: [Improving / Stable / Worsening]
+
+IMMUNOTHERAPY REGIMEN
+─────────────────────
+
+  Pyridostigmine
+  ──────────────
+  Dose: *** mg [frequency]
+  Response: ***
+
+  Corticosteroid
+  ──────────────
+  Current: *** mg [frequency]
+  Taper schedule: ***
+  Duration on current dose: ***
+  Steroid side effects: [Weight ***, glucose ***, bone density ***,
+  cataracts ***, mood ***]
+
+  Steroid-sparing agent
+  ─────────────────────
+  Agent: [Mycophenolate / Azathioprine / Tacrolimus / Other]
+  Dose: ***
+  Duration: ***
+  Response: ***
+  Monitoring labs: [CBC, LFTs, drug level (date, values)]
+
+  Biologic therapy (if applicable)
+  ─────────────────────────────────
+  Agent: [Eculizumab / Ravulizumab / Efgartigimod /
+  Rozanolixizumab / Zilucoplan]
+  Dose/frequency: ***
+  Start date: ***
+  Response: ***
+  Meningococcal vaccination: [Date, booster due ***]
+  Monitoring: ***
+
+  IVIG / PLEX (if applicable)
+  ────────────────────────────
+  Agent: ***
+  Frequency: ***
+  Last infusion: ***
+  Response: ***
+
+  Prior immunotherapies
+  ─────────────────────
+  [Agent, duration, reason stopped]
+  1. ***
+  2. ***
+
+CRISIS RISK ASSESSMENT
+──────────────────────
+  Prior crises: [Number, most recent, precipitant]
+  Current FVC: ***
+  Medications to avoid: [Aminoglycosides, fluoroquinolones,
+  beta-blockers, magnesium, etc.]
+  Crisis action plan: [In place / reviewed / needs update]
+
+EXAMINATION
+───────────
+  [MG-focused exam: ptosis, diplopia, facial strength, bulbar
+  function, neck flexion, deltoid, grip, respiratory effort,
+  fatigability testing.]
+
+ASSESSMENT & PLAN
+─────────────────
+[Assessment of MG control and immunotherapy response, plan for
+taper, escalation, or maintenance.]
+
+FOLLOW-UP
+─────────
+***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: MG history, antibody status, MG-ADL/QMG scores, complete immunotherapy regimen, steroid taper progress, labs, exam, and crisis history.]
+</PromptPlayground>
+
+### Neuropathy workup and management
+
+Use this for patients with peripheral neuropathy being managed in the neuromuscular clinic, where the note needs to capture the systematic etiologic workup, EMG/NCS classification, and treatment plan beyond the initial evaluation.
+
+<PromptPlayground tool="Claude" title="Neuropathy Workup and Management">
+You are a neuromuscular specialist writing a clinic note for a patient with peripheral neuropathy. After receiving the clinical information below, produce a structured neuropathy evaluation and management note.
+
+### Rules
+
+- Classify the neuropathy: axonal vs demyelinating, length-dependent vs non-length-dependent vs multifocal, sensory vs motor vs sensorimotor, acute vs subacute vs chronic.
+- Document the complete etiologic workup: which labs have been sent, which have returned, and what remains pending.
+- Correlate EMG/NCS findings with clinical exam.
+- If inflammatory neuropathy (CIDP, GBS follow-up): document treatment response, IVIG schedule, and functional trajectory.
+- Document pain management if neuropathic pain is present.
+- Document functional impact: balance, falls, hand dexterity, foot drop, driving.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "CIDP" = chronic inflammatory demyelinating polyneuropathy
+- "GBS" = Guillain-Barre syndrome
+- "NCS" = nerve conduction studies
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+NEUROPATHY WORKUP AND MANAGEMENT
+══════════════════════════════════════════
+
+NEUROPATHY CLASSIFICATION
+─────────────────────────
+  Pathology: [Axonal / Demyelinating / Mixed]
+  Distribution: [Length-dependent / Non-length-dependent / Multifocal
+  / Mononeuropathy multiplex]
+  Modality: [Sensory / Motor / Sensorimotor / Autonomic]
+  Tempo: [Acute / Subacute / Chronic]
+  Severity: [Mild / Moderate / Severe]
+
+HISTORY OF PRESENT ILLNESS
+───────────────────────────
+[Narrative: onset, progression, distribution, associated symptoms,
+prior workup, treatments tried, functional impact.]
+
+EMG/NCS
+───────
+  Date: ***
+  Summary: ***
+  Key findings: [SNAPs, CMAPs, conduction velocities, temporal
+  dispersion, conduction block, F-waves, needle EMG findings]
+  Comparison to prior: ***
+
+ETIOLOGIC WORKUP
+────────────────
+  Completed (with results)
+  ────────────────────────
+  [Lab, value, date]
+  ***
+
+  Pending
+  ───────
+  ***
+
+  Not yet ordered
+  ────────────────
+  ***
+
+  Additional testing
+  ──────────────────
+  [Skin biopsy, autonomic testing, CSF, genetic panel]
+  ***
+
+WORKING DIAGNOSIS
+─────────────────
+[Most likely etiology based on current data, with reasoning.]
+
+TREATMENT
+─────────
+  Etiology-directed: ***
+  Neuropathic pain: [Agent, dose, response]
+  IVIG/PLEX (if inflammatory): [Dose, frequency, response]
+  Physical therapy: ***
+  Orthotics: [AFO, other]
+
+FUNCTIONAL STATUS
+─────────────────
+  Balance: ***
+  Falls: ***
+  Hand dexterity: ***
+  Foot drop: [Yes / No, AFO in use]
+  Driving: ***
+
+ASSESSMENT & PLAN
+─────────────────
+[Assessment and comprehensive plan.]
+
+FOLLOW-UP
+─────────
+***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: neuropathy history, EMG/NCS, lab workup results, current treatment, exam, and functional status.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+Follow-up, 52-year-old female with generalized MG, AChR antibody positive (titer 18.4), s/p thymectomy 3 years ago (thymoma, Masaoka stage II, completely resected). No prior crisis. Current regimen: pyridostigmine 60mg QID (good response for ocular symptoms), prednisone 10mg daily (tapering from 40mg over 9 months), mycophenolate 1000mg BID (started 8 months ago). MG-ADL 4/24 (baseline 14, last visit 6). QMG 8/39 (baseline 22, last visit 10). Doing well overall, occasional diplopia when fatigued at end of day, mild neck flexion weakness. Tolerated last prednisone taper from 15mg to 10mg without flare. Wants to continue taper. Mycophenolate labs: CBC wnl, LFTs wnl. FVC 3.2L (92% predicted). Weight 168 lbs (was 178 on prednisone 40mg). Glucose 98. Exam: no ptosis at rest, sustained upgaze 55 seconds before bilateral ptosis, diplopia on prolonged lateral gaze, face symmetric, palate symmetric, no dysarthria, neck flexion 4+/5, deltoids 5/5, grip 5/5, no limb fatigability. MGFA class IIa (mild generalized, predominantly ocular).
+
+**LLM output:**
+
+NEUROMUSCULAR MEDICINE CLINIC VISIT
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Follow-up
+
+CHIEF COMPLAINT
+───────────────
+Myasthenia gravis, immunotherapy management follow-up
+
+PRIMARY DIAGNOSIS
+─────────────────
+Generalized myasthenia gravis, AChR antibody positive
+
+HISTORY OF PRESENT ILLNESS
+───────────────────────────
+The patient is a 52-year-old female with generalized MG (AChR+, titer 18.4), s/p thymectomy 3 years ago for Masaoka stage II thymoma (completely resected), presenting for follow-up on immunotherapy management. She has been tapering prednisone over 9 months (from 40 mg to current 10 mg) without flare, with mycophenolate 1000 mg BID initiated 8 months ago as a steroid-sparing agent. She reports continued improvement in her MG symptoms. She has occasional diplopia at the end of the day when fatigued, consistent with her known ocular predominance. She denies dysphagia, dysarthria, limb weakness, respiratory symptoms, or difficulty with ADLs. She tolerated the most recent prednisone reduction from 15 mg to 10 mg without exacerbation and wishes to continue the taper. No myasthenic crisis history. Medication adherence is good. She has lost 10 lbs since the prednisone peak dose (178 to 168 lbs).
+
+DISEASE-SPECIFIC SCORING
+─────────────────────────
+
+  Myasthenia gravis
+  ──────────────────
+  MG-ADL score: 4/24 (baseline 14, prior visit 6)
+  QMG score: 8/39 (baseline 22, prior visit 10)
+  Antibodies: AChR positive (titer 18.4)
+  Thymoma: Yes; thymectomy 3 years ago (Masaoka II, complete resection)
+  Crisis history: None
+
+IMMUNOTHERAPY REGIMEN
+─────────────────────
+
+  Pyridostigmine: 60 mg QID. Good response for ocular symptoms.
+
+  Corticosteroid: Prednisone 10 mg daily.
+  Taper history: Started at 40 mg, tapered over 9 months to 10 mg.
+  Last reduction: 15 mg to 10 mg (tolerated without flare).
+  Planned next step: Continue taper.
+  Steroid side effects: Weight gain (resolving, now 168 from 178), glucose 98 (normal).
+
+  Steroid-sparing agent: Mycophenolate mofetil 1000 mg BID.
+  Duration: 8 months.
+  Response: MG-ADL improved from 14 to 4 during mycophenolate initiation and prednisone taper, suggesting effective steroid-sparing.
+  Monitoring labs: CBC wnl, LFTs wnl.
+
+PULMONARY FUNCTION
+──────────────────
+  FVC: 3.2 L (92% predicted)
+
+NEUROLOGICAL EXAMINATION
+────────────────────────
+
+  Strength (MRC 0-5)
+  ───────────────────
+  Neck flexion: 4+/5
+  Deltoids: 5/5 bilaterally
+  Grip: 5/5 bilaterally
+  No limb fatigability.
+
+  Bulbar exam
+  ───────────
+  Speech: Normal, no dysarthria.
+  Palate: Symmetric elevation.
+  Swallow: Normal.
+
+  Fatigability testing
+  ────────────────────
+  Sustained upgaze: 55 seconds to bilateral ptosis
+  Prolonged lateral gaze: Diplopia
+  Repetitive deltoid abduction: No fatigability
+  Counting to 50: Normal
+
+  General: No ptosis at rest. Face symmetric.
+
+ASSESSMENT
+──────────
+52-year-old female with generalized MG (AChR+, s/p thymectomy for stage II thymoma) on pyridostigmine, prednisone (tapering), and mycophenolate. Clinically improving: MG-ADL 4 (from 14 baseline), QMG 8 (from 22 baseline), now MGFA class IIa. She has tolerated the prednisone taper from 40 mg to 10 mg without flare, with mycophenolate providing effective steroid-sparing over 8 months. Residual symptoms are limited to end-of-day ocular fatigue and mild neck flexion weakness.
+
+  1. MG, well controlled on current regimen, improving
+  2. Prednisone taper, ongoing, tolerated
+  3. Mycophenolate monitoring
+
+PLAN
+────
+  1. MG management
+     - Continue pyridostigmine 60 mg QID
+     - Continue prednisone taper: reduce to 7.5 mg daily in 4 weeks, then to 5 mg daily 4 weeks after that
+     - Continue mycophenolate 1000 mg BID (effective steroid-sparing; no side effects)
+     - If flare during taper (MG-ADL increase by &ge;2 points or new bulbar/respiratory symptoms), hold taper and contact clinic before resuming
+     - Goal: prednisone off or &le;5 mg daily by 6 months
+
+  2. Monitoring
+     - CBC, CMP, LFTs in 6 weeks (mycophenolate monitoring)
+     - Repeat AChR antibody titer at next visit to assess serologic trend
+     - FVC stable at 92%; recheck in 6 months or sooner if symptoms change
+
+  3. Supportive
+     - Continue current activity level
+     - Bone health: verify vitamin D and calcium supplementation given prolonged steroid use; DEXA if not done in the past 2 years
+     - Reviewed medications to avoid (aminoglycosides, fluoroquinolones, beta-blockers, magnesium)
+
+FOLLOW-UP
+─────────
+Return in 3 months. Labs (CBC, CMP, LFTs) in 6 weeks. Contact clinic if new double vision at rest, difficulty swallowing, shortness of breath, or worsening weakness.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **Disease-specific scores define the visit.** MG-ADL, QMG, and ALSFRS-R scores are the language of neuromuscular follow-up. The model will include them if you provide them, but it cannot calculate them from raw exam data. Score the patient before generating the note.
+- **ALSFRS-R trend matters more than the number.** A score of 36 is very different in a patient declining 2 points per month versus one stable for 6 months. Always include the prior score and date so the model can calculate the rate of decline.
+- **FVC seated vs supine is not redundant.** A supine FVC drop of more than 20% from seated suggests diaphragmatic weakness and is an indication for BiPAP in ALS. The model includes both fields, but it will not interpret the drop unless you flag it.
+- **Steroid taper speed in MG.** The model documents the taper schedule you provide but will not recommend a taper rate. Standard practice is slow (typically 5-10 mg reduction per month once below 20 mg), but clinical judgment drives the pace. Do not let the model suggest a faster taper than you intend.
+- **Advance care planning is a longitudinal conversation.** The model includes an ACP section for ALS, but a single note cannot capture the full arc of these discussions. Document what was discussed at this visit, what the patient's current stance is, and what remains to be addressed.
+- **EMG/NCS interpretation requires clinical correlation.** The model will classify the neuropathy based on your EMG summary, but it cannot verify that classification against the raw data. If your summary says "axonal" but the conduction velocities suggest demyelination, the model will not catch the discrepancy.
+- **Complement inhibitor patients need meningococcal vaccination tracking.** The model includes a vaccination field for patients on eculizumab or ravulizumab, but it will not calculate when the booster is due. Verify this against the vaccination record.
+
+---
+
+## Related
+
+- [General Neurology Clinic Visit](/templates/clinic-neurology) - for neuropathy in a general neurology context
+- [Movement Disorders Clinic Visit](/templates/clinic-movement-disorders) - for patients with overlap between weakness and movement abnormalities
+- [Procedure Note](/templates/procedure-note) - for EMG/NCS, PEG placement, or IVIG infusion documentation
+- [Prior Authorization](/templates/prior-authorization) - for IVIG, complement inhibitor, or FcRn antagonist authorization
+- [Disability / FMLA Letter](/templates/disability-fmla-letter) - for ALS or MG-related work restriction documentation

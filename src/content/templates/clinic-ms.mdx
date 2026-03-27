@@ -1,0 +1,790 @@
+---
+title: "Multiple Sclerosis Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, multiple-sclerosis, neurology, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "MS clinic note template covering EDSS, relapse history, DMT monitoring, JCV status, and the functional assessments that define follow-up. Also handles NMO spectrum disorder and MOG antibody disease."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when writing an outpatient multiple sclerosis or neuroimmunology clinic visit note. Paste in your clinical data (MS type, disease activity, DMT regimen, MRI results, exam findings, labs, and symptom inventory) and the LLM produces a structured clinic note that captures EDSS, relapse history, DMT monitoring, JCV status, and the functional assessments that define MS follow-up. Also works for NMO spectrum disorder and MOG antibody disease with the appropriate variation.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Multiple Sclerosis Clinic Visit Note">
+You are an experienced MS specialist writing an outpatient clinic visit note. After receiving the clinical information below, produce a complete, structured MS clinic visit note.
+
+### Rules
+
+- Write in past tense for history and relapse events; present tense for current status, exam findings, and plan.
+- Include specific numbers (EDSS, T25FW time, SDMT score, JCV index, lymphocyte count, lesion counts) whenever available.
+- Use medical abbreviations throughout. Never spell out what an abbreviation stands for.
+- Reference dates in the format M/D/YY.
+- Document DMT history chronologically with reasons for each switch.
+- Document relapse history with dates, symptoms, treatment, and recovery.
+- Do not infer or fabricate any clinical information not provided. Write "***" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "pmhx" = past medical history
+- "RRMS" = relapsing-remitting MS
+- "SPMS" = secondary progressive MS
+- "PPMS" = primary progressive MS
+- "DMT" = disease-modifying therapy
+- "EDSS" = Expanded Disability Status Scale
+- "T25FW" = Timed 25-Foot Walk
+- "SDMT" = Symbol Digit Modalities Test
+- "JCV" = JC virus
+- "PML" = progressive multifocal leukoencephalopathy
+- "Gd+" = gadolinium-enhancing
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+MULTIPLE SCLEROSIS CLINIC VISIT
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[New patient / Follow-up / Relapse evaluation / DMT review]
+
+MS PROFILE
+──────────
+  Type: [RRMS / SPMS / PPMS / CIS / RIS]
+  Year of onset: ***
+  Year of diagnosis: ***
+  Diagnostic criteria: [McDonald 2017 / clinical]
+  Total lifetime relapses: ***
+  Last relapse: [Date, symptoms, treatment, recovery]
+
+DISEASE-MODIFYING THERAPY
+─────────────────────────
+  Current DMT
+  ───────────
+  Agent: ***
+  Dose: ***
+  Route: ***
+  Start date: ***
+  Infusion dates (if applicable): ***
+
+  DMT Monitoring
+  ──────────────
+  JCV antibody: [Positive / Negative]
+  JCV index: *** (date: ***)
+  Lymphocyte count: *** (date: ***)
+  Immunoglobulin levels: [IgG ***, IgM *** (date: ***)]
+  LFTs: ***
+  Other DMT-specific labs: ***
+
+  Prior DMTs (chronological)
+  ──────────────────────────
+  [Agent, dates, reason for switch (e.g., breakthrough
+  disease, side effects, JCV seroconversion, pregnancy
+  planning, insurance). List all prior DMTs.]
+
+RELAPSE HISTORY
+───────────────
+  Relapses in past 12 months: ***
+    [Date]: [Symptoms, duration, IV steroids Y/N, recovery
+    (complete / partial / incomplete)]
+
+  Relapses in past 24 months: ***
+    [Date]: [Symptoms, treatment, recovery]
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph. Symptoms since last visit: new or
+worsening neurological symptoms, fatigue (FSS score if
+available), spasticity, neuropathic pain, bladder function
+(urgency, frequency, incontinence, PVR if checked), bowel
+dysfunction, sexual dysfunction, cognitive complaints,
+mood, heat sensitivity, Uhthoff phenomenon. Functional
+status: work, driving, ADLs, assistive device use. DMT
+adherence and tolerability.]
+
+CURRENT MEDICATIONS
+───────────────────
+  DMT: ***
+  Symptom management: [Baclofen, gabapentin, amitriptyline,
+  oxybutynin, modafinil, etc. with doses]
+  Other: ***
+
+PHYSICAL EXAMINATION
+────────────────────
+
+  Vitals
+  ──────
+  T ***  HR ***  BP ***
+
+  General: ***
+  HEENT: ***
+  Cardiovascular: ***
+  Pulmonary: ***
+
+  Neurological Exam
+  ─────────────────
+  Mental status: [Alertness, orientation, affect]
+  Cranial nerves:
+    Visual acuity: [OD ***, OS ***]
+    Color vision: [Ishihara plates: OD ***/14, OS ***/14]
+    Pupils: [RAPD present/absent]
+    Fundoscopy: [Optic disc pallor Y/N]
+    Extraocular movements: [INO, nystagmus]
+    Remaining CN: ***
+  Motor: [Strength by muscle group, spasticity (modified
+  Ashworth if applicable), tone]
+  Sensory: [Vibration, proprioception, pinprick, light
+  touch. Sensory level if applicable.]
+  Coordination: [FNF, HKS, dysmetria]
+  Gait: [Observed gait, tandem, assistive device]
+  Reflexes: [Include Babinski / Hoffman]
+
+DISABILITY ASSESSMENT
+─────────────────────
+  EDSS: *** (current)
+  Prior EDSS: *** (date: ***)
+  EDSS trend: [Stable / worsening / improved]
+  T25FW: *** seconds (prior: *** seconds, date: ***)
+  9-Hole Peg Test: [Dominant *** sec, Non-dominant *** sec]
+  SDMT: ***/110 (prior: ***, date: ***)
+
+MRI SURVEILLANCE
+────────────────
+  Brain MRI: [Date]
+    Lesion burden: [Approximate count or volume]
+    New T2/FLAIR lesions: [Number / none]
+    Gd+ lesions: [Number / none]
+    Brain atrophy: [Qualitative assessment]
+    Comparison: [Prior MRI date]
+
+  Spine MRI: [Date]
+    Lesion burden: [Number, levels]
+    New lesions: [Number / none]
+    Gd+ lesions: [Number / none]
+
+LABS
+────
+  CBC: WBC ***, lymphocytes ***, Hgb ***, Plt ***
+  CMP: ***
+  JCV antibody: *** (index: ***)
+  Immunoglobulins: IgG ***, IgM ***
+  Vitamin D (25-OH): ***
+  Other: ***
+
+SCREENING
+─────────
+  PHQ-9: ***/27 (depression)
+  Vaccination status: [COVID, influenza, live vaccine
+  restrictions noted]
+  Pregnancy planning: [N/A / active. DMT washout discussed.]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [MS type] diagnosed
+[year], on [current DMT] since [date], presenting for
+[visit reason]. [Disease activity summary: relapse-free
+interval, MRI stability, EDSS trajectory.]
+
+  1. [MS disease activity]
+  2. [DMT management]
+  3. [Symptom management (fatigue, spasticity, pain, bladder)]
+  4. [Cognitive / mood]
+  5. [Other active problems]
+
+PLAN
+────
+  1. [Disease activity / DMT]
+     - [Continue / switch / escalate DMT. Rationale.]
+     - [MRI schedule: next brain and spine MRI date]
+     - [JCV monitoring plan if on natalizumab]
+     - [Lymphocyte monitoring if on fingolimod/siponimod/
+       ocrelizumab/cladribine]
+
+  2. [Symptom management]
+     - [Fatigue: medication adjustment, sleep hygiene, exercise]
+     - [Spasticity: baclofen titration, PT referral]
+     - [Bladder: PVR, anticholinergic, urology referral]
+     - [Pain: neuropathic pain management]
+
+  3. [Cognitive / mood]
+     - [SDMT trend, neuropsych referral if indicated]
+     - [PHQ-9 follow-up, SSRI if indicated]
+
+  4. [Preventive care]
+     - [Vitamin D supplementation]
+     - [Vaccination updates (avoid live vaccines on
+       immunosuppressive DMTs)]
+     - [Bone density if applicable]
+
+  5. [Reproductive planning if applicable]
+     - [DMT washout timeline, contraception counseling]
+
+FOLLOW-UP
+─────────
+[Return interval, next MRI date, next labs, PT/OT referrals,
+subspecialty coordination.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste your de-identified MS clinic data here: MS type, disease history, DMT regimen, relapse history, MRI results, exam findings, disability scores, symptoms, labs, and current medications.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| NMO/MOGAD focus | Replace MS Profile section with: "Antibody status: AQP4 / MOG. Attack history by type (optic neuritis, transverse myelitis, area postrema). Current immunotherapy." |
+| Pediatric MS | Add: "Include developmental milestones, school performance, and pediatric EDSS. Note DMT options approved for pediatric use." |
+| Progressive MS | Add: "Emphasize EDSS trend over time, walking speed decline, upper extremity function, and discussion of siponimod (SPMS) or ocrelizumab (PPMS) eligibility." |
+| Telemedicine visit | Add: "This is a telemedicine encounter. Note exam limitations. Use patient-reported walking ability, grip strength, and visual symptoms in lieu of formal exam." |
+| Pre-DMT switch evaluation | Add: "This visit is to evaluate candidacy for [new DMT]. Document washout requirements from current DMT, pre-treatment screening labs, and vaccination needs." |
+
+---
+
+## Variations
+
+### RRMS on high-efficacy DMT
+
+Use this for patients with relapsing-remitting MS on a high-efficacy DMT (natalizumab, ocrelizumab, ofatumumab, alemtuzumab, cladribine) where monitoring for treatment-specific risks is the primary focus.
+
+<PromptPlayground tool="Claude" title="RRMS High-Efficacy DMT Follow-Up">
+You are an MS specialist writing a follow-up visit note for a patient with RRMS on high-efficacy disease-modifying therapy. After receiving the clinical information below, produce a focused DMT monitoring note.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Document DMT-specific monitoring labs and risk assessments.
+- For natalizumab: JCV antibody index, duration of therapy, prior immunosuppression (PML risk stratification).
+- For anti-CD20 therapies: immunoglobulin levels, infection history, vaccination status.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "RRMS" = relapsing-remitting MS
+- "DMT" = disease-modifying therapy
+- "JCV" = JC virus
+- "PML" = progressive multifocal leukoencephalopathy
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+RRMS DMT MONITORING VISIT
+══════════════════════════════════════════
+
+MS SUMMARY
+──────────
+  Type: RRMS
+  Diagnosis year: ***
+  Current EDSS: ***
+  Last relapse: ***
+  Relapse-free interval: *** months
+
+CURRENT DMT
+───────────
+  Agent: ***
+  Start date: ***
+  Duration on therapy: *** months
+  Total infusions/doses: ***
+  Last dose/infusion: ***
+  Next scheduled: ***
+
+DMT-SPECIFIC MONITORING
+───────────────────────
+  [For natalizumab:]
+  JCV antibody: [Positive / Negative]
+  JCV index: *** (date: ***)
+  Prior immunosuppression: [Yes / No]
+  PML risk estimate: [Low / Intermediate / High]
+  Duration on natalizumab: *** months
+  Extended interval dosing: [Yes (q6w / q8w) / No (q4w)]
+
+  [For anti-CD20 (ocrelizumab, ofatumumab):]
+  Lymphocyte count: ***
+  IgG: *** (trend: ***)
+  IgM: *** (trend: ***)
+  Infection history on therapy: ***
+  Hepatitis B status: ***
+
+  [For alemtuzumab/cladribine:]
+  Lymphocyte count: *** (nadir: ***, date: ***)
+  Thyroid function: TSH ***
+  Renal function: Cr ***, UA ***
+  CBC: ***
+
+INTERVAL HISTORY
+────────────────
+[Symptoms, relapses, infections, DMT tolerability.]
+
+EXAM
+────
+  EDSS: ***
+  Focused neuro exam: [Key findings, changes from prior.]
+
+LAST MRI
+────────
+  Brain: [Date, new lesions, Gd+, atrophy]
+  Spine: [Date, new lesions]
+  Next MRI due: ***
+
+ASSESSMENT & PLAN
+─────────────────
+  1. RRMS on [DMT]: [Efficacy assessment, continue vs.
+     switch. Risk-benefit discussion.]
+  2. DMT monitoring: [Lab schedule, next infusion, risk
+     mitigation (e.g., extended interval dosing for
+     natalizumab, Ig supplementation)]
+  3. Symptoms: ***
+  4. Preventive: [Vaccinations, infection screening]
+  5. Follow-up: ***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: MS history, DMT details, monitoring labs, symptoms, exam, MRI summary.]
+</PromptPlayground>
+
+### Progressive MS management
+
+Use this for patients with secondary progressive or primary progressive MS where the focus is on disability trajectory, symptom management, and rehabilitation rather than relapse prevention.
+
+<PromptPlayground tool="Claude" title="Progressive MS Management Visit">
+You are an MS specialist writing a clinic visit note for a patient with progressive MS. After receiving the clinical information below, produce a structured note focused on disability management and symptom optimization.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Document EDSS trend over time with dates.
+- Emphasize functional outcomes: walking, upper extremity function, bladder, cognition.
+- Include rehabilitation status and goals.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "SPMS" = secondary progressive MS
+- "PPMS" = primary progressive MS
+- "EDSS" = Expanded Disability Status Scale
+- "T25FW" = Timed 25-Foot Walk
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+PROGRESSIVE MS MANAGEMENT VISIT
+══════════════════════════════════════════
+
+MS SUMMARY
+──────────
+  Type: [SPMS / PPMS]
+  Onset: ***
+  Diagnosis: ***
+  Transition to progressive phase: *** (if SPMS)
+  Superimposed relapses: [Yes / No. Last relapse: ***]
+
+DISABILITY TRAJECTORY
+─────────────────────
+  EDSS History:
+    [Date]: EDSS ***
+    [Date]: EDSS ***
+    [Date]: EDSS ***
+    Current: EDSS ***
+  T25FW: *** seconds (prior: ***, date: ***)
+  9-Hole Peg Test: [Dominant ***, Non-dominant ***]
+  SDMT: ***
+  Assistive devices: [Cane / walker / wheelchair / scooter]
+  Ambulation distance: ***
+  Falls in past 6 months: ***
+
+CURRENT THERAPY
+───────────────
+  DMT: [Agent or "None"]
+  Rationale: [Why this DMT or why no DMT]
+
+SYMPTOM INVENTORY
+─────────────────
+  Spasticity: [Severity, distribution, current treatment,
+  response. Modified Ashworth if available.]
+  Fatigue: [FSS score if available, current treatment]
+  Pain: [Type (neuropathic, musculoskeletal), location,
+  severity, treatment]
+  Bladder: [Urgency, frequency, incontinence, PVR,
+  current treatment]
+  Bowel: [Constipation, incontinence, bowel program]
+  Cognitive: [SDMT, subjective complaints, impact on function]
+  Mood: [PHQ-9, current treatment]
+  Sexual dysfunction: ***
+  Sleep: ***
+
+REHABILITATION
+──────────────
+  PT: [Status, frequency, goals, progress]
+  OT: [Status, goals]
+  Speech: [If applicable]
+  Exercise program: [Type, frequency]
+
+EXAM
+────
+  [Full neurological exam with emphasis on motor, tone,
+  gait, and functional assessment.]
+
+MRI
+───
+  Last brain MRI: [Date, findings]
+  Last spine MRI: [Date, findings]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. Progressive MS: [Disease trajectory assessment.
+     DMT continuation vs. discontinuation rationale.]
+  2. Mobility: [PT plan, assistive device needs, fall
+     prevention, home safety evaluation]
+  3. Spasticity: [Medication adjustment, botulinum toxin,
+     intrathecal baclofen candidacy]
+  4. Bladder: [Urology referral, PVR follow-up,
+     medication adjustment]
+  5. Cognition/Mood: [Neuropsych referral, antidepressant]
+  6. Supportive: [Vitamin D, bone health, skin integrity
+     if wheelchair-bound]
+  7. Follow-up: ***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: MS history, disability scores over time, symptoms, therapy, rehab status, exam, MRI.]
+</PromptPlayground>
+
+### NMO/MOGAD follow-up
+
+Use this for patients with neuromyelitis optica spectrum disorder (AQP4+) or MOG antibody disease, where the disease profile, attack types, and treatment approach differ fundamentally from MS.
+
+<PromptPlayground tool="Claude" title="NMO / MOGAD Follow-Up Visit">
+You are a neuroimmunologist writing a clinic visit note for a patient with NMO spectrum disorder or MOG antibody disease. After receiving the clinical information below, produce a structured follow-up note.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Document antibody status (AQP4, MOG) and attack phenotypes separately.
+- Track visual acuity and optical coherence tomography for optic neuritis history.
+- Document current immunotherapy with rationale.
+- Use medical abbreviations throughout. Never expand abbreviations.
+- Reference dates in the format M/D/YY.
+- Do not fabricate clinical information. Write "***" for missing data.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "NMOSD" = neuromyelitis optica spectrum disorder
+- "MOGAD" = MOG antibody disease
+- "AQP4" = aquaporin-4
+- "ON" = optic neuritis
+- "TM" = transverse myelitis
+- "LETM" = longitudinally extensive transverse myelitis
+- "OCT" = optical coherence tomography
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+NMO / MOGAD CLINIC VISIT
+══════════════════════════════════════════
+
+DISEASE PROFILE
+───────────────
+  Diagnosis: [NMOSD / MOGAD]
+  Antibody: [AQP4+ / MOG+ / seronegative]
+  Antibody titer: *** (date: ***)
+  Year of onset: ***
+  Total attacks: ***
+
+ATTACK HISTORY (chronological)
+──────────────────────────────
+  [Date]: [Type (ON, TM, LETM, area postrema, brainstem,
+  cerebral). Laterality. Treatment (IVMP, PLEX, IVIG).
+  Recovery (complete / partial, residual deficit).]
+
+CURRENT IMMUNOTHERAPY
+─────────────────────
+  Agent: [Eculizumab, satralizumab, inebilizumab,
+  rituximab, azathioprine, mycophenolate, tocilizumab]
+  Dose: ***
+  Route: ***
+  Start date: ***
+  Prior therapies: [Agent, dates, reason for switch]
+
+INTERVAL HISTORY
+────────────────
+[Symptoms since last visit: visual changes, limb weakness,
+sensory symptoms, pain, bladder, nausea/vomiting (area
+postrema). Any suspected attacks.]
+
+EXAM
+────
+  Visual acuity: OD ***, OS ***
+  Color vision: OD ***/14, OS ***/14
+  RAPD: [Present / absent]
+  Fundoscopy: [Disc pallor, edema]
+  OCT (RNFL thickness): OD *** microns, OS *** microns
+  Motor: ***
+  Sensory: [Sensory level if applicable]
+  Gait: ***
+
+LABS
+────
+  CBC: ***
+  CMP: ***
+  Immunoglobulins: ***
+  [Agent-specific labs]
+  AQP4/MOG titer: *** (if rechecked)
+
+MRI
+───
+  Brain: [Date, findings]
+  Orbits: [Date, findings]
+  Spine: [Date, findings]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. [NMOSD/MOGAD]: [Attack-free interval, current
+     disease status, immunotherapy efficacy.]
+  2. Immunotherapy: [Continue / adjust. Monitoring plan.]
+  3. Residual deficits: [Visual, motor, sensory. Rehab plan.]
+  4. Preventive: [Vaccinations (avoid live on immunosuppression),
+     infection monitoring]
+  5. Follow-up: ***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: diagnosis, antibody status, attack history, immunotherapy, symptoms, exam, labs, MRI.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+34-year-old female with RRMS diagnosed 2019, currently on ocrelizumab since 3/24. Prior DMTs: glatiramer acetate (2019-2021, switched for breakthrough relapse), dimethyl fumarate (2021-2024, switched for 2 new T2 lesions on annual MRI despite clinical stability). Total lifetime relapses: 4 (last relapse 6/23: left optic neuritis, treated with IV methylprednisolone 1g x5 days, partial recovery with residual color desaturation OS). EDSS 2.0 (stable since 2022). T25FW 4.8 seconds. SDMT 52/110 (prior 55 on 9/24). No relapses since starting ocrelizumab. Last infusion 12/15/25. Reports persistent fatigue (FSS 5.4), mild bilateral LE spasticity managed with baclofen 10mg TID, occasional urinary urgency without incontinence, no PVR checked. PHQ-9: 8/27 (mild). Working full-time as a teacher. Driving independently. No falls. Vitamin D 32. Exam: alert, oriented, CN intact except mildly diminished color vision OS (11/14 Ishihara), no RAPD, full strength, mildly increased tone bilateral LE, brisk reflexes bilateral LE with upgoing toes bilaterally, gait normal without device, tandem mildly unsteady. Brain MRI 1/10/26: no new T2 or Gd+ lesions, stable lesion burden (approximately 15 periventricular, 3 juxtacortical, 2 infratentorial), mild volume loss. Cervical spine MRI 1/10/26: 2 lesions at C3 and C5, stable, no enhancement. Labs 12/1/25: WBC 4.8, lymphocytes 800, IgG 680 (prior 720 on 6/25), IgM 38, LFTs wnl. JCV antibody negative (6/25). Hepatitis B negative. COVID and flu vaccines up to date.
+
+**LLM output:**
+
+MULTIPLE SCLEROSIS CLINIC VISIT
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Follow-up
+
+MS PROFILE
+──────────
+  Type: RRMS
+  Year of onset: 2019
+  Year of diagnosis: 2019
+  Diagnostic criteria: McDonald 2017
+  Total lifetime relapses: 4
+  Last relapse: 6/23 (left optic neuritis, treated with IVMP 1g x5 days, partial recovery with residual color desaturation OS)
+
+DISEASE-MODIFYING THERAPY
+─────────────────────────
+  Current DMT
+  ───────────
+  Agent: Ocrelizumab
+  Dose: Standard (600 mg IV q6 months)
+  Route: IV infusion
+  Start date: 3/24
+  Last infusion: 12/15/25
+  Next scheduled: 6/26
+
+  DMT Monitoring
+  ──────────────
+  JCV antibody: Negative (6/25)
+  Lymphocyte count: 800 (12/1/25)
+  IgG: 680 (12/1/25; prior 720 on 6/25)
+  IgM: 38 (12/1/25)
+  LFTs: WNL (12/1/25)
+  Hepatitis B: Negative
+
+  Prior DMTs (chronological)
+  ──────────────────────────
+  1. Glatiramer acetate (2019-2021): Switched for breakthrough relapse.
+  2. Dimethyl fumarate (2021-2024): Switched for 2 new T2 lesions on annual MRI despite clinical stability.
+
+RELAPSE HISTORY
+───────────────
+  Relapses in past 12 months: 0
+  Relapses in past 24 months: 0
+  Relapse-free interval: 33 months (since 6/23)
+
+INTERVAL HISTORY
+────────────────
+Patient reports no new or worsening neurological symptoms since her last visit. She continues to experience persistent fatigue (FSS 5.4) that is most pronounced in the afternoon, though she manages her teaching schedule without time off. Bilateral LE spasticity remains present and is partially controlled on baclofen 10 mg TID; she describes occasional leg stiffness after prolonged standing. She reports intermittent urinary urgency without incontinence, occurring a few times per week. No neuropathic pain. No heat sensitivity. Cognition subjectively stable, though she notes occasional word-finding difficulty at the end of long days. Mood is mildly low (PHQ-9: 8). She is working full-time, driving independently, and has had no falls.
+
+CURRENT MEDICATIONS
+───────────────────
+  DMT: Ocrelizumab 600 mg IV q6 months
+  Symptom management: Baclofen 10 mg TID
+  Other: Vitamin D supplementation (dose not specified)
+
+PHYSICAL EXAMINATION
+────────────────────
+
+  Vitals
+  ──────
+  T ***  HR ***  BP ***
+
+  General: Alert, well-appearing, in no distress.
+
+  Neurological Exam
+  ─────────────────
+  Mental status: Alert, oriented, normal affect.
+  Cranial nerves:
+    Visual acuity: ***
+    Color vision: OD 14/14, OS 11/14 (Ishihara)
+    Pupils: No RAPD
+    Fundoscopy: ***
+    Extraocular movements: Full, no nystagmus, no INO
+    Remaining CN: Intact
+  Motor: 5/5 strength in all extremities. Mildly increased tone bilateral LE (modified Ashworth 1).
+  Sensory: ***
+  Coordination: ***
+  Gait: Normal without assistive device. Tandem mildly unsteady.
+  Reflexes: Brisk bilateral LE, upgoing toes bilaterally. UE reflexes normal.
+
+DISABILITY ASSESSMENT
+─────────────────────
+  EDSS: 2.0 (current)
+  Prior EDSS: 2.0 (stable since 2022)
+  EDSS trend: Stable
+  T25FW: 4.8 seconds
+  9-Hole Peg Test: ***
+  SDMT: 52/110 (prior 55/110, 9/24)
+
+MRI SURVEILLANCE
+────────────────
+  Brain MRI: 1/10/26
+    Lesion burden: Approximately 15 periventricular, 3 juxtacortical, 2 infratentorial
+    New T2/FLAIR lesions: None
+    Gd+ lesions: None
+    Brain atrophy: Mild volume loss
+    Comparison: Prior MRI (date not specified)
+
+  Spine MRI: 1/10/26
+    Lesion burden: 2 lesions (C3, C5)
+    New lesions: None
+    Gd+ lesions: None
+
+LABS
+────
+  CBC: WBC 4.8, lymphocytes 800
+  IgG: 680 (prior 720 on 6/25, downtrending)
+  IgM: 38
+  LFTs: WNL
+  JCV antibody: Negative (6/25)
+  Vitamin D (25-OH): 32
+
+SCREENING
+─────────
+  PHQ-9: 8/27 (mild depression)
+  Vaccination status: COVID and influenza up to date. No live vaccines.
+  Pregnancy planning: Not discussed.
+
+ASSESSMENT
+──────────
+34-year-old female with RRMS diagnosed 2019, on ocrelizumab since 3/24, presenting for routine follow-up. No clinical relapses in 33 months. MRI brain and cervical spine stable with no new or enhancing lesions. EDSS stable at 2.0. SDMT mildly declined (55 to 52) without clear clinical correlate. IgG mildly downtrending (720 to 680) on serial monitoring.
+
+  1. RRMS, no evidence of disease activity on ocrelizumab
+  2. Fatigue, persistent
+  3. Spasticity, bilateral LE, partially controlled
+  4. Urinary urgency
+  5. Mild depression (PHQ-9 8)
+  6. Mild cognitive processing speed decline on SDMT
+
+PLAN
+────
+  1. RRMS / DMT
+     - Continue ocrelizumab 600 mg IV q6 months; next infusion 6/26
+     - MRI brain and cervical spine with and without contrast in 12 months (1/27)
+     - Recheck JCV antibody at next lab draw
+     - Monitor IgG trend; currently 680, will recheck prior to next infusion. Consider holding dose if IgG &lt;400 or recurrent infections
+     - Lymphocyte count 800, acceptable for continued dosing
+
+  2. Fatigue
+     - FSS 5.4, impacting afternoon function
+     - Discuss trial of modafinil 100 mg QAM if interested
+     - Reinforce sleep hygiene, regular exercise
+
+  3. Spasticity
+     - Continue baclofen 10 mg TID
+     - Refer to PT for stretching program and LE strengthening
+     - Consider baclofen dose increase if symptoms worsen
+
+  4. Urinary urgency
+     - Check PVR at next visit
+     - If PVR normal, consider oxybutynin 5 mg BID PRN
+     - Urology referral if symptoms worsen or PVR elevated
+
+  5. Mood
+     - PHQ-9 8 (mild). Patient is functioning well but reports low mood
+     - Discussed counseling referral; patient will consider
+     - Recheck PHQ-9 at next visit; start SSRI if worsening
+
+  6. Cognitive
+     - SDMT declined from 55 to 52; within test-retest variability but will trend
+     - Repeat SDMT at next visit
+     - Consider neuropsych referral if further decline
+
+  7. Preventive
+     - Vitamin D 32; continue supplementation, target ≥40
+     - Vaccinations current; no live vaccines while on ocrelizumab
+
+FOLLOW-UP
+─────────
+Return in 6 months (prior to next ocrelizumab infusion). Labs (CBC, CMP, IgG, IgM) 2 weeks prior to infusion. MRI brain and C-spine in 12 months. PT referral placed.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **EDSS is not a number the AI can calculate.** The AI will document whatever EDSS you provide, but it cannot score the EDSS from exam findings. If you provide an exam without an EDSS, the AI may attempt to assign one. Always verify or calculate EDSS yourself.
+- **JCV index thresholds.** A JCV index above 1.5 on natalizumab without prior immunosuppression carries a PML risk of approximately 1 in 100 over 2 years. The AI will document the index but may not flag the risk implication. Know your thresholds.
+- **Immunoglobulin decline on anti-CD20 therapy.** IgG levels progressively decline on long-term ocrelizumab and rituximab. The AI will note the trend if you provide serial values, but the clinical decision (hold therapy, supplement Ig, monitor more frequently) requires your judgment. An IgG below 400 with recurrent infections is a common inflection point.
+- **DMT washout for pregnancy.** Each DMT has a different washout requirement. The AI cannot verify current washout guidelines; confirm against the prescribing information.
+- **Fatigue and depression overlap.** The FSS and PHQ-9 both capture fatigue. If both scores are elevated, the plan should address whether fatigue is MS-related, depression-related, or both; the AI may treat them as separate problems without making the connection.
+- **"No evidence of disease activity" (NEDA) is a specific claim.** NEDA-3 requires no relapses, no new/enlarging MRI lesions, and no confirmed disability worsening. NEDA-4 adds brain volume loss. The AI may use the term loosely. Confirm that all three (or four) criteria are actually met before accepting the NEDA label.
+- **Live vaccine restrictions.** Patients on fingolimod, siponimod, ocrelizumab, and other immunosuppressive DMTs should not receive live vaccines. The AI will note vaccination status, but verify that no live vaccines were administered during immunosuppressive therapy.
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) - for inpatient MS relapse management notes
+- [Consult Note](/templates/consult-note) - when neurology is consulted for a new demyelinating event
+- [Referral Letter](/templates/referral-letter) - for referring patients to an MS center
+- [Medication Reconciliation](/templates/medication-reconciliation) - critical when switching DMTs with washout requirements

@@ -1,10 +1,11 @@
 ---
 title: "Diagnostic Workup Planner"
 category: clinical-reasoning
-targetTool: openai
+targetTool: any
 workflow: clinical-reasoning
 tags: [intermediate, clinical-reasoning, workup, diagnostics, test-ordering]
-lastUpdated: 2026-03-22
+lastUpdated: 2026-03-27
+socialPost: "Working differential. Now build the workup. A template that organizes tests into urgency tiers, maps decision branch points, flags what can wait for outpatient follow-up, and includes cost considerations."
 ---
 
 import Callout from '../../components/Callout.astro';
@@ -12,52 +13,115 @@ import PromptPlayground from '../../components/PromptPlayground.astro';
 
 ## When to use this
 
-Use this template when you have a working differential diagnosis and need to build a prioritized, rationale-driven diagnostic workup plan organized by urgency and yield.
-
-Converts a clinical impression and differential diagnosis into a prioritized, rationale-driven diagnostic workup plan. Provide your leading diagnoses and the clinical context, and get a structured list of tests organized by urgency and diagnostic yield.
+Use this template when you have a working differential and need to build a structured diagnostic workup plan. It organizes tests into urgency tiers, maps decision branch points ("if X, then Y"), flags what can wait for outpatient follow-up, and includes estimated cost considerations to support test stewardship.
 
 <Callout type="hipaa">
   De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
-</Callout>
-
-<Callout type="evidence">
-  Diagnostic test recommendations reflect general clinical principles. Institutional protocols, local prevalence, patient values, and cost constraints must all factor into actual test-ordering decisions. AI output does not replace clinical judgment or specialty consultation.
 </Callout>
 
 ---
 
 ## The prompt
 
-<PromptPlayground tool="ChatGPT (GPT-4o)" title="Diagnostic Workup Planner">
-You are an experienced attending physician helping to plan a diagnostic workup for an undifferentiated clinical presentation.
+<PromptPlayground tool="Any LLM (GPT-4o, Claude, etc.)" title="Diagnostic Workup Planner">
+You are an experienced attending physician planning a diagnostic workup for a clinical presentation with an established differential diagnosis. Generate a structured, tiered workup plan following the rules, vocabulary, and output format below.
 
-Given the clinical scenario and differential diagnoses below, generate a structured workup plan organized by priority tier:
+### Rules
 
-**Tier 1: Immediate (order now, results needed within hours)**
-List tests that must be obtained urgently to rule out dangerous diagnoses or guide immediate management. For each test:
-- Test name
-- What diagnosis or question it addresses
-- Threshold that would change management
+1. Organize tests by urgency tier, not by comprehensiveness. Every test must justify its tier placement.
+2. For each test, state what diagnosis or clinical question it addresses and the specific threshold that would change management (e.g., "troponin >0.04 ng/mL triggers cardiology consult," not "elevated troponin is concerning").
+3. Include decision branch points for the 3-4 most pivotal tests: what you do if the result is positive versus negative.
+4. Identify tests that can safely wait for outpatient follow-up. Not everything belongs in the acute workup.
+5. Do not fabricate test sensitivities, specificities, or costs. State them only if well-established. For cost estimates, use approximate ranges ($ / $$ / $$$) rather than exact figures.
+6. Do not infer clinical information not explicitly provided in the input.
+7. Include a "What to Avoid" section: tests that seem indicated but are low-yield, redundant, or potentially harmful in this specific scenario.
+8. Reference clinical decision rules by name where applicable (e.g., "Wells score under 2 with negative D-dimer excludes PE per PERC pathway").
 
-**Tier 2: Early (order now, results within 24-48 hours)**
-List tests that are diagnostically important but not immediately time-critical. Include the same format as Tier 1.
+### Vocabulary
 
-**Tier 3: Deferred (pending Tier 1/2 results or outpatient)**
-List tests that can wait for initial results before ordering, or that are appropriate in an outpatient or follow-up setting.
+- DDx: differential diagnosis
+- STAT: immediately, results needed within 1-2 hours
+- POC: point of care
+- CTPA: CT pulmonary angiography
+- CTA: CT angiography
+- MRI: magnetic resonance imaging
+- MRCP: magnetic resonance cholangiopancreatography
+- LP: lumbar puncture
+- EGD: esophagogastroduodenoscopy
+- US: ultrasound
+- AKI: acute kidney injury
+- CKD: chronic kidney disease
 
-**Procedures / Consultations**
-List any procedures (e.g., lumbar puncture, paracentesis, biopsy) or specialty consultations indicated, with the specific question to be answered.
+### Output format
 
-**Decision Branch Points**
-Briefly describe how key Tier 1/2 results would shift the workup. Use "If [result], then [next step]" format for the 2–3 most pivotal tests.
-
-**What to Avoid**
-List 2–3 tests that might seem indicated but are low-yield or potentially harmful in this specific scenario. Briefly explain why.
-
-Rules:
-- Prioritize tests by diagnostic yield and clinical urgency, not by comprehensiveness.
-- Do not fabricate test sensitivities, specificities, or cutoff values. State them only if well-established.
-- Do not infer clinical information not explicitly provided below.
+```
+╔══════════════════════════════════════════════════╗
+║              WORKING DIAGNOSIS                    ║
+╠══════════════════════════════════════════════════╣
+║ Leading diagnosis: [diagnosis]                    ║
+║ Must rule out: [dangerous diagnoses]              ║
+╠══════════════════════════════════════════════════╣
+║   TIER 1: ORDER NOW (results needed urgently)     ║
+╠══════════════════════════════════════════════════╣
+║ Test            │ Addresses       │ Threshold     ║
+║─────────────────┼─────────────────┼───────────────║
+║ [Test name]     │ [Dx/question]   │ [value that   ║
+║   (STAT)        │                 │  changes mgmt]║
+║ [Test name]     │ [Dx/question]   │ [threshold]   ║
+║   (STAT)        │                 │               ║
+║ [Continue]                                        ║
+╠══════════════════════════════════════════════════╣
+║   TIER 2: ORDER TODAY (results can wait 24-48h)   ║
+╠══════════════════════════════════════════════════╣
+║ Test            │ Addresses       │ Threshold     ║
+║─────────────────┼─────────────────┼───────────────║
+║ [Test name]     │ [Dx/question]   │ [threshold]   ║
+║ [Test name]     │ [Dx/question]   │ [threshold]   ║
+║ [Continue]                                        ║
+╠══════════════════════════════════════════════════╣
+║  TIER 3: CONSIDER IF TIER 1-2 DON'T CLARIFY      ║
+╠══════════════════════════════════════════════════╣
+║ Test            │ Addresses       │ When to order ║
+║─────────────────┼─────────────────┼───────────────║
+║ [Test name]     │ [Dx/question]   │ [trigger for  ║
+║                 │                 │  ordering]    ║
+║ [Continue]                                        ║
+╠══════════════════════════════════════════════════╣
+║          DECISION BRANCH POINTS                   ║
+╠══════════════════════════════════════════════════╣
+║ IF [Test A] returns [positive/elevated]:          ║
+║   → [Next step with timeframe]                    ║
+║ IF [Test A] returns [negative/normal]:            ║
+║   → [Alternative action]                          ║
+║                                                   ║
+║ IF [Test B] returns [result]:                     ║
+║   → [Action]                                      ║
+║ IF [Test B] returns [result]:                     ║
+║   → [Action]                                      ║
+║                                                   ║
+║ [Continue for 3-4 pivotal tests]                  ║
+╠══════════════════════════════════════════════════╣
+║       ESTIMATED COST CONSIDERATIONS               ║
+╠══════════════════════════════════════════════════╣
+║ $ (low cost): [tests, e.g., CBC, BMP, UA]        ║
+║ $$ (moderate): [tests, e.g., CT, US, cultures]   ║
+║ $$$ (high cost): [tests, e.g., MRI, biopsy,       ║
+║   specialized send-outs]                          ║
+║ Cost-saving note: [any test that can be deferred  ║
+║   without clinical risk]                          ║
+╠══════════════════════════════════════════════════╣
+║       WHAT CAN WAIT FOR OUTPATIENT                ║
+╠══════════════════════════════════════════════════╣
+║ • [Test]: [Rationale for deferral + follow-up     ║
+║   timeline, e.g., "schedule within 2 weeks"]      ║
+║ • [Test]: [Rationale + timeline]                  ║
+╠══════════════════════════════════════════════════╣
+║              WHAT TO AVOID                        ║
+╠══════════════════════════════════════════════════╣
+║ • [Test]: [Why it is low-yield or harmful here]   ║
+║ • [Test]: [Reason to avoid]                       ║
+╚══════════════════════════════════════════════════╝
+```
 
 ---
 CLINICAL SCENARIO:
@@ -81,11 +145,12 @@ Must-not-miss: [ANY HIGH-ACUITY DIAGNOSES TO RULE OUT]
 
 | Element | How to Adjust |
 |---------|---------------|
-| Setting | Add: "This is an outpatient visit; limit workup to tests available in clinic or sendout" |
-| Resource constraints | Add: "Prioritize the 3 highest-yield tests given limited resources" |
-| Prior workup | Add: "These tests were already obtained [LIST]. Focus the plan on what remains." |
-| Subspecialty | Add: "This is a [nephrology / hematology / rheumatology] workup; use specialty-appropriate sequencing" |
-| Patient factors | Add: "This patient has [CKD / contrast allergy / coagulopathy]; adjust accordingly" |
+| Setting | Add: "This is an outpatient visit. Limit workup to tests available in clinic or via sendout labs." |
+| Resource constraints | Add: "Prioritize the 3-5 highest-yield tests given limited resources. No MRI or CTA available." |
+| Prior workup | Add: "These tests were already obtained: [LIST]. Focus the plan on what remains." |
+| Subspecialty | Add: "This is a [nephrology / hematology / rheumatology] workup. Use specialty-appropriate test sequencing." |
+| Patient factors | Add: "This patient has [CKD / contrast allergy / coagulopathy / pregnancy]. Adjust test selection accordingly." |
+| Cost focus | Add: "This patient is uninsured. Minimize cost while maintaining diagnostic safety." |
 
 ---
 
@@ -94,32 +159,57 @@ Must-not-miss: [ANY HIGH-ACUITY DIAGNOSES TO RULE OUT]
 ### Resource-Limited Setting Workup
 
 <PromptPlayground tool="Any LLM (GPT-4o, Claude, etc.)" title="Resource-Limited Workup Planner">
-You are an experienced physician planning a diagnostic workup in a resource-limited setting (rural clinic, community hospital without advanced imaging, or international setting with constrained lab availability).
+You are an experienced physician planning a diagnostic workup in a resource-limited setting (rural clinic, community hospital without advanced imaging, or international setting with constrained lab availability). Follow the rules, vocabulary, and output format below.
 
-Given the clinical scenario and differential below, generate a workup plan that prioritizes widely available, low-cost, high-yield tests. Assume you may NOT have access to: MRI, CT angiography, interventional radiology, specialized send-out labs, or subspecialty consultation on the same day.
+### Rules
 
-**Available Now (bedside and basic lab)**
-For each test:
-- Test name (e.g., point-of-care ultrasound, CBC, BMP, urinalysis, ECG, plain radiograph)
-- What diagnosis it addresses
-- Key finding that would change management
+1. Prioritize tests by availability, cost, and yield, in that order. Do not recommend tests that require resources you may not have.
+2. Assume you may NOT have access to: MRI, CT angiography, interventional radiology, specialized send-out labs, or same-day subspecialty consultation.
+3. Specify transfer criteria explicitly: what clinical findings or test results should trigger transfer to a higher level of care.
+4. State explicitly when clinical observation over time is more valuable than additional testing.
+5. Describe how to synthesize available bedside and basic lab data to make a working management decision without advanced imaging or specialty labs.
+6. Do not infer clinical information not provided.
 
-**Available with Delay (send-out labs or transfer for imaging)**
-For each:
-- Test name
-- Turnaround time expectation
-- What you do while waiting for the result
+### Vocabulary
 
-**Transfer Criteria**
-Describe the specific clinical findings or test results that should trigger transfer to a higher level of care. Be explicit about what constitutes "too sick to manage here."
+- POC: point of care
+- POCUS: point-of-care ultrasound
+- FBC: full blood count (equivalent to CBC)
+- U&E: urea and electrolytes
+- CXR: chest X-ray
 
-**Clinical Reasoning Without Advanced Testing**
-In 3–4 sentences, describe how you would synthesize the available bedside and basic lab data to make a working management decision without advanced imaging or specialty labs.
+### Output format
 
-Rules:
-- Prioritize tests by availability, cost, and yield in this order.
-- Do not recommend tests that require resources you may not have.
-- State explicitly when clinical observation over time is more valuable than additional testing.
+```
+╔══════════════════════════════════════════════════╗
+║    AVAILABLE NOW (bedside and basic lab)           ║
+╠══════════════════════════════════════════════════╣
+║ Test            │ Addresses       │ Key Finding   ║
+║─────────────────┼─────────────────┼───────────────║
+║ [Test, e.g.,    │ [Dx/question]   │ [finding that ║
+║  POCUS, CBC,    │                 │  changes mgmt]║
+║  urinalysis]    │                 │               ║
+╠══════════════════════════════════════════════════╣
+║  AVAILABLE WITH DELAY (send-out or transfer)      ║
+╠══════════════════════════════════════════════════╣
+║ Test            │ Turnaround      │ While Waiting ║
+║─────────────────┼─────────────────┼───────────────║
+║ [Test]          │ [expected time] │ [interim mgmt]║
+╠══════════════════════════════════════════════════╣
+║            TRANSFER CRITERIA                      ║
+╠══════════════════════════════════════════════════╣
+║ Transfer if:                                      ║
+║ • [Specific finding or test result]               ║
+║ • [Clinical deterioration marker]                 ║
+║ Too sick to manage here means: [explicit           ║
+║   definition for this case]                        ║
+╠══════════════════════════════════════════════════╣
+║  CLINICAL REASONING WITHOUT ADVANCED TESTING      ║
+╠══════════════════════════════════════════════════╣
+║ [3-4 sentences: How to synthesize available data  ║
+║  to make a working management decision]            ║
+╚══════════════════════════════════════════════════╝
+```
 
 ---
 CLINICAL SCENARIO:
@@ -140,37 +230,66 @@ Must-not-miss: [HIGH-ACUITY DIAGNOSES TO RULE OUT]
 ### Outpatient Workup Planner
 
 <PromptPlayground tool="Any LLM (GPT-4o, Claude, etc.)" title="Outpatient Workup Planner">
-You are an experienced primary care physician planning a diagnostic workup for a stable outpatient presentation where the diagnosis is uncertain.
+You are an experienced primary care physician planning a diagnostic workup for a stable outpatient presentation where the diagnosis is uncertain. The patient will go home today. Follow the rules, vocabulary, and output format below.
 
-Given the clinical scenario and differential below, generate a structured outpatient workup plan. The patient will be going home today; all tests will be ordered as outpatient labs or scheduled imaging.
+### Rules
 
-**Initial Outpatient Labs (order today)**
-For each test:
-- Test name
-- What diagnosis or question it addresses
-- When to expect results and how to follow up
+1. All tests must be obtainable in an outpatient setting (office labs, sendout labs, scheduled imaging, referrals).
+2. Include a clear safety net: specific symptoms or signs that should prompt the patient to go to the emergency department before follow-up.
+3. Identify tests commonly ordered in this scenario that should wait until initial results return. Explain why ordering them now is premature.
+4. Specify follow-up timeline: when to review results, what to do if inconclusive.
+5. Do not infer clinical information not provided.
+6. Include the specific clinical question for each referral, not just the specialty name.
 
-**Imaging to Schedule**
-For each study:
-- Modality and body area
-- What you're looking for
-- Urgency (routine vs. expedited) and why
+### Vocabulary
 
-**Referrals**
-List any specialty referrals needed, with the specific clinical question for each.
+- FIT: fecal immunochemical test
+- tTG-IgA: tissue transglutaminase IgA (celiac screening)
+- ANA: antinuclear antibody
+- ESR: erythrocyte sedimentation rate
+- CRP: C-reactive protein
+- TSH: thyroid-stimulating hormone
 
-**Safety Net Plan**
-- Specific symptoms or signs that should prompt the patient to go to the emergency department before follow-up
-- Timeline for follow-up visit to review results
-- What to do if results are inconclusive
+### Output format
 
-**What NOT to Order Yet**
-List 1–2 tests that are commonly ordered in this scenario but should wait until initial results return. Explain why ordering them now would be premature or wasteful.
-
-Rules:
-- All tests must be obtainable in an outpatient setting.
-- Include a clear safety net for the patient between now and follow-up.
-- Do not infer clinical information not provided below.
+```
+╔══════════════════════════════════════════════════╗
+║      INITIAL OUTPATIENT LABS (order today)         ║
+╠══════════════════════════════════════════════════╣
+║ Test            │ Addresses       │ Follow-up     ║
+║─────────────────┼─────────────────┼───────────────║
+║ [Test]          │ [Dx/question]   │ [when to      ║
+║                 │                 │  expect, how   ║
+║                 │                 │  to follow up] ║
+╠══════════════════════════════════════════════════╣
+║         IMAGING TO SCHEDULE                       ║
+╠══════════════════════════════════════════════════╣
+║ Study           │ Looking For     │ Urgency       ║
+║─────────────────┼─────────────────┼───────────────║
+║ [Modality]      │ [target finding]│ [routine /     ║
+║                 │                 │  expedited]    ║
+╠══════════════════════════════════════════════════╣
+║              REFERRALS                            ║
+╠══════════════════════════════════════════════════╣
+║ Specialty       │ Clinical Question               ║
+║─────────────────┼─────────────────────────────────║
+║ [Specialty]     │ [Specific question to answer]   ║
+╠══════════════════════════════════════════════════╣
+║           SAFETY NET PLAN                         ║
+╠══════════════════════════════════════════════════╣
+║ Go to the ED if:                                  ║
+║ • [Specific symptom or sign]                      ║
+║ • [Specific symptom or sign]                      ║
+║ Follow-up visit: [timeline to review results]     ║
+║ If results inconclusive: [next action]            ║
+╠══════════════════════════════════════════════════╣
+║         WHAT NOT TO ORDER YET                     ║
+╠══════════════════════════════════════════════════╣
+║ • [Test]: [Why ordering now is premature]         ║
+║ • [Test]: [Why it should wait for initial          ║
+║   results]                                        ║
+╚══════════════════════════════════════════════════╝
+```
 
 ---
 CLINICAL SCENARIO:
@@ -190,40 +309,71 @@ DIFFERENTIAL DIAGNOSES:
 ### Urgent Inpatient Workup
 
 <PromptPlayground tool="Any LLM (GPT-4o, Claude, etc.)" title="Urgent Inpatient Workup Planner">
-You are a hospital medicine attending planning the diagnostic workup for a newly admitted patient with an urgent but not immediately emergent presentation.
+You are a hospital medicine attending planning the diagnostic workup for a newly admitted patient with an urgent but not immediately emergent presentation. The patient is hemodynamically stable but requires inpatient-level evaluation. Follow the rules, vocabulary, and output format below.
 
-Given the clinical scenario and differential below, generate a workup plan for the first 24 hours of admission. The patient is hemodynamically stable but requires inpatient-level evaluation.
+### Rules
 
-**Admission Orders (first 2 hours)**
-For each test:
-- Test name and timing (stat vs. routine)
-- What diagnosis it addresses
-- Action threshold (the result that changes management tonight)
+1. Organize by time: what happens now (first 2 hours), overnight (monitoring and repeat studies), and in the morning (hours 6-24).
+2. Be explicit about overnight monitoring parameters: vitals frequency, nursing call criteria, repeat lab triggers.
+3. For each test, state the action threshold: the result that changes management tonight versus a result that can wait for the morning team.
+4. Include a 24-hour decision point: what clinical picture at 24 hours would make you escalate care, continue the current plan, or transition toward discharge.
+5. Do not infer clinical information not provided.
+6. Specify consultation urgency: tonight versus morning.
 
-**Overnight Monitoring Plan**
-- Specific vitals frequency and parameters to watch
-- Nursing call criteria (what findings should prompt you to be called)
-- Repeat labs if indicated (which labs, when, and why)
+### Vocabulary
 
-**Morning Workup Plan (hours 6–24)**
-For each test:
-- Test name
-- What it addresses
-- How the overnight data changes whether you order it
+- STAT: immediately
+- Q[N]h: every N hours
+- PRN: as needed
+- NPO: nil per os
+- tele: telemetry monitoring
+- CBC: complete blood count
+- BMP: basic metabolic panel
+- ABG: arterial blood gas
 
-**Consultations to Place**
-For each:
-- Service to consult
-- Specific question
-- Urgency (tonight vs. morning)
+### Output format
 
-**24-Hour Decision Point**
-In 2–3 sentences, describe what clinical picture at the 24-hour mark would make you (a) escalate care, (b) continue the current plan, or (c) transition toward discharge.
-
-Rules:
-- Organize by time: what happens now, overnight, and in the morning.
-- Be explicit about overnight monitoring parameters.
-- Do not infer clinical information not provided.
+```
+╔══════════════════════════════════════════════════╗
+║     ADMISSION ORDERS (first 2 hours)              ║
+╠══════════════════════════════════════════════════╣
+║ Test (timing)   │ Addresses       │ Action        ║
+║─────────────────┼─────────────────┼───────────────║
+║ [Test] (STAT)   │ [Dx/question]   │ [threshold    ║
+║                 │                 │  that changes  ║
+║                 │                 │  mgmt tonight] ║
+║ [Continue]                                        ║
+╠══════════════════════════════════════════════════╣
+║        OVERNIGHT MONITORING PLAN                  ║
+╠══════════════════════════════════════════════════╣
+║ Vitals: [frequency and parameters]                ║
+║ Nursing call criteria:                            ║
+║ • Call if: [specific threshold]                   ║
+║ • Call if: [specific threshold]                   ║
+║ Repeat labs: [which, when, why]                   ║
+╠══════════════════════════════════════════════════╣
+║    MORNING WORKUP PLAN (hours 6-24)               ║
+╠══════════════════════════════════════════════════╣
+║ Test            │ Addresses       │ Depends On    ║
+║─────────────────┼─────────────────┼───────────────║
+║ [Test]          │ [Dx/question]   │ [how overnight ║
+║                 │                 │  data affects  ║
+║                 │                 │  this order]   ║
+╠══════════════════════════════════════════════════╣
+║         CONSULTATIONS TO PLACE                    ║
+╠══════════════════════════════════════════════════╣
+║ Service         │ Question           │ Urgency    ║
+║─────────────────┼────────────────────┼────────────║
+║ [Service]       │ [Specific question]│ Tonight /  ║
+║                 │                    │ Morning    ║
+╠══════════════════════════════════════════════════╣
+║         24-HOUR DECISION POINT                    ║
+╠══════════════════════════════════════════════════╣
+║ ESCALATE if: [specific findings]                  ║
+║ CONTINUE PLAN if: [expected trajectory]           ║
+║ TRANSITION TO DISCHARGE if: [resolution markers] ║
+╚══════════════════════════════════════════════════╝
+```
 
 ---
 CLINICAL SCENARIO:
@@ -247,57 +397,170 @@ Must-not-miss: [HIGH-ACUITY DIAGNOSES STILL ON THE TABLE]
 
 > **Prompt used:** Diagnostic Workup Planner for a 72-year-old female with new-onset confusion.
 >
-> **Clinical scenario provided:** 72F with HTN, type 2 DM, CKD stage 3. Brought in by family for 2 days of progressive confusion and decreased oral intake. No fever at home. Vitals: HR 98, BP 102/64, RR 18, O2 96% RA, Temp 37.8C. Exam: oriented to person only, dry mucous membranes, no focal neuro deficits, lungs clear, abdomen soft. No labs or imaging yet. Setting: Emergency department. DDx: UTI/urosepsis, hypovolemia/AKI on CKD, metabolic encephalopathy, stroke.
+> **Clinical scenario provided:** 72F with HTN, type 2 diabetes mellitus (T2DM), chronic kidney disease (CKD) stage 3. Brought in by family for 2 days of progressive confusion and decreased oral intake. No fever at home. Vitals: HR 98, BP 102/64, RR 18, O2 96% on room air, Temp 37.8C. Exam: oriented to person only, dry mucous membranes, no focal neurological deficits, lungs clear, abdomen soft. No labs or imaging yet. Setting: Emergency department. DDx: urinary tract infection (UTI)/urosepsis, hypovolemia/acute kidney injury (AKI) on CKD, metabolic encephalopathy, stroke.
 
-**Tier 1: Immediate (order now, results needed within hours)**
-- **CBC with differential** — Addresses infection/sepsis. WBC >12 or &lt;4 with bandemia supports infectious etiology.
-- **BMP (Chem-8)** — Addresses AKI, electrolyte derangement, hyperglycemia. Creatinine above her baseline (likely >1.8-2.0) confirms AKI. Sodium &lt;125 or >155 could explain encephalopathy.
-- **Urinalysis with culture** — Addresses UTI/urosepsis. Positive nitrites, leukocyte esterase, or bacteria on micro supports urinary source.
-- **Lactate** — Addresses sepsis severity. Lactate >2 mmol/L in the setting of hypotension raises concern for septic shock.
-- **Blood cultures x2** — Addresses bacteremia. Must be drawn before antibiotics if sepsis is suspected.
-- **CT head without contrast** — Addresses stroke or intracranial pathology. Any acute hemorrhage, mass effect, or large territory infarct changes management immediately.
-- **Point-of-care glucose** — Addresses hypoglycemia or DKA. Glucose &lt;60 or >400 requires immediate intervention.
-
-**Tier 2: Early (order now, results within 24-48 hours)**
-- **TSH** — Addresses myxedema or thyroid storm as a cause of encephalopathy, particularly in older women.
-- **Ammonia level** — Addresses hepatic encephalopathy if liver disease is a possibility.
-- **Chest X-ray** — Addresses pneumonia as an occult infectious source causing confusion in the elderly.
-- **LFTs** — Baseline hepatic function, especially relevant with altered mental status.
-
-**Tier 3: Deferred (pending Tier 1/2 results)**
-- **MRI brain** — If CT head is negative and confusion does not resolve with metabolic correction, MRI is warranted to evaluate for acute ischemic stroke (CT misses early and small infarcts).
-- **Lumbar puncture** — If no clear metabolic or infectious source is identified and fever persists, LP should be performed to evaluate for meningitis/encephalitis.
-- **EEG** — If altered mental status persists without clear explanation, non-convulsive status epilepticus should be considered.
-
-**Procedures / Consultations**
-- **Neurology consult** (if CT head abnormal or AMS persists >24h without clear metabolic cause): "72F with new-onset progressive confusion, no focal deficits, CT pending — concern for stroke vs. metabolic encephalopathy."
-
-**Decision Branch Points**
-- If **creatinine is significantly above baseline** and BUN/Cr ratio is elevated → aggressive IV hydration, hold nephrotoxins, recheck in 12 hours. If no improvement, consider renal ultrasound for obstruction.
-- If **UA is positive and lactate is elevated** → start empiric antibiotics for urosepsis (adjust for CKD), repeat lactate in 4–6 hours to assess response.
-- If **CT head shows acute infarct** → activate stroke pathway, neurology consult, hold anticoagulation pending further characterization.
-
-**What to Avoid**
-- **MRI brain on arrival** — Low yield as the first test when metabolic causes are more likely and faster to diagnose. CT head is sufficient to exclude hemorrhage and mass effect urgently.
-- **Empiric broad-spectrum antibiotics before cultures** — Unless she meets sepsis criteria with hemodynamic instability, draw cultures and UA first. Her temp is only 37.8C and she is not in shock.
-- **CT angiography head/neck** — Not indicated without focal neurological deficits or a positive CT head finding.
+```
+╔══════════════════════════════════════════════════╗
+║              WORKING DIAGNOSIS                    ║
+╠══════════════════════════════════════════════════╣
+║ Leading diagnosis: UTI/urosepsis with             ║
+║   hypovolemia and AKI on CKD                     ║
+║ Must rule out: Stroke, meningitis (if fever       ║
+║   persists), hypoglycemia                         ║
+╠══════════════════════════════════════════════════╣
+║   TIER 1: ORDER NOW (results needed urgently)     ║
+╠══════════════════════════════════════════════════╣
+║ Test            │ Addresses       │ Threshold     ║
+║─────────────────┼─────────────────┼───────────────║
+║ POC glucose     │ Hypoglycemia    │ <60 mg/dL:    ║
+║   (STAT)        │                 │ give D50 now  ║
+║ CBC with diff   │ Infection/      │ WBC >12 or <4 ║
+║   (STAT)        │ sepsis          │ with bandemia ║
+║                 │                 │ supports       ║
+║                 │                 │ infection      ║
+║ BMP (Chem-8)    │ AKI, lytes,     │ Cr above      ║
+║   (STAT)        │ glucose         │ baseline       ║
+║                 │                 │ (~1.8): AKI.  ║
+║                 │                 │ Na <125 or     ║
+║                 │                 │ >155: explains ║
+║                 │                 │ encephalopathy ║
+║ Urinalysis with │ UTI/urosepsis   │ Positive      ║
+║   culture       │                 │ nitrites +    ║
+║   (STAT)        │                 │ leukocyte     ║
+║                 │                 │ esterase      ║
+║ Lactate         │ Sepsis severity │ >2 mmol/L     ║
+║   (STAT)        │                 │ with          ║
+║                 │                 │ hypotension:  ║
+║                 │                 │ septic shock  ║
+║ Blood cultures  │ Bacteremia      │ Must draw     ║
+║   x2 (STAT)     │                 │ before abx    ║
+║ CT head w/o     │ Stroke, bleed,  │ Acute         ║
+║   contrast      │ mass            │ hemorrhage or ║
+║   (STAT)        │                 │ mass effect:  ║
+║                 │                 │ neurosurgery  ║
+╠══════════════════════════════════════════════════╣
+║   TIER 2: ORDER TODAY (results can wait 24-48h)   ║
+╠══════════════════════════════════════════════════╣
+║ Test            │ Addresses       │ Threshold     ║
+║─────────────────┼─────────────────┼───────────────║
+║ TSH             │ Myxedema in     │ >50 mIU/L     ║
+║                 │ elderly woman   │ with AMS:     ║
+║                 │                 │ myxedema coma ║
+║ Chest X-ray     │ Occult PNA as   │ Infiltrate    ║
+║                 │ infection       │ with fever:   ║
+║                 │ source          │ treat PNA     ║
+║ LFTs            │ Hepatic         │ Elevated NH3  ║
+║                 │ encephalopathy  │ with abnormal ║
+║                 │                 │ LFTs: get     ║
+║                 │                 │ ammonia level ║
+║ Ammonia         │ Hepatic         │ >60 umol/L:   ║
+║                 │ encephalopathy  │ treat for HE  ║
+╠══════════════════════════════════════════════════╣
+║  TIER 3: CONSIDER IF TIER 1-2 DON'T CLARIFY      ║
+╠══════════════════════════════════════════════════╣
+║ Test            │ Addresses       │ When to order ║
+║─────────────────┼─────────────────┼───────────────║
+║ MRI brain       │ Acute ischemic  │ If CT head    ║
+║                 │ stroke (CT      │ negative and  ║
+║                 │ misses early/   │ confusion     ║
+║                 │ small infarcts) │ persists >24h ║
+║ Lumbar puncture │ Meningitis /    │ If no clear   ║
+║                 │ encephalitis    │ metabolic or  ║
+║                 │                 │ infectious    ║
+║                 │                 │ source and    ║
+║                 │                 │ fever persists║
+║ EEG             │ Non-convulsive  │ If AMS        ║
+║                 │ status          │ persists      ║
+║                 │ epilepticus     │ without clear ║
+║                 │                 │ explanation   ║
+╠══════════════════════════════════════════════════╣
+║          DECISION BRANCH POINTS                   ║
+╠══════════════════════════════════════════════════╣
+║ IF creatinine is significantly above baseline     ║
+║ (>1.8) and BUN/Cr ratio is elevated:             ║
+║   → Aggressive IV hydration (NS 500mL bolus,     ║
+║     then 125mL/hr). Hold metformin and any        ║
+║     nephrotoxins. Recheck Cr in 12 hours.         ║
+║   → If no improvement at 12h: renal US to         ║
+║     exclude obstruction.                          ║
+║                                                   ║
+║ IF UA is positive AND lactate >2 mmol/L:          ║
+║   → Start empiric antibiotics for urosepsis       ║
+║     (adjust for CKD stage 3: ceftriaxone 2g IV   ║
+║     over piperacillin-tazobactam to avoid renal   ║
+║     toxicity). Repeat lactate in 4-6 hours.       ║
+║ IF UA is positive AND lactate is normal:           ║
+║   → Simple UTI as infection source. Oral           ║
+║     antibiotics may suffice if patient can         ║
+║     tolerate PO. Still admit for AMS evaluation.  ║
+║                                                   ║
+║ IF CT head shows acute infarct:                   ║
+║   → Activate stroke pathway. Neurology consult    ║
+║     STAT. Hold anticoagulation pending further    ║
+║     characterization.                             ║
+║ IF CT head is negative:                           ║
+║   → Metabolic and infectious workup remains the   ║
+║     priority. MRI deferred unless AMS persists.   ║
+║                                                   ║
+║ IF POC glucose <60 mg/dL:                         ║
+║   → D50 25g IV push, recheck in 15 min. This     ║
+║     may be the entire explanation for her AMS.    ║
+╠══════════════════════════════════════════════════╣
+║       ESTIMATED COST CONSIDERATIONS               ║
+╠══════════════════════════════════════════════════╣
+║ $ (low): CBC, BMP, UA, lactate, blood cultures,  ║
+║   POC glucose, ammonia, TSH                       ║
+║ $$ (moderate): CT head, CXR, LFTs                ║
+║ $$$ (high): MRI brain, LP, EEG                   ║
+║ Cost-saving note: MRI, LP, and EEG can all be    ║
+║   deferred pending Tier 1-2 results. In most      ║
+║   elderly patients with AMS, a metabolic or       ║
+║   infectious cause is identified with basic labs  ║
+║   alone.                                          ║
+╠══════════════════════════════════════════════════╣
+║       WHAT CAN WAIT FOR OUTPATIENT                ║
+╠══════════════════════════════════════════════════╣
+║ • Thyroid workup beyond TSH (free T4, T3): Only  ║
+║   needed if TSH is abnormal. Schedule follow-up   ║
+║   in 2 weeks.                                     ║
+║ • Cognitive screening (MMSE/MoCA): Cannot be      ║
+║   performed reliably during acute illness.         ║
+║   Schedule at outpatient follow-up once acute     ║
+║   issues resolved.                                ║
+╠══════════════════════════════════════════════════╣
+║              WHAT TO AVOID                        ║
+╠══════════════════════════════════════════════════╣
+║ • MRI brain on arrival: Low yield as the first    ║
+║   test when metabolic causes are more likely and  ║
+║   faster to diagnose. CT head is sufficient to    ║
+║   exclude hemorrhage and mass effect.             ║
+║ • CT angiography head/neck: Not indicated without ║
+║   focal neurological deficits or positive CT      ║
+║   head finding. Contrast risk in CKD stage 3.    ║
+║ • Empiric broad-spectrum antibiotics before        ║
+║   cultures: Unless she meets sepsis criteria with ║
+║   hemodynamic instability, draw cultures and UA   ║
+║   first. Temp 37.8C and BP 102/64 is borderline  ║
+║   but not frank shock.                            ║
+╚══════════════════════════════════════════════════╝
+```
 
 ---
 
 ## Tips & pitfalls
 
-- Works best when paired with the **DDx Generator** template: first generate your differential, then paste it here to build the workup plan.
-- The **Decision Branch Points** section is the highest-value output: it makes your clinical reasoning explicit and helps anticipate what you'll do before results return.
-- The **What to Avoid** section helps with both test stewardship and patient safety (e.g., avoiding contrast in AKI, avoiding LP before CT in certain cases).
+- This template works best when paired with the DDx Generator: generate your differential first, then paste it here to build the workup plan.
+- The Decision Branch Points section is the highest-value output. It makes your clinical reasoning explicit and helps you anticipate your next move before results return.
+- The What to Avoid section supports both test stewardship and patient safety (e.g., avoiding contrast in AKI, avoiding LP before CT in patients with signs of raised intracranial pressure).
 - For complex multi-system presentations, run this template once per major diagnostic question rather than trying to cover everything in a single prompt.
-- **AI may recommend tests that are not available at your institution or that have long turnaround times.** Always verify test availability and expected turnaround at your facility.
-- **Test sensitivity and specificity values cited by AI should be verified.** Models sometimes confabulate performance characteristics of diagnostic tests. Cross-reference with UpToDate or primary literature.
-- **Cost and patient burden matter.** AI tends to recommend comprehensive workups. Apply clinical judgment about which tests are truly necessary and which can wait for initial results.
+- AI tends to recommend comprehensive workups. Apply clinical judgment about which tests are truly necessary and which can wait for initial results. Not every differential needs every test at once.
+- Test sensitivity and specificity values cited by AI should be verified. Models sometimes confabulate performance characteristics of diagnostic tests. Cross-reference with UpToDate or primary literature.
+- Always verify test availability and expected turnaround time at your facility. A "STAT" MRI at 2 a.m. is not available at most community hospitals.
 
 ---
 
 ## Related
 
-- [DDx Generator](/templates/ddx-generator) — build the differential that feeds into this workup plan
-- [Risk Stratification](/templates/risk-stratification) — score-based risk assessment to prioritize your workup
-- [Lab Interpretation](/templates/lab-interpretation) — interpret the results once they come back
+- [DDx Generator](/templates/ddx-generator) -- build the differential that feeds into this workup plan
+- [Risk Stratification](/templates/risk-stratification) -- score-based risk assessment to prioritize your workup
+- [Lab Interpretation](/templates/lab-interpretation) -- interpret the results once they come back

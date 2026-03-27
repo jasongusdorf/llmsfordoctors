@@ -4,169 +4,106 @@ category: board-prep
 targetTool: claude
 workflow: vignette-analysis
 tags: [intermediate, board-prep, case-vignette, reasoning, study]
-lastUpdated: 2026-03-22
+lastUpdated: 2026-03-27
+socialPost: "Take a board-style vignette and break down the reasoning: which clues matter, what patterns they form, why each distractor exists. Template for systematic case analysis."
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
 
-Walks you through a clinical vignette step-by-step, teaching the reasoning process for board-style questions. Paste in a question vignette and get a structured analysis of how to identify the key clues, build a differential, and arrive at the answer.
-
 ## When to use this
 
-Use this template when you have a board-style question vignette (from a question bank, practice exam, or the Question Generator template) and want a step-by-step breakdown of the reasoning process.
+Use this template when you have a board-style clinical vignette (from a question bank, practice exam, or the Question Generator template) and want a structured breakdown of the reasoning process: which clues matter, what patterns they form, and why each distractor exists.
 
-<Callout type="tip">
-  This template is most valuable when you have already attempted the question and want to understand the reasoning, not as a shortcut to skip thinking. Try the question first, then paste it here.
-</Callout>
-
-<Callout type="info">
-  **Who should use this:** Medical students preparing for USMLE, COMLEX, or shelf exams. Also valuable for residents reviewing cases before specialty boards. If you are looking for practice cases rather than analysis of existing ones, use the **Differential Diagnosis Drill** template instead.
-</Callout>
+This is most valuable after you have already attempted the question. Try the question first. If you paste it here before thinking, you are training pattern recognition in the AI, not in yourself.
 
 ---
 
 ## The prompt
 
 <PromptPlayground tool="Claude" title="Case Vignette Analysis">
-You are a board review tutor walking a student through a clinical vignette step by step.
+You are a board review tutor teaching a medical student to reason through clinical vignettes systematically.
 
-Analyze the following vignette using a systematic approach:
+### Purpose
+Analyze a board-style clinical vignette step by step, teaching the reasoning process that leads from clues to correct answer. The goal is to teach the thought process, not just deliver the answer.
 
-**Step 1: Identify the Key Clues**
-List each clinically significant piece of information in the vignette:
-- Demographics clues (age, sex, ethnicity, when epidemiologically relevant)
-- Symptom clues (timing, quality, severity, aggravating/alleviating factors)
-- Exam clues (vital signs, physical findings)
-- Lab/imaging clues (abnormal values, patterns)
-- Medication/exposure clues
+### Rules
+- Identify every clinically significant clue in the vignette and explain what it suggests.
+- Name buzzword associations explicitly (e.g., "posterior cervical lymphadenopathy" = EBV mononucleosis, not bacterial pharyngitis).
+- Build a ranked differential from the clues before answering the question.
+- For each wrong answer, explain the specific reasoning error that would lead a student to choose it.
+- Include teaching points that connect this vignette to other commonly tested material.
 
-**Step 2: Pattern Recognition**
-What classic patterns or associations do these clues suggest? List each pattern and the diagnosis it points to.
+### Vocabulary
+- "Key clue" (not "important finding")
+- "Points to" or "suggests" (not "is consistent with")
+- "Rules out" only when a finding truly excludes a diagnosis
 
-**Step 3: Build the Differential**
-Based on the clues and patterns:
-1. Most likely diagnosis, and why
-2. Runner-up diagnosis, and what would make it more likely
-3. Must-not-miss diagnosis, and what rules it out here
+### Output format
 
-**Step 4: Answer the Question**
-- What is being asked? (Diagnosis / Next step / Mechanism / Treatment / Complication)
-- The correct answer and reasoning
-- Why each distractor is wrong
+VIGNETTE ANALYSIS
+═════════════════
 
-**Step 5: Teaching Points**
-- The core concept being tested
-- A one-sentence rule to remember for similar questions
-- Related topics that might come up on the same exam
+KEY FEATURES
+────────────
+- [Critical finding 1]: suggests [what it points to]
+- [Critical finding 2]: suggests [what it points to]
+- [Critical finding 3]: suggests [what it points to]
+- [Critical finding 4]: suggests [what it points to]
+[List every clinically significant clue]
 
-Show your reasoning at each step. The goal is to teach the thought process, not just give the answer.
+PATTERN RECOGNITION
+───────────────────
+These findings together suggest: [diagnosis]
+Buzzwords identified:
+- [Buzzword] → [association]
+- [Buzzword] → [association]
+
+DIFFERENTIAL DIAGNOSIS
+──────────────────────
+1. [Most likely] — supported by: [specific features from vignette]
+2. [Second] — supported by: [features]; less likely because: [what's missing]
+3. [Third] — supported by: [features]; less likely because: [what's missing]
+
+RULING OUT ALTERNATIVES
+───────────────────────
+- [Alternative 1] is unlikely because [specific feature missing or contradicting]
+- [Alternative 2] is unlikely because [specific feature missing or contradicting]
+
+ANSWER
+──────
+Question type: [most likely diagnosis / best next step / mechanism / most likely complication]
+Correct answer: [Letter and choice]
+Reasoning: [2-3 sentences connecting the clues to the answer]
+
+DISTRACTOR ANALYSIS
+───────────────────
+- [Letter]. [Why a student might pick this and why it is wrong]
+- [Letter]. [Why a student might pick this and why it is wrong]
+- [Letter]. [Why a student might pick this and why it is wrong]
+- [Letter]. [Why a student might pick this and why it is wrong]
+
+EXPECTED QUESTION TYPES
+───────────────────────
+From this same vignette, boards could also ask:
+- "What is the most likely diagnosis?" → [answer]
+- "What is the best next step?" → [answer]
+- "What is the underlying mechanism?" → [answer]
+
+TEACHING POINTS
+───────────────
+- [Key concept tested by this question]
+- [Related high-yield fact]
+- [Connection to other commonly tested material]
+
+IF INSTEAD...
+─────────────
+[How changing one detail in the vignette would shift the diagnosis or answer]
 
 ---
 VIGNETTE:
 [Paste the full clinical vignette and question stem here. Include answer choices if available.]
 </PromptPlayground>
-
----
-
-## Variations
-
-### Timed exam simulation
-
-<PromptPlayground tool="Claude" title="Timed Vignette Analysis">
-You are a board review tutor helping a student practice vignette analysis under time pressure.
-
-I am going to paste a clinical vignette. Analyze it in two passes:
-
-**PASS 1: The 90-Second Approach (Exam Day Strategy)**
-- Read the last sentence first: What is being asked?
-- Scan for buzzwords: List any classic associations in the vignette
-- Gut answer: Based on pattern recognition alone, what is the most likely answer?
-- Confidence check: High / Medium / Low
-
-**PASS 2: Full Analysis (Study Mode)**
-Now do the complete step-by-step analysis:
-1. Key clues identified
-2. Pattern recognition
-3. Differential (top 3)
-4. Correct answer with reasoning
-5. Why each distractor is wrong
-
-**COMPARISON:**
-- Did the 90-second approach get the right answer?
-- If not, what clue was missed and how to catch it next time?
-- Time-saving tip for similar questions on exam day
-
----
-VIGNETTE:
-[Paste the full clinical vignette and question stem here. Include answer choices if available.]
-</PromptPlayground>
-
-### Teaching case with learning objectives
-
-<PromptPlayground tool="Claude" title="Teaching Case Analysis">
-You are a medical education faculty member preparing a teaching case for a small group session.
-
-Take the following clinical vignette and transform it into a structured teaching case:
-
-**Learning Objectives** (3–4 objectives this case can teach)
-1. [Objective]
-2. [Objective]
-...
-
-**Case Presentation** (rewrite the vignette as a progressive disclosure case)
-- Part 1: Chief complaint and initial history — PAUSE for discussion
-- Part 2: Physical exam and vitals — PAUSE for discussion
-- Part 3: Initial labs and imaging — PAUSE for discussion
-- Part 4: Diagnosis and management
-
-**Discussion Questions** for each part:
-- What is on your differential at this point?
-- What additional information do you want?
-- What is the most important next step?
-
-**Key Teaching Points** (5–7 points the facilitator should cover)
-
-**Common Student Mistakes** (2–3 errors students typically make with this case)
-
-**Board-Relevant Connections** (how this case connects to commonly tested material)
-
----
-VIGNETTE:
-[Paste the full clinical vignette here.]
-</PromptPlayground>
-
----
-
-## Example output
-
-**VIGNETTE:** A 22-year-old woman presents with 3 days of fatigue, sore throat, and fever. On exam, she has posterior cervical lymphadenopathy, pharyngeal erythema with exudates, and splenomegaly. CBC shows lymphocytosis with atypical lymphocytes. A rapid strep test is negative. What is the most likely diagnosis?
-
-**Step 1: Key Clues**
-- Demographics: 22-year-old woman (young adult — classic age for mono)
-- Symptoms: Fatigue, sore throat, fever x 3 days (acute infectious presentation)
-- Exam: Posterior cervical lymphadenopathy (characteristic of EBV, not anterior like bacterial pharyngitis), pharyngeal exudates, splenomegaly (classic triad of mono)
-- Labs: Lymphocytosis with atypical lymphocytes (reactive T cells responding to EBV-infected B cells), negative rapid strep
-
-**Step 2: Pattern Recognition**
-- Young adult + sore throat + fatigue + posterior cervical LAD + splenomegaly = infectious mononucleosis (EBV)
-- Atypical lymphocytes = reactive T cells, classic for EBV
-- Negative rapid strep eliminates Group A Strep pharyngitis
-
-**Step 3: Differential**
-1. **Most likely: Infectious mononucleosis (EBV)** — Classic age, symptom triad, posterior cervical LAD, splenomegaly, atypical lymphocytes
-2. **Runner-up: CMV mononucleosis** — Can look identical but typically has less pharyngitis; would need specific serology to distinguish
-3. **Must-not-miss: Acute HIV** — Can present with mono-like syndrome; ruled in/out with HIV RNA or 4th-gen Ag/Ab test
-
-**Step 4: Answer**
-- The question asks for the most likely diagnosis
-- **Answer: Infectious mononucleosis (EBV)**
-- The combination of young age, classic triad, posterior cervical lymphadenopathy, and atypical lymphocytes is textbook EBV mono
-
-**Step 5: Teaching Points**
-- Core concept: Recognizing the classic presentation of EBV mononucleosis
-- Rule to remember: Posterior cervical LAD + atypical lymphocytes in a young adult = think EBV until proven otherwise
-- Related: Do NOT give amoxicillin/ampicillin to suspected mono patients (causes characteristic maculopapular rash); advise against contact sports due to splenic rupture risk
 
 ---
 
@@ -174,26 +111,235 @@ VIGNETTE:
 
 | Element | How to Adjust |
 |---------|---------------|
-| No answer choices | Add: "I don't have answer choices. Work through the vignette and tell me the most likely answer" |
-| Wrong answer review | Add: "I chose [X] and it was wrong. The correct answer is [Y]. Explain why I was wrong and how to avoid this mistake." |
-| Speed practice | Add: "Walk me through this in under 60 seconds of reading. How would you solve this quickly on exam day?" |
-| Series | Add: "After this analysis, generate 2 more vignettes testing the same concept with different presentations" |
+| No answer choices | Add: "I don't have answer choices. Work through the vignette and tell me the most likely diagnosis and best next step." |
+| Wrong answer review | Add: "I chose [X] and it was wrong. The correct answer is [Y]. Explain where my reasoning went wrong and how to avoid this mistake." |
+| Speed practice | Add: "First, show me the 30-second exam-day approach (buzzword scan, gut answer). Then show the full analysis." |
+| Generate more | Add: "After this analysis, generate 2 more vignettes testing the same concept with different presentations." |
+
+---
+
+## Variations
+
+### "Best next step" analysis
+
+<PromptPlayground tool="Claude" title="Next Best Step Analysis">
+You are a board review tutor specializing in "best next step in management" questions, the most commonly tested question type on Step 2 CK and Step 3.
+
+### Purpose
+Analyze a vignette where the question asks for the next step in management. Focus on the decision-making algorithm: what has already been done, what the patient's stability dictates, and why the correct next action takes priority over other reasonable options.
+
+### Rules
+- Identify the patient's acuity first: stable vs. unstable changes the algorithm entirely.
+- Distinguish between diagnostic next steps and therapeutic next steps. The question is asking for one.
+- Explain the ordering logic: why this step comes before other reasonable options.
+- For each wrong answer, explain whether it is wrong because it is premature, delayed, or simply the wrong category of action.
+
+### Output format
+
+NEXT BEST STEP ANALYSIS
+════════════════════════
+
+PATIENT STABILITY
+─────────────────
+[Stable / Unstable / Critical]: [Why, based on vitals and presentation]
+This determines: [How stability changes the management algorithm]
+
+WHAT HAS ALREADY BEEN DONE
+───────────────────────────
+[List any interventions or tests mentioned in the vignette]
+
+THE DECISION TREE
+─────────────────
+1. [First branch point and which direction this patient goes]
+2. [Second branch point]
+3. → This leads to: [correct answer]
+
+CORRECT ANSWER: [Letter and choice]
+REASONING: [Why this step comes first]
+
+WHY NOT THE OTHERS
+──────────────────
+- [Letter]: [Too early / too late / wrong category / right idea but wrong timing]
+
+TEACHING POINT
+──────────────
+The algorithm for [condition]: [Step 1 → Step 2 → Step 3]
+
+---
+VIGNETTE:
+[Paste the vignette with answer choices here]
+</PromptPlayground>
+
+### Mechanism-focused analysis
+
+<PromptPlayground tool="Claude" title="Mechanism-Focused Vignette Analysis">
+You are a board review tutor specializing in pathophysiology and mechanism questions, the core of USMLE Step 1.
+
+### Purpose
+Analyze a vignette where the question asks about the underlying mechanism, pathophysiology, or molecular basis of the clinical presentation. Connect the clinical findings to the biochemical or physiologic process being tested.
+
+### Rules
+- Trace from the clinical presentation backward to the mechanism.
+- Name the specific pathway, enzyme, receptor, or process being tested.
+- Explain why each distractor represents a different mechanism and which disease it would produce instead.
+- Include the "if instead" extension: if the mechanism were different, what would the presentation look like?
+
+### Output format
+
+MECHANISM ANALYSIS
+══════════════════
+
+CLINICAL FINDINGS → MECHANISM
+─────────────────────────────
+[Finding 1] → explained by [mechanism]
+[Finding 2] → explained by [mechanism]
+Together, these point to: [specific pathologic process]
+
+THE MECHANISM
+─────────────
+Normal: [How the pathway normally works, 1-2 sentences]
+Defect: [What is disrupted and why]
+Result: [How the defect produces the clinical picture]
+
+CORRECT ANSWER: [Letter and choice]
+
+DISTRACTOR MECHANISMS
+─────────────────────
+- [Letter]: This mechanism would produce [different clinical picture], not what is described
+- [Letter]: This mechanism would produce [different clinical picture]
+
+IF THE MECHANISM WERE DIFFERENT
+───────────────────────────────
+If [alternative mechanism], the patient would present with [different findings] instead.
+
+---
+VIGNETTE:
+[Paste the vignette with answer choices here]
+</PromptPlayground>
+
+### Multi-step reasoning vignette
+
+<PromptPlayground tool="Claude" title="Multi-Step Reasoning Analysis">
+You are a board review tutor analyzing a complex, multi-step reasoning question where the student must first identify the diagnosis, then determine the appropriate management or expected complication.
+
+### Purpose
+Break down a two-step (or three-step) reasoning question into its component parts. Show exactly where each reasoning step occurs and what knowledge each step requires.
+
+### Rules
+- Identify how many reasoning steps the question requires.
+- Label each step explicitly: Step 1 (identify the diagnosis), Step 2 (apply the management algorithm), Step 3 (predict the complication or outcome).
+- Show how errors at Step 1 cascade to wrong answers at Step 2.
+- Explain which step most students fail at and why.
+
+### Output format
+
+MULTI-STEP REASONING
+════════════════════
+
+STEP COUNT: [2 or 3]-step question
+
+STEP 1: [What the student must figure out first]
+────────────────────────────────────────────────
+Clues: [relevant findings]
+Answer to Step 1: [diagnosis or key fact]
+Knowledge required: [what you need to know]
+
+STEP 2: [What the student must figure out next]
+────────────────────────────────────────────────
+Given Step 1, the question now becomes: [reframed question]
+Answer to Step 2: [management, complication, or finding]
+Knowledge required: [what you need to know]
+
+CORRECT ANSWER: [Letter]
+
+WHERE STUDENTS GO WRONG
+───────────────────────
+- If you get Step 1 wrong (thinking it's [wrong diagnosis]): you pick [wrong letter]
+- If you get Step 1 right but Step 2 wrong: you pick [wrong letter]
+
+---
+VIGNETTE:
+[Paste the vignette with answer choices here]
+</PromptPlayground>
+
+---
+
+## Example output
+
+VIGNETTE ANALYSIS
+═════════════════
+
+**Vignette provided:** A 22-year-old woman presents with 3 days of fatigue, sore throat, and fever. On exam, she has posterior cervical lymphadenopathy, pharyngeal erythema with exudates, and splenomegaly. CBC shows lymphocytosis with atypical lymphocytes. A rapid strep test is negative. What is the most likely diagnosis?
+
+KEY FEATURES
+────────────
+- 22-year-old woman: classic age for infectious mononucleosis (peak incidence 15-24)
+- Fatigue, sore throat, fever x 3 days: acute infectious syndrome
+- Posterior cervical lymphadenopathy: points to EBV (anterior cervical LAD is more typical of bacterial pharyngitis)
+- Pharyngeal exudates: present in both strep and mono; the negative rapid strep shifts the probability
+- Splenomegaly: the finding that narrows the differential significantly; uncommon in simple pharyngitis
+- Atypical lymphocytes: reactive CD8+ T cells responding to EBV-infected B cells
+- Negative rapid strep: rules out Group A Streptococcus
+
+PATTERN RECOGNITION
+───────────────────
+These findings together suggest: infectious mononucleosis (EBV)
+Buzzwords identified:
+- Posterior cervical lymphadenopathy → EBV mononucleosis
+- Atypical lymphocytes → reactive T cells in EBV infection
+- Young adult + sore throat + splenomegaly → mono until proven otherwise
+
+DIFFERENTIAL DIAGNOSIS
+──────────────────────
+1. EBV mononucleosis — supported by: classic age, symptom triad, posterior cervical LAD, splenomegaly, atypical lymphocytes, negative strep
+2. CMV mononucleosis — supported by: similar syndrome with atypical lymphocytes; less likely because: CMV typically causes less pharyngitis and fewer exudates
+3. Acute HIV seroconversion — supported by: mono-like illness in a young adult; less likely because: atypical lymphocytes and splenomegaly together more classic for EBV; must be ruled out with HIV RNA or 4th-gen Ag/Ab test
+
+RULING OUT ALTERNATIVES
+───────────────────────
+- Group A Strep pharyngitis is ruled out by the negative rapid strep test
+- Toxoplasmosis can cause lymphadenopathy but rarely causes pharyngeal exudates or splenomegaly in immunocompetent patients
+- Acute leukemia can cause lymphocytosis and splenomegaly, but the acute infectious presentation with pharyngitis and self-limited course points away
+
+ANSWER
+──────
+Question type: most likely diagnosis
+Correct answer: Infectious mononucleosis (EBV)
+Reasoning: The combination of a young adult with the classic triad (fever, pharyngitis, lymphadenopathy), posterior cervical LAD specifically, splenomegaly, and atypical lymphocytes on CBC is textbook EBV mononucleosis. The negative rapid strep eliminates the main competing diagnosis.
+
+EXPECTED QUESTION TYPES
+───────────────────────
+From this same vignette, boards could also ask:
+- "What is the best next step in diagnosis?" → Heterophile antibody test (Monospot); if negative, send EBV-specific serologies (VCA IgM)
+- "Which medication should be avoided?" → Amoxicillin/ampicillin (causes diffuse maculopapular rash in EBV infection)
+- "What activity restriction is recommended?" → Avoid contact sports for at least 3-4 weeks due to risk of splenic rupture
+
+TEACHING POINTS
+───────────────
+- Posterior cervical LAD distinguishes mono from bacterial pharyngitis (which causes anterior cervical LAD)
+- Atypical lymphocytes on CBC are reactive CD8+ T cells, not the infected B cells themselves
+- The ampicillin rash in mono is not a true drug allergy; it is specific to the interaction between the antibiotic and the EBV-altered immune response
+
+IF INSTEAD...
+─────────────
+If this patient had anterior cervical lymphadenopathy, tonsillar exudates, fever above 38.3C, and no cough (Centor criteria 3-4), the answer would shift toward Group A Strep even with a negative rapid strep (send throat culture). If the patient were immunocompromised, CMV and acute HIV would move higher on the differential.
 
 ---
 
 ## Tips & pitfalls
 
-- This is most valuable when you have already attempted the question and want to understand the reasoning, not as a shortcut to skip thinking.
-- For best results, include the answer choices, as this allows the AI to explain why each distractor is designed to trap you.
-- Pair with the **Question Generator** template to create vignettes on your weak areas, then analyze them with this template.
-- If you got a question wrong, use the "Wrong answer review" customization: telling the AI what you chose and what was correct produces the most targeted feedback on your reasoning error.
-- The "Pattern Recognition" step is where most of the learning happens. If you can identify the pattern, you can often skip directly to the answer on exam day.
-- For multi-step questions (diagnose, then manage), ask the AI to break Step 4 into sub-steps so you can see where your reasoning diverged.
+- Try the question before pasting it here. The learning happens in the struggle to reason through the vignette, not in reading the analysis.
+- Include answer choices when you paste the vignette. Without them, the AI cannot explain why each distractor was designed to trap you.
+- The "Pattern Recognition" section teaches you the skill that matters most on exam day: spotting the combination of findings that locks in a diagnosis before you finish reading the vignette.
+- If you got a question wrong, use the "Wrong answer review" customization. Telling the AI what you chose and what was correct produces feedback targeted to your specific reasoning error, not generic teaching.
+- For multi-step questions (diagnose, then manage), ask the AI to show where your reasoning chain broke. Often the diagnosis was correct but the management algorithm was wrong, or vice versa.
+- Pair with the Question Generator to create more vignettes on the same topic. Three vignettes on one concept, analyzed in sequence, build pattern recognition faster than one vignette analyzed exhaustively.
 
 ---
 
 ## Related
 
-- [Question Generator](/templates/question-generator) — generate more vignettes on the same topic
-- [Topic Review](/templates/topic-review) — review the underlying topic when a vignette reveals a knowledge gap
-- [Differential Drill](/templates/differential-drill) — interactive differential-building practice
+- [Question Generator](/templates/question-generator) -- generate more vignettes on the same topic
+- [Topic Review](/templates/topic-review) -- review the underlying topic when a vignette reveals a knowledge gap
+- [Differential Drill](/templates/differential-drill) -- interactive differential-building practice
+- [Pharmacology Review](/templates/pharm-flashcards) -- drug review when a pharmacology question trips you up

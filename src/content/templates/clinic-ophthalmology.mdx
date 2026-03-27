@@ -1,0 +1,820 @@
+---
+title: "Ophthalmology Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, ophthalmology, surgical, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "IOP by eye, C/D ratios, visual field MD, anti-VEGF injection counts, OCT measurements. Ophthalmology notes lateralized by eye with metrics that track disease progression."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Ophthalmology notes live and die by numbers. IOP in both eyes, C/D ratios that track across visits, visual field mean deviations that tell you whether a glaucoma patient is actually progressing or just having a bad test day, anti-VEGF injection counts by eye and agent. Generic note templates lose all of this. This template captures the six conditions that dominate most comprehensive ophthalmology clinics: cataracts, glaucoma, diabetic retinopathy, macular degeneration, dry eye, and retinal detachment. Every field is lateralized (OD, OS, OU), because an ophthalmology note that does not specify which eye is not an ophthalmology note.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Ophthalmology Clinic Visit Note">
+You are an attending ophthalmologist writing an outpatient clinic visit note after examining a patient. The patient's primary ophthalmic condition is one of: cataracts, glaucoma, diabetic retinopathy, macular degeneration, dry eye, or retinal detachment/vitreoretinal pathology. Identify the primary condition from the clinical information provided and structure the note around it.
+
+### Purpose
+
+Generate a complete, structured ophthalmology clinic note from the clinical data below. The note must lateralize all findings to OD (right eye), OS (left eye), or OU (both eyes), capture disease-specific diagnostic data, document treatment response, and provide a specific management plan.
+
+### Rules
+
+- Write in past tense for history and interval events; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use in the note (e.g., "intraocular pressure (IOP)"), then abbreviation only thereafter.
+- LATERALIZE EVERYTHING. Every measurement, finding, and plan item must specify OD, OS, or OU.
+- Include specific numbers for all values: visual acuity, IOP, C/D ratio, visual field MD, OCT measurements, injection counts.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- For glaucoma patients: document target IOP, current IOP with method, visual field progression analysis, OCT RNFL and GCC trends, gonioscopy findings, and compliance with drops.
+- For diabetic retinopathy patients: document severity grade per ETDRS, presence of diabetic macular edema (DME) with central involvement, last A1c, anti-VEGF injection history (agent, eye, number of injections, last injection date, response).
+- For AMD patients: document type (dry vs wet), OCT findings (subretinal fluid, intraretinal fluid, PED, drusen), anti-VEGF schedule (treat and extend interval), and injection history.
+- For cataract patients: document lens grading, visual significance, IOL calculation (biometry method, target refraction), and surgical plan.
+- List eye drops by eye (OD, OS, or OU) and include compliance assessment.
+- Document systemic medications affecting the eyes: corticosteroids, hydroxychloroquine, tamoxifen, alpha-blockers (floppy iris risk).
+- Do not infer or fabricate any clinical information not provided. Write "[Not provided; verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "OD" = right eye, "OS" = left eye, "OU" = both eyes
+- "IOP" = intraocular pressure
+- "C/D" = cup-to-disc ratio
+- "RNFL" = retinal nerve fiber layer
+- "GCC" = ganglion cell complex
+- "MD" = mean deviation (visual fields)
+- "PSD" = pattern standard deviation
+- "BCVA" = best corrected visual acuity
+- "DME" = diabetic macular edema
+- "PED" = pigment epithelial detachment
+- "SRF" = subretinal fluid
+- "IRF" = intraretinal fluid
+- "VEGF" = vascular endothelial growth factor
+- "PRP" = panretinal photocoagulation
+- "SLT" = selective laser trabeculoplasty
+- "MIGS" = minimally invasive glaucoma surgery
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+OPHTHALMOLOGY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[Follow-up / New patient / Post-operative / Pre-operative /
+ Injection visit]
+Interval since last visit: [duration]
+
+CHIEF CONCERN
+─────────────
+***
+
+OCULAR HISTORY
+──────────────
+  Primary diagnosis: ***
+  Ocular history timeline:
+    - [Date]: [Event: diagnosis, surgery, laser, injection, etc.] [OD/OS/OU]
+    - [Date]: [Event]
+  Prior ocular surgeries:
+    OD: ***
+    OS: ***
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph covering symptoms and events since last visit.
+Include: vision changes (each eye), flashes, floaters, pain,
+redness, discharge, photophobia, drop compliance, injection
+schedule adherence.]
+
+CURRENT OPHTHALMIC MEDICATIONS
+──────────────────────────────
+  OD
+  ──
+  ***
+
+  OS
+  ──
+  ***
+
+  OU
+  ──
+  ***
+
+  Compliance: ***
+
+SYSTEMIC MEDICATIONS AFFECTING EYES
+────────────────────────────────────
+  [Corticosteroids, hydroxychloroquine (dose, duration, cumulative),
+  tamoxifen, alpha-blockers (tamsulosin), anticoagulants]
+  ***
+
+VISUAL ACUITY
+─────────────
+               OD              OS
+  BCVA:        ***             ***
+  Pinhole:     ***             ***
+  Near:        ***             ***
+
+INTRAOCULAR PRESSURE
+────────────────────
+  Method: [Goldmann / Tonopen / iCare]
+  Time: ***
+  OD: *** mmHg    OS: *** mmHg
+  Target IOP (if glaucoma):
+    OD: ≤*** mmHg    OS: ≤*** mmHg
+
+SLIT LAMP EXAMINATION
+─────────────────────
+                     OD                    OS
+  Lids/lashes:       ***                   ***
+  Conjunctiva:       ***                   ***
+  Cornea:            ***                   ***
+  Anterior chamber:  ***                   ***
+    Depth:           ***                   ***
+    Cells:           ***                   ***
+    Flare:           ***                   ***
+  Iris:              ***                   ***
+  Lens:              ***                   ***
+    [NS grade, PSC, cortical opacity]
+
+GONIOSCOPY (if applicable)
+──────────────────────────
+                     OD                    OS
+  Angle:             ***                   ***
+  Shaffer grade:     ***                   ***
+  PAS:               ***                   ***
+  Pigmentation:      ***                   ***
+  Neovascularization: ***                  ***
+
+DILATED FUNDUS EXAMINATION
+──────────────────────────
+                     OD                    OS
+  Optic disc:
+    C/D ratio:       ***                   ***
+    Pallor:          ***                   ***
+    Edema:           ***                   ***
+    NVD:             ***                   ***
+    Hemorrhage:      ***                   ***
+    RNFL thinning:   ***                   ***
+
+  Macula:
+    Drusen:          ***                   ***
+    Pigment changes: ***                   ***
+    Edema:           ***                   ***
+    Exudates:        ***                   ***
+    Hemorrhage:      ***                   ***
+    CNV signs:       ***                   ***
+
+  Vessels:           ***                   ***
+    [Microaneurysms, hemorrhages, cotton-wool spots,
+     venous beading, IRMA, NVE]
+
+  Peripheral retina: ***                   ***
+    [Tears, holes, detachment, lattice, NVE]
+
+DIAGNOSTICS
+───────────
+
+  OCT Macula (if applicable)
+  ──────────────────────────
+  Date: ***
+  OD: Central foveal thickness *** microns. [SRF / IRF / PED /
+      drusen / epiretinal membrane / VMT]. [Comparison to prior.]
+  OS: Central foveal thickness *** microns. [Findings.]
+
+  OCT RNFL / GCC (if applicable)
+  ──────────────────────────────
+  Date: ***
+  RNFL:
+    OD: Average *** microns [trend: stable / thinning]
+    OS: Average *** microns [trend: stable / thinning]
+  GCC:
+    OD: ***
+    OS: ***
+  Progression analysis: [GPA: stable / possible / likely progression]
+
+  Visual Fields (if applicable)
+  ─────────────────────────────
+  Date: ***
+  OD: MD *** dB, PSD *** dB. Pattern: [arcuate / nasal step /
+      paracentral / diffuse / normal]. Reliability: [fixation
+      losses, false positives, false negatives].
+  OS: MD *** dB, PSD *** dB. Pattern: ***. Reliability: ***.
+  Progression: [VFI trend, GPA, comparison to baseline]
+
+  Fundus Photography / Angiography (if applicable)
+  ─────────────────────────────────────────────────
+  Date: ***
+  Findings: ***
+
+  Biometry / IOL Calculation (if applicable)
+  ───────────────────────────────────────────
+  OD: Axial length ***, K1 ***, K2 ***. IOL: *** (power ***).
+      Target refraction: ***
+  OS: Axial length ***, K1 ***, K2 ***. IOL: *** (power ***).
+      Target refraction: ***
+
+  Labs (if applicable)
+  ────────────────────
+  A1c: ***
+  Hydroxychloroquine: [dose, duration, cumulative dose]
+  Other: ***
+
+INJECTION HISTORY (if applicable)
+─────────────────────────────────
+  Agent: [Aflibercept / Ranibizumab / Bevacizumab / Faricimab]
+  OD: *** injections (last: M/D/YY)
+  OS: *** injections (last: M/D/YY)
+  Current interval: [Fixed q*** weeks / Treat and extend at
+  *** weeks / PRN]
+  Response to last injection: [Improved / stable / worsened;
+  OCT change]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [relevant ophthalmic history]
+presenting for [visit type]. [One-sentence trajectory per eye.]
+
+  1. [Primary ophthalmic condition] [OD/OS/OU]
+     [Brief assessment: trajectory, treatment response, progression.]
+
+  2. [Secondary condition] [OD/OS/OU]
+     [Brief assessment.]
+
+  3. [Other relevant conditions]
+     [Brief assessment.]
+
+PLAN
+────
+  1. [Primary condition]
+     OD:
+     - [Specific action]
+     OS:
+     - [Specific action]
+
+  2. [Secondary condition]
+     - [Specific action by eye]
+
+  3. Monitoring
+     - [OCT: when]
+     - [Visual fields: when]
+     - [Photos: when]
+     - [Labs: when]
+
+  Follow-Up
+  ─────────
+  Return in [interval].
+  [Specific criteria for earlier return: sudden vision loss,
+  flashes/floaters, eye pain.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: reason for visit, ocular history, current eye drops (by eye), systemic medications, visual acuity (each eye), IOP, slit lamp exam, dilated fundus exam, OCT, visual fields, injection history, labs, and any other relevant data.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Retina-only practice | Remove gonioscopy, visual fields, and RNFL/GCC sections. Expand injection history and OCT macula sections. Add: "Focus on vitreoretinal pathology." |
+| Glaucoma subspecialty | Remove injection history and biometry sections. Expand visual field progression and OCT RNFL sections. Add: "Include detailed visual field progression analysis with VFI trend and event-based analysis." |
+| Pediatric ophthalmology | Add: "This is a pediatric patient. Document cycloplegic refraction, cover test, stereopsis, and amblyopia risk factors. Include developmental history and school performance." |
+| Post-operative (cataract) | Add: "This is a post-operative cataract visit. Document uncorrected and best corrected visual acuity, refraction, wound integrity, anterior chamber inflammation, IOL position, and posterior capsule status." |
+| Telehealth/screening | Add: "This is a retinal screening visit. Focus on fundus photography interpretation, OCT findings, and referral criteria. Full slit lamp exam was not performed." |
+
+---
+
+## Variations
+
+### Glaucoma management visit
+
+Use this for routine glaucoma follow-up where the clinical question is whether to escalate therapy. Centers on IOP trend against target, visual field progression analysis, OCT RNFL/GCC trends, and medication compliance.
+
+<PromptPlayground tool="Claude" title="Glaucoma Management Visit">
+You are an ophthalmologist writing a clinic note for a patient with established glaucoma (open-angle, angle-closure, or secondary). Structure the note around IOP control, structural and functional progression, and treatment adequacy.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Lateralize all findings: OD, OS, OU.
+- Document IOP with method, time of measurement, and comparison to target.
+- Document visual field MD and PSD with reliability indices and progression analysis (GPA or VFI trend).
+- Document OCT RNFL average thickness with trend (stable vs thinning), specifying quadrants if significant.
+- Document gonioscopy if performed.
+- List all glaucoma drops by eye with compliance assessment.
+- For treatment escalation: document the reasoning (IOP above target, structural progression, functional progression) and the proposed intervention (add drop, laser, surgery).
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+GLAUCOMA MANAGEMENT VISIT
+══════════════════════════════════════════
+
+GLAUCOMA CLASSIFICATION
+───────────────────────
+  Type: [POAG / PACG / NTG / PXG / Pigmentary / Steroid-induced /
+         Neovascular / other]
+  Severity:
+    OD: [Mild / Moderate / Severe / End-stage]
+    OS: [Mild / Moderate / Severe / End-stage]
+  Risk factors: [Family history, myopia, thin CCT, disc hemorrhage,
+  exfoliation, race/ethnicity]
+
+IOP STATUS
+──────────
+  Current (method: ***, time: ***):
+    OD: *** mmHg    OS: *** mmHg
+  Target IOP:
+    OD: ≤*** mmHg    OS: ≤*** mmHg
+  At target: OD [Yes/No]    OS [Yes/No]
+  IOP trend (last 3 visits):
+    OD: ***, ***, ***
+    OS: ***, ***, ***
+
+CURRENT THERAPY
+───────────────
+  OD: [Drop name, concentration, frequency for each]
+  OS: [Drop name, concentration, frequency for each]
+  Compliance: [Good / intermittent / poor; barriers]
+  Prior laser: [SLT / ALT / PI; date, eye, response]
+  Prior surgery: [Trabeculectomy / tube shunt / MIGS; date, eye, status]
+
+STRUCTURAL ASSESSMENT (OCT)
+───────────────────────────
+  Date: ***
+  RNFL:
+    OD: Average *** microns (prior *** on M/D/YY)
+    OS: Average *** microns (prior *** on M/D/YY)
+  Progression: [GPA: stable / possible / likely]
+  GCC:
+    OD: ***
+    OS: ***
+
+FUNCTIONAL ASSESSMENT (Visual Fields)
+──────────────────────────────────────
+  Date: ***
+  OD: MD *** dB (prior *** on M/D/YY), PSD *** dB
+      Pattern: ***
+      Reliability: FL ***%, FP ***%, FN ***%
+      VFI: ***%
+  OS: MD *** dB (prior *** on M/D/YY), PSD *** dB
+      Pattern: ***
+      Reliability: FL ***%, FP ***%, FN ***%
+      VFI: ***%
+  Progression: [Event-based or trend-based analysis result]
+
+OPTIC DISC
+──────────
+  OD: C/D *** [disc hemorrhage: Y/N] [NRR thinning: location]
+  OS: C/D *** [disc hemorrhage: Y/N] [NRR thinning: location]
+
+ASSESSMENT
+──────────
+[Summary: glaucoma type, severity by eye, IOP control status,
+structural and functional progression status.]
+
+PLAN
+────
+  1. Glaucoma, [type]
+     OD:
+     - [Continue current drops / add drop (name, dose, frequency) /
+       SLT / MIGS / trabeculectomy / tube shunt]
+     - [Rationale for change]
+     OS:
+     - [Same structure]
+
+  2. Monitoring
+     - IOP recheck: [interval]
+     - Visual fields: [interval]
+     - OCT RNFL/GCC: [interval]
+     - Gonioscopy: [interval]
+
+  3. Follow-up
+     - Return in [interval]
+     - [Return precautions: acute vision loss, eye pain, halos]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: glaucoma type, IOP history, drops by eye, OCT RNFL data, visual field results, disc exam, gonioscopy, and any prior laser or surgery.]
+</PromptPlayground>
+
+### Anti-VEGF injection follow-up
+
+Use this for patients receiving intravitreal anti-VEGF injections for diabetic macular edema, wet AMD, or retinal vein occlusion. The note tracks injection response by OCT, injection interval adjustments, and treatment burden.
+
+<PromptPlayground tool="Claude" title="Anti-VEGF Injection Follow-Up">
+You are a retina specialist writing a clinic note for a patient receiving intravitreal anti-VEGF injections. Structure the note around treatment response (OCT and visual acuity), injection interval management, and disease activity assessment.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Lateralize all findings: OD, OS.
+- Document OCT changes: central foveal thickness, SRF, IRF, PED size, comparison to pre- and post-injection.
+- Document injection count, current agent, and interval (fixed, treat and extend, PRN).
+- For treat-and-extend: document current interval, whether extending or shortening, and rationale.
+- Document visual acuity trend across visits.
+- For DME: include last A1c, diabetes management status.
+- For wet AMD: include fellow eye status (risk of conversion).
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+ANTI-VEGF INJECTION FOLLOW-UP
+══════════════════════════════════════════
+
+DIAGNOSIS
+─────────
+  OD: ***
+  OS: ***
+  Treated eye(s): [OD / OS / OU]
+
+INJECTION SUMMARY
+─────────────────
+  Agent: [Aflibercept / Ranibizumab / Bevacizumab / Faricimab]
+  Total injections to date:
+    OD: ***    OS: ***
+  Last injection: [M/D/YY] [OD/OS]
+  Current protocol: [Fixed q*** weeks / Treat and extend at
+  *** weeks / PRN]
+
+INTERVAL HISTORY
+────────────────
+[Vision changes since last injection, new floaters, flashes,
+pain, redness. Injection tolerance. Systemic events
+(cardiovascular, thromboembolic).]
+
+VISUAL ACUITY
+─────────────
+               OD              OS
+  BCVA:        ***             ***
+  Prior BCVA:  *** (M/D/YY)   *** (M/D/YY)
+  Trend: [Improving / stable / declining]
+
+IOP
+───
+  OD: *** mmHg    OS: *** mmHg
+  [Sustained IOP elevation: Y/N]
+
+OCT MACULA
+──────────
+  Date: ***
+
+  OD:
+    Central foveal thickness: *** microns (prior: *** on M/D/YY)
+    SRF: [Present (*** microns) / Absent]
+    IRF: [Present / Absent]
+    PED: [Present (height *** microns) / Absent]
+    Other: ***
+
+  OS:
+    Central foveal thickness: *** microns (prior: *** on M/D/YY)
+    SRF: [Present (*** microns) / Absent]
+    IRF: [Present / Absent]
+    PED: [Present (height *** microns) / Absent]
+    Other: ***
+
+  Response to last injection: [Complete (dry macula) / Partial
+  (reduced but persistent fluid) / No response / Worsened]
+
+DILATED FUNDUS EXAM
+────────────────────
+  OD: ***
+  OS: ***
+  [DR severity, hemorrhages, exudates, NV, fellow eye status]
+
+LABS (if DME)
+─────────────
+  A1c: *** (date: ***)
+
+ASSESSMENT & PLAN
+─────────────────
+  1. [Diagnosis] [OD/OS]
+     - Treatment response: [Complete / Partial / Inadequate]
+     - [Inject today: Yes/No, agent, eye]
+     - Interval adjustment: [Extend to *** weeks / Maintain at
+       *** weeks / Shorten to *** weeks / Switch agent to ***]
+     - Rationale: ***
+
+  2. [Fellow eye, if applicable]
+     - [Monitor / treat]
+
+  3. [Systemic management, if DME]
+     - [A1c optimization, nephrology, blood pressure]
+
+  4. Next visit
+     - Return in *** weeks for [injection / observation / OCT only]
+     - OCT at next visit: [Yes / No]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: diagnosis by eye, injection history (agent, count, last date), current interval, visual acuity, IOP, OCT findings, fundus exam, A1c if diabetic.]
+</PromptPlayground>
+
+### Cataract pre-operative evaluation
+
+Use this for patients being evaluated for cataract surgery. The note documents visual significance of the cataract, biometry data, IOL selection, and surgical planning including discussion of premium IOL options.
+
+<PromptPlayground tool="Claude" title="Cataract Pre-Operative Evaluation">
+You are an ophthalmologist writing a pre-operative evaluation note for a patient scheduled for cataract surgery. Structure the note around visual significance, biometry, IOL selection, and surgical planning.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Lateralize all findings: OD, OS.
+- Document visual acuity with best correction and glare testing if performed.
+- Grade the cataract: nuclear sclerosis (1-4+), posterior subcapsular (PSC), cortical.
+- Document biometry: axial length, keratometry, anterior chamber depth, IOL formula used, IOL model, power, target refraction.
+- Document ocular comorbidities that affect surgical planning or visual prognosis (glaucoma, AMD, corneal dystrophy, prior refractive surgery, pseudoexfoliation, zonular weakness).
+- Note alpha-blocker use (floppy iris syndrome risk).
+- Include surgical consent discussion: risks, benefits, alternatives, IOL options.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+CATARACT PRE-OPERATIVE EVALUATION
+══════════════════════════════════════════
+
+SURGICAL EYE: [OD / OS]
+
+VISUAL SIGNIFICANCE
+───────────────────
+  BCVA: OD *** / OS ***
+  Glare acuity: OD *** / OS *** [if tested]
+  Patient's functional complaint: ***
+  Activities limited by current vision: ***
+
+LENS STATUS
+───────────
+  OD: NS ***+ / PSC [Y/N, grade] / Cortical [Y/N]
+  OS: NS ***+ / PSC [Y/N, grade] / Cortical [Y/N]
+
+OCULAR COMORBIDITIES AFFECTING SURGERY
+───────────────────────────────────────
+  [Glaucoma: Y/N (IOP, drops, prior surgery)]
+  [AMD: Y/N (type, severity)]
+  [Corneal: Y/N (Fuchs, prior LASIK/PRK, guttae)]
+  [PXF: Y/N (zonular status)]
+  [Diabetic retinopathy: Y/N (grade, DME)]
+  [Prior vitrectomy: Y/N]
+  [Alpha-blocker use: Y/N (IFIS risk)]
+
+ANTERIOR SEGMENT EXAM
+─────────────────────
+  OD: Cornea ***, AC depth ***, iris ***, lens ***
+  OS: Cornea ***, AC depth ***, iris ***, lens ***
+
+DILATED EXAM
+────────────
+  OD: C/D ***, macula ***, periphery ***
+  OS: C/D ***, macula ***, periphery ***
+
+BIOMETRY
+────────
+  Instrument: [IOLMaster / Lenstar / immersion A-scan]
+  Surgical eye ([OD/OS]):
+    Axial length: *** mm
+    K1: *** D @ ***°    K2: *** D @ ***°
+    Astigmatism: *** D @ ***°
+    ACD: *** mm
+    WTW: *** mm
+  IOL Calculation:
+    Formula: [SRK/T / Barrett / Hill-RBF / Kane]
+    IOL model: ***
+    IOL power: *** D
+    Target refraction: ***
+    [If toric: cylinder power ***, axis ***]
+
+IOL DISCUSSION
+──────────────
+  IOL selected: [Monofocal / Toric / Multifocal / EDOF]
+  Target: [Distance / monovision (*** D)]
+  Rationale: ***
+  Patient preference: ***
+
+SURGICAL PLAN
+─────────────
+  Procedure: [Phacoemulsification / femtosecond-assisted]
+  Anesthesia: [Topical / retrobulbar / MAC]
+  Concurrent procedures: [None / iStent / goniotomy / LRI]
+  Scheduled date: ***
+  Surgical eye: [OD / OS]
+
+CONSENT DISCUSSION
+──────────────────
+  Risks discussed: [Infection, bleeding, retinal detachment,
+  cystoid macular edema, posterior capsule opacification,
+  refractive surprise, need for glasses, IOL dislocation,
+  endophthalmitis]
+  Patient verbalized understanding and wishes to proceed.
+
+PRE-OPERATIVE ORDERS
+─────────────────────
+  [Drops: prednisolone, NSAID, antibiotic; start date]
+  [Systemic: hold/continue anticoagulation per protocol]
+  [NPO instructions, arrival time]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: visual acuity, functional complaints, lens grading, ocular comorbidities, slit lamp and dilated exam, biometry data, IOL preference, medications including alpha-blockers and anticoagulants.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+72-year-old male with open-angle glaucoma (OAG) in both eyes, diagnosed 8 years ago. On 3 drops: timolol 0.5% BID OU, latanoprost 0.005% QHS OU, brimonidine 0.2% BID OU. Reports good compliance but occasionally misses the brimonidine afternoon dose. IOP today (Goldmann, 10 AM): OD 22, OS 19. Target IOP OD 16, OS 16. Last visit 3 months ago IOP was OD 20, OS 18. Prior IOP on 2 drops (before brimonidine added 6 months ago): OD 24, OS 22. No prior laser or surgery. Visual fields today: OD MD -8.2 dB (prior -7.1 on 9/25), PSD 6.4, superior arcuate defect, reliability good; OS MD -4.3 dB (prior -4.1 on 9/25), PSD 3.8, early superior nasal step, reliability good. OCT RNFL today: OD average 68 microns (prior 72 on 9/25), inferior thinning; OS average 82 microns (prior 83 on 9/25). GPA shows likely progression OD, stable OS. C/D: OD 0.8, OS 0.65. No disc hemorrhage. VA: OD 20/25, OS 20/20. Slit lamp: trace nuclear sclerosis OU, otherwise unremarkable. Gonioscopy: open angles, Shaffer 3-4 in all quadrants OU, no PAS, moderate pigment OD and OS.
+
+**LLM output:**
+
+OPHTHALMOLOGY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Follow-up
+Interval since last visit: 3 months
+
+CHIEF CONCERN
+─────────────
+Glaucoma management; IOP above target OD despite maximally tolerated medical therapy
+
+OCULAR HISTORY
+──────────────
+  Primary diagnosis: Primary open-angle glaucoma (POAG), bilateral, moderate OD, mild OS
+  Ocular history timeline:
+    - 2018: Diagnosed with POAG OU
+    - 2018: Started timolol 0.5% BID OU and latanoprost 0.005% QHS OU
+    - 9/25: Added brimonidine 0.2% BID OU for inadequate IOP control
+  Prior ocular surgeries:
+    OD: None
+    OS: None
+
+INTERVAL HISTORY
+────────────────
+Patient reports stable vision in both eyes without new visual symptoms. He states good compliance with timolol and latanoprost but acknowledges occasionally missing the afternoon brimonidine dose (estimates missing 2-3 doses per week). He denies eye pain, redness, halos, flashes, or floaters. No side effects from current drops. No interim changes to systemic medications.
+
+CURRENT OPHTHALMIC MEDICATIONS
+──────────────────────────────
+  OU
+  ──
+  Timolol 0.5% 1 drop BID
+  Latanoprost 0.005% 1 drop QHS
+  Brimonidine 0.2% 1 drop BID (compliance intermittent, misses afternoon dose 2-3x/week)
+
+VISUAL ACUITY
+─────────────
+               OD              OS
+  BCVA:        20/25           20/20
+
+INTRAOCULAR PRESSURE
+────────────────────
+  Method: Goldmann applanation tonometry
+  Time: 10:00 AM
+  OD: 22 mmHg    OS: 19 mmHg
+  Target IOP:
+    OD: ≤16 mmHg    OS: ≤16 mmHg
+  At target: OD No (6 mmHg above)    OS No (3 mmHg above)
+
+SLIT LAMP EXAMINATION
+─────────────────────
+                     OD                    OS
+  Conjunctiva:       White and quiet       White and quiet
+  Cornea:            Clear                 Clear
+  Anterior chamber:  Deep, quiet           Deep, quiet
+  Iris:              Normal                Normal
+  Lens:              Trace NS              Trace NS
+
+GONIOSCOPY
+──────────
+                     OD                    OS
+  Angle:             Open                  Open
+  Shaffer grade:     3-4 all quadrants     3-4 all quadrants
+  PAS:               None                  None
+  Pigmentation:      Moderate              Moderate
+  Neovascularization: None                 None
+
+DILATED FUNDUS EXAMINATION
+──────────────────────────
+                     OD                    OS
+  Optic disc:
+    C/D ratio:       0.8                   0.65
+    Pallor:          None                  None
+    Disc hemorrhage: None                  None
+    NRR thinning:    Inferior              None
+  Macula:            Normal                Normal
+  Periphery:         Normal                Normal
+
+DIAGNOSTICS
+───────────
+
+  OCT RNFL
+  ────────
+  Date: 3/27/26
+  RNFL:
+    OD: Average 68 microns (prior 72 on 9/25/25). Inferior quadrant thinning.
+    OS: Average 82 microns (prior 83 on 9/25/25). Within normal limits.
+  Progression (GPA): OD likely progression. OS stable.
+
+  Visual Fields (Humphrey 24-2)
+  ─────────────────────────────
+  Date: 3/27/26
+  OD: MD -8.2 dB (prior -7.1 on 9/25/25), PSD 6.4 dB.
+      Pattern: Superior arcuate defect.
+      Reliability: Fixation losses 1/13, FP 2%, FN 3%. Good reliability.
+  OS: MD -4.3 dB (prior -4.1 on 9/25/25), PSD 3.8 dB.
+      Pattern: Early superior nasal step.
+      Reliability: Fixation losses 0/12, FP 1%, FN 5%. Good reliability.
+  Progression: OD shows 1.1 dB worsening in MD over 6 months. OS stable.
+
+ASSESSMENT
+──────────
+72-year-old male with bilateral POAG, moderate severity OD and mild severity OS. OD is above target (22 vs target 16) on maximally tolerated medical therapy (3 drop classes) with structural (RNFL thinning by 4 microns in 6 months, GPA likely progression) and functional (MD worsening from -7.1 to -8.2 dB) progression. OS is above target (19 vs target 16) but structurally and functionally stable over the same interval. Compliance with brimonidine is suboptimal, though even with perfect compliance, the IOP gap OD (6 mmHg above target) is unlikely to close with brimonidine alone.
+
+  1. POAG OD, moderate severity, progressing
+     IOP above target despite 3 drops. Structural and functional progression confirmed. Medical therapy is insufficient OD. Requires procedural intervention.
+
+  2. POAG OS, mild severity, stable
+     IOP 3 mmHg above target. No progression on current therapy, but IOP is not at goal. May benefit from the same intervention.
+
+  3. Early cataracts OU
+     Trace nuclear sclerosis, not visually significant. VA 20/25 OD, 20/20 OS.
+
+PLAN
+────
+  1. POAG OD, progressing
+     - Recommend selective laser trabeculoplasty (SLT) OD as next step
+     - Discussed SLT: mechanism, expected IOP reduction (20-30%), that it can be repeated, risks (transient IOP spike, inflammation), and alternative (incisional surgery)
+     - If SLT does not achieve target, will proceed to trabeculectomy or tube shunt OD
+     - Continue all 3 drops OD until SLT effect is established (reassess at 6 weeks post-SLT)
+     - Schedule SLT OD within the next 2-4 weeks
+
+  2. POAG OS, stable but above target
+     - Consider SLT OS at same session or sequentially
+     - Reinforce brimonidine compliance; discuss switching to fixed-combination drop (brimonidine-timolol) to simplify regimen and improve adherence
+     - Recheck IOP OS at SLT follow-up visit
+
+  3. Early cataracts OU
+     - Monitor; not visually significant at this time
+     - If cataract surgery becomes indicated, MIGS (iStent, goniotomy) can be performed concurrently
+
+  Monitoring
+  ──────────
+  - IOP recheck: 6 weeks post-SLT
+  - Visual fields: 6 months
+  - OCT RNFL/GCC: 6 months
+  - Gonioscopy: 12 months
+
+  Follow-Up
+  ─────────
+  Return in 6 weeks after SLT for IOP check.
+  Return sooner for acute vision loss, eye pain, or halos.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **Lateralization is non-negotiable.** If you give the model "IOP 20" without specifying which eye, it will guess or leave a placeholder. Always label OD and OS in your input. An ophthalmology note that says "the eye" instead of "OD" or "OS" is a liability.
+- **IOP is a snapshot.** A single IOP reading does not capture the patient's true pressure. If you provide multiple readings across visits, the model will trend them. A single reading invites overreaction (to a high number) or false reassurance (to a normal one).
+- **Visual field reliability matters.** The model will report MD and PSD, but if fixation losses exceed 20% or false positives exceed 15%, the field is unreliable and should not drive treatment decisions. Include reliability indices in your input.
+- **OCT progression vs artifact.** A 4-micron change in RNFL could be real progression or measurement variability. The GPA (Guided Progression Analysis) is what distinguishes them. Provide the GPA result, not just the raw number.
+- **Anti-VEGF interval decisions are clinical.** The model will document your treat-and-extend interval, but extending from 8 to 10 weeks after one dry OCT is your decision, not the AI's. The note captures what you decided and why.
+- **IOL calculations in post-refractive eyes are complex.** If your patient has had prior LASIK or PRK, standard biometry formulas overestimate IOL power. The model will use whatever formula you provide. Verify you are using an appropriate formula (Barrett True K, Haigis-L, or clinical history method).
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) - for inpatient post-operative ophthalmology notes
+- [Procedure Note](/templates/procedure-note) - for documenting intravitreal injections, cataract surgery, glaucoma procedures
+- [Consult Note](/templates/consult-note) - for inpatient ophthalmology consultations
+- [Referral Letter](/templates/referral-letter) - for referring patients to retina or glaucoma subspecialists
