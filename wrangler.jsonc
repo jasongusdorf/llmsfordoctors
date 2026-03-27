@@ -11,6 +11,13 @@
     {
       "binding": "FORM_STORE",
       "id": "cd9c5e26f2324bdb980b9878faae1760"
+    },
+    {
+      "binding": "SOCIAL_STORE",
+      "id": "7aaff7582add425c9e6372c1dc9cd0f4"
     }
-  ]
+  ],
+  "triggers": {
+    "crons": ["0 14 * * *"]
+  }
 }
