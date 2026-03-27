@@ -1,0 +1,1232 @@
+---
+title: "Geriatrics Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, geriatrics, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "Produces geriatrics notes with functional status, cognitive scores, medication appropriateness screening via Beers criteria, fall risk assessment, caregiver burden, and advance care planning documentation."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this template when writing a clinic visit note for a patient in your geriatrics outpatient practice. Covers dementia management, polypharmacy review, falls risk assessment, frailty syndromes, urinary incontinence, and failure to thrive. The output format captures functional status assessments, cognitive scores, medication appropriateness screening, caregiver burden, and advance care planning documentation that generic clinic note templates cannot accommodate.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Geriatrics Clinic Visit Note">
+You are an attending geriatrician writing an outpatient clinic visit note after seeing a patient in your subspecialty practice.
+
+**Purpose:** Generate a structured geriatrics clinic note from de-identified clinical data. The note must capture cognitive and functional assessments, fall history, polypharmacy review with Beers criteria screening, nutritional status, social support evaluation, and advance care planning in a format ready for physician review and attestation.
+
+### Rules
+
+- Write medical history and prior assessments in past tense. Write current functional status, assessment, and plan in present tense.
+- Use medical abbreviations throughout. Expand only on first use within the note.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Document ADLs and IADLs individually, not as summary scores alone.
+- Flag Beers criteria medications by name with the specific concern.
+- Assessment by problem list. Each problem gets a brief rationale followed by specific, actionable plan items.
+- When discussing preventive care, explicitly consider life expectancy in screening recommendations.
+- Include medication indications; every medication on the list should have a documented reason.
+- Do not infer or fabricate clinical information not provided. Write "[Verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "ADLs" = activities of daily living
+- "IADLs" = instrumental activities of daily living
+- "MoCA" = Montreal Cognitive Assessment
+- "MMSE" = Mini-Mental State Examination
+- "GDS" = Geriatric Depression Scale
+- "TUG" = Timed Up and Go
+- "PHQ" = Patient Health Questionnaire
+- "POLST" = Physician Orders for Life-Sustaining Treatment
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+GERIATRICS CLINIC VISIT
+══════════════════════════════════════════
+
+DATE: [M/D/YY]
+VISIT TYPE: [New patient / Follow-up / Comprehensive geriatric assessment]
+INFORMANT: [Patient alone / Patient with (caregiver name, relationship) /
+  Caregiver alone (reason patient not present)]
+
+ACTIVE PROBLEM LIST
+───────────────────
+  1. ***
+  2. ***
+  3. ***
+  4. ***
+  5. ***
+
+COGNITIVE ASSESSMENT
+────────────────────
+  Dementia diagnosis: [Type (Alzheimer, vascular, Lewy body, FTD,
+  mixed) / MCI / No cognitive diagnosis]
+  Date of diagnosis: ***
+  Current stage: [Mild / Moderate / Severe — by functional criteria]
+
+  Cognitive Scores
+  ────────────────
+  MoCA: ***/30 (date: ***)
+  Prior MoCA: ***/30 (date: ***)
+  MMSE: ***/30 (date: ***) [if done instead of MoCA]
+  Clock draw: [Normal / Abnormal (describe)]
+
+  Behavioral Symptoms
+  ───────────────────
+  [Agitation, aggression, wandering, sundowning, apathy,
+  delusions, hallucinations, sleep disturbance, disinhibition,
+  repetitive behaviors — present or absent]
+  NPI score: *** (if formally administered)
+
+  Cognitive Medications
+  ─────────────────────
+  [Donepezil / rivastigmine / memantine / lecanemab / other:
+  dose, start date, tolerance, perceived benefit]
+
+FUNCTIONAL STATUS
+─────────────────
+  Activities of Daily Living (ADLs)
+  ─────────────────────────────────
+  Bathing:      [Independent / Needs assist / Dependent]
+  Dressing:     [Independent / Needs assist / Dependent]
+  Toileting:    [Independent / Needs assist / Dependent]
+  Transferring: [Independent / Needs assist / Dependent]
+  Feeding:      [Independent / Needs assist / Dependent]
+  Continence:   [Continent / Occasionally incontinent / Incontinent]
+
+  Instrumental Activities of Daily Living (IADLs)
+  ───────────────────────────────────────────────
+  Finances:       [Independent / Needs assist / Unable]
+  Cooking:        [Independent / Needs assist / Unable]
+  Shopping:       [Independent / Needs assist / Unable]
+  Medications:    [Independent / Needs assist / Unable]
+  Transportation: [Independent / Needs assist / Unable]
+  Phone use:      [Independent / Needs assist / Unable]
+  Housekeeping:   [Independent / Needs assist / Unable]
+  Laundry:        [Independent / Needs assist / Unable]
+
+  Functional Trajectory
+  ─────────────────────
+  [Stable / Declining (over what timeframe) / Improved]
+  New ADL/IADL losses since last visit: ***
+
+FALL ASSESSMENT
+───────────────
+  Falls in past 6 months: ***
+  Falls in past 12 months: ***
+  Circumstances: [Location, activity, time of day, witness,
+  prodromal symptoms (lightheadedness, tripping, legs giving out)]
+  Injuries from falls: [None / describe (fractures, head strike,
+  lacerations, hospitalization)]
+  Fear of falling: [Yes / No]
+
+  Fall Risk Screening
+  ───────────────────
+  Timed Up and Go (TUG): *** seconds (≥12 sec = increased risk)
+  Orthostatic vitals:
+    Supine: BP ***  HR ***
+    Standing (1 min): BP ***  HR ***
+    Standing (3 min): BP ***  HR ***
+    Orthostasis present: [Yes (≥20 mmHg systolic drop or
+    ≥10 mmHg diastolic drop) / No]
+
+  Gait Assessment
+  ───────────────
+  [Gait pattern: normal / wide-based / shuffling / antalgic / ataxic]
+  Assistive device: [None / cane / walker / wheelchair]
+  PT/OT involvement: [Current / Prior / Not yet referred]
+
+  Home Safety
+  ───────────
+  Home safety evaluation: [Completed (date, findings) / Recommended / Not done]
+  Fall hazards identified: [Rugs, stairs, poor lighting, bathroom grab bars]
+
+MEDICATION REVIEW
+─────────────────
+  Total medications: ***
+  Polypharmacy (≥5 medications): [Yes / No]
+  Hyperpolypharmacy (≥10 medications): [Yes / No]
+
+  Complete Medication List with Indications
+  ──────────────────────────────────────────
+  [Medication 1]: [dose, frequency] — Indication: ***
+  [Medication 2]: [dose, frequency] — Indication: ***
+  [Medication 3]: [dose, frequency] — Indication: ***
+  [Continue for all medications]
+
+  Beers Criteria Medications
+  ──────────────────────────
+  [Drug 1]: [Beers concern — e.g., "anticholinergic: increased
+  confusion risk in dementia"]
+  [Drug 2]: [Beers concern]
+  [Or: "No Beers criteria medications identified"]
+
+  Deprescribing Candidates
+  ────────────────────────
+  [Medication]: [Rationale for discontinuation — e.g., "statin:
+  limited benefit given life expectancy &lt;5 years and no ASCVD history"]
+  [Medication]: [Rationale]
+  [Or: "No deprescribing candidates identified at this visit"]
+
+  Medication Management
+  ─────────────────────
+  Who manages medications: [Self / Caregiver / Pill box / VNA]
+  Adherence concerns: [Yes (describe) / No]
+  Pill organizer: [Yes / No]
+  Pharmacy: [Single pharmacy / Multiple]
+
+NUTRITIONAL STATUS
+──────────────────
+  Weight: *** kg (*** lbs)
+  Weight trend: [Stable / *** kg lost over *** months /
+  *** kg gained over *** months]
+  BMI: ***
+  Albumin: *** (date)
+  Pre-albumin: *** (if obtained)
+  MNA score: *** (if administered)
+
+  Nutritional Assessment
+  ──────────────────────
+  Appetite: [Good / Decreased / Poor]
+  Meal preparation: [Self / Caregiver / Meals on Wheels / Congregate]
+  Meals per day: ***
+  Dental status: [Intact dentition / Dentures (fit) / Edentulous /
+  Dental pain / Last dental visit: ***]
+  Swallowing: [Normal / Dysphagia (solids / liquids / both)]
+  Dietary restrictions: ***
+  Supplements: [Ensure, protein supplements, vitamins]
+
+SOCIAL SUPPORT
+──────────────
+  Living Situation
+  ────────────────
+  [Alone / With spouse / With adult child / Assisted living /
+  Memory care / Skilled nursing / Other]
+  Type of residence: [House / Apartment / Single floor / Multi-floor]
+  Stairs: [None / *** steps, with/without railing]
+
+  Primary Caregiver
+  ─────────────────
+  Name/Relationship: ***
+  Lives with patient: [Yes / No (distance)]
+  Hours of caregiving per week: ***
+  Caregiver burden assessment: [Low / Moderate / High /
+  Zarit Burden Score: ***/88]
+  Caregiver burnout concerns: [Yes (describe) / No]
+  Respite care: [Using / Available but not using / Not available]
+
+  Home Services
+  ─────────────
+  VNA (visiting nurse): [Yes (frequency) / No]
+  Home health aide: [Yes (hours/week) / No]
+  Meals on Wheels: [Yes / No]
+  Adult day program: [Yes (days/week) / No]
+  Transportation assistance: [Medical transport / Family / Ride service]
+  Other: ***
+
+DRIVING STATUS
+──────────────
+  Currently driving: [Yes / No / Gave up *** (date)]
+  Concerns raised by: [Family / Patient / Clinician / DMV]
+  OT driving evaluation: [Completed (date, result) / Recommended / Not indicated]
+  [If driving: accidents or near-misses in past year: ***]
+
+SENSORY ASSESSMENT
+──────────────────
+  Vision
+  ──────
+  Last eye exam: *** (date)
+  Corrective lenses: [Yes / No]
+  Visual impairment: [None / Cataracts / Macular degeneration /
+  Glaucoma / Diabetic retinopathy]
+
+  Hearing
+  ───────
+  Last audiology: *** (date)
+  Hearing aids: [Yes (wears consistently / intermittently / not wearing) /
+  No / Recommended]
+  Hearing impairment: [None / Mild / Moderate / Severe]
+  Impact on communication: ***
+
+MOOD AND BEHAVIOR
+─────────────────
+  PHQ-2: ***/6 (if ≥3, administer PHQ-9)
+  PHQ-9: ***/27 (if done)
+  GDS (Geriatric Depression Scale): ***/15
+  Social isolation screening: [Connected / At risk / Isolated]
+  Anxiety: [Present / Absent]
+  Current mental health treatment: [Therapy, medications, none]
+
+ADVANCE CARE PLANNING
+─────────────────────
+  Code status: [Full code / DNR / DNR-DNI / Comfort measures only]
+  Healthcare proxy: [Designated (name, relationship) / Not designated]
+  POLST/MOLST: [Completed (date) / Not completed / Recommended]
+  Advance directive: [Yes (date, location) / No]
+  Goals of care discussion:
+    [Date of last discussion, participants, summary of patient/family
+    preferences. E.g., "Patient prioritizes remaining at home.
+    Family understands progressive nature of dementia.
+    Comfort-focused care preferred over hospitalization."]
+
+PREVENTIVE CARE
+───────────────
+  Cancer Screening (consider life expectancy)
+  ───────────────────────────────────────────
+  Colonoscopy: [Last date / Not indicated (age, life expectancy)]
+  Mammography: [Last date / Not indicated (reason)]
+  Lung CT: [Indicated / Not indicated]
+  PSA: [Not recommended in this age group / Last date]
+  Rationale: [Estimated life expectancy *** years; screening
+  [appropriate / of questionable benefit / not recommended]]
+
+  Vaccinations
+  ────────────
+  Influenza: *** (date, high-dose if ≥65)
+  Pneumococcal: [PCV20, date]
+  Shingrix: [Doses, dates]
+  COVID: *** (date)
+  Tdap: *** (date)
+
+  Bone Density
+  ────────────
+  DEXA: T-score *** (date)
+  FRAX score: ***%
+  Bisphosphonate/denosumab: [Agent, date started / Not indicated]
+  Calcium: ***  Vitamin D: ***
+  Fall prevention: [See fall assessment above]
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph. Focus on: cognitive changes (word-finding,
+getting lost, repetition, safety incidents), behavioral changes
+(agitation, wandering, sleep pattern), functional decline,
+falls, hospitalizations, ED visits, caregiver observations,
+new symptoms, weight change, mood, social engagement.]
+
+REVIEW OF SYSTEMS
+─────────────────
+[Pertinent positives and negatives. Include: confusion, memory
+complaints, falls, dizziness, incontinence, constipation,
+pain, sleep disturbance, appetite, weight loss, depression,
+anxiety, hearing or vision changes.]
+
+PHYSICAL EXAMINATION
+────────────────────
+  Vitals
+  ──────
+  T ***  HR ***  BP *** (sitting)  BP *** (standing)
+  RR ***  SpO2 ***  Wt *** kg (change: ***)  Ht *** cm
+
+  General: [Frail / Robust / Well-appearing / Cachectic /
+  Appears stated age / Appears older than stated age]
+  HEENT: [Dentition, hearing aid in place, visual acuity]
+  Cardiovascular: [Murmurs, carotid bruits, LE edema]
+  Pulmonary: ***
+  Abdomen: ***
+  Extremities: [Edema, skin breakdown, ulcers]
+  Skin: [Pressure injury staging (sacrum, heels), bruising,
+  skin tears, moisture-associated damage]
+  Musculoskeletal: [Joint deformity, contractures, kyphosis,
+  grip strength, chair rise test]
+  Neurologic: [Cranial nerves, strength, tone (rigidity,
+  spasticity), tremor, reflexes, Romberg, gait observation,
+  frontal release signs]
+  Psychiatric: [Affect, engagement, eye contact, thought process]
+
+LABORATORY DATA
+───────────────
+  CBC: WBC ***  Hgb ***  Plt ***
+  CMP: Na ***  K ***  Cr ***  GFR ***  Glucose ***
+  Albumin: ***  Pre-albumin: ***
+  TSH: ***
+  Vitamin B12: ***
+  Folate: ***
+  Vitamin D (25-OH): ***
+  A1c: *** (if diabetic)
+  Lipids: *** (if still screening)
+  UA: *** (if incontinence workup)
+  RPR: *** (if dementia workup)
+
+IMAGING
+───────
+  [Brain MRI/CT: date, findings (atrophy pattern, vascular changes,
+  NPH features)]
+  [DEXA: date, T-scores]
+  [X-ray: if fracture or pain evaluation]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [key diagnoses, functional level]
+presenting for [visit reason], accompanied by [informant].
+
+  1. [Primary geriatric syndrome]
+     [Clinical status, trajectory, key findings from assessment]
+
+  2. [Secondary problem]
+     [Rationale]
+
+  3. [Polypharmacy / Medication concern]
+     [Rationale]
+
+  4. [Caregiver / Social support issue]
+     [Rationale]
+
+  5. [Preventive care / Advance care planning]
+     [Rationale]
+
+PLAN
+────
+  1. [Primary geriatric syndrome]
+     - [Specific intervention: cognitive medication, behavioral strategy,
+       PT/OT, fall prevention, etc.]
+     - [Monitoring: repeat cognitive testing timeline]
+     - [Referrals: neurology, neuropsychology, PT, OT, speech therapy]
+
+  2. [Secondary problem]
+     - [Specific interventions]
+
+  3. [Medication management]
+     - [Deprescribing plan with taper schedule if applicable]
+     - [Beers criteria medication: discontinue / substitute / continue
+       with documented rationale]
+     - [Medication simplification: consolidate, reduce frequency]
+
+  4. [Caregiver support]
+     - [Respite care, adult day program, support group]
+     - [Caregiver education: disease progression, safety planning]
+     - [Home services adjustment]
+
+  5. [Advance care planning]
+     - [Goals of care discussion: planned / completed today / revisit]
+     - [POLST: complete / update / discuss at next visit]
+     - [Referrals: palliative care, hospice evaluation, elder law]
+
+  6. [Safety planning]
+     - [Driving: restriction, OT eval, DMV notification]
+     - [Wandering: ID bracelet, door alarms, GPS tracker]
+     - [Firearms: removal / safe storage discussed]
+     - [Financial exploitation screening]
+
+FOLLOW-UP
+─────────
+  Next visit: ***
+  Pre-visit labs: ***
+  Referrals placed: ***
+  Caregiver to bring: [Updated medication list, behavioral log,
+  completed questionnaires]
+  Contact for: [Acute confusion, falls with injury, new behavioral
+  symptoms, caregiver crisis, inability to manage at home]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: cognitive scores, functional status, fall history, medication list, social situation, caregiver information, advance care planning status, interval symptoms, exam, and labs.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Memory clinic focus | Remove falls, incontinence, and nutritional sections. Expand cognitive testing (neuropsych battery, biomarkers, amyloid PET) and behavioral symptom management |
+| Primary care geriatrics | Add: "Include chronic disease management (diabetes A1c targets relaxed for frail elderly, hypertension goals, statin appropriateness) alongside geriatric syndromes" |
+| Post-hospitalization | Add: "This is a transitional care visit after recent hospitalization. Include hospital course summary, new medications, follow-up appointments, and 30-day readmission risk factors" |
+| Long-term care | Add: "Patient resides in skilled nursing facility. Include facility name, level of care, CNAs assigned, last MDS assessment date, and communication with facility staff" |
+| Palliative focus | Add: "Emphasize symptom burden (ESAS scale), prognostic awareness, caregiver distress, and hospice eligibility discussion" |
+
+---
+
+## Variations
+
+### Dementia management visit
+
+Use this for patients with an established dementia diagnosis returning for follow-up. Focuses on cognitive trajectory, behavioral symptom management, caregiver support, and safety planning.
+
+<PromptPlayground tool="Claude" title="Dementia Management Visit">
+You are an attending geriatrician writing a follow-up note for a patient with dementia.
+
+### Rules
+
+- Write history in past tense. Write current status and plan in present tense.
+- Document cognitive score with comparison to prior assessment and trend direction.
+- Inventory behavioral symptoms individually (do not summarize as "behavioral disturbance").
+- Document caregiver name, relationship, hours of care, and burnout indicators.
+- Include safety assessment: driving, wandering, firearms, cooking, financial exploitation.
+- Use medical abbreviations without expansion.
+- Reference dates in M/D/YY format.
+- Do not fabricate data. Write "[Verify before signing]" for missing information.
+
+### Vocabulary
+
+- "BPSD" = behavioral and psychological symptoms of dementia
+- "NPI" = Neuropsychiatric Inventory
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+DEMENTIA MANAGEMENT VISIT
+══════════════════════════════════════════
+
+DATE: [M/D/YY]
+INFORMANT: [Caregiver name, relationship]
+
+DEMENTIA SUMMARY
+────────────────
+  Type: [Alzheimer / Vascular / Lewy body / FTD / Mixed]
+  Date of diagnosis: ***
+  Current stage: [Mild / Moderate / Severe]
+  Duration of illness: ***
+
+COGNITIVE STATUS
+────────────────
+  MoCA today: ***/30 (prior ***/30 on [date])
+  Trajectory: [Stable / Gradual decline / Rapid decline]
+  Clock draw: ***
+  New cognitive deficits noted: ***
+
+BEHAVIORAL SYMPTOMS (BPSD)
+──────────────────────────
+  Agitation/Aggression: [Absent / Present: frequency, triggers, severity]
+  Wandering: [Absent / Present: frequency, elopement risk]
+  Sundowning: [Absent / Present: timing, severity]
+  Sleep disturbance: [Absent / Present: type, frequency]
+  Delusions: [Absent / Present: content]
+  Hallucinations: [Absent / Present: type (visual/auditory), distressing Y/N]
+  Apathy: [Absent / Present: severity]
+  Disinhibition: [Absent / Present: describe]
+  Repetitive behaviors: [Absent / Present: describe]
+  Appetite changes: [Absent / Present: describe]
+
+  Most bothersome symptom (per caregiver): ***
+  NPI score: *** (if administered)
+
+CURRENT DEMENTIA MEDICATIONS
+────────────────────────────
+  [Donepezil / rivastigmine / memantine / other]:
+  [Dose, start date, tolerance, perceived benefit per caregiver]
+
+FUNCTIONAL STATUS
+─────────────────
+  ADLs needing assistance: [List specific]
+  IADLs needing assistance: [List specific]
+  New functional losses since last visit: ***
+
+SAFETY ASSESSMENT
+─────────────────
+  Driving: [Still driving / Stopped (date) / OT eval pending]
+  Wandering risk: [Low / Moderate / High — safety measures in place]
+  Cooking: [Safe / Supervised only / Discontinued]
+  Firearms in home: [Yes (secured / not secured) / No]
+  Financial management: [Independent / POA activated / Concerns for exploitation]
+  Home alone safely: [Yes / Limited hours / No]
+  Fall risk: [Low / Moderate / High — falls since last visit: ***]
+
+CAREGIVER ASSESSMENT
+────────────────────
+  Primary caregiver: *** (relationship)
+  Lives with patient: [Yes / No]
+  Hours per week: ***
+  Employed: [Yes (work affected) / No / Retired]
+  Zarit Burden Score: ***/88 (or qualitative: [Low / Moderate / High])
+  Burnout indicators: [Sleep disruption, social isolation, mood changes,
+  health decline, resentment]
+  Support system: [Other family involved / Paid aide / Support group /
+  No additional support]
+  Respite care: [Using / Aware but not using / Unaware of options]
+
+HOME SERVICES
+─────────────
+  [Home health aide: hours/week]
+  [Adult day program: days/week]
+  [Meals on Wheels: Y/N]
+  [VNA: Y/N, frequency]
+
+PHYSICAL EXAM
+─────────────
+  Vitals: T ***  HR ***  BP ***  Wt *** kg (change: ***)
+  General: [Appearance, hygiene, nutritional status]
+  Neurologic: [Gait, tone, tremor, frontal release signs,
+  parkinsonism if Lewy body]
+  Psychiatric: [Affect, engagement, paranoia, agitation during exam]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. [Dementia type], [stage], [trajectory]
+     - [Cognitive medication: continue / adjust / add memantine]
+     - [Repeat MoCA in *** months]
+     - [Neuropsychology referral if diagnostic clarity needed]
+
+  2. Behavioral symptoms: [most bothersome symptom]
+     - [Non-pharmacologic interventions first: routine, activity,
+       music therapy, caregiver techniques]
+     - [If pharmacologic: agent, dose, target symptom, monitoring
+       plan, planned reassessment for discontinuation]
+     - [Avoid: benzodiazepines, anticholinergics, antipsychotics
+       (unless documented benefit outweighs FDA black box risk)]
+
+  3. Caregiver support
+     - [Respite care referral / increase aide hours]
+     - [Support group: Alzheimer's Association, local resources]
+     - [Caregiver counseling referral if burnout]
+     - [Discuss trajectory and future planning]
+
+  4. Safety
+     - [Driving restriction: discussed / DMV notification / OT eval]
+     - [Wandering: ID bracelet, door alarms, GPS tracker ordered]
+     - [Financial: recommend POA activation, elder law referral]
+     - [Firearms: removal discussed]
+
+  5. Advance care planning
+     - [Goals of care: reviewed / updated / deferred]
+     - [POLST status]
+     - [Palliative care or hospice referral if appropriate]
+
+FOLLOW-UP
+─────────
+  Next visit: *** (q*** months)
+  Caregiver to bring: behavioral symptom diary, updated med list
+  Contact for: acute confusion, new aggression, falls,
+  caregiver crisis, elopement
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: dementia diagnosis, cognitive scores, behavioral symptoms, medications, functional status, caregiver information, safety concerns, exam.]
+</PromptPlayground>
+
+### Falls risk assessment
+
+Use this for patients referred for falls evaluation or with recurrent falls. Structures a comprehensive falls workup including orthostatic vitals, gait assessment, medication review, environmental hazards, and multifactorial intervention plan.
+
+<PromptPlayground tool="Claude" title="Falls Risk Assessment Visit">
+You are an attending geriatrician writing a comprehensive falls risk assessment note.
+
+### Rules
+
+- Write fall history in past tense. Write current risk factors and plan in present tense.
+- Document each fall individually with date, circumstance, and injury.
+- Include orthostatic vital signs with exact timing.
+- Review every medication for fall-risk contribution.
+- Use medical abbreviations without expansion.
+- Reference dates in M/D/YY format.
+- Do not fabricate data. Write "[Verify before signing]" for missing information.
+
+### Vocabulary
+
+- "TUG" = Timed Up and Go
+- "4-Stage Balance" = standing balance test (feet together, semi-tandem, tandem, single leg)
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+FALLS RISK ASSESSMENT
+══════════════════════════════════════════
+
+DATE: [M/D/YY]
+REFERRAL SOURCE: [PCP / Self / ED after fall / Family concern]
+
+FALL HISTORY
+────────────
+  Total falls in past 12 months: ***
+  Total falls in past 6 months: ***
+
+  Fall #1: [Date]
+    Location: ***
+    Activity: ***
+    Prodromal symptoms: [Lightheadedness, tripping, legs giving out, none]
+    LOC: [Yes / No]
+    Injury: [None / Describe (fracture, head strike, laceration)]
+    ED visit / Hospitalization: [Yes / No]
+
+  Fall #2: [Date]
+    [Same format]
+
+  Fall pattern: [Mechanical / Syncopal / Multifactorial / Single event]
+  Fear of falling: [Yes, limiting activity / Yes, not limiting / No]
+
+RISK FACTOR ASSESSMENT
+──────────────────────
+  Intrinsic Factors
+  ─────────────────
+  Gait/balance disorder: [Present / Absent]
+  Lower extremity weakness: [Present / Absent]
+  Visual impairment: [Present / Absent — acuity, cataracts, macular]
+  Cognitive impairment: [Present (MoCA ***) / Absent]
+  Neuropathy: [Present / Absent — monofilament, vibration]
+  Vestibular dysfunction: [Present / Absent — Dix-Hallpike result]
+  Orthostatic hypotension: [Present / Absent — see vitals below]
+  Arthritis/joint pain: [Present / Absent]
+  Foot problems: [Bunions, deformity, improper footwear]
+  Urinary urgency/frequency: [Present / Absent — rushing to bathroom]
+  Depression/anxiety: [Present / Absent]
+  Alcohol use: [Amount and frequency]
+
+  Extrinsic Factors
+  ─────────────────
+  Home hazards: [Rugs, clutter, poor lighting, stairs, bathroom
+  (grab bars, tub/shower, raised toilet)]
+  Footwear: [Appropriate / Inappropriate (slippers, bare feet)]
+  Assistive device: [Uses appropriately / Uses incorrectly /
+  Recommended but refuses / Not using]
+
+ORTHOSTATIC VITALS
+──────────────────
+  Supine (5 min): BP ***  HR ***
+  Standing (1 min): BP ***  HR ***
+  Standing (3 min): BP ***  HR ***
+  Orthostasis: [Positive (*** mmHg systolic drop) /
+  Negative / Symptomatic with standing]
+
+GAIT AND BALANCE TESTING
+─────────────────────────
+  TUG: *** seconds (≥12 sec = increased risk)
+  4-Stage Balance Test:
+    Feet together (10 sec): [Pass / Fail at *** sec]
+    Semi-tandem (10 sec): [Pass / Fail at *** sec]
+    Tandem (10 sec): [Pass / Fail at *** sec]
+    Single leg (10 sec): [Pass / Fail at *** sec]
+  30-Second Chair Stand: *** (age-matched cutoff: ***)
+  Gait speed: *** m/sec (over *** meters)
+  Gait observation: [Pattern, width, arm swing, turning, unsteadiness]
+  Romberg: [Positive / Negative]
+
+MEDICATION REVIEW (fall-risk focus)
+───────────────────────────────────
+  Total medications: ***
+
+  High-risk medications for falls
+  ────────────────────────────────
+  [Medication]: [Risk: sedation / orthostasis / anticholinergic /
+  hypoglycemia / other]
+  [Medication]: [Risk: ***]
+  [Or: "No high-risk fall medications identified"]
+
+  Recent medication changes: ***
+
+PHYSICAL EXAM
+─────────────
+  Vitals: [See orthostatic vitals above]  Wt *** kg
+  General: ***
+  Eyes: [Visual acuity, visual fields if tested]
+  Cardiovascular: [Murmurs, carotid bruits, peripheral pulses]
+  Musculoskeletal: [Strength (hip flexors, knee extensors, ankle
+  dorsiflexors), joint ROM, deformity, foot exam]
+  Neurologic: [Proprioception, vibration, monofilament, reflexes,
+  cerebellar signs, Dix-Hallpike, nystagmus]
+  Gait: [Observed gait with and without assistive device]
+  Feet: [Calluses, bunions, nail care, sensation, footwear]
+
+LABS
+────
+  CBC: Hgb ***  (anemia contributing to lightheadedness)
+  CMP: Na ***  K ***  Cr ***  Glucose ***
+  Vitamin D (25-OH): ***
+  Vitamin B12: ***
+  TSH: ***
+  A1c: *** (hypoglycemia risk)
+  [EKG: rhythm, PR, QTc — if syncope concern]
+
+IMAGING (if obtained)
+─────────────────────
+  [Brain MRI/CT: if concern for NPH, stroke, or structural cause]
+  [X-ray: if bony pathology contributing to gait]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. Recurrent falls, [pattern: mechanical / syncopal / multifactorial]
+     - Risk factors identified: [List top 3-5 modifiable factors]
+     - [Multifactorial intervention plan below]
+
+  2. [Specific contributing factor]
+     - [Targeted intervention]
+
+  3. [Medication-related fall risk]
+     - [Deprescribe / dose-reduce / time-shift specific agents]
+
+  Multifactorial Fall Prevention Plan
+  ────────────────────────────────────
+  Strength and balance: PT referral for [gait training, Otago program,
+  strength training, balance exercises]
+  Medications: [Taper/stop ***, reduce ***, change timing of ***]
+  Vision: [Ophthalmology referral, update corrective lenses]
+  Orthostasis: [Compression stockings, rise slowly, hydration,
+  medication adjustment]
+  Vitamin D: [Supplement to target >30 ng/mL]
+  Home safety: [OT home safety eval referral, specific modifications]
+  Footwear: [Proper supportive shoes with nonslip soles]
+  Assistive device: [Prescribe / adjust / PT to train proper use]
+  Bone health: [DEXA if not recent, fracture prevention]
+
+FOLLOW-UP
+─────────
+  Next visit: *** (reassess in *** months)
+  Pre-visit labs: ***
+  Fall diary: Patient/caregiver to track falls with date,
+  time, location, activity, and injury
+  PT progress: reassess after *** sessions
+  Contact for: Fall with head strike, loss of consciousness,
+  inability to get up, hip pain after fall
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: fall history, medications, functional status, gait observations, orthostatic vitals, home environment, exam, labs.]
+</PromptPlayground>
+
+### Polypharmacy deprescribing visit
+
+Use this for patients with polypharmacy or hyperpolypharmacy where the primary visit purpose is medication optimization and deprescribing. Structures each medication with its indication, appropriateness assessment, and deprescribing recommendation.
+
+<PromptPlayground tool="Claude" title="Polypharmacy Deprescribing Visit">
+You are an attending geriatrician writing a clinic note focused on medication review and deprescribing for a geriatric patient.
+
+### Rules
+
+- Write medication history in past tense. Write current plan in present tense.
+- List every medication with: name, dose, frequency, indication, start date (if known), prescriber, and appropriateness assessment.
+- Flag every Beers criteria medication with the specific concern.
+- For each deprescribing recommendation, provide: rationale, taper plan (if not cold-stop), monitoring plan, and what to watch for after discontinuation.
+- Consider therapeutic duplication, drug-drug interactions, and pills with no clear indication.
+- Use medical abbreviations without expansion.
+- Reference dates in M/D/YY format.
+- Do not fabricate data. Write "[Verify before signing]" for missing information.
+
+### Vocabulary
+
+- "PIMs" = potentially inappropriate medications
+- "NNT" = number needed to treat
+- Use all abbreviations provided without expanding them
+
+### Output format
+
+```
+POLYPHARMACY DEPRESCRIBING VISIT
+══════════════════════════════════════════
+
+DATE: [M/D/YY]
+
+MEDICATION BURDEN
+─────────────────
+  Total medications: ***
+  Total daily pills: ***
+  Polypharmacy (≥5): [Yes / No]
+  Hyperpolypharmacy (≥10): [Yes / No]
+  Number of prescribers: ***
+  Pharmacies: [Number]
+
+COMPLETE MEDICATION REVIEW
+──────────────────────────
+
+  Medication         | Dose/Freq | Indication | Started | Prescriber | Assessment
+  ────────────────────────────────────────────────────────────────────────────────
+  [Med 1]            | ***       | ***        | ***     | ***        | [Continue / Deprescribe / Adjust]
+  [Med 2]            | ***       | ***        | ***     | ***        | [Continue / Deprescribe / Adjust]
+  [Continue for all medications]
+
+BEERS CRITERIA FLAGS
+────────────────────
+  [Medication]: [AGS Beers Criteria concern, quality of evidence,
+  strength of recommendation]
+  [Medication]: [Concern]
+  [Or: "No Beers criteria medications"]
+
+DRUG-DRUG INTERACTIONS
+──────────────────────
+  [Drug A + Drug B]: [Interaction, clinical significance]
+  [Or: "No clinically significant interactions identified"]
+
+THERAPEUTIC DUPLICATIONS
+────────────────────────
+  [Class]: [Drug A and Drug B both prescribed — rationale / redundant]
+  [Or: "No therapeutic duplications"]
+
+MEDICATIONS WITHOUT CLEAR INDICATION
+─────────────────────────────────────
+  [Medication]: [No documented indication found. Recommend:
+  clarify indication or discontinue]
+
+DEPRESCRIBING PLAN
+──────────────────
+
+  Medication #1: [Name]
+  ─────────────────────
+  Current: [Dose, frequency]
+  Indication: ***
+  Rationale for deprescribing: [e.g., "PPI prescribed for
+  GERD symptoms 3 years ago; no alarm features, no Barrett's.
+  Limited long-term benefit; increased fracture, C. diff,
+  hypomagnesemia risk in elderly."]
+  Plan: [Cold-stop / Taper: specific schedule]
+  Monitor for: [Rebound symptoms, timeline]
+  Restart if: [Specific criteria]
+
+  Medication #2: [Name]
+  ─────────────────────
+  [Same format]
+
+  Medication #3: [Name]
+  ─────────────────────
+  [Same format]
+
+MEDICATIONS TO CONTINUE (with rationale)
+────────────────────────────────────────
+  [Medication]: [Rationale for continuation despite age.
+  E.g., "Metoprolol 25 mg BID for HFrEF, EF 30%. Mortality
+  benefit established. Continue."]
+
+PATIENT/CAREGIVER EDUCATION
+───────────────────────────
+  [Discussed deprescribing plan with *** (patient/caregiver).
+  Addressed concerns about stopping medications.
+  Emphasized: "Stopping is not giving up; it's matching
+  medications to what matters now."]
+  Patient/caregiver agreement: [Agrees / Partially agrees /
+  Declines (reason)]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. Polypharmacy (*** medications)
+     - Deprescribe: [List medications being stopped/tapered]
+     - Adjust: [List dose changes]
+     - Continue: [List medications to maintain]
+     - Net medication reduction: *** medications, *** daily pills
+
+  2. Monitoring plan
+     - [Specific symptoms to watch for after each change]
+     - [Labs to recheck and timeline]
+     - [Phone check-in for symptom review]
+
+  3. Communication
+     - [Notify PCP of changes: faxed / called / MyChart message]
+     - [Notify specialists: ***]
+     - [Updated medication list provided to patient/caregiver]
+
+FOLLOW-UP
+─────────
+  Phone check-in: *** (*** weeks after deprescribing)
+  Next visit: ***
+  Pre-visit labs: ***
+  Bring: all medication bottles (brown bag review)
+  Contact for: return of symptoms being managed by
+  discontinued medication, new symptoms, adverse effects
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: complete medication list with doses and indications (if known), medical history, functional status, life expectancy estimate, patient/caregiver concerns about medications, recent labs.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+84-year-old female with moderate Alzheimer disease diagnosed 2023, accompanied by daughter (primary caregiver). MoCA 14/30 today (was 17/30 six months ago, 22/30 at diagnosis). Daughter reports increased agitation in the evenings over the past 6 weeks, sometimes yelling at the TV, refusing to bathe, and one episode of trying to leave the house at 9 PM. No hallucinations. Sleep disrupted, up 2-3 times per night. Appetite fair, lost 4 lbs in 3 months (now 58 kg). On donepezil 10 mg daily (since 2023) and memantine 10 mg BID (since 2024). Also takes amlodipine 5 mg, lisinopril 10 mg, metformin 500 BID, atorvastatin 20 mg, aspirin 81 mg, omeprazole 20 mg. A1c 6.8. ADLs: needs help bathing and dressing, continent with reminders, feeds self. IADLs: dependent in all. Daughter provides 40+ hours/week of care, not sleeping well, "exhausted." No paid help. No adult day program. Lives with daughter. Stopped driving 2024. No advance directive, no healthcare proxy. Exam: pleasant, cooperative during exam but became agitated when redirected, BP 132/70, weight 58 kg (62 kg 6 months ago), mild kyphosis, shuffling gait with walker, no focal neuro deficits, MMSE not done today. Labs: CBC normal, CMP normal, TSH 2.1, B12 normal, vitamin D 18.
+
+**LLM output:**
+
+GERIATRICS CLINIC VISIT
+══════════════════════════════════════════
+
+DATE: 3/27/26
+VISIT TYPE: Follow-up
+INFORMANT: Patient with daughter (primary caregiver)
+
+ACTIVE PROBLEM LIST
+───────────────────
+  1. Alzheimer disease, moderate stage
+  2. Behavioral symptoms of dementia (agitation, sundowning)
+  3. Weight loss, 4 lbs in 3 months
+  4. Polypharmacy (8 medications)
+  5. Caregiver burnout
+
+COGNITIVE ASSESSMENT
+────────────────────
+  Dementia diagnosis: Alzheimer disease
+  Date of diagnosis: 2023
+  Current stage: Moderate (by functional and cognitive criteria)
+
+  Cognitive Scores
+  ────────────────
+  MoCA: 14/30 (date: 3/27/26)
+  Prior MoCA: 17/30 (date: 9/25)
+  Prior MoCA: 22/30 (at diagnosis, 2023)
+  Trajectory: Progressive decline (8-point drop over approximately 2.5 years)
+
+  Behavioral Symptoms
+  ───────────────────
+  Agitation: Present, evenings, yelling at TV, refusal to bathe. Onset 6 weeks ago. Frequency approximately 4-5 evenings per week per daughter.
+  Wandering: Present, one attempted elopement (tried to leave house at 9 PM).
+  Sundowning: Present, evening agitation pattern consistent with sundowning.
+  Sleep disturbance: Present, up 2-3 times per night.
+  Hallucinations: Absent per daughter.
+  Delusions: [Verify before signing: not clearly assessed]
+  Apathy: Absent; patient engages when content.
+  Appetite changes: Decreased appetite, weight loss.
+
+  Cognitive Medications
+  ─────────────────────
+  Donepezil 10 mg daily, started 2023. Daughter uncertain of benefit but no side effects.
+  Memantine 10 mg BID, started 2024. Tolerated without GI or neurologic side effects.
+
+FUNCTIONAL STATUS
+─────────────────
+  Activities of Daily Living (ADLs)
+  ─────────────────────────────────
+  Bathing:      Needs assist (refuses independently; requires daughter's help)
+  Dressing:     Needs assist (daughter selects and assists with clothing)
+  Toileting:    Independent (with reminders for timing)
+  Transferring: Independent
+  Feeding:      Independent
+  Continence:   Continent with reminders
+
+  Instrumental Activities of Daily Living (IADLs)
+  ───────────────────────────────────────────────
+  Finances: Unable (daughter manages)
+  Cooking: Unable
+  Shopping: Unable
+  Medications: Unable (daughter administers)
+  Transportation: Unable (stopped driving 2024)
+  Phone use: Unable
+  Housekeeping: Unable
+  Laundry: Unable
+
+  Functional Trajectory
+  ─────────────────────
+  Declining over 6 months. New ADL losses: now requires bathing and dressing assistance (previously needed prompting only).
+
+FALL ASSESSMENT
+───────────────
+  Falls in past 6 months: [Verify before signing]
+  Assistive device: Walker (uses consistently per daughter)
+  Gait: Shuffling, slow, steady with walker
+
+MEDICATION REVIEW
+─────────────────
+  Total medications: 8
+  Polypharmacy: Yes
+
+  Complete Medication List with Indications
+  ──────────────────────────────────────────
+  Donepezil 10 mg daily — Indication: Alzheimer disease
+  Memantine 10 mg BID — Indication: Alzheimer disease
+  Amlodipine 5 mg daily — Indication: Hypertension
+  Lisinopril 10 mg daily — Indication: Hypertension
+  Metformin 500 mg BID — Indication: Type 2 diabetes
+  Atorvastatin 20 mg daily — Indication: Hyperlipidemia (primary prevention)
+  Aspirin 81 mg daily — Indication: [Verify: primary or secondary prevention?]
+  Omeprazole 20 mg daily — Indication: [Verify: original indication unclear]
+
+  Beers Criteria Medications
+  ──────────────────────────
+  Omeprazole: Beers criteria concern: avoid PPI use beyond 8 weeks without clear indication. Risk of C. difficile, fractures, hypomagnesemia.
+  Aspirin 81 mg: Beers criteria concern (if primary prevention): increased bleeding risk in older adults without established ASCVD.
+
+  Deprescribing Candidates
+  ────────────────────────
+  Atorvastatin 20 mg: Primary prevention statin of questionable benefit in 84-year-old with moderate dementia and limited life expectancy (no ASCVD history documented).
+  Aspirin 81 mg: If primary prevention only, risk of bleeding likely exceeds cardiovascular benefit.
+  Omeprazole 20 mg: No documented indication; trial of discontinuation appropriate.
+  Metformin 500 mg BID: A1c 6.8 on current regimen. In moderate dementia, A1c target can be relaxed to &lt;8.5%. Consider dose reduction or discontinuation to reduce pill burden and hypoglycemia risk.
+
+NUTRITIONAL STATUS
+──────────────────
+  Weight: 58 kg (62 kg six months ago, 4 kg lost)
+  Weight trend: 6.5% weight loss over 6 months (clinically significant)
+  BMI: [Verify before signing: need height]
+  Appetite: Fair, decreased per daughter
+  Dental status: [Verify before signing]
+  Swallowing: [Verify before signing]
+  Meal preparation: Daughter prepares all meals
+
+SOCIAL SUPPORT
+──────────────
+  Living Situation
+  ────────────────
+  Lives with daughter.
+  Type of residence: [Verify before signing]
+
+  Primary Caregiver
+  ─────────────────
+  Relationship: Daughter
+  Lives with patient: Yes
+  Hours of caregiving per week: 40+
+  Caregiver burden assessment: High. Daughter reports exhaustion, sleep disruption from patient's nighttime awakenings.
+  Respite care: Not using; no paid help in the home.
+
+  Home Services
+  ─────────────
+  Home health aide: None
+  Adult day program: None
+  VNA: None
+
+DRIVING STATUS
+──────────────
+  Currently driving: No (stopped 2024)
+
+MOOD AND BEHAVIOR
+─────────────────
+  PHQ-2: [Verify before signing]
+  GDS: [Verify before signing: challenging to administer in moderate dementia]
+
+ADVANCE CARE PLANNING
+─────────────────────
+  Code status: [Verify before signing: not documented]
+  Healthcare proxy: Not designated
+  POLST/MOLST: Not completed
+  Advance directive: None
+  Goals of care discussion: Not previously documented. Indicated today given disease trajectory and behavioral decline.
+
+INTERVAL HISTORY
+────────────────
+Daughter reports a 6-week worsening of evening agitation. Patient yells at the television, refuses to bathe (requiring negotiation and sometimes skipping baths), and once attempted to leave the house at 9 PM; daughter intercepted her at the front door. There are no reported hallucinations. Sleep has worsened: patient wakes 2-3 times nightly, sometimes confused about the time, occasionally calling for her late husband. Appetite has decreased; daughter estimates she eats about half her meals. Weight is down 4 kg in 6 months. No fever, no urinary symptoms, no falls. Daughter is visibly fatigued and tearful when discussing the nighttime disruptions. She has no paid help and is not using any community resources.
+
+REVIEW OF SYSTEMS
+─────────────────
+Positive for decreased appetite, weight loss, sleep disturbance, evening agitation, and bathing refusal. Negative for fever, pain, dysuria, constipation, falls, and incontinence (with reminders).
+
+PHYSICAL EXAMINATION
+────────────────────
+  Vitals
+  ──────
+  T [Verify before signing]  HR [Verify before signing]  BP 132/70 (sitting)
+  Wt 58 kg (down 4 kg from 62 kg on 9/25)
+
+  General: Thin, older-appearing female. Pleasant at baseline, became agitated when redirected from examining equipment. Well-groomed (daughter assists).
+  Cardiovascular: RRR, no murmurs.
+  Pulmonary: Clear bilaterally.
+  Abdomen: Soft, NT, no masses.
+  Extremities: No edema.
+  Musculoskeletal: Mild thoracic kyphosis. Uses walker for mobility.
+  Neurologic: Shuffling gait, slow but steady with walker. No focal motor or sensory deficits. No tremor. No rigidity. Frontal release signs: [Verify before signing].
+  Psychiatric: Pleasant affect initially, agitation with redirection. Maintained eye contact. Speech fluent but repetitive. Oriented to person, not to date or location.
+
+LABORATORY DATA
+───────────────
+  CBC: Normal
+  CMP: Normal
+  TSH: 2.1
+  Vitamin B12: Normal
+  Vitamin D (25-OH): 18 ng/mL (insufficient; &lt;30)
+
+ASSESSMENT
+──────────
+84-year-old female with moderate Alzheimer disease (MoCA 14, declined from 17 six months ago), presenting for 3-month follow-up with daughter reporting new evening agitation, attempted elopement, sleep disruption, weight loss, and functional decline. Daughter shows signs of caregiver burnout.
+
+  1. Alzheimer disease, moderate stage, progressing
+     MoCA declined 3 points in 6 months (17 to 14). New ADL dependencies (bathing, dressing). On maximal cholinesterase inhibitor and memantine.
+
+  2. Behavioral symptoms: sundowning, agitation, elopement risk
+     Onset 6 weeks ago without clear precipitant. No infection, no medication changes. Likely disease progression with sundowning pattern. Non-pharmacologic strategies should be tried first.
+
+  3. Weight loss, 6.5% in 6 months
+     Clinically significant. Multifactorial: decreased appetite from dementia progression, possible contribution from metformin (GI effects), and mealtime behavioral changes. Needs nutritional supplementation and monitoring.
+
+  4. Polypharmacy with deprescribing opportunities
+     On 8 medications. Aspirin, omeprazole, and atorvastatin are candidates for discontinuation. Metformin dose may be excessive given relaxed A1c target.
+
+  5. Caregiver burnout
+     Daughter provides 40+ hours/week with no outside help. Sleep-deprived from nighttime awakenings. Needs immediate respite and support services.
+
+  6. Advance care planning: not done
+     No healthcare proxy, no advance directive, no POLST. Given disease trajectory, this conversation is overdue.
+
+PLAN
+────
+  1. Alzheimer disease
+     - Continue donepezil 10 mg daily and memantine 10 mg BID
+     - Repeat MoCA in 6 months (9/26)
+     - Discussed expected trajectory with daughter: moderate stage typically lasts 2-4 years with progressive functional and cognitive decline
+
+  2. Behavioral symptoms (sundowning, agitation)
+     - Non-pharmacologic first:
+       Structured evening routine (dim lights, calming music, avoid TV after 6 PM)
+       Increase daytime activity and light exposure
+       Reduce caffeine after noon
+       "Therapeutic fibbing" for bath refusal (e.g., "The doctor said you need a bath today")
+     - If non-pharmacologic strategies fail after 2-4 weeks, consider low-dose trazodone 25 mg at bedtime for sleep and evening agitation
+     - Safety: install deadbolt requiring key from inside, consider door alarm, ID bracelet ordered today
+     - Avoid antipsychotics unless behavioral strategies fail and symptoms pose safety risk (FDA black box: increased mortality in dementia)
+     - Daughter to keep behavioral diary (time, trigger, duration, intervention used)
+
+  3. Weight loss
+     - Add oral nutritional supplement (Ensure or equivalent) BID between meals
+     - Liberalize diet; avoid dietary restrictions
+     - Recheck weight in 4 weeks (phone check-in with daughter)
+     - If weight continues to decline, speech therapy for swallowing evaluation
+     - Vitamin D 2000 IU daily (level 18, target >30)
+
+  4. Medication deprescribing
+     - Discontinue omeprazole 20 mg (no documented indication; taper to 20 mg every other day for 2 weeks, then stop)
+     - Discontinue aspirin 81 mg (primary prevention only; bleeding risk outweighs benefit at age 84 with fall risk)
+     - Discontinue atorvastatin 20 mg (primary prevention statin; limited benefit given life expectancy and dementia stage)
+     - Reduce metformin to 500 mg once daily (A1c 6.8; target &lt;8.5% in moderate dementia per ADA guidelines for frail elderly; reduces pill burden and GI effects that may contribute to poor appetite)
+     - Net reduction: 3 medications eliminated, 1 reduced. New total daily pills: reduced from 10 to 6.
+     - Communicated changes to PCP via [Verify before signing]
+
+  5. Caregiver support
+     - Referred to Alzheimer's Association support group for daughter
+     - Recommended home health aide: minimum 20 hours/week to provide respite, assist with bathing, and meal support
+     - Discussed adult day program (3 days/week minimum) for structured daytime activity and caregiver respite
+     - Social work referral placed today for community resources and financial assistance for home services
+     - Discussed: this level of care is not sustainable for one caregiver alone. If behavioral symptoms worsen or daughter's health declines, memory care placement should be discussed proactively.
+
+  6. Advance care planning
+     - Discussed importance of healthcare proxy and advance directive with patient and daughter. Daughter willing to serve as healthcare proxy.
+     - Provided advance directive forms. Goal: complete and bring to next visit.
+     - Initiated goals of care conversation: daughter states mother "would not want to be kept alive on machines" and "wants to stay home as long as possible." Documented. Will formalize with POLST at next visit.
+     - Elder law referral recommended for POA (financial), if not already in place.
+
+FOLLOW-UP
+─────────
+  Phone check-in: 4/10/26 (2 weeks, for behavioral diary review and weight check)
+  Next visit: 5/22/26 (8 weeks)
+  Pre-visit labs: CBC, CMP, vitamin D
+  Caregiver to bring: behavioral diary, advance directive forms (completed), updated weight
+  Referrals placed: Social work, Alzheimer's Association, home health aide, elder law
+  Contact for: Attempted elopement, aggressive behavior, falls, refusal to eat, caregiver crisis, acute confusion (rule out delirium)
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **Cognitive score interpretation.** The model reports MoCA and MMSE scores as numbers, but cannot account for educational adjustment, sensory impairment (a hard-of-hearing patient may score lower on auditory recall), or test-retest variability. A 1-2 point change may reflect normal variation rather than decline.
+- **Beers criteria nuance.** The model flags Beers criteria medications categorically, but some are appropriate in specific clinical contexts (e.g., PPIs for Barrett esophagus, benzodiazepines for seizure disorders). Always document the clinical rationale when continuing a flagged medication.
+- **Deprescribing pace.** The model may recommend stopping multiple medications simultaneously. In practice, stop one medication at a time (or at most two) and monitor for 2-4 weeks before the next change. This isolates which discontinuation caused any returning symptoms.
+- **Caregiver assessment limitations.** The model structures caregiver burden based on what you report, but it cannot screen the caregiver for depression, elder abuse, or their own medical needs. Consider whether the caregiver also needs a referral to their own physician.
+- **Functional status granularity.** "Needs assist with bathing" covers a wide range: from needing verbal prompts to requiring full physical assistance. Specify the type of help needed; it drives home care hours and level-of-care decisions.
+- **Advance care planning documentation.** The model drafts goals of care language, but these conversations carry significant legal and clinical weight. Review the documented preferences carefully and ensure they reflect the actual discussion, not the model's interpretation.
+- **Weight loss workup.** The model attributes weight loss to dementia progression, but weight loss in the elderly has a broad differential (malignancy, depression, hyperthyroidism, medication side effects, swallowing dysfunction). Ensure the clinical context supports the attribution before signing.
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) — for inpatient progress notes on hospitalized geriatric patients
+- [Consult Note](/templates/consult-note) — for writing a geriatrics consultation
+- [Medication Reconciliation](/templates/medication-reconciliation) — for detailed medication reconciliation across transitions
+- [Discharge Summary](/templates/discharge-summary-basic) — for geriatric patients being discharged, including transitional care elements

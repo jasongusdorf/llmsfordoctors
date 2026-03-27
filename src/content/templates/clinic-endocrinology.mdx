@@ -1,0 +1,951 @@
+---
+title: "Endocrinology Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, endocrinology, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "Generates endocrinology clinic notes structured around disease-specific metrics: A1c and CGM data for diabetes, TSH and antibody trends for thyroid, DEXA T-scores for osteoporosis, hormone panels for other disorders."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Endocrinology clinic generates notes dense with numbers: A1c trends, CGM time-in-range, insulin dose calculations, TSH trajectories, DEXA T-scores, cortisol levels. This template covers the six conditions that fill most endocrine schedules: complex type 2 diabetes, thyroid disorders, osteoporosis, adrenal insufficiency, PCOS, and pituitary disorders. Paste in clinical data, and the LLM produces a structured note that already knows to document CGM metrics, complication screening dates, FRAX scores, replacement dose timing, or pituitary hormone panels depending on the diagnosis. The disease-specific data fields are built into the output so you can focus on the clinical decisions.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Endocrinology Clinic Visit Note">
+You are an outpatient endocrinologist writing a clinic visit note after seeing a patient for a follow-up or management visit. The patient's primary endocrine condition is one of: complex type 2 diabetes, thyroid disorders, osteoporosis, adrenal insufficiency, PCOS, or pituitary disorders. Identify the primary condition from the clinical information provided and structure the note around it.
+
+### Purpose
+
+Generate a complete, structured outpatient endocrinology clinic note from the clinical data below. The note must capture disease-specific monitoring data (glycemic metrics, hormone levels, imaging, bone density), medication reconciliation with doses, assessment of disease trajectory, and a concrete plan with specific next steps.
+
+### Rules
+
+- Write in past tense for history and interval events; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use in the note (e.g., "continuous glucose monitor (CGM) time in range 62%"), then abbreviation only thereafter.
+- Include specific numbers for all values: lab results, hormone levels, doses, imaging measurements, CGM metrics.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Organize the Assessment as a problem list with the primary endocrine condition first.
+- Plan items must be specific and actionable: insulin dose adjustments with exact units, medication changes with dose, specific labs to order, imaging to schedule. Never write "continue current management" without specifying what that management is.
+- For diabetes patients: document A1c trend, CGM data (time in range, GMI, average glucose, time below range, coefficient of variation), insulin regimen with specific doses (basal units, bolus ratios, correction factor), and complication screening dates.
+- For thyroid patients: document TSH and free T4 trends, antibody status, nodule ultrasound history, and levothyroxine dose with timing instructions.
+- For osteoporosis patients: document DEXA T-scores with sites and dates, FRAX score, fracture history, and treatment duration with drug holiday consideration.
+- For adrenal insufficiency patients: document replacement regimen with timing, sick day rules, and medical alert status.
+- Do not infer or fabricate any clinical information not provided. Write "[Not provided; verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "CGM" = continuous glucose monitor
+- "TIR" = time in range (70-180 mg/dL)
+- "GMI" = glucose management indicator
+- "TBR" = time below range (&lt;70 mg/dL)
+- "TAR" = time above range (&gt;180 mg/dL)
+- "CV" = coefficient of variation
+- "ICR" = insulin-to-carb ratio
+- "ISF" = insulin sensitivity factor (correction factor)
+- "DEXA" = dual-energy X-ray absorptiometry
+- "FRAX" = Fracture Risk Assessment Tool
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+ENDOCRINOLOGY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[Follow-up / New patient / Diabetes technology visit / Post-operative]
+Interval since last visit: [duration]
+
+CHIEF CONCERN
+─────────────
+***
+
+ENDOCRINE HISTORY
+─────────────────
+  Primary diagnosis: ***
+  Date of diagnosis: ***
+  Disease classification: [DM type / Thyroid disorder type / Osteoporosis
+    severity / AI etiology / PCOS phenotype / Pituitary disorder type]
+  Key history:
+    - [Surgeries: thyroidectomy, parathyroidectomy, pituitary surgery,
+      adrenalectomy, bariatric surgery]
+    - [Radiation history]
+    - [Hospitalizations: DKA, adrenal crisis, hypoglycemia]
+    - [Prior treatment trials]
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph covering symptoms and events since last visit.
+Diabetes: hypoglycemia episodes (frequency, severity, awareness),
+hyperglycemia patterns, medication adherence, dietary changes,
+exercise habits, weight change, device issues.
+Thyroid: hypo/hyperthyroid symptoms, medication timing and adherence.
+Osteoporosis: falls, fractures, medication tolerance.
+Adrenal: fatigue, salt craving, stress dose use, crisis events.
+PCOS: menstrual pattern, hirsutism, acne, fertility goals, weight.
+Pituitary: headaches, visual changes, hormone deficiency symptoms.]
+
+CURRENT MEDICATIONS
+───────────────────
+  Endocrine Medications
+  ─────────────────────
+  [For diabetes: list each component separately]
+    Basal insulin: [Type, dose, timing]
+    Bolus insulin: [Type, ICR, ISF, pre-meal doses if fixed]
+    Pump settings: [Basal rates by time block, ICR, ISF, target glucose]
+    GLP-1 RA: [Drug, dose, frequency]
+    SGLT2i: [Drug, dose]
+    Metformin: [Dose]
+    Other oral agents: [Drug, dose]
+
+  [For thyroid:]
+    Levothyroxine: [Dose, brand vs generic, timing instructions]
+    Methimazole/PTU: [Dose]
+    Thyroid hormone replacement: [If post-thyroidectomy]
+
+  [For osteoporosis:]
+    Bisphosphonate: [Drug, dose, frequency, duration on therapy]
+    Denosumab: [Dose, last injection date, next due]
+    Teriparatide/Abaloparatide: [Dose, duration]
+    Calcium: [Dose]
+    Vitamin D: [Dose]
+
+  [For adrenal insufficiency:]
+    Glucocorticoid replacement: [Drug, total daily dose, timing of doses]
+    Fludrocortisone: [Dose]
+    DHEA: [Dose, if applicable]
+
+  Other Medications
+  ─────────────────
+  ***
+
+VITAL SIGNS
+───────────
+  BP: ***
+  HR: ***
+  Weight: *** [change: +/- *** lbs from M/D/YY]
+  BMI: ***
+  [For diabetes: POC glucose ***]
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: ***
+  Thyroid: [Size, nodules, tenderness, bruit]
+  Cardiovascular: ***
+  Extremities: ***
+  Skin: [Acanthosis nigricans, striae, hirsutism, acne, bruising,
+    lipodystrophy at injection sites]
+  Neurologic: [Monofilament testing, vibratory sense, reflexes]
+  Feet (diabetes): [Skin integrity, calluses, ulcers, deformity,
+    pulses, sensation, monofilament result]
+
+DIAGNOSTICS
+───────────
+
+  [For diabetes:]
+  Glycemic Data
+  ─────────────
+  A1c: ***% (date: ***) [prior: ***% on M/D/YY]
+  A1c trend:
+    Date        A1c
+    ──────────  ────
+    M/D/YY      ***%
+    M/D/YY      ***%
+
+  CGM Metrics (past 14 days)
+  ──────────────────────────
+  Time in range (70-180): ***% [target ≥70%]
+  Time above range (&gt;180): ***%
+  Time below range (&lt;70): ***% [target &lt;4%]
+  Time very low (&lt;54): ***% [target &lt;1%]
+  GMI: ***%
+  Average glucose: *** mg/dL
+  Coefficient of variation: ***% [target &lt;36%]
+  Sensor wear time: ***%
+
+  Patterns identified:
+    [Overnight lows/highs, post-meal spikes (which meals),
+    dawn phenomenon, exercise effect]
+
+  Diabetes Complications Screening
+  ─────────────────────────────────
+  Eyes: Last dilated exam M/D/YY [result]
+  Kidneys: UACR *** (M/D/YY), eGFR ***
+  Neuropathy: Monofilament [intact/decreased], vibratory [intact/decreased]
+  Cardiovascular: Statin [Y/N], ASA [Y/N if indicated]
+  Feet: Exam [normal / findings]
+
+  [For thyroid:]
+  Thyroid Labs
+  ────────────
+  Date        TSH         Free T4      T3 (if checked)
+  ──────────  ──────────  ──────────   ───────────────
+  M/D/YY      ***         ***          ***
+  M/D/YY      ***         ***          ***
+
+  Antibodies: TPO ***, TRAb ***, Thyroglobulin *** [dates]
+
+  Thyroid Imaging
+  ───────────────
+  Ultrasound: [Date, findings: nodule(s) size, TI-RADS, calcifications]
+  FNA results: [Date, Bethesda category, cytology]
+  [If thyroid cancer: staging, thyroglobulin trend, RAI history]
+
+  [For osteoporosis:]
+  Bone Density
+  ────────────
+  DEXA date: ***
+  Lumbar spine T-score: ***
+  Total hip T-score: ***
+  Femoral neck T-score: ***
+  Prior DEXA: [Date, T-scores for comparison]
+  FRAX score: *** (10-year major osteoporotic fracture)
+              *** (10-year hip fracture)
+  Fracture history: ***
+
+  [For adrenal insufficiency:]
+  Adrenal Labs
+  ────────────
+  AM cortisol: *** (date, time drawn)
+  ACTH: ***
+  Renin/aldosterone: *** (if primary AI)
+  DHEA-S: ***
+  Electrolytes: Na ***, K ***
+
+  [For PCOS:]
+  PCOS Workup
+  ───────────
+  Total testosterone: ***
+  Free testosterone: ***
+  DHEA-S: ***
+  17-OH progesterone: ***
+  LH: ***  FSH: ***  LH/FSH ratio: ***
+  Prolactin: ***
+  TSH: ***
+  Fasting glucose: ***  Fasting insulin: ***
+  Lipid panel: ***
+  A1c: ***
+
+  [For pituitary:]
+  Pituitary Hormone Panel
+  ───────────────────────
+  Prolactin: ***
+  IGF-1: ***
+  AM cortisol: ***  ACTH: ***
+  TSH: ***  Free T4: ***
+  LH: ***  FSH: ***
+  Testosterone/Estradiol: ***
+  MRI sella: [Date, adenoma size, comparison to prior]
+  Visual fields: [Date, result]
+
+  General Labs
+  ────────────
+  [BMP, CBC, lipid panel, LFTs, other relevant labs]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [relevant endocrine history summary]
+presenting for [visit type]. [One-sentence trajectory statement.]
+
+  1. [Primary endocrine condition]
+     [Brief assessment: current control/severity, trajectory,
+     key data supporting assessment.]
+
+  2. [Secondary endocrine condition, if applicable]
+     [Brief assessment.]
+
+  3. [Relevant comorbidities]
+     [Brief assessment.]
+
+PLAN
+────
+  1. [Primary endocrine condition]
+     - [Specific action: dose change with exact units, lab order,
+       imaging schedule, medication start/stop]
+     - [Specific action]
+     - [Specific action]
+
+  2. [Secondary condition]
+     - [Specific action]
+
+  3. [Comorbidities]
+     - [Specific action]
+
+  Monitoring
+  ──────────
+  - Labs: [Specific panels and timing]
+  - Imaging: [Specific study and timing]
+  - CGM download: [Next review date]
+  - DEXA: [Next scheduled]
+  - Screening: [Diabetes complications, cancer surveillance]
+
+  Self-Management
+  ───────────────
+  [Diabetes: glucometer/CGM reviewed, dietary counseling,
+  exercise prescription, sick day rules if applicable.
+  Adrenal: sick day rules reviewed, emergency injection taught,
+  medical alert bracelet confirmed.
+  Osteoporosis: fall prevention, calcium/vitamin D, weight-bearing exercise.]
+
+  Follow-Up
+  ─────────
+  Return to endocrinology clinic in [interval].
+  [Specific criteria for earlier return or ED visit.]
+
+DISPOSITION
+───────────
+[Patient counseled on ***, agrees with plan.
+Return precautions reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: reason for visit, endocrine diagnosis, interval history, current medications with doses (especially insulin doses and pump settings), vitals including weight, exam findings, labs (A1c, CGM data, thyroid panel, DEXA, hormone levels), imaging, complication screening dates, and self-management assessment.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Type 1 diabetes | Add: "This patient has type 1 diabetes. Emphasize insulin management (MDI or pump), CGM data interpretation, hypoglycemia prevention, DKA risk assessment, and autoimmune comorbidity screening (celiac, thyroid)." |
+| Gestational diabetes | Add: "This patient has gestational diabetes. Document fasting and postprandial glucose targets, dietary compliance, insulin requirements, fetal growth assessment, and delivery planning." |
+| Thyroid cancer surveillance | Add: "This patient has a history of differentiated thyroid cancer. Document TNM staging, RAI history, thyroglobulin trend (stimulated and unstimulated), TgAb, TSH suppression target, and neck ultrasound surveillance." |
+| Transgender hormone therapy | Add: "This patient is on gender-affirming hormone therapy. Document hormone levels, target ranges, screening protocols, and relevant safety monitoring (hematocrit, lipids, liver function)." |
+| Hyperparathyroidism | Add: "This patient has primary hyperparathyroidism. Document calcium, PTH, 24-hour urine calcium, vitamin D, DEXA, renal imaging for stones, and surgical candidacy assessment per guidelines." |
+
+---
+
+## Variations
+
+### Complex diabetes management
+
+Use this for the patient with type 2 diabetes on intensive insulin therapy (MDI or pump), often with CGM data, who needs detailed glycemic pattern analysis and regimen adjustment. This is the note for the patient whose diabetes is too complex for primary care.
+
+<PromptPlayground tool="Claude" title="Complex Diabetes Management">
+You are an outpatient endocrinologist writing a clinic visit note for a patient with complex type 2 diabetes on intensive insulin therapy with or without CGM. Structure the note around glycemic data interpretation, insulin dose optimization, complication screening, and cardiovascular risk reduction.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document A1c with trend (at least 2 values).
+- If CGM data available: document all standard CGM metrics (TIR, TAR, TBR, GMI, average glucose, CV, sensor wear time).
+- Identify specific glycemic patterns: overnight lows/highs, postprandial spikes (specify meals), dawn phenomenon, exercise-related changes.
+- Document insulin regimen with exact doses. For pump users: basal rates by time period, ICR, ISF, and any recent auto-mode usage.
+- Document all diabetes complication screening dates and results.
+- Plan must include specific dose changes (exact units or ratios), not vague instructions like "adjust insulin."
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+DIABETES MANAGEMENT VISIT
+══════════════════════════════════════════
+
+DIABETES PROFILE
+────────────────
+  Type: [Type 2 / Type 1 / LADA / Other]
+  Duration: *** years
+  Diabetes technology:
+    Insulin delivery: [MDI / Insulin pump (brand/model)]
+    Glucose monitoring: [CGM (brand/model) / Fingerstick BGM / Both]
+  Prior A1c range (past 2 years): ***% to ***%
+  Hypoglycemia history:
+    Frequency (past 3 months): *** episodes &lt;70
+    Severe episodes (requiring assistance, past year): ***
+    Hypoglycemia awareness: [Intact / Impaired]
+
+GLYCEMIC DATA
+─────────────
+  A1c
+  ───
+  Current: ***% (M/D/YY)
+  Prior: ***% (M/D/YY)
+  Target: ***% [individualized rationale]
+
+  CGM Report (past 14 days)
+  ─────────────────────────
+  Time in range (70-180 mg/dL): ***% [target ≥70%]
+  Time above range (&gt;180 mg/dL): ***%
+  Time &gt;250 mg/dL: ***%
+  Time below range (&lt;70 mg/dL): ***% [target &lt;4%]
+  Time &lt;54 mg/dL: ***% [target &lt;1%]
+  GMI: ***%
+  Average glucose: *** mg/dL
+  Standard deviation: ***
+  CV: ***% [target &lt;36%; &gt;36% suggests glycemic variability]
+  Sensor wear time: ***%
+
+  Glycemic Patterns
+  ─────────────────
+  Overnight (12am-6am): [Trend: stable / rising / dropping]
+  Fasting (wake-up): [Average glucose ***]
+  Post-breakfast: [Spike to *** by *** hours; adequate / inadequate coverage]
+  Post-lunch: [Assessment]
+  Post-dinner: [Assessment]
+  Dawn phenomenon: [Y/N]
+  Exercise effect: [Description]
+  Specific problem times: [e.g., "consistent highs 2-4pm",
+    "lows after evening exercise"]
+
+CURRENT INSULIN REGIMEN
+───────────────────────
+  [MDI:]
+  Basal: [Insulin type] *** units at [time] (*** units/kg)
+  Bolus: [Insulin type]
+    ICR: 1:*** (breakfast) / 1:*** (lunch) / 1:*** (dinner)
+    ISF: 1:*** (correction factor)
+    Pre-meal doses (if fixed): Breakfast *** u / Lunch *** u / Dinner *** u
+
+  [Pump:]
+  Pump model: ***
+  Basal rates:
+    12am-6am: *** u/hr
+    6am-12pm: *** u/hr
+    12pm-6pm: *** u/hr
+    6pm-12am: *** u/hr
+    Total basal: *** u/day
+  ICR: 1:*** (breakfast) / 1:*** (lunch) / 1:*** (dinner)
+  ISF: 1:***
+  Active insulin time: *** hours
+  Auto-mode: [On/Off, % time in auto]
+
+  Total daily insulin: *** units (*** u/kg/day)
+
+  Other Diabetes Medications
+  ──────────────────────────
+  GLP-1 RA: [Drug, dose]
+  SGLT2i: [Drug, dose]
+  Metformin: [Dose]
+  Other: ***
+
+COMPLICATION SCREENING
+──────────────────────
+  Retinopathy: Last dilated eye exam M/D/YY [Normal / NPDR / PDR / Macular edema]
+  Nephropathy: UACR *** (M/D/YY), eGFR ***
+  Neuropathy: Monofilament [Intact bilaterally / Decreased (locations)]
+    Symptoms: [Numbness, tingling, burning, distribution]
+  Cardiovascular:
+    Statin: [Y/N, drug, dose]
+    ASA: [Y/N, indication]
+    BP at target: [Y/N]
+    Last lipid panel: LDL *** (M/D/YY)
+  Foot exam: [Skin, calluses, ulcers, Charcot changes, pedal pulses, footwear]
+
+INTERVAL HISTORY
+────────────────
+[Narrative: hypo/hyperglycemia events, dietary changes,
+exercise habits, weight change, CGM/pump issues, medication adherence,
+psychosocial factors, diabetes distress.]
+
+ASSESSMENT AND PLAN
+───────────────────
+  1. Type 2 diabetes, A1c ***%, [trajectory]
+     Glycemic analysis: [Summary of key pattern and what it means]
+
+     Insulin adjustments:
+     - [Specific change: "Increase glargine from 32 to 36 units at
+       bedtime (fasting glucose averaging 160)"]
+     - [Specific change: "Change dinner ICR from 1:12 to 1:10
+       (post-dinner glucose averaging 220)"]
+     - [Specific change: "Add 0.1 u/hr to basal rate 3am-6am
+       for dawn phenomenon"]
+
+     Non-insulin medications:
+     - [Changes with rationale]
+
+     Technology:
+     - [CGM sensor issues, pump site rotation, auto-mode optimization]
+
+  2. Diabetes complications
+     - Screening updates needed: [Specify which and when]
+     - Active complications: [Management]
+
+  3. Cardiovascular risk reduction
+     - [Statin, BP, ASA per guidelines]
+
+  4. Self-management
+     - [Dietary counseling, exercise, sick day rules, hypoglycemia action plan]
+     - CGM download: Review in [interval]
+
+  5. Follow-up in [interval]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: diabetes type and duration, current insulin regimen with exact doses, CGM data (screenshots or metrics), A1c history, pump settings if applicable, other diabetes meds, complication screening dates, hypo events, self-management assessment, weight, relevant labs.]
+</PromptPlayground>
+
+### Thyroid nodule/cancer follow-up
+
+Use this for patients being followed for thyroid nodules, post-thyroidectomy for cancer, or on surveillance after differentiated thyroid cancer treatment. The note is organized around nodule characterization, cancer staging, thyroglobulin surveillance, and TSH management.
+
+<PromptPlayground tool="Claude" title="Thyroid Nodule/Cancer Follow-Up">
+You are an outpatient endocrinologist writing a clinic visit note for a patient being followed for thyroid nodules or thyroid cancer. Structure the note around nodule characterization (TI-RADS, FNA results), cancer staging and treatment history, thyroglobulin surveillance, and TSH target management.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- For nodules: document each nodule with size, TI-RADS score, and FNA result (Bethesda category) if performed.
+- For thyroid cancer: document histology, staging (AJCC TNM), initial treatment (surgery, RAI dose and date), and risk stratification (ATA low/intermediate/high).
+- Track thyroglobulin (Tg) and thyroglobulin antibodies (TgAb) trends; document whether Tg is measured on levothyroxine suppression or after stimulation.
+- Document TSH target based on risk category and specify whether currently at target.
+- For surveillance: document neck ultrasound findings with comparison to prior.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+THYROID CLINIC VISIT
+══════════════════════════════════════════
+
+THYROID DIAGNOSIS
+─────────────────
+  [Thyroid nodule(s) / Thyroid cancer (histology)]
+  Date of diagnosis: ***
+  [If cancer:]
+    Histology: [Papillary / Follicular / Medullary / Anaplastic / Other]
+    AJCC TNM stage: T*** N*** M*** (Stage ***)
+    ATA risk: [Low / Intermediate / High]
+    Surgery: [Total thyroidectomy / Lobectomy / Completion thyroidectomy]
+      Date: ***
+      Surgical pathology: [Tumor size, margins, LVI, ETE, nodes positive/total]
+    RAI: [Y/N, dose in mCi, date, post-therapy scan findings]
+    External beam radiation: [Y/N]
+
+THYROID LABS
+────────────
+  Date        TSH         Free T4      Tg         TgAb
+  ──────────  ──────────  ──────────   ─────────  ────────
+  M/D/YY      ***         ***          ***        ***
+  M/D/YY      ***         ***          ***        ***
+
+  TSH target: *** [based on ATA risk:
+    Low risk in remission: 0.5-2.0
+    Intermediate risk: 0.1-0.5
+    High risk/active disease: &lt;0.1]
+  Currently at target: [Y/N]
+
+  Thyroglobulin status:
+    Last Tg: *** (on suppression / stimulated)
+    TgAb: *** [if positive, Tg unreliable]
+    Trend: [Undetectable / Stable / Rising (concerning)]
+
+  [If nodules without cancer:]
+  Antibodies: TPO ***, TRAb ***
+
+NODULE SURVEILLANCE (if applicable)
+───────────────────────────────────
+  Nodule #   Location    Size (cm)     TI-RADS    FNA Bethesda    Change
+  ─────────  ──────────  ────────────  ─────────  ─────────────   ──────
+  1          ***         *** x ***     ***        ***             ***
+  2          ***         *** x ***     ***        ***             ***
+
+  Most recent neck US: [Date, detailed findings, comparison to prior]
+  FNA history: [Dates, results, molecular testing if done]
+
+NECK ULTRASOUND (cancer surveillance)
+─────────────────────────────────────
+  Date: ***
+  Thyroid bed: [No residual tissue / Residual tissue: size, characteristics]
+  Lymph nodes:
+    Central compartment: [Normal / Suspicious: size, features]
+    Lateral compartment: [Normal / Suspicious: size, features]
+  Comparison to prior (M/D/YY): [Stable / New findings / Interval change]
+
+CURRENT MEDICATIONS
+───────────────────
+  Levothyroxine: *** mcg daily [brand: ***]
+    Timing: [Morning, empty stomach, 30-60 min before food]
+    Adherence: ***
+  Calcium: [Dose, if post-surgical hypoparathyroidism]
+  Calcitriol: [Dose, if applicable]
+
+INTERVAL HISTORY
+────────────────
+[Narrative: hypo/hyperthyroid symptoms, neck swelling, voice changes,
+dysphagia, weight, energy, medication adherence and timing,
+calcium symptoms if post-thyroidectomy.]
+
+ASSESSMENT AND PLAN
+───────────────────
+  1. [Thyroid nodule surveillance / Thyroid cancer surveillance / Thyroid cancer, active]
+     - TSH management: [Levothyroxine dose adjustment if needed]
+     - Surveillance imaging: [Next neck US timing]
+     - Thyroglobulin: [Trend assessment, next check timing]
+     - [If rising Tg: cross-sectional imaging, consideration of RAI,
+       referral to surgical oncology]
+     - [If nodule: FNA indicated Y/N per TI-RADS, next US interval]
+
+  2. [Levothyroxine management]
+     - [Dose, adherence counseling, interaction avoidance]
+
+  3. [Post-surgical complications if applicable]
+     - [Hypoparathyroidism management, RLN injury follow-up]
+
+  4. Follow-up in [interval]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: thyroid diagnosis, cancer staging if applicable, surgery and RAI history, current levothyroxine dose, TSH/FT4/Tg/TgAb history with dates, neck ultrasound findings, nodule details, FNA results, interval symptoms, calcium if post-surgical.]
+</PromptPlayground>
+
+### Osteoporosis treatment monitoring
+
+Use this for patients with osteoporosis on pharmacologic therapy who need treatment response assessment, drug holiday consideration, and fracture risk reassessment. The note centers on DEXA trends, FRAX recalculation, and treatment duration management.
+
+<PromptPlayground tool="Claude" title="Osteoporosis Treatment Monitoring">
+You are an outpatient endocrinologist writing a clinic visit note for a patient with osteoporosis on pharmacologic treatment. Structure the note around DEXA trends, fracture risk reassessment, treatment response, and drug holiday decision-making.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document DEXA T-scores at lumbar spine, total hip, and femoral neck with dates for trend comparison.
+- Calculate or document FRAX score (10-year probability of major osteoporotic fracture and hip fracture).
+- Document fracture history with type, date, and mechanism (fragility vs traumatic).
+- Track treatment duration and assess for drug holiday eligibility (bisphosphonates: consider after 3-5 years oral or 3 years IV if low-moderate risk; denosumab: no drug holiday, requires transition plan).
+- Document fall risk assessment and prevention measures.
+- Include secondary osteoporosis workup results if applicable.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+OSTEOPOROSIS MANAGEMENT VISIT
+══════════════════════════════════════════
+
+OSTEOPOROSIS PROFILE
+────────────────────
+  Date of diagnosis: ***
+  Fracture history: [None / List: type, date, mechanism for each]
+  Secondary causes evaluated: [Y/N]
+    [If yes: vitamin D, calcium, TSH, PTH, celiac, myeloma,
+    cortisol, testosterone (men), estradiol (premenopausal women)]
+
+BONE DENSITY TREND
+──────────────────
+  DEXA #1 (M/D/YY)          DEXA #2 (M/D/YY)         Change
+  ───────────────────        ───────────────────       ──────────
+  L-spine T: ***             L-spine T: ***            [+/- ***]
+  Total hip T: ***           Total hip T: ***          [+/- ***]
+  Fem neck T: ***            Fem neck T: ***           [+/- ***]
+
+  Interpretation: [Stable / Improving / Declining]
+  Least significant change exceeded: [Y/N at each site]
+
+FRACTURE RISK
+─────────────
+  FRAX (10-year, with BMD):
+    Major osteoporotic fracture: ***%
+    Hip fracture: ***%
+  Risk category: [Low / Moderate / High / Very high]
+    [Very high: FRAX &gt;30% major / &gt;4.5% hip, or recent fracture,
+    or T-score ≤-3.0, or multiple fractures, or fracture on therapy]
+
+CURRENT TREATMENT
+─────────────────
+  Drug: [Alendronate / Risedronate / Zoledronic acid / Denosumab /
+    Teriparatide / Abaloparatide / Romosozumab]
+  Dose and frequency: ***
+  Duration on current therapy: ***
+  Adherence: ***
+  Side effects: ***
+  Prior osteoporosis treatments: [Drug, duration, reason stopped]
+
+  Calcium: *** mg/day (dietary + supplement)
+  Vitamin D: *** IU/day
+  25-OH vitamin D level: *** (M/D/YY) [target ≥30]
+
+FALL RISK ASSESSMENT
+────────────────────
+  Falls in past 12 months: ***
+  Balance assessment: ***
+  Vision: [Last eye exam date]
+  Home safety: [Assessed Y/N]
+  Medications increasing fall risk: [Sedatives, antihypertensives, etc.]
+  Exercise: [Weight-bearing, balance training]
+
+INTERVAL HISTORY
+────────────────
+[Narrative: new fractures, falls, height loss, back pain,
+medication tolerance, dietary calcium, exercise, lifestyle factors.]
+
+ASSESSMENT AND PLAN
+───────────────────
+  1. Osteoporosis, [severity / on therapy x *** years]
+     Treatment assessment:
+     - [Responding: BMD stable or improved, no new fractures]
+     - [Not responding: BMD declining or new fracture on therapy
+       (reassess adherence, secondary causes, switch therapy)]
+
+     Drug holiday decision (if on bisphosphonate ≥3-5 years):
+     - [Eligible: low-moderate risk after adequate treatment;
+       plan: stop drug, recheck DEXA in 2-3 years, resume if
+       T-score declines below threshold or new fracture]
+     - [Not eligible: high/very high risk, continue treatment]
+     - [If on denosumab: NO drug holiday. Must transition to
+       bisphosphonate if stopping denosumab to prevent rebound
+       bone loss and vertebral fractures]
+
+  2. Calcium and vitamin D
+     - [Dose adjustments based on levels and intake assessment]
+
+  3. Fall prevention
+     - [Specific interventions: PT referral, medication review,
+       home safety, vision check, exercise prescription]
+
+  4. Monitoring
+     - DEXA in [interval; typically 2 years on therapy]
+     - Vitamin D level: [Recheck timing]
+     - Bone turnover markers: [CTX or P1NP if needed for monitoring]
+     - Height: [Measured today: ***; compare to prior]
+
+  5. Follow-up in [interval]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: osteoporosis diagnosis, DEXA results with dates and T-scores, FRAX score, fracture history, current treatment with dose and duration, prior treatments, calcium/vitamin D intake, vitamin D level, fall history, secondary workup results, height measurements, interval symptoms.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+52-year-old male with type 2 diabetes x 18 years, on insulin pump (Tandem t:slim X2 with Control-IQ) and Dexcom G7 CGM. A1c history: 8.9% (3/25), 8.2% (9/25), 7.6% (3/26). CGM 14-day report: TIR 62%, TAR (&gt;180) 30%, TAR (&gt;250) 8%, TBR (&lt;70) 3%, TBR (&lt;54) 0.5%, GMI 7.4%, avg glucose 168, CV 34%, sensor wear 92%. Pump settings: basal total 28 u/day (0.8 u/hr 12a-5a, 1.2 u/hr 5a-9a, 1.0 u/hr 9a-12p, 1.1 u/hr 12p-5p, 1.3 u/hr 5p-10p, 0.9 u/hr 10p-12a). ICR: breakfast 1:8, lunch 1:10, dinner 1:9. ISF: 1:30. Active insulin time 4.5 hours. Control-IQ on 85% of time. Also on metformin 1000 BID, semaglutide 1 mg weekly. Pattern: consistent post-dinner highs (avg 230 at 3 hours post-meal), fasting glucose avg 130 (dawn phenomenon component visible on CGM), occasional lows around 3pm (2-3x/week, glucose 60-68). Last eye exam 11/25 (mild NPDR). UACR 45 mg/g (11/25). eGFR 82. Monofilament intact. On atorvastatin 40, lisinopril 20. LDL 88. BP today 132/78. Weight 215 (down 8 lbs since starting semaglutide 9/25). A1c today 7.6%. Foot exam normal.
+
+**LLM output:**
+
+ENDOCRINOLOGY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Follow-up
+Interval since last visit: 6 months
+
+CHIEF CONCERN
+─────────────
+Type 2 diabetes management, pump optimization, CGM review
+
+ENDOCRINE HISTORY
+─────────────────
+  Primary diagnosis: Type 2 diabetes mellitus
+  Date of diagnosis: 2008 (18 years)
+  Disease classification: T2DM on intensive insulin therapy with technology
+  Diabetes technology:
+    Insulin delivery: Tandem t:slim X2 with Control-IQ
+    Glucose monitoring: Dexcom G7 continuous glucose monitor (CGM)
+  Key history:
+    - Mild nonproliferative diabetic retinopathy (NPDR), diagnosed 11/25
+    - Moderately increased albuminuria (urine albumin-to-creatinine ratio (UACR) 45 mg/g)
+    - No history of DKA or severe hypoglycemia
+
+INTERVAL HISTORY
+────────────────
+Patient reports overall improvement in glycemic control since starting semaglutide and pump therapy optimization. He has lost 8 lbs since semaglutide was started in 9/25. He notes occasional lows around 3pm, approximately 2-3 times per week, with glucose in the 60-68 mg/dL range; he treats with glucose tabs and recovers within 15 minutes. No severe hypoglycemia requiring assistance. He identifies dinner as his most challenging meal for glucose control, reporting consistent post-dinner spikes. He checks CGM regularly and wears the sensor more than 90% of the time. Control-IQ is active 85% of the time. He reports good adherence to metformin and semaglutide. He exercises 3 times per week (walking 30 minutes). Diet is "inconsistent at dinner; portions vary."
+
+CURRENT MEDICATIONS
+───────────────────
+  Insulin (via pump):
+    Basal rates:
+      12am-5am: 0.8 u/hr
+      5am-9am: 1.2 u/hr
+      9am-12pm: 1.0 u/hr
+      12pm-5pm: 1.1 u/hr
+      5pm-10pm: 1.3 u/hr
+      10pm-12am: 0.9 u/hr
+      Total basal: 28 u/day
+    Insulin-to-carb ratio (ICR): Breakfast 1:8 / Lunch 1:10 / Dinner 1:9
+    Insulin sensitivity factor (ISF): 1:30
+    Active insulin time: 4.5 hours
+    Control-IQ: On (85% of time)
+
+  Other Diabetes Medications
+  ──────────────────────────
+  Metformin 1000 mg twice daily
+  Semaglutide 1 mg subcutaneous weekly (started 9/25)
+
+  Other Medications
+  ─────────────────
+  Atorvastatin 40 mg daily
+  Lisinopril 20 mg daily
+
+VITAL SIGNS
+───────────
+  BP: 132/78 mmHg
+  Weight: 215 lbs (down 8 lbs from 223 lbs in 9/25)
+  BMI: [Not provided; verify before signing]
+
+PHYSICAL EXAMINATION
+────────────────────
+  Feet: Skin intact, no calluses or ulcers, no deformity. Pedal pulses palpable bilaterally. Monofilament testing intact at all sites bilaterally. No evidence of Charcot arthropathy.
+  Skin: [Not provided; verify before signing]
+  Pump site: [Not provided; verify before signing]
+  CGM site: [Not provided; verify before signing]
+
+DIAGNOSTICS
+───────────
+
+  Glycemic Data
+  ─────────────
+  A1c trend:
+    Date        A1c
+    ──────────  ────
+    3/25        8.9%
+    9/25        8.2%
+    3/26        7.6%
+  Trajectory: Steadily improving (1.3% reduction over 12 months).
+
+  CGM Report (past 14 days)
+  ─────────────────────────
+  Time in range (TIR, 70-180 mg/dL): 62% [target ≥70%]
+  Time above range (TAR, &gt;180 mg/dL): 30%
+  Time &gt;250 mg/dL: 8%
+  Time below range (TBR, &lt;70 mg/dL): 3% [target &lt;4%; at target]
+  Time &lt;54 mg/dL: 0.5% [target &lt;1%; at target]
+  Glucose management indicator (GMI): 7.4%
+  Average glucose: 168 mg/dL
+  Coefficient of variation (CV): 34% [target &lt;36%; at target]
+  Sensor wear time: 92%
+
+  Glycemic Patterns
+  ─────────────────
+  Overnight (12am-5am): Stable, Control-IQ managing well within basal range.
+  Fasting (wake-up): Average glucose 130 mg/dL; dawn phenomenon visible on CGM between 5-8am with gradual rise from 120 to 150. Current basal rate 1.2 u/hr (5am-9am) partially compensating.
+  Post-breakfast: Adequately covered with ICR 1:8.
+  Post-lunch: Adequately covered with ICR 1:10.
+  Post-dinner: Consistent spikes to average 230 mg/dL at 3 hours post-meal. ICR 1:9 is insufficient for dinner coverage. Variable portion sizes likely contributing.
+  Afternoon lows (2-4pm): Glucose 60-68, 2-3 times/week. Basal rate 1.1 u/hr in this window may be excessive, or lunch ICR 1:10 is over-covering carbs.
+
+  Diabetes Complications Screening
+  ─────────────────────────────────
+  Eyes: Last dilated exam 11/25: mild NPDR. Follow-up due 11/26.
+  Kidneys: UACR 45 mg/g (11/25; moderately increased albuminuria). eGFR 82.
+  Neuropathy: Monofilament intact bilaterally.
+  Cardiovascular: Atorvastatin 40 mg, LDL 88 mg/dL. Lisinopril 20 mg. No ASA (per current ADA guidelines, ASA not routinely recommended in primary prevention for diabetes).
+  Feet: Normal exam.
+
+ASSESSMENT
+──────────
+52-year-old male with T2DM x 18 years on insulin pump (Control-IQ) and Dexcom G7 CGM, presenting for quarterly follow-up with improving glycemic control (A1c 8.9% to 7.6% over 12 months) and weight loss on semaglutide, though not yet at TIR target of 70%.
+
+  1. Type 2 diabetes, improving but not at target
+     A1c has improved from 8.9% to 7.6% over 12 months with pump optimization and semaglutide addition. TIR is 62% (target ≥70%). Two addressable patterns remain: (a) post-dinner hyperglycemia (avg 230 at 3 hours), likely from insufficient dinner ICR and variable portion sizes, and (b) mid-afternoon lows 2-3x/week, suggesting the 12pm-5pm basal rate is slightly too high. Hypoglycemia metrics are within target.
+
+  2. Diabetic retinopathy, mild NPDR
+     Stable at last exam 11/25. Annual surveillance appropriate for mild NPDR.
+
+  3. Diabetic nephropathy, moderately increased albuminuria
+     UACR 45 on lisinopril 20 mg. eGFR 82, stable. Consider intensification of renoprotection.
+
+  4. Cardiovascular risk
+     LDL 88 on atorvastatin 40. BP 132/78, slightly above 130/80 target. Weight trending down on semaglutide.
+
+PLAN
+────
+  1. Diabetes, pump optimization
+     Post-dinner highs:
+     - Change dinner ICR from 1:9 to 1:7 (more aggressive coverage for consistent post-dinner spikes to 230)
+     - Counsel on consistent carb counting at dinner; consider using a food scale for 2 weeks to recalibrate portion estimates
+     - Pre-bolus 15 minutes before dinner (if not already doing so)
+
+     Afternoon lows:
+     - Decrease basal rate from 1.1 u/hr to 0.9 u/hr for the 12pm-5pm time block
+     - This should reduce afternoon lows while maintaining lunch-to-dinner coverage
+
+     Fasting glucose:
+     - Fasting average 130 with dawn phenomenon partially corrected. Increase 5am-9am basal rate from 1.2 to 1.3 u/hr to further blunt dawn rise. Reassess at next CGM download.
+
+     No change to: breakfast ICR (1:8), lunch ICR (1:10), ISF (1:30), overnight basal (0.8 u/hr), active insulin time (4.5 hr), Control-IQ settings.
+
+     Medications:
+     - Continue metformin 1000 mg BID
+     - Continue semaglutide 1 mg weekly (weight loss progressing, 8 lbs in 6 months; if weight plateaus, consider increase to 2 mg pending insurance approval)
+
+  2. Diabetic retinopathy
+     - Next dilated eye exam due 11/26 (annual for mild NPDR)
+
+  3. Diabetic nephropathy
+     - Continue lisinopril 20 mg daily
+     - Consider adding dapagliflozin 10 mg daily for renal protection (UACR 45 with T2DM; CREDENCE and DAPA-CKD evidence supports use). Discuss at next visit, weighing against the mild afternoon hypoglycemia pattern (SGLT2i may contribute to volume-related lows; address basal rate first, then add).
+     - Recheck UACR in 6 months
+
+  4. Cardiovascular risk
+     - BP 132/78; slightly above target. Increase lisinopril from 20 mg to 40 mg daily (dual benefit: BP and renoprotection)
+     - Continue atorvastatin 40 mg (LDL 88, at goal for high-risk patient with NPDR)
+     - Recheck lipid panel in 6 months
+
+  Monitoring
+  ──────────
+  - CGM download review in 4-6 weeks (phone/virtual visit to assess pump setting changes)
+  - A1c in 3 months
+  - BMP in 2 weeks (after lisinopril increase)
+  - UACR in 6 months
+  - Dilated eye exam 11/26
+  - Annual foot exam at next in-person visit
+
+  Self-Management
+  ───────────────
+  - CGM and pump data reviewed together in clinic
+  - Counseled on pre-bolusing dinner by 15 minutes
+  - Counseled on carb counting consistency at dinner; food scale for 2 weeks
+  - Glucose tab treatment for lows reviewed (15 g carb, wait 15 minutes)
+  - Continue exercise (walking 30 minutes 3x/week; encourage progression)
+
+  Follow-Up
+  ─────────
+  CGM download review (virtual) in 4-6 weeks.
+  Return to endocrinology clinic in 3 months.
+  Call clinic for recurrent lows below 54, sensor or pump malfunction, or illness requiring sick day management.
+
+DISPOSITION
+───────────
+Patient counseled on pump setting changes, pre-bolusing strategy, and carb counting refinement at dinner. Lisinopril increase discussed. He understands the rationale and agrees with the plan. Return precautions reviewed.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **CGM data is the new physical exam for diabetes.** The model can document TIR, TAR, TBR, GMI, and CV, but pattern identification (which meal is the problem, whether the dawn phenomenon is present, whether lows cluster at a specific time) requires you to review the actual AGP report. Give the model specific pattern observations, not just summary metrics.
+- **Insulin dose changes should be small and targeted.** The model sometimes makes sweeping changes (increase all basal rates by 20%). Good practice: change one variable at a time, by 10-20%, and reassess in 1-2 weeks. If the model proposes multiple simultaneous changes, consider whether you can sequence them.
+- **A1c and GMI discordance is real.** If A1c is 8.0% but GMI is 7.2%, the discrepancy may reflect red cell turnover differences, hemoglobin variants, or anemia. The model documents both but may not flag the discordance. If they diverge by more than 0.5%, note it.
+- **Denosumab discontinuation is dangerous.** Unlike bisphosphonates, denosumab cannot be stopped without a transition plan. Rebound bone loss and vertebral fractures occur within months. The model knows this, but verify that any plan to stop denosumab includes a bisphosphonate bridge.
+- **Thyroglobulin interpretation depends on TgAb.** If thyroglobulin antibodies are positive, the thyroglobulin level is unreliable (can be falsely low). The model documents both values but may not explicitly flag this interference. Track TgAb trends as a surrogate in antibody-positive patients.
+- **Adrenal crisis prevention is the safety item.** For any patient with adrenal insufficiency, the note should confirm sick day rules were reviewed, emergency injection is available and not expired, and the patient has a medical alert bracelet. The model includes these in the template, but if you do not provide the data, it cannot fill them in. Ask about these at every visit.
+- **FRAX has known limitations.** It does not account for fall risk, does not adjust for dose-dependent steroid exposure, and underestimates risk in patients with recent fractures. The model will document the FRAX score, but clinical judgment may override it. If you disagree with the FRAX-based recommendation, document why.
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) - for inpatient notes on admitted endocrine patients
+- [Consult Note](/templates/consult-note) - for inpatient endocrinology consultations
+- [Referral Letter](/templates/referral-letter) - for patients being referred to your endocrine clinic
+- [Medication Instructions](/templates/medication-instructions) - for patient-facing insulin or medication education
+- [Lab Interpretation](/templates/lab-interpretation) - for working through complex hormone panels

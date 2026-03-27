@@ -103,11 +103,12 @@ import Callout from '../../components/Callout.astro';
 
 ### socialPost rules
 
-- Max ~200 characters (a URL is appended automatically by the posting system)
-- NEJM professional voice
-- No em dashes, no emoji, no hype
-- Quantify where possible
-- Either a hook-with-link (provocative line pulling toward the URL) or a standalone insight (self-contained takeaway)
+- Aim for ~220-250 characters (a URL is appended automatically; URLs count as 23 chars on X)
+- Professional but ELI20 energy: accessible to a smart 20-year-old, explained clearly, not dumbed down
+- Lead with the main result. First sentence states the finding, not a hook or setup line
+- No em dashes, no emoji, no hype words
+- Quantify where possible with specific numbers from the study
+- Tone: a physician explaining a study to a sharp med student, not a marketing account
 
 ## Step 3: Queue for immediate X posting
 

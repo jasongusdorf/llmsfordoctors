@@ -1,0 +1,916 @@
+---
+title: "Surgical Oncology Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, surgical-oncology, surgical, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "Produces surgical oncology notes integrating staging data, molecular markers, treatment history, performance status, nutritional assessment, and tumor board discussion to coordinate surgical and systemic cancer management."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Surgical oncology notes sit at the junction of surgery, medical oncology, and sometimes radiation. The surgeon managing a borderline resectable pancreatic adenocarcinoma needs a note that documents vascular involvement on CT, CA 19-9 trend across neoadjuvant cycles, and the specific question of whether the superior mesenteric vein can be reconstructed. The melanoma follow-up needs Breslow depth, SLNB result, BRAF status, and immunotherapy response tracked in a single document. This template covers six conditions commonly managed by surgical oncologists: melanoma, sarcoma, pancreatic cancer, hepatocellular carcinoma, peritoneal carcinomatosis, and neuroendocrine tumors. Every template captures the multidisciplinary tumor board discussion, because surgical oncology decisions are rarely made by one person.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Surgical Oncology Clinic Visit Note">
+You are an attending surgical oncologist writing an outpatient clinic visit note after seeing a patient. The patient's primary condition is one of: melanoma, sarcoma, pancreatic cancer, hepatocellular carcinoma (HCC), peritoneal carcinomatosis, or neuroendocrine tumor. Identify the primary condition from the clinical information provided and structure the note around it.
+
+### Purpose
+
+Generate a complete, structured surgical oncology clinic note from the clinical data below. The note must capture disease-specific staging, molecular markers, treatment history (surgical, systemic, radiation), surveillance data, performance status, nutritional status, tumor board discussion, and an actionable plan that coordinates surgical and medical oncologic management.
+
+### Rules
+
+- Write in past tense for history and treatment; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use in the note (e.g., "Eastern Cooperative Oncology Group performance status (ECOG PS)"), then abbreviation only thereafter.
+- Include specific numbers: tumor dimensions, margins, lymph node counts, marker values with trends, RECIST response.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Organize the Assessment as a problem list with the primary oncologic condition first.
+- Plan items must be specific and actionable: procedure name, systemic therapy regimen, imaging modality and timing, referral with reason.
+- For pancreatic cancer: document vascular involvement (SMA, SMV, celiac, portal vein), resectability classification, CA 19-9 trend, exocrine insufficiency, and diabetes management.
+- For HCC: document Barcelona (BCLC) stage, Child-Pugh score, MELD, Milan criteria, locoregional therapy history, and transplant candidacy.
+- For melanoma: document Breslow depth, ulceration, SLNB result (positive/negative, number of positive nodes), BRAF/NRAS status, and immunotherapy or targeted therapy history.
+- For sarcoma: document histologic subtype, grade (FNCLCC), location, margins, radiation status, and systemic therapy if applicable.
+- For NET: document primary site, grade (Ki-67), functional status, chromogranin A and 5-HIAA trends, somatostatin receptor imaging.
+- For peritoneal carcinomatosis: document primary site, Peritoneal Cancer Index (PCI), completeness of cytoreduction (CC score), HIPEC regimen if applicable.
+- Document ECOG performance status as a number with functional description.
+- Document tumor board: date, participants, recommendation.
+- Document nutritional status: weight trend, albumin, prealbumin, dietary intake, enzyme replacement, supplement needs.
+- Do not infer or fabricate any clinical information not provided. Write "[Not provided; verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "ECOG PS" = Eastern Cooperative Oncology Group performance status
+- "RECIST" = Response Evaluation Criteria in Solid Tumors
+- "SMA" = superior mesenteric artery
+- "SMV" = superior mesenteric vein
+- "PV" = portal vein
+- "BCLC" = Barcelona Clinic Liver Cancer
+- "HCC" = hepatocellular carcinoma
+- "NET" = neuroendocrine tumor
+- "PCI" = Peritoneal Cancer Index
+- "CC" = completeness of cytoreduction
+- "CRS" = cytoreductive surgery
+- "HIPEC" = hyperthermic intraperitoneal chemotherapy
+- "SLNB" = sentinel lymph node biopsy
+- "CLND" = completion lymph node dissection
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+SURGICAL ONCOLOGY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[Follow-up / New consultation / Pre-operative / Post-operative /
+ Surveillance / Multidisciplinary]
+Interval since last visit: [duration]
+
+CHIEF CONCERN
+─────────────
+***
+
+CANCER DIAGNOSIS
+────────────────
+  Primary site: ***
+  Histology: ***
+  Grade: ***
+  Stage: [TNM staging, AJCC edition]
+  Molecular/Biomarkers:
+    [Melanoma: BRAF, NRAS, KIT]
+    [Pancreatic: KRAS, BRCA, MSI/MMR]
+    [HCC: AFP]
+    [Sarcoma: translocation, MDM2]
+    [NET: Ki-67, grade (G1/G2/G3), functional status]
+  Date of diagnosis: ***
+
+TREATMENT HISTORY
+─────────────────
+  Surgery
+  ───────
+  [Date]: [Procedure, margins (R0/R1/R2), lymph node harvest
+  (positive/total), complications]
+  [Additional surgeries with dates]
+
+  Systemic Therapy
+  ────────────────
+  [Line 1]: [Regimen, cycles, dates, best response (RECIST),
+  reason stopped]
+  [Line 2]: [Regimen, cycles, dates, best response, reason stopped]
+  Current: [Regimen, cycle ***, last dose M/D/YY, next due M/D/YY]
+
+  Radiation
+  ─────────
+  [Field, dose (Gy), fractions, dates, relation to surgery
+  (neoadjuvant/adjuvant)]
+
+  Locoregional Therapy (HCC)
+  ──────────────────────────
+  [TACE / Y90 / RFA / MWA / cryoablation: date, target, response]
+
+ECOG PERFORMANCE STATUS
+───────────────────────
+  ECOG PS: ***/4 ([functional description])
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph: symptoms since last visit, treatment
+tolerance, pain, appetite, weight change, functional decline or
+improvement, new concerns. Include pertinent positives and
+negatives for recurrence (new masses, bone pain, neurologic
+symptoms, jaundice, bowel changes).]
+
+NUTRITIONAL STATUS
+──────────────────
+  Weight: *** kg (trend: *** from M/D/YY)
+  Weight change: [*** kg over *** months]
+  BMI: ***
+  Albumin: ***    Prealbumin: ***
+  Dietary intake: [Good / fair / poor; estimated kcal/day if known]
+  Pancreatic enzyme replacement: [Y/N, dose, compliance, steatorrhea]
+  Nutritional supplements: ***
+  Dietitian referral: [Active / recommended / not needed]
+
+PAIN ASSESSMENT
+───────────────
+  Pain: [None / location, severity (0-10), character]
+  Current analgesics: [Drug, dose, frequency, adequacy]
+  Palliative care involvement: [Y/N, last visit]
+
+CURRENT MEDICATIONS
+───────────────────
+  ***
+
+PHYSICAL EXAMINATION
+────────────────────
+  Vitals: BP *** HR *** Wt *** kg SpO2 ***
+  General: ***
+  HEENT: [Jaundice, lymphadenopathy]
+  Chest: ***
+  Abdomen: [Distension, ascites, hepatomegaly, masses, incisions,
+  port site, stoma]
+  Extremities: [Edema, DVT signs]
+  Skin: [Melanoma: scar assessment, in-transit lesions,
+  satellite lesions]
+  Lymph nodes: [Regional and distant stations]
+
+IMAGING AND SURVEILLANCE
+────────────────────────
+  Most recent imaging:
+    [Modality] (M/D/YY): [Key findings, measurements,
+    comparison to prior]
+  Response assessment: [CR / PR / SD / PD per RECIST 1.1]
+  Next imaging: [Modality, scheduled date]
+
+  Tumor Markers (with trend)
+  ──────────────────────────
+  [CEA / CA 19-9 / AFP / Chromogranin A / 5-HIAA / LDH / S100]
+    M/D/YY: ***
+    M/D/YY: ***
+    M/D/YY: ***
+    Trend: [Rising / stable / falling]
+
+LABORATORY DATA
+───────────────
+  CBC: WBC ***, Hgb ***, Plt ***
+  CMP: Na ***, K ***, Cr ***, T.bili ***, Albumin ***
+  LFTs: AST ***, ALT ***, Alk phos ***
+  Coagulation: INR ***, PT ***
+  [Disease-specific: AFP, CA 19-9, CEA, chromogranin A,
+  5-HIAA, LDH, S100]
+  [Child-Pugh score if HCC: *** (A/B/C)]
+  [MELD score if HCC: ***]
+
+DISEASE-SPECIFIC DATA
+─────────────────────
+
+  Pancreatic Cancer (if applicable)
+  ─────────────────────────────────
+  Resectability: [Resectable / Borderline resectable / Locally
+  advanced / Metastatic]
+  Vascular involvement:
+    SMA: [Clear / abutment / encasement (degrees)]
+    SMV/PV: [Clear / abutment / occlusion / reconstructible]
+    Celiac axis: [Clear / involved]
+    Hepatic artery: [Clear / involved]
+  CA 19-9: *** (baseline: ***, nadir: ***, current trend: ***)
+  Exocrine insufficiency: [Y/N, enzyme replacement: ***]
+  Endocrine (diabetes): [None / pre-existing / new-onset;
+  management: ***]
+  Biliary stent: [None / metal / plastic; date placed; patent]
+
+  HCC (if applicable)
+  ────────────────────
+  BCLC stage: [0 / A / B / C / D]
+  Child-Pugh: [A / B / C] (score: ***)
+  MELD: ***
+  AFP: *** (trend: ***)
+  Milan criteria: [Within / Beyond]
+  Number of lesions: ***, largest: *** cm
+  Vascular invasion: [None / portal vein / hepatic vein]
+  Cirrhosis etiology: ***
+  Transplant candidacy: [Listed / under evaluation / not candidate
+  (reason)]
+  Locoregional therapy history: [TACE/Y90/ablation with dates
+  and response]
+
+  Melanoma (if applicable)
+  ────────────────────────
+  Primary: [Site, Breslow depth, ulceration, mitotic rate]
+  SLNB: [Performed (date): positive (*** of *** nodes) /
+  negative / not performed (reason)]
+  CLND: [Performed / not performed / not indicated (MSLT-II era)]
+  BRAF: [V600E / V600K / wild-type]
+  NRAS: [Mutant / wild-type]
+  Immunotherapy: [Anti-PD1 (agent, dates, response) /
+  Anti-CTLA4 / Combination]
+  Targeted therapy: [BRAF/MEK inhibitors (agents, dates, response)]
+  In-transit disease: [Y/N]
+  Surveillance: [Skin exam frequency, imaging protocol]
+
+  Sarcoma (if applicable)
+  ───────────────────────
+  Histologic subtype: ***
+  FNCLCC grade: [1 / 2 / 3]
+  Location: [Extremity / Retroperitoneal / Visceral / Trunk wall]
+  Size at diagnosis: *** cm
+  Margins: [R0 / R1 / R2]
+  Radiation: [Neoadjuvant / Adjuvant / None; dose, dates]
+  Systemic: [Regimen if applicable]
+  Recurrence: [Local / distant / none]
+
+  NET (if applicable)
+  ────────────────────
+  Primary site: ***
+  Grade: G*** (Ki-67 ***%)
+  Functional status: [Functional (syndrome: ***) / Non-functional]
+  Chromogranin A: *** (trend: ***)
+  5-HIAA (24-hour urine): *** (if carcinoid)
+  Somatostatin receptor imaging: [Gallium-68 DOTATATE PET/CT
+  (date, findings)]
+  Somatostatin analog: [Octreotide LAR / Lanreotide; dose,
+  response]
+  PRRT: [Lutetium-177 DOTATATE: cycles, dates, response]
+  Carcinoid heart disease screening: [Echo (date, findings)]
+
+  Peritoneal Carcinomatosis (if applicable)
+  ──────────────────────────────────────────
+  Primary: ***
+  PCI score: ***/39
+  CRS: [Date, CC score (CC-0 / CC-1 / CC-2)]
+  HIPEC: [Y/N; agent, dose, duration]
+  Ascites: [None / present (managed with ***)]
+  Peritoneal port: [Y/N]
+
+TUMOR BOARD
+───────────
+  Date discussed: ***
+  Participants: [Surgical oncology, medical oncology, radiation
+  oncology, radiology, pathology, other]
+  Recommendation: ***
+
+CLINICAL TRIAL
+──────────────
+  [Not enrolled / Protocol: ***, Arm: ***, Status: ***]
+
+PALLIATIVE CARE
+───────────────
+  Involvement: [Active / Referred / Not indicated]
+  Goals of care: [Curative intent / Disease control /
+  Comfort-focused]
+  Advance directives: [Completed / In progress / Not yet discussed]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [cancer diagnosis, stage,
+key biomarkers], [current treatment status], ECOG ***, presenting
+for [visit type].
+
+  1. [Primary oncologic condition]
+     [Brief assessment: disease status, trajectory, treatment
+     response, surgical candidacy.]
+
+  2. [Treatment toxicity or complication]
+     [Brief assessment.]
+
+  3. [Nutritional status]
+     [Brief assessment.]
+
+  4. [Pain / Supportive care]
+     [Brief assessment.]
+
+PLAN
+────
+  1. [Primary condition]
+     - [Surgical plan: procedure, timing, approach]
+     - [OR: Surveillance plan: imaging, markers, frequency]
+     - [OR: Systemic therapy coordination with medical oncology]
+
+  2. [Treatment-related issues]
+     - [Specific management]
+
+  3. Nutrition
+     - [Diet, enzyme replacement, supplements, dietitian]
+
+  4. Pain and supportive care
+     - [Analgesic plan, palliative care]
+
+  5. Monitoring
+     - [Labs: markers, timing]
+     - [Imaging: modality, timing]
+     - Tumor board: [next discussion if applicable]
+
+  Follow-Up
+  ─────────
+  Return in [interval].
+  [Criteria for earlier return.]
+
+DISPOSITION
+───────────
+[Patient counseled on ***, agrees with plan.
+Return precautions reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: cancer diagnosis with staging, molecular markers, treatment history, current regimen, interval symptoms, ECOG status, nutritional data, pain assessment, exam, labs (including tumor markers with trends), imaging, tumor board discussion, and any complications.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Pre-operative focus | Add: "This is a pre-operative visit. Document resectability assessment, surgical planning (procedure, approach, anticipated complexity), pre-operative optimization (nutrition, prehabilitation, biliary drainage), and informed consent discussion." |
+| Surveillance only | Add: "This is a post-treatment surveillance visit. Focus on symptom review for recurrence, imaging results, tumor marker trends, and adherence to the surveillance schedule per NCCN guidelines." |
+| Palliative intent | Add: "This patient has advanced disease with palliative treatment goals. Emphasize symptom management, quality of life, goals of care documentation, and hospice eligibility assessment." |
+| Clinical trial | Add: "This patient is enrolled in a clinical trial. Document protocol-specific response criteria, mandatory assessments due at this timepoint, and any protocol deviations." |
+| Hereditary cancer | Add: "This patient has a known hereditary cancer syndrome (specify: Lynch, BRCA, Li-Fraumeni, etc.). Document the specific mutation, affected family members, screening protocols for associated cancers, and genetic counseling referral status." |
+
+---
+
+## Variations
+
+### Pancreatic cancer multidisciplinary follow-up
+
+Use this for patients with pancreatic adenocarcinoma being managed across surgical oncology, medical oncology, and radiation. The note centers on resectability assessment, CA 19-9 trajectory, systemic therapy response, and the specific question of whether the patient is a surgical candidate.
+
+<PromptPlayground tool="Claude" title="Pancreatic Cancer Multidisciplinary Follow-Up">
+You are a surgical oncologist writing a clinic note for a patient with pancreatic adenocarcinoma. Structure the note around resectability assessment, treatment response, and surgical candidacy.
+
+### Rules
+
+- Write in past tense for treatment history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document resectability classification: resectable, borderline resectable, locally advanced, or metastatic. Define the specific vascular involvement.
+- Document CA 19-9 trend with at least 3 data points and dates.
+- Document systemic therapy: regimen, cycles, response by RECIST and CA 19-9.
+- If post-neoadjuvant: document restaging imaging findings, comparison to baseline, and surgical candidacy assessment.
+- Document biliary status: stent type, patency, bilirubin.
+- Document exocrine insufficiency and diabetes management.
+- Include tumor board recommendation.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+PANCREATIC CANCER MULTIDISCIPLINARY FOLLOW-UP
+══════════════════════════════════════════
+
+DIAGNOSIS
+─────────
+  Histology: [Adenocarcinoma / other]
+  Location: [Head / body / tail]
+  Stage: ***
+  Resectability at diagnosis: [Resectable / Borderline / Locally
+  advanced / Metastatic]
+  Key molecular: KRAS ***, BRCA ***, MSI ***
+
+VASCULAR INVOLVEMENT
+────────────────────
+  Baseline:
+    SMA: ***
+    SMV/PV: ***
+    Celiac: ***
+    Hepatic artery: ***
+  Current (restaging):
+    SMA: ***
+    SMV/PV: ***
+    Celiac: ***
+    Hepatic artery: ***
+  Change: [Improved / stable / progressed]
+
+TREATMENT HISTORY
+─────────────────
+  Neoadjuvant: [Regimen, cycles, dates]
+  Radiation: [Dose, dates, concurrent agent]
+  Surgical: [Procedure, date, margins, nodes, complications]
+  Adjuvant: [Regimen, cycles, dates]
+
+CA 19-9 TREND
+──────────────
+  Baseline (M/D/YY): ***
+  [M/D/YY]: ***
+  [M/D/YY]: ***
+  Current (M/D/YY): ***
+  Nadir: ***
+  Trend: [Rising / stable / falling]
+  [Note: if patient is Lewis antigen negative, CA 19-9 is
+  unreliable; document this]
+
+BILIARY STATUS
+──────────────
+  Stent: [None / Metal / Plastic (date placed)]
+  Patency: [Patent / Occluded (date)]
+  Total bilirubin: ***
+
+RESTAGING IMAGING
+─────────────────
+  CT (date): [Primary tumor size (prior vs current), vascular
+  involvement changes, liver/peritoneal/lung metastases]
+  Response: [RECIST: CR/PR/SD/PD]
+  [PET/CT if obtained]: ***
+
+SURGICAL CANDIDACY ASSESSMENT
+─────────────────────────────
+  Current resectability: [Resectable / Borderline / Locally
+  advanced / Metastatic]
+  Planned procedure: [Whipple / Distal pancreatectomy /
+  Total pancreatectomy / Not a surgical candidate]
+  Vascular reconstruction needed: [Y/N (specify)]
+  Performance status: ECOG ***
+  Nutritional status: Weight ***, Albumin ***, Prealbumin ***
+  Medical fitness: ***
+
+TUMOR BOARD
+───────────
+  Date: ***
+  Recommendation: ***
+
+ASSESSMENT & PLAN
+─────────────────
+  1. Pancreatic adenocarcinoma, [resectability], [treatment status]
+     - [Proceed to surgery (procedure, date) / Continue neoadjuvant
+       / Switch regimen / Transition to palliative care]
+     - [CA 19-9 monitoring frequency]
+
+  2. Biliary management
+     - [Stent status, exchange timing]
+
+  3. Nutrition and exocrine function
+     - [Enzyme replacement, weight management, dietitian]
+
+  4. Diabetes management
+     - [Agent, A1c, coordination with PCP]
+
+  5. Follow-up
+     - [Next imaging, next visit, next tumor board]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: pancreatic cancer details, staging, vascular involvement, CA 19-9 trend, treatment history, restaging imaging, performance status, biliary status, and tumor board discussion.]
+</PromptPlayground>
+
+### Melanoma surveillance
+
+Use this for patients with a history of melanoma in the surveillance phase. The note tracks skin exam, regional lymph node assessment, imaging surveillance, and the specific molecular data that drives adjuvant therapy decisions.
+
+<PromptPlayground tool="Claude" title="Melanoma Surveillance Visit">
+You are a surgical oncologist writing a surveillance visit note for a patient with a history of melanoma who has completed primary treatment. Structure the note around recurrence monitoring, skin examination, and adjuvant therapy status.
+
+### Rules
+
+- Write in past tense for treatment history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the primary melanoma: site, Breslow depth, Clark level, ulceration, mitotic rate, microsatellitosis.
+- Document SLNB result and CLND if performed.
+- Document BRAF and NRAS status.
+- Document adjuvant therapy: agent, start date, duration, completion date, toxicities.
+- Comprehensive skin exam: document any new or changing lesions. Use anatomic location and description (size, color, border, symmetry).
+- Regional lymph node exam: document specifically the draining basin of the primary.
+- Surveillance imaging per NCCN guidelines: CT, PET/CT, or brain MRI with timing.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+MELANOMA SURVEILLANCE VISIT
+══════════════════════════════════════════
+
+MELANOMA SUMMARY
+────────────────
+  Primary site: ***
+  Breslow depth: *** mm
+  Clark level: ***
+  Ulceration: [Present / Absent]
+  Mitotic rate: ***/mm2
+  Microsatellitosis: [Present / Absent]
+  Stage: *** (AJCC 8th edition)
+  SLNB: [Negative / Positive (*** of *** nodes, largest deposit
+  *** mm)]
+  CLND: [Performed / Not performed]
+  BRAF: [V600E / V600K / Wild-type]
+  NRAS: [Mutant / Wild-type]
+  Date of diagnosis: ***
+  Date of primary excision: ***
+
+ADJUVANT THERAPY
+────────────────
+  Agent: [Nivolumab / Pembrolizumab / Dabrafenib + Trametinib /
+  None / Not indicated]
+  Duration: [*** months completed / ongoing (cycle ***)]
+  Toxicities: ***
+  Status: [Completed / Ongoing / Discontinued (reason)]
+
+TIME SINCE TREATMENT: ***
+
+INTERVAL HISTORY
+────────────────
+[New lesions, lumps, skin changes, constitutional symptoms
+(weight loss, fatigue, night sweats), bone pain, headache,
+neurologic symptoms, pulmonary symptoms.]
+
+COMPREHENSIVE SKIN EXAM
+───────────────────────
+  Primary excision site: [Well-healed scar / concern (describe)]
+  In-transit disease: [None / lesion(s) (location, size, number)]
+  Full-body skin exam:
+    New or changed lesions: [None / describe (location, size,
+    color, border, clinically suspicious Y/N)]
+    Atypical nevi: ***
+    Dermatoscopy: [Performed / Not performed]
+  SLNB/CLND scar: ***
+
+LYMPH NODE EXAM
+───────────────
+  Draining basin ([specify]): [No palpable adenopathy /
+  palpable (size, character)]
+  Other basins: ***
+
+SURVEILLANCE IMAGING
+────────────────────
+  Last imaging: [CT CAP (date) / PET/CT (date) / Brain MRI (date)]
+  Findings: ***
+  Next scheduled: [Modality, date]
+
+LABS
+────
+  LDH: *** (trend: ***)
+  S100: *** [if followed]
+  CBC, CMP: ***
+
+ASSESSMENT & PLAN
+─────────────────
+  1. Melanoma, stage ***, s/p [treatment], [time] post-treatment
+     - [No evidence of recurrence / Concerning finding]
+     - Surveillance: [Continue per NCCN; next imaging, next
+       dermatology full-body exam]
+     - Sun protection counseled
+
+  2. Adjuvant therapy (if ongoing)
+     - [Continue / toxicity management / completion date]
+
+  3. Skin cancer risk
+     - [Dermatology follow-up frequency]
+     - [Self-exam counseling]
+
+  4. Follow-up
+     - Surgical oncology: return in [interval]
+     - Dermatology: [date]
+     - [Return precautions: new mass, skin change, headache,
+       bone pain, persistent cough]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: melanoma details (site, depth, stage, SLNB, BRAF), treatment history, adjuvant therapy status, interval symptoms, skin exam findings, lymph node exam, imaging, and labs.]
+</PromptPlayground>
+
+### Sarcoma post-resection monitoring
+
+Use this for patients with a history of soft tissue or bone sarcoma following surgical resection, in the surveillance phase. The note tracks local recurrence, distant metastases, and functional recovery from limb-sparing surgery.
+
+<PromptPlayground tool="Claude" title="Sarcoma Post-Resection Monitoring">
+You are a surgical oncologist writing a follow-up note for a patient with a sarcoma history following resection. Structure the note around local and distant surveillance, functional status, and radiation late effects.
+
+### Rules
+
+- Write in past tense for treatment history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the sarcoma: histologic subtype, FNCLCC grade, location, size at diagnosis.
+- Document the surgical resection: margins (R0/R1/R2), limb-sparing vs amputation, reconstruction if performed.
+- Document radiation: neoadjuvant vs adjuvant, dose, wound complications.
+- Document systemic therapy if applicable (high-grade, large, deep tumors).
+- Surveillance imaging: MRI of the surgical bed for local recurrence, CT chest for pulmonary metastases.
+- Functional outcome: limb function, ROM, prosthetic status if amputation, MSTS functional score.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+SARCOMA POST-RESECTION FOLLOW-UP
+══════════════════════════════════════════
+
+SARCOMA SUMMARY
+───────────────
+  Histologic subtype: ***
+  FNCLCC grade: [1 / 2 / 3]
+  Location: ***
+  Size at diagnosis: *** cm
+  Depth: [Superficial / Deep to fascia]
+  Stage: ***
+  Molecular: ***
+
+TREATMENT
+─────────
+  Surgery: [Date, procedure (wide excision / compartmental /
+  amputation), margins, reconstruction]
+  Radiation: [Neoadjuvant (date, dose) / Adjuvant (date, dose) /
+  None]
+  Wound complications: ***
+  Systemic: [Regimen, cycles, dates / None]
+  Time since surgery: ***
+
+INTERVAL HISTORY
+────────────────
+[Local symptoms (swelling, pain at resection site, mass), systemic
+(dyspnea, cough, constitutional symptoms), functional status,
+return to activities.]
+
+EXAMINATION
+───────────
+  Surgical site: [Scar (well-healed, firm, soft), mass (Y/N, size,
+  location, comparison to prior)]
+  Limb: [ROM, edema, lymphedema, radiation skin changes]
+  Lymph nodes: [Regional stations]
+  Pulmonary: ***
+  [Prosthetic/orthotic assessment if applicable]
+
+FUNCTIONAL STATUS
+─────────────────
+  MSTS score: ***/30 [if assessed]
+  Limb function: [Full / limited (specify)]
+  Ambulation: ***
+  Work/school: ***
+  Pain: ***
+
+SURVEILLANCE IMAGING
+────────────────────
+  MRI surgical bed (date): [No recurrence / mass (size,
+  enhancement, comparison)]
+  CT chest (date): [No pulmonary metastases / nodule(s)
+  (size, number, comparison)]
+  Next imaging: [MRI ***, CT chest ***]
+
+LABS
+────
+  ***
+
+ASSESSMENT & PLAN
+─────────────────
+  1. [Sarcoma subtype], [grade], s/p [treatment], [time]
+     post-resection
+     - Local: [No recurrence / concern]
+     - Distant: [No metastases / concern]
+     - Surveillance per NCCN: [frequency of MRI and CT chest
+       based on grade and time from surgery]
+
+  2. Radiation effects (if applicable)
+     - [Fibrosis, lymphedema, wound healing, fracture risk]
+
+  3. Functional recovery
+     - [PT/OT, limb function, prosthetic]
+
+  4. Follow-up
+     - Return in [interval]
+     - Next imaging: ***
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: sarcoma details (subtype, grade, stage), treatment history, interval symptoms, exam of surgical site, surveillance imaging, functional status, and any complications.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+63-year-old female with borderline resectable pancreatic head adenocarcinoma diagnosed 11/25. Baseline CT: 3.5 cm mass in pancreatic head with abutment of SMV (less than 180 degrees, no occlusion), clear SMA, clear celiac, clear hepatic artery. No metastatic disease. Baseline CA 19-9 was 840. KRAS G12D, BRCA wild-type, MSI stable. She completed 8 cycles of modified FOLFIRINOX (finished 2/26). CA 19-9 trend: 840 (11/25), 420 (1/26), 180 (2/26), 95 (3/26). Restaging CT 3/20/26: mass now 2.0 cm (down from 3.5), SMV abutment decreased (now less than 90 degrees, no occlusion), no metastatic disease. RECIST: partial response. Metal biliary stent placed 11/25, patent, bilirubin 0.8. ECOG 1. Weight 62 kg (was 65 at diagnosis, 58 at nadir during chemo, now recovering). Albumin 3.6, prealbumin 18. On pancreatic enzymes (Creon 36,000 with meals) for steatorrhea, improved. Diabetes managed with metformin 1000 BID, A1c 7.2. Tumor board 3/22/26: recommend surgical exploration with intent for pancreaticoduodenectomy, SMV resection and reconstruction if needed. Patient wants to proceed.
+
+**LLM output:**
+
+SURGICAL ONCOLOGY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Pre-operative, post-neoadjuvant restaging
+Interval since last visit: 4 weeks
+
+CHIEF CONCERN
+─────────────
+Borderline resectable pancreatic adenocarcinoma; restaging after neoadjuvant modified FOLFIRINOX; surgical candidacy assessment
+
+CANCER DIAGNOSIS
+────────────────
+  Primary site: Pancreatic head
+  Histology: Adenocarcinoma
+  Grade: [Not provided; verify before signing]
+  Stage: cT3N0M0 (AJCC 8th edition) at diagnosis
+  Molecular/Biomarkers: KRAS G12D, BRCA wild-type, microsatellite instability (MSI) stable
+  Date of diagnosis: 11/25
+
+TREATMENT HISTORY
+─────────────────
+  Surgery
+  ───────
+  None yet. Planned pancreaticoduodenectomy.
+
+  Systemic Therapy
+  ────────────────
+  Line 1 (neoadjuvant): Modified FOLFIRINOX, 8 cycles, 11/25 through 2/26.
+  Best response: Partial response (PR) per RECIST 1.1. CA 19-9 decline from 840 to 95.
+  Dose modifications: [Not provided; verify before signing]
+  Toxicities: [Not provided; verify before signing]
+
+  Radiation
+  ─────────
+  None
+
+ECOG PERFORMANCE STATUS
+───────────────────────
+  ECOG PS: 1/4 (ambulatory, able to carry out light work; fatigues with prolonged activity)
+
+INTERVAL HISTORY
+────────────────
+Patient completed 8 cycles of modified FOLFIRINOX 4 weeks ago. She reports improving energy and appetite since finishing chemotherapy. Steatorrhea has improved on pancreatic enzyme replacement (Creon 36,000 units lipase with meals). She is eating 3 meals daily with small snacks and has regained 4 kg from her nadir weight of 58 kg during treatment. No abdominal pain, jaundice, nausea, vomiting, or new back pain. Glucose is reasonably controlled on metformin. She reports no neuropathy. No hospitalizations or ED visits. She is motivated to proceed with surgery.
+
+NUTRITIONAL STATUS
+──────────────────
+  Weight: 62 kg (baseline at diagnosis: 65 kg; nadir during chemo: 58 kg; recovering)
+  Weight change: Lost 7 kg during treatment, regained 4 kg since completion
+  BMI: [Not provided; verify before signing]
+  Albumin: 3.6 g/dL
+  Prealbumin: 18 mg/dL (low-normal; trending up)
+  Dietary intake: Good. Three meals daily with snacks.
+  Pancreatic enzyme replacement: Creon 36,000 units lipase with meals, compliant, steatorrhea improved
+  Nutritional supplements: [Not provided; verify before signing]
+  Dietitian: [Not provided; verify before signing]
+
+BILIARY STATUS
+──────────────
+  Metal biliary stent placed 11/25
+  Patency: Patent
+  Total bilirubin: 0.8 mg/dL
+
+CURRENT MEDICATIONS
+───────────────────
+  Pancrelipase (Creon) 36,000 units with meals
+  Metformin 1000 mg BID
+  [Others not provided; verify before signing]
+
+PHYSICAL EXAMINATION
+────────────────────
+  Vitals: [Not provided; verify before signing]. Wt 62 kg.
+  General: Well-appearing, improved from last visit. No jaundice.
+  Abdomen: Soft, nontender, nondistended. No palpable masses. No ascites.
+  Lymph nodes: No palpable supraclavicular or inguinal lymphadenopathy.
+  Extremities: No edema.
+
+IMAGING AND SURVEILLANCE
+────────────────────────
+  CT abdomen/pelvis with contrast (3/20/26):
+    Pancreatic head mass: 2.0 cm (baseline: 3.5 cm, 43% reduction)
+    SMV abutment: Less than 90 degrees (baseline: less than 180 degrees). No occlusion. Improved.
+    SMA: Clear
+    Celiac axis: Clear
+    Hepatic artery: Clear
+    Liver: No metastases
+    Peritoneum: No carcinomatosis
+    Lungs (lower cuts): No nodules
+  Response assessment: Partial response per RECIST 1.1
+
+  Tumor Markers
+  ─────────────
+  CA 19-9 trend:
+    11/25 (baseline): 840
+    1/26: 420
+    2/26: 180
+    3/26: 95
+  Trend: Falling (89% reduction from baseline)
+
+LABORATORY DATA
+───────────────
+  Albumin: 3.6
+  Prealbumin: 18
+  T.bili: 0.8
+  A1c: 7.2
+  [CBC, CMP not provided; verify before signing]
+
+VASCULAR INVOLVEMENT (current)
+──────────────────────────────
+  SMA: Clear
+  SMV: Abutment less than 90 degrees, no occlusion, reconstructible
+  Portal vein: [Not separately reported; verify before signing]
+  Celiac axis: Clear
+  Hepatic artery: Clear
+
+TUMOR BOARD
+───────────
+  Date: 3/22/26
+  Participants: [Not provided; verify before signing]
+  Recommendation: Proceed with surgical exploration with intent for pancreaticoduodenectomy (Whipple procedure). SMV resection and primary anastomosis or interposition graft reconstruction if intraoperative assessment confirms vascular involvement. Vascular surgery on standby.
+
+ASSESSMENT
+──────────
+63-year-old female with borderline resectable pancreatic head adenocarcinoma (KRAS G12D, BRCA wild-type, MSI stable), s/p 8 cycles of neoadjuvant modified FOLFIRINOX with excellent response: tumor downsized from 3.5 to 2.0 cm, SMV abutment reduced, CA 19-9 fallen 89% from 840 to 95, and RECIST PR. No distant disease. Performance status has recovered (ECOG 1), weight is trending up, and nutritional parameters are improving. She is a surgical candidate.
+
+  1. Borderline resectable pancreatic adenocarcinoma, s/p neoadjuvant modified FOLFIRINOX with partial response
+     Excellent oncologic and clinical response. Vascular involvement downgraded from borderline to favorable anatomy. Patient is now a surgical candidate per multidisciplinary tumor board recommendation.
+
+  2. Nutritional recovery, improving
+     Weight 62 kg (up from nadir 58 kg), albumin 3.6, prealbumin 18. Exocrine insufficiency managed with enzyme replacement.
+
+  3. Diabetes, managed
+     A1c 7.2 on metformin. Will need close monitoring perioperatively.
+
+PLAN
+────
+  1. Pancreatic adenocarcinoma, proceed with surgery
+     - Pancreaticoduodenectomy (Whipple procedure) with possible SMV resection and reconstruction
+     - Surgery scheduled for 4/14/26
+     - Approach: open
+     - Vascular surgery alerted for potential SMV reconstruction
+     - Pre-operative: CT angiography for vascular planning if not adequately demonstrated on current CT
+     - Biliary stent: will be removed at time of surgery (metal stent in situ, patent)
+
+  2. Pre-operative optimization
+     - Pre-op labs: CBC, CMP, coagulation, type and screen, CA 19-9
+     - High-protein diet with continued enzyme replacement to maximize nutritional status before surgery
+     - Continue Creon 36,000 with meals
+     - Prehabilitation: daily walking, incentive spirometry education
+     - Anesthesia pre-operative evaluation scheduled
+
+  3. Perioperative diabetes management
+     - Hold metformin 48 hours before surgery
+     - Endocrinology to provide perioperative glucose management protocol
+     - Resume metformin when tolerating oral diet post-operatively
+
+  4. Post-operative plan
+     - Anticipate 7-10 day hospital stay
+     - Enhanced recovery pathway
+     - Pathology will determine adjuvant therapy: if R0 resection and good response, discuss adjuvant gemcitabine-capecitabine or surveillance
+     - Post-operative CA 19-9 at 6-8 weeks as new baseline
+     - Surveillance: CT q3 months for 2 years, CA 19-9 q3 months
+
+  Follow-Up
+  ─────────
+  Pre-operative visit 4/7/26 for final review, consent, and pre-op teaching.
+  Post-operative visit 2-3 weeks after discharge.
+  Return sooner for fever, jaundice, abdominal pain, nausea/vomiting, or inability to eat.
+
+DISPOSITION
+───────────
+Patient counseled on surgical plan (Whipple procedure with possible vascular reconstruction), expected hospital course, risks (pancreatic fistula, delayed gastric emptying, bile leak, hemorrhage, abscess), and post-operative recovery. She understands the plan and wishes to proceed. Referred for anesthesia evaluation and prehabilitation. Return precautions reviewed.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **CA 19-9 is the best bad marker we have.** It is elevated in 80% of pancreatic cancers and correlates with tumor burden, but it is falsely normal in Lewis-antigen-negative patients (5-10% of the population) and falsely elevated with biliary obstruction. The model documents the trend, but you need to know whether your patient secretes it. If the bilirubin was 8 when the baseline CA 19-9 was drawn, that number is unreliable.
+- **Resectability classification drives treatment sequence.** The NCCN definitions of resectable, borderline resectable, and locally advanced hinge on specific vascular criteria (degrees of abutment, occlusion, reconstructibility). The model uses the classification you provide. If you write "borderline," verify that it matches the imaging criteria.
+- **BRAF status in melanoma changes therapy, not just prognosis.** A BRAF V600E melanoma patient has both immunotherapy and targeted therapy options. The model documents the mutation but will not independently recommend a treatment sequence. For surgical oncology notes, the key is documenting the data so that the medical oncologist has what they need.
+- **Sarcoma margins are measured differently.** "R0" means microscopically negative, but in sarcoma, the quality of the margin (1 mm vs 1 cm) and the tissue type at the margin (fascia vs muscle vs fat) matter for local recurrence risk. "R0, closest margin 2 mm at deep fascia" is a different note from "R0, 2 cm margin in all directions."
+- **PCI scoring is intraoperative.** The Peritoneal Cancer Index is scored during CRS, not from imaging. If you are documenting a pre-operative note based on CT findings, make clear that the PCI is radiographic and may differ from the surgical PCI.
+- **Tumor board documentation is medicolegally significant.** The recommendation, the alternatives discussed, and the patient's informed decision should all be in the note. "Discussed at tumor board, recommend surgery" is insufficient. Include who recommended what.
+
+---
+
+## Related
+
+- [Hematology/Oncology Clinic Visit](/templates/clinic-hematology-oncology) - for medical oncology co-management and systemic therapy notes
+- [SOAP Progress Note](/templates/progress-note-soap) - for inpatient post-operative notes on surgical oncology patients
+- [Procedure Note](/templates/procedure-note) - for documenting Whipple, hepatectomy, CRS-HIPEC, wide local excision
+- [Consult Note](/templates/consult-note) - for initial surgical oncology consultations

@@ -1,0 +1,827 @@
+---
+title: "Pediatric Surgery Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, pediatric-surgery, surgical, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "Generates structured pediatric surgery clinic notes capturing growth and development data, feeding assessment, disease-specific surgical information, and parental concerns alongside the operative plan."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Pediatric surgery notes track two things simultaneously: the surgical problem and the child. A 6-week-old with an inguinal hernia needs the hernia documented, but also the birth history, gestational age, feeding pattern, and whether the parents have specific concerns about anesthesia in an infant. A child with Hirschsprung disease 2 years after pull-through needs stool frequency and consistency data, enterocolitis episode history, and growth curve percentiles. This template covers the six conditions most commonly seen in pediatric surgery outpatient clinics: inguinal hernia, appendicitis follow-up, pyloric stenosis follow-up, undescended testis, Hirschsprung disease, and congenital diaphragmatic hernia (CDH) follow-up. Growth parameters, feeding assessment, developmental milestones, and parental concerns are woven into every note, because pediatric surgery is always a conversation with the family as much as an evaluation of the child.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Pediatric Surgery Clinic Visit Note">
+You are an attending pediatric surgeon writing an outpatient clinic visit note after seeing a pediatric patient. The patient's primary condition is one of: inguinal hernia, post-appendectomy follow-up, post-pyloromyotomy follow-up, undescended testis, Hirschsprung disease, or congenital diaphragmatic hernia (CDH) follow-up. Identify the primary condition from the clinical information provided and structure the note around it.
+
+### Purpose
+
+Generate a complete, structured pediatric surgery clinic note from the clinical data below. The note must capture age-appropriate growth and development data, feeding assessment, disease-specific surgical information, parental concerns, and a plan that addresses both the surgical condition and the child's overall trajectory.
+
+### Rules
+
+- Write in past tense for history and interval events; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use in the note (e.g., "congenital diaphragmatic hernia (CDH)"), then abbreviation only thereafter.
+- Document age in appropriate units: days/weeks for neonates, months for infants, years for older children.
+- Include gestational age and birth weight for neonates and infants.
+- Document growth parameters with percentiles: weight, length/height, head circumference (for children under 2 years).
+- Document feeding: type (breast, bottle, solids), volume/frequency, vomiting (characterize: non-bilious, bilious, projectile), weight gain trajectory.
+- Document developmental milestones appropriate to age.
+- Document parental concerns explicitly as a separate element.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Plan items must be specific and actionable: procedure name, surgical timing, feeding change, follow-up interval.
+- For inguinal hernia: document side, reducibility, incarceration history, and surgical timing relative to gestational age.
+- For Hirschsprung: document stool pattern (frequency, consistency, straining), enterocolitis episodes (dates, treatment), and growth trajectory.
+- For CDH: document the defect (side, size, repair type), pulmonary function, GERD, growth, neurodevelopmental assessment, and hearing.
+- For undescended testis: document testicular position (inguinal canal, absent, retractile), laterality, and timing for orchiopexy.
+- Include anesthesia considerations: age-appropriate NPO guidelines, parental presence during induction discussion if applicable.
+- Pain assessment: use FLACC scale for preverbal children, Wong-Baker or numeric scale for older children.
+- Do not infer or fabricate any clinical information not provided. Write "[Not provided; verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "GA" = gestational age
+- "BW" = birth weight
+- "CDH" = congenital diaphragmatic hernia
+- "ECMO" = extracorporeal membrane oxygenation
+- "GERD" = gastroesophageal reflux disease
+- "UDT" = undescended testis
+- "HD" = Hirschsprung disease
+- "HAEC" = Hirschsprung-associated enterocolitis
+- "FLACC" = Face, Legs, Activity, Cry, Consolability (pain scale)
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+PEDIATRIC SURGERY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[Follow-up / New consultation / Pre-operative / Post-operative]
+Interval since last visit: [duration]
+
+PATIENT DEMOGRAPHICS
+────────────────────
+  Age: ***
+  Sex: ***
+  Gestational age at birth: *** weeks
+  Birth weight: *** g
+  Birth history: [Uncomplicated / NICU stay (duration, reason)]
+
+CHIEF CONCERN
+─────────────
+***
+
+SURGICAL HISTORY
+────────────────
+  Primary diagnosis: ***
+  Surgical timeline:
+    - [Date]: [Procedure, findings, approach]
+    - [Date]: [Procedure]
+  Relevant medical history: ***
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph covering changes since last visit.
+Written from the perspective of both clinical observation and
+parental report. Include:
+- Feeding: type, volume, frequency, tolerance, vomiting
+- Bowel function: stool frequency, consistency, color,
+  straining, enterocolitis symptoms (distension, explosive
+  diarrhea, fever)
+- Activity level and behavior
+- Pain or discomfort
+- Medications and compliance
+- Intercurrent illnesses]
+
+PARENTAL CONCERNS
+─────────────────
+[Document specific questions or concerns raised by the
+parent(s)/caregiver(s).]
+
+GROWTH PARAMETERS
+─────────────────
+  Weight: *** kg (*** percentile)
+  Length/Height: *** cm (*** percentile)
+  Head circumference: *** cm (*** percentile) [if under 2 years]
+  Weight gain trajectory: [Adequate / inadequate; *** g/day or
+  *** g/week or *** kg/month]
+  Growth chart trend: [Following curve / crossing percentiles
+  (direction)]
+  BMI: *** (*** percentile) [if over 2 years]
+
+FEEDING ASSESSMENT
+──────────────────
+  Type: [Breast milk (exclusive/supplemented) / Formula (type) /
+  Combination / Solids (age-appropriate)]
+  Volume per feed: *** mL/oz
+  Frequency: *** feeds/day
+  Total daily intake: *** mL (goal: *** mL/kg/day)
+  Vomiting: [None / non-bilious / bilious / projectile;
+  frequency, volume, timing relative to feeds]
+  Supplements: [Vitamins, iron, fortification]
+  Feeding difficulties: ***
+
+BOWEL FUNCTION
+──────────────
+  Stool frequency: *** per day
+  Consistency: [Liquid / soft / formed / hard / pellets]
+  Color: ***
+  Straining: [Y/N]
+  Enterocolitis episodes (HD): [None / (dates, symptoms,
+  treatment, hospitalization)]
+  Ostomy output (if applicable): *** mL/day, consistency ***
+
+DEVELOPMENTAL MILESTONES
+────────────────────────
+  [Age-appropriate milestones assessed:
+  Neonate/infant: social smile, head control, rolling,
+  sitting, crawling, first words
+  Toddler: walking, running, 2-word phrases, self-feeding
+  School-age: school performance, sports participation]
+  Assessment: [Age-appropriate / delayed in *** / referral to
+  early intervention]
+
+PHYSICAL EXAMINATION
+────────────────────
+  Vitals: T ***, HR ***, RR ***, BP *** [if age-appropriate],
+  SpO2 ***
+  Weight: *** kg    Length/Height: *** cm    HC: *** cm
+
+  General: [Active, alert, well-nourished / ill-appearing /
+  failure to thrive / age-appropriate development]
+  Head: [Fontanelle (open/closed, flat/bulging/sunken)]
+  Chest: [Respiratory effort, breath sounds (asymmetry for CDH),
+  chest wall]
+  Cardiovascular: ***
+  Abdomen: [Soft, distended, tender, masses, incisions (healing),
+  stoma if applicable]
+
+  Inguinal/Genital Exam
+  ─────────────────────
+  [Hernia: side, reducibility, contents (bowel sounds present,
+  size of defect), incarceration signs]
+  [Testicular position: bilateral palpation (scrotal, inguinal
+  canal, non-palpable), size, consistency]
+  [Hydrocele: transillumination, communicating vs non-communicating]
+
+  Surgical incision(s): ***
+  Anorectal exam (if applicable): [Tone, caliber, stool in vault]
+
+DIAGNOSTICS (if applicable)
+───────────────────────────
+  Imaging: [Ultrasound, contrast enema, UGI series, chest X-ray]
+  Labs: [CBC, CMP, blood gas, bilirubin]
+  Other: [Rectal biopsy, manometry, pulmonary function, hearing
+  screen, neurodevelopmental testing]
+
+DISEASE-SPECIFIC DATA
+─────────────────────
+
+  Inguinal Hernia (if applicable)
+  ───────────────────────────────
+  Side: [Right / Left / Bilateral]
+  Type: [Indirect / Direct]
+  Reducible: [Y/N]
+  Incarceration history: [None / date(s), required reduction]
+  Contralateral exam: [Normal / bulge / hernia]
+  Surgical timing: [Elective (age threshold) / Urgent
+  (incarceration history)]
+
+  Hirschsprung Disease (if applicable)
+  ────────────────────────────────────
+  Segment involved: [Rectosigmoid / long-segment / total colonic]
+  Procedure: [Swenson / Soave / Duhamel / transanal pull-through]
+  Date of pull-through: ***
+  Stooling pattern:
+    Frequency: ***/day    Night stools: [Y/N]
+    Consistency: ***
+    Continence: [Age-appropriate / soiling: frequency]
+  Enterocolitis (HAEC):
+    Episodes since last visit: [None / (dates, symptoms)]
+    Prophylaxis: [Irrigations: frequency, volume]
+    Antibiotic courses: ***
+  Stricture/stenosis: [None / present (calibration status)]
+
+  CDH Follow-Up (if applicable)
+  ─────────────────────────────
+  Defect: [Side, size (A/B/C/D), patch repair / primary]
+  ECMO: [Y/N, duration]
+  Pulmonary:
+    Current respiratory status: [Room air / supplemental O2 /
+    ventilator]
+    Pulmonary hypertension: [Resolved / managed with (agents)]
+    PFTs (if age-appropriate): ***
+    Respiratory infections: ***
+  GERD: [Managed with (agent, dose) / fundoplication (date)]
+  Feeding: [Oral / NG tube / G-tube; % oral]
+  Growth: [On curve / growth failure]
+  Neurodevelopmental: [Age-appropriate / delays (specify),
+  therapies (PT, OT, speech)]
+  Hearing: [Normal / deficit (type, aids)]
+  Musculoskeletal: [Chest wall deformity, scoliosis]
+
+  Undescended Testis (if applicable)
+  ──────────────────────────────────
+  Side: [Right / Left / Bilateral]
+  Position: [Inguinal canal (high/low) / Non-palpable / Retractile
+  / Ascending]
+  Prior exam findings: [Position at last visit]
+  Associated conditions: [None / hernia / hypospadias / DSD workup]
+  Orchiopexy timing: [Planned for age *** / Completed (date)]
+
+ANESTHESIA CONSIDERATIONS
+─────────────────────────
+  Prior anesthesia: [None / *** (date, complications)]
+  Airway concerns: ***
+  Allergies: ***
+  NPO plan: [Age-appropriate: clear liquids *** hours,
+  breast milk *** hours, formula/solids *** hours]
+  Parental presence at induction: [Discussed / parent preference]
+
+ASSESSMENT
+──────────
+[Age] [male/female] with [diagnosis] presenting for [visit type].
+[One-sentence clinical trajectory including growth and
+development.]
+
+  1. [Primary surgical condition]
+     [Brief assessment: status, trajectory, next step.]
+
+  2. [Growth and nutrition]
+     [Brief assessment: on curve, adequate gain, concerns.]
+
+  3. [Development]
+     [Brief assessment: age-appropriate, delays, interventions.]
+
+  4. [Other conditions]
+     [Brief assessment.]
+
+PLAN
+────
+  1. [Primary surgical condition]
+     - [Specific action: schedule surgery, continue observation,
+       modify management]
+     - [Pre-operative: NPO, labs, imaging, anesthesia evaluation]
+
+  2. Growth and nutrition
+     - [Feeding plan: continue current / modify volume/formula /
+       add supplements / nutrition referral]
+     - [Growth monitoring: recheck weight in *** weeks]
+
+  3. Development
+     - [Continue therapies / refer to early intervention /
+       age-appropriate monitoring]
+
+  4. [Parental education]
+     - [Specific counseling: hernia reduction technique,
+       enterocolitis warning signs, incarceration signs]
+
+  Follow-Up
+  ─────────
+  Return in [interval].
+  [Specific criteria for earlier return or ED visit:
+  incarceration signs, enterocolitis symptoms, respiratory
+  distress, feeding refusal.]
+
+DISPOSITION
+───────────
+[Discussion with parent(s)/caregiver(s) summarized.
+Parental questions addressed. Plan agreed upon.
+Return precautions reviewed with family.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: age, gestational age, birth history, surgical history, interval history, feeding data, stool pattern, growth parameters with percentiles, developmental milestones, parental concerns, physical exam (including inguinal/genital), and any relevant diagnostics.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Neonatal (under 30 days) | Add: "This is a neonate. Emphasize gestational age, birth weight, NICU course, feeding tolerance, jaundice, and weight recovery. Include APGAR scores and delivery history." |
+| Adolescent | Add: "This is an adolescent patient. Document developmental stage (Tanner staging if relevant), school performance, sports participation, peer relationships, and the patient's own understanding and preferences regarding their condition." |
+| Complex congenital | Add: "This patient has a complex congenital condition. Include all associated anomalies, prior surgical repairs, multidisciplinary team involvement, and a comprehensive long-term care plan." |
+| Pre-operative (infant) | Add: "This is a pre-operative visit for an infant. Include specific anesthesia considerations for age, NPO guidelines (clear liquids 2 hours, breast milk 4 hours, formula 6 hours), and parental counseling about what to expect on the day of surgery." |
+| Transition to adult care | Add: "This adolescent is approaching transition to adult surgical care. Document the transition plan, patient understanding of their condition, medication self-management, and referral to adult specialist." |
+
+---
+
+## Variations
+
+### Inguinal hernia pre-operative visit
+
+Use this for infants or children presenting with an inguinal hernia for pre-operative evaluation. The note captures the hernia characteristics, incarceration risk, surgical timing rationale, and parental counseling.
+
+<PromptPlayground tool="Claude" title="Inguinal Hernia Pre-Operative Visit">
+You are a pediatric surgeon writing a pre-operative consultation note for a child with an inguinal hernia. Structure the note around hernia characteristics, incarceration risk, surgical timing, and family counseling.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document gestational age and corrected age for premature infants.
+- Document hernia characteristics: side, type, reducibility, size of defect, contents.
+- Document incarceration history with details (date, reduction method, residual symptoms).
+- For premature infants: document the age threshold for surgery (typically 50 weeks postmenstrual age or weight over 3 kg) and any history of apnea requiring monitoring.
+- Surgical timing: elective vs urgent based on incarceration risk.
+- Address parental concerns and counseling about the procedure, anesthesia, and post-operative care.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+INGUINAL HERNIA PRE-OPERATIVE CONSULTATION
+══════════════════════════════════════════
+
+PATIENT
+───────
+  Age: ***    Corrected age: *** [if premature]
+  GA at birth: *** weeks    BW: *** g
+  NICU stay: [None / *** days (reason)]
+  Apnea history: [None / resolved at *** weeks PMA / ongoing]
+
+HERNIA DETAILS
+──────────────
+  Side: [Right / Left / Bilateral]
+  Discovered: [Date, by whom, circumstances]
+  Reducible: [Y/N]
+  Incarceration: [None / (dates, details, reduction method)]
+  Contralateral: [Normal / hernia / cannot assess]
+  Hydrocele component: [Y/N, communicating / non-communicating]
+
+EXAMINATION
+───────────
+  Growth: Weight *** kg (*** %ile), Length *** cm (*** %ile)
+  General: ***
+  Inguinal: [Defect palpable, size, bulge with crying/straining,
+  contents, silk sign]
+  Genital: [Testes bilateral descended / UDT / other]
+  Contralateral inguinal: ***
+  Abdominal: ***
+
+SURGICAL PLAN
+─────────────
+  Procedure: [Open inguinal hernia repair / Laparoscopic repair]
+  Side: [Right / Left / Bilateral]
+  Timing: [Elective within *** weeks / Urgent (incarceration risk)]
+  Rationale: ***
+  Contralateral exploration: [Laparoscopic evaluation planned / not
+  planned (rationale)]
+  Anesthesia: [General with LMA / ETT; regional block (caudal /
+  ilioinguinal-iliohypogastric)]
+  Monitoring: [Standard / overnight admission for apnea monitoring
+  (if premature, under 60 weeks PMA)]
+  NPO: Clear liquids *** hours, breast milk *** hours,
+  formula *** hours pre-op
+
+PARENTAL COUNSELING
+───────────────────
+  Discussed:
+  - Procedure: [Open vs laparoscopic, approach]
+  - Risks: [Recurrence (1-3%), wound infection, testicular
+    injury/atrophy, vas deferens injury, incarceration while
+    awaiting surgery]
+  - Anesthesia: [General anesthesia risks in infants, apnea
+    monitoring if premature]
+  - Recovery: [Same-day discharge (unless monitoring needed),
+    feeding resumption, bathing restrictions, activity]
+  - Incarceration instructions: [What to watch for (firm,
+    tender bulge that does not reduce, inconsolable crying,
+    vomiting), when to go to ED]
+  Parents verbalize understanding and wish to proceed.
+
+FOLLOW-UP
+─────────
+  Surgery scheduled: [date]
+  Pre-op: [Labs if needed, pre-anesthesia evaluation]
+  Post-op visit: *** weeks after surgery
+  Until surgery: [Call/ED if signs of incarceration]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: age, gestational age, birth history, hernia details (side, reducibility, incarceration history), exam findings, growth parameters, and parental questions.]
+</PromptPlayground>
+
+### Hirschsprung post-pull-through follow-up
+
+Use this for children with Hirschsprung disease following definitive pull-through surgery. The note tracks bowel function, enterocolitis episodes, growth, continence development, and long-term complications.
+
+<PromptPlayground tool="Claude" title="Hirschsprung Post-Pull-Through Follow-Up">
+You are a pediatric surgeon writing a follow-up note for a child with Hirschsprung disease after definitive pull-through surgery. Structure the note around bowel function, enterocolitis surveillance, growth, and continence.
+
+### Rules
+
+- Write in past tense for surgical history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the pull-through type and date.
+- Document stool pattern in detail: frequency (day and night separately), consistency, incontinence/soiling if age-appropriate.
+- Document enterocolitis (HAEC) episodes: number, dates, symptoms, severity, treatment, hospitalization.
+- Document current prophylactic regimen: rectal irrigations (frequency, volume, solution), probiotics.
+- Document growth trajectory with comparison to prior visit.
+- For older children: document continence and toileting (age-appropriate expectations).
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+HIRSCHSPRUNG DISEASE FOLLOW-UP
+══════════════════════════════════════════
+
+SURGICAL SUMMARY
+────────────────
+  Diagnosis: HD, [rectosigmoid / long-segment / total colonic]
+  Confirmed by: [Rectal suction biopsy (date) / full-thickness
+  biopsy / intraoperative]
+  Pull-through: [Type (Soave, Swenson, Duhamel, transanal),
+  date, approach (open, laparoscopic-assisted, transanal)]
+  Age at pull-through: ***
+  Time since pull-through: ***
+  Diverting ostomy: [None / [type], created [date],
+  reversed [date]]
+  Complications: ***
+
+BOWEL FUNCTION
+──────────────
+  Stool frequency: ***/day, ***/night
+  Consistency: [Liquid / soft / formed / variable]
+  Straining: [Y/N]
+  Incontinence/soiling: [N/A (age-inappropriate) / none / staining
+  (frequency) / frank soiling (frequency)]
+  Perineal skin: [Intact / diaper dermatitis / excoriation]
+  Toileting status: [Diapers / pull-ups / toilet trained /
+  in training]
+  Laxative/stool management: [None / agent, dose]
+  Rectal irrigations: [None / frequency, volume, solution, response]
+
+ENTEROCOLITIS (HAEC) SURVEILLANCE
+─────────────────────────────────
+  Total HAEC episodes since pull-through: ***
+  Episodes since last visit: [None / describe]
+    Date: ***
+    Symptoms: [Abdominal distension, explosive diarrhea,
+    fever, lethargy, bloody stools]
+    Severity: [Mild (managed outpatient) / Moderate (IV antibiotics) /
+    Severe (ICU)]
+    Treatment: [Rectal irrigations, oral antibiotics (agent),
+    IV antibiotics, NPO]
+    Hospitalization: [Y/N, duration]
+  Prophylaxis: [Rectal irrigations *** times/week / probiotics /
+  none]
+  Parents can identify early symptoms: [Y/N]
+
+GROWTH
+──────
+  Weight: *** kg (*** %ile) [prior: *** kg (*** %ile) on M/D/YY]
+  Height: *** cm (*** %ile)
+  HC: *** cm (*** %ile) [if under 2]
+  Weight velocity: [Adequate / inadequate]
+  Nutrition: [Breast/formula/diet description, caloric
+  supplementation if applicable]
+
+DEVELOPMENT
+───────────
+  [Age-appropriate milestones: met / delayed (specify)]
+  Therapies: [None / PT / OT / speech / early intervention]
+
+EXAMINATION
+───────────
+  General: [Active, well-nourished / failure to thrive]
+  Abdomen: [Soft, distended, tenderness, bowel sounds]
+  Anorectal: [Tone, caliber (accepting *** Fr dilator),
+  stricture, prolapse, stool in vault]
+  Perineal skin: ***
+
+ASSESSMENT & PLAN
+─────────────────
+  1. HD, s/p [procedure] on [date], [time] post-pull-through
+     - Bowel function: [Good / obstructive symptoms / enterocolitis
+       risk / soiling]
+     - [Irrigation changes, laxative adjustment, stricture
+       management (dilation schedule), continence program if
+       age-appropriate]
+
+  2. Enterocolitis risk
+     - [Prophylaxis plan: irrigation frequency, parental education]
+     - [If recent HAEC: surveillance plan]
+
+  3. Growth and nutrition
+     - [On track / needs intervention: dietitian, supplements]
+
+  4. Development
+     - [Age-appropriate / referral for evaluation]
+
+  5. Follow-up
+     - Return in [interval]
+     - ED immediately for: distension + fever, explosive diarrhea,
+       lethargy, bilious vomiting
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: HD details, pull-through type and date, current bowel function, HAEC history, irrigation regimen, growth data, developmental milestones, exam findings, and parental concerns.]
+</PromptPlayground>
+
+### Neonatal surgery long-term surveillance
+
+Use this for children who underwent major neonatal surgery (CDH, esophageal atresia, gastroschisis, omphalocele, necrotizing enterocolitis) and require multidisciplinary long-term follow-up. The note captures pulmonary, nutritional, neurodevelopmental, and surgical complications across systems.
+
+<PromptPlayground tool="Claude" title="Neonatal Surgery Long-Term Surveillance">
+You are a pediatric surgeon writing a long-term follow-up note for a child who underwent major neonatal surgery. Structure the note around the original condition, multisystem follow-up, growth, neurodevelopment, and ongoing surgical needs.
+
+### Rules
+
+- Write in past tense for neonatal course; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the original neonatal condition, all surgeries performed, and NICU course summary.
+- Organize by system: pulmonary, GI/nutrition, neurodevelopmental, musculoskeletal, hearing, and surgical.
+- Document growth with percentiles and comparison to prior visits.
+- Document developmental milestones and therapy involvement.
+- For CDH: emphasize pulmonary status, pulmonary hypertension, GERD, growth, and neurodevelopment.
+- For esophageal atresia: emphasize swallowing, stricture surveillance, GERD, tracheomalacia, and growth.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+NEONATAL SURGERY LONG-TERM FOLLOW-UP
+══════════════════════════════════════════
+
+ORIGINAL CONDITION
+──────────────────
+  Diagnosis: ***
+  GA: *** weeks    BW: *** g
+  NICU course: [Duration, ventilation days, ECMO (Y/N, duration),
+  complications]
+  Surgeries:
+    - [Date]: [Procedure]
+    - [Date]: [Procedure]
+
+CURRENT AGE: ***    CORRECTED AGE: *** [if premature]
+TIME SINCE NEONATAL SURGERY: ***
+
+SYSTEMS REVIEW
+──────────────
+
+  Pulmonary
+  ─────────
+  Current respiratory status: [Room air / O2 *** L/min /
+  ventilator support]
+  Pulmonary hypertension: [Resolved / managed with ***]
+  Respiratory infections (past year): ***
+  Hospitalizations for respiratory: ***
+  PFTs (if age-appropriate): [FEV1 ***%, FVC ***%]
+  Medications: [Bronchodilators, inhaled steroids]
+  Asthma diagnosis: [Y/N]
+
+  GI / Nutrition
+  ──────────────
+  Feeding: [Oral (diet description) / NG / G-tube (% oral)]
+  GERD: [None / managed with (agent, dose) / s/p fundoplication]
+  Swallowing: [Normal / dysphagia / modified barium swallow (date,
+  findings)]
+  Short bowel (if applicable): [Remaining bowel length, adaptation
+  status, PN dependence]
+  Stricture (if esophageal atresia): [None / dilated (dates,
+  frequency)]
+  Cholestasis (if prolonged PN): [Resolved / present (direct bili)]
+  Caloric intake: *** kcal/kg/day
+  Growth:
+    Weight: *** kg (*** %ile)
+    Height: *** cm (*** %ile)
+    HC: *** cm (*** %ile) [if under 2]
+    Trajectory: [On curve / falling / catching up]
+
+  Neurodevelopment
+  ────────────────
+  Milestones: [Age-appropriate / delayed in ***]
+  Bayley scores (if tested): [Cognitive ***, Motor ***, Language ***]
+  School performance (if school-age): ***
+  Therapies: [PT / OT / Speech / Early intervention / None]
+  Vision: ***
+  Hearing: [Normal / deficit (type, hearing aids, cochlear implant)]
+
+  Musculoskeletal
+  ───────────────
+  Chest wall: [Normal / pectus / asymmetry]
+  Spine: [Normal / scoliosis (degree, monitoring)]
+  Extremities: ***
+
+  Surgical
+  ────────
+  Incision(s): ***
+  Hernia: [None / present (type, plan)]
+  Adhesive obstruction history: [None / episodes (dates)]
+  Additional surgeries needed: ***
+
+PHYSICAL EXAMINATION
+────────────────────
+  [Age-appropriate comprehensive exam with emphasis on
+  system-specific findings as above.]
+
+MULTIDISCIPLINARY TEAM
+──────────────────────
+  [Last seen by each specialist with date and key findings:
+  Pulmonology, GI, Neurodevelopmental, Audiology, Nutrition,
+  PT/OT/Speech]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. [Original diagnosis], *** [months/years] post-repair
+     - [Surgical status and ongoing needs]
+
+  2. Pulmonary
+     - [Current management, PFT monitoring plan]
+
+  3. Nutrition and growth
+     - [Feeding plan, caloric targets, growth monitoring]
+
+  4. Neurodevelopment
+     - [Therapy continuation, school support, testing schedule]
+
+  5. Screening
+     - [Hearing (annually if ECMO or ototoxic exposure),
+       scoliosis, cardiac if applicable]
+
+  6. Follow-up
+     - Return to pediatric surgery in [interval]
+     - Multidisciplinary clinic: [next date]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: original diagnosis, neonatal course, surgeries, current systems status (pulmonary, GI, neuro), growth data, developmental assessment, therapy involvement, specialist visits, and parental concerns.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+6-week-old male, born at 38 weeks GA, birth weight 3.4 kg, uncomplicated vaginal delivery. Parents noticed a right inguinal bulge at 3 weeks of age that appears with crying and reduces spontaneously. No incarceration episodes. Referred by pediatrician. Currently breastfeeding exclusively, feeding well, gaining weight (birth weight 3.4 kg, current weight 4.5 kg). No vomiting, no feeding difficulties. Stooling 4-5 times/day, yellow, seedy. Developmental: social smile present, head control improving, appropriate for age. Parents are anxious about surgery on an infant and want to know about timing, anesthesia risk, and recovery. Exam: well-appearing, vigorous, active infant. Right inguinal bulge palpable with crying, reducible, non-tender. Left inguinal region normal. Bilateral testes descended and normal. No hydrocele.
+
+**LLM output:**
+
+PEDIATRIC SURGERY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+New consultation
+Interval since last visit: N/A (first visit)
+
+PATIENT DEMOGRAPHICS
+────────────────────
+  Age: 6 weeks
+  Sex: Male
+  Gestational age at birth: 38 weeks
+  Birth weight: 3,400 g
+  Birth history: Uncomplicated vaginal delivery. No NICU stay.
+
+CHIEF CONCERN
+─────────────
+Right inguinal bulge, present since 3 weeks of age
+
+SURGICAL HISTORY
+────────────────
+  Primary diagnosis: Right inguinal hernia
+  Surgical timeline: None
+  Relevant medical history: None
+
+INTERVAL HISTORY
+────────────────
+Parents first noticed a bulge in the right groin at 3 weeks of age. The bulge appears with crying and straining and reduces spontaneously when the infant relaxes. There have been no episodes of incarceration (no irreducible bulge, no inconsolable crying, no vomiting associated with the bulge). The infant is feeding well at breast, gaining weight appropriately, and is active and interactive. No fevers, no respiratory symptoms, no abdominal distension.
+
+PARENTAL CONCERNS
+─────────────────
+Parents are anxious about the safety of general anesthesia in a 6-week-old infant. They want to understand the timing of surgery, the anesthesia approach, what to expect on the day of surgery, and the recovery period. They ask whether the surgery can wait until the child is older.
+
+GROWTH PARAMETERS
+─────────────────
+  Weight: 4.5 kg (50th percentile)
+  Length: [Not provided; verify before signing]
+  Head circumference: [Not provided; verify before signing]
+  Weight gain trajectory: Adequate; gained 1.1 kg in 6 weeks (approximately 26 g/day, above the 20-30 g/day target for this age)
+  Growth chart trend: Following curve
+
+FEEDING ASSESSMENT
+──────────────────
+  Type: Exclusive breastfeeding
+  Volume per feed: [Not provided; verify before signing]
+  Frequency: On demand
+  Vomiting: None
+  Feeding difficulties: None
+  Supplements: None
+
+BOWEL FUNCTION
+──────────────
+  Stool frequency: 4-5/day
+  Consistency: Yellow, seedy (normal breastfed stool)
+  Straining: No
+
+DEVELOPMENTAL MILESTONES
+────────────────────────
+  Social smile: Present (age-appropriate at 6 weeks)
+  Head control: Improving (age-appropriate)
+  Assessment: Age-appropriate for 6 weeks
+
+PHYSICAL EXAMINATION
+────────────────────
+  Vitals: T 37.0, HR 142, RR 38, SpO2 99%
+  Weight: 4.5 kg
+
+  General: Well-appearing, vigorous, active infant in no distress.
+  Head: Anterior fontanelle open, soft, flat.
+  Chest: Clear breath sounds bilaterally, no retractions.
+  Cardiovascular: Regular rate and rhythm, no murmur.
+  Abdomen: Soft, nondistended, nontender. No masses. No organomegaly.
+
+  Inguinal/Genital Exam
+  ─────────────────────
+  Right inguinal: Palpable bulge with crying, reduces spontaneously. Hernia defect palpable at the internal ring. Silk sign positive. Non-tender. No erythema or skin changes.
+  Left inguinal: No bulge, no defect palpable. Normal.
+  Testes: Bilateral descended, normal size and consistency. No hydrocele.
+
+ASSESSMENT
+──────────
+6-week-old, full-term male with a right indirect inguinal hernia, reducible, no incarceration history. Growing well on exclusive breastfeeding. Development age-appropriate. Parents appropriately concerned about anesthesia in infancy.
+
+  1. Right indirect inguinal hernia
+     Reducible, no incarceration history. Full-term infant with no comorbidities. Repair should be performed in the next 2-4 weeks to minimize incarceration risk while the infant is healthy and growing well. No benefit to delaying; incarceration risk in infants is highest in the first 6 months of life.
+
+  2. Growth and development
+     On track. No concerns.
+
+PLAN
+────
+  1. Right inguinal hernia repair
+     - Schedule open right inguinal hernia repair within 2-4 weeks
+     - Laparoscopic evaluation of the contralateral (left) side will be performed at the time of surgery to assess for a patent processus vaginalis (present in approximately 30% of infants with unilateral hernia); if present, bilateral repair
+     - Same-day surgery with anticipated same-day discharge
+     - Anesthesia: general anesthesia with caudal or ilioinguinal/iliohypogastric nerve block for post-operative pain control
+     - NPO guidelines: breast milk 4 hours prior, clear liquids 2 hours prior to scheduled procedure time
+
+  2. Parental counseling completed
+     - Explained that inguinal hernias in infants do not resolve spontaneously and carry a significant incarceration risk (highest in the first 6 months)
+     - Discussed anesthesia: modern pediatric anesthesia for healthy, full-term infants over 4 weeks of age is safe; the anesthesia team specializes in neonatal and infant care
+     - Discussed the procedure: approximately 30-45 minutes, small incision in the inguinal crease, absorbable sutures, no drain
+     - Discussed recovery: infant may breastfeed as soon as awake, acetaminophen for pain, no bathing restrictions after 48 hours, return to normal activity within a few days
+     - Discussed risks: infection (less than 1%), recurrence (1-3%), testicular injury or atrophy (less than 1%), vas deferens injury (rare)
+
+  3. Until surgery
+     - Parents instructed on incarceration signs: firm, non-reducing bulge in the groin, inconsolable crying, vomiting, skin discoloration over the bulge
+     - If incarceration suspected: go to the ED immediately; do not wait for the scheduled surgery date
+
+  Follow-Up
+  ─────────
+  Surgery scheduling coordinator will call within 48 hours.
+  Post-operative visit 2 weeks after surgery.
+  Go to ED before scheduled surgery if signs of incarceration.
+
+DISPOSITION
+───────────
+Discussed diagnosis, natural history, surgical plan, anesthesia safety, recovery expectations, and incarceration warning signs with both parents. They verbalize understanding and wish to proceed with surgery. Written discharge instructions and incarceration warning signs provided. Scheduling coordinator to contact family.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **Gestational age changes the surgical timeline.** A 34-week premature infant with an inguinal hernia may need to wait until 50 weeks postmenstrual age for elective repair (to reduce apnea risk under anesthesia). A full-term infant does not. The model uses the gestational age you provide to contextualize timing, but it will not apply institutional-specific PMA thresholds unless you specify them.
+- **Growth percentiles need the right chart.** WHO growth charts are used for children under 2; CDC charts for ages 2-20. Premature infants should be plotted on corrected age until 2 years. The model will report the percentiles you provide but cannot verify which chart was used.
+- **Enterocolitis is the danger in Hirschsprung.** HAEC can present months to years after pull-through. The model documents episode history, but the key clinical action is whether the parents can recognize early symptoms (distension plus explosive diarrhea plus fever). Document that you assessed their ability to do this.
+- **FLACC scores are for preverbal children only.** The model will use FLACC if the child is preverbal and Wong-Baker or numeric scales for older children. If you provide the wrong scale for the age, the model will use it without correction. Match the scale to the patient.
+- **CDH follow-up is lifelong.** Children who had CDH repair (especially those requiring ECMO or patch repair) need pulmonary, GI, neurodevelopmental, audiology, and orthopedic follow-up through childhood. The model will organize by system, but you need to provide data from each specialist to populate the note.
+- **Parental counseling is documentation.** What you told the parents, what they asked, and that they understood is medicolegally relevant. The model captures this in a structured section, but only if you provide the content of the conversation in your input.
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) - for inpatient post-operative notes on pediatric surgery patients
+- [Procedure Note](/templates/procedure-note) - for documenting inguinal hernia repair, pyloromyotomy, pull-through, and other pediatric procedures
+- [Consult Note](/templates/consult-note) - for inpatient pediatric surgery consultations
+- [Discharge Instructions](/templates/discharge-instructions) - for parent-friendly post-operative instructions

@@ -1,0 +1,922 @@
+---
+title: "Trauma / Acute Care Surgery Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, trauma-surgery, surgical, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "Structures trauma follow-up notes capturing injury mechanism, operative history, functional recovery, and return-to-activity decisions for blunt and penetrating trauma, hernia, wound complications, and TBI."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+The trauma clinic is where the inpatient story becomes the outpatient problem. The patient who had a splenectomy after a motorcycle collision needs vaccination status documented, activity restrictions defined, and imaging to confirm no pseudoaneurysm. The one who went home with a Grade III liver laceration managed nonoperatively needs a follow-up CT and a timeline for return to contact sports. The one who left the ICU after a damage-control laparotomy needs ventral hernia assessment, wound evaluation, and a plan for the incisional hernia that is already forming. This template covers six scenarios that fill most trauma and acute care surgery outpatient clinics: post-trauma follow-up (blunt and penetrating), ventral hernia after laparotomy, wound complications, solid organ injury follow-up, orthopedic hardware co-management, and traumatic brain injury follow-up. The output format captures injury severity, operative history, functional recovery, and the return-to-activity decisions that patients ask about at every visit.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Trauma / Acute Care Surgery Clinic Visit Note">
+You are an attending trauma and acute care surgeon writing an outpatient clinic visit note after seeing a patient who was previously injured and managed by the trauma service. The visit type is one of: post-trauma follow-up, ventral hernia evaluation, wound complication management, solid organ injury follow-up, orthopedic hardware co-management, or traumatic brain injury follow-up. Identify the visit type from the clinical information provided and structure the note around it.
+
+### Purpose
+
+Generate a complete, structured trauma clinic visit note from the clinical data below. The note must capture the injury mechanism and complete injury list, operative history, current recovery status, functional assessment, and a plan addressing both surgical follow-up and return-to-activity decisions.
+
+### Rules
+
+- Write in past tense for injury and treatment history; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use in the note (e.g., "Injury Severity Score (ISS)"), then abbreviation only thereafter.
+- Include specific details: mechanism, ISS, AAST grades for solid organ injuries, GCS at presentation, operative findings and procedures.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Organize the Assessment as a problem list ordered by clinical priority.
+- Plan items must be specific and actionable: imaging with modality and timing, activity restriction duration, medication taper schedule, referral with reason.
+- For solid organ injury follow-up: document AAST grade, management (operative vs NOM), follow-up imaging, activity restrictions, and return-to-contact-sports timeline.
+- For ventral hernia: document the index operation, fascial closure status, hernia size on CT, symptoms, repair candidacy and timing.
+- For wound complications: document wound location, type (SSI, dehiscence, seroma, abscess), management, and healing trajectory.
+- For TBI: document GCS at presentation, imaging findings, neurocognitive status, seizure prophylaxis, neuropsychological referral, and return-to-work/school/driving clearance.
+- Document functional recovery: mobility, ADLs, work status, driving, psychological status (PTSD screening, depression).
+- Document medications with attention to pain management (opioid taper plan), VTE prophylaxis duration, and antibiotics.
+- Do not infer or fabricate any clinical information not provided. Write "[Not provided; verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "MVC" = motor vehicle collision
+- "GSW" = gunshot wound
+- "SW" = stab wound
+- "ISS" = Injury Severity Score
+- "AAST" = American Association for the Surgery of Trauma
+- "NOM" = nonoperative management
+- "GCS" = Glasgow Coma Scale
+- "TBI" = traumatic brain injury
+- "DCL" = damage control laparotomy
+- "TAC" = temporary abdominal closure
+- "SSI" = surgical site infection
+- "VTE" = venous thromboembolism
+- "DVT" = deep vein thrombosis
+- "PE" = pulmonary embolism
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+TRAUMA CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[Post-trauma follow-up / Wound check / Solid organ injury
+follow-up / Ventral hernia evaluation / TBI follow-up /
+Orthopedic co-management]
+Interval since injury: [duration]
+Interval since discharge: [duration]
+
+INJURY SUMMARY
+──────────────
+  Date of injury: ***
+  Mechanism: [MVC / motorcycle / pedestrian struck / fall /
+  GSW / SW / assault / other]
+  ISS: *** [if available]
+
+  Injury List
+  ───────────
+  [Complete list of injuries with AAST grades for solid organs
+  and fracture descriptions:]
+    1. ***
+    2. ***
+    3. ***
+
+  Management
+  ──────────
+  [Operative / NOM for each injury:]
+    - [Date]: [Procedure (exploratory laparotomy, splenectomy,
+    liver packing, damage control, fascial closure, etc.)]
+    - [Date]: [Procedure]
+  ICU course: [Duration, intubation days, complications]
+  Hospital length of stay: *** days
+  Discharge date: ***
+  Discharge disposition: [Home / Rehab / SNF / LTAC]
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph covering recovery since discharge.
+Include: pain, mobility, wound healing, bowel function, appetite,
+sleep, mood/emotional status, return to activities, medications,
+follow-up compliance. Include specific functional milestones:
+walking distance, stair climbing, self-care, return to work.]
+
+CURRENT MEDICATIONS
+───────────────────
+  Pain management
+  ───────────────
+  [Opioid (drug, dose, frequency, daily MED, taper plan) /
+  Non-opioid (acetaminophen, NSAIDs, gabapentin)]
+  Total daily opioid use: *** MED
+  Taper plan: [Specify reduction schedule or "No opioids"]
+
+  VTE Prophylaxis
+  ───────────────
+  [Enoxaparin / rivaroxaban: dose, start date, planned duration]
+  Duration rationale: [Immobility, pelvic fracture, TBI, VTE event]
+
+  Antibiotics
+  ───────────
+  [Agent, dose, duration, indication]
+
+  Other medications
+  ─────────────────
+  ***
+
+PHYSICAL EXAMINATION
+────────────────────
+  Vitals: BP *** HR *** Wt *** SpO2 ***
+  General: [Appearance, nutritional status, mobility in clinic]
+  Wounds/Incisions:
+    [Site 1]: [Healing, dehiscence, drainage, erythema,
+    packing, wound VAC, staples/sutures in place]
+    [Site 2]: ***
+  Chest: [Breath sounds, chest tube sites, rib tenderness]
+  Abdomen: [Soft, distended, hernia (location, reducible),
+  stoma if applicable, incisions]
+  Extremities: [Splints, casts, external fixators, ROM,
+  weight-bearing status, DVT signs]
+  Neurologic: [GCS if TBI, orientation, cognition,
+  cranial nerves, motor exam, sensation]
+
+SOLID ORGAN INJURY FOLLOW-UP (if applicable)
+─────────────────────────────────────────────
+  Organ: ***
+  AAST grade: ***
+  Management: [NOM / Operative (procedure)]
+  Follow-up imaging:
+    [CT date]: [Resolution / residual injury / pseudoaneurysm /
+    abscess / hematoma]
+  Activity restrictions:
+    Current: [No contact sports, no heavy lifting (>*** lbs),
+    no vigorous activity]
+    Duration: [*** weeks/months remaining]
+    Return to contact sports: [Cleared / not cleared;
+    criteria: normal imaging, *** weeks from injury]
+  Splenectomy-specific (if applicable):
+    Vaccination status:
+      Pneumococcal (PCV13 + PPSV23): [Given / pending]
+      Meningococcal (MenACWY + MenB): [Given / pending]
+      Haemophilus influenzae type b: [Given / pending]
+    Booster schedule: ***
+
+WOUND ASSESSMENT (if applicable)
+────────────────────────────────
+  Wound 1:
+    Location: ***
+    Type: [Surgical incision / traumatic wound / graft /
+    wound VAC / open abdomen]
+    Dimensions: *** cm x *** cm [x *** cm depth]
+    Wound bed: [Granulation / slough / necrotic / epithelializing]
+    Drainage: [None / serous / purulent / sanguineous]
+    Infection signs: [None / erythema / warmth / purulence / culture]
+    Management: [Dry dressing / wet-to-dry / wound VAC /
+    packing / antibiotics]
+    Trajectory: [Improving / stable / worsening]
+
+VENTRAL HERNIA (if applicable)
+──────────────────────────────
+  Index operation: [Procedure, date]
+  Fascial closure: [Primary / delayed primary / open abdomen
+  with planned hernia]
+  Hernia:
+    Location: ***
+    Size: *** cm x *** cm [CT measurement]
+    Contents: [Reducible / incarcerated / bowel vs omentum]
+    Symptoms: [Pain, bulge, bowel obstruction episodes]
+    Skin quality over hernia: [Intact / thin / mesh exposed /
+    fistula]
+  CT findings: [Hernia dimensions, defect location, loss of
+  domain assessment, mesh in place (Y/N)]
+  Repair candidacy:
+    Timing: [Ready / delayed (reason: weight optimization,
+    smoking cessation, nutritional repletion)]
+    Approach: [Open / laparoscopic / robotic, component
+    separation, mesh type]
+
+TBI FOLLOW-UP (if applicable)
+─────────────────────────────
+  Initial GCS: ***
+  Mechanism: ***
+  Initial imaging: [CT/MRI findings: SDH, EDH, SAH, DAI,
+  contusion, skull fracture]
+  Neurosurgical intervention: [None / craniotomy / craniectomy /
+  ICP monitor / EVD]
+  Seizures: [None / at presentation / during hospitalization]
+  Anti-epileptic: [Agent, dose, planned duration (7 days for
+  prophylaxis vs longer)]
+
+  Current neurocognitive status:
+    Orientation: ***
+    Attention: ***
+    Memory: [Short-term, long-term]
+    Executive function: ***
+    Headache: [Frequency, severity, character]
+    Sleep: [Normal / insomnia / hypersomnia]
+    Mood: ***
+
+  Neuropsychological testing: [Completed (date, findings) /
+  Referred / Not yet indicated]
+  Occupational therapy (cognitive): [Active / completed / referred]
+
+  Return to activity:
+    Work/school: [Returned (full/modified) / not returned (timeline)]
+    Driving: [Cleared / not cleared (criteria)]
+    Sport: [Cleared / not cleared, concussion protocol]
+
+FRACTURE / ORTHOPEDIC FOLLOW-UP (if applicable)
+────────────────────────────────────────────────
+  Fracture(s): ***
+  Fixation: [ORIF (hardware type) / external fixator /
+  conservative (splint, cast)]
+  X-ray (date): [Healing status, hardware position, alignment]
+  Weight-bearing status: [NWB / TDWB / WBAT / FWB]
+  PT status: [Active, frequency, progress]
+  Hardware complications: [None / pain / prominence / infection]
+
+FUNCTIONAL RECOVERY
+───────────────────
+  Mobility: [Ambulatory (with/without assistive device) /
+  wheelchair / bed-bound]
+  ADLs: [Independent / needs assistance with ***]
+  Work status: [Returned (full/modified duty) / not returned /
+  disability filed]
+  Driving: [Active / restricted / not cleared]
+  Exercise/sports: [Full activity / restricted (specify)]
+  PT/OT: [Active (frequency, goals) / completed / referred]
+
+PSYCHOLOGICAL STATUS
+────────────────────
+  PTSD screening: [PHQ-4 or PC-PTSD-5 score / positive /
+  negative / not yet screened]
+  Depression: [PHQ-2: ***/6]
+  Anxiety: ***
+  Sleep: ***
+  Substance use: [If injury was alcohol/substance-related:
+  counseling status, follow-up]
+  Referrals: [Psychology / psychiatry / social work / support group]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] s/p [mechanism] on [date] (***
+[weeks/months] ago) with [injury summary], [management summary],
+presenting for [visit type].
+
+  1. [Primary issue (most clinically pressing)]
+     [Brief assessment: recovery trajectory, outstanding issues.]
+
+  2. [Secondary issue]
+     [Brief assessment.]
+
+  3. [Functional recovery]
+     [Brief assessment.]
+
+  4. [Psychological recovery]
+     [Brief assessment.]
+
+PLAN
+────
+  1. [Primary issue]
+     - [Specific action: imaging, wound management, hernia
+       planning, activity clearance]
+
+  2. [Secondary issue]
+     - [Specific action]
+
+  3. Pain management
+     - [Opioid taper: specific schedule]
+     - [Non-opioid alternatives]
+
+  4. VTE prophylaxis
+     - [Continue / discontinue (date); duration rationale]
+
+  5. Functional recovery
+     - [PT/OT orders, activity advancement, work clearance]
+
+  6. Psychological
+     - [PTSD screening, referrals, follow-up]
+
+  7. Return to activity
+     - [Sport clearance criteria]
+     - [Driving clearance criteria]
+     - [Work clearance: full duty date or restrictions]
+
+  Follow-Up
+  ─────────
+  Return in [interval].
+  [Specific criteria for earlier return: wound changes, fever,
+  increased pain, inability to tolerate diet, neurologic changes.]
+
+DISPOSITION
+───────────
+[Patient counseled on ***, agrees with plan.
+Return precautions reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: injury date, mechanism, complete injury list with grades, operations performed, hospital course summary, discharge date, current symptoms, medications (including pain and VTE prophylaxis), wound status, imaging, functional status, and psychological screening results.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Penetrating trauma focus | Add: "This is a follow-up for penetrating trauma. Document the trajectory, structures injured, and whether delayed complications (missed injury, fistula, abscess) have developed." |
+| Geriatric trauma | Add: "This is an elderly patient. Include frailty assessment, fall risk evaluation, medication review (especially anticoagulants), and goals-of-care discussion. Document baseline functional status before injury for comparison." |
+| Pediatric trauma | Add: "This is a pediatric patient. Include growth parameters, return to school status, developmental milestones, and parental concerns. Activity restrictions should be age-appropriate." |
+| Burn follow-up | Add: "This patient has burn injuries. Include TBSA, depth, graft status, scar assessment, range of motion at burn sites, pressure garment compliance, and scar management plan." |
+| Mass casualty / disaster | Add: "This patient was injured in a mass casualty event. Document the event type, triage category, and coordination with other agencies. Include psychosocial screening for event-specific trauma." |
+
+---
+
+## Variations
+
+### Solid organ injury NOM follow-up
+
+Use this for patients who sustained a solid organ injury (spleen, liver, kidney) managed nonoperatively and are being followed for resolution, activity clearance, and complication surveillance.
+
+<PromptPlayground tool="Claude" title="Solid Organ Injury NOM Follow-Up">
+You are a trauma surgeon writing a follow-up note for a patient whose solid organ injury was managed nonoperatively. Structure the note around imaging resolution, activity restrictions, and return-to-activity decision-making.
+
+### Rules
+
+- Write in past tense for injury; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the organ, AAST grade, initial CT findings, and management (NOM).
+- Document follow-up imaging: timing, modality, findings (resolution, persistent laceration, pseudoaneurysm, abscess).
+- Document hemoglobin trend during hospitalization and current.
+- Activity restrictions must be specific: no contact sports, no heavy lifting (with weight limit), duration, criteria for advancement.
+- For splenic injury: document vaccination status if splenectomy was performed, and angioembolization if performed.
+- For liver injury: document biliary complications (biloma, bile leak).
+- For renal injury: document urinalysis (hematuria resolution) and any urinoma.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+SOLID ORGAN INJURY FOLLOW-UP
+══════════════════════════════════════════
+
+INJURY
+──────
+  Date: ***
+  Mechanism: ***
+  Organ: [Spleen / Liver / Kidney]
+  AAST grade: [I / II / III / IV / V]
+  Initial CT findings: ***
+  Associated injuries: ***
+  Angioembolization: [Y/N; date, target, success]
+
+HOSPITAL COURSE
+───────────────
+  NOM: [Bed rest duration, ICU days, floor days]
+  Hemoglobin trend: [Admission *** → nadir *** → discharge ***]
+  Transfusions: [*** units pRBC / None]
+  Complications: [None / delayed hemorrhage / pseudoaneurysm /
+  abscess / other]
+  Discharge: [Date, Hgb at discharge]
+
+INTERVAL HISTORY
+────────────────
+[Pain, activity level, return to work/school, any bleeding
+symptoms, abdominal pain, fevers.]
+
+FOLLOW-UP IMAGING
+─────────────────
+  [CT date]: ***
+  Findings: [Complete resolution / Residual laceration (size) /
+  Pseudoaneurysm (size, location) / Abscess / Hematoma]
+  Comparison to prior: ***
+  Additional imaging needed: [Y/N]
+
+LABS
+────
+  Hgb: *** (trend from discharge: ***)
+  Urinalysis (renal injury): [Microscopic hematuria resolved /
+  persistent / gross hematuria]
+  LFTs (liver injury): [Normalizing / elevated (trend)]
+
+ACTIVITY STATUS
+───────────────
+  Current restrictions:
+    Contact sports: [Restricted / Cleared]
+    Heavy lifting: [Restricted to ≤*** lbs / Cleared]
+    Exercise: [Light activity only / Progressive / Full]
+    Work/school: [Returned / Modified / Not returned]
+  Weeks since injury: ***
+  Criteria for full clearance: [Normal imaging, *** weeks from
+  injury minimum, no symptoms with progressive activity]
+
+SPLENECTOMY VACCINATIONS (if applicable)
+────────────────────────────────────────
+  Pneumococcal:
+    PCV13: [Date given / Pending]
+    PPSV23: [Date given (8 weeks after PCV13) / Pending]
+  Meningococcal:
+    MenACWY: [Date given / Pending]
+    MenB: [Date given / Pending]
+  Haemophilus influenzae type b: [Date given / Pending]
+  Annual influenza: [Current season given / Pending]
+  Medical alert bracelet: [Discussed / Patient has one]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. [Organ] injury, AAST grade ***, NOM, *** weeks post-injury
+     - Imaging: [Resolving / requires repeat in *** weeks /
+       fully resolved]
+     - Activity: [Advance to *** / maintain restrictions /
+       full clearance]
+     - [If pseudoaneurysm: IR evaluation / observation]
+
+  2. Return to activity
+     - [Specific timeline: contact sports at *** weeks if
+       imaging clear, heavy lifting at *** weeks]
+     - [School/work clearance with restrictions if applicable]
+
+  3. Follow-up
+     - [Next imaging: date, modality]
+     - Return in [interval]
+     - ED for: sudden abdominal pain, lightheadedness,
+       shoulder pain (Kehr sign), gross hematuria
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: injury details, AAST grade, hospital course, transfusions, follow-up imaging, current Hgb, activity level, and vaccination status if post-splenectomy.]
+</PromptPlayground>
+
+### Post-laparotomy hernia evaluation
+
+Use this for patients who developed a ventral/incisional hernia after a trauma laparotomy (exploratory, damage control, or open abdomen). The note captures hernia characteristics, repair candidacy, and optimization needed before elective repair.
+
+<PromptPlayground tool="Claude" title="Post-Laparotomy Hernia Evaluation">
+You are a trauma or acute care surgeon writing a clinic note for a patient with a ventral hernia that developed after a trauma laparotomy. Structure the note around hernia assessment, patient optimization, and surgical planning.
+
+### Rules
+
+- Write in past tense for surgical history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the index trauma operation: indication, procedure, fascial closure method, open abdomen management if applicable.
+- Document the hernia: location, size (physical exam and CT), contents, reducibility, symptoms, skin quality.
+- Assess for loss of domain: hernia volume relative to abdominal cavity volume on CT.
+- Document optimization status: BMI, smoking cessation, nutritional status, glycemic control, wound healing.
+- Surgical planning: approach (open vs minimally invasive), component separation anticipated, mesh type, timing.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+POST-LAPAROTOMY VENTRAL HERNIA EVALUATION
+══════════════════════════════════════════
+
+INDEX TRAUMA
+────────────
+  Date: ***
+  Mechanism: ***
+  Injuries: ***
+  Operation(s): [Procedure(s), date(s)]
+  Fascial closure: [Primary at index / Delayed primary (date) /
+  Open abdomen (duration, closure method: component separation,
+  biologic mesh, skin-only, planned ventral hernia)]
+  Complications: [SSI, dehiscence, fistula, abscess]
+
+HERNIA ASSESSMENT
+─────────────────
+  Time since index operation: ***
+  Location: [Midline / off-midline; upper / lower / full length]
+  Physical exam:
+    Defect size (palpated): *** cm x *** cm
+    Contents: [Reducible / Partially reducible / Incarcerated]
+    Skin: [Intact, healthy / thin / adherent to bowel /
+    mesh exposure / enterocutaneous fistula / prior skin graft]
+  Symptoms:
+    Pain: [Y/N; with activity / at rest]
+    Bulge: [Size, change with Valsalva]
+    Bowel obstruction episodes: [None / (dates, management)]
+    Functional limitation: [Inability to lift, core weakness,
+    cosmetic concern]
+
+  CT Abdomen (date):
+    Fascial defect: *** cm (transverse) x *** cm (craniocaudal)
+    Contents: [Omentum / bowel loops (specify)]
+    Loss of domain: [Estimated ***% of abdominal contents in
+    hernia sac]
+    Mesh in place: [Y/N; type if known, position, complications]
+    Bowel: [No obstruction / adhesions / fistula]
+    Abdominal wall musculature: [Intact laterally / retracted]
+
+OPTIMIZATION STATUS
+───────────────────
+  BMI: *** (target: &lt;35 for elective repair; &lt;40 minimum)
+  Smoking: [Never / Former (quit date) / Current (cessation plan)]
+  Nutrition: Albumin ***, Prealbumin ***
+  Diabetes: A1c *** (target &lt;8 for elective repair)
+  Skin/wound: [Healed / active wound / infection]
+  Core strength: [Prehabilitation status]
+  Optimized: [Y/N; remaining barriers: ***]
+
+SURGICAL PLAN
+─────────────
+  Candidacy: [Ready for repair / Needs optimization (*** months)]
+  Approach: [Open / Robotic / Laparoscopic]
+  Technique: [Primary fascial closure + mesh / Component
+  separation (anterior / posterior / TAR) + mesh / Bridging mesh]
+  Mesh: [Synthetic (type) / Biologic (type)]
+  Mesh position: [Onlay / Sublay (retrorectus) / Underlay
+  (intraperitoneal) / preperitoneal]
+  Loss of domain management: [Botulinum toxin injection
+  (progressive pneumoperitoneum if severe)]
+  Concurrent procedures: [Enterocutaneous fistula takedown,
+  stoma reversal, adhesiolysis]
+  Timing: [Scheduled *** / Pending optimization]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. Ventral hernia, s/p [index operation]
+     - [Repair plan or optimization plan]
+     - [If not yet ready: specific optimization steps with
+       timelines and targets]
+
+  2. Optimization (if needed)
+     - Weight: [Current BMI, target, plan]
+     - Smoking: [Cessation status, resources]
+     - Nutrition: [Diet, supplements]
+     - Diabetes: [A1c target, management]
+     - Prehabilitation: [Core exercises, PT referral]
+
+  3. Follow-up
+     - [If optimizing: return in *** months for reassessment]
+     - [If scheduled: pre-op visit date, surgery date]
+     - [If Botox: injection schedule, CT after injection
+       to reassess domain]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: index trauma and operations, hernia characteristics, CT findings, BMI, smoking status, nutritional data, diabetes status, symptoms, and patient goals.]
+</PromptPlayground>
+
+### TBI recovery follow-up
+
+Use this for patients recovering from a traumatic brain injury. The note tracks neurocognitive recovery, headache management, seizure prophylaxis, and the return-to-work/school/driving decisions that define functional outcome after TBI.
+
+<PromptPlayground tool="Claude" title="TBI Recovery Follow-Up">
+You are a trauma surgeon or concussion specialist writing a follow-up note for a patient recovering from a traumatic brain injury. Structure the note around neurocognitive recovery, symptom management, and return-to-activity decisions.
+
+### Rules
+
+- Write in past tense for injury; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the injury: mechanism, GCS at scene and hospital, imaging findings (CT and MRI if obtained), neurosurgical interventions.
+- Document current neurocognitive status: orientation, attention, memory, executive function, processing speed.
+- Document persistent symptoms: headache (type, frequency, severity, treatment), dizziness, sleep disturbance, fatigue, mood changes, irritability, cognitive complaints.
+- Document seizure history and prophylaxis status.
+- Document functional milestones: return to work/school (full or modified), driving clearance, sport clearance (concussion protocol).
+- Screen for psychological sequelae: depression (PHQ-2), PTSD (PC-PTSD-5), anxiety.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+TBI FOLLOW-UP VISIT
+══════════════════════════════════════════
+
+INJURY SUMMARY
+──────────────
+  Date: ***
+  Mechanism: ***
+  GCS: Scene ***, ED ***, Best in hospital ***
+  TBI severity: [Mild (GCS 13-15) / Moderate (9-12) / Severe (3-8)]
+  Loss of consciousness: [Duration]
+  Post-traumatic amnesia: [Duration]
+
+  Imaging:
+    CT head (date): ***
+    MRI brain (date, if obtained): ***
+
+  Neurosurgical intervention: [None / Craniotomy (date, indication) /
+  Craniectomy / ICP monitor / EVD / Cranioplasty (date)]
+
+  Seizures: [None / At presentation / During hospitalization /
+  Post-discharge]
+  Anti-epileptic: [Agent, dose, start date, planned duration]
+
+INTERVAL HISTORY
+────────────────
+[Cognitive improvement or plateau, headache pattern, sleep,
+mood, return-to-activity progress, medication tolerance,
+therapy compliance.]
+
+CURRENT SYMPTOMS
+────────────────
+  Headache:
+    Frequency: ***/week
+    Severity: ***/10
+    Character: [Tension / migraine features / positional / constant]
+    Triggers: ***
+    Treatment: [Agent, dose, response]
+  Dizziness/vertigo: [Y/N, triggers, duration]
+  Fatigue: [Severity, impact on function]
+  Sleep: [Normal / insomnia / hypersomnia / *** hours/night]
+  Cognitive complaints:
+    Memory: [Short-term: ***]
+    Attention/concentration: ***
+    Processing speed: ***
+    Word-finding: ***
+  Mood: [Normal / irritability / depression / anxiety / lability]
+  Vision: [Normal / blurred / diplopia / photosensitivity]
+  Balance: [Normal / unsteady]
+  Tinnitus: [Y/N]
+  Noise sensitivity: [Y/N]
+
+NEUROLOGICAL EXAMINATION
+────────────────────────
+  GCS: ***/15
+  Orientation: [Person / Place / Time / Situation]
+  Attention: [Serial 7s, digit span, spell WORLD backward]
+  Memory: [3-word recall at 5 minutes: ***/3]
+  Language: [Fluent / word-finding difficulty]
+  Cranial nerves: ***
+  Motor: ***
+  Coordination: ***
+  Gait: [Steady / unsteady / tandem impaired]
+  Romberg: ***
+
+NEUROPSYCHOLOGICAL TESTING
+──────────────────────────
+  [Completed: date, key findings / Referred / Not indicated]
+  Cognitive domains tested: ***
+  Results summary: ***
+  Recommendations: ***
+
+PSYCHOLOGICAL SCREENING
+───────────────────────
+  PHQ-2 (depression): ***/6
+  PC-PTSD-5 (PTSD): ***/5 [positive if ≥3]
+  GAD-2 (anxiety): ***/6
+  Substance use: ***
+  Suicidal ideation: [Screened negative / positive (action taken)]
+
+CURRENT THERAPIES
+─────────────────
+  Cognitive rehabilitation (OT): [Active (frequency, goals) /
+  Completed / Referred]
+  Physical therapy (vestibular/balance): [Active / Completed /
+  Referred]
+  Speech therapy: [Active / Completed / Referred]
+  Psychology/psychiatry: [Active / Referred / Not indicated]
+
+RETURN TO ACTIVITY
+──────────────────
+  Work/school:
+    Status: [Full return / Modified (accommodations: ***) /
+    Not returned]
+    Timeline: ***
+  Driving:
+    Status: [Cleared / Not cleared]
+    Criteria: [Seizure-free for *** months, adequate reaction
+    time, no visual field deficit, cleared by neuropsych]
+  Sport/exercise:
+    Status: [Full clearance / Graduated return protocol
+    (current step) / Not cleared]
+    Concussion protocol step: [1-5]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. TBI, [severity], *** [weeks/months] post-injury
+     - Cognitive trajectory: [Improving / Plateaued / New concern]
+     - [Continue current therapies / Add / Modify]
+
+  2. Post-traumatic headache
+     - [Current management, adjustment if needed]
+
+  3. Seizure prophylaxis
+     - [Continue / Taper / Discontinue (timing per guidelines)]
+
+  4. Psychological
+     - [PTSD/depression management, referrals]
+
+  5. Return to activity
+     - Work/school: [Clearance, accommodations, timeline]
+     - Driving: [Clearance criteria, assessment needed]
+     - Sport: [Protocol step, next advancement, clearance]
+
+  6. Follow-up
+     - Return in [interval]
+     - [Neuropsych testing if indicated]
+     - [Repeat imaging if indicated]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: TBI details (mechanism, GCS, imaging), hospital course, seizure history, current symptoms (headache, cognitive, mood, sleep), neurological exam, neuropsych results if available, therapy status, functional milestones, and psychological screening.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+28-year-old male, MVC (unrestrained driver, high speed, rollover) on 2/15/26. ISS 22. Injuries: Grade III splenic laceration (NOM with IR angioembolization of pseudoaneurysm on hospital day 2), left-sided rib fractures 6-10, small left hemothorax (chest tube for 3 days), L1 transverse process fracture (conservative). ICU 4 days, total hospital stay 8 days. Discharged home 2/23/26. Admission Hgb 10.2, nadir 8.4, discharged at 9.8 after 2 units pRBC. Now 6 weeks post-injury. Hgb today 13.2. He reports left flank soreness with deep breathing but improving. Walking 1-2 miles daily. No fevers, no abdominal pain. Eating well. Has been taking acetaminophen only for pain, no opioids since discharge. Was taking enoxaparin 40 mg SQ daily for VTE prophylaxis, completed 4-week course. Working as a software engineer, returned to remote work 2 weeks ago, tolerating well. Wants to know when he can return to recreational basketball. CT abdomen 3/20/26 showed interval improvement of splenic laceration, small residual subcapsular hematoma, no pseudoaneurysm, no active hemorrhage. Pneumovax given in hospital. Meningococcal and Hib vaccines given at 2-week post-discharge visit. PHQ-2 score 1, denies PTSD symptoms, sleeping well.
+
+**LLM output:**
+
+TRAUMA CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Post-trauma follow-up, solid organ injury
+Interval since injury: 6 weeks
+Interval since discharge: 5 weeks
+
+INJURY SUMMARY
+──────────────
+  Date of injury: 2/15/26
+  Mechanism: Motor vehicle collision (MVC), unrestrained driver, high speed, rollover
+  ISS: 22
+
+  Injury List
+  ───────────
+  1. Splenic laceration, AAST Grade III (NOM with IR angioembolization of pseudoaneurysm on hospital day 2)
+  2. Left rib fractures 6-10
+  3. Left hemothorax (small)
+  4. L1 transverse process fracture
+
+  Management
+  ──────────
+  - 2/15/26: Admitted to ICU, NOM for splenic injury
+  - 2/16/26: Left chest tube placement for hemothorax (removed 2/19/26)
+  - 2/17/26: IR splenic artery embolization for pseudoaneurysm
+  - L1 transverse process fracture: conservative (no brace)
+  ICU course: 4 days, no intubation
+  Hospital length of stay: 8 days
+  Discharge: 2/23/26 to home
+  Transfusions: 2 units pRBC (admission Hgb 10.2, nadir 8.4, discharge 9.8)
+
+INTERVAL HISTORY
+────────────────
+Patient reports steady improvement since discharge. Left flank soreness persists with deep inspiration but is notably better than at his 2-week visit. He is walking 1-2 miles daily without difficulty. No abdominal pain, no left shoulder pain, no fevers, no lightheadedness. Appetite is good, and he has returned to his pre-injury weight. He discontinued opioids at discharge and has been managing residual pain with acetaminophen only. He completed a 4-week course of enoxaparin for VTE prophylaxis. He returned to remote work as a software engineer 2 weeks ago and is tolerating full work hours without difficulty. He is eager to return to recreational basketball and wants to know the timeline. Sleep is normal. Mood is good. No flashbacks, nightmares, or hypervigilance.
+
+CURRENT MEDICATIONS
+───────────────────
+  Pain management
+  ───────────────
+  Acetaminophen 500 mg PRN (uses 1-2 doses/day for rib discomfort)
+  No opioids.
+
+  VTE Prophylaxis
+  ───────────────
+  Enoxaparin 40 mg SQ daily: completed 4-week course (discontinued 3/15/26)
+
+  Antibiotics
+  ───────────
+  None
+
+PHYSICAL EXAMINATION
+────────────────────
+  Vitals: BP 124/76, HR 68, SpO2 99%
+  General: Well-appearing, well-nourished, ambulates easily.
+  Chest: Left lateral chest wall mildly tender to palpation over ribs 7-9. Breath sounds clear bilaterally. Chest tube site well-healed.
+  Abdomen: Soft, nontender, nondistended. No palpable masses. Mild left flank tenderness to deep palpation (improved).
+  Extremities: No edema, no DVT signs.
+  Neurologic: Alert, oriented, appropriate. No focal deficits.
+
+SOLID ORGAN INJURY FOLLOW-UP
+─────────────────────────────
+  Organ: Spleen
+  AAST grade: III
+  Management: NOM with IR angioembolization (2/17/26)
+  Follow-up imaging:
+    CT abdomen (3/20/26): Interval improvement of splenic laceration. Small residual subcapsular hematoma (decreased from prior). No pseudoaneurysm. No active hemorrhage. No abscess. No free fluid.
+  Hemoglobin: 13.2 g/dL (discharge: 9.8, normalized)
+  Activity restrictions:
+    Current: No contact sports, no heavy lifting greater than 25 lbs
+    Duration: Restrictions in place through 3 months post-injury (until approximately 5/15/26)
+    Return to contact sports: Not yet cleared. Criteria: 3 months from injury, asymptomatic with progressive activity, no further imaging needed if current CT shows resolution
+
+  Spleen preserved (no splenectomy). Post-splenectomy vaccines not indicated.
+  [Note: Patient received Pneumovax during hospitalization and meningococcal and Hib vaccines at 2-week follow-up per trauma protocol for significant splenic injury with embolization. These vaccines serve a prophylactic role given partial splenic devascularization from embolization.]
+
+RIB FRACTURE FOLLOW-UP
+───────────────────────
+  Left ribs 6-10: Healing. Tenderness improving. Incentive spirometry continued. No pneumonia. No splinting.
+
+L1 TRANSVERSE PROCESS FRACTURE
+───────────────────────────────
+  Conservative management. No brace. No symptoms. Full ROM.
+
+FUNCTIONAL RECOVERY
+───────────────────
+  Mobility: Ambulatory without assistive device. Walking 1-2 miles daily.
+  ADLs: Independent
+  Work: Returned to full remote work as software engineer (started 3/11/26)
+  Driving: Active (cleared at 2-week visit, no restrictions)
+  Exercise: Walking; no contact sports or high-impact activity yet
+  PT/OT: Not needed
+
+PSYCHOLOGICAL STATUS
+────────────────────
+  PHQ-2: 1/6 (negative screen)
+  PTSD screening: Negative. No flashbacks, nightmares, avoidance, or hypervigilance.
+  Sleep: Normal
+  Substance: [Not provided; verify before signing]
+
+ASSESSMENT
+──────────
+28-year-old male s/p high-speed MVC rollover (2/15/26, 6 weeks ago, ISS 22) with Grade III splenic laceration (NOM, s/p IR embolization), left rib fractures 6-10, small left hemothorax, and L1 transverse process fracture. Recovering well. CT shows resolving splenic injury without pseudoaneurysm. Hemoglobin normalized. Returned to work. Functional recovery on track. Psychological screening negative.
+
+  1. Splenic laceration, Grade III, NOM with embolization, 6 weeks post-injury
+     Resolving on imaging. Hemoglobin normalized. No complications. Approaching the activity clearance window.
+
+  2. Left rib fractures 6-10, healing
+     Pain improving. No pulmonary complications.
+
+  3. L1 transverse process fracture, healed
+     Asymptomatic. No further follow-up needed.
+
+  4. Functional recovery, on track
+     Returned to full work. Walking regularly. Awaiting contact sport clearance.
+
+PLAN
+────
+  1. Splenic injury, resolving
+     - No further CT imaging needed. Current CT shows healing without pseudoaneurysm.
+     - Continue activity restrictions: no contact sports and no heavy lifting greater than 25 lbs until 3 months post-injury (approximately 5/15/26)
+     - At 3-month mark (next visit): if asymptomatic with progressive activity, clear for full activity including recreational basketball
+     - No repeat imaging planned unless new symptoms develop
+
+  2. Rib fractures
+     - Continue acetaminophen PRN; wean as tolerated
+     - Incentive spirometry as needed
+     - Expect full resolution by 8-12 weeks post-injury
+
+  3. L1 transverse process fracture
+     - Healed. No further restrictions. Discharged from follow-up for this injury.
+
+  4. VTE prophylaxis
+     - Completed 4-week course. No further prophylaxis needed.
+
+  5. Vaccination follow-up
+     - Pneumovax, meningococcal, and Hib vaccines complete
+     - PPSV23 booster: schedule at 5 years
+     - Annual influenza vaccine: ensure current
+
+  6. Psychological
+     - PHQ-2 and PTSD screens negative. No referrals needed at this time.
+     - Will rescreen at next visit.
+
+  7. Return to activity
+     - Basketball (recreational, contact sport): Cleared at 3-month visit if asymptomatic. Plan for 5/15/26.
+     - Progressive activity in the interim: can begin light jogging and non-contact exercise now. Advance to agility drills at 8 weeks. No full-contact until cleared.
+     - Work: Full duty, no restrictions.
+
+  Follow-Up
+  ─────────
+  Return to trauma clinic at 3 months post-injury (approximately 5/15/26) for activity clearance evaluation.
+  Return sooner for sudden left-sided abdominal pain, lightheadedness, left shoulder pain (Kehr sign), fever, or new shortness of breath.
+
+DISPOSITION
+───────────
+Patient counseled on progressive activity plan, timeline for return to basketball, and warning signs for delayed splenic complications. He understands that the spleen is healing but not fully recovered, and that a direct blow to the left flank during this period carries risk. Agrees with plan. Return precautions reviewed.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **ISS is retrospective.** The Injury Severity Score is calculated from the three most severely injured body regions. The model documents the ISS you provide, but if injuries were discovered or reclassified during the hospital stay, verify the final ISS, not the admission estimate.
+- **Solid organ NOM follow-up imaging varies by institution.** There is no universal guideline for how many CTs a grade III splenic laceration needs. Some centers scan at 48 hours, some at 1 week, some only for clinical change. The model uses your imaging data. State your institutional protocol in the plan so the next provider knows the rationale.
+- **Activity restriction timelines are evidence-light.** The "3 months for grade III, 4 months for grade IV" convention for splenic injuries is based on expert consensus, not RCTs. The model will apply the timeline you set. If your patient pushes back, acknowledge the evidence gap, but err on the side of caution.
+- **Opioid taper documentation is medicolegally important.** The model documents the current opioid regimen and taper plan. If the patient is off opioids, document that clearly. If still on opioids at 6 weeks post-injury, the plan should address taper with specific dose reductions and timelines.
+- **PTSD screening is not optional.** Trauma patients have a 20-40% rate of PTSD at 12 months. The PHQ-2 and PC-PTSD-5 take 30 seconds. The model includes a screening section, but you need to administer the screen and provide the result.
+- **Ventral hernia timing matters.** Repairing a hernia too early (within 6-12 months of the index operation) increases recurrence risk. The model documents the timeline, but the plan should reflect the reasoning for waiting or proceeding, especially if the patient is symptomatic.
+- **Post-splenectomy vaccination has a specific schedule.** PCV13 first, then PPSV23 at 8 weeks. Meningococcal (both MenACWY and MenB) and Hib as soon as possible, ideally 14 days post-splenectomy. PPSV23 booster at 5 years. The model will document what you report. Verify the schedule against CDC guidelines.
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) - for inpatient trauma notes during the hospital stay
+- [Procedure Note](/templates/procedure-note) - for documenting trauma operations and bedside procedures
+- [Consult Note](/templates/consult-note) - for trauma surgery consultations
+- [Discharge Summary](/templates/discharge-summary-basic) - for the trauma discharge summary that feeds into this clinic note

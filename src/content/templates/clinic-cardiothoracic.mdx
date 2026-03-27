@@ -1,0 +1,851 @@
+---
+title: "Cardiothoracic Surgery Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, cardiothoracic-surgery, surgical, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "Generates cardiothoracic surgery notes capturing hemodynamic data, echocardiographic findings, catheterization results, PFT values, and risk stratification scores to support operative candidacy and recovery planning."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Cardiothoracic surgery clinic notes require a density of hemodynamic and imaging data that separates them from general surgical documentation. An aortic stenosis pre-op note without an STS risk score is incomplete. A post-CABG note without graft patency data and cardiac rehab status misses the point. This template identifies the primary cardiothoracic surgical condition and structures the note around the echocardiographic data, catheterization findings, pulmonary function, and risk stratification that determine operative candidacy and recovery trajectory. It covers coronary artery disease (CABG candidates), aortic stenosis, mitral regurgitation, lung cancer, thoracic aortic aneurysm, and pericardial disease.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Cardiothoracic Surgery Clinic Visit Note">
+You are an outpatient cardiothoracic surgeon writing a clinic visit note after seeing a patient. The patient's primary condition is one of: coronary artery disease (CABG candidate), aortic stenosis, mitral regurgitation, lung cancer, thoracic aortic aneurysm, or pericardial disease. Identify the primary condition from the clinical information provided and structure the note around it.
+
+### Purpose
+
+Generate a complete, structured outpatient cardiothoracic surgery clinic note from the clinical data below. The note must capture disease-specific hemodynamic data, imaging, risk stratification scores, and a concrete operative or surveillance plan.
+
+### Rules
+
+- Write in past tense for history and prior events; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use (e.g., "Society of Thoracic Surgeons (STS) risk score"), then abbreviation only thereafter.
+- Include specific numbers: valve gradients, ejection fraction, aneurysm dimensions, PFT values, surgical risk scores.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Organize the Assessment as a problem list with the primary cardiothoracic condition first.
+- Plan items must be specific: procedure name, approach, conduit plan, valve type, surveillance imaging interval. Never write "surgical management recommended" without specifying the operation.
+- For CAD/CABG: document coronary anatomy (from catheterization), SYNTAX score if available, number and type of planned grafts, conduit assessment (Allen test, radial harvest candidacy, vein mapping), and STS risk score.
+- For aortic stenosis: document valve area, mean gradient, peak velocity, LVEF, symptom status (NYHA class), STS score, anatomic considerations (porcelain aorta, prior sternotomy, annular size for prosthesis), and SAVR vs TAVR discussion.
+- For mitral regurgitation: document MR mechanism (degenerative vs functional), severity grading, repair vs replacement assessment, LVEF, LV dimensions, and pulmonary pressures.
+- For lung cancer: document CT findings, PET/CT results (SUV), biopsy pathology and staging, pulmonary function tests (PFTs) with predicted post-operative values (FEV1, DLCO), and operative plan (lobectomy vs segmentectomy vs wedge vs pneumonectomy).
+- For thoracic aortic aneurysm: document size, location (ascending, arch, descending), growth rate from serial imaging, connective tissue disorder screening, and repair threshold.
+- For pericardial disease: document pericardial effusion size, tamponade physiology, constrictive physiology, surgical approach (window vs pericardiectomy).
+- Do not infer or fabricate any clinical information not provided. Write "[Not provided; verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "STS" = Society of Thoracic Surgeons
+- "SAVR" = surgical aortic valve replacement
+- "TAVR" = transcatheter aortic valve replacement
+- "CABG" = coronary artery bypass grafting
+- "LIMA" = left internal mammary artery
+- "RIMA" = right internal mammary artery
+- "SVG" = saphenous vein graft
+- "LVEF" = left ventricular ejection fraction
+- "NYHA" = New York Heart Association
+- "PFT" = pulmonary function test
+- "FEV1" = forced expiratory volume in 1 second
+- "DLCO" = diffusing capacity of the lungs for carbon monoxide
+- "SUV" = standardized uptake value
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+CARDIOTHORACIC SURGERY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[New consultation / Pre-operative planning / Post-operative follow-up / Surveillance]
+Interval since last visit: [duration]
+Referring provider: ***
+
+CHIEF CONCERN
+─────────────
+***
+
+CARDIOTHORACIC SURGICAL HISTORY
+───────────────────────────────
+  Prior cardiothoracic procedures:
+    - [Date]: [Procedure (CABG x***, valve surgery, lung resection),
+      approach, complications]
+    - [Date]: [Procedure]
+  Prior sternotomy: [Yes / No / Number of prior sternotomies]
+  Chest tubes/drains: [History]
+
+DISEASE-SPECIFIC DATA
+─────────────────────
+
+  [FOR CAD / CABG:]
+  Coronary Anatomy and Operative Plan
+  ────────────────────────────────────
+    Catheterization: [Date]
+      Left main: ***
+      LAD: ***
+      LCx: ***
+      RCA: ***
+      Dominance: [Right / Left / Codominant]
+      SYNTAX score: *** [if available]
+    Prior PCI: [Stent locations, dates]
+    Heart team discussion: [Date, recommendation: CABG vs PCI vs medical]
+    Planned grafts:
+      LIMA to LAD
+      [SVG / Radial / RIMA] to [target]
+      [SVG / Radial] to [target]
+    Conduit assessment:
+      Allen test: [Bilateral normal / Abnormal (side)]
+      Radial artery: [Candidate / Not candidate, reason]
+      Vein mapping: [Completed / Pending]
+    LVEF: ***%
+    STS predicted risk of mortality: ***%
+    STS predicted risk of morbidity/mortality: ***%
+
+  [FOR AORTIC STENOSIS:]
+  Aortic Valve Data
+  ──────────────────
+    Echocardiogram: [Date]
+      Valve area: *** cm2
+      Mean gradient: *** mmHg
+      Peak velocity: *** m/s
+      LVEF: ***%
+      LV dimensions: LVIDD ***, LVIDS ***
+      Aortic root: *** cm
+      Ascending aorta: *** cm
+    Severity: [Mild / Moderate / Severe / Critical]
+    Valve morphology: [Tricuspid / Bicuspid / Calcified]
+    Symptom status: NYHA class ***
+      [Angina / Syncope / Heart failure: Y/N]
+    Catheterization: [Date, coronary findings, hemodynamics]
+    CT aorta (TAVR planning): [Annular dimensions, access assessment,
+      coronary heights, calcium distribution]
+    STS predicted risk of mortality: ***%
+    Frailty assessment: [5-meter walk ***, grip strength ***]
+    SAVR vs TAVR:
+      Age: ***
+      Surgical risk: [Low / Intermediate / High / Prohibitive]
+      Anatomic considerations: [Porcelain aorta, prior sternotomy,
+        radiation, chest deformity]
+      Valve durability considerations: ***
+      Heart team recommendation: ***
+
+  [FOR MITRAL REGURGITATION:]
+  Mitral Valve Data
+  ─────────────────
+    Echocardiogram: [Date]
+      MR severity: [Mild / Moderate / Severe]
+      MR mechanism: [Degenerative (prolapse, flail) / Functional /
+        Rheumatic / Endocarditis]
+      Specific leaflet pathology: [P2 prolapse / A2 flail / etc.]
+      LVEF: ***%
+      LVIDD: *** cm, LVIDS: *** cm
+      LA size: *** cm
+      RVSP: *** mmHg
+      Tricuspid regurgitation: ***
+    Atrial fibrillation: [Y/N]
+    Repair vs replacement assessment:
+      Repairability: [Favorable / Unfavorable, reason]
+      [If replacement: mechanical vs bioprosthetic, rationale]
+    Concomitant procedures: [Tricuspid repair, Maze, CABG]
+
+  [FOR LUNG CANCER:]
+  Thoracic Oncology Data
+  ──────────────────────
+    CT chest: [Date, mass size *** cm, location (lobe, segment),
+      relationship to fissure/hilum/chest wall]
+    PET/CT: [Date, mass SUV ***, lymph node stations involved, distant metastases]
+    Biopsy: [Method (bronchoscopic/CT-guided/surgical), date]
+      Pathology: [Histologic type, differentiation]
+      Molecular markers: [EGFR, ALK, ROS1, PD-L1 TPS ***%]
+    Staging: [Clinical stage: T*** N*** M***, AJCC 8th edition stage group]
+    Mediastinal staging: [EBUS/mediastinoscopy: date, results]
+    PFTs: [Date]
+      FEV1: *** L (***% predicted)
+      DLCO: *** (***% predicted)
+      Predicted post-operative FEV1: *** L (***% predicted)
+      Predicted post-operative DLCO: ***% predicted
+      [If borderline: VO2 max ***, stair climb test ***]
+    Cardiopulmonary exercise test: [If obtained]
+    Neoadjuvant therapy: [None / Immunotherapy / Chemotherapy, response]
+    Surgical plan: [Lobectomy / Segmentectomy / Wedge / Pneumonectomy /
+      Sleeve resection]
+    Approach: [VATS / Robotic / Thoracotomy]
+
+  [FOR THORACIC AORTIC ANEURYSM:]
+  Aortic Aneurysm Data
+  ─────────────────────
+    Location: [Ascending / Arch / Descending / Thoracoabdominal (Crawford type)]
+    Current size: *** cm [Date]
+    Prior sizes:
+      - [Date]: *** cm
+      - [Date]: *** cm
+    Growth rate: *** cm/year
+    Repair threshold: [5.5 cm (no CTD) / 5.0 cm (bicuspid) /
+      4.5-5.0 cm (Marfan/Loeys-Dietz)]
+    Aortic valve: [Tricuspid / Bicuspid, regurgitation grade]
+    Connective tissue disorder: [None / Marfan / Loeys-Dietz /
+      Ehlers-Danlos / Familial TAAD]
+    Family history of dissection/aneurysm: ***
+    CT/MRA aorta: [Date, detailed measurements by segment]
+    Surgical plan: [Ascending replacement / Hemiarch / Total arch /
+      Descending (open vs TEVAR) / Valve-sparing root replacement
+      (David) / Bentall]
+
+  [FOR PERICARDIAL DISEASE:]
+  Pericardial Data
+  ────────────────
+    Diagnosis: [Pericardial effusion / Tamponade / Constrictive pericarditis /
+      Recurrent pericarditis]
+    Echocardiogram: [Date, effusion size, tamponade physiology (diastolic
+      chamber collapse, respiratory variation), constrictive signs
+      (septal bounce, respirophasic variation)]
+    CT/MRI: [Pericardial thickening *** mm, calcification]
+    Hemodynamics (if cath): [Equalization of diastolic pressures,
+      square root sign]
+    Prior pericardiocentesis: [Date(s), fluid analysis]
+    Etiology: [Idiopathic / Viral / Malignant / Post-surgical /
+      Radiation / Uremic / Autoimmune]
+
+INTERVAL HISTORY
+────────────────
+[Narrative: symptoms (chest pain, dyspnea, syncope, hemoptysis,
+exercise tolerance), NYHA functional class with specific activities,
+interval events, hospitalizations, medication changes, cardiac
+or pulmonary rehabilitation progress.]
+
+CURRENT MEDICATIONS
+───────────────────
+  Cardiac medications: ***
+  Anticoagulants/Antiplatelets: ***
+  Pulmonary medications: ***
+  Other: ***
+  Allergies: ***
+
+VITAL SIGNS
+───────────
+  BP: ***
+  HR: ***
+  Weight: *** [change: ***]
+  SpO2: ***
+  Temp: ***
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: ***
+  Neck: JVP *** cm. Carotid upstrokes: [Normal / Delayed (tardus parvus)]
+  Cardiovascular: Rate ***, rhythm ***. S1/S2 ***.
+    Murmurs: [Grade, type (systolic/diastolic), location, radiation]
+    Gallops: [S3 / S4 / None]
+    Rub: [Present / Absent]
+    Prosthetic valve clicks: [If applicable, normal/abnormal]
+  Pulmonary: [Breath sounds, crackles, wheezes, decreased BS location]
+  Abdomen: ***
+  Extremities: Edema ***, pulses ***
+  Sternal wound (post-op): [Healing, stability (rock test), wire
+    palpation, drainage, erythema]
+  Thoracotomy/VATS incision (post-op): [Healing, chest tube sites]
+
+DIAGNOSTICS
+───────────
+  Labs: ***
+  ECG: ***
+  Echocardiogram: [If obtained, key findings]
+  CT: [If obtained, key findings]
+  PFTs: [If obtained, key values]
+  Catheterization: [If obtained, key findings]
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [primary cardiothoracic condition]
+presenting for [visit type]. [One-sentence trajectory statement.]
+
+  1. [Primary cardiothoracic condition]
+     [Brief assessment: severity, symptom status, risk stratification,
+     surgical indication or post-op recovery status.]
+
+  2. [Secondary condition]
+     [Brief assessment.]
+
+  3. [Other relevant conditions]
+     [Brief assessment.]
+
+PLAN
+────
+  1. [Primary cardiothoracic condition]
+     - [Specific action: schedule surgery (procedure, approach, details),
+       order surveillance imaging, adjust medications, continue
+       post-op recovery milestones]
+     - [Specific action]
+     - [Specific action]
+
+  2. [Secondary condition]
+     - [Specific action]
+
+  3. [Post-operative management, if applicable]
+     - Sternal precautions: [Duration, restrictions]
+     - Cardiac/pulmonary rehabilitation: [Status, phase]
+     - Anticoagulation: [If valve: target INR, warfarin dose, bridging]
+     - Return to driving: ***
+     - Return to work: ***
+
+  Follow-Up
+  ─────────
+  Return to cardiothoracic surgery clinic in [interval].
+  [Surveillance imaging schedule.]
+  [Criteria for earlier return or ED visit.]
+
+DISPOSITION
+───────────
+[Patient counseled on ***, agrees with plan. Return precautions reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: chief complaint, cardiothoracic surgical history, disease-specific data (echo, cath, CT, PFTs, pathology), current medications, vitals, exam findings, labs, and risk stratification scores.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| TAVR evaluation | Add: "This is a TAVR evaluation. Include CT gating measurements (annular area, perimeter, diameter), access vessel sizing (femoral, subclavian), coronary height, and heart team decision rationale for TAVR vs SAVR." |
+| Redo sternotomy | Add: "This is a redo sternotomy case. Document CT for sternal re-entry planning (retrosternal adhesions, graft proximity to sternum, patent grafts crossing midline). Note prior sternotomy complications." |
+| Minimally invasive cardiac | Add: "Document candidacy for minimally invasive approach (mini-thoracotomy, hemi-sternotomy). Include specific anatomic criteria that favor or preclude this approach." |
+| Lung transplant evaluation | Add: "This is a lung transplant evaluation. Include 6-minute walk distance, pulmonary hypertension assessment, nutritional status (BMI, albumin), psychosocial evaluation, and listing criteria assessment." |
+| Chest wall/mediastinal | Add: "This patient has a chest wall or mediastinal mass. Document imaging characteristics, biopsy results if obtained, and surgical approach (sternotomy vs thoracotomy vs VATS for resection)." |
+
+---
+
+## Variations
+
+### CABG pre-operative evaluation
+
+Use this when a patient with multivessel coronary artery disease has been referred by the heart team for coronary bypass surgery. The note organizes the catheterization anatomy, conduit assessment, and risk stratification that inform the surgical plan.
+
+<PromptPlayground tool="Claude" title="CABG Pre-Operative Evaluation">
+You are an outpatient cardiothoracic surgeon writing a pre-operative evaluation note for a patient referred for coronary artery bypass grafting. Structure the note around coronary anatomy, conduit planning, risk stratification, and operative preparation.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document coronary anatomy from catheterization with stenosis percentages and vessel quality.
+- Specify conduit plan: LIMA target, additional conduits (radial, RIMA, SVG) with rationale.
+- Document Allen test for radial artery harvest candidacy.
+- Calculate or report STS risk score with the component factors that drive it.
+- Document LVEF, wall motion abnormalities, mitral regurgitation if present.
+- Assess for concomitant valve disease requiring intervention.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+CABG PRE-OPERATIVE EVALUATION
+══════════════════════════════════════════
+
+INDICATION
+──────────
+  Referred by: [Interventional cardiology / Heart team]
+  Heart team decision: CABG recommended over PCI because ***
+  SYNTAX score: *** [if available]
+
+CORONARY ANATOMY
+────────────────
+  Catheterization date: ***
+  Left main: ***
+  LAD: ***
+    Diagonal branches: ***
+  LCx: ***
+    Obtuse marginal branches: ***
+  RCA: ***
+    PDA: ***
+  Dominance: [Right / Left / Codominant]
+  Bypass targets: ***
+
+CONDUIT PLAN
+────────────
+  LIMA: To LAD [standard]
+  Second arterial conduit:
+    Radial artery: [Candidate / Not candidate]
+      Allen test: R [Normal / Abnormal], L [Normal / Abnormal]
+      Radial selected: [Side, rationale]
+    RIMA: [Consider / Not indicated, rationale]
+  SVG: [Targets, vein mapping status]
+  Total planned grafts: ***
+
+VENTRICULAR FUNCTION
+────────────────────
+  LVEF: ***%
+  Wall motion: ***
+  Mitral regurgitation: [None / Mild / Moderate / Severe]
+    [If moderate or greater: concomitant mitral intervention considered]
+  Aortic valve: ***
+  Pulmonary pressures: RVSP *** mmHg
+
+RISK STRATIFICATION
+───────────────────
+  STS predicted risk of mortality: ***%
+  STS predicted risk of morbidity/mortality: ***%
+  Key risk factors: [Age, LVEF, diabetes, renal function, COPD,
+    prior cardiac surgery, emergent/urgent status]
+  EuroSCORE II: *** [if available]
+
+PRE-OPERATIVE CHECKLIST
+───────────────────────
+  Carotid duplex: [Obtained / Needed; result]
+  Dental clearance: [Obtained / Needed]
+  PFTs: [If COPD/smoking history; FEV1 ***, DLCO ***]
+  Labs: CBC, BMP, coags, type and crossmatch, HbA1c, UA
+  Blood products: *** units crossmatched
+  Antiplatelet management:
+    Aspirin: [Continue]
+    P2Y12 inhibitor: [Hold *** days before surgery]
+  Anticoagulation: [None / Warfarin (bridge plan) / DOAC (hold *** days)]
+  Diabetic management: [A1c ***, insulin/oral agent perioperative plan]
+  Statin: [Continue perioperatively]
+
+INFORMED CONSENT
+────────────────
+  Procedure: CABG x*** [grafts listed]
+  Concomitant: [None / Mitral repair / Aortic valve / Maze]
+  Risks: Mortality (STS ***%), stroke (1-2%), wound infection (1-3%),
+    renal failure, bleeding requiring re-exploration, atrial fibrillation
+    (25-40%), prolonged ventilation, graft failure
+  Benefits: Symptom relief, survival benefit for left main/3-vessel disease
+  Alternatives: PCI (heart team deemed CABG superior), medical management
+  Patient: [Wishes to proceed / Considering]
+
+TIMELINE
+────────
+  Pre-op visit: ***
+  Surgery date: ***
+  Expected ICU: 1-2 days
+  Expected hospital stay: 5-7 days
+  Cardiac rehab start: [Inpatient Phase I, outpatient Phase II at 4-6 weeks]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: catheterization report, echo findings, STS risk factors, medical history, medications, Allen test results, vein mapping, dental clearance status, labs.]
+</PromptPlayground>
+
+### Valve surgery post-op follow-up
+
+Use this for the patient returning after surgical aortic valve replacement, mitral valve repair or replacement, or combined valve-CABG. The note focuses on prosthetic valve function, anticoagulation management, sternal healing, and functional recovery.
+
+<PromptPlayground tool="Claude" title="Valve Surgery Post-Op Follow-Up">
+You are an outpatient cardiothoracic surgeon writing a clinic note for a patient following up after cardiac valve surgery. Structure the note around prosthetic valve function, anticoagulation management, wound healing, and functional recovery.
+
+### Rules
+
+- Write in past tense for history and the procedure; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the procedure: valve type (mechanical vs bioprosthetic, manufacturer, size), approach, concomitant procedures.
+- Document prosthetic valve function from post-op echo: gradients, regurgitation, LVEF recovery.
+- For mechanical valves: document INR target, current INR, warfarin dose, time in therapeutic range.
+- For bioprosthetic valves: document antiplatelet regimen and duration.
+- Sternal exam must include stability assessment.
+- Cardiac rehabilitation status and functional recovery milestones.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+VALVE SURGERY POST-OPERATIVE FOLLOW-UP
+══════════════════════════════════════════
+
+PROCEDURE SUMMARY
+─────────────────
+  Procedure: [AVR / MVR / MV repair / combined]
+  Date: ***
+  Post-operative week: ***
+  Valve type: [Mechanical / Bioprosthetic]
+    Manufacturer and model: ***
+    Size: *** mm
+  Approach: [Full sternotomy / Mini-sternotomy / Right thoracotomy]
+  Concomitant procedures: [CABG / Maze / Tricuspid repair / Other]
+  Intraoperative findings: ***
+  Hospital course: [LOS *** days, complications: ***]
+
+POST-OPERATIVE ECHO
+───────────────────
+  Date: ***
+  LVEF: ***% (pre-op: ***%)
+  Prosthetic valve function:
+    [AVR: Mean gradient *** mmHg, peak velocity *** m/s, EOA *** cm2,
+      paravalvular leak: none/trace/mild]
+    [MVR/repair: MR grade (none/trace/mild), mean gradient *** mmHg]
+  Other valves: ***
+  Pericardial effusion: [None / Small / Moderate / Large]
+
+ANTICOAGULATION
+───────────────
+  [Mechanical valve:]
+    Target INR: [2.5-3.5 (mitral) / 2.0-3.0 (aortic)]
+    Current INR: ***
+    Warfarin dose: ***
+    Time in therapeutic range: ***%
+    Bridging: [Completed / N/A]
+    Bleeding events: ***
+
+  [Bioprosthetic valve:]
+    Aspirin: *** mg daily
+    Duration of antiplatelet: [3-6 months, then reassess]
+    Anticoagulation: [None / If AFib: agent, dose, rationale]
+
+INTERVAL RECOVERY
+─────────────────
+[Narrative: chest pain, dyspnea, palpitations, syncope, exercise
+tolerance, wound healing, fever, energy level, appetite, sleep,
+driving status, return to work.]
+
+VITAL SIGNS AND EXAM
+─────────────────────
+  Vitals: BP ***, HR ***, Weight ***, SpO2 ***
+  Sternal wound:
+    Healing: [Primary intention / Concern for ***]
+    Stability: Rock test [Stable / Unstable / Click]
+    Wire palpation: [Non-tender / Tender / Prominent]
+    Erythema/drainage: [None / Present]
+  Cardiovascular: ***
+    Prosthetic valve sounds: [Normal clicks / Abnormal]
+    New murmur: [None / Present]
+  Pulmonary: ***
+  Extremities: [Edema, harvest site (SVG leg)]
+
+ASSESSMENT
+──────────
+[Summary: post-op status, valve function, recovery trajectory.]
+
+PLAN
+────
+  1. Prosthetic valve management
+     - Echo: [Baseline post-op echo adequate / Repeat in ***]
+     - [Mechanical: warfarin dose adjustment / INR recheck date]
+     - [Bioprosthetic: antiplatelet plan]
+     - Endocarditis prophylaxis: Reviewed
+
+  2. Sternal/wound management
+     - [Sternal precautions: duration remaining]
+     - [Wound care instructions]
+     - [Lifting restriction: *** lbs for *** weeks]
+
+  3. Cardiac rehabilitation
+     - [Phase: I/II/III, enrollment status, progress]
+     - [Activity: current level, progression plan]
+     - Return to driving: [Cleared / Not yet, criteria: ***]
+     - Return to work: [Cleared / Estimated: ***]
+
+  4. Post-operative atrial fibrillation (if applicable)
+     - [Rate/rhythm control, anticoagulation]
+
+  5. Follow-up
+     - Return in [interval]
+     - Annual echo for valve surveillance
+     - [Warfarin: INR check frequency]
+     - [Symptoms requiring urgent evaluation: fever (endocarditis),
+       new dyspnea (valve dysfunction), wound drainage]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: procedure details, valve type and size, hospital course, current symptoms, anticoagulation status (INR, warfarin dose), echo findings, vitals, wound exam, cardiac rehab status, medications.]
+</PromptPlayground>
+
+### Lung cancer surgical staging
+
+Use this for the patient with a lung mass or biopsy-proven lung cancer who needs surgical staging evaluation. The note organizes imaging, pathology, PFT data, and the operative plan around the question: can this patient tolerate the resection that their cancer requires?
+
+<PromptPlayground tool="Claude" title="Lung Cancer Surgical Staging">
+You are an outpatient thoracic surgeon writing a clinic note for a patient with lung cancer being evaluated for surgical resection. Structure the note around staging, pulmonary reserve assessment, and operative planning.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document clinical staging completely: TNM with AJCC 8th edition stage group.
+- Include PFT data with predicted post-operative values calculated by segment counting or perfusion scanning.
+- Specify the operation and approach. If the predicted post-op FEV1 or DLCO falls below 40% predicted, document the additional workup (VO2 max, stair climb) and decision rationale.
+- Document mediastinal staging completeness: imaging alone vs tissue sampling (EBUS, mediastinoscopy).
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+LUNG CANCER SURGICAL STAGING EVALUATION
+══════════════════════════════════════════
+
+TUMOR CHARACTERISTICS
+─────────────────────
+  CT chest: [Date, mass size, location, chest wall/mediastinal involvement]
+  PET/CT: [Date, primary mass SUV ***, node stations (list each station
+    with SUV if positive), distant metastases]
+  Biopsy: [Method, date]
+    Histology: ***
+    Molecular: [EGFR ***, ALK ***, ROS1 ***, PD-L1 TPS ***%]
+  Clinical stage: T*** N*** M*** (AJCC 8th ed, Stage ***)
+
+MEDIASTINAL STAGING
+───────────────────
+  Method: [PET/CT alone / EBUS-TBNA / Mediastinoscopy / Navigational bronchoscopy]
+  Stations sampled: ***
+  Results: ***
+  Adequacy: [Complete / Incomplete, additional staging needed]
+
+PULMONARY RESERVE
+─────────────────
+  PFTs: [Date]
+    FEV1: *** L (***% predicted)
+    FVC: *** L (***% predicted)
+    DLCO: ***% predicted
+  Predicted post-operative (for planned resection):
+    Method: [Segment counting / Quantitative perfusion scan]
+    PPO FEV1: *** L (***% predicted)
+    PPO DLCO: ***% predicted
+  [If PPO values &lt;40% predicted:]
+    VO2 max: *** mL/kg/min
+    Stair climb: *** flights
+    CPET: [Performed / Not needed]
+  Assessment: [Adequate reserve / Borderline / Insufficient for planned
+    resection, consider lesser resection]
+
+OPERATIVE CANDIDACY
+───────────────────
+  Performance status: ECOG ***
+  Cardiac risk: [Assessment, clearance if obtained]
+  Smoking: [Current / Former (quit date) / Never]
+    Cessation: [Counseled / On replacement / Quit *** weeks ago]
+  BMI: ***
+  Comorbidities: ***
+
+SURGICAL PLAN
+─────────────
+  Procedure: [Lobectomy / Segmentectomy / Wedge / Bilobectomy /
+    Pneumonectomy / Sleeve resection]
+  Approach: [VATS / Robotic / Thoracotomy, rationale]
+  Lymph node dissection: [Systematic sampling / Complete dissection]
+  Neoadjuvant therapy: [None / Completed (regimen, response) /
+    Recommended (rationale)]
+  Adjuvant therapy: [Anticipated based on staging / Await final path]
+
+ASSESSMENT
+──────────
+[Summary: cancer type, stage, pulmonary reserve, operative candidacy.]
+
+PLAN
+────
+  1. Staging completion
+     - [Additional staging needed / Staging complete]
+
+  2. Surgical scheduling
+     - Procedure: ***
+     - Pre-op requirements: [Labs, cardiac clearance, smoking cessation,
+       pulmonary rehab]
+     - Target date: ***
+
+  3. Multidisciplinary coordination
+     - Tumor board: [Presented / To present on ***]
+     - Medical oncology: [Consulted for neoadjuvant/adjuvant]
+     - Radiation oncology: [If applicable]
+
+  4. Follow-up
+     - Pre-op visit: ***
+     - [Smoking cessation requirement: minimum *** weeks before surgery]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: CT/PET findings, biopsy pathology with molecular markers, staging, PFTs with values, medical history, smoking history, medications, performance status.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+74-year-old male referred by cardiology for surgical evaluation of severe aortic stenosis. Symptomatic: NYHA class III, cannot walk more than half a block without dyspnea. Syncopal episode 3 weeks ago. Echo 3/1/26: aortic valve area 0.7 cm2, mean gradient 52 mmHg, peak velocity 4.8 m/s, LVEF 55%, mild concentric LVH, trace MR, RVSP 38 mmHg, tricuspid valve morphology appears calcified bicuspid. Cath 3/10/26: nonobstructive CAD (40% mid-LAD, 30% RCA). STS predicted mortality 2.8%. No prior sternotomy. PMH: HTN, type 2 DM (A1c 6.9), CKD stage 3 (Cr 1.6), former smoker (quit 15 years ago). Meds: amlodipine 10, metformin 1000 BID, aspirin 81, atorvastatin 80. Vitals: BP 118/72, HR 68, weight 176 lbs, SpO2 97%. Exam: delayed carotid upstrokes, late-peaking IV/VI crescendo-decrescendo systolic murmur at RUSB radiating to carotids, S4 present, no S3, lungs clear, no edema. Labs: Hgb 12.1, Cr 1.6, BNP 340.
+
+**LLM output:**
+
+CARDIOTHORACIC SURGERY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+New consultation
+Interval since last visit: N/A (initial visit)
+Referring provider: Cardiology
+
+CHIEF CONCERN
+─────────────
+Severe symptomatic aortic stenosis with exertional dyspnea and recent syncope, referred for surgical valve replacement evaluation
+
+CARDIOTHORACIC SURGICAL HISTORY
+───────────────────────────────
+  Prior cardiothoracic procedures: None
+  Prior sternotomy: No
+
+DISEASE-SPECIFIC DATA
+─────────────────────
+
+  Aortic Valve Data
+  ──────────────────
+    Echocardiogram: 3/1/26
+      Valve area: 0.7 cm2
+      Mean gradient: 52 mmHg
+      Peak velocity: 4.8 m/s
+      Left ventricular ejection fraction (LVEF): 55%
+      LV dimensions: Mild concentric left ventricular hypertrophy (LVH)
+      Aortic root: [Not provided; verify before signing]
+      Ascending aorta: [Not provided; verify before signing]
+    Severity: Severe (valve area &lt;1.0 cm2, mean gradient &gt;40 mmHg, peak velocity &gt;4.0 m/s)
+    Valve morphology: Calcified bicuspid
+    Symptom status: New York Heart Association (NYHA) class III
+      Angina: No
+      Syncope: Yes, one episode 3 weeks ago
+      Heart failure symptoms: Dyspnea on exertion (cannot walk more than half a block)
+    Catheterization: 3/10/26
+      Coronary: Nonobstructive coronary artery disease (CAD): 40% mid-LAD, 30% RCA. No intervention needed.
+    Society of Thoracic Surgeons (STS) predicted risk of mortality: 2.8%
+    SAVR vs TAVR:
+      Age: 74
+      Surgical risk: Low-intermediate (STS 2.8%)
+      Anatomic considerations: No prior sternotomy, no porcelain aorta (catheterization performed), bicuspid valve (may complicate TAVR sizing)
+      Valve durability considerations: At age 74, bioprosthetic valve expected to last 15-20 years; mechanical valve would require lifelong warfarin anticoagulation with CKD-related bleeding risk
+      Heart team recommendation: [Not provided; verify before signing]
+
+INTERVAL HISTORY
+────────────────
+Patient has experienced progressive exertional dyspnea over the past year, now limited to half a block on flat ground. Three weeks ago, he had a syncopal episode while walking to his mailbox; he lost consciousness for approximately 30 seconds without witnessed seizure activity, tongue bite, or incontinence. He was evaluated in the ED, cardiac workup confirmed severe aortic stenosis, and he was referred for surgical evaluation. He denies chest pain, orthopnea, paroxysmal nocturnal dyspnea, and lower extremity edema. No hospitalizations for heart failure.
+
+CURRENT MEDICATIONS
+───────────────────
+  Cardiac medications: Amlodipine 10 mg daily, atorvastatin 80 mg daily
+  Anticoagulants/Antiplatelets: Aspirin 81 mg daily
+  Other: Metformin 1000 mg twice daily
+  Allergies: [Not provided; verify before signing]
+
+VITAL SIGNS
+───────────
+  BP: 118/72 mmHg
+  HR: 68 bpm
+  Weight: 176 lbs
+  SpO2: 97% on room air
+  Temp: [Not provided; verify before signing]
+
+PHYSICAL EXAMINATION
+────────────────────
+  General: Alert, comfortable at rest, no acute distress.
+  Neck: Jugular venous pressure (JVP) not elevated. Carotid upstrokes delayed bilaterally (parvus et tardus), consistent with severe aortic stenosis.
+  Cardiovascular: Rate 68, regular rhythm. Normal S1, soft S2 (decreased aortic component). Late-peaking grade IV/VI crescendo-decrescendo systolic murmur at the right upper sternal border radiating to bilateral carotids. S4 present. No S3.
+  Pulmonary: Clear to auscultation bilaterally.
+  Abdomen: Soft, nontender.
+  Extremities: No peripheral edema. Pulses 2+ bilaterally.
+  Sternal: No prior incision.
+
+DIAGNOSTICS
+───────────
+  Labs: Hemoglobin (Hgb) 12.1 g/dL, creatinine (Cr) 1.6 mg/dL (chronic kidney disease (CKD) stage 3 baseline), B-type natriuretic peptide (BNP) 340 pg/mL
+  ECG: [Not provided; verify before signing]
+  Echocardiogram: As detailed above (3/1/26)
+  Catheterization: As detailed above (3/10/26)
+
+ASSESSMENT
+──────────
+74-year-old male with severe symptomatic bicuspid aortic stenosis (valve area 0.7 cm2, mean gradient 52 mmHg) presenting with NYHA class III dyspnea and recent syncope. LVEF is preserved at 55%. Coronary catheterization shows nonobstructive CAD not requiring revascularization. STS predicted mortality is 2.8%, placing him in the low-intermediate risk category.
+
+  1. Severe aortic stenosis, symptomatic (class I indication for intervention)
+     All three cardinal symptoms of aortic stenosis are present: exertional dyspnea (NYHA III) and syncope. Valve area is critically reduced at 0.7 cm2 with concordant high gradient. The natural history of symptomatic severe aortic stenosis without intervention carries a 50% mortality at 2 years with syncope. Surgery is indicated.
+
+  2. Bicuspid aortic valve, implications for approach selection
+     Bicuspid morphology with heavy calcification may affect TAVR sizing and paravalvular leak risk. At age 74 with low-intermediate surgical risk (STS 2.8%) and no prior sternotomy, surgical aortic valve replacement (SAVR) is a strong option. Transcatheter aortic valve replacement (TAVR) is also reasonable given age; however, bicuspid anatomy should be evaluated with gated CT aortogram before finalizing the approach. Heart team discussion recommended.
+
+  3. CKD stage 3 (Cr 1.6)
+     Moderate renal impairment increases perioperative risk of contrast nephropathy and dialysis. Will factor into operative planning and contrast minimization.
+
+  4. CAD, nonobstructive
+     No revascularization needed. Continue statin and aspirin.
+
+PLAN
+────
+  1. Aortic valve replacement
+     - Surgical indication: Class I (symptomatic severe aortic stenosis with syncope and NYHA III dyspnea)
+     - Recommended procedure: SAVR with bioprosthetic valve
+     - Valve choice rationale: Bioprosthetic preferred given age 74, CKD (increased bleeding risk with warfarin), and expected durability of 15-20 years. No need for concomitant CABG.
+     - Alternative: TAVR (order gated CT aortogram for TAVR sizing given bicuspid anatomy; present at heart team conference for final approach decision)
+     - Concomitant procedures: None anticipated (nonobstructive CAD)
+
+  2. Pre-operative workup
+     - CT aortogram with gating: for bicuspid valve assessment, ascending aorta measurement, and TAVR planning (if selected)
+     - Carotid duplex: given syncope and age
+     - Dental clearance: required before valve implantation
+     - Labs: CBC, BMP, coagulation studies, type and crossmatch, urinalysis
+     - PFTs: not indicated (no pulmonary disease, former smoker quit 15 years)
+     - Hold metformin 48 hours before surgery
+     - Continue aspirin, amlodipine, and atorvastatin perioperatively
+     - BNP 340 noted; will trend post-operatively
+
+  3. Heart team conference
+     - Present case for SAVR vs TAVR decision
+     - Key discussion points: bicuspid anatomy (favors SAVR), age 74 (reasonable for either), low-intermediate STS risk, CKD
+
+  4. Informed consent (preliminary)
+     - SAVR discussed: median sternotomy, cardiopulmonary bypass, aortic cross-clamp, bioprosthetic valve implantation
+     - Risks: mortality (STS 2.8%), stroke (1-2%), renal failure requiring dialysis (2-3% given baseline CKD), wound infection, bleeding, pacemaker (3-5% for bicuspid), atrial fibrillation (25-35%), prolonged ventilation
+     - Benefits: symptom relief, survival improvement (corrects the natural history of symptomatic AS)
+     - Alternatives: TAVR (pending heart team), medical management (not recommended given symptomatic severe AS)
+     - Patient understands and wishes to proceed with valve replacement; awaits heart team decision on approach
+
+  Follow-Up
+  ─────────
+  Heart team conference within 2 weeks.
+  Pre-operative visit after approach is finalized.
+  Surgery target: within 4-6 weeks (syncope indicates urgency; avoid unnecessary delay).
+  Return to ED for recurrent syncope, chest pain, or worsening dyspnea at rest.
+
+DISPOSITION
+───────────
+Patient counseled on severe aortic stenosis, surgical urgency given syncope, and the need for heart team discussion regarding optimal approach. Agrees with plan. Activity restriction counseled: avoid strenuous exertion pending surgery. Return precautions reviewed.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **STS score is not optional.** An operative plan without a risk score is like a lab order without a result. The model requires STS component data (age, sex, LVEF, creatinine, diabetes, COPD, prior cardiac surgery) to generate a meaningful risk discussion. If you provide incomplete data, the model will flag what is missing, but the note will understate risk.
+- **Bicuspid aortic valves complicate TAVR.** The model correctly notes that bicuspid morphology affects TAVR sizing and paravalvular leak risk. If your patient has a bicuspid valve, provide the valve morphology and calcium distribution so the note addresses this in the approach selection.
+- **Predicted post-op PFTs determine the operation for lung cancer.** A patient with FEV1 of 1.8 L (60% predicted) can tolerate a lobectomy. A patient with FEV1 of 0.9 L (30% predicted) probably cannot. The model calculates predicted post-operative values by segment counting, but only if you provide the current PFT values. Without them, the surgical plan is unsupported.
+- **Aortic aneurysm growth rate requires at least two measurements.** A single CT showing a 4.8 cm ascending aorta is data. Two CTs 12 months apart showing growth from 4.3 to 4.8 cm (5 mm/year) is a surgical indication. Always provide serial measurements with dates.
+- **Sternal stability on post-op exam matters.** The "rock test" (palpating for sternal motion with lateral pressure) is a physical exam finding the model documents. If you note instability, the model generates a sternal complication management plan. "Healing well" without specifying stability is incomplete.
+- **Anticoagulation after mechanical valves has no expiration date.** Patients with mechanical prostheses need lifelong warfarin with specific INR targets (2.5-3.5 for mitral, 2.0-3.0 for aortic). The model documents this, but verify the INR target matches your patient's valve position. A mechanical mitral valve patient with a target of 2.0-3.0 is undertreated.
+- **Cardiac rehab enrollment is a quality metric.** Documenting enrollment status, sessions completed, and functional progress is expected in every post-operative cardiac surgery note. The model includes this section, but only if you provide the data.
+
+---
+
+## Related
+
+- [Cardiology Clinic Visit](/templates/clinic-cardiology) - for the cardiologist managing these patients medically before and after surgery
+- [Procedure Note](/templates/procedure-note) - for documenting the cardiothoracic operation
+- [Discharge Summary](/templates/discharge-summary-basic) - for post-operative discharge documentation
+- [Consult Note](/templates/consult-note) - for inpatient cardiothoracic consultations

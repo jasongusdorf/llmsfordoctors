@@ -1,0 +1,767 @@
+---
+title: "Colorectal Surgery Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, colorectal-surgery, surgical, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "Builds colorectal notes around disease-specific metrics: Wexner continence scores, Parks fistula classifications, MRI staging including mesorectal fascia involvement, and stoma output tracking for six common pathologies."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+A colorectal surgery clinic generates notes that require data most surgical templates ignore: Wexner continence scores, Parks fistula classifications, rectal MRI staging metrics down to mesorectal fascia involvement, stoma output tracking, and pouch function questionnaires. The patient with rectal cancer needs a note documenting the distance from the anal verge, EMVI status on MRI, and the nuanced decision about sphincter-sparing versus abdominoperineal resection. The patient with Crohn's disease needs a surgical note that captures which biologics failed and whether a J-pouch is even on the table. This template handles six conditions that dominate colorectal surgery outpatient practice: colon and rectal cancer, diverticular disease, hemorrhoids, anal fistula, inflammatory bowel disease (surgical), and rectal prolapse. Disease-specific scoring systems and staging data are built into the output format.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Colorectal Surgery Clinic Visit Note">
+You are an attending colorectal surgeon writing an outpatient clinic visit note after seeing a patient. The patient's primary condition is one of: colon/rectal cancer, diverticular disease, hemorrhoids, anal fistula, inflammatory bowel disease (surgical evaluation), or rectal prolapse. Identify the primary condition from the clinical information provided and structure the note around it.
+
+### Purpose
+
+Generate a complete, structured colorectal surgery clinic note from the clinical data below. The note must capture disease-specific staging or classification, relevant imaging and endoscopic data, anorectal examination findings, bowel function assessment, and a concrete surgical or management plan.
+
+### Rules
+
+- Write in past tense for history and interval events; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use in the note (e.g., "mesorectal fascia (MRF)"), then abbreviation only thereafter.
+- Include specific numbers: tumor distance from anal verge, CEA values with trends, stoma output in mL, Wexner scores, hemorrhoid grades, fistula tracts.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Organize the Assessment as a problem list with the primary colorectal condition first.
+- Plan items must be specific and actionable: procedure name, neoadjuvant regimen, follow-up interval, specific test to order.
+- For colon/rectal cancer: document colonoscopy findings, pathology, staging (CT/MRI/PET), CEA trend, MSI/MMR status, KRAS/BRAF, neoadjuvant treatment, and surgical plan.
+- For rectal cancer specifically: document MRI rectum findings (T stage, MRF involvement, extramural venous invasion (EMVI), nodal status), distance from anal verge, and sphincter-sparing candidacy.
+- For diverticular disease: document episodes (dates, severity, complications), Hinchey classification if applicable, CT findings, and indication for surgery.
+- For hemorrhoids: document grade (I-IV), symptoms, failed conservative measures, and surgical plan.
+- For fistula: document Parks classification, prior procedures, MRI findings if complex, and continence status.
+- For IBD: document disease extent, failed medical therapies, surgical indication, pouch candidacy, and fertility considerations.
+- For all patients with stomas: document stoma type, output, peristomal skin, appliance fit, and reversal timeline.
+- Do not infer or fabricate any clinical information not provided. Write "[Not provided; verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "MRF" = mesorectal fascia
+- "EMVI" = extramural venous invasion
+- "CRM" = circumferential resection margin
+- "TME" = total mesorectal excision
+- "LAR" = low anterior resection
+- "APR" = abdominoperineal resection
+- "CEA" = carcinoembryonic antigen
+- "MSI" = microsatellite instability
+- "MMR" = mismatch repair
+- "CRS" = cytoreductive surgery
+- "HIPEC" = hyperthermic intraperitoneal chemotherapy
+- "IBD" = inflammatory bowel disease
+- "IPAA" = ileal pouch-anal anastomosis
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+COLORECTAL SURGERY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[Follow-up / New consultation / Post-operative / Pre-operative /
+ Surveillance]
+Interval since last visit: [duration]
+
+CHIEF CONCERN
+─────────────
+***
+
+COLORECTAL HISTORY
+──────────────────
+  Primary diagnosis: ***
+  Timeline:
+    - [Date]: [Event: diagnosis, colonoscopy, imaging, surgery,
+      treatment start/stop]
+    - [Date]: [Event]
+  Prior colorectal surgeries: [None / list with dates and procedures]
+  Current anatomy: [Intact colon / s/p right/left/sigmoid colectomy /
+  s/p LAR / s/p APR / s/p total colectomy / s/p proctocolectomy
+  with IPAA / diverting ileostomy in place]
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph covering symptoms since last visit.
+Disease-specific content:
+- Cancer: new symptoms, treatment side effects, weight change,
+  appetite, pain, bowel function
+- Diverticular disease: episodes since last visit, antibiotic
+  courses, hospitalizations, persistent symptoms
+- Hemorrhoids: bleeding frequency, prolapse episodes,
+  pain, conservative treatment adherence
+- Fistula: drainage, pain, recurrence, continence
+- IBD: flares, medication changes, extraintestinal manifestations,
+  surgical symptoms (obstruction, fistula, abscess)
+- Stoma: output volume, consistency, skin issues, appliance
+  problems, quality of life]
+
+BOWEL FUNCTION
+──────────────
+  Frequency: *** stools/day [*** stools/night]
+  Consistency: [Formed / soft / loose / liquid / variable]
+  Urgency: [None / mild / moderate / severe]
+  Incontinence: [None / gas / liquid / solid]
+  Wexner Continence Score: ***/20 [if applicable]
+  Clustering: [Y/N]
+  Pad use: [None / *** pads/day]
+  Dietary modifications: ***
+
+STOMA ASSESSMENT (if applicable)
+────────────────────────────────
+  Type: [Ileostomy / Colostomy / End / Loop / Diverting]
+  Output: *** mL/day [consistency]
+  Peristomal skin: [Intact / erythema / erosion / retraction /
+  parastomal hernia]
+  Appliance: [Type, fit, wear time, problems]
+  Stoma appearance: [Pink, viable / dusky / retracted / prolapsed /
+  stenotic]
+  WOC nurse involvement: [Y/N, last visit]
+  Reversal candidacy: [Y/N, timeline, requirements before reversal]
+
+CURRENT MEDICATIONS
+───────────────────
+  [Include: chemotherapy agents, biologics (IBD), 5-ASA,
+  immunomodulators, antibiotics, fiber supplements, antidiarrheals,
+  pain management]
+  ***
+
+PHYSICAL EXAMINATION
+────────────────────
+  Vitals: ***
+  General: ***
+  Abdomen: [Soft, distention, tenderness (location), incisions
+  (healing, hernia), stoma exam]
+  Anorectal examination:
+    External inspection: [Skin tags, external hemorrhoids,
+    fissure, fistula opening(s) (location by clock position),
+    prolapse, perianal skin condition]
+    Digital rectal exam: [Tone (resting, squeeze), masses,
+    tenderness, palpable lesion (distance from verge, size,
+    fixation), blood on glove]
+    Anoscopy: [Internal hemorrhoids (grade, location by column),
+    fissure, polyps, rectal mucosa]
+
+COLONOSCOPY / ENDOSCOPY
+────────────────────────
+  Date: ***
+  Findings: ***
+  Pathology: ***
+  Completeness: [To cecum / incomplete (reason)]
+  Next due: ***
+
+IMAGING
+───────
+  CT Abdomen/Pelvis (if applicable)
+  ──────────────────────────────────
+  Date: ***
+  Findings: ***
+
+  MRI Rectum (if applicable)
+  ──────────────────────────
+  Date: ***
+  Tumor location: *** cm from anal verge
+  T stage: ***
+  MRF: [Clear (distance: *** mm) / Involved / Threatened]
+  EMVI: [Positive / Negative]
+  Nodal status: [N0 / N1 / N2; number and location]
+  Response to neoadjuvant (if applicable): [ymrTN stage,
+  tumor regression grade]
+
+  PET/CT (if applicable)
+  ──────────────────────
+  Date: ***
+  Findings: ***
+
+  MRI Pelvis - Fistula Protocol (if applicable)
+  ──────────────────────────────────────────────
+  Date: ***
+  Tract(s): ***
+  Abscess: ***
+  Relationship to sphincter complex: ***
+
+LABORATORY DATA
+───────────────
+  CEA: *** (trend: *** on M/D/YY, *** on M/D/YY)
+  CBC: WBC ***, Hgb ***, Plt ***
+  CMP: Albumin ***, prealbumin ***
+  Inflammatory markers (IBD): CRP ***, ESR ***,
+  fecal calprotectin ***
+  MSI/MMR: ***
+  KRAS: ***    BRAF: ***
+  Other: ***
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [relevant colorectal history]
+presenting for [visit type]. [One-sentence trajectory statement.]
+
+  1. [Primary colorectal condition]
+     [Brief assessment: staging, classification, treatment response,
+     surgical candidacy.]
+
+  2. [Secondary condition or complication]
+     [Brief assessment.]
+
+  3. [Bowel function / stoma / nutritional status]
+     [Brief assessment.]
+
+PLAN
+────
+  1. [Primary colorectal condition]
+     - [Specific action: surgical procedure, neoadjuvant regimen,
+       surveillance plan, conservative management]
+     - [Specific action]
+
+  2. [Secondary condition]
+     - [Specific action]
+
+  3. [Stoma management / bowel function optimization]
+     - [Specific action]
+
+  4. Monitoring
+     - Labs: [CEA, CBC, CMP timing]
+     - Imaging: [CT, MRI timing]
+     - Colonoscopy: [Next due]
+
+  Follow-Up
+  ─────────
+  Return in [interval].
+  [Specific criteria for earlier return: obstruction symptoms,
+  bleeding, fistula drainage, stoma output changes.]
+
+DISPOSITION
+───────────
+[Patient counseled on ***, agrees with plan.
+Return precautions reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: reason for visit, colorectal history, prior surgeries, bowel function, stoma data, current medications, exam (including anorectal exam), colonoscopy, imaging (CT, MRI rectum, PET), labs (CEA, inflammatory markers), pathology, and any other relevant data.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Cancer surveillance only | Add: "This is a post-treatment surveillance visit. Focus on CEA trend, imaging results, colonoscopy findings, and symptom review for recurrence. Omit detailed bowel function assessment unless symptomatic." |
+| Pelvic floor focus | Add: "This patient has pelvic floor dysfunction. Include anorectal manometry results, defecography findings, pudendal nerve terminal motor latency, and biofeedback therapy status." |
+| IBD multidisciplinary | Add: "This patient is being co-managed with gastroenterology. Document which medical therapies have failed (with reasons), current biologic/immunomodulator, and the specific surgical indication. Include fertility counseling if the patient is of reproductive age." |
+| Ostomy pre-reversal | Add: "This is a pre-reversal evaluation. Document time since index surgery, contrast enema or endoscopy of distal segment, pouchogram results if J-pouch, nutritional status, and anastomotic integrity." |
+| Emergency follow-up | Add: "This patient is following up after an emergent colorectal operation. Document the indication for emergency surgery, intraoperative findings, post-operative complications, and recovery trajectory." |
+
+---
+
+## Variations
+
+### Rectal cancer neoadjuvant response assessment
+
+Use this for patients with rectal cancer who have completed neoadjuvant chemoradiation or total neoadjuvant therapy (TNT) and are being restaged for surgical planning. The note centers on treatment response assessment, restaging MRI interpretation, and surgical decision-making.
+
+<PromptPlayground tool="Claude" title="Rectal Cancer Restaging Visit">
+You are a colorectal surgeon writing a clinic note for a patient with rectal cancer who has completed neoadjuvant therapy and is being restaged for surgical planning. Structure the note around treatment response, restaging MRI, and surgical decision-making.
+
+### Rules
+
+- Write in past tense for treatment history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the original clinical staging (cTNM) and the restaging (ymrTNM or ycTNM).
+- Document the restaging MRI: tumor size change, T and N downstaging, MRF status, EMVI change, tumor regression grade (mrTRG).
+- Document distance from anal verge and sphincter-sparing candidacy.
+- Include tumor board discussion date and recommendation.
+- Specify the surgical plan: TME with LAR vs APR, diverting ileostomy, robotic/laparoscopic/open approach.
+- For watch-and-wait candidates: document clinical complete response criteria (DRE, endoscopy, MRI).
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+RECTAL CANCER RESTAGING VISIT
+══════════════════════════════════════════
+
+ORIGINAL STAGING
+────────────────
+  Diagnosis date: ***
+  Location: *** cm from anal verge
+  Histology: ***
+  Clinical stage: cT*** cN*** cM***
+  Baseline MRI: [T stage, MRF status, EMVI, nodal status]
+  Baseline CEA: ***
+  MSI/MMR: ***    KRAS: ***    BRAF: ***
+
+NEOADJUVANT THERAPY
+───────────────────
+  Regimen: [Long-course CRT / Short-course RT + chemo / TNT]
+  Chemotherapy: [Agent(s), cycles completed]
+  Radiation: [Dose, fractions, dates]
+  Completed: [M/D/YY]
+  Interval from completion to restaging: *** weeks
+  Treatment tolerance: ***
+
+RESTAGING RESULTS
+─────────────────
+  MRI Rectum (date: ***)
+  ───────────────────────
+  Tumor size: *** cm (baseline: *** cm)
+  ymrT stage: ***
+  ymrN stage: ***
+  MRF: [Clear (*** mm) / Involved / Threatened]
+  EMVI: [Positive / Negative (change from baseline: ***)]
+  Tumor regression grade (mrTRG): [1-5]
+  Distance from anal verge: *** cm
+  Sphincter involvement: [Y/N]
+
+  CT Chest/Abdomen/Pelvis (date: ***):
+  [Metastatic disease status]
+
+  CEA: *** (baseline: ***, trend: ***)
+
+  Endoscopy (date: ***):
+  [Residual tumor, ulceration, scar, mucosal changes]
+
+  DRE: [Residual mass (size, fixation, distance from verge) /
+  Scar only / No palpable abnormality]
+
+RESPONSE ASSESSMENT
+───────────────────
+  Clinical response: [Complete (cCR) / Near-complete / Partial /
+  No response / Progression]
+  Criteria met for cCR: [DRE no mass: Y/N, Endoscopy white scar
+  with no residual: Y/N, MRI no residual signal: Y/N]
+
+TUMOR BOARD
+───────────
+  Date discussed: ***
+  Recommendation: ***
+
+SURGICAL CANDIDACY
+──────────────────
+  Sphincter-sparing: [Candidate for LAR / Not candidate (reason) /
+  Borderline]
+  Planned procedure: [LAR with TME / LAR with coloanal anastomosis /
+  Intersphincteric resection / APR / Watch-and-wait / TEM/TAMIS]
+  Approach: [Robotic / Laparoscopic / Open]
+  Diverting ileostomy: [Planned / Not planned]
+  Timing: [Weeks from now]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. Rectal cancer, ymrT***N***M***, [response assessment]
+     - [Surgical plan with specific procedure, approach, timing]
+     - [OR: Watch-and-wait protocol with surveillance schedule]
+     - Pre-operative optimization: [Nutrition, prehabilitation,
+       stoma marking]
+
+  2. Stoma counseling (if applicable)
+     - [WOC nurse referral, stoma site marking, patient education]
+
+  3. Monitoring
+     - Pre-op labs: ***
+     - Pre-op bowel prep: ***
+
+  4. Follow-up
+     - Pre-operative visit: [date]
+     - Surgery scheduled: [date]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: original staging, neoadjuvant details, restaging MRI, CT, endoscopy, DRE, CEA, tumor board recommendation, and patient preferences.]
+</PromptPlayground>
+
+### Post-colectomy stoma management
+
+Use this for patients with a stoma (ileostomy or colostomy) following colectomy, being managed in the outpatient setting. The note captures stoma function, complications, reversal candidacy, and quality of life.
+
+<PromptPlayground tool="Claude" title="Post-Colectomy Stoma Management">
+You are a colorectal surgeon writing a clinic note for a patient with a stoma following colectomy. Structure the note around stoma function, peristomal complications, nutritional status, and reversal planning.
+
+### Rules
+
+- Write in past tense for surgical history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document stoma type (ileostomy vs colostomy, end vs loop, diverting vs permanent).
+- Document output: volume per day, consistency, and trend.
+- Document peristomal skin: intact, erythema, erosion, fungal, retraction, prolapse, hernia.
+- For diverting stomas: document reversal candidacy criteria (anastomotic healing confirmed by contrast study or endoscopy, adequate nutrition, oncologic clearance if cancer).
+- Include dehydration risk assessment for high-output ileostomies: fluid intake, urine output, electrolytes.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+STOMA MANAGEMENT VISIT
+══════════════════════════════════════════
+
+SURGICAL HISTORY
+────────────────
+  Index operation: [Procedure, date, indication]
+  Stoma type: [End ileostomy / Loop ileostomy / End colostomy /
+  Loop colostomy]
+  Temporary vs permanent: ***
+  Intended reversal: [Y/N, timeline]
+
+STOMA ASSESSMENT
+────────────────
+  Appearance: [Pink, viable / dusky / edematous / retracted /
+  prolapsed (*** cm) / stenotic]
+  Size: *** cm
+  Output: *** mL/day (range over past week: ***-***)
+  Consistency: [Liquid / semi-formed / formed / watery]
+  Peristomal skin:
+    [Intact / Erythema (extent) / Erosion / Fungal infection /
+    Mucocutaneous separation / Contact dermatitis]
+  Appliance:
+    Type: [One-piece / two-piece, convex / flat, cut-to-fit /
+    pre-cut]
+    Wear time: *** days
+    Leakage: [None / occasional / frequent]
+    Fit: [Good / poor (specific issue)]
+  Parastomal hernia: [None / present (reducible / incarcerated)]
+  WOC nurse: [Last seen (date), current recommendations]
+
+NUTRITIONAL AND HYDRATION STATUS
+─────────────────────────────────
+  Weight: *** (trend: ***)
+  Oral intake: ***
+  Fluid intake: *** L/day
+  Urine output: [Adequate / decreased; *** mL/day if measured]
+  Dehydration episodes: [None / *** episodes requiring IV fluids]
+  Electrolytes: Na ***, K ***, Mg ***, Cr ***
+  Albumin: ***
+  Antidiarrheal use: [Loperamide dose, cholestyramine, other]
+
+REVERSAL CANDIDACY (if applicable)
+──────────────────────────────────
+  Time since index surgery: ***
+  Anastomotic integrity: [Contrast enema (date, result) /
+  Endoscopy (date, result) / Not yet assessed]
+  Oncologic clearance: [Y/N / N/A]
+  Nutritional status: [Adequate / needs optimization]
+  Medical fitness: [Cleared / concerns: ***]
+  Patient preference: [Desires reversal / undecided / declines]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. [Stoma type], s/p [index operation] on [date]
+     - Stoma function: [Good / high-output / problematic]
+     - [Management changes: appliance, antidiarrheals, diet]
+
+  2. [Peristomal complication, if applicable]
+     - [Treatment: barrier powder, steroid cream, WOC referral,
+       surgical revision]
+
+  3. [Reversal planning, if applicable]
+     - [Next steps: contrast study, nutritional optimization,
+       schedule reversal, pre-op testing]
+     - Anticipated reversal date: ***
+
+  4. Follow-up
+     - Return in [interval]
+     - WOC nurse follow-up: [date]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: surgical history, stoma type, output data, peristomal skin status, appliance details, nutritional status, labs, reversal candidacy testing, and patient concerns.]
+</PromptPlayground>
+
+### Anorectal surgery consultation
+
+Use this for patients presenting with hemorrhoids, anal fissure, fistula-in-ano, or other anorectal conditions for surgical evaluation. The note captures the anorectal examination in detail, prior conservative management, and surgical decision-making.
+
+<PromptPlayground tool="Claude" title="Anorectal Surgery Consultation">
+You are a colorectal surgeon writing a consultation note for a patient with an anorectal condition. Structure the note around anorectal examination findings, prior treatment, and surgical candidacy.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the anorectal exam in detail: inspection, DRE, anoscopy.
+- For hemorrhoids: document grade (I-IV) by column, symptoms, and failed conservative measures.
+- For fissure: document location (anterior, posterior, lateral), chronicity (acute vs chronic with sentinel tag/hypertrophied papilla), and prior treatments.
+- For fistula: document Parks classification (intersphincteric, transsphincteric, suprasphincteric, extrasphincteric), external opening location, internal opening location, prior procedures, continence status, MRI findings if complex.
+- For pilonidal disease: document location, recurrence history, wound healing.
+- Assess continence: Wexner score, sphincter integrity, prior obstetric history if relevant.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+ANORECTAL SURGERY CONSULTATION
+══════════════════════════════════════════
+
+CHIEF CONCERN
+─────────────
+***
+
+ANORECTAL HISTORY
+─────────────────
+  Diagnosis: ***
+  Duration: ***
+  Symptoms: [Bleeding (frequency, volume, on toilet paper/in
+  bowl/dripping), prolapse, pain (timing, severity), drainage,
+  pruritus, incontinence]
+  Prior treatments:
+    Conservative: [Fiber, sitz baths, topical agents (name,
+    duration, response)]
+    Procedural: [Banding, injection, sphincterotomy, seton,
+    fistulotomy, flap, LIFT, other (dates, outcomes)]
+  Obstetric history (if relevant): [Vaginal deliveries, tears,
+  episiotomy, sphincter injury]
+
+ANORECTAL EXAMINATION
+─────────────────────
+  Position: [Left lateral / prone jackknife]
+  External inspection:
+    Skin tags: [Y/N, location]
+    External hemorrhoids: [Y/N, location, thrombosed]
+    Fissure: [Y/N, location (clock position), acute vs chronic,
+    sentinel tag, hypertrophied papilla]
+    Fistula external opening(s): [Y/N, location (clock position,
+    distance from anal verge)]
+    Prolapse: [None / mucosal / full-thickness rectal / hemorrhoidal]
+    Perianal skin: [Healthy / excoriation / fungal / condylomata]
+
+  Digital rectal exam:
+    Resting tone: [Normal / decreased / increased]
+    Squeeze pressure: [Normal / weak / absent]
+    Masses: [None / palpable (location, size, fixation)]
+    Tenderness: [None / location]
+    Internal opening (fistula): [Palpable at *** o'clock / not
+    palpated]
+    Prostate (if male): ***
+    Blood on glove: [Y/N]
+
+  Anoscopy:
+    Internal hemorrhoids:
+      Right anterior column: [Grade I/II/III/IV]
+      Right posterior column: [Grade I/II/III/IV]
+      Left lateral column: [Grade I/II/III/IV]
+    Rectal mucosa: ***
+    Dentate line: ***
+    Other findings: ***
+
+HEMORRHOID CLASSIFICATION (if applicable)
+─────────────────────────────────────────
+  Grade I: [Bleeding without prolapse]
+  Grade II: [Prolapse with spontaneous reduction]
+  Grade III: [Prolapse requiring manual reduction]
+  Grade IV: [Irreducible prolapse]
+  Patient's grade: ***
+
+FISTULA CLASSIFICATION (if applicable)
+──────────────────────────────────────
+  Parks classification: [Intersphincteric / Transsphincteric /
+  Suprasphincteric / Extrasphincteric]
+  Complexity: [Simple / Complex]
+  External opening: *** o'clock, *** cm from verge
+  Internal opening: *** o'clock (Goodsall's rule correlation)
+  Horseshoe: [Y/N]
+  MRI pelvis (date): [Tract description, abscess, relationship
+  to sphincter]
+
+CONTINENCE ASSESSMENT
+─────────────────────
+  Wexner score: ***/20
+  Solid: [Normal / occasional / frequent incontinence]
+  Liquid: [Normal / occasional / frequent incontinence]
+  Gas: [Normal / occasional / frequent incontinence]
+  Pad use: [None / *** pads/day]
+
+IMAGING (if applicable)
+───────────────────────
+  MRI pelvis (fistula protocol): ***
+  Endoanal ultrasound: ***
+  Defecography: ***
+
+ASSESSMENT & PLAN
+─────────────────
+  1. [Anorectal diagnosis with classification]
+     - [Surgical recommendation: procedure, approach]
+     - [OR: Continue conservative management (specify)]
+     - Risks discussed: [procedure-specific risks including
+       incontinence risk for sphincter-involving procedures]
+
+  2. [Continence, if at risk]
+     - [Sphincter-preserving approach rationale]
+
+  3. Follow-up
+     - [Surgery scheduled / patient to decide / return in ***]
+     - Pre-op instructions: [bowel prep, NPO, antibiotics]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: anorectal symptoms, history, prior treatments, anorectal exam (inspection, DRE, anoscopy), continence status, MRI if fistula, and patient goals.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+61-year-old male with mid-rectal adenocarcinoma diagnosed on colonoscopy 10/25, biopsy confirmed moderately differentiated adenocarcinoma. Baseline MRI rectum 10/25: 4.2 cm tumor at 7 cm from anal verge, cT3b (extends 6 mm beyond muscularis propria), N1 (2 suspicious nodes in mesorectum), MRF clear by 3 mm, EMVI positive. Baseline CEA 8.4. MSI stable, KRAS wild-type. Completed total neoadjuvant therapy: 4 cycles FOLFOX followed by long-course chemoradiation (50.4 Gy in 28 fractions with concurrent capecitabine), finished 2/26. Restaging MRI 3/15/26: residual tumor 1.8 cm at 7 cm from verge, ymrT2, ymrN0, MRF clear by 8 mm, EMVI negative, mrTRG 2 (dense fibrosis with minimal residual tumor signal). CEA now 2.1. CT CAP 3/12/26: no metastatic disease. DRE today: palpable firm area at 7 cm, mobile, no fixation. Rigid proctoscopy: ulcerated area with surrounding fibrosis, no obvious residual mass, biopsied. Discussed at tumor board 3/20/26: recommendation for LAR with TME, diverting loop ileostomy, robotic-assisted. Patient understands and wants to proceed. Good functional status, BMI 26, no significant comorbidities. On ASA 81 mg, omeprazole 20 mg.
+
+**LLM output:**
+
+COLORECTAL SURGERY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Pre-operative consultation, post-neoadjuvant restaging
+Interval since last visit: 4 weeks
+
+CHIEF CONCERN
+─────────────
+Rectal cancer restaging after total neoadjuvant therapy (TNT); surgical planning
+
+COLORECTAL HISTORY
+──────────────────
+  Primary diagnosis: Mid-rectal adenocarcinoma, moderately differentiated
+  Timeline:
+    - 10/25: Colonoscopy, biopsy-confirmed adenocarcinoma at 7 cm from anal verge
+    - 10/25: Baseline MRI rectum: cT3bN1, MRF clear by 3 mm, EMVI positive
+    - 10/25-12/25: FOLFOX x 4 cycles
+    - 12/25-2/26: Long-course chemoradiation (50.4 Gy/28 fractions with capecitabine)
+    - 3/12/26: Restaging CT CAP: no metastatic disease
+    - 3/15/26: Restaging MRI rectum: ymrT2N0, significant response
+    - 3/20/26: Tumor board: recommend LAR with TME
+  Prior colorectal surgeries: None
+  Current anatomy: Intact colon and rectum
+
+INTERVAL HISTORY
+────────────────
+Patient completed TNT 4 weeks ago. He reports that rectal symptoms (bleeding, tenesmus) have resolved since completing radiation. He has 1-2 formed bowel movements daily without urgency or incontinence. No abdominal pain, nausea, or weight loss. Appetite is good. He experienced mild radiation proctitis symptoms (rectal urgency, mucus discharge) during treatment, which have resolved. No numbness, neuropathy, or other chemotherapy side effects persisting. He is motivated to proceed with surgery and understands the plan.
+
+CURRENT MEDICATIONS
+───────────────────
+  Aspirin 81 mg daily
+  Omeprazole 20 mg daily
+
+PHYSICAL EXAMINATION
+────────────────────
+  Vitals: BP 132/80, HR 68, SpO2 98% on RA. Weight 82 kg, BMI 26.
+  General: Well-appearing, good nutritional status, no acute distress.
+  Abdomen: Soft, nontender, nondistended. No masses. No hernia. No prior surgical scars.
+  Anorectal examination:
+    External inspection: Normal perianal skin, no fissures, fistulas, or hemorrhoids.
+    Digital rectal exam: Normal resting tone and squeeze. Palpable firm area at approximately 7 cm from anal verge, mobile, no fixation to surrounding structures. No circumferential involvement. Sphincter complex intact. No blood on glove.
+    Rigid proctoscopy: Ulcerated area with surrounding fibrosis at 7 cm from anal verge, occupying approximately 30% of circumference. No obvious exophytic residual mass. Biopsied. Scope advanced to 15 cm without additional pathology.
+
+RESTAGING RESULTS
+─────────────────
+  MRI Rectum (3/15/26)
+  ─────────────────────
+  Tumor size: 1.8 cm (baseline: 4.2 cm; 57% reduction)
+  ymrT stage: T2 (confined to muscularis propria; downstaged from cT3b)
+  ymrN stage: N0 (no suspicious nodes; downstaged from cN1)
+  MRF: Clear by 8 mm (baseline: 3 mm)
+  EMVI: Negative (baseline: positive)
+  mrTRG: 2 (dense fibrosis with minimal residual tumor signal)
+  Distance from anal verge: 7 cm
+
+  CT Chest/Abdomen/Pelvis (3/12/26): No pulmonary metastases. No liver metastases. No peritoneal disease. No distant lymphadenopathy.
+
+  CEA: 2.1 ng/mL (baseline 8.4, trending down)
+
+  Proctoscopy biopsy: Pending
+
+  DRE: Mobile firm area at 7 cm, no fixation.
+
+RESPONSE ASSESSMENT
+───────────────────
+  Clinical response: Major partial response
+  T downstaging: cT3b to ymrT2
+  N downstaging: cN1 to ymrN0
+  EMVI: Converted from positive to negative
+  MRF: Improved from 3 mm clearance to 8 mm clearance
+  mrTRG 2: Predominantly fibrotic with minimal residual tumor; favorable
+
+TUMOR BOARD
+───────────
+  Date discussed: 3/20/26
+  Recommendation: Proceed with surgical resection. Low anterior resection (LAR) with total mesorectal excision (TME) and diverting loop ileostomy. Sphincter-sparing resection is appropriate given tumor location at 7 cm, mobile on exam, no sphincter involvement. Watch-and-wait was discussed but not recommended given mrTRG 2 (not complete response) and residual palpable lesion.
+
+ASSESSMENT
+──────────
+61-year-old male with mid-rectal adenocarcinoma (original cT3bN1M0, EMVI positive) with excellent response to TNT, now restaged at ymrT2N0M0, EMVI negative, mrTRG 2. CEA has normalized from 8.4 to 2.1. Tumor at 7 cm from anal verge is amenable to sphincter-sparing resection with adequate distal margin. No evidence of metastatic disease. Good surgical candidate.
+
+  1. Rectal adenocarcinoma, ymrT2N0M0, s/p TNT with major partial response
+     Excellent oncologic response: T and N downstaging, EMVI conversion, MRF clearance improved. Surgical resection is indicated. Sphincter-sparing LAR with TME is appropriate.
+
+  2. Surgical planning
+     Robotic-assisted LAR with TME, diverting loop ileostomy. Stoma reversal anticipated at approximately 8-12 weeks post-operatively, contingent on anastomotic healing confirmation.
+
+PLAN
+────
+  1. Rectal cancer, proceed with surgical resection
+     - Robotic-assisted LAR with TME and diverting loop ileostomy
+     - Surgery scheduled for 4/10/26
+     - Pre-operative bowel prep: mechanical (GoLYTELY) plus oral antibiotics (neomycin/metronidazole) per enhanced recovery protocol
+     - Hold aspirin 7 days pre-operatively
+     - Stoma site marking by WOC nurse prior to surgery (appointment made)
+
+  2. Pre-operative optimization
+     - Pre-op labs: CBC, CMP, type and screen, PT/INR
+     - Prehabilitation: continue current activity level, high-protein diet
+     - DVT prophylaxis: enoxaparin post-operatively per ERAS protocol
+     - Pre-operative anesthesia evaluation scheduled
+
+  3. Post-operative plan
+     - Anticipate 3-5 day hospital stay per ERAS pathway
+     - Pathologic staging will determine need for adjuvant therapy
+     - Ileostomy reversal: plan contrast enema at 8 weeks; if anastomosis intact, schedule reversal at 10-12 weeks
+     - Surveillance: CEA q3 months, CT CAP q6 months, colonoscopy at 1 year
+
+  Follow-Up
+  ─────────
+  Pre-operative visit 4/3/26 for final review and consent.
+  Post-operative visit 2 weeks after discharge.
+  Return sooner for fever, abdominal pain, nausea/vomiting, or inability to tolerate diet.
+
+DISPOSITION
+───────────
+Patient counseled on surgical plan (LAR with TME, diverting ileostomy), expected recovery, stoma management, and long-term surveillance plan. He understands this is a sphincter-sparing procedure and that the ileostomy is temporary. Agrees with plan. Referred to WOC nurse for stoma site marking. Return precautions reviewed.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **MRF clearance drives surgical strategy.** A threatened mesorectal fascia (less than 1 mm clearance) may change the surgical approach or indicate the need for extended resection. The model documents the MRF distance you provide but will not independently recommend a change in operative plan based on it. If the MRF is close, annotate your plan explicitly.
+- **EMVI is prognostic, not just anatomic.** EMVI-positive rectal cancers have higher rates of distant recurrence. The model documents EMVI status, but the clinical implication (closer surveillance, consideration of adjuvant therapy) is your call.
+- **Wexner score interpretation needs context.** A score of 8 means different things to different patients. Someone who was previously fully continent (Wexner 0) and is now at 8 after surgery is having a materially different experience than someone with a pre-operative baseline of 6. Include the baseline if you have it.
+- **Stoma output thresholds matter.** An ileostomy producing more than 1,500 mL/day is a high-output stoma with dehydration risk. The model will flag this if you provide the volume, but it will not calculate dehydration risk from incomplete intake data. Provide both output and oral intake.
+- **Parks classification requires imaging for complex fistulas.** Classifying a fistula from exam alone risks underestimating the tract. If you have MRI data, include it; the model will integrate both. A transsphincteric fistula on MRI changes the surgical approach relative to a simple intersphincteric tract.
+- **CEA trends matter more than single values.** A CEA of 3.2 is normal, but a CEA that rose from 1.1 to 3.2 over 6 months is potentially concerning. Provide multiple data points with dates.
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) - for inpatient post-operative notes on colorectal surgery patients
+- [Procedure Note](/templates/procedure-note) - for documenting colonoscopy, hemorrhoidectomy, fistulotomy, or other procedures
+- [Consult Note](/templates/consult-note) - for inpatient colorectal surgery consultations
+- [Hematology/Oncology Clinic Visit](/templates/clinic-hematology-oncology) - for medical oncology co-management of colorectal cancer

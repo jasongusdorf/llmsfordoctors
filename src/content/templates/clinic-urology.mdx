@@ -1,0 +1,909 @@
+---
+title: "Urology Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, urology, surgical, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "Generates urology clinic notes around validated symptom scores, imaging, and laboratory surveillance: IPSS for BPH, PSA doubling time for prostate cancer, 24-hour urine for stone prevention planning."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Urology clinic notes are driven by scores and surveillance schedules that vary sharply by condition. A benign prostatic hyperplasia (BPH) note without an IPSS score is like a heart failure note without an ejection fraction. A prostate cancer surveillance note without PSA doubling time leaves the oncologist guessing. A kidney stone follow-up without 24-hour urine results misses the prevention opportunity. This template identifies the primary urological condition and structures the note around the disease-specific data that determines management: validated symptom scores, imaging, laboratory surveillance, and surgical candidacy. It covers BPH, prostate cancer, kidney stones, bladder cancer, erectile dysfunction, and hematuria workup.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Urology Clinic Visit Note">
+You are an outpatient urologist writing a clinic visit note after seeing a patient. The patient's primary urological condition is one of: benign prostatic hyperplasia (BPH), prostate cancer, kidney stones, bladder cancer, erectile dysfunction, or hematuria workup. Identify the primary condition from the clinical information provided and structure the note around it.
+
+### Purpose
+
+Generate a complete, structured outpatient urology clinic note from the clinical data below. The note must capture disease-specific symptom scores, imaging, laboratory data, surgical history, and a concrete management plan.
+
+### Rules
+
+- Write in past tense for history and prior events; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use (e.g., "International Prostate Symptom Score (IPSS)"), then abbreviation only thereafter.
+- Include specific numbers: PSA values with dates, stone dimensions, flow rates, symptom scores.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Organize the Assessment as a problem list with the primary urological condition first.
+- Plan items must be specific: drug name and dose, procedure name and approach, surveillance schedule, imaging order. Never write "consider surgical options" without naming the specific procedures being considered.
+- For BPH: document IPSS/AUASI score (total and subscores: storage vs voiding), uroflowmetry (Qmax, voided volume, flow pattern), post-void residual (PVR), prostate size (TRUS or MRI), medications tried with doses and response, and surgical options discussed.
+- For prostate cancer: document PSA trend (current, prior values, doubling time if applicable), Gleason score/Grade Group, clinical or pathological stage, treatment history (active surveillance, surgery, radiation, ADT), and post-treatment monitoring (PSA nadir, biochemical recurrence definition).
+- For kidney stones: document stone history (composition if known, sizes, locations, prior interventions), 24-hour urine results (calcium, oxalate, citrate, uric acid, sodium, volume, pH, supersaturation), current stone status on imaging, and metabolic prevention plan.
+- For bladder cancer: document pathology (grade, stage, muscle invasion), cystoscopy history (dates, findings), intravesical therapy (BCG or chemotherapy, course number, response), and imaging surveillance.
+- For hematuria: document type (gross vs microscopic), timing (initial, terminal, total), risk factors, and workup completeness (urinalysis, cytology, CT urogram, cystoscopy with dates and results).
+- For erectile dysfunction: document IIEF-5/SHIM score, etiology assessment (vascular, neurogenic, hormonal, psychogenic, medication-related), treatments tried with response, and testosterone level if checked.
+- Do not infer or fabricate any clinical information not provided. Write "[Not provided; verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "BPH" = benign prostatic hyperplasia
+- "IPSS" = International Prostate Symptom Score
+- "AUASI" = American Urological Association Symptom Index
+- "Qmax" = maximum urinary flow rate
+- "PVR" = post-void residual
+- "PSA" = prostate-specific antigen
+- "PSADT" = PSA doubling time
+- "TRUS" = transrectal ultrasound
+- "BCG" = Bacillus Calmette-Guerin
+- "TURBT" = transurethral resection of bladder tumor
+- "TURP" = transurethral resection of prostate
+- "IIEF" = International Index of Erectile Function
+- "SHIM" = Sexual Health Inventory for Men
+- "PDE5i" = phosphodiesterase type 5 inhibitor
+- "ADT" = androgen deprivation therapy
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+UROLOGY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[New consultation / Follow-up / Post-operative / Surveillance]
+Interval since last visit: [duration]
+Referring provider: ***
+
+CHIEF CONCERN
+─────────────
+***
+
+UROLOGICAL HISTORY
+──────────────────
+  Prior urological procedures:
+    - [Date]: [Procedure (TURP, TURBT, lithotripsy, prostatectomy,
+      cystoscopy, etc.), findings, complications]
+    - [Date]: [Procedure]
+  Prior urological conditions: ***
+
+DISEASE-SPECIFIC DATA
+─────────────────────
+
+  [FOR BPH:]
+  BPH Details
+  ───────────
+    Duration of symptoms: ***
+    IPSS/AUASI score: ***/35
+      Storage subscore: ***/15 (frequency, urgency, nocturia)
+      Voiding subscore: ***/20 (incomplete emptying, intermittency,
+        weak stream, straining)
+      Quality of life (QoL) score: ***/6
+    Uroflowmetry:
+      Qmax: *** mL/s [Normal: &gt;15 mL/s; obstructed: &lt;10 mL/s]
+      Voided volume: *** mL
+      Flow pattern: [Normal bell / Plateau / Intermittent]
+    Post-void residual (PVR): *** mL [Date]
+      [Elevated: &gt;200 mL concerning; &gt;300 mL significant retention]
+    Prostate size: *** grams/cc [Method: TRUS / MRI / DRE estimate]
+    PSA: *** ng/mL [Date] (to assess prostate volume and rule out cancer)
+    Medications tried:
+      Alpha-blocker: [Drug, dose, duration, response, side effects]
+      5-alpha reductase inhibitor (5-ARI): [Drug, dose, duration, response]
+      Tadalafil: [Dose, response]
+      Anticholinergic/beta-3 agonist: [If storage predominant; drug, dose]
+    Hematuria history: [None / Gross / Microscopic]
+    UTI history: [None / Recurrent (frequency)]
+    Urinary retention history: [None / Episodes (dates, catheterization)]
+
+  [FOR PROSTATE CANCER:]
+  Prostate Cancer Details
+  ───────────────────────
+    Diagnosis date: ***
+    PSA at diagnosis: *** ng/mL
+    Biopsy: [Date, method (TRUS / MRI-fusion / transperineal)]
+      Gleason score: *** (***+***)
+      Grade Group: ***
+      Cores positive: ***/*** total
+      Maximum core involvement: ***%
+      Perineural invasion: [Y/N]
+    MRI prostate: [Date, PI-RADS score, lesion location, EPE concern]
+    Clinical stage: T*** N*** M***
+    Risk group: [Very low / Low / Favorable intermediate / Unfavorable
+      intermediate / High / Very high]
+    PSA trend:
+      [Date]: *** ng/mL
+      [Date]: *** ng/mL
+      [Date]: *** ng/mL
+      PSA doubling time (PSADT): *** months [if applicable]
+    Treatment:
+      Active surveillance: [Start date, protocol, last biopsy, last MRI]
+      Surgery: [Date, type (open/robotic/laparoscopic RP), pathology
+        (Gleason, margins, stage, LN), post-op PSA nadir]
+      Radiation: [Date, type (EBRT/brachytherapy/SBRT), dose, post-RT
+        PSA nadir]
+      ADT: [Agent, start date, duration, current status]
+    Biochemical recurrence: [Definition used (post-RP: PSA ≥0.2 /
+      post-RT: nadir + 2.0), current status]
+    Metastatic workup: [Bone scan, CT, PSMA PET: dates and findings]
+
+  [FOR KIDNEY STONES:]
+  Kidney Stone Details
+  ────────────────────
+    Stone history:
+      First stone: [Age/year]
+      Total lifetime stone events: ***
+      Prior compositions: [Calcium oxalate / Calcium phosphate / Uric acid /
+        Struvite / Cystine]
+      Prior interventions:
+        - [Date]: [SWL / Ureteroscopy / PCNL / Medical expulsive therapy;
+          stone size, location, outcome]
+    Current stone status:
+      Imaging: [CT KUB / Renal US, date]
+        Stone(s): [Number, size (mm), location (calyx/renal pelvis/ureter/
+          UVJ), side]
+        Hydronephrosis: [None / Mild / Moderate / Severe]
+      Symptoms: [None (incidental) / Flank pain / Hematuria / UTI]
+    24-hour urine analysis: [Date]
+      Volume: *** mL/24h [Goal: &gt;2.5 L]
+      Calcium: *** mg/24h [Normal: &lt;300 male, &lt;250 female]
+      Oxalate: *** mg/24h [Normal: &lt;40]
+      Citrate: *** mg/24h [Normal: &gt;320]
+      Uric acid: *** mg/24h [Normal: &lt;800 male, &lt;750 female]
+      Sodium: *** mEq/24h [Goal: &lt;150]
+      pH: ***
+      Supersaturation: CaOx ***, CaP ***, UA ***
+    Dietary modifications: [Fluid intake, sodium restriction, protein
+      moderation, oxalate reduction]
+    Medications: [Potassium citrate / Thiazide / Allopurinol: dose, compliance]
+
+  [FOR BLADDER CANCER:]
+  Bladder Cancer Details
+  ──────────────────────
+    Diagnosis date: ***
+    Initial TURBT: [Date]
+      Pathology: [Histology (urothelial/squamous/adeno), grade (low/high),
+        stage (Ta/T1/T2+), CIS present Y/N]
+      Muscle in specimen: [Y/N]
+    Re-staging TURBT: [Date, if performed, pathology]
+    Risk group: [Low / Intermediate / High / Very high]
+    Intravesical therapy:
+      BCG: [Course number (induction, maintenance), dates, response]
+      Chemotherapy: [Agent (mitomycin/gemcitabine), dates]
+      BCG response: [Complete / Partial / Unresponsive / Relapsing]
+    Cystoscopy surveillance:
+      - [Date]: [Findings: NED / Recurrence (size, location, number)]
+      - [Date]: [Findings]
+    Cytology: [Date, result (negative / atypical / suspicious / positive)]
+    Upper tract imaging: [CT urogram, date, findings]
+    If muscle-invasive: [Neoadjuvant chemo, cystectomy discussion,
+      radiation, clinical trial]
+
+  [FOR HEMATURIA:]
+  Hematuria Workup Details
+  ────────────────────────
+    Type: [Gross / Microscopic (*** RBC/HPF)]
+    Timing: [Initial (urethral) / Terminal (bladder) / Total (upper tract)]
+    Duration: ***
+    Episodes: ***
+    Risk factors: [Smoking, occupational exposure, radiation, cyclophosphamide,
+      age &gt;40, prior GU cancer]
+    Workup completed:
+      Urinalysis: [Date, RBC ***, WBC ***, bacteria, protein]
+      Urine culture: [Date, result]
+      Cytology: [Date, result]
+      CT urogram: [Date, findings]
+      Renal ultrasound: [Date, findings, if CT not done]
+      Cystoscopy: [Date, findings]
+    Workup remaining: ***
+    Etiology identified: [Y/N; if Y: ***]
+
+  [FOR ERECTILE DYSFUNCTION:]
+  Erectile Dysfunction Details
+  ────────────────────────────
+    Duration: ***
+    Onset: [Gradual / Sudden]
+    IIEF-5/SHIM score: ***/25
+      [Severity: 22-25 normal, 17-21 mild, 12-16 mild-moderate,
+      8-11 moderate, 5-7 severe]
+    Etiology assessment:
+      Vascular: [Risk factors: HTN, DM, hyperlipidemia, smoking, PAD]
+      Neurogenic: [Spinal injury, MS, post-prostatectomy, diabetic neuropathy]
+      Hormonal: [Testosterone *** ng/dL (date), free T, LH, prolactin]
+      Psychogenic: [Performance anxiety, depression, relationship]
+      Medication-related: [Beta-blockers, SSRIs, finasteride, other]
+    Nocturnal/morning erections: [Present / Absent]
+    Treatments tried:
+      PDE5i: [Drug, dose, response (IIEF improvement), side effects]
+      Vacuum device: [Tried / Not tried, response]
+      Intracavernosal injection: [Drug (alprostadil/trimix), dose, response]
+      Intraurethral alprostadil: [Tried, response]
+    Partner status: ***
+    Penile prosthesis candidacy: [If refractory to all above]
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph: symptom changes, medication tolerance, voiding
+pattern, pain, hematuria episodes, sexual function changes, stones
+passed, interval procedures, hospitalizations.]
+
+CURRENT MEDICATIONS
+───────────────────
+  Urological medications: ***
+  Anticoagulants/Antiplatelets: ***
+  Other: ***
+  Allergies: ***
+
+VITAL SIGNS
+───────────
+  BP: ***
+  HR: ***
+  Weight: ***
+  BMI: ***
+
+PHYSICAL EXAMINATION
+────────────────────
+  Abdomen: [Suprapubic fullness/tenderness, CVA tenderness, masses]
+  Genitourinary:
+    DRE: [Prostate size (estimate in grams), consistency (smooth/nodular/
+      boggy), tenderness, symmetry, median sulcus]
+    External genitalia: [Normal / Findings: phimosis, meatal stenosis,
+      penile plaque, testicular mass, hydrocele, varicocele]
+    Testicular exam: [Bilateral, size, masses, tenderness]
+  Flank: [CVA tenderness]
+  Lower extremity: [Edema (relevant for venous stasis with pelvic pathology)]
+
+DIAGNOSTICS
+───────────
+  Labs:
+    PSA: *** ng/mL [Date, trend]
+    BMP: Na ***, K ***, Cr ***, BUN ***
+    UA: [WBC, RBC, bacteria, nitrites, leukocyte esterase]
+    Urine culture: ***
+    Urine cytology: ***
+    Testosterone: *** ng/dL [if checked]
+    Other: ***
+  Imaging: ***
+  Uroflowmetry/urodynamics: ***
+  Cystoscopy: ***
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [primary urological condition]
+presenting for [visit type]. [One-sentence trajectory statement.]
+
+  1. [Primary urological condition]
+     [Brief assessment: severity, trajectory, current management
+     adequacy, next step rationale.]
+
+  2. [Secondary condition]
+     [Brief assessment.]
+
+  3. [Other relevant conditions]
+     [Brief assessment.]
+
+PLAN
+────
+  1. [Primary urological condition]
+     - [Specific action: medication change (drug, dose), procedure
+       (name, approach, anesthesia), imaging order, lab order,
+       surveillance schedule]
+     - [Specific action]
+     - [Specific action]
+
+  2. [Secondary condition]
+     - [Specific action]
+
+  3. Surveillance/Monitoring
+     - Labs: [Specific tests, timing]
+     - Imaging: [Type, timing]
+     - Cystoscopy: [Next date, if applicable]
+
+  Follow-Up
+  ─────────
+  Return to urology clinic in [interval].
+  [Specific criteria for earlier return or ED visit.]
+
+DISPOSITION
+───────────
+[Patient counseled on ***, agrees with plan. Return precautions reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: chief complaint, urological history, disease-specific data (symptom scores, PSA, imaging, pathology, 24-hour urine), current medications, vitals, exam findings, and labs.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Female urology | Add: "This is a female patient with pelvic floor or voiding dysfunction. Include stress urinary incontinence assessment (pad count, cough stress test, urodynamics), pelvic organ prolapse staging (POP-Q), and overactive bladder symptom score." |
+| Pediatric urology | Add: "This is a pediatric patient. Adjust for age-appropriate conditions: vesicoureteral reflux grading, hydronephrosis (SFU grade), undescended testis, hypospadias. Include developmental considerations and parental counseling." |
+| Male infertility | Add: "This is an infertility evaluation. Include semen analysis parameters (volume, concentration, motility, morphology), hormonal panel (FSH, LH, testosterone, prolactin, estradiol), varicocele assessment, and genetic testing (karyotype, Y-microdeletion, CFTR)." |
+| Urodynamics interpretation | Add: "Include detailed urodynamic findings: filling cystometry (capacity, compliance, detrusor overactivity), voiding study (Pdet at Qmax, BCI, BOOI), and EMG findings. Interpret with clinical correlation." |
+| Oncology coordination | Add: "This patient is being co-managed with medical oncology. Include systemic therapy details (regimen, cycle, response by RECIST/PSA), radiation history, and multidisciplinary tumor board recommendations." |
+
+---
+
+## Variations
+
+### Prostate cancer active surveillance visit
+
+Use this for the patient with low-risk or favorable intermediate-risk prostate cancer on active surveillance. The note is organized around PSA kinetics, imaging changes, and biopsy timing, with the goal of detecting reclassification before it becomes clinically significant.
+
+<PromptPlayground tool="Claude" title="Prostate Cancer Active Surveillance">
+You are an outpatient urologist writing a clinic note for a prostate cancer patient on active surveillance. Structure the note around PSA kinetics, imaging findings, biopsy surveillance, and the continued candidacy for observation.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document PSA trend with all available values and dates. Calculate PSA doubling time if PSA is rising.
+- Document most recent MRI findings (PI-RADS score, lesion changes) and comparison to prior.
+- Document biopsy history: dates, Gleason scores, cores positive, maximum core involvement.
+- State the active surveillance protocol being followed (AUA, NCCN, institutional).
+- Specify triggers for recommending treatment: Gleason upgrade, increased tumor volume, PSA kinetics, patient preference.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+PROSTATE CANCER ACTIVE SURVEILLANCE VISIT
+══════════════════════════════════════════
+
+CANCER CHARACTERISTICS AT DIAGNOSIS
+────────────────────────────────────
+  Date of diagnosis: ***
+  PSA at diagnosis: *** ng/mL
+  Biopsy: [Date, method]
+    Gleason: *** (***+***), Grade Group ***
+    Cores positive: ***/***
+    Max core involvement: ***%
+    Perineural invasion: ***
+  MRI at diagnosis: [PI-RADS ***, lesion location and size]
+  Clinical stage: T*** N*** M***
+  Risk group: [Very low / Low / Favorable intermediate]
+
+SURVEILLANCE HISTORY
+────────────────────
+  Protocol: [AUA / NCCN / Institutional]
+  Duration on AS: *** [months/years]
+
+  PSA Trend
+  ─────────
+  Date          PSA (ng/mL)   PSA Density
+  ──────────    ───────────   ───────────
+  [Date]        ***           ***
+  [Date]        ***           ***
+  [Date]        ***           ***
+  PSADT: *** months [if applicable]
+
+  MRI Surveillance
+  ────────────────
+  - [Date]: [PI-RADS ***, lesion size, comparison]
+  - [Date]: [PI-RADS ***, lesion size, comparison]
+
+  Biopsy Surveillance
+  ────────────────────
+  - [Date]: [Gleason, cores, max involvement, upgrade Y/N]
+  - [Date]: [Gleason, cores, max involvement, upgrade Y/N]
+  Next biopsy due: ***
+
+INTERVAL HISTORY
+────────────────
+[Symptoms: LUTS, hematuria, bone pain, weight loss, anxiety about
+surveillance. Voiding function. Quality of life.]
+
+EXAMINATION
+───────────
+  DRE: [Size, consistency, nodularity, change from prior]
+
+LABS
+────
+  PSA: *** ng/mL [Date]
+  PSA density: *** [PSA / prostate volume]
+
+ASSESSMENT
+──────────
+[Summary: cancer characteristics, surveillance duration, PSA
+trajectory, imaging trajectory, biopsy history.]
+
+  Active surveillance candidacy: [Remains appropriate / Concerning
+    findings warrant discussion of treatment]
+  Triggers for treatment discussion:
+    - Gleason upgrade: [Not present / Present]
+    - Increased tumor volume: [Stable / Increased]
+    - PSA kinetics: [Stable / Concerning (PSADT &lt;3 years)]
+    - Patient preference: ***
+
+PLAN
+────
+  1. Active surveillance
+     - [Continue per protocol / Recommend confirmatory biopsy /
+       Recommend treatment discussion]
+     - PSA: Recheck in [interval]
+     - MRI: Next in [interval]
+     - Biopsy: Next scheduled [date/interval] [or: overdue, schedule]
+
+  2. [If treatment discussion:]
+     - Options presented: [Radical prostatectomy (robotic), radiation
+       (EBRT, brachytherapy, SBRT), focal therapy]
+     - Patient preference: ***
+     - Referral to radiation oncology: [Y/N]
+
+  3. LUTS management (if applicable)
+     - [Medications for concurrent BPH symptoms]
+
+  4. Follow-up
+     - Return in [interval]
+     - [Anxiety management, support resources if needed]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: diagnosis details, all PSA values with dates, MRI reports, biopsy history, DRE findings, voiding symptoms, medications.]
+</PromptPlayground>
+
+### Kidney stone prevention
+
+Use this for the recurrent stone former returning to review 24-hour urine results and optimize the metabolic prevention plan. The note is structured around the specific metabolic abnormalities identified and the targeted interventions for each.
+
+<PromptPlayground tool="Claude" title="Kidney Stone Prevention Visit">
+You are an outpatient urologist writing a clinic note for a patient with recurrent kidney stones returning for metabolic evaluation and prevention planning. Structure the note around 24-hour urine analysis, metabolic abnormalities, dietary modifications, and pharmacologic prevention.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document complete 24-hour urine results with normal ranges and supersaturation values.
+- Identify each metabolic abnormality and pair it with a specific intervention.
+- Document dietary compliance: fluid intake, sodium restriction, protein moderation, oxalate reduction.
+- Specify medication doses and targets. "Potassium citrate" alone is insufficient; include the dose (e.g., 20 mEq TID).
+- If on a repeat 24-hour urine, compare to the baseline collection to assess response to interventions.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+KIDNEY STONE PREVENTION VISIT
+══════════════════════════════════════════
+
+STONE HISTORY
+─────────────
+  Total lifetime events: ***
+  First stone: [Age/year]
+  Most recent event: [Date, intervention]
+  Known stone composition: ***
+  Prior interventions:
+    - [Date]: [Procedure, stone size, location, outcome]
+
+CURRENT STONE STATUS
+────────────────────
+  Imaging: [Modality, date]
+  Residual stones: [None / Size, location]
+  Symptoms: ***
+
+24-HOUR URINE ANALYSIS
+───────────────────────
+  Collection date: ***
+  Collection adequacy: [Creatinine *** mg/24h, expected for weight: ***]
+
+  Parameter          Result    Normal Range    Status
+  ─────────────      ──────    ────────────    ──────
+  Volume             *** mL    &gt;2500 mL       [Low / Adequate]
+  Calcium            *** mg    &lt;300 (M)       [Normal / Elevated]
+  Oxalate            *** mg    &lt;40 mg         [Normal / Elevated]
+  Citrate            *** mg    &gt;320 mg        [Normal / Low]
+  Uric acid          *** mg    &lt;800 (M)       [Normal / Elevated]
+  Sodium             *** mEq   &lt;150 mEq       [Normal / Elevated]
+  pH                 ***       5.8-6.2        [Acidic / Normal / Alkaline]
+  Phosphorus         *** mg    ***            [Normal / Elevated]
+  Magnesium          *** mg    ***            [Normal / Low]
+
+  Supersaturation
+  ───────────────
+  Calcium oxalate (CaOx SS): *** [Normal: &lt;8]
+  Calcium phosphate (CaP SS): *** [Normal: &lt;1]
+  Uric acid (UA SS): *** [Normal: &lt;1]
+
+  [If repeat collection, include comparison:]
+  Comparison to prior (date: ***)
+  ───────────────────────────────
+  [Parameter-by-parameter comparison showing improvement or worsening]
+
+METABOLIC ABNORMALITIES IDENTIFIED
+───────────────────────────────────
+  1. [Abnormality: Hypercalciuria / Hyperoxaluria / Hypocitraturia /
+     Hyperuricosuria / Low volume / High sodium / Low pH]
+     Intervention: ***
+
+  2. [Next abnormality]
+     Intervention: ***
+
+DIETARY ASSESSMENT
+──────────────────
+  Fluid intake: *** L/day [Goal: &gt;2.5 L to achieve &gt;2.5 L urine output]
+  Sodium: [Estimated intake from 24h Na, compliance with &lt;2300 mg/day]
+  Animal protein: [Estimated intake, compliance with moderation]
+  Oxalate: [High-oxalate foods identified and avoided: spinach, nuts,
+    chocolate, rhubarb, tea]
+  Calcium intake: [Dietary calcium adequate (1000-1200 mg/day);
+    NOT restricting dietary calcium]
+  Citrus: [Lemon water or citrus fruit consumption]
+
+CURRENT PREVENTION MEDICATIONS
+──────────────────────────────
+  [Drug, dose, duration, compliance, side effects]
+
+ASSESSMENT
+──────────
+[Summary: stone history, metabolic findings, response to prior
+interventions, remaining risk.]
+
+PLAN
+────
+  1. Metabolic correction
+     - [For each abnormality: specific dietary change or medication
+       with dose]
+     - [Example: "Hypocitraturia: Start potassium citrate 20 mEq
+       TID with meals. Target urine citrate &gt;320 mg/24h"]
+     - [Example: "Hypernatriuria: Reinforce sodium restriction
+       to &lt;2300 mg/day; current 24h sodium suggests intake of
+       ~4500 mg/day"]
+
+  2. Dietary counseling
+     - [Specific recommendations based on findings]
+     - Fluid goal: *** L/day
+
+  3. Stone management
+     - [If residual stones: observation vs intervention plan]
+
+  4. Monitoring
+     - Repeat 24-hour urine in [6-8 weeks after intervention change]
+     - Imaging: [Renal US or low-dose CT in *** months]
+     - Labs: BMP in *** weeks [if starting thiazide or citrate]
+
+  5. Follow-up
+     - Return with 24-hour urine results in [interval]
+     - [Symptoms requiring earlier return: acute flank pain, hematuria,
+       fever with flank pain (infected stone)]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: stone history with composition and dates, 24-hour urine results, current imaging, dietary habits, current medications, prior prevention attempts, labs.]
+</PromptPlayground>
+
+### BPH surgical consultation
+
+Use this when a patient with BPH has failed medical therapy and is being evaluated for surgical intervention. The note documents the medication failures, quantifies the obstruction, and frames the discussion around which procedure matches the patient's prostate size, anatomy, and goals.
+
+<PromptPlayground tool="Claude" title="BPH Surgical Consultation">
+You are an outpatient urologist writing a clinic note for a patient with BPH who has failed medical therapy and is being evaluated for surgical intervention. Structure the note around symptom severity, medical therapy failure, obstruction quantification, and surgical option selection.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document IPSS score with QoL component.
+- Document all failed medical therapies with doses, duration, and reason for failure (insufficient response, side effects, or both).
+- Include uroflowmetry and PVR.
+- Prostate size determines surgical approach: document the volume precisely.
+- Present surgical options with rationale for recommendation based on prostate size, anatomy, and patient goals (particularly regarding ejaculatory function and sexual side effects).
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+BPH SURGICAL CONSULTATION
+══════════════════════════════════════════
+
+SYMPTOM SEVERITY
+────────────────
+  IPSS/AUASI: ***/35
+    Storage: ***/15
+    Voiding: ***/20
+    QoL: ***/6 ("How would you feel if you spent the rest of your
+      life with your current urinary symptoms?")
+  Duration of LUTS: ***
+  Impact: [Nocturia (*** times), urgency episodes, social limitations,
+    sleep disruption]
+
+FAILED MEDICAL THERAPY
+──────────────────────
+  Alpha-blocker:
+    Drug: ***, dose: ***
+    Duration: ***
+    Response: [Partial / None / Initial then lost]
+    Side effects: [Dizziness, retrograde ejaculation, nasal congestion]
+    Reason stopped: ***
+
+  5-ARI:
+    Drug: ***, dose: ***
+    Duration: ***
+    Response: ***
+    Side effects: [ED, decreased libido, gynecomastia]
+    Reason stopped: ***
+
+  Combination therapy: [If tried: drugs, duration, response]
+
+  Tadalafil: [If tried: dose, response]
+
+  Anticholinergic/beta-3: [If tried for storage symptoms]
+
+OBSTRUCTION DATA
+────────────────
+  Uroflowmetry:
+    Qmax: *** mL/s
+    Voided volume: *** mL
+    Pattern: [Bell / Plateau / Intermittent]
+  PVR: *** mL
+  Urodynamics: [If performed: Pdet at Qmax, BOOI, BCI]
+  Cystoscopy: [If performed: prostatic urethral length, lateral lobe
+    enlargement, median lobe, bladder trabeculation, diverticula]
+
+PROSTATE ASSESSMENT
+───────────────────
+  Volume: *** grams/cc [Method: TRUS / MRI / Cystoscopy estimate]
+  Anatomy: [Lateral lobe enlargement / Median lobe / Intravesical
+    protrusion (IPP *** mm)]
+  PSA: *** ng/mL [to rule out cancer, assess volume]
+
+PATIENT GOALS
+─────────────
+  Primary concern: [Symptom relief / Avoid catheterization / Quality of life]
+  Ejaculatory function preservation: [Important / Not important]
+  Anesthesia preference: [General / Sedation / Local / No preference]
+  Recovery time concern: [Minimal downtime desired / Standard acceptable]
+
+SURGICAL OPTIONS DISCUSSED
+──────────────────────────
+  1. TURP (transurethral resection of prostate)
+     - Best for: Prostate 30-80 mL
+     - Efficacy: Gold standard, IPSS improvement 70-80%
+     - Retrograde ejaculation: 60-90%
+     - Catheter: 1-2 days. Recovery: 4-6 weeks.
+
+  2. GreenLight laser (PVP: photoselective vaporization)
+     - Best for: Prostate 30-80 mL, patients on anticoagulation
+     - Efficacy: Similar to TURP
+     - Retrograde ejaculation: 50-70%
+
+  3. HoLEP (holmium laser enucleation)
+     - Best for: Any size, especially &gt;80 mL
+     - Efficacy: Excellent, tissue for pathology
+     - Retrograde ejaculation: 75-90%
+
+  4. UroLift (prostatic urethral lift)
+     - Best for: Prostate 30-80 mL, no median lobe, preserves ejaculation
+     - Efficacy: Moderate (IPSS improvement ~40-50%)
+     - Retrograde ejaculation: &lt;1%
+     - Durability: May need retreatment at 5+ years
+
+  5. Rezum (water vapor therapy)
+     - Best for: Prostate 30-80 mL, can treat median lobe
+     - Efficacy: Moderate-good (IPSS improvement ~50%)
+     - Retrograde ejaculation: ~5%
+     - Full effect in 3-6 months
+
+  6. Aquablation
+     - Best for: Prostate 30-150 mL
+     - Efficacy: Comparable to TURP
+     - Retrograde ejaculation: Lower than TURP for larger prostates
+
+  7. Simple prostatectomy (robotic/open)
+     - Best for: Prostate &gt;100 mL
+     - Efficacy: Excellent, definitive
+
+  [Adjust list based on prostate size and patient-specific factors]
+
+RECOMMENDED PROCEDURE
+─────────────────────
+  Procedure: ***
+  Rationale: [Based on prostate size ***, anatomy (median lobe),
+    ejaculatory preservation preference, anticoagulation status]
+
+ASSESSMENT AND PLAN
+───────────────────
+  [Summary: BPH severity, failed medical therapy, recommended procedure.]
+
+  1. BPH surgical intervention
+     - Recommended: ***
+     - Pre-op requirements: [UA/culture, labs, discontinue ***,
+       cystoscopy if not done]
+     - Consent discussion: [Risks specific to procedure, expected
+       IPSS improvement, recovery timeline]
+     - Patient: [Wishes to proceed / Considering / Prefers different option]
+
+  2. Rule out prostate cancer
+     - PSA: *** [Reassuring / Warrants further workup before surgery]
+
+  3. Schedule
+     - Pre-op visit: ***
+     - Surgery target: ***
+
+  4. Follow-up
+     - Post-procedure: [First void trial, catheter removal plan]
+     - Return: [2 weeks for check, 3 months for uroflow/IPSS]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: LUTS history, IPSS score, medications tried with doses and response, uroflowmetry, PVR, prostate size, PSA, cystoscopy findings, patient preferences regarding ejaculatory function and recovery.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+71-year-old male with BPH on tamsulosin 0.4 mg daily for 3 years and finasteride 5 mg daily for 2 years. Symptoms worsening despite combination therapy. IPSS 22 (storage 9, voiding 13, QoL 5). Nocturia 4 times per night. Weak stream, straining, incomplete emptying. Tried adding tadalafil 5 mg daily for 6 months, minimal additional benefit. Uroflow: Qmax 7.2 mL/s, voided volume 185 mL, plateau pattern. PVR 120 mL. TRUS prostate volume 58 grams. Median lobe present on prior cystoscopy (8/25). PSA 2.1 (stable, down from 3.8 pre-finasteride). No hematuria. One episode of urinary retention 4 months ago requiring catheterization in ED, catheter removed after 3 days with successful void trial. DRE: smooth, enlarged, nontender, no nodules. Vitals: BP 128/74, HR 68. Meds: tamsulosin 0.4, finasteride 5, tadalafil 5 daily, lisinopril 20, atorvastatin 40, aspirin 81.
+
+**LLM output:**
+
+UROLOGY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Follow-up / Surgical consultation
+Interval since last visit: [Not provided; verify before signing]
+Referring provider: Self-referred (established patient)
+
+CHIEF CONCERN
+─────────────
+Worsening lower urinary tract symptoms (LUTS) despite maximal medical therapy for benign prostatic hyperplasia (BPH), with recent episode of urinary retention
+
+UROLOGICAL HISTORY
+──────────────────
+  Prior urological procedures:
+    - 8/2025: Cystoscopy (diagnostic); findings: median lobe intravesical protrusion, lateral lobe enlargement, no stricture, no bladder masses
+  Prior urological conditions: One episode acute urinary retention (4 months ago, catheterized in ED, catheter removed after 3 days, successful void trial)
+
+DISEASE-SPECIFIC DATA
+─────────────────────
+
+  BPH Details
+  ───────────
+    Duration of symptoms: Progressive over 5+ years
+    International Prostate Symptom Score (IPSS): 22/35 (severe)
+      Storage subscore: 9/15
+      Voiding subscore: 13/20
+      Quality of life (QoL): 5/6 ("mostly dissatisfied")
+    Uroflowmetry:
+      Maximum flow rate (Qmax): 7.2 mL/s (obstructed; normal &gt;15 mL/s)
+      Voided volume: 185 mL
+      Flow pattern: Plateau (consistent with obstruction)
+    Post-void residual (PVR): 120 mL
+    Prostate size: 58 grams (transrectal ultrasound (TRUS))
+    Prostate-specific antigen (PSA): 2.1 ng/mL (stable; down from 3.8 ng/mL pre-finasteride, consistent with 5-alpha reductase inhibitor (5-ARI) effect)
+    Cystoscopy (8/2025): Median lobe present with intravesical protrusion. Lateral lobe enlargement. No urethral stricture. No bladder tumors.
+    Medications tried:
+      Alpha-blocker: Tamsulosin 0.4 mg daily for 3 years; partial initial response, now insufficient
+      5-ARI: Finasteride 5 mg daily for 2 years; PSA decreased from 3.8 to 2.1, symptoms only partially improved
+      Tadalafil: 5 mg daily for 6 months; minimal additional benefit
+    Combination therapy: Triple therapy (tamsulosin + finasteride + tadalafil) for 6 months without adequate symptom control
+    Hematuria: None
+    UTI history: None
+    Urinary retention: One episode 4 months ago; catheterized in ED, successful void trial at 3 days
+
+INTERVAL HISTORY
+────────────────
+Patient reports persistent worsening of LUTS despite triple-drug therapy. His primary complaints are nocturia (4 times per night, severely disrupting sleep), weak stream, straining to void, and a sensation of incomplete emptying. He had one episode of acute urinary retention 4 months ago that required emergency department catheterization. The catheter was removed after 3 days, and he voided successfully. He denies dysuria, hematuria, and fever. He is frustrated with his quality of life and motivated to discuss surgical options. He reports no problems with erectile function and considers ejaculatory function less important than symptom relief.
+
+CURRENT MEDICATIONS
+───────────────────
+  Urological medications: Tamsulosin 0.4 mg daily, finasteride 5 mg daily, tadalafil 5 mg daily
+  Anticoagulants/Antiplatelets: Aspirin 81 mg daily
+  Other: Lisinopril 20 mg daily, atorvastatin 40 mg daily
+  Allergies: [Not provided; verify before signing]
+
+VITAL SIGNS
+───────────
+  BP: 128/74 mmHg
+  HR: 68 bpm
+  Weight: [Not provided; verify before signing]
+
+PHYSICAL EXAMINATION
+────────────────────
+  Abdomen: Soft, nontender, no suprapubic fullness or mass.
+  Genitourinary:
+    Digital rectal examination (DRE): Prostate smooth, symmetrically enlarged (estimated 55-60 grams consistent with TRUS), no nodularity, no tenderness, median sulcus partially effaced.
+    External genitalia: [Not provided; verify before signing]
+
+DIAGNOSTICS
+───────────
+  Labs: PSA 2.1 ng/mL (stable)
+  Uroflowmetry: Qmax 7.2 mL/s, voided volume 185 mL, plateau pattern
+  PVR: 120 mL
+  Cystoscopy (8/2025): As described above
+
+ASSESSMENT
+──────────
+71-year-old male with symptomatic BPH (IPSS 22, severe), obstructive uroflow (Qmax 7.2 mL/s), and a history of urinary retention, despite maximal medical therapy with tamsulosin, finasteride, and tadalafil for 6 months. The prostate measures 58 grams with a median lobe on cystoscopy. Medical therapy has been given an adequate trial and is insufficient. Surgical intervention is indicated.
+
+  1. BPH, refractory to medical therapy
+     IPSS 22 with QoL 5 reflects severe symptoms with significant quality-of-life impairment. Uroflow confirms obstruction (Qmax 7.2, plateau pattern). PVR 120 mL is elevated but not critically so. The prior retention episode is an additional indication for surgery. Prostate volume of 58 grams with a median lobe is amenable to TURP, GreenLight laser, HoLEP, or Aquablation. UroLift is relatively contraindicated by the presence of a median lobe. Rezum can treat median lobes but has a slower onset of effect.
+
+  2. PSA trajectory on finasteride
+     PSA decreased appropriately from 3.8 to 2.1 on finasteride (expected ~50% reduction). Adjusted PSA (2x) of 4.2 is still within the acceptable range for a 58-gram prostate. No concern for malignancy. No biopsy indicated.
+
+PLAN
+────
+  1. BPH surgical intervention
+     - Recommend transurethral resection of prostate (TURP) or GreenLight laser vaporization
+     - Rationale: 58-gram prostate with median lobe is well suited to either procedure. TURP provides tissue for pathology. Both offer durable relief with IPSS improvement of 70-80%. Patient reports ejaculatory preservation is not a priority, which removes the main advantage of UroLift or Rezum.
+     - Alternative discussed: HoLEP (excellent option, equivalent efficacy, longer learning curve); Rezum (possible but slower onset; patient prefers definitive result given prior retention); UroLift (relatively contraindicated with median lobe)
+     - Patient prefers TURP; wishes to proceed
+     - Risks discussed: retrograde ejaculation (65-75%), bleeding requiring transfusion (2-5%), urethral stricture (3-5%), urinary tract infection, TUR syndrome (rare with bipolar), re-treatment (5-10% at 10 years), incontinence (rare, 1%)
+     - Benefits: expected IPSS improvement to 5-10 range, Qmax improvement to greater than 15 mL/s, reduced retention risk
+
+  2. Pre-operative preparation
+     - Urine culture: order (must be negative before surgery)
+     - Labs: CBC, BMP, PT/INR within 30 days
+     - Continue aspirin 81 mg (acceptable for bipolar TURP)
+     - Discontinue finasteride and tadalafil (no longer needed if proceeding with surgery)
+     - Continue tamsulosin until surgery
+     - Anesthesia: spinal preferred
+
+  3. Follow-up
+     - Schedule TURP within 4-6 weeks
+     - Post-op: catheter removal at 1-2 days, void trial
+     - First post-op visit: 2 weeks
+     - Uroflow and IPSS reassessment: 3 months post-op
+
+DISPOSITION
+───────────
+Patient counseled on surgical options for BPH, TURP recommended and accepted. Risks, benefits, and alternatives discussed. Patient verbalizes understanding and wishes to proceed. Surgical scheduling referral placed. Return precautions reviewed.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **IPSS is the baseline, not the whole picture.** Two patients with IPSS 20 can have completely different symptom profiles. One may be driven by nocturia (storage), the other by weak stream (voiding). The model captures both the total score and the storage/voiding subscores, but the QoL score often matters most for surgical decision-making. An IPSS of 15 with a QoL of 5 is a surgical patient. An IPSS of 25 with a QoL of 2 may not be.
+- **PSA on 5-ARI needs adjustment.** Finasteride and dutasteride reduce PSA by approximately 50% after 6 months. The model notes this when a 5-ARI is in the medication list. If PSA is not dropping or is rising on a 5-ARI, the model flags this as potentially concerning. Always provide the pre-5-ARI baseline.
+- **Median lobe changes the surgical options.** UroLift is relatively contraindicated with a median lobe. Rezum can treat it. TURP, HoLEP, and GreenLight handle it well. The model uses cystoscopy findings to narrow the surgical options. If cystoscopy was not performed, the note will recommend it before finalizing a surgical plan.
+- **Prostate cancer active surveillance is anxiety management, too.** The model documents cancer kinetics, but many patients on surveillance struggle with the psychological burden of living with untreated cancer. If the patient expresses anxiety, provide that context so the note addresses it in the plan (more frequent monitoring, MRI for reassurance, support group referral).
+- **24-hour urine collection adequacy must be verified.** The creatinine excretion should match the patient's weight (15-20 mg/kg/day for women, 20-25 mg/kg/day for men). An under-collected sample will show falsely low values for calcium, oxalate, and citrate. The model flags collections that appear inadequate, but only if you provide the creatinine value and the patient's weight.
+- **Stone composition determines the prevention strategy.** Calcium oxalate stones get thiazide and citrate. Uric acid stones get alkalinization. Struvite stones need infection treatment. Cystine stones need high-volume fluids and tiopronin. If you do not know the composition, the model defaults to calcium oxalate (most common) but will flag the limitation.
+- **Bladder cancer surveillance intervals depend on risk group.** Low-risk Ta gets cystoscopy at 3 months, then at increasing intervals. High-risk T1 with carcinoma in situ gets cystoscopy every 3 months for 2 years. The model applies the correct surveillance schedule based on the risk group, but only if you provide the initial pathology (grade, stage, CIS status, muscle in specimen).
+
+---
+
+## Related
+
+- [Procedure Note](/templates/procedure-note) - for documenting urological procedures
+- [Post-Procedure Care](/templates/post-procedure-care) - for post-procedure discharge instructions
+- [Lab Interpretation](/templates/lab-interpretation) - for interpreting 24-hour urine and PSA results
+- [Referral Letter](/templates/referral-letter) - for patients being referred for urological evaluation

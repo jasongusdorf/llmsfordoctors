@@ -1,0 +1,903 @@
+---
+title: "Transplant Surgery Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, transplant-surgery, surgical, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "Builds transplant notes around immunosuppression trough levels with targets, graft function trends, rejection history, viral surveillance panels, donor-specific antibodies, and metabolic complications tracking."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Transplant clinic notes are medication notes. The tacrolimus trough that drifted from 8 to 12 after the patient started fluconazole, the mycophenolate dose reduction for GI intolerance that preceded a borderline rejection biopsy, the BK viral load that crept up when immunosuppression was too aggressive. These details live or die in the note. This template covers the six scenarios that fill most transplant surgery outpatient schedules: kidney transplant follow-up, liver transplant follow-up, graft rejection episodes, immunosuppression management, post-transplant malignancy screening, and living donor evaluation. The output format captures trough levels with target ranges, donor-specific antibody trends, viral surveillance panels, and the metabolic complications (new-onset diabetes, hypertension, dyslipidemia) that accumulate in every transplant patient over time.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Transplant Surgery Clinic Visit Note">
+You are an attending transplant surgeon writing an outpatient clinic visit note after seeing a transplant recipient or living donor candidate. The visit type is one of: kidney transplant follow-up, liver transplant follow-up, graft rejection management, immunosuppression adjustment, post-transplant malignancy screening, or living donor evaluation. Identify the visit type from the clinical information provided and structure the note around it.
+
+### Purpose
+
+Generate a complete, structured transplant surgery clinic note from the clinical data below. The note must capture transplant-specific data: immunosuppression regimen with trough levels, graft function trends, rejection history, viral surveillance, donor-specific antibodies, and metabolic complications.
+
+### Rules
+
+- Write in past tense for history and interval events; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use in the note (e.g., "donor-specific antibodies (DSA)"), then abbreviation only thereafter.
+- Include specific numbers for all values: trough levels with target ranges, viral loads, creatinine trends, liver function trends, DSA mean fluorescence intensity (MFI).
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Organize the Assessment as a problem list with graft function first.
+- Plan items must be specific and actionable: drug name, dose change, target level, lab timing, biopsy indication.
+- For kidney transplant: document creatinine trend, proteinuria, BK viral load, DSA, and biopsy results (Banff classification).
+- For liver transplant: document LFTs trend, biliary complications, hepatic artery patency, DSA, and biopsy results (rejection activity index (RAI)).
+- Document immunosuppression as a complete regimen: each drug, current dose, trough level, target range, and recent dose changes.
+- Document viral surveillance: CMV (viral load, prophylaxis, treatment), BK virus (kidney), EBV (PTLD risk), and opportunistic infection prophylaxis.
+- Document metabolic complications: new-onset diabetes after transplant (NODAT), hypertension, dyslipidemia, bone disease.
+- For living donor evaluation: document workup completion status, compatibility testing, surgical anatomy imaging.
+- Do not infer or fabricate any clinical information not provided. Write "[Not provided; verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "DSA" = donor-specific antibodies
+- "MFI" = mean fluorescence intensity
+- "NODAT" = new-onset diabetes after transplant
+- "PTLD" = post-transplant lymphoproliferative disorder
+- "CMV" = cytomegalovirus
+- "BKV" = BK polyomavirus
+- "EBV" = Epstein-Barr virus
+- "RAI" = rejection activity index
+- "DCD" = donation after circulatory death
+- "DBD" = donation after brain death
+- "CIT" = cold ischemia time
+- "ATG" = anti-thymocyte globulin
+- "CNI" = calcineurin inhibitor
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+TRANSPLANT SURGERY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[Routine follow-up / Rejection management / Immunosuppression
+adjustment / Donor evaluation / Post-transplant screening]
+Interval since last visit: [duration]
+Time since transplant: [duration]
+
+TRANSPLANT SUMMARY
+──────────────────
+  Organ: [Kidney / Liver / Kidney-pancreas / other]
+  Transplant date: ***
+  Donor type: [Living related / Living unrelated / Deceased
+  (DCD / DBD)]
+  Cold ischemia time: ***
+  Induction therapy: [ATG / Basiliximab / Alemtuzumab / None]
+  Delayed graft function: [Y/N]
+  Original disease: ***
+  Recurrence risk: [Low / Moderate / High; monitoring plan]
+
+INTERVAL HISTORY
+────────────────
+[Narrative paragraph covering events since last visit.
+Include: symptoms (fever, pain over graft, decreased urine
+output, jaundice, edema), medication adherence, infections,
+hospitalizations, dietary adherence, exercise, psychosocial.]
+
+IMMUNOSUPPRESSION REGIMEN
+─────────────────────────
+  Drug              Dose           Trough      Target Range
+  ──────────────────────────────────────────────────────────
+  Tacrolimus        *** mg BID     *** ng/mL   [***-*** ng/mL]
+  Mycophenolate     *** mg BID     [level if    [target if
+                                   checked]     applicable]
+  Prednisone        *** mg daily   N/A          N/A
+  [Other: sirolimus, everolimus, belatacept, azathioprine]
+
+  Recent dose changes: ***
+  Adherence: [Good / intermittent / poor; barriers: ***]
+  Drug interactions: [New medications affecting levels:
+  azoles, macrolides, calcium channel blockers, etc.]
+
+GRAFT FUNCTION
+──────────────
+
+  Kidney (if applicable)
+  ──────────────────────
+  Creatinine trend:
+    Today: *** mg/dL
+    Last visit (M/D/YY): ***
+    3 months ago: ***
+    6 months ago: ***
+    Baseline (best post-transplant): ***
+  eGFR: *** mL/min/1.73m2
+  Proteinuria: [None / *** mg/g Cr (UPCR) / *** mg/24hr]
+  Urine output: [Adequate / decreased]
+
+  Liver (if applicable)
+  ─────────────────────
+  LFT trend:
+    Today: AST *** / ALT *** / Alk phos *** / T.bili *** /
+    Albumin ***
+    Last visit (M/D/YY): AST *** / ALT *** / T.bili ***
+    Trend: [Stable / improving / worsening]
+  INR: ***
+  Hepatic artery: [Patent on last Doppler (date)]
+  Biliary: [No issues / stricture / leak / stent in place]
+
+REJECTION HISTORY
+─────────────────
+  Prior episodes: [None / list below]
+    - [Date]: [Type (cellular / antibody-mediated), Banff grade
+    (kidney) or RAI (liver), treatment, response]
+  Most recent biopsy: [Date, findings]
+
+DONOR-SPECIFIC ANTIBODIES
+─────────────────────────
+  Last tested: [M/D/YY]
+  DSA: [Negative / Positive]
+  [If positive: specificity (HLA class I/II), MFI values, trend]
+  PRA: ***%
+
+VIRAL SURVEILLANCE
+──────────────────
+  CMV
+  ───
+  Donor/Recipient status: D[+/-] / R[+/-]
+  Last viral load: [Undetectable / *** copies/mL] (M/D/YY)
+  Prophylaxis: [Valganciclovir *** mg, duration, completed /
+  ongoing]
+  Treatment history: [None / *** (dates, response)]
+
+  BK Virus (kidney transplant)
+  ────────────────────────────
+  Last viral load: [Undetectable / *** copies/mL] (M/D/YY)
+  Trend: [Stable / rising / falling]
+  BK nephropathy: [Y/N, biopsy confirmed]
+  Management: [Surveillance / IS reduction / cidofovir / IVIG]
+
+  EBV
+  ───
+  Donor/Recipient status: D[+/-] / R[+/-]
+  Last viral load: [Undetectable / *** copies/mL] (M/D/YY)
+  PTLD risk: [Low / High]
+
+INFECTION PROPHYLAXIS
+─────────────────────
+  Pneumocystis: [TMP-SMX / dapsone / atovaquone; duration]
+  CMV: [See above]
+  Fungal: [None / fluconazole / other]
+  Vaccinations: [Up to date / overdue (specify)]
+
+METABOLIC COMPLICATIONS
+───────────────────────
+  NODAT: [None / present (A1c ***, management: ***)]
+  Hypertension: [Controlled / uncontrolled; BP ***; agents: ***]
+  Dyslipidemia: [LDL ***, statin: ***]
+  Bone disease: [DEXA date, T-score, calcium, vitamin D,
+  bisphosphonate]
+  Gout: [Y/N, uric acid, management]
+
+POST-TRANSPLANT MALIGNANCY SCREENING
+─────────────────────────────────────
+  Skin: [Last dermatology exam (date), findings, sun protection
+  counseling]
+  Cervical/colorectal: [Up to date / overdue]
+  PTLD: [EBV monitoring (see above), symptoms review]
+  Other: ***
+
+SURGICAL SITE
+─────────────
+  Incision: [Well-healed / concerns]
+  Graft: [Non-tender, no bruit / tender / bruit]
+  Lymphocele: [None / present (size, symptomatic, management)]
+  Hernia: [None / present (location, plan)]
+
+PHYSICAL EXAMINATION
+────────────────────
+  Vitals: BP *** HR *** Wt *** kg (trend: ***)
+  General: ***
+  Cardiovascular: ***
+  Pulmonary: ***
+  Abdomen: ***
+  Extremities: [Edema, peripheral pulses]
+  Graft site: [see Surgical Site above]
+
+LABORATORY DATA
+───────────────
+  BMP: Na ***, K ***, Cr ***, BUN ***, Glucose ***,
+  CO2 ***, Ca ***
+  CBC: WBC ***, Hgb ***, Plt ***
+  LFTs: AST ***, ALT ***, Alk phos ***, T.bili ***,
+  Albumin ***
+  Tacrolimus trough: *** ng/mL (target: ***-***)
+  [Sirolimus/Everolimus trough: *** ng/mL if applicable]
+  Mycophenolate level: *** [if checked]
+  Mg: ***
+  Phosphorus: ***
+  A1c: *** [if diabetic]
+  Lipid panel: TC ***, LDL ***, HDL ***, TG ***
+  Urinalysis: ***
+  UPCR: ***
+  CMV viral load: ***
+  BK viral load: ***
+  DSA: ***
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] s/p [organ] transplant ([donor
+type]) on [date] ([time since transplant]), on [immunosuppression
+regimen], presenting for [visit type].
+
+  1. Graft function
+     [Brief assessment: stable / declining / improving; trajectory.]
+
+  2. Immunosuppression
+     [Trough level status, dose adjustments needed, adherence.]
+
+  3. [Rejection / Infection / Complication, if applicable]
+     [Brief assessment.]
+
+  4. Metabolic complications
+     [NODAT, HTN, dyslipidemia status.]
+
+PLAN
+────
+  1. Graft function
+     - [Specific action: continue monitoring / biopsy indicated /
+       imaging ordered]
+
+  2. Immunosuppression
+     - [Dose change: "Increase tacrolimus from *** to *** mg BID,
+       target trough ***-***"]
+     - [OR: "Continue current regimen, trough at target"]
+     - Recheck trough: [date]
+
+  3. [Rejection / Infection management]
+     - [Treatment: pulse steroids, ATG, plasmapheresis, IVIG,
+       antiviral dose, IS reduction]
+
+  4. Viral surveillance
+     - CMV viral load: [Repeat in *** weeks]
+     - BK viral load: [Repeat in *** weeks]
+     - [Prophylaxis changes]
+
+  5. Metabolic management
+     - [NODAT: A1c recheck, medication adjustment]
+     - [HTN: medication adjustment, BP target]
+     - [Dyslipidemia: statin dose]
+     - [Bone health: DEXA, vitamin D]
+
+  6. Screening
+     - [Dermatology referral, age-appropriate cancer screening]
+
+  Follow-Up
+  ─────────
+  Return in [interval].
+  Labs before next visit: [date, tests]
+  [Criteria for earlier return: fever, decreased urine output,
+  graft tenderness, significant weight gain.]
+
+DISPOSITION
+───────────
+[Patient counseled on ***, agrees with plan.
+Return precautions reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: transplant details, time since transplant, immunosuppression with trough levels, interval history, graft function labs (creatinine trend or LFTs trend), rejection history, viral loads (CMV, BK, EBV), DSA, metabolic data, exam findings, and any complications.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Early post-transplant (&lt;3 months) | Add: "This is an early post-transplant visit. Emphasize graft function trajectory, immunosuppression optimization, surgical site healing, and infection prophylaxis. Include more frequent lab monitoring schedule." |
+| Rejection workup | Add: "This patient is being evaluated for possible rejection. Document the clinical suspicion, biopsy results with Banff classification, treatment plan, and response monitoring schedule." |
+| Living donor evaluation | Remove the transplant summary, rejection, and viral surveillance sections. Add: "This is a living donor evaluation. Document completed workup (labs, imaging, crossmatch, GFR, CT angiography for surgical anatomy), psychosocial evaluation, and remaining steps before clearance." |
+| Pancreas transplant | Add: "This is a simultaneous pancreas-kidney or pancreas after kidney transplant. Include pancreatic graft function (C-peptide, glucose, amylase, lipase), enteric or bladder drainage status, and insulin independence." |
+| Pediatric transplant | Add: "This is a pediatric transplant recipient. Include growth chart percentiles, developmental milestones, school attendance, medication administration by caregiver, and transition planning if adolescent." |
+
+---
+
+## Variations
+
+### Kidney transplant routine follow-up
+
+Use this for stable kidney transplant recipients at routine follow-up visits. Centers on creatinine stability, immunosuppression levels, viral surveillance, and long-term metabolic management.
+
+<PromptPlayground tool="Claude" title="Kidney Transplant Routine Follow-Up">
+You are a transplant surgeon writing a routine follow-up note for a stable kidney transplant recipient. Structure the note around graft function, immunosuppression adequacy, viral monitoring, and metabolic health.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document creatinine trend with at least 3 prior values and dates.
+- Document tacrolimus trough with target range appropriate to time since transplant.
+- Document BK and CMV viral loads with trends.
+- Document proteinuria (UPCR or 24-hour) if checked.
+- Document NODAT, HTN, and lipid management.
+- Include vaccination status and age-appropriate cancer screening.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+KIDNEY TRANSPLANT FOLLOW-UP
+══════════════════════════════════════════
+
+TRANSPLANT DATA
+───────────────
+  Date: ***
+  Donor: [Living / Deceased (DCD/DBD)]
+  Induction: ***
+  Time since transplant: ***
+  Original disease: ***
+  Baseline creatinine (best): ***
+
+GRAFT FUNCTION
+──────────────
+  Creatinine today: *** (eGFR: ***)
+  Creatinine trend:
+    M/D/YY: ***    M/D/YY: ***    M/D/YY: ***
+  Proteinuria (UPCR): ***
+  Urinalysis: ***
+  Assessment: [Stable / improving / declining]
+
+IMMUNOSUPPRESSION
+─────────────────
+  Tacrolimus: *** mg BID, trough *** ng/mL (target: ***-***)
+  Mycophenolate: *** mg BID
+  Prednisone: *** mg daily [or steroid-free]
+  Adherence: ***
+  Recent changes: ***
+
+VIRAL MONITORING
+────────────────
+  BK viral load: *** (M/D/YY) [trend: ***]
+  CMV viral load: *** (M/D/YY) [trend: ***]
+  EBV: *** (if monitored)
+  Prophylaxis: [TMP-SMX ***, valganciclovir *** (if applicable)]
+
+DSA
+───
+  Last checked: ***
+  Result: ***
+
+METABOLIC
+─────────
+  NODAT: [None / A1c ***, management: ***]
+  BP: *** (target &lt;130/80; agents: ***)
+  LDL: *** (statin: ***)
+  Uric acid: *** (gout management: ***)
+  Vitamin D: ***    Calcium: ***
+  DEXA: [date, T-score]
+
+SCREENING
+─────────
+  Dermatology: [Last exam date]
+  Colonoscopy: [Last date, next due]
+  [Age/sex-appropriate: mammography, pap, PSA]
+  Vaccinations: [Up to date / overdue]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. Kidney allograft, [stable/declining], *** months/years
+     post-transplant
+     - [Continue current regimen / adjust]
+     - [If declining: differential (rejection, BK, recurrent
+       disease, CNI toxicity), workup plan]
+
+  2. Immunosuppression
+     - [Dose adjustment or continue]
+     - Recheck trough: [date]
+
+  3. Viral surveillance
+     - [BK: continue monitoring q*** months / reduce IS if rising]
+     - [CMV: discontinue monitoring / continue]
+
+  4. Metabolic management
+     - [Specific adjustments]
+
+  5. Follow-up
+     - Return in [interval]
+     - Pre-visit labs: [date, tests]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: transplant details, creatinine trend, tacrolimus trough, immunosuppression regimen, BK/CMV viral loads, DSA, metabolic labs, screening status, and interval history.]
+</PromptPlayground>
+
+### Post-transplant rejection management
+
+Use this for patients with suspected or confirmed graft rejection. The note captures the clinical presentation, biopsy findings, treatment response, and immunosuppression adjustment.
+
+<PromptPlayground tool="Claude" title="Post-Transplant Rejection Management">
+You are a transplant surgeon writing a clinic note for a transplant recipient with suspected or confirmed graft rejection. Structure the note around rejection diagnosis, treatment, and response monitoring.
+
+### Rules
+
+- Write in past tense for history and treatment; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the presentation that prompted rejection workup: creatinine rise (kidney), LFT elevation (liver), symptoms.
+- Document biopsy findings: Banff classification (kidney) or RAI (liver), with specific grades.
+- Classify rejection: acute cellular (T-cell mediated) vs antibody-mediated (AMR); grade/severity.
+- Document DSA: specificity, MFI, de novo vs pre-existing, trend.
+- Document treatment: pulse steroids, ATG, plasmapheresis, IVIG, rituximab, bortezomib.
+- Document response: graft function trend post-treatment.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+TRANSPLANT REJECTION MANAGEMENT
+══════════════════════════════════════════
+
+TRANSPLANT DATA
+───────────────
+  Organ: ***    Date: ***    Donor: ***
+  Time since transplant: ***
+  Prior rejection episodes: [None / *** (dates, types, treatments)]
+
+REJECTION EPISODE
+─────────────────
+  Presentation date: ***
+  Clinical trigger: [Creatinine rise from *** to *** /
+  LFT elevation / symptoms / routine biopsy finding]
+  Symptoms: ***
+
+BIOPSY FINDINGS
+───────────────
+  Date: ***
+  Type: [Protocol / For-cause]
+
+  Kidney (Banff Classification):
+    Acute T-cell mediated rejection: [Grade: IA / IB / IIA / IIB / III]
+    Antibody-mediated rejection: [Active / Chronic active]
+    Tubulitis (t): ***    Interstitial inflammation (i): ***
+    Intimal arteritis (v): ***    Glomerulitis (g): ***
+    Peritubular capillaritis (ptc): ***    C4d: ***
+    Interstitial fibrosis (ci): ***    Tubular atrophy (ct): ***
+    BK nephropathy: [Y/N, stage]
+    Other: ***
+
+  Liver (RAI):
+    Portal inflammation: ***/3
+    Bile duct damage: ***/3
+    Venous endothelialitis: ***/3
+    Total RAI: ***/9
+    Other: [Plasma cell infiltrate, central perivenulitis,
+    chronic ductopenia]
+
+DONOR-SPECIFIC ANTIBODIES
+─────────────────────────
+  Pre-rejection DSA: ***
+  Current DSA: [Specificity, Class I/II, MFI]
+  De novo: [Y/N]
+  Trend: ***
+
+TREATMENT
+─────────
+  [List all treatments administered with dates, doses:]
+  Pulse methylprednisolone: [Dose x days, dates]
+  ATG: [Dose, days, dates]
+  Plasmapheresis: [Number of sessions, dates]
+  IVIG: [Dose, dates]
+  Rituximab: [Dose, date]
+  Other: ***
+  Maintenance IS adjustments: [Changes made]
+
+RESPONSE
+────────
+  Graft function trend post-treatment:
+    [Date]: Cr *** / LFTs ***
+    [Date]: Cr *** / LFTs ***
+    [Date]: Cr *** / LFTs ***
+  DSA trend post-treatment: ***
+  Repeat biopsy (if performed): [Date, findings]
+  Assessment: [Complete response / Partial response /
+  No response / Ongoing treatment]
+
+CURRENT IMMUNOSUPPRESSION
+─────────────────────────
+  [Updated regimen with doses and trough levels]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. [Rejection type and grade], [response status]
+     - [Continue treatment / taper / escalate]
+     - [Repeat biopsy: timing and indication]
+     - [DSA monitoring: frequency]
+
+  2. Graft function
+     - [Target creatinine / LFT recovery]
+     - Monitoring frequency: ***
+
+  3. Immunosuppression adjustment
+     - [New target trough levels]
+     - [Drug changes with rationale]
+
+  4. Infection risk
+     - [Increased IS = increased infection risk; prophylaxis
+       adjustments]
+
+  5. Follow-up
+     - Return in [interval]
+     - Labs: [frequency, tests]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: transplant details, rejection presentation, biopsy findings with Banff/RAI grading, DSA results, treatment administered, graft function trend, current immunosuppression, and complications.]
+</PromptPlayground>
+
+### Living donor evaluation
+
+Use this for potential living donors (kidney or liver) undergoing pre-donation workup. The note documents completed and pending evaluations, compatibility testing, surgical anatomy, and donor clearance status.
+
+<PromptPlayground tool="Claude" title="Living Donor Evaluation">
+You are a transplant surgeon writing a clinic note for a potential living donor (kidney or liver). Structure the note around workup completion, donor safety, compatibility, and surgical planning.
+
+### Rules
+
+- Write in past tense for completed evaluations; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document the relationship to recipient and motivation for donation.
+- Organize the workup as a checklist with completed and pending items.
+- Document GFR (measured, not estimated) for kidney donors.
+- Document CT angiography findings: number of renal arteries, vascular anatomy, kidney size, laterality decision.
+- Document compatibility: ABO, crossmatch, HLA typing, DSA.
+- Document contraindications screening: malignancy, infection, renal disease, hepatic disease, cardiovascular risk.
+- Include psychosocial evaluation and independent donor advocate assessment.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+LIVING DONOR EVALUATION
+══════════════════════════════════════════
+
+DONOR INFORMATION
+─────────────────
+  Age: ***    Sex: ***
+  Relationship to recipient: ***
+  Organ offered: [Left kidney / Right kidney / Left lateral
+  lobe (liver)]
+  Motivation: ***
+  BMI: ***
+
+RECIPIENT INFORMATION (brief)
+─────────────────────────────
+  Original disease: ***
+  Time on waitlist: ***
+  Current dialysis: [Y/N, type, duration]
+
+COMPATIBILITY TESTING
+─────────────────────
+  ABO: Donor *** / Recipient ***
+  Compatibility: [ABO compatible / incompatible (desensitization
+  plan)]
+  Crossmatch: [Negative / Positive (specify)]
+  HLA typing: [Donor: ***, Recipient: ***]
+  DSA: [Negative / Positive (specify, MFI)]
+  Number of mismatches: *** (A: ***, B: ***, DR: ***)
+
+MEDICAL WORKUP
+──────────────
+  Status: [Complete / In progress (***% complete)]
+
+  Completed:                          Result
+  ──────────────────────────────────────────
+  CBC:                                ***
+  CMP:                                ***
+  Urinalysis:                         ***
+  24-hour urine (protein, Cr clearance): ***
+  GFR (measured, nuclear):            *** mL/min
+  Fasting glucose / A1c:              ***
+  Lipid panel:                        ***
+  Coagulation:                        ***
+  Infectious screening:
+    HIV:                              ***
+    Hepatitis B (sAg, sAb, cAb):     ***
+    Hepatitis C:                      ***
+    CMV IgG:                          ***
+    EBV IgG:                          ***
+    RPR:                              ***
+    TB (QuantiFERON):                 ***
+  Malignancy screening:
+    Age-appropriate (mammogram, pap,
+    colonoscopy, PSA):                ***
+  Cardiac:
+    EKG:                              ***
+    [Stress test if indicated]:       ***
+    [Echo if indicated]:              ***
+  Pulmonary:
+    CXR:                              ***
+    [PFTs if indicated]:              ***
+
+  Pending:
+  ────────
+  [List incomplete items]
+
+SURGICAL ANATOMY
+────────────────
+  CT angiography (date: ***):
+    Left kidney: *** cm, *** renal artery(ies), *** renal vein(s)
+    Right kidney: *** cm, *** renal artery(ies), *** renal vein(s)
+    Vascular variants: ***
+    Urologic variants: ***
+    Other findings: ***
+  Planned donor side: [Left / Right]
+  Rationale: ***
+
+PSYCHOSOCIAL EVALUATION
+───────────────────────
+  Independent donor advocate: [Completed / pending]
+  Psychosocial evaluation: [Completed / pending]
+  Findings: ***
+  Coercion screening: [No concerns / concerns identified]
+  Financial impact discussed: [Y/N]
+  Recovery expectations discussed: [Y/N]
+
+CONTRAINDICATION SCREENING
+───────────────────────────
+  Absolute contraindications: [None identified / specify]
+  Relative contraindications: [None identified / specify:
+  obesity, HTN, DM, nephrolithiasis, single kidney history,
+  malignancy history, psychiatric concerns]
+
+ASSESSMENT & PLAN
+─────────────────
+  1. Living donor candidacy
+     - Status: [Cleared / Not yet cleared (pending items) /
+       Not a candidate (reason)]
+     - [Pending items to complete before clearance]
+
+  2. Surgical planning (if cleared)
+     - Procedure: [Laparoscopic donor nephrectomy, side]
+     - Anticipated date: ***
+     - Pre-operative: [Blood typing confirmed, crossmatch
+       confirmed, anesthesia evaluation]
+
+  3. Follow-up
+     - [If cleared: pre-op visit date]
+     - [If pending: return when workup complete]
+     - [If declined: reason documented, donor notified, advocate
+       informed]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: donor demographics, recipient relationship, ABO/crossmatch/HLA data, lab results, imaging (CT angiography), GFR, psychosocial evaluation, and any pending workup items.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+54-year-old male, s/p deceased donor kidney transplant (DBD) 6 months ago for ESRD secondary to IgA nephropathy. Induction with basiliximab. Maintenance: tacrolimus 3 mg BID (trough today 7.2, target 6-8), mycophenolate 1000 mg BID, prednisone 5 mg daily. Baseline creatinine 1.1 at 2 months post-transplant. Creatinine trend: 1.1 (9/25), 1.2 (12/25), 1.3 (2/26), 1.3 today (3/27/26). eGFR 58. UPCR 0.15. CMV D+/R-, completed 6 months valganciclovir prophylaxis last month, CMV viral load undetectable. BK viral load undetectable x 3 checks. DSA negative. No rejection episodes. A1c 6.1 (NODAT managed with metformin 500 BID). BP 138/82 on amlodipine 5 and lisinopril 10. LDL 118 on atorvastatin 20. He feels well, exercising 3x/week. No symptoms. Incision well-healed. Graft nontender. No edema. Labs: Na 140, K 4.6, BUN 22, Cr 1.3, glucose 112, Ca 9.4, Mg 1.8, phos 3.2, WBC 5.8, Hgb 12.4, plt 210, AST 24, ALT 28, albumin 4.0. Vaccinations up to date. Dermatology exam 2 months ago, no concerns.
+
+**LLM output:**
+
+TRANSPLANT SURGERY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Routine follow-up
+Interval since last visit: 2 months
+Time since transplant: 6 months
+
+TRANSPLANT SUMMARY
+──────────────────
+  Organ: Kidney
+  Transplant date: 9/25
+  Donor type: Deceased (DBD)
+  Cold ischemia time: [Not provided; verify before signing]
+  Induction therapy: Basiliximab
+  Delayed graft function: No
+  Original disease: End-stage renal disease (ESRD) secondary to IgA nephropathy
+  Recurrence risk: Moderate; monitoring with UPCR and creatinine trend. Biopsy if unexplained creatinine rise or increasing proteinuria.
+
+INTERVAL HISTORY
+────────────────
+Patient reports feeling well. No fevers, graft site pain, decreased urine output, hematuria, or edema. He is exercising 3 times per week without limitation. Appetite is good. Medication adherence is excellent; he has not missed doses. He completed 6 months of valganciclovir prophylaxis last month without difficulty. He continues metformin for new-onset diabetes after transplant (NODAT), with good glucose control. No infections, hospitalizations, or ED visits since last visit.
+
+IMMUNOSUPPRESSION REGIMEN
+─────────────────────────
+  Drug              Dose            Trough       Target Range
+  ──────────────────────────────────────────────────────────────
+  Tacrolimus        3 mg BID        7.2 ng/mL    6-8 ng/mL
+  Mycophenolate     1000 mg BID     Not checked   N/A
+  Prednisone        5 mg daily      N/A           N/A
+
+  Recent dose changes: None
+  Adherence: Good; no missed doses reported
+  Drug interactions: None
+
+GRAFT FUNCTION
+──────────────
+  Creatinine today: 1.3 mg/dL
+  eGFR: 58 mL/min/1.73m2
+  Creatinine trend:
+    9/25 (2 months post): 1.1
+    12/25 (3 months post): 1.2
+    2/26 (5 months post): 1.3
+    3/27/26 (6 months post): 1.3
+  Baseline (best post-transplant): 1.1
+  Proteinuria (UPCR): 0.15 (non-nephrotic, stable)
+  Assessment: Mild upward drift from 1.1 to 1.3 over 4 months, now stable at 1.3 for 2 months. eGFR 58. No acute rise. Possible calcineurin inhibitor (CNI) nephrotoxicity, subclinical rejection, or early IgA recurrence. Current trajectory warrants monitoring; biopsy threshold is further rise above 1.5 or accelerating trend.
+
+REJECTION HISTORY
+─────────────────
+  Prior episodes: None
+
+DONOR-SPECIFIC ANTIBODIES
+─────────────────────────
+  Last tested: 3/27/26
+  DSA: Negative
+
+VIRAL SURVEILLANCE
+──────────────────
+  CMV: D+/R-. Completed 6 months valganciclovir prophylaxis (3/26). Last CMV viral load: Undetectable (3/27/26). Now in post-prophylaxis surveillance window (highest risk for late-onset CMV disease in D+/R- recipients).
+  BK virus: Last viral load: Undetectable (3/27/26). Three consecutive undetectable results.
+  EBV: [Not provided; verify before signing]
+
+INFECTION PROPHYLAXIS
+─────────────────────
+  Pneumocystis: TMP-SMX [dose not provided; verify before signing]
+  CMV: Valganciclovir prophylaxis completed. Entering surveillance phase.
+  Fungal: None
+
+METABOLIC COMPLICATIONS
+───────────────────────
+  NODAT: Present. A1c 6.1 on metformin 500 mg BID. Well controlled.
+  Hypertension: BP 138/82 on amlodipine 5 mg daily and lisinopril 10 mg daily. Above target (&lt;130/80). Requires uptitration.
+  Dyslipidemia: LDL 118 mg/dL on atorvastatin 20 mg daily. Above goal (&lt;100 for transplant recipients). Requires statin intensification.
+  Bone disease: [DEXA and vitamin D level not provided; verify before signing]
+  Gout: No history.
+
+POST-TRANSPLANT MALIGNANCY SCREENING
+─────────────────────────────────────
+  Skin: Dermatology exam 1/26, no concerns. Next in 12 months.
+  Colorectal: [Not provided; verify before signing]
+  Vaccinations: Up to date.
+
+SURGICAL SITE
+─────────────
+  Incision: Well-healed, no concerns.
+  Graft: Nontender on palpation, no bruit.
+  Lymphocele: None.
+  Hernia: None.
+
+PHYSICAL EXAMINATION
+────────────────────
+  Vitals: BP 138/82, HR [Not provided; verify before signing], Wt [Not provided; verify before signing]
+  General: Well-appearing, alert, comfortable.
+  Cardiovascular: [Not provided; verify before signing]
+  Abdomen: Soft, nontender. Graft nontender. Incision well-healed.
+  Extremities: No edema.
+
+LABORATORY DATA
+───────────────
+  BMP: Na 140, K 4.6, Cr 1.3, BUN 22, Glucose 112, CO2 [Not provided; verify before signing], Ca 9.4
+  CBC: WBC 5.8, Hgb 12.4, Plt 210
+  LFTs: AST 24, ALT 28, Albumin 4.0
+  Tacrolimus trough: 7.2 ng/mL (target: 6-8)
+  Mg: 1.8
+  Phos: 3.2
+  A1c: 6.1
+  UPCR: 0.15
+  CMV viral load: Undetectable
+  BK viral load: Undetectable
+  DSA: Negative
+
+ASSESSMENT
+──────────
+54-year-old male s/p deceased donor (DBD) kidney transplant (9/25) for ESRD secondary to IgA nephropathy, 6 months post-transplant, on tacrolimus/mycophenolate/prednisone with trough at target. Graft function shows mild creatinine drift from baseline 1.1 to current 1.3, now stable for 2 months. DSA negative, no rejection history, BK undetectable. NODAT well controlled. Blood pressure and LDL above target.
+
+  1. Kidney allograft function, stable with mild drift from baseline
+     Creatinine 1.3 (baseline 1.1), eGFR 58, stable for 2 months. Low-level proteinuria (UPCR 0.15). No acute rejection signals. Differential for drift includes CNI nephrotoxicity, subclinical rejection, or early IgA recurrence. Tacrolimus trough at target. Will monitor closely; biopsy if further rise.
+
+  2. Immunosuppression, at target
+     Tacrolimus trough 7.2 (target 6-8). Regimen appropriate for 6 months post-transplant.
+
+  3. CMV, entering post-prophylaxis surveillance
+     D+/R- pair with completed prophylaxis. Highest risk period for late-onset disease is the next 3-6 months.
+
+  4. NODAT, controlled
+     A1c 6.1 on metformin.
+
+  5. Hypertension and dyslipidemia, above target
+     BP 138/82 on 2 agents. LDL 118 on moderate-intensity statin.
+
+PLAN
+────
+  1. Graft function monitoring
+     - Continue current immunosuppression regimen (tacrolimus 3 mg BID, mycophenolate 1000 mg BID, prednisone 5 mg)
+     - Recheck creatinine, BMP, UPCR in 6 weeks
+     - If creatinine rises above 1.5 or accelerating upward trend, will obtain kidney allograft biopsy to evaluate for subclinical rejection, BK nephropathy, or IgA recurrence
+
+  2. Immunosuppression
+     - Continue tacrolimus 3 mg BID; trough at target (7.2, goal 6-8)
+     - Recheck trough at next visit
+     - Will begin discussing mycophenolate taper and tacrolimus target reduction at 12 months post-transplant if clinically stable
+
+  3. CMV surveillance
+     - Weekly CMV viral load for the next 4 weeks (post-prophylaxis high-risk window), then monthly for 3 months
+     - If CMV viremia detected: threshold for pre-emptive treatment is greater than 1,000 copies/mL or rising trend
+
+  4. BK virus
+     - Continue monitoring every 3 months; currently undetectable x 3
+
+  5. Hypertension
+     - Increase lisinopril from 10 mg to 20 mg daily (also provides proteinuria benefit)
+     - Recheck BP in 4 weeks; target &lt;130/80
+     - Continue amlodipine 5 mg
+
+  6. Dyslipidemia
+     - Increase atorvastatin from 20 mg to 40 mg daily (target LDL &lt;100)
+     - Recheck lipid panel in 6 weeks
+     - Note: monitor for statin-tacrolimus interaction; no dose adjustment expected at atorvastatin 40 mg
+
+  7. NODAT
+     - Continue metformin 500 mg BID; A1c at goal
+     - Recheck A1c in 3 months
+
+  8. Screening
+     - Dermatology: next annual exam in approximately 10 months
+     - Colonoscopy: verify up to date; schedule if overdue
+
+  Follow-Up
+  ─────────
+  Return in 6 weeks with labs (BMP, tacrolimus trough, UPCR, CMV viral load, lipid panel).
+  CMV viral load weekly x 4 weeks starting now (results to be reviewed remotely).
+  Return sooner for fever, decreased urine output, graft pain, significant weight gain, or dark urine.
+
+DISPOSITION
+───────────
+Patient counseled on CMV post-prophylaxis surveillance, importance of reporting fevers or decreased urine output, lisinopril and statin dose increases, and continued medication adherence. Agrees with plan. Return precautions reviewed.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **Tacrolimus trough timing matters.** The trough should be drawn 12 hours after the last dose, immediately before the next dose. A level drawn at the wrong time is uninterpretable. The model documents the number you give it; if the draw timing was off, the plan will be based on a misleading value.
+- **BK viremia is not BK nephropathy.** Low-level viremia (under 10,000 copies/mL) does not necessarily mean the graft is being damaged. Biopsy is needed to confirm BK nephropathy. The model documents both viral load and biopsy findings, but it will not conflate them unless you do.
+- **CMV D+/R- is the highest-risk combination.** These patients need extended prophylaxis and aggressive post-prophylaxis surveillance. If you provide the donor/recipient serostatus, the model will flag the risk level. If you omit it, the note will lack this critical context.
+- **DSA trends, not single values.** A single DSA result of "negative" is reassuring but does not capture a patient who was DSA-positive 3 months ago and cleared. Provide the trend if you have it.
+- **Creatinine drift is not the same as acute rejection.** A slow rise from 1.1 to 1.3 over 4 months has a different differential than a jump from 1.1 to 2.0 in a week. The model will frame the trajectory appropriately if you give it multiple data points with dates. A single creatinine value without context invites overreaction.
+- **NODAT management affects the graft.** Tacrolimus itself causes NODAT. The model documents A1c and management, but the decision about whether to reduce tacrolimus to help glucose control (at the cost of rejection risk) is yours.
+- **Vaccination in transplant patients has rules.** Live vaccines (MMR, varicella, zoster live) are contraindicated. Inactivated vaccines should be given before transplant when possible. The model will not check vaccine type; verify that any vaccine you document or order is appropriate for an immunosuppressed patient.
+
+---
+
+## Related
+
+- [SOAP Progress Note](/templates/progress-note-soap) - for inpatient notes on transplant recipients during admission
+- [Consult Note](/templates/consult-note) - for initial transplant surgery consultations
+- [Lab Interpretation](/templates/lab-interpretation) - for detailed workup of graft dysfunction labs
+- [Medication Reconciliation](/templates/medication-reconciliation) - critical for the complex immunosuppression regimens in transplant patients

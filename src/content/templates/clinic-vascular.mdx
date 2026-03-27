@@ -1,0 +1,845 @@
+---
+title: "Vascular Surgery Clinic Visit"
+category: note-writing
+targetTool: claude
+tags: [intermediate, note-writing, clinic, vascular-surgery, surgical, outpatient]
+lastUpdated: 2026-03-27
+socialPost: "Structures vascular clinic notes around hemodynamic data: ABI, duplex velocities, aneurysm diameters, and surveillance intervals that drive operative decisions across PAD, carotid disease, AAA, venous disease, and access problems."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Vascular surgery clinic notes are built on hemodynamic data that other surgical subspecialties do not use. An ankle-brachial index changes the plan. A duplex velocity determines whether a dialysis fistula is ready. An AAA growth rate of 5 mm in 6 months means an operation; 2 mm in 12 months means a repeat scan. This template identifies the primary vascular condition and organizes the note around the specific measurements, imaging, and risk factors that drive vascular surgical decisions. It covers peripheral arterial disease, carotid stenosis, abdominal aortic aneurysm, varicose veins and chronic venous insufficiency, dialysis access, and mesenteric ischemia.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Claude" title="Vascular Surgery Clinic Visit Note">
+You are an outpatient vascular surgeon writing a clinic visit note after seeing a patient. The patient's primary vascular condition is one of: peripheral arterial disease (PAD), carotid stenosis, abdominal aortic aneurysm (AAA), varicose veins or chronic venous insufficiency (CVI), dialysis access, or mesenteric ischemia. Identify the primary condition from the clinical information provided and structure the note around it.
+
+### Purpose
+
+Generate a complete, structured outpatient vascular surgery clinic note from the clinical data below. The note must capture disease-specific hemodynamic measurements, imaging, vascular examination findings, risk factor management, and a concrete operative or surveillance plan.
+
+### Rules
+
+- Write in past tense for history and prior events; present tense for current status and plan.
+- Use medical abbreviations with expansion on first use (e.g., "ankle-brachial index (ABI)"), then abbreviation only thereafter.
+- Include specific numbers: ABI values, duplex velocities, aneurysm diameters, stenosis percentages, wound dimensions.
+- Reference dates in the format M/D/YY (e.g., 3/15/26).
+- Organize the Assessment as a problem list with the primary vascular condition first.
+- Plan items must be specific: procedure name, approach, graft type, surveillance interval, risk factor target. Never write "revascularization may be needed" without specifying what procedure, what approach, and what the indication is.
+- For PAD: document Rutherford classification, ABI (resting and post-exercise), claudication distance (in blocks or meters), tissue loss description (Wagner grade if applicable), and prior interventions with patency status.
+- For carotid: document stenosis percentage (NASCET criteria), symptomatic vs asymptomatic, timing of symptoms, contralateral status, and candidacy for carotid endarterectomy (CEA) vs carotid artery stenting (CAS).
+- For AAA: document current diameter, prior measurements with dates (growth rate calculation), morphology (infrarenal, juxtarenal, suprarenal), and repair threshold with anatomic suitability for endovascular aneurysm repair (EVAR) vs open.
+- For venous disease: document CEAP classification, duplex findings (reflux duration, perforator incompetence), and treatment history (compression, ablation, sclerotherapy).
+- For dialysis access: document access type, maturation status, flow rate, complications (stenosis, thrombosis, steal syndrome), and duplex surveillance findings.
+- For mesenteric ischemia: document symptom pattern (postprandial pain, weight loss, food fear), duplex velocities (celiac, SMA, IMA), and CTA findings.
+- Risk factor modification is part of every vascular note: smoking cessation status, statin therapy, antiplatelet therapy, diabetes control, exercise program.
+- Do not infer or fabricate any clinical information not provided. Write "[Not provided; verify before signing]" for missing data.
+- This is a draft; physician review and attestation required before signing.
+
+### Vocabulary
+
+- Use "patient" instead of "pt"
+- "s/p" = status post
+- "ABI" = ankle-brachial index
+- "PAD" = peripheral arterial disease
+- "AAA" = abdominal aortic aneurysm
+- "EVAR" = endovascular aneurysm repair
+- "CEA" = carotid endarterectomy
+- "CAS" = carotid artery stenting
+- "CVI" = chronic venous insufficiency
+- "CEAP" = Clinical-Etiology-Anatomy-Pathophysiology (venous classification)
+- "AVF" = arteriovenous fistula
+- "AVG" = arteriovenous graft
+- "SMA" = superior mesenteric artery
+- "PSV" = peak systolic velocity
+- "EDV" = end-diastolic velocity
+- Use all abbreviations provided in the input without expanding them
+
+### Output format
+
+```
+VASCULAR SURGERY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+[New consultation / Follow-up / Post-operative / Surveillance]
+Interval since last visit: [duration]
+Referring provider: ***
+
+CHIEF CONCERN
+─────────────
+***
+
+VASCULAR SURGICAL HISTORY
+─────────────────────────
+  Prior vascular procedures:
+    - [Date]: [Procedure (bypass, angioplasty, stent, endarterectomy,
+      EVAR, access creation), details, patency status]
+    - [Date]: [Procedure]
+  Current grafts/stents: [Location, type, last assessed patency]
+
+DISEASE-SPECIFIC DATA
+─────────────────────
+
+  [FOR PAD:]
+  Peripheral Arterial Disease Details
+  ────────────────────────────────────
+    Rutherford classification: [0-6]
+      0: Asymptomatic
+      1: Mild claudication
+      2: Moderate claudication
+      3: Severe claudication
+      4: Ischemic rest pain
+      5: Minor tissue loss
+      6: Major tissue loss
+    Claudication: [Distance: *** blocks/meters, limiting muscle group,
+      time to onset, rest relief time]
+    Rest pain: [Y/N, location, positional (dependent relief)]
+    ABI:
+      Right: *** (resting), *** (post-exercise)
+      Left: *** (resting), *** (post-exercise)
+      [If ABI &gt;1.4: noncompressible, obtain toe pressures]
+    Toe pressures: [If obtained: R ***, L ***]
+    Pulse volume recordings: [If obtained: waveform description by level]
+    Duplex ultrasound: [Date, stenosis location, PSV, EDV]
+    CTA/MRA: [Date, runoff assessment by vessel]
+      Aortoiliac: ***
+      Femoral: ***
+      Popliteal: ***
+      Tibial (AT, PT, peroneal): ***
+    Prior interventions:
+      - [Date]: [Procedure, target vessel, patency at last check]
+    Tissue loss (if Rutherford 5-6):
+      Location: ***
+      Size: *** x *** cm
+      Depth: ***
+      Wagner grade: ***
+      Wound base: [Granulation / Slough / Necrotic / Exposed tendon or bone]
+      Infection: [None / Cellulitis / Osteomyelitis suspected]
+
+  [FOR CAROTID STENOSIS:]
+  Carotid Disease Details
+  ───────────────────────
+    Symptomatic: [Yes (TIA/stroke/amaurosis fugax) / No]
+      If symptomatic: [Event type, date, territory, imaging confirmation]
+      Time from last event: ***
+    Duplex ultrasound: [Date]
+      Right ICA: PSV *** cm/s, EDV *** cm/s, ICA/CCA ratio ***
+        Stenosis estimate: ***% (NASCET criteria)
+      Left ICA: PSV *** cm/s, EDV *** cm/s, ICA/CCA ratio ***
+        Stenosis estimate: ***%
+    CTA/MRA: [Date, findings, plaque morphology]
+    Contralateral carotid: [Patent / Stenosis ***% / Occluded]
+    Vertebral arteries: ***
+    Intracranial: [If CTA head obtained: circle of Willis patency]
+    Intervention candidacy:
+      CEA: [Candidate / Not candidate: reason (hostile neck, radiation,
+        prior CEA, high bifurcation)]
+      CAS: [Candidate / Not candidate: reason (tortuous arch, heavy
+        calcification, age &gt;70)]
+
+  [FOR AAA:]
+  Abdominal Aortic Aneurysm Details
+  ──────────────────────────────────
+    Current diameter: *** cm [Date, modality (CT/US)]
+    Prior measurements:
+      - [Date]: *** cm
+      - [Date]: *** cm
+    Growth rate: *** cm/year
+    Morphology: [Fusiform / Saccular]
+    Location: [Infrarenal / Juxtarenal / Suprarenal / Thoracoabdominal]
+    Neck: [Length *** mm, diameter *** mm, angulation *** degrees,
+      thrombus, calcification]
+    Iliac arteries: [Diameter R *** cm, L *** cm; aneurysmal Y/N]
+    Access vessels: [Femoral/iliac diameter, calcification, tortuosity]
+    EVAR anatomic suitability: [Suitable / Hostile anatomy: specify]
+    Repair threshold: [5.5 cm (male) / 5.0 cm (female) / Rapid growth
+      &gt;0.5 cm/6 months / Symptomatic]
+
+  [FOR VENOUS DISEASE:]
+  Venous Disease Details
+  ──────────────────────
+    CEAP classification: C*** E*** A*** P***
+    Symptoms: [Pain, heaviness, swelling, skin changes, ulceration]
+    Duplex venous ultrasound: [Date]
+      Great saphenous vein (GSV): [Competent / Reflux *** seconds,
+        diameter *** mm]
+      Small saphenous vein (SSV): [Competent / Reflux]
+      Deep veins: [Competent / Reflux / Post-thrombotic changes]
+      Perforators: [Competent / Incompetent (location)]
+    DVT history: [None / Date, location, treatment]
+    Venous ulcer (if present):
+      Location: ***
+      Size: *** x *** cm
+      Duration: ***
+      Compression therapy: [Type, compliance]
+    Prior venous interventions: [Ablation, stripping, sclerotherapy,
+      with dates and response]
+
+  [FOR DIALYSIS ACCESS:]
+  Dialysis Access Details
+  ───────────────────────
+    Access type: [AVF / AVG / Tunneled catheter]
+    Location: [Radiocephalic / Brachiocephalic / Brachiobasilic /
+      Thigh (loop) / specify graft configuration]
+    Creation date: ***
+    Maturation status: [Mature / Immature, duration since creation]
+    Current use: [In use / Not yet cannulated]
+    Flow rate on dialysis: *** mL/min
+    Venous pressure on dialysis: ***
+    Duplex surveillance: [Date]
+      Access flow: *** mL/min
+      Inflow: [PSV, stenosis]
+      Outflow: [PSV, stenosis]
+      Juxta-anastomotic: [PSV, stenosis]
+    Complications:
+      Stenosis: [None / Location, degree]
+      Thrombosis: [History: dates, interventions]
+      Steal syndrome: [None / Symptoms: digital ischemia, pain during dialysis]
+      Aneurysm/pseudoaneurysm: [None / Location, size]
+      Infection: [None / History]
+    Prior access interventions:
+      - [Date]: [Fistulogram, angioplasty, thrombectomy, revision]
+
+  [FOR MESENTERIC ISCHEMIA:]
+  Mesenteric Vascular Details
+  ───────────────────────────
+    Symptom pattern: [Postprandial pain (onset *** min after eating,
+      duration), food fear, weight loss (*** lbs over ***)]
+    Mesenteric duplex: [Date]
+      Celiac: PSV ***, EDV ***
+      SMA: PSV ***, EDV ***
+      IMA: PSV ***, EDV ***
+    CTA/MRA: [Date, mesenteric vessel findings]
+    Nutritional status: [Albumin ***, prealbumin ***, BMI ***]
+
+RISK FACTOR MANAGEMENT
+──────────────────────
+  Smoking: [Never / Former (quit date) / Current (*** pack-years)]
+    Cessation: [Counseled / On pharmacotherapy / Refuses / Quit *** ago]
+  Statin: [Drug, dose, LDL ***]
+  Antiplatelet: [Aspirin / Clopidogrel / Dual / None]
+  Anticoagulation: [None / Warfarin / DOAC (indication)]
+  Diabetes: [None / A1c ***, management]
+  Hypertension: [BP target, current BP, medications]
+  Supervised exercise: [Enrolled / Not enrolled / Completed, distance improvement]
+
+VITAL SIGNS
+───────────
+  BP: [Both arms if carotid/subclavian concern]
+  HR: ***
+  Weight: ***
+  BMI: ***
+  SpO2: ***
+
+PHYSICAL EXAMINATION
+────────────────────
+  Vascular exam:
+    Pulses (graded 0-3):
+      Carotid: R ***, L ***
+      Brachial: R ***, L ***
+      Radial: R ***, L ***
+      Femoral: R ***, L ***
+      Popliteal: R ***, L ***
+      Dorsalis pedis (DP): R ***, L ***
+      Posterior tibial (PT): R ***, L ***
+    Bruits: [Carotid / Femoral / Abdominal: present/absent]
+    Capillary refill: ***
+    Skin: [Color, temperature, hair loss, trophic changes, dependent rubor,
+      elevation pallor]
+  Wound exam (if applicable):
+    Location: ***
+    Size: *** x *** x *** cm
+    Base: [Granulation / Slough / Necrotic / Tendon / Bone]
+    Edges: [Epithelializing / Undermined / Macerated]
+    Drainage: [None / Serous / Purulent]
+    Surrounding skin: [Cellulitis / Stasis dermatitis / Lipodermatosclerosis]
+    Offloading: [Device type, compliance]
+  Access exam (dialysis):
+    Thrill: [Present / Absent]
+    Bruit: [Continuous / Systolic only / Absent]
+    Augmentation: [Normal / Absent]
+    Aneurysm: [None / Location, size]
+    Arm/hand: [Warm / Cool, capillary refill, digit color]
+  Abdominal: [Pulsatile mass, tenderness, bruit]
+  Lower extremity: [Edema, stasis changes, varicosities (distribution)]
+
+DIAGNOSTICS
+───────────
+  Labs: ***
+  Vascular lab studies: ***
+  Imaging: ***
+
+ASSESSMENT
+──────────
+[Age]-year-old [male/female] with [primary vascular condition]
+presenting for [visit type]. [One-sentence trajectory statement.]
+
+  1. [Primary vascular condition]
+     [Brief assessment: severity/classification, hemodynamic status,
+     symptom trajectory, surgical indication or surveillance rationale.]
+
+  2. [Secondary vascular condition]
+     [Brief assessment.]
+
+  3. Risk factor modification
+     [Status of smoking cessation, statin, antiplatelet, exercise, diabetes.]
+
+PLAN
+────
+  1. [Primary vascular condition]
+     - [Specific action: schedule surgery (procedure, approach, graft type),
+       order surveillance imaging, continue conservative management
+       (compression, exercise program), wound care plan]
+     - [Specific action]
+     - [Specific action]
+
+  2. [Secondary condition]
+     - [Specific action]
+
+  3. Risk factor modification
+     - Smoking: [Cessation counseling/pharmacotherapy/documented abstinence]
+     - Statin: [Drug, dose, LDL target &lt;70 for PAD]
+     - Antiplatelet: [Regimen]
+     - Exercise: [Supervised program enrollment, prescription]
+     - Diabetes: [A1c target, optimization]
+
+  Surveillance Imaging
+  ────────────────────
+  [Next duplex/CT/US: date, interval, indication]
+
+  Wound Care (if applicable)
+  ──────────────────────────
+  [Dressing type, change frequency, offloading, compression,
+  wound care nurse referral]
+
+  Follow-Up
+  ─────────
+  Return to vascular surgery clinic in [interval].
+  [Criteria for earlier return or ED visit.]
+
+DISPOSITION
+───────────
+[Patient counseled on ***, agrees with plan. Return precautions reviewed.]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste de-identified clinical data: chief complaint, vascular history, disease-specific data (ABI, duplex, CT, aneurysm measurements), risk factors, current medications, vitals, vascular exam findings, wound description, and labs.]
+</PromptPlayground>
+
+---
+
+## How to customize
+
+| Element | How to Adjust |
+|---------|---------------|
+| Wound care focus | Add: "This patient has a chronic vascular wound. Emphasize wound characteristics (dimensions, tissue type, infection signs), perfusion assessment (ABI, toe pressures, TcPO2), offloading strategy, and wound healing trajectory with comparison to prior visit." |
+| Vascular lab interpretation | Add: "Include detailed interpretation of the vascular lab findings: waveform morphology (triphasic, biphasic, monophasic), segmental pressures by level, and correlation with anatomic imaging." |
+| Amputation evaluation | Add: "This patient is being evaluated for amputation level determination. Document perfusion at each level (ABI, toe pressures, TcPO2), infection extent, functional status, prosthetic candidacy, and rehabilitation potential." |
+| Venous thromboembolism | Add: "Include VTE history, thrombophilia workup results, anticoagulation history, and post-thrombotic syndrome assessment (Villalta score)." |
+| Vascular trauma follow-up | Add: "Document the vascular injury mechanism, repair type, graft surveillance (duplex patency), distal perfusion, and limb function recovery." |
+
+---
+
+## Variations
+
+### PAD claudication management
+
+Use this for the patient with lifestyle-limiting claudication who has not yet had an intervention. The note is organized around quantifying the functional limitation, documenting failed conservative therapy, and framing the revascularization discussion.
+
+<PromptPlayground tool="Claude" title="PAD Claudication Management">
+You are an outpatient vascular surgeon writing a clinic note for a patient with peripheral arterial disease and claudication. Structure the note around functional limitation, hemodynamic assessment, conservative treatment history, and the revascularization decision.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document Rutherford classification and claudication distance precisely (blocks, meters, or minutes).
+- Include ABI values (resting and post-exercise if available).
+- Document all conservative treatments tried: supervised exercise therapy (SET) participation, cilostazol trial, smoking cessation status.
+- Risk factor modification is mandatory in every PAD note: smoking, statin, antiplatelet, exercise, diabetes.
+- If revascularization is discussed, specify the target lesion, procedure, and approach based on anatomy.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+PAD CLAUDICATION MANAGEMENT
+══════════════════════════════════════════
+
+CLASSIFICATION
+──────────────
+  Rutherford: [1 / 2 / 3]
+  Claudication distance: *** [blocks/meters/minutes]
+  Limiting muscle group: [Calf / Thigh / Buttock]
+  Impact on daily life: ***
+
+HEMODYNAMIC ASSESSMENT
+──────────────────────
+  ABI:
+    Right: *** (resting), *** (post-exercise)
+    Left: *** (resting), *** (post-exercise)
+  Toe pressures: [If needed]
+  Change from prior: [Date: ABI was ***]
+
+ANATOMY
+───────
+  Duplex/CTA/MRA: [Date]
+    [Anatomic description of disease: location, severity, length,
+    calcification, runoff vessels]
+
+CONSERVATIVE TREATMENT HISTORY
+──────────────────────────────
+  Supervised exercise therapy (SET):
+    [Enrolled / Not enrolled / Completed]
+    Duration: ***
+    Frequency: ***
+    Improvement: [Claudication distance changed from *** to ***]
+  Cilostazol: [Tried / Not tried]
+    [If tried: dose, duration, response, reason stopped]
+  Smoking cessation: ***
+  Statin: [Drug, dose, LDL ***]
+  Antiplatelet: ***
+
+VASCULAR EXAM
+─────────────
+  [Pulses, skin changes, wound status, bruits.]
+
+ASSESSMENT
+──────────
+[Summary: PAD severity, functional impact, conservative treatment
+response, revascularization candidacy.]
+
+  Revascularization discussion:
+    [Indication: lifestyle-limiting claudication refractory to
+    conservative therapy / Not yet indicated: conservative
+    therapy not fully trialed]
+    [If indicated: target lesion, procedure options
+    (endovascular vs surgical), approach rationale]
+
+PLAN
+────
+  1. PAD management
+     - [Conservative: SET enrollment/continuation, cilostazol trial,
+       risk factor optimization]
+     - [OR Revascularization: procedure, target, approach, timeline]
+
+  2. Risk factor modification
+     - Smoking: ***
+     - Statin: [Target LDL &lt;70]
+     - Antiplatelet: ***
+     - Exercise: ***
+     - Diabetes: ***
+
+  3. Surveillance
+     - ABI recheck: ***
+     - Duplex: ***
+
+  4. Follow-up
+     - Return in [interval]
+     - [Symptoms requiring earlier return: rest pain, tissue loss,
+       acute limb ischemia]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: claudication history, ABI values, imaging, conservative treatments tried with dates and response, risk factors, medications, vascular exam.]
+</PromptPlayground>
+
+### AAA surveillance
+
+Use this for the patient with a known abdominal aortic aneurysm below the repair threshold who is being followed with serial imaging. The note is built around the growth rate calculation and the surveillance interval decision.
+
+<PromptPlayground tool="Claude" title="AAA Surveillance Visit">
+You are an outpatient vascular surgeon writing a clinic note for a patient with a known abdominal aortic aneurysm being followed with surveillance imaging. Structure the note around aneurysm measurements, growth rate, repair threshold assessment, and imaging interval.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document current aneurysm diameter and all prior measurements with dates to calculate growth rate.
+- Specify the imaging modality used (CT vs ultrasound) and note that different modalities may yield different measurements.
+- State the repair threshold for this patient (5.5 cm male, 5.0 cm female, lower if connective tissue disorder, or rapid growth &gt;0.5 cm/6 months).
+- State whether EVAR or open repair is anatomically feasible based on available imaging.
+- Document symptoms that could indicate expansion or rupture risk.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+AAA SURVEILLANCE VISIT
+══════════════════════════════════════════
+
+ANEURYSM DATA
+──────────────
+  Current diameter: *** cm
+  Imaging: [CT / Ultrasound], date: ***
+
+  Growth Trend
+  ────────────
+  Date          Diameter (cm)   Modality
+  ──────────    ─────────────   ────────
+  [Date]        ***             [CT/US]
+  [Date]        ***             [CT/US]
+  [Date]        ***             [CT/US]
+
+  Growth rate: *** cm/year (calculated over *** months)
+
+ANATOMIC DETAILS (from most recent CT)
+──────────────────────────────────────
+  Morphology: [Fusiform / Saccular]
+  Location: [Infrarenal / Juxtarenal / Suprarenal]
+  Neck: Length *** mm, diameter *** mm, angulation ***, thrombus
+  Iliac: R *** cm, L *** cm
+  EVAR suitability: [Suitable / Not suitable: ***]
+
+REPAIR THRESHOLD
+────────────────
+  Threshold for this patient: *** cm
+  Rationale: [Standard (male 5.5/female 5.0) / Modified: ***]
+  Distance from threshold: ***
+  Estimated time to threshold (at current growth rate): ***
+
+INTERVAL HISTORY
+────────────────
+[Symptoms: abdominal/back pain (new or changed), pulsatile
+abdominal sensation, syncope. Family history update.]
+
+RISK FACTOR MANAGEMENT
+──────────────────────
+  Smoking: ***
+  BP control: ***
+  Statin: ***
+
+EXAM
+────
+  Abdomen: [Pulsatile mass, size, tenderness]
+  Peripheral pulses: ***
+
+ASSESSMENT
+──────────
+[Summary: AAA size, growth rate, distance from threshold, next action.]
+
+PLAN
+────
+  1. AAA surveillance
+     - Current size: *** (below repair threshold of ***)
+     - Growth rate: *** (stable / accelerating / concerning)
+     - Next imaging: [Modality] in [interval]
+       [Interval guide: &lt;4.0 cm: every 12 months;
+       4.0-4.9 cm: every 6-12 months;
+       5.0-5.4 cm: every 3-6 months]
+
+  2. Risk factor modification
+     - [Smoking, BP, statin]
+
+  3. Follow-up
+     - Return with imaging in [interval]
+     - [ED for sudden abdominal or back pain]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: AAA history, all prior measurements with dates and modality, most recent CT details (anatomy, neck, iliacs), symptoms, risk factors, exam.]
+</PromptPlayground>
+
+### Dialysis access evaluation
+
+Use this for the patient who needs dialysis access creation, has a maturing fistula that may not be ready, or has an access complication requiring intervention. The note is organized around the access assessment, maturation criteria, and the specific intervention or optimization needed.
+
+<PromptPlayground tool="Claude" title="Dialysis Access Evaluation">
+You are an outpatient vascular surgeon writing a clinic note for a patient requiring dialysis access evaluation. Structure the note around access assessment, maturation status or complication evaluation, and the intervention plan.
+
+### Rules
+
+- Write in past tense for history; present tense for current status and plan.
+- Use medical abbreviations with first-use expansion.
+- Document access type, location, creation date, and complete revision/intervention history.
+- For maturation assessment: apply the "rule of 6s" (flow &gt;600 mL/min, diameter &gt;6 mm, depth &lt;6 mm, length &gt;6 cm for cannulation, at least 6 weeks old).
+- Document duplex findings: flow volume, vein diameter, depth, stenosis location and degree.
+- Document dialysis adequacy: Kt/V, access flow rates during dialysis, venous pressures.
+- For steal syndrome: document symptoms, digit exam, pulse oximetry, and access flow.
+- Do not fabricate clinical data. Write "[Not provided; verify before signing]" for missing data.
+
+### Output format
+
+```
+DIALYSIS ACCESS EVALUATION
+══════════════════════════════════════════
+
+RENAL STATUS
+────────────
+  CKD stage: ***
+  Dialysis status: [Pre-dialysis / On HD (start date, frequency) /
+    PD / Transplant candidate]
+  GFR/CrCl: ***
+  Nephrologist: ***
+
+ACCESS HISTORY
+──────────────
+  Current access: [AVF / AVG / Catheter]
+    Type: [Radiocephalic / Brachiocephalic / Brachiobasilic / Graft (config)]
+    Location: [Right / Left, upper arm / forearm]
+    Creation date: ***
+    Surgeon: ***
+  Prior accesses:
+    - [Date]: [Type, location, outcome (matured/failed, reason for abandonment)]
+  Prior interventions on current access:
+    - [Date]: [Fistulogram, angioplasty (location, balloon size), thrombectomy,
+      revision, superficialization]
+
+MATURATION ASSESSMENT (if applicable)
+─────────────────────────────────────
+  Weeks since creation: ***
+  Rule of 6s:
+    Flow: *** mL/min [Goal: &gt;600 mL/min]
+    Diameter: *** mm [Goal: &gt;6 mm]
+    Depth: *** mm [Goal: &lt;6 mm from skin]
+    Length: *** cm [Goal: &gt;6 cm usable segment]
+  Currently cannulated: [Y/N]
+  Cannulation issues: ***
+  Assessment: [Mature / Immature, intervention needed / Failure, plan]
+
+DIALYSIS ADEQUACY (if on HD)
+────────────────────────────
+  Kt/V: *** (target &gt;1.2)
+  Access blood flow on HD: *** mL/min
+  Venous pressure: *** mmHg (trend: ***)
+  Dialysis access alarms: ***
+  Adequacy issues: [None / Recirculation / High venous pressure /
+    Inadequate flow]
+
+DUPLEX SURVEILLANCE
+───────────────────
+  Date: ***
+  Inflow artery: [PSV ***, stenosis ***%]
+  Juxta-anastomotic: [PSV ***, stenosis ***%]
+  Mid-access: [Flow *** mL/min, diameter *** mm]
+  Outflow vein: [PSV ***, stenosis ***%, location]
+  Central veins: [Patent / Stenosis (location, degree)]
+
+COMPLICATION ASSESSMENT
+───────────────────────
+  Stenosis: [None / Location, degree, hemodynamic significance]
+  Thrombosis: [None / Current / History]
+  Steal syndrome: [None / Symptoms: ***, digit exam, SpO2 of digits]
+  Aneurysm: [None / Location, size, skin integrity, risk of rupture]
+  Infection: [None / Perigraft / Cannulation site]
+  High-output cardiac failure: [None / Symptoms, access flow ***]
+
+PHYSICAL EXAMINATION
+────────────────────
+  Access exam:
+    Thrill: [Present (continuous) / Absent / Weak]
+    Bruit: [Continuous / Systolic only / Absent / High-pitched (stenosis)]
+    Augmentation test: [Normal / Abnormal (outflow stenosis)]
+    Pulse (water-hammer): [Absent (normal) / Present (outflow stenosis)]
+    Aneurysm: [None / Location, size, skin thinning]
+  Arm:
+    Edema: [None / Present (central stenosis)]
+    Hand: [Warm / Cool, color, capillary refill]
+    Digital SpO2: [If steal concern]
+  Cannulation sites: [Healing / Active bleeding / Scab / Infection signs]
+
+ASSESSMENT
+──────────
+[Summary: access type, status, primary concern, plan.]
+
+PLAN
+────
+  1. Access management
+     - [If immature: continue maturation (exercises, return in *** weeks)
+       OR fistulogram with intervention (balloon angioplasty of stenosis)
+       OR superficialization
+       OR abandon and create new access (type, side)]
+     - [If stenosis: fistulogram with angioplasty (target, balloon size)]
+     - [If thrombosis: thrombectomy + fistulogram]
+     - [If steal: observation / DRIL procedure / banding / access ligation]
+     - [If new access needed: pre-op vein mapping, access type and site plan]
+
+  2. Catheter management (if applicable)
+     - [Target catheter removal date]
+     - [Catheter exchange if needed]
+
+  3. Coordination with nephrology
+     - [Dialysis prescription adjustments]
+     - [Transplant status update]
+
+  4. Follow-up
+     - Return in [interval]
+     - Duplex surveillance: [Next date, interval]
+     - [Symptoms requiring earlier return: access not working,
+       swelling, bleeding, pain, hand color change]
+```
+
+---
+CLINICAL INFORMATION:
+[Paste: dialysis access history, current access details, maturation status, duplex findings, dialysis adequacy data, complications, physical exam, HD prescription details.]
+</PromptPlayground>
+
+---
+
+## Example output
+
+Here is what this template produces when given realistic (fictional) clinical input:
+
+**Input provided:**
+63-year-old male with bilateral lower extremity PAD, worse on left. Rutherford 3 left, Rutherford 2 right. Claudication onset at 1.5 blocks on flat ground, left calf cramping, resolves with 3-4 minutes of rest. No rest pain, no wounds. Smoking: 40 pack-years, quit 6 months ago. Tried supervised exercise therapy at vascular rehab for 3 months (2x/week, completed 24 sessions), claudication distance improved from 1 to 1.5 blocks then plateaued. Cilostazol 100 BID tried for 4 months, modest improvement initially then no further benefit. ABIs: Right 0.72 resting, Left 0.58 resting. Post-exercise ABIs: Right 0.65, Left 0.38. CTA lower extremities 3/5/26: right SFA moderate stenosis (50-60%) at adductor hiatus, right tibials patent. Left SFA: long-segment occlusion (~10 cm) from mid-SFA to adductor hiatus, reconstitutes at popliteal via collaterals, two-vessel tibial runoff (AT and peroneal, PT occluded). PMH: HTN, type 2 DM (A1c 7.3), hyperlipidemia. Meds: aspirin 81, atorvastatin 80, amlodipine 10, metformin 1000 BID, cilostazol 100 BID. Vitals: BP 134/76, HR 70, weight 183, BMI 28. Exam: femoral pulses 2+ bilateral, popliteal 1+ R / 0 L, DP 1+ R / 0 L, PT 1+ R / 0 L. No bruits. Skin: left foot cool, hair loss below knee bilateral, no ulcers. No edema.
+
+**LLM output:**
+
+VASCULAR SURGERY CLINIC VISIT NOTE
+══════════════════════════════════════════
+
+VISIT TYPE
+──────────
+Follow-up
+Interval since last visit: [Not provided; verify before signing]
+Referring provider: [Not provided; verify before signing]
+
+CHIEF CONCERN
+─────────────
+Left calf claudication limiting ambulation to 1.5 blocks, refractory to supervised exercise therapy and cilostazol
+
+VASCULAR SURGICAL HISTORY
+─────────────────────────
+  Prior vascular procedures: None
+  Current grafts/stents: None
+
+DISEASE-SPECIFIC DATA
+─────────────────────
+
+  Peripheral Arterial Disease Details
+  ────────────────────────────────────
+    Rutherford classification: Left: 3 (severe claudication), Right: 2 (moderate claudication)
+    Claudication: Onset at 1.5 blocks on flat ground, left calf cramping. Resolves with 3-4 minutes of rest. Maximum walking distance limited by left leg.
+    Rest pain: None
+    Ankle-brachial index (ABI):
+      Right: 0.72 (resting), 0.65 (post-exercise)
+      Left: 0.58 (resting), 0.38 (post-exercise)
+    CTA lower extremities: 3/5/26
+      Aortoiliac: [Not provided; verify before signing]
+      Right superficial femoral artery (SFA): Moderate stenosis (50-60%) at the adductor hiatus. Popliteal patent. Three-vessel tibial runoff.
+      Left SFA: Long-segment occlusion (~10 cm) from mid-SFA to adductor hiatus. Reconstitutes at the popliteal artery via geniculate collaterals. Two-vessel tibial runoff: anterior tibial (AT) and peroneal arteries patent, posterior tibial (PT) artery occluded.
+    Tissue loss: None
+
+RISK FACTOR MANAGEMENT
+──────────────────────
+  Smoking: Former, 40 pack-years, quit 6 months ago. No pharmacotherapy currently.
+  Statin: Atorvastatin 80 mg daily (high intensity). LDL: [Not provided; verify before signing]
+  Antiplatelet: Aspirin 81 mg daily
+  Diabetes: Type 2, A1c 7.3% (above target). On metformin 1000 mg twice daily.
+  Hypertension: Amlodipine 10 mg daily. BP today 134/76 (near goal).
+  Supervised exercise therapy (SET): Completed 24 sessions over 3 months (2x/week). Claudication distance improved from 1 block to 1.5 blocks, then plateaued.
+  Cilostazol: 100 mg twice daily for 4 months. Modest initial improvement, no further benefit.
+
+VITAL SIGNS
+───────────
+  BP: 134/76 mmHg
+  HR: 70 bpm
+  Weight: 183 lbs
+  BMI: 28
+
+PHYSICAL EXAMINATION
+────────────────────
+  Vascular exam:
+    Pulses:
+      Femoral: R 2+, L 2+
+      Popliteal: R 1+, L 0
+      Dorsalis pedis (DP): R 1+, L 0
+      Posterior tibial (PT): R 1+, L 0
+    Bruits: None (femoral, abdominal)
+    Skin: Hair loss below the knee bilaterally. Left foot cool to palpation. Right foot warm. No ulcers, gangrene, or dependent rubor. No edema.
+
+DIAGNOSTICS
+───────────
+  Labs: A1c 7.3%
+  ABI: As above
+  CTA: As above
+
+ASSESSMENT
+──────────
+63-year-old male with bilateral peripheral arterial disease (PAD), left worse than right, presenting with severe left calf claudication (Rutherford 3) refractory to maximal conservative therapy. The left SFA has a 10 cm occlusion with two-vessel tibial runoff. The right side has moderate SFA stenosis not yet limiting.
+
+  1. Left lower extremity PAD, Rutherford 3, refractory to conservative therapy
+     ABI 0.58 resting with significant post-exercise drop to 0.38 confirms hemodynamically significant disease. CTA shows a long-segment left SFA occlusion amenable to endovascular intervention. The patient has completed a full course of SET (24 sessions) with plateau at 1.5 blocks and 4 months of cilostazol without meaningful further improvement. Conservative therapy is maximized. Claudication remains lifestyle-limiting: he cannot walk two blocks. Revascularization is indicated.
+
+  2. Right lower extremity PAD, Rutherford 2
+     Moderate SFA stenosis. ABI 0.72 at rest. Currently the right leg is not the limiting extremity. Will monitor. Not a surgical target at this time.
+
+  3. Risk factor modification, partially optimized
+     Smoking cessation 6 months ago is the single most important intervention. High-intensity statin in place. A1c 7.3% is above the 7% target; optimization will benefit wound healing and long-term limb outcomes. Antiplatelet therapy with aspirin alone is appropriate; clopidogrel addition should be considered perioperatively.
+
+PLAN
+────
+  1. Left lower extremity revascularization
+     - Recommend endovascular intervention: attempt angioplasty of left SFA occlusion with primary stenting if needed
+     - Target: left SFA, 10 cm occlusion from mid-SFA to adductor hiatus
+     - Approach: Percutaneous, contralateral femoral access (or ipsilateral antegrade)
+     - If endovascular recanalization fails: surgical bypass (femoral-to-above-knee popliteal with prosthetic graft, given adequate popliteal reconstitution and two-vessel runoff)
+     - Add clopidogrel 75 mg daily starting 3-5 days before the procedure; continue dual antiplatelet for at least 30 days after stenting, then reassess
+     - Schedule in the vascular OR/hybrid suite
+
+  2. Risk factor modification
+     - Smoking: Congratulate continued abstinence at 6 months. Reinforced counseling. Continue vigilance.
+     - Statin: Continue atorvastatin 80 mg daily. Order fasting lipid panel; target LDL &lt;70 mg/dL
+     - Antiplatelet: Aspirin 81 mg daily; add clopidogrel 75 mg daily peri-procedurally as above
+     - Diabetes: A1c 7.3%, recommend intensification of diabetes management with primary care (consider adding SGLT2 inhibitor or GLP-1 RA for cardiovascular benefit). Target A1c &lt;7%
+     - Hypertension: BP 134/76, near target. Continue amlodipine 10 mg
+     - Cilostazol: May discontinue after revascularization if symptoms resolve
+
+  3. Right SFA stenosis, surveillance
+     - No intervention indicated at this time
+     - Repeat ABI in 6 months
+     - Duplex right lower extremity at 6 months to track stenosis progression
+
+  4. Pre-procedural requirements
+     - Labs: CBC, BMP, PT/INR, type and screen
+     - NPO instructions for procedure day
+     - Hold metformin morning of procedure; resume 48 hours later if creatinine stable
+
+  Follow-Up
+  ─────────
+  Procedure scheduling within 2-4 weeks.
+  Post-procedure follow-up at 2 weeks (wound check, ABI), then 3 months (duplex surveillance).
+  Return to ED for sudden leg pain, pallor, coolness, or numbness (acute limb ischemia).
+
+DISPOSITION
+───────────
+Patient counseled on revascularization options, procedural risks (bleeding, vessel injury, restenosis, contrast nephropathy), expected benefit (improved walking distance), and the importance of continued smoking abstinence. Agrees with plan. Return precautions reviewed.
+
+*Draft note; physician review and attestation required before signing.*
+
+---
+
+## Tips & pitfalls
+
+- **ABI tells you what the anatomy cannot.** A 70% SFA stenosis on CTA means nothing if the ABI is 0.95. The model uses ABI values to confirm hemodynamic significance of anatomic lesions. If you provide imaging without ABIs, the note will flag the gap. Always include both resting and post-exercise values; a normal resting ABI with an abnormal post-exercise ABI changes the clinical picture.
+- **Non-compressible vessels are a trap.** An ABI above 1.4 (common in diabetics) does not mean the patient has great blood flow. It means the arteries are calcified and the measurement is unreliable. The model will note this and recommend toe pressures or pulse volume recordings instead. Provide the ABI even if elevated, so the model documents the limitation.
+- **AAA growth rate requires consistent modality.** CT and ultrasound measurements of the same aneurysm can differ by 2-3 mm. The model notes the modality for each measurement. If you switch from CT to ultrasound between visits, note this, or the calculated growth rate may be artifactually high or low.
+- **Smoking cessation is the most effective vascular intervention.** The model documents smoking status prominently because it affects every vascular condition. Claudication improves. Graft patency improves. AAA growth may slow. If your patient is still smoking, the note will say so prominently, and the plan will prioritize cessation.
+- **Supervised exercise therapy requires documentation of sessions.** Payers require documented completion of SET before authorizing elective revascularization for claudication. The model records the number of sessions, duration, and outcome. "Tried PT" without dates and session counts is insufficient.
+- **Dialysis access maturation follows the rule of 6s.** The model applies this framework (flow greater than 600 mL/min, diameter greater than 6 mm, depth less than 6 mm, length greater than 6 cm, 6 weeks old) and flags which criteria are not met. If duplex data is missing, the model cannot assess maturation. Always provide the latest duplex with flow and diameter measurements.
+- **Carotid stenosis timing matters.** A symptomatic carotid stenosis with a TIA 3 days ago has a different urgency than one with a TIA 6 months ago. The model documents the time from last event to calibrate urgency. For recent symptoms (within 14 days), the plan will reflect the need for expedited intervention.
+
+---
+
+## Related
+
+- [Procedure Note](/templates/procedure-note) - for documenting vascular procedures
+- [Post-Procedure Care](/templates/post-procedure-care) - for post-procedure wound care and recovery instructions
+- [Consult Note](/templates/consult-note) - for inpatient vascular surgery consultations
+- [Referral Letter](/templates/referral-letter) - for patients being referred for vascular evaluation
