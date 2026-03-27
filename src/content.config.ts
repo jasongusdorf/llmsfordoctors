@@ -28,6 +28,7 @@ const workflows = defineCollection({
     timeToRead: z.number(),
     lastUpdated: z.date(),
     specialty: z.array(z.string()).optional(),
+    socialPost: z.string().optional(),
   }),
 });
 
@@ -39,6 +40,7 @@ const guides = defineCollection({
     tags: z.array(z.string()),
     lastUpdated: z.date(),
     featured: z.boolean().default(false),
+    socialPost: z.string().optional(),
   }),
 });
 
@@ -54,6 +56,7 @@ const tools = defineCollection({
     hasBaa: z.boolean(),
     categories: z.array(z.enum(toolCategories)),
     lastUpdated: z.date(),
+    socialPost: z.string().optional(),
   }),
 });
 
@@ -66,6 +69,7 @@ const templates = defineCollection({
     workflow: z.string().optional(),
     tags: z.array(z.string()),
     lastUpdated: z.date(),
+    socialPost: z.string().optional(),
   }),
 });
 
@@ -79,6 +83,7 @@ const trials = defineCollection({
     keyFinding: z.string(),
     lastUpdated: z.date(),
     tags: z.array(z.string()),
+    socialPost: z.string().optional(),
   }),
 });
 
@@ -100,6 +105,7 @@ const editorials = defineCollection({
     tags: z.array(z.string()),
     lastUpdated: z.date(),
     featured: z.boolean().default(false),
+    socialPost: z.string().optional(),
   }),
 });
 
@@ -122,6 +128,7 @@ const videos = defineCollection({
     topic: z.array(z.string()),
     priority: z.number().min(1).max(5),
     dateAdded: z.date(),
+    socialPost: z.string().optional(),
   }),
 });
 
