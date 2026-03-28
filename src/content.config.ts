@@ -87,16 +87,6 @@ const trials = defineCollection({
   }),
 });
 
-const courses = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/courses' }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    order: z.number(),
-    lastUpdated: z.date(),
-  }),
-});
-
 const editorials = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/editorials' }),
   schema: z.object({
@@ -139,6 +129,5 @@ export const collections = {
   tools,
   templates,
   trials,
-  courses,
   videos,
 };

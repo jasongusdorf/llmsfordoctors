@@ -10,7 +10,9 @@ import staleContentChecker from './src/integrations/stale-content';
 export default defineConfig({
   site: 'https://llmsfordoctors.com',
   output: 'static',
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    prerenderEnvironment: 'node',
+  }),
   integrations: [
     mdx(),
     sitemap(),
