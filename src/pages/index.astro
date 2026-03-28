@@ -4,9 +4,11 @@ export const prerender = false;
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import NewsSection from '../components/NewsSection.astro';
+import { getCollection } from 'astro:content';
 import { env } from 'cloudflare:workers';
 import type { NewsItem } from '../utils/types';
 
+// News data (from KV or fallback)
 let newsData: NewsItem[] = [];
 let newsUpdatedAt: string | null = null;
 try {
@@ -14,14 +16,58 @@ try {
   newsData = cached ? JSON.parse(cached) : [];
   newsUpdatedAt = await env.NEWS_CACHE.get('latest-updated-at');
 } catch {
-  // Local dev or KV unavailable — fall back to static JSON
   try {
     newsData = (await import('../data/news.json')).default;
-  } catch {
-    // No news at all — degrade gracefully
-  }
+  } catch {}
 }
 
+// Content collections
+const allGuides = await getCollection('guides');
+const allWorkflows = await getCollection('workflows');
+const allTools = await getCollection('tools');
+const allTrials = await getCollection('trials');
+const allTemplates = await getCollection('templates');
+const allEditorials = await getCollection('editorials');
+const allVideos = await getCollection('videos');
+
+// Guides (exclude 101 since it's the hero CTA)
+const otherGuides = allGuides
+  .filter(g => g.id !== 'llms-in-clinical-care-101')
+  .sort((a, b) => (b.data.featured ? 1 : 0) - (a.data.featured ? 1 : 0));
+
+// Recent trials (4 most recent by lastUpdated)
+const recentTrials = [...allTrials]
+  .sort((a, b) => b.data.lastUpdated.getTime() - a.data.lastUpdated.getTime())
+  .slice(0, 4);
+
+// Browse categories
+const browseLearn = [
+  { href: '/guides', name: 'Guides', count: allGuides.length, desc: 'Step-by-step introductions to clinical AI' },
+  { href: '/editorials', name: 'Editorials', count: allEditorials.length, desc: 'Opinion and analysis on AI in medicine' },
+  { href: '/trials', name: 'Trials', count: allTrials.length, desc: 'Published research, summarized for clinicians' },
+  { href: '/videos', name: 'Videos', count: allVideos.length, desc: 'Curated talks and demonstrations' },
+];
+
+const browseUse = [
+  { href: '/workflows', name: 'Workflows', count: allWorkflows.length, desc: 'End-to-end clinical AI processes' },
+  { href: '/templates', name: 'Templates', count: allTemplates.length, desc: 'Copy-paste prompts by task and specialty' },
+  { href: '/tools', name: 'Tools', count: allTools.length, desc: 'Honest reviews of clinical AI products' },
+];
+
+// Journal colors for trial citations
+const journalColors: Record<string, string> = {
+  'NPJ Digital Medicine': 'text-emerald-600 dark:text-emerald-400',
+  'JAMA Network Open': 'text-blue-600 dark:text-blue-400',
+  'JAMA Internal Medicine': 'text-blue-600 dark:text-blue-400',
+  'Nature Medicine': 'text-purple-600 dark:text-purple-400',
+  'Lancet Digital Health': 'text-red-600 dark:text-red-400',
+  'The Lancet': 'text-red-600 dark:text-red-400',
+  'Radiology': 'text-amber-600 dark:text-amber-400',
+  'BMJ': 'text-sky-600 dark:text-sky-400',
+  'NEJM AI': 'text-rose-600 dark:text-rose-400',
+  'New England Journal of Medicine': 'text-rose-600 dark:text-rose-400',
+  'Annals of Internal Medicine': 'text-indigo-600 dark:text-indigo-400',
+};
 ---
 
 <BaseLayout
@@ -30,21 +76,157 @@ try {
 >
   <Hero />
 
+  <!-- Guides -->
+  <section class="py-16 sm:py-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-baseline justify-between mb-8">
+        <h2 class="font-heading text-2xl sm:text-3xl font-semibold text-clinical-900 dark:text-clinical-50">
+          Guides
+        </h2>
+        <a href="/guides" class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
+          All guides &rarr;
+        </a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {otherGuides.map(guide => (
+          <a href={`/guides/${guide.id}`} class="group flex flex-col p-6 rounded-lg border border-clinical-200 dark:border-clinical-700 hover:border-clinical-300 dark:hover:border-clinical-600 hover:shadow-md dark:hover:shadow-clinical-900/50 transition-all bg-white dark:bg-clinical-800">
+            {guide.data.featured && (
+              <p class="text-[11px] font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-3">Featured</p>
+            )}
+            <h3 class="font-heading text-lg font-semibold text-clinical-900 dark:text-clinical-50 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2 leading-snug">
+              {guide.data.title}
+            </h3>
+            <p class="text-sm text-clinical-500 dark:text-clinical-400 flex-1 leading-relaxed">
+              {guide.data.description}
+            </p>
+            <p class="mt-4 text-sm font-medium text-blue-600 dark:text-blue-400">
+              Read guide &rarr;
+            </p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Browse the Site -->
+  <section class="py-16 sm:py-20 bg-clinical-50 dark:bg-clinical-800/50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-heading text-2xl sm:text-3xl font-semibold text-clinical-900 dark:text-clinical-50 mb-8">
+        Browse
+      </h2>
+      <div class="space-y-6">
+        <!-- Learn -->
+        <div>
+          <p class="text-[11px] font-semibold uppercase tracking-[0.2em] text-clinical-400 mb-3">Learn</p>
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            {browseLearn.map(({ href, name, count, desc }) => (
+              <a href={href} class="group p-4 rounded-lg border border-clinical-200 dark:border-clinical-700 bg-white dark:bg-clinical-800 hover:border-clinical-300 dark:hover:border-clinical-600 hover:shadow-sm transition-all">
+                <div class="flex items-baseline gap-2 mb-1">
+                  <span class="font-heading text-base font-semibold text-clinical-900 dark:text-clinical-50 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{name}</span>
+                  <span class="text-xs text-clinical-400">{count}</span>
+                </div>
+                <p class="text-xs text-clinical-500 dark:text-clinical-400 leading-relaxed">{desc}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+        <!-- Use -->
+        <div>
+          <p class="text-[11px] font-semibold uppercase tracking-[0.2em] text-clinical-400 mb-3">Use</p>
+          <div class="grid grid-cols-2 lg:grid-cols-3 gap-3">
+            {browseUse.map(({ href, name, count, desc }) => (
+              <a href={href} class="group p-4 rounded-lg border border-clinical-200 dark:border-clinical-700 bg-white dark:bg-clinical-800 hover:border-clinical-300 dark:hover:border-clinical-600 hover:shadow-sm transition-all">
+                <div class="flex items-baseline gap-2 mb-1">
+                  <span class="font-heading text-base font-semibold text-clinical-900 dark:text-clinical-50 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{name}</span>
+                  <span class="text-xs text-clinical-400">{count}</span>
+                </div>
+                <p class="text-xs text-clinical-500 dark:text-clinical-400 leading-relaxed">{desc}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Trials -->
+  <section class="py-16 sm:py-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-baseline justify-between mb-8">
+        <h2 class="font-heading text-2xl sm:text-3xl font-semibold text-clinical-900 dark:text-clinical-50">
+          Latest Trials
+        </h2>
+        <a href="/trials" class="hidden sm:block text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
+          All {allTrials.length} trials &rarr;
+        </a>
+      </div>
+      <div class="divide-y divide-clinical-200 dark:divide-clinical-700">
+        {recentTrials.map(trial => (
+          <a href={`/trials/${trial.id}`} class="group block py-5 first:pt-0">
+            <div class="flex items-baseline gap-2 text-xs mb-1.5">
+              <span class:list={['font-medium', journalColors[trial.data.journal] || 'text-clinical-500 dark:text-clinical-400']}>
+                {trial.data.journal}
+              </span>
+              <span class="text-clinical-300 dark:text-clinical-600">&middot;</span>
+              <span class="text-clinical-400">{trial.data.year}</span>
+            </div>
+            <h3 class="font-heading text-base sm:text-lg font-semibold text-clinical-900 dark:text-clinical-50 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-1.5 leading-snug">
+              {trial.data.title}
+            </h3>
+            <p class="text-sm text-clinical-500 dark:text-clinical-400 line-clamp-2 leading-relaxed">
+              {trial.data.keyFinding}
+            </p>
+          </a>
+        ))}
+      </div>
+      <a href="/trials" class="sm:hidden block mt-6 text-sm font-medium text-blue-600 dark:text-blue-400">
+        All {allTrials.length} trials &rarr;
+      </a>
+    </div>
+  </section>
+
+  <!-- Community -->
+  <section class="py-16 sm:py-20 bg-clinical-50 dark:bg-clinical-800/50">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-clinical-400 mb-4">Physician Forum</p>
+      <h2 class="font-display text-2xl sm:text-3xl italic text-clinical-900 dark:text-clinical-50 leading-snug mb-4">
+        Join the conversation with verified colleagues
+      </h2>
+      <p class="text-sm text-clinical-500 dark:text-clinical-400 mb-8">
+        NPI-verified &ensp;&middot;&ensp; Ad-free &ensp;&middot;&ensp; Physician-moderated
+      </p>
+      <a
+        href="https://community.llmsfordoctors.com"
+        class="inline-block px-6 py-3 border border-clinical-300 dark:border-clinical-600 text-clinical-700 dark:text-clinical-200 hover:bg-white dark:hover:bg-clinical-700 text-sm font-medium rounded-md transition-colors"
+      >
+        Visit the Forum
+      </a>
+    </div>
+  </section>
+
   <!-- News Section -->
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-12">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
     <NewsSection items={newsData} updatedAt={newsUpdatedAt} />
   </div>
 
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-    <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-10 text-center">
-      <h2 class="font-heading text-2xl font-semibold text-clinical-900 dark:text-clinical-50 mb-3">Support This Project</h2>
-      <p class="text-clinical-600 dark:text-clinical-300 mb-6">LLMs for Doctors is free, ad-free, and independent. Your donation helps keep it that way.</p>
+  <!-- Donate -->
+  <section class="py-16 sm:py-20 border-t border-clinical-200 dark:border-clinical-700">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="font-display text-lg italic text-clinical-400 mb-3">
+        Free, ad-free, and independent.
+      </p>
+      <h2 class="font-heading text-2xl font-semibold text-clinical-900 dark:text-clinical-50 mb-3">
+        Support This Project
+      </h2>
+      <p class="text-sm text-clinical-500 dark:text-clinical-400 mb-6 max-w-md mx-auto">
+        Your donation keeps LLMs for Doctors running without ads, sponsors, or conflicts of interest.
+      </p>
       <a
         href="/donate"
-        class="inline-block px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md transition-colors"
+        class="inline-block px-6 py-3 bg-clinical-900 dark:bg-clinical-100 text-white dark:text-clinical-900 text-sm font-medium rounded-md hover:bg-clinical-800 dark:hover:bg-white transition-colors"
       >
         Donate
       </a>
     </div>
-  </div>
+  </section>
 </BaseLayout>
