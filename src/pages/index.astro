@@ -1,51 +1,50 @@
 ---
-import '../styles/global.css';
-import { DesignAgency } from '../components/ui/landing-page';
+export const prerender = false;
 
-const title = "LLMs for Doctors — AI Workflows for Clinicians";
-const description = "Practical AI workflows, tools, and templates for clinicians. Evidence-based, privacy-aware, specialty-specific.";
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const ogImageUrl = new URL('/og/home.png', Astro.site);
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import NewsSection from '../components/NewsSection.astro';
+import { env } from 'cloudflare:workers';
+import type { NewsItem } from '../utils/types';
+
+let newsData: NewsItem[] = [];
+let newsUpdatedAt: string | null = null;
+try {
+  const cached = await env.NEWS_CACHE.get('latest');
+  newsData = cached ? JSON.parse(cached) : [];
+  newsUpdatedAt = await env.NEWS_CACHE.get('latest-updated-at');
+} catch {
+  // Local dev or KV unavailable — fall back to static JSON
+  try {
+    newsData = (await import('../data/news.json')).default;
+  } catch {
+    // No news at all — degrade gracefully
+  }
+}
+
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="generator" content={Astro.generator} />
+<BaseLayout
+  title="LLMs for Doctors — AI Workflows for Clinicians"
+  description="Practical AI workflows, tools, and templates for clinicians. Evidence-based, privacy-aware, specialty-specific."
+>
+  <Hero />
 
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalURL} />
+  <!-- News Section -->
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-12">
+    <NewsSection items={newsData} updatedAt={newsUpdatedAt} />
+  </div>
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <link rel="alternate" type="application/rss+xml" title="LLMs for Doctors" href="/rss.xml" />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImageUrl} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImageUrl} />
-
-    <script type="application/ld+json" set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'MedicalWebPage',
-      name: title,
-      description: description,
-      url: canonicalURL.toString(),
-      author: { '@type': 'Person', name: 'Jason Gusdorf, MD', jobTitle: 'Physician' },
-      publisher: { '@type': 'Organization', name: 'LLMs for Doctors', url: 'https://llmsfordoctors.com' },
-    })} />
-  </head>
-  <body class="font-body">
-    <DesignAgency client:load />
-  </body>
-</html>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+    <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-10 text-center">
+      <h2 class="font-heading text-2xl font-semibold text-clinical-900 dark:text-clinical-50 mb-3">Support This Project</h2>
+      <p class="text-clinical-600 dark:text-clinical-300 mb-6">LLMs for Doctors is free, ad-free, and independent. Your donation helps keep it that way.</p>
+      <a
+        href="/donate"
+        class="inline-block px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md transition-colors"
+      >
+        Donate
+      </a>
+    </div>
+  </div>
+</BaseLayout>
