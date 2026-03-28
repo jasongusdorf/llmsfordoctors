@@ -1,0 +1,102 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+
+<BaseLayout
+  title="Terms of Service - LLMs for Doctors"
+  description="Terms governing use of LLMs for Doctors and the physician community forum."
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Terms of Service' }]} />
+
+    <section class="mb-12">
+      <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mb-2">
+        Terms of Service
+      </h1>
+      <p class="text-sm text-clinical-500 dark:text-clinical-400 mb-8">Last updated March 28, 2026</p>
+
+      <div class="prose prose-clinical dark:prose-invert max-w-none">
+        <p>
+          By using LLMs for Doctors ("the Site"), including the physician community forum, you agree to these terms. If you do not agree, do not use the Site.
+        </p>
+
+        <h2>1. Educational Purpose</h2>
+        <p>
+          All content on the Site, including workflows, tool reviews, prompt templates, trial summaries, and forum discussions, is provided for educational purposes only. Nothing on the Site constitutes medical advice, clinical guidance, or a recommendation for the diagnosis or treatment of any condition.
+        </p>
+        <p>
+          The content is written for clinicians, by a clinician. It is not a substitute for professional judgment. You are responsible for your own clinical decisions.
+        </p>
+
+        <h2>2. No Guarantee of Accuracy</h2>
+        <p>
+          We strive for accuracy, but medical knowledge and AI tools evolve. We do not guarantee that any content is free from errors, complete, or current. Tool reviews reflect the state of the product at the time of writing. Verify information through authoritative sources before applying it clinically.
+        </p>
+
+        <h2>3. Community Forum Conduct</h2>
+        <p>If you use the community forum, you agree to:</p>
+        <ul>
+          <li><strong>Never share protected health information (PHI).</strong> All patient examples must be fully de-identified. When in doubt, do not post.</li>
+          <li>Engage respectfully. Disagreement is welcome; personal attacks are not.</li>
+          <li>Not post spam, promotional content, or off-topic material.</li>
+          <li>Not impersonate other users or misrepresent your credentials.</li>
+        </ul>
+        <p>
+          We reserve the right to remove content and suspend accounts that violate these rules.
+        </p>
+
+        <h2>4. Acceptable Use</h2>
+        <p>You agree not to:</p>
+        <ul>
+          <li>Scrape, copy, or redistribute Site content in bulk</li>
+          <li>Use automated tools or bots to access the Site</li>
+          <li>Attempt to reverse-engineer, decompile, or extract proprietary systems</li>
+          <li>Use the Site to develop a competing product</li>
+          <li>Interfere with the Site's operation or other users' access</li>
+        </ul>
+
+        <h2>5. Intellectual Property</h2>
+        <p>
+          Site content (articles, workflows, templates, tool reviews, trial summaries, and design) is the property of LLMs for Doctors. You may reference and link to content freely. You may not reproduce, redistribute, or sell it without permission.
+        </p>
+        <p>
+          Content you post in the community forum remains yours, but you grant us a non-exclusive license to display and distribute it within the forum.
+        </p>
+
+        <h2>6. Donations</h2>
+        <p>
+          Donations are voluntary and non-refundable. LLMs for Doctors is a personal project, not a registered nonprofit. Donations are not tax-deductible. All Site content is freely accessible regardless of donation status.
+        </p>
+
+        <h2>7. Account Termination</h2>
+        <p>
+          We may suspend or terminate forum accounts that violate these terms or abuse the service. You may delete your own account at any time.
+        </p>
+
+        <h2>8. Limitation of Liability</h2>
+        <p>
+          The Site is provided "as is" without warranties of any kind, express or implied. We are not liable for any damages arising from your use of the Site, including errors in content, service interruptions, data loss, or reliance on any information provided.
+        </p>
+        <p>
+          In no event shall our total liability exceed the amount you have donated to the Site in the preceding twelve months.
+        </p>
+
+        <h2>9. Changes to These Terms</h2>
+        <p>
+          We may update these terms. Material changes will be noted on this page with the revision date. Continued use after changes constitutes acceptance.
+        </p>
+
+        <h2>10. Governing Law</h2>
+        <p>
+          These terms are governed by the laws of the Commonwealth of Massachusetts.
+        </p>
+
+        <h2>11. Contact</h2>
+        <p>
+          Questions about these terms: <a href="mailto:jasongusdorfmd@gmail.com">jasongusdorfmd@gmail.com</a>
+        </p>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

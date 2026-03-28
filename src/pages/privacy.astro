@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+
+<BaseLayout
+  title="Privacy Policy - LLMs for Doctors"
+  description="How LLMs for Doctors collects, uses, and protects your data."
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Privacy Policy' }]} />
+
+    <section class="mb-12">
+      <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mb-2">
+        Privacy Policy
+      </h1>
+      <p class="text-sm text-clinical-500 dark:text-clinical-400 mb-8">Last updated March 28, 2026</p>
+
+      <div class="prose prose-clinical dark:prose-invert max-w-none">
+        <p>
+          LLMs for Doctors ("the Site") is a clinical AI education resource. This policy describes what data we collect across the Site and the associated physician community forum, how we use it, and your rights.
+        </p>
+
+        <h2>1. Data We Collect</h2>
+
+        <h3>Newsletter</h3>
+        <p>
+          If you subscribe to our newsletter, we store your email address. That is the only data collected. Newsletter subscriptions are retained for up to two years, after which they expire automatically. You can unsubscribe at any time by contacting us.
+        </p>
+
+        <h3>Contact Form</h3>
+        <p>
+          If you submit the contact form, we store your name, email address, and message. A copy is sent to jasongusdorfmd@gmail.com via Resend (our email delivery provider). Contact form submissions are retained for up to two years.
+        </p>
+
+        <h3>Community Forum</h3>
+        <p>
+          If you create a forum account, we collect your email address, name, and a password (stored as a bcrypt hash; we never store your password in plain text). Forum accounts are retained for as long as they are active. You can delete your account at any time using the self-service option.
+        </p>
+
+        <h3>Donations</h3>
+        <p>
+          Donations are processed by Stripe. We do not store credit card numbers, billing addresses, or other payment details on our servers. Stripe handles all payment data under its own privacy policy.
+        </p>
+
+        <h2>2. Data We Do Not Collect</h2>
+        <ul>
+          <li>Patient data or protected health information (PHI)</li>
+          <li>Browsing analytics, tracking cookies, or advertising identifiers</li>
+          <li>Device fingerprints or IP addresses for tracking purposes</li>
+        </ul>
+
+        <h2>3. How We Use Your Data</h2>
+        <ul>
+          <li>To deliver the newsletter you subscribed to</li>
+          <li>To respond to contact form messages</li>
+          <li>To authenticate your forum account and maintain your session</li>
+          <li>To process donation transactions (via Stripe)</li>
+        </ul>
+        <p>
+          We do not sell, rent, or share your data with third parties for marketing or advertising. We do not use your data for any purpose unrelated to operating the Site.
+        </p>
+
+        <h2>4. Third-Party Services</h2>
+        <p>The Site relies on the following third-party services:</p>
+        <ul>
+          <li><strong>Cloudflare</strong>: hosting and content delivery. Newsletter and contact data is stored in Cloudflare KV.</li>
+          <li><strong>Stripe</strong>: payment processing for donations.</li>
+          <li><strong>Resend</strong>: email delivery for contact form notifications and account verification.</li>
+          <li><strong>hCaptcha</strong>: abuse prevention on the forum registration form.</li>
+        </ul>
+        <p>
+          We do not use Google Analytics, Facebook Pixel, or any third-party analytics or advertising service.
+        </p>
+
+        <h2>5. Cookies and Local Storage</h2>
+        <p>
+          The Site does not use tracking cookies. We store a single item in your browser's local storage: your dark/light theme preference. The forum uses a session cookie (httpOnly) to maintain your login. No third-party cookies are set.
+        </p>
+
+        <h2>6. Data Retention</h2>
+        <ul>
+          <li><strong>Newsletter subscriptions</strong>: retained for up to two years, then automatically deleted.</li>
+          <li><strong>Contact form submissions</strong>: retained for up to two years, then automatically deleted.</li>
+          <li><strong>Forum accounts</strong>: retained while active. Deleted upon account deletion request.</li>
+          <li><strong>Donation records</strong>: managed by Stripe per their retention policies.</li>
+        </ul>
+
+        <h2>7. Your Rights</h2>
+        <p>You have the right to:</p>
+        <ul>
+          <li><strong>Access</strong> your data by contacting us.</li>
+          <li><strong>Delete</strong> your forum account using the self-service option. For newsletter or contact data, email us to request removal.</li>
+          <li><strong>Request a copy</strong> of your data by contacting us.</li>
+        </ul>
+
+        <h2>8. Children</h2>
+        <p>
+          The Site is not intended for users under 13. We do not knowingly collect data from children.
+        </p>
+
+        <h2>9. Changes to This Policy</h2>
+        <p>
+          If we make material changes, we will update this page and note the revision date. Continued use of the Site after changes constitutes acceptance.
+        </p>
+
+        <h2>10. Governing Law</h2>
+        <p>
+          This policy is governed by the laws of the Commonwealth of Massachusetts.
+        </p>
+
+        <h2>11. Contact</h2>
+        <p>
+          Questions about this policy: <a href="mailto:jasongusdorfmd@gmail.com">jasongusdorfmd@gmail.com</a>
+        </p>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
