@@ -3,9 +3,9 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-heading: 'Newsreader', 'Georgia', serif;
-  --font-display: 'Quadraat', 'Cormorant Garamond', 'Newsreader', 'Georgia', serif;
-  --font-body: 'Inter', system-ui, sans-serif;
+  --font-heading: 'Quadraat', 'Georgia', serif;
+  --font-display: 'Quadraat', 'Georgia', serif;
+  --font-body: 'Quadraat', 'Georgia', serif;
 
   /* Aurora background animation */
   --animate-aurora: aurora 60s linear infinite;
@@ -62,43 +62,10 @@
 
 @layer base {
   @font-face {
-    font-family: 'Newsreader';
-    src: url('/fonts/Newsreader-Variable.woff2') format('woff2');
-    font-weight: 300 700;
-    font-display: swap;
-  }
-  @font-face {
     font-family: 'Quadraat';
     src: url('/fonts/Quadraat-Regular.woff2') format('woff2');
-    font-weight: 400 600;
+    font-weight: 100 900;
     font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Cormorant Garamond';
-    src: url('/fonts/CormorantGaramond-Medium.woff2') format('woff2');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Cormorant Garamond';
-    src: url('/fonts/CormorantGaramond-MediumItalic.woff2') format('woff2');
-    font-weight: 500;
-    font-style: italic;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Cormorant Garamond';
-    src: url('/fonts/CormorantGaramond-SemiBold.woff2') format('woff2');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Inter';
-    src: url('/fonts/Inter-Variable.woff2') format('woff2');
-    font-weight: 300 700;
     font-display: swap;
   }
 }
@@ -108,11 +75,11 @@
   --white: #fff;
   --black: #000;
   --transparent: transparent;
-  --aurora-1: #e2e8f0;
-  --aurora-2: #f1f5f9;
-  --aurora-3: #cbd5e1;
-  --aurora-4: #f8fafc;
-  --aurora-5: #e2e8f0;
+  --aurora-1: #dbeafe;
+  --aurora-2: #eff6ff;
+  --aurora-3: #bfdbfe;
+  --aurora-4: #e0f2fe;
+  --aurora-5: #dbeafe;
 }
 
 @keyframes aurora {

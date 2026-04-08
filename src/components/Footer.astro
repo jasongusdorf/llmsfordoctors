@@ -52,7 +52,7 @@ const footerLinks = [
         <p class="text-sm text-clinical-400 mb-4">Get new workflows and tool reviews delivered to your inbox.</p>
         <p class="text-sm text-clinical-400 mb-4">
           <a href="https://community.llmsfordoctors.com" class="text-clinical-300 hover:text-clinical-100 underline transition-colors">Join the Community</a>
-          - Connect with verified physicians using AI in clinical practice.
+          - Connect with physicians using AI in clinical practice.
         </p>
         <form
           id="newsletter-form"
@@ -114,7 +114,13 @@ const footerLinks = [
     <!-- Bottom bar -->
     <div class="mt-10 pt-6 border-t border-clinical-800 text-xs text-clinical-500 flex flex-col sm:flex-row justify-between gap-2">
       <span>&copy; {year} LLMs for Doctors. All rights reserved.</span>
-      <span>Not medical advice. Use clinical judgment.</span>
+      <span class="flex gap-3 items-center">
+        <a href="/privacy" class="hover:text-clinical-300 transition-colors">Privacy</a>
+        <span class="text-clinical-700">&middot;</span>
+        <a href="/terms" class="hover:text-clinical-300 transition-colors">Terms</a>
+        <span class="text-clinical-700">&middot;</span>
+        <span>Not medical advice. Use clinical judgment.</span>
+      </span>
     </div>
   </div>
 </footer>

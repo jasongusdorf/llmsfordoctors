@@ -40,6 +40,17 @@ const recentTrials = [...allTrials]
   .sort((a, b) => b.data.lastUpdated.getTime() - a.data.lastUpdated.getTime())
   .slice(0, 4);
 
+// 5 most recent additions across all collections
+const recentAdditions = [
+  ...allGuides.map(g => ({ title: g.data.title, blurb: g.data.description, href: `/guides/${g.id}`, date: g.data.lastUpdated })),
+  ...allEditorials.map(e => ({ title: e.data.title, blurb: e.data.description, href: `/editorials/${e.id}`, date: e.data.lastUpdated })),
+  ...allTrials.map(t => ({ title: t.data.title, blurb: t.data.keyFinding, href: `/trials/${t.id}`, date: t.data.lastUpdated })),
+  ...allTools.map(t => ({ title: t.data.title, blurb: t.data.verdict, href: `/tools/${t.id}`, date: t.data.lastUpdated })),
+  ...allWorkflows.map(w => ({ title: w.data.title, blurb: w.data.tools.join(', '), href: `/workflows/${w.id}`, date: w.data.lastUpdated })),
+  ...allTemplates.map(t => ({ title: t.data.title, blurb: `For ${t.data.targetTool}`, href: `/templates/${t.id}`, date: t.data.lastUpdated })),
+  ...allVideos.map(v => ({ title: v.data.title, blurb: v.data.summary, href: `/videos/${v.id}`, date: v.data.dateAdded })),
+].sort((a, b) => b.date.getTime() - a.date.getTime()).slice(0, 5);
+
 // Browse categories
 const browseLearn = [
   { href: '/guides', name: 'Guides', count: allGuides.length, desc: 'Step-by-step introductions to clinical AI' },
@@ -76,34 +87,61 @@ const journalColors: Record<string, string> = {
 >
   <Hero />
 
-  <!-- Guides -->
+  <!-- Guides + Recent Additions sidebar -->
   <section class="py-16 sm:py-20">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-baseline justify-between mb-8">
-        <h2 class="font-heading text-2xl sm:text-3xl font-semibold text-clinical-900 dark:text-clinical-50">
-          Guides
-        </h2>
-        <a href="/guides" class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
-          All guides &rarr;
-        </a>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-        {otherGuides.map(guide => (
-          <a href={`/guides/${guide.id}`} class="group flex flex-col p-6 rounded-lg border border-clinical-200 dark:border-clinical-700 hover:border-clinical-300 dark:hover:border-clinical-600 hover:shadow-md dark:hover:shadow-clinical-900/50 transition-all bg-white dark:bg-clinical-800">
-            {guide.data.featured && (
-              <p class="text-[11px] font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-3">Featured</p>
-            )}
-            <h3 class="font-heading text-lg font-semibold text-clinical-900 dark:text-clinical-50 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2 leading-snug">
-              {guide.data.title}
-            </h3>
-            <p class="text-sm text-clinical-500 dark:text-clinical-400 flex-1 leading-relaxed">
-              {guide.data.description}
-            </p>
-            <p class="mt-4 text-sm font-medium text-blue-600 dark:text-blue-400">
-              Read guide &rarr;
-            </p>
-          </a>
-        ))}
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="lg:grid lg:grid-cols-[1fr_260px] lg:gap-12">
+        <!-- Main: Guides -->
+        <div>
+          <div class="flex items-baseline justify-between mb-8">
+            <h2 class="font-heading text-2xl sm:text-3xl font-semibold text-clinical-900 dark:text-clinical-50">
+              Guides
+            </h2>
+            <a href="/guides" class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
+              All guides &rarr;
+            </a>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {otherGuides.map(guide => (
+              <a href={`/guides/${guide.id}`} class="group flex flex-col p-6 rounded-lg border border-clinical-200 dark:border-clinical-700 hover:border-clinical-300 dark:hover:border-clinical-600 hover:shadow-md dark:hover:shadow-clinical-900/50 transition-all bg-white dark:bg-clinical-800">
+                {guide.data.featured && (
+                  <p class="text-[11px] font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-3">Featured</p>
+                )}
+                <h3 class="font-heading text-lg font-semibold text-clinical-900 dark:text-clinical-50 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2 leading-snug">
+                  {guide.data.title}
+                </h3>
+                <p class="text-sm text-clinical-500 dark:text-clinical-400 flex-1 leading-relaxed">
+                  {guide.data.description}
+                </p>
+                <p class="mt-4 text-sm font-medium text-blue-600 dark:text-blue-400">
+                  Read guide &rarr;
+                </p>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Sidebar: Recent Additions -->
+        <aside class="mt-10 lg:mt-0 lg:sticky lg:top-24 lg:self-start">
+          <h2 class="font-heading text-lg font-bold text-clinical-900 dark:text-clinical-50 mb-4 pb-2 border-b border-clinical-200 dark:border-clinical-700">
+            Recent Additions
+          </h2>
+          <ul class="space-y-4">
+            {recentAdditions.map(item => (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-sm font-semibold text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 hover:underline underline-offset-2 leading-snug"
+                >
+                  {item.title}
+                </a>
+                <p class="text-xs text-clinical-500 dark:text-clinical-400 leading-relaxed line-clamp-1 mt-0.5">
+                  {item.blurb}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </aside>
       </div>
     </div>
   </section>
@@ -193,7 +231,7 @@ const journalColors: Record<string, string> = {
         Join the conversation with verified colleagues
       </h2>
       <p class="text-sm text-clinical-500 dark:text-clinical-400 mb-8">
-        NPI-verified &ensp;&middot;&ensp; Ad-free &ensp;&middot;&ensp; Physician-moderated
+        Ad-free &ensp;&middot;&ensp; Physician-moderated &ensp;&middot;&ensp; No vendor noise
       </p>
       <a
         href="https://community.llmsfordoctors.com"

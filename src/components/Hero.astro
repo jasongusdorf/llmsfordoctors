@@ -3,38 +3,42 @@ import SearchBar from './SearchBar.astro';
 import AuroraBackground from './ui/aurora-background.astro';
 ---
 
-<AuroraBackground class="!h-auto !bg-clinical-900 dark:!bg-clinical-900 pt-24 pb-14 px-4 sm:px-6 lg:px-8">
+<AuroraBackground class="!h-auto !bg-white dark:!bg-clinical-900 pt-24 pb-14 px-4 sm:px-6 lg:px-8">
   <div class="relative z-10 max-w-3xl mx-auto text-center animate-fade-in-up">
-    <p class="text-sm font-semibold uppercase tracking-widest text-blue-400 mb-5">
+    <p class="text-sm font-semibold uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-5">
       LLMs for Doctors
     </p>
 
-    <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-5 leading-tight">
+    <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-clinical-900 dark:text-white mb-5 leading-tight">
       Make your clinical life easier with AI
     </h1>
 
-    <p class="font-display text-lg sm:text-xl italic text-clinical-200 max-w-lg mx-auto leading-relaxed mb-10">
+    <p class="font-display text-lg sm:text-xl italic text-clinical-500 dark:text-clinical-200 max-w-lg mx-auto leading-relaxed mb-10">
       Less charting, more doctoring.
     </p>
 
-    <!-- Golden featured guide -->
+    <div class="max-w-xl mx-auto mb-8">
+      <SearchBar />
+    </div>
+
+    <!-- Featured guide -->
     <a
       href="/guides/llms-in-clinical-care-101"
-      class="group mb-8 mx-auto max-w-lg block rounded-xl border-2 border-amber-400/60 bg-gradient-to-br from-amber-500/15 via-amber-400/10 to-yellow-500/15 backdrop-blur p-5 hover:border-amber-400 hover:from-amber-500/25 hover:via-amber-400/20 hover:to-yellow-500/25 transition-all shadow-lg shadow-amber-500/10 hover:shadow-amber-500/20"
+      class="group mb-4 mx-auto max-w-lg block rounded-xl border-2 border-amber-500/40 bg-gradient-to-br from-amber-500/10 via-amber-400/5 to-yellow-500/10 backdrop-blur p-5 hover:border-amber-500 hover:from-amber-500/20 hover:via-amber-400/15 hover:to-yellow-500/20 transition-all shadow-lg shadow-amber-500/10 hover:shadow-amber-500/20"
     >
       <div class="flex items-center gap-4">
         <div class="flex-shrink-0 w-9 h-9 rounded-full bg-amber-400/20 flex items-center justify-center">
-          <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+          <svg class="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
             <path d="M10 2l2.39 4.84L17.5 7.6l-3.75 3.66.89 5.17L10 13.93l-4.64 2.5.89-5.17L2.5 7.6l5.11-.76L10 2z" />
           </svg>
         </div>
         <div class="flex-1 text-left">
-          <p class="text-xs font-semibold uppercase tracking-widest text-amber-400 mb-0.5">Start Here</p>
-          <p class="font-heading text-base font-semibold text-white group-hover:text-amber-200 transition-colors">
+          <p class="text-xs font-semibold uppercase tracking-widest text-amber-600 dark:text-amber-400 mb-0.5">Start Here</p>
+          <p class="font-heading text-base font-semibold text-clinical-900 dark:text-white group-hover:text-amber-700 dark:group-hover:text-amber-200 transition-colors">
             LLMs in Clinical Care 101
           </p>
         </div>
-        <div class="flex-shrink-0 text-amber-400/60 group-hover:text-amber-400 group-hover:translate-x-1 transition-all">
+        <div class="flex-shrink-0 text-amber-500/60 group-hover:text-amber-500 group-hover:translate-x-1 transition-all">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
           </svg>
@@ -42,15 +46,36 @@ import AuroraBackground from './ui/aurora-background.astro';
       </div>
     </a>
 
-    <div class="max-w-xl mx-auto mb-6">
-      <SearchBar />
-    </div>
+    <!-- ELI5 button -->
+    <a
+      href="/guides/eli5-ai-for-doctors"
+      class="group mb-8 mx-auto max-w-lg block rounded-xl border-2 border-blue-400/40 bg-gradient-to-br from-blue-500/10 via-blue-400/5 to-sky-500/10 backdrop-blur p-5 hover:border-blue-500 hover:from-blue-500/20 hover:via-blue-400/15 hover:to-sky-500/20 transition-all shadow-lg shadow-blue-500/10 hover:shadow-blue-500/20"
+    >
+      <div class="flex items-center gap-4">
+        <div class="flex-shrink-0 w-9 h-9 rounded-full bg-blue-400/20 flex items-center justify-center">
+          <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+          </svg>
+        </div>
+        <div class="flex-1 text-left">
+          <p class="text-xs font-semibold uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-0.5">New to AI?</p>
+          <p class="font-heading text-base font-semibold text-clinical-900 dark:text-white group-hover:text-blue-700 dark:group-hover:text-blue-200 transition-colors">
+            ELI5: AI for Doctors
+          </p>
+        </div>
+        <div class="flex-shrink-0 text-blue-500/60 group-hover:text-blue-500 group-hover:translate-x-1 transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
+    </a>
 
     <div class="flex items-center justify-center gap-6 text-sm">
-      <a href="/tools" class="text-clinical-400 hover:text-white transition-colors font-medium">
+      <a href="/tools" class="text-clinical-500 hover:text-clinical-900 dark:text-clinical-400 dark:hover:text-white transition-colors font-medium">
         Browse Tools &rarr;
       </a>
-      <a href="/workflows" class="text-clinical-400 hover:text-white transition-colors font-medium">
+      <a href="/workflows" class="text-clinical-500 hover:text-clinical-900 dark:text-clinical-400 dark:hover:text-white transition-colors font-medium">
         View Workflows &rarr;
       </a>
     </div>

@@ -46,7 +46,14 @@ const nav: NavEntry[] = [
     ],
   },
   { href: '/community', label: 'Community' },
-  { href: '/about',     label: 'About' },
+  {
+    label: 'About',
+    items: [
+      { href: '/about',   label: 'About the Creator' },
+      { href: '/terms',   label: 'Terms of Service' },
+      { href: '/privacy', label: 'Privacy Policy' },
+    ],
+  },
   { href: '/donate',    label: 'Donate' },
 ];
 
