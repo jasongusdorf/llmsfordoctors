@@ -56,7 +56,7 @@ export const POST: APIRoute = async ({ request }) => {
       email: trimmedEmail,
       message: trimmedMessage,
       submittedAt,
-    }));
+    }), { expirationTtl: 63072000 });
 
     // Send email notification via Resend
     try {

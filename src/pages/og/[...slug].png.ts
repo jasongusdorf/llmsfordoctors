@@ -3,12 +3,14 @@ import { getCollection } from 'astro:content';
 import { generateOgImage } from '../../utils/og';
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const [workflows, guides, tools, templates, trials] = await Promise.all([
+  const [workflows, guides, tools, templates, trials, editorials, videos] = await Promise.all([
     getCollection('workflows'),
     getCollection('guides'),
     getCollection('tools'),
     getCollection('templates'),
     getCollection('trials'),
+    getCollection('editorials'),
+    getCollection('videos'),
   ]);
 
   const paths = [
@@ -41,6 +43,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
     ...trials.map((e) => ({
       params: { slug: `trials/${e.id}` },
       props: { title: e.data.title, subtitle: e.data.keyFinding },
+    })),
+    ...editorials.map((e) => ({
+      params: { slug: `editorials/${e.id}` },
+      props: { title: e.data.title, subtitle: e.data.description },
+    })),
+    ...videos.map((e) => ({
+      params: { slug: `videos/${e.id}` },
+      props: { title: e.data.title, subtitle: e.data.summary },
     })),
   ];
 

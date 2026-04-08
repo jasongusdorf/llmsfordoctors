@@ -22,7 +22,7 @@ const { Content, headings } = await render(entry);
     { label: entry.data.title },
   ]}
 >
-  {headings.length > 0 && (
+  {headings.length > 0 && !entry.data.hideToc && (
     <nav class="mb-8 p-4 rounded-lg bg-clinical-50 dark:bg-clinical-800 border border-clinical-200 dark:border-clinical-700 not-prose">
       <p class="text-xs font-semibold uppercase tracking-wide text-clinical-500 dark:text-clinical-400 mb-2">
         On this page

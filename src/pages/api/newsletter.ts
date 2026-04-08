@@ -37,7 +37,7 @@ export const POST: APIRoute = async ({ request }) => {
     await env.FORM_STORE.put(key, JSON.stringify({
       email: email.toLowerCase().trim(),
       subscribedAt: new Date().toISOString(),
-    }));
+    }), { expirationTtl: 63072000 });
 
     return new Response(JSON.stringify({ ok: true }), {
       status: 200,
