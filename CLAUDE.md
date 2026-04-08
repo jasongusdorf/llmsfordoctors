@@ -7,13 +7,16 @@ Clinical AI education site — Astro 6 + Cloudflare Workers + Preact + Tailwind 
 ## Build & Deploy
 
 - `npm run dev` — local dev server
-- `npx astro build` — production build (always run before deploying)
-- `npx wrangler deploy` — deploy to Cloudflare Workers (this is the live site)
+- `npm run build` — production build (Astro)
+- `npm run deploy` — build, run `post-build.mjs`, then `wrangler deploy --config dist/server/wrangler.json`
+
+**Always use `npm run deploy`.** Do not run `wrangler deploy` directly. The deploy script does three things that matter:
+
+1. `astro build` generates `dist/server/`.
+2. `scripts/post-build.mjs` writes `worker-entry.mjs` (adds the `scheduled` handler for daily cron — news refresh + X posting) and patches `dist/server/wrangler.json` with the cron trigger (`0 6 * * *`) and the `NEWS_CACHE` KV binding. Skip this step and cron silently breaks.
+3. `wrangler deploy --config dist/server/wrangler.json` ships the patched config. The root `wrangler.jsonc` is a minimal stub and is **not** what gets deployed.
 
 **Deployment is Cloudflare Workers, NOT Cloudflare Pages.**
-The `wrangler.jsonc` at the project root is minimal; the real worker config is generated at `dist/server/wrangler.json` during build.
-
-Deploy workflow: `npx astro build && npx wrangler deploy`
 
 Production URL: https://llmsfordoctors.jasongusdorf.workers.dev (proxied via llmsfordoctors.com)
 
