@@ -46,8 +46,7 @@ Content lives in `src/content/` as `.mdx` files. Schema defined in `src/content.
 - Tool categories: note-writing, clinical-reasoning, patient-education, literature-review, admin-billing, board-prep, general
 - Video categories: tutorial, lecture, demo, interview
 - Templates page orders categories with note-writing first (not alphabetical)
-- No git remote configured — this is a local-only repo
 
 ## Git
 
-No remote is configured. All version control is local. Do not attempt `git push`.
+Remote is `origin` → `https://github.com/jasongusdorf/llmsfordoctors.git`. Work on `main`; push commits to `origin/main`. Pushing to `main` does not auto-deploy — the live site only updates when you run `npm run deploy` (Astro build + `wrangler deploy`).
