@@ -40,14 +40,12 @@ describe('Database layer', () => {
         email: 'doc@example.com',
         passwordHash: 'hash123',
         name: 'Dr. Smith',
-        npiNumber: '1234567890',
       });
 
       const user = db.getUserByEmail('doc@example.com');
       expect(user).not.toBeNull();
       expect(user!.email).toBe('doc@example.com');
       expect(user!.name).toBe('Dr. Smith');
-      expect(user!.npi_number).toBe('1234567890');
       expect(user!.status).toBe('pending');
       expect(user!.role).toBe('user');
     });
@@ -62,7 +60,6 @@ describe('Database layer', () => {
         email: 'doc@example.com',
         passwordHash: 'hash123',
         name: 'Dr. Smith',
-        npiNumber: '1234567890',
       });
 
       expect(() => {
@@ -70,25 +67,6 @@ describe('Database layer', () => {
           email: 'doc@example.com',
           passwordHash: 'hash456',
           name: 'Dr. Jones',
-          npiNumber: '0987654321',
-        });
-      }).toThrow();
-    });
-
-    it('enforces unique NPI', () => {
-      db.createUser({
-        email: 'doc1@example.com',
-        passwordHash: 'hash123',
-        name: 'Dr. Smith',
-        npiNumber: '1234567890',
-      });
-
-      expect(() => {
-        db.createUser({
-          email: 'doc2@example.com',
-          passwordHash: 'hash456',
-          name: 'Dr. Jones',
-          npiNumber: '1234567890',
         });
       }).toThrow();
     });
@@ -98,25 +76,11 @@ describe('Database layer', () => {
         email: 'doc@example.com',
         passwordHash: 'hash123',
         name: 'Dr. Smith',
-        npiNumber: '1234567890',
       });
 
       const user = db.getUserById(id);
       expect(user).not.toBeNull();
       expect(user!.id).toBe(id);
-    });
-
-    it('gets user by NPI', () => {
-      db.createUser({
-        email: 'doc@example.com',
-        passwordHash: 'hash123',
-        name: 'Dr. Smith',
-        npiNumber: '1234567890',
-      });
-
-      const user = db.getUserByNpi('1234567890');
-      expect(user).not.toBeNull();
-      expect(user!.npi_number).toBe('1234567890');
     });
   });
 
@@ -126,7 +90,6 @@ describe('Database layer', () => {
         email: 'doc@example.com',
         passwordHash: 'hash123',
         name: 'Dr. Smith',
-        npiNumber: '1234567890',
       });
 
       const before = db.getUserById(id)!;
@@ -149,7 +112,6 @@ describe('Database layer', () => {
         email: 'doc@example.com',
         passwordHash: 'hash123',
         name: 'Dr. Smith',
-        npiNumber: '1234567890',
       });
       db.verifyEmail(userId);
     });
@@ -219,7 +181,6 @@ describe('Database layer', () => {
         email: 'doc@example.com',
         passwordHash: 'hash123',
         name: 'Dr. Smith',
-        npiNumber: '1234567890',
       });
     });
 

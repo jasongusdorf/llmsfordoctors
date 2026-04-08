@@ -88,7 +88,7 @@ After Discourse is running, go to **Admin > Settings > Login** and configure the
 
 Also set:
 - `login_required` → `true` (forum is members-only)
-- `must_approve_users` → `false` (auth service handles approval via NPI verification)
+- `must_approve_users` → `false` (auth service handles approval via email verification)
 - Disable all local login methods (email/password, Google, GitHub) — SSO is the only entry point
 
 The auth service at `https://auth.llmsfordoctors.com/sso` handles the DiscourseConnect handshake, verifies the physician's session, and returns a signed payload.

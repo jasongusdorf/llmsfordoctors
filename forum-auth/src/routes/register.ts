@@ -1,8 +1,6 @@
 import { Hono } from 'hono';
-import { getCookie } from 'hono/cookie';
 import bcrypt from 'bcryptjs';
 import type { DbInterface } from '../db.js';
-import { verifyNpi } from '../services/npi.js';
 import { generateToken } from '../services/session.js';
 import { sendVerificationEmail } from '../services/email.js';
 import { registerView } from '../views/register.js';
@@ -25,7 +23,6 @@ export function registerRoutes(db: DbInterface, rateLimiter: MiddlewareHandler) 
 
     const firstName = (body['firstName'] as string | undefined)?.trim() ?? '';
     const lastName = (body['lastName'] as string | undefined)?.trim() ?? '';
-    const npiNumber = (body['npiNumber'] as string | undefined)?.trim() ?? '';
     const email = (body['email'] as string | undefined)?.trim().toLowerCase() ?? '';
     const password = (body['password'] as string | undefined) ?? '';
     const confirmPassword = (body['confirmPassword'] as string | undefined) ?? '';
@@ -35,7 +32,7 @@ export function registerRoutes(db: DbInterface, rateLimiter: MiddlewareHandler) 
       c.html(registerView(csrfToken, config.hcaptchaSitekey, msg), 400);
 
     // Validate required fields
-    if (!firstName || !lastName || !npiNumber || !email || !password || !confirmPassword) {
+    if (!firstName || !lastName || !email || !password || !confirmPassword) {
       return renderError('All fields are required.');
     }
 
@@ -45,10 +42,6 @@ export function registerRoutes(db: DbInterface, rateLimiter: MiddlewareHandler) 
 
     if (password !== confirmPassword) {
       return renderError('Passwords do not match.');
-    }
-
-    if (!/^\d{10}$/.test(npiNumber)) {
-      return renderError('NPI number must be exactly 10 digits.');
     }
 
     // Verify hCaptcha
@@ -65,27 +58,16 @@ export function registerRoutes(db: DbInterface, rateLimiter: MiddlewareHandler) 
       return renderError('Captcha verification failed. Please try again.');
     }
 
-    // Verify NPI
-    const npiResult = await verifyNpi(npiNumber, firstName, lastName);
-    if (!npiResult.valid) {
-      return renderError(`NPI verification failed: ${npiResult.error}`);
-    }
-
-    // Check for existing email or NPI
+    // Check for existing email
     const existingEmail = db.getUserByEmail(email);
     if (existingEmail) {
       return renderError('An account with this email already exists.');
     }
 
-    const existingNpi = db.getUserByNpi(npiNumber);
-    if (existingNpi) {
-      return renderError('An account with this NPI number already exists.');
-    }
-
     // Hash password and create user
     const passwordHash = await bcrypt.hash(password, 12);
     const name = `${firstName} ${lastName}`;
-    const userId = db.createUser({ email, passwordHash, name, npiNumber });
+    const userId = db.createUser({ email, passwordHash, name });
 
     // Generate verification token (24h expiry)
     const token = generateToken();

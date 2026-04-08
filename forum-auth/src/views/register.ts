@@ -23,11 +23,6 @@ export function registerView(
           </div>
         </div>
 
-        <label for="npiNumber">NPI Number</label>
-        <input type="text" id="npiNumber" name="npiNumber" required
-               pattern="[0-9]{10}" maxlength="10" placeholder="10-digit NPI"
-               autocomplete="off" />
-
         <label for="email">Email Address</label>
         <input type="email" id="email" name="email" required autocomplete="email" />
 

@@ -11,8 +11,6 @@ export interface User {
   email_verified: number;
   password_hash: string;
   name: string;
-  npi_number: string;
-  npi_verified: number;
   role: string;
   status: string;
   created_at: string;
@@ -44,14 +42,13 @@ export interface DbInterface {
     email: string;
     passwordHash: string;
     name: string;
-    npiNumber: string;
   }): number;
   getUserByEmail(email: string): User | null;
   getUserById(id: number): User | null;
-  getUserByNpi(npiNumber: string): User | null;
   verifyEmail(userId: number): void;
   updatePassword(userId: number, passwordHash: string): void;
   disableUser(userId: number): void;
+  deleteUser(userId: number): void;
   createSession(params: { id: string; userId: number; expiresAt: string }): void;
   getSession(id: string): Session | null;
   deleteSession(id: string): void;
@@ -79,8 +76,6 @@ export function createDb(path: string): DbInterface {
       email_verified INTEGER NOT NULL DEFAULT 0,
       password_hash TEXT NOT NULL,
       name TEXT NOT NULL,
-      npi_number TEXT NOT NULL UNIQUE,
-      npi_verified INTEGER NOT NULL DEFAULT 0,
       role TEXT NOT NULL DEFAULT 'user',
       status TEXT NOT NULL DEFAULT 'pending',
       created_at TEXT NOT NULL DEFAULT (datetime('now'))
@@ -104,15 +99,19 @@ export function createDb(path: string): DbInterface {
     );
   `);
 
+  // Migration: drop NPI columns from existing databases
+  try { db.prepare('ALTER TABLE users DROP COLUMN npi_number').run(); } catch { /* column may not exist */ }
+  try { db.prepare('ALTER TABLE users DROP COLUMN npi_verified').run(); } catch { /* column may not exist */ }
+
   return {
     _db: db,
 
-    createUser({ email, passwordHash, name, npiNumber }) {
+    createUser({ email, passwordHash, name }) {
       const stmt = db.prepare(
-        `INSERT INTO users (email, password_hash, name, npi_number)
-         VALUES (?, ?, ?, ?)`
+        `INSERT INTO users (email, password_hash, name)
+         VALUES (?, ?, ?)`
       );
-      const result = stmt.run(email, passwordHash, name, npiNumber);
+      const result = stmt.run(email, passwordHash, name);
       return result.lastInsertRowid as number;
     },
 
@@ -128,12 +127,6 @@ export function createDb(path: string): DbInterface {
       );
     },
 
-    getUserByNpi(npiNumber) {
-      return (
-        (db.prepare('SELECT * FROM users WHERE npi_number = ?').get(npiNumber) as User | undefined) ?? null
-      );
-    },
-
     verifyEmail(userId) {
       db.prepare(
         `UPDATE users SET email_verified = 1, status = 'active' WHERE id = ?`
@@ -146,6 +139,10 @@ export function createDb(path: string): DbInterface {
 
     disableUser(userId) {
       db.prepare(`UPDATE users SET status = 'disabled' WHERE id = ?`).run(userId);
+    },
+
+    deleteUser(userId) {
+      db.prepare('DELETE FROM users WHERE id = ?').run(userId);
     },
 
     createSession({ id, userId, expiresAt }) {
