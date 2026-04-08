@@ -2,6 +2,9 @@
 dist/
 # generated types
 .astro/
+# wrangler build state and deploy metadata
+.wrangler/state/
+.wrangler/deploy/
 
 # dependencies
 node_modules/
