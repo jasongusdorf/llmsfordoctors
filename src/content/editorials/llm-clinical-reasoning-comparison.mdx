@@ -15,7 +15,9 @@ import PerformanceMatrix from '../../components/PerformanceMatrix.tsx';
 **TL;DR:** We ran the same clinical case through five LLMs. The results: **o3** wins for differential diagnosis and workup planning (most structured, auditable outputs). **Claude** wins for case synthesis and cognitive debiasing (best clinical judgment and actionable critique). **Perplexity** wins for literature-grounded reasoning (real citations with subgroup-level detail). **Gemini** wins for long medical records (largest context window). No single model dominates all tasks. Match the model to the job. <a href="#the-verdict">Jump to The Verdict</a> for full recommendations.
 </Callout>
 
-Every vendor claims their LLM is the best at clinical reasoning. Marketing decks are full of benchmark scores and cherry-picked demos. We tested it ourselves: same clinical case, five models, five distinct reasoning tasks. No vendor sponsorship, no cherry-picking, just representative outputs from each model on the same prompts.
+Every vendor claims their model reasons like a physician. The marketing decks have benchmark scores and cherry-picked demos. We wanted receipts, not claims.
+
+Same clinical case. Five models. Five distinct reasoning tasks. No sponsorship, no cherry-picking. Just representative outputs from the same prompts, side by side.
 
 <Callout type="tip">
   Just want the bottom line? <a href="#the-verdict">Skip to The Verdict</a> for our opinionated recommendations by task.
@@ -25,7 +27,7 @@ Every vendor claims their LLM is the best at clinical reasoning. Marketing decks
 
 ## The Test Case
 
-We chose a case with a clear leading diagnosis but enough complexity to test whether models could think beyond the obvious.
+We needed a case obvious enough that all five models would get the leading diagnosis, but layered enough to separate the ones that think from the ones that pattern-match.
 
 > **Clinical Vignette:** A 55-year-old male presents to the emergency department with 3 days of progressive dyspnea and pleuritic chest pain. Past medical history includes hypertension and type 2 diabetes, both managed with oral medications. He returned from a 14-hour international flight 5 days ago.
 >
@@ -37,15 +39,15 @@ We chose a case with a clear leading diagnosis but enough complexity to test whe
 >
 > **Labs:** D-dimer 2,400 ng/mL (normal &lt;500). Troponin I mildly elevated at 0.08 ng/mL. BNP 320 pg/mL.
 
-PE is the obvious leading diagnosis, but a thorough clinician should also consider pneumothorax, ACS, pericarditis, pneumonia, and aortic dissection in the differential. The mildly elevated troponin and BNP add layers that test whether the model can integrate findings rather than anchor on a single diagnosis. (Want to try a similar prompt yourself? Use our [DDx Generator template](/templates/ddx-generator) and apply the principles from [Prompting 101](/guides/prompting-101).)
+Any emergency physician sees this and thinks PE. The question is what happens after the obvious answer. Does the model consider pneumothorax, ACS, pericarditis, aortic dissection? Does it notice that the mildly elevated troponin and BNP complicate the picture, or does it anchor on the calf and stop thinking? (Want to try a similar prompt yourself? Use our [DDx Generator template](/templates/ddx-generator) and the principles from [Prompting 101](/guides/prompting-101).)
 
 ---
 
-## Comparison 1: Differential Diagnosis Generation
+## Comparison 1: Differential Diagnosis
 
-**Task:** Generate a ranked differential diagnosis with supporting and refuting evidence for each.
+**Task:** Generate a ranked differential with supporting and refuting evidence for each diagnosis.
 
-**Winner: o3**, the most structured, auditable, and thorough output.
+**Winner: o3.** The most structured, auditable, and thorough output of the five.
 
 <OutputComparison
   client:load
@@ -88,11 +90,9 @@ PE is the obvious leading diagnosis, but a thorough clinician should also consid
 
 ## Comparison 2: Workup Planning
 
-**Task:** Recommend a diagnostic workup and justify each test ordered.
+**Task:** Recommend a prioritized diagnostic workup and justify each test.
 
-**Winner: o3** (slight edge over Claude)
-
-We asked each model to recommend a prioritized diagnostic workup for the same patient.
+**Winner: o3** (slight edge over Claude). Both organized the workup with clinical workflow in mind; o3's tiered structure was more scannable in a busy ED.
 
 <OutputComparison
   client:load
@@ -135,9 +135,9 @@ We asked each model to recommend a prioritized diagnostic workup for the same pa
 
 ## Comparison 3: Case Synthesis
 
-**Task:** Given all the initial workup results (we provided CTPA confirming bilateral PE with RV strain, positive LE duplex, echo showing RV dilation), write a case synthesis for the admitting team.
+**Task:** With all workup results in hand (CTPA confirming bilateral PE with RV strain, positive LE duplex, echo showing RV dilation), write a case synthesis for the admitting team.
 
-**Winner: Claude** (Try it yourself with our [Case Synthesis template](/templates/case-synthesis).)
+**Winner: Claude.** It organized by clinical problem rather than data source, which is what the admitting team actually needs. (Try it yourself with our [Case Synthesis template](/templates/case-synthesis).)
 
 <OutputComparison
   client:load
@@ -180,11 +180,11 @@ We asked each model to recommend a prioritized diagnostic workup for the same pa
 
 ## Comparison 4: Cognitive Debiasing
 
-**Task:** Review my clinical reasoning for this case and identify any cognitive biases or diagnostic pitfalls I might be falling into.
+**Task:** Review my reasoning and identify cognitive biases or diagnostic pitfalls.
 
-**Winner: Claude**
+**Winner: Claude.** This is the task where the gap between models was widest.
 
-We provided each model with the case plus a statement: "I'm confident this is PE. The D-dimer, S1Q3T3, and calf swelling all fit. I'm going to start heparin and order the CTPA to confirm."
+We fed each model the case plus a confident, slightly overcommitted clinical statement: "I'm confident this is PE. The D-dimer, S1Q3T3, and calf swelling all fit. I'm going to start heparin and order the CTPA to confirm." The question was whether the model would push back, and how specifically.
 
 <OutputComparison
   client:load
@@ -231,11 +231,9 @@ We provided each model with the case plus a statement: "I'm confident this is PE
 
 ## Comparison 5: Literature-Grounded Reasoning
 
-**Task:** This patient has submassive PE with RV strain. Should I use a DOAC or LMWH bridging to warfarin? What does the evidence say?
+**Task:** Submassive PE with RV strain. DOAC or LMWH bridging to warfarin? What does the evidence say?
 
-**Winner: Perplexity.**
-
-This is where Perplexity's architecture pays off.
+**Winner: Perplexity.** This is the task its architecture was built for, and it shows.
 
 <OutputComparison
   client:load
@@ -280,9 +278,9 @@ This is where Perplexity's architecture pays off.
 
 ---
 
-## Summary: Performance Matrix
+## The Scorecard
 
-Each model's performance across all six reasoning tasks:
+How each model performed across all six reasoning tasks:
 
 <PerformanceMatrix
   client:load
@@ -345,15 +343,15 @@ Each model's performance across all six reasoning tasks:
 
 <h2 id="the-verdict">The Verdict</h2>
 
-**If you pick one model for clinical reasoning: o3.** It produced the most structured, auditable outputs for core diagnostic tasks. The probability estimates, evidence mapping, and tiered workup planning reflect a model that has internalized clinical workflow patterns.
+**One model for clinical reasoning: o3.** The most structured, auditable outputs across core diagnostic tasks. Probability estimates, evidence mapping, tiered workup planning. o3 has internalized clinical workflow patterns in a way the others haven't.
 
-**For a second opinion or case synthesis: Claude.** Where o3 excels at structure, Claude excels at judgment. It organized case synthesis by clinical problem rather than data source. It named remaining uncertainties. Its cognitive debiasing raised specific, actionable points (Baker's cyst mimicking DVT, S1Q3T3 sensitivity limitations) that other models missed. Claude reads like a thoughtful consultant; o3 reads like a thorough checklist.
+**Second opinion and case synthesis: Claude.** Where o3 gives you structure, Claude gives you judgment. It organized case synthesis by clinical problem, not data source. It named remaining uncertainties. Its cognitive debiasing raised specific, actionable points that other models missed entirely: Baker's cyst mimicking DVT, S1Q3T3 sensitivity limitations, the difference between ordering a confirmatory test and a diagnostic one. Claude reads like a thoughtful consultant. o3 reads like a thorough checklist. You want both.
 
-**For evidence-based questions: Perplexity.** When you need specific trial data, guideline citations, or recent literature, Perplexity is the clear winner. Its search-augmented architecture lets it cite HOKUSAI-VTE subgroup analyses and ongoing trials that pure reasoning models cannot reliably provide. Use it for "What does the evidence say?" questions, not for clinical reasoning.
+**Evidence-based questions: Perplexity.** When you need specific trial data, guideline citations, or recent literature, nothing else comes close. Its search-augmented architecture lets it cite HOKUSAI-VTE subgroup analyses and ongoing trials that pure reasoning models cannot reliably provide. Use it for "What does the evidence say?" Not for "What should I do?"
 
-**For long medical records: Gemini.** Gemini's large context window makes it the best current option for ingesting lengthy medical records, multi-page discharge summaries, or longitudinal chart reviews. We tested it with a 47-page medical record and it maintained coherence throughout; other models truncated or lost details from early in the document.
+**Long medical records: Gemini.** The largest context window makes it the best current option for 47-page discharge summaries and longitudinal chart reviews. We tested it. It maintained coherence throughout. The others truncated or lost details from early in the document.
 
-**No model replaces clinical judgment.** Every model made at least one error or omission during testing. The physician remains the decision-maker.
+**No model replaces you.** Every model made at least one error or omission during testing. The physician remains the decision-maker. These are consultation tools, not autonomous ones.
 
 <Callout type="hipaa">
   Never paste identifiable patient information into any LLM that is not deployed within your institution's HIPAA-compliant infrastructure. De-identify all cases before using consumer-facing AI tools. See our <a href="/guides/hipaa-compliance">HIPAA compliance guide</a> for details.
@@ -361,22 +359,15 @@ Each model's performance across all six reasoning tasks:
 
 ---
 
-## Methodology
+## How We Tested
 
-**Testing dates:** March 10-15, 2026.
+**Dates:** March 10-15, 2026.
 
-**Model versions tested:**
-- Claude 3.5 Sonnet (via claude.ai)
-- o3 (via ChatGPT Plus, o3 reasoning model)
-- GPT-4o (via ChatGPT Plus)
-- Gemini Advanced (via gemini.google.com)
-- Perplexity Pro (via perplexity.ai)
+**Models:** Claude 3.5 Sonnet (claude.ai), o3 (ChatGPT Plus), GPT-4o (ChatGPT Plus), Gemini Advanced (gemini.google.com), Perplexity Pro (perplexity.ai).
 
-**Protocol:** Each model received the identical prompt for each task. We used fresh conversations (no prior context) for every test. Temperature/sampling settings were left at each platform's defaults. Outputs shown are representative of each model's typical performance on this case; we ran each prompt three times and selected the most representative response (not the best or worst).
+**Protocol:** Identical prompts. Fresh conversations with no prior context. Default temperature and sampling settings. We ran each prompt three times and selected the most representative response, not the best or worst.
 
-**Limitations:** This is a single case study, not a systematic benchmark. Performance may vary across different clinical scenarios, specialties, and case complexity levels. Model capabilities change with updates; results here reflect the versions tested in March 2026.
-
-**Re-testing commitment:** We plan to re-run this comparison when any model receives a major update. Check the `lastUpdated` date for currency.
+**What this is not:** A systematic benchmark. This is one case, five models, one point in time. Performance varies across clinical scenarios, specialties, and complexity levels. Model capabilities change with updates; these results reflect March 2026 versions. We plan to re-run the comparison when any model receives a major update. Check the `lastUpdated` date.
 
 <Callout type="tip">
   Disagree with our ratings? Have a case you'd like us to test? We welcome community feedback.
@@ -384,9 +375,9 @@ Each model's performance across all six reasoning tasks:
 
 ---
 
-## Related Guides
+## Related on this site
 
-- **[Prompting 101](/guides/prompting-101)**: The four principles behind every prompt we used in this comparison.
-- **[The Evidence Landscape: LLMs in Medicine](/editorials/evidence-landscape-2025)**: The broader research base for clinical AI, including the trials that informed our methodology.
-- **[HIPAA Compliance Guide](/guides/hipaa-compliance)**: How to use any of these models safely with clinical data.
-- **Templates used in this comparison:** [DDx Generator](/templates/ddx-generator) | [Case Synthesis](/templates/case-synthesis)
+- [Prompting 101](/guides/prompting-101) — the four principles behind every prompt we used in this comparison
+- [The Evidence Landscape: LLMs in Medicine](/editorials/evidence-landscape-2025) — the broader research base for clinical AI
+- [HIPAA Compliance Guide](/guides/hipaa-compliance) — how to use any of these models safely with clinical data
+- Templates used here: [DDx Generator](/templates/ddx-generator), [Case Synthesis](/templates/case-synthesis)

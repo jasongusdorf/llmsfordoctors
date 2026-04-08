@@ -1,0 +1,63 @@
+---
+title: "Automated CT Radiomics Predicts Survival in High-Grade Serous Ovarian Cancer"
+journal: "Lancet Digital Health"
+year: 2026
+doi: "10.1016/j.landig.2025.100955"
+keyFinding: "An end-to-end pipeline combining automated U-Net segmentation with radiomics-based survival modelling achieved a C-index of 0.73 across two external test sets (TCIA and KEM) for overall survival prediction in high-grade serous ovarian cancer, outperforming CA-125, FIGO stage, and a previously published radiomics prognostic vector. High-risk patients had hazard ratios of 4.81 to 6.34 compared with low-risk patients after adjusting for age, stage, performance status, and residual disease."
+lastUpdated: 2026-03-29
+tags: [oncology, ovarian-cancer, radiomics, deep-learning, segmentation, ct-imaging, risk-stratification, survival-prediction]
+socialPost: "Automated CT radiomics predicts survival in high-grade serous ovarian cancer. C-index 0.73 across two external cohorts, beating CA-125 and FIGO staging. High-risk patients had 4.8x to 6.3x the hazard of death."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Linton-Reid and colleagues built an end-to-end pipeline that takes a pre-surgical contrast-enhanced CT scan of a patient with high-grade serous ovarian carcinoma (HGSOC) and, without any manual input, segments the primary ovarian tumour and predicts overall survival.
+
+The study was retrospective and multinational. The development cohort came from Hammersmith Hospital in London (n=211), split 7:3 into training (n=147) and internal validation (n=64) sets. Two external test sets provided independent validation: The Cancer Imaging Archive (TCIA; n=71) and Kliniken Essen-Mitte in Germany (KEM; n=323). All 605 patients had confirmed HGSOC histology and underwent upfront debulking surgery.
+
+The pipeline had two stages. First, a U-Net-based deep learning model automatically segmented primary adnexal masses on portal venous phase CT. Second, 666 texture-based radiomics features were extracted from the segmented regions and fed into machine learning models to predict survival. The investigators tested 13 feature selection methods combined with 12 machine learning algorithms, bootstrapped 100 times, and compared radiomics models against deep learning models (CNNs trained directly on CT images) and conventional clinical benchmarks including CA-125 and FIGO stage.
+
+---
+
+## Key Findings
+
+- **Automated segmentation achieved median Dice scores of 0.90** on Hammersmith Hospital validation, **0.80** on KEM, and **0.88** on TCIA, confirming accurate tumour delineation without radiologist input
+- **The best radiomics model (PVIRF-RSF) achieved a C-index of 0.73** (SE 0.07) on Hammersmith validation, **0.73** (0.06) on TCIA, and **0.73** (0.03) on KEM, significantly outperforming CA-125 and the previously published radiomics prognostic vector (p&lt;0.0001)
+- **After adjusting for age, stage, performance status, and residual disease**, high-risk patients had hazard ratios of **4.81** (95% CI 1.61-14.35) on Hammersmith validation, **6.34** (2.08-19.34) on TCIA, and **1.71** (1.10-2.65) on KEM
+- **The model stratified patients into groups with significantly different survival** across all cohorts: Hammersmith validation (p=0.0057), TCIA (p=0.0044), KEM (p=0.0055)
+- **Deep learning CNNs underperformed the radiomics approach** for survival prediction, with lower C-indices across all test sets
+- **Gene set enrichment analysis linked high-risk predictions to specific biology**: SNARE-mediated vesicular transport, MAPK signalling, and amoebiasis pathways were enriched in the high-risk group, suggesting an invasive tumour phenotype
+
+<Callout type="evidence">
+  This is the first fully automated, end-to-end radiomics pipeline for HGSOC prognosis validated on two independent external datasets. Prior radiomics models required manual segmentation by experienced radiologists, a bottleneck that made them impractical for routine clinical use. The automated segmentation step removes that barrier without sacrificing prognostic accuracy.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Risk stratification from scans already being obtained.** Every patient with suspected HGSOC gets a pre-surgical CE-CT. This pipeline extracts prognostic information from those existing images, requiring no additional tests, biopsies, or imaging protocols.
+
+2. **Treatment planning could become more granular.** HGSOC patients classified as low-risk might require less extensive surgery and standard platinum-based chemotherapy. High-risk patients could be prioritized for aggressive debulking, PARP inhibitors, targeted therapies, or clinical trial enrolment. The two- to three-fold median survival difference between groups (Table 2) supports this stratification.
+
+3. **The pipeline works across institutions and geographies.** Validation on datasets from three countries (UK, USA, Germany) with different scanners, protocols, and treatment guidelines demonstrates robustness. The radiomics features remained stable even when segmentation boundaries were eroded or dilated by up to 4 mm.
+
+<Callout type="pitfall">
+  This is a retrospective study. No patient management decisions were guided by the model's predictions, and prospective validation has not been performed. Missing data (CA-125 levels and chemotherapy response were unavailable for TCIA and KEM cohorts) limits the comparison with conventional prognostic markers. The clinical utility of changing treatment based on these risk categories remains unproven.
+</Callout>
+
+4. **Radiomics outperformed deep learning for survival prediction.** CNNs trained directly on CT images produced lower C-indices than the radiomics pipeline across all cohorts. For prognostic modelling in HGSOC, engineered features from segmented tumours currently beat learned features from raw images.
+
+5. **Biological correlates add interpretability.** The association between high PVIRF-RSF scores and invasive pathway activation (SNARE transport, MAPK signalling) gives the model biological plausibility. High-risk tumours showed significantly increased cellularity (p=1.6x10^-12), consistent with aggressive disease biology.
+
+---
+
+## My Takeaway
+
+The most interesting thing about this study is not the C-index. It is the automation. Prior radiomics work in ovarian cancer required experienced radiologists to manually contour every tumour on every slice, a process that made the approach clinically irrelevant regardless of how well it predicted survival. By replacing manual segmentation with a U-Net that achieves Dice scores above 0.80 across external datasets, the authors turned a research tool into something that could, in principle, run in the background of a routine diagnostic CT workflow. The prognostic performance is solid but not spectacular: a C-index of 0.73 is useful, not definitive. What makes this pipeline worth watching is its potential to add a non-invasive risk layer to treatment planning for a cancer that kills more women than any other gynaecological malignancy, using scans that are already being acquired. The next step is a prospective study. Without one, this remains a proof of concept, and HGSOC patients have been waiting a long time for prognostic tools that actually change management.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100955)

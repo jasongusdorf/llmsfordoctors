@@ -1,0 +1,86 @@
+---
+title: "We Don't Know How to Evaluate Clinical AI"
+description: "Clinical trials were built for fixed interventions. AI models change with every prompt, every configuration, every update. By the time a trial publishes, the system it tested is obsolete. Medicine needs standardized benchmarks that can keep pace with the technology."
+tags: [evaluation, benchmarks, clinical-trials, ai-safety, model-quality, editorial]
+lastUpdated: 2026-04-06
+featured: true
+socialPost: "GPT-4's USMLE pass rate ranges from 60% to 95% depending on the prompt. That spread tells you everything about why clinical trials can't evaluate AI. We need standardized benchmarks, not two-year studies on systems that won't exist by publication day."
+---
+
+import Callout from '../../components/Callout.astro';
+
+GPT-4 passes the USMLE. So does Claude. So does Gemini. Depending on which paper you read, which prompt was used, and whether the model was allowed to explain its reasoning before committing to an answer, reported pass rates on the same exam range from 60% to 95%.
+
+That spread doesn't tell you much about the models. It tells you that we have no reliable way to evaluate them.
+
+---
+
+## The Intervention Won't Hold Still
+
+Medicine has a well-rehearsed method for deciding whether something works. Randomize patients. Control for confounders. Measure outcomes. Publish. Replicate. The process is slow by design, because a drug approved on weak evidence can harm patients for years before anyone notices. We accept the pace because the object of study holds still long enough to study it. Atorvastatin 40 mg is the same molecule in Boston and Bangalore.
+
+An AI model is not a molecule.
+
+The same model, accessed through the same API, on the same clinical question, will produce different outputs depending on the system prompt, the conversation history, the retrieval context, and the specific phrasing of the query. Change the question from "What is the most likely diagnosis?" to "List the differential in order of probability" and you get meaningfully different clinical reasoning from the same underlying system.
+
+This is not a bug. It is an intrinsic property of the technology. Large language models are sensitive to their inputs in ways that drugs and surgical techniques are not. Which means the object under evaluation is not the model itself. It is the model plus its entire deployment context: the prompt, the retrieval pipeline, the guardrails, the interface, and the clinical workflow surrounding it.
+
+Run a randomized trial on one configuration. Get your results. Then watch the vendor update the system prompt without telling you. Your evidence is stale.
+
+<Callout type="pitfall">
+A clinical trial evaluates a fixed intervention. AI is not fixed. The same model can perform at the level of a senior resident or a distracted intern depending on how you ask the question.
+</Callout>
+
+---
+
+## The Timeline Problem
+
+Even if you could freeze a model configuration long enough to study it properly, the timeline wouldn't cooperate. A well-designed RCT takes two to four years from protocol to publication. In that window, the model under investigation will be deprecated. Its successor will ship, get benchmarked by someone else using different methods, and be deployed in a different clinical context. The evidence you generated describes a system that no longer exists.
+
+Pharmaceutical development has a version of this problem with iterative reformulations, but the pace is manageable. A statin approved in 2020 is still the same statin in 2026. A model released in January may be functionally obsolete by June.
+
+The result is a permanent evidence gap. Clinicians are asked to trust AI tools that have never been evaluated in conditions resembling their actual use, running versions resembling the ones they actually encounter. The evidence base is always one or two generations behind the deployed technology.
+
+---
+
+## What Benchmarks Can Do That Trials Cannot
+
+The answer is not to abandon rigor. It is to change the instrument.
+
+Standardized benchmarks can evaluate rapidly, compare across systems, and be rerun whenever the underlying model changes. A trial takes years. A benchmark suite takes an afternoon. When a new model ships in March, every clinical AI team in the country can run the same test battery by April.
+
+More importantly, benchmarks solve the comparison problem. Running an RCT that compares three AI systems head-to-head in the same clinical environment is a logistical and ethical nightmare. Running three systems against the same benchmark suite is straightforward. This matters because the market is crowded and clinicians need a basis for comparison more informative than "our model passed the boards." Every model passes the boards. The question is what happens on harder problems.
+
+A shared benchmark framework would let hospitals compare systems before procurement, let regulators set minimum performance thresholds, and let developers identify weaknesses before deployment. None of that is possible when every vendor runs its own evaluation on its own dataset using its own metrics and publishes the results in its own white paper.
+
+---
+
+## What Good Benchmarks Would Measure
+
+A useful clinical AI benchmark suite needs to test several things that board-style multiple choice does not.
+
+**Diagnostic reasoning under uncertainty.** Not pattern matching against a known answer format, but open-ended clinical thinking on realistic cases with incomplete information, ambiguous findings, and plausible distractors. The benchmark should penalize confident wrong answers more heavily than uncertain correct ones, because in practice, "I'm not sure" is safer than "definitely lupus" when it isn't.
+
+**Calibration.** When the model says it is 90% confident, it should be right about 90% of the time. Overconfidence in a clinical AI system is not a personality quirk. It is a patient safety issue.
+
+**Prompt sensitivity.** The same clinical scenario, presented in five different phrasings, should produce consistent clinical reasoning. A model whose diagnostic accuracy swings by 20 percentage points depending on whether you say "chest pain" or "anterior thoracic discomfort" is not ready for clinical use, regardless of its peak performance.
+
+**Refusal quality.** A dermatology model asked about arrhythmias should say so. A primary care tool presented with a rare genetic syndrome should flag its uncertainty. The benchmark should include cases outside the system's competence and measure whether it declines gracefully or confabulates.
+
+**Harm detection.** Some outputs are not merely wrong but dangerous: recommending a contraindicated medication, missing a life-threatening diagnosis in favor of a benign one, generating a plausible management plan that would delay necessary care. Benchmarks need known traps, scored on a severity-weighted scale.
+
+<Callout type="evidence">
+Published evaluations of the same model on the same exam produce accuracy spreads of 30+ percentage points depending on prompt design. This variance alone makes traditional trial methodology insufficient. You cannot generalize from a result when the prompt is a confounding variable you didn't control.
+</Callout>
+
+---
+
+## Necessary but Not Sufficient
+
+Benchmarks answer a narrower question than trials do. They tell you whether a system's clinical reasoning is accurate, calibrated, consistent, and safe under controlled conditions. They do not tell you what happens when you embed that system in a busy emergency department at 2 a.m. with a fatigued resident who accepts its first suggestion without reading it carefully.
+
+For that, we will need real-world evidence: post-deployment monitoring, outcome tracking, adverse event reporting. The infrastructure that medicine built for pharmacovigilance took decades to mature. We need the AI equivalent, and we need it on a shorter timeline.
+
+But benchmarks come first. They make it possible to have an informed conversation about which systems deserve a chance at clinical deployment. Right now, that conversation runs on vendor marketing decks and cherry-picked accuracy figures. A hospital choosing between AI documentation tools has less standardized comparative data available than a patient choosing between over-the-counter antihistamines.
+
+That is not a tenable situation for a field that considers itself evidence-based. The models are moving. The evidence infrastructure needs to move with them, or we will keep making deployment decisions in the dark and calling it innovation.

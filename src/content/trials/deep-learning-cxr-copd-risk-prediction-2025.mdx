@@ -1,0 +1,65 @@
+---
+title: "A Chest X-Ray AI That Spots COPD Risk Before Symptoms Appear"
+journal: "Lancet Digital Health"
+year: 2025
+doi: "10.1016/j.landig.2025.100903"
+keyFinding: "CXR-Lung-Risk, a deep learning model applied to routine chest radiographs, identified patients at high risk of incident COPD over 6 years with an AUC of 0.74 (combined with the clinical TargetCOPD score) in 27,848 outpatients. High-risk patients by CXR-Lung-Risk had 6-year COPD rates of 23.6% among ever-smokers and 7.8% among never-smokers, compared with 9.1% and 3.0% in low-risk groups. The model added predictive value beyond a clinical risk score alone (AUC difference 0.07 in ever-smokers, 0.10 in never-smokers; both p&lt;0.0001), and higher CXR-Lung-Risk scores correlated with worse pulmonary function and elevated plasma proteins linked to lung disease."
+lastUpdated: 2026-03-29
+tags: [copd, deep-learning, chest-radiography, screening, pulmonology, risk-prediction, opportunistic-screening]
+socialPost: "Deep learning applied to routine chest X-rays predicted 6-year COPD incidence in 27,848 patients. High-risk ever-smokers: 23.6% developed COPD vs 9.1% low-risk. Added AUC of 0.07-0.10 beyond clinical scores alone. Open-source, under 1 second per image."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Jorshery, Raghu, and colleagues externally validated CXR-Lung-Risk, a convolutional neural network originally trained on 147,497 chest radiographs from the PLCO Cancer Screening Trial to predict 18-year lung-related mortality. In this retrospective study, they tested whether the same model, applied without modification to routine outpatient chest X-rays, could identify patients at high risk of developing COPD within 6 years.
+
+The primary analysis drew on 27,848 outpatients aged 50 to 80 at Massachusetts General Brigham hospitals who had a posterior-anterior chest X-ray between January 2013 and December 2014, with no prior history of lung cancer, COPD, or emphysema. Analyses were stratified by smoking status (12,550 ever-smokers and 15,298 never-smokers). The comparator was TargetCOPD, a regression model that predicts undiagnosed COPD from EMR data including age, smoking status, dyspnea, and medication prescriptions.
+
+A secondary analysis used the Project Baseline Health Study (2,097 participants across four U.S. sites) to test whether CXR-Lung-Risk correlated with pulmonary function tests and plasma protein concentrations linked to lung disease.
+
+---
+
+## Key Findings
+
+- **Combined CXR-Lung-Risk + TargetCOPD achieved an AUC of 0.74** (95% CI 0.72-0.76) for 6-year incident COPD in the full cohort, compared with **0.66** (0.64-0.68) for TargetCOPD alone and **0.68** (0.66-0.70) for CXR-Lung-Risk alone
+- **CXR-Lung-Risk added predictive value beyond the clinical score** in both ever-smokers (AUC difference 0.07; p&lt;0.0001) and never-smokers (AUC difference 0.10; p&lt;0.0001)
+- **High CXR-Lung-Risk patients had substantially higher 6-year COPD rates**: 23.6% among ever-smokers and 7.8% among never-smokers, versus 9.1% and 3.0% in low-risk groups
+- **High-risk patients by both models together** had a 28.4% 6-year COPD rate in ever-smokers and 11.5% in never-smokers
+- **Each standard deviation increase in CXR-Lung-Risk** corresponded to 2.4 to 5.3% worse pulmonary function (FEV1/FVC, DLCO, PEF) in ever-smokers
+- **Two plasma proteins, SCGB3A2 and lysozyme**, were positively associated with CXR-Lung-Risk scores, both markers of lung inflammation and fibrosis pathways
+
+<Callout type="evidence">
+  The model's value is strongest in never-smokers, where traditional clinical risk scores perform poorly. CXR-Lung-Risk increased the AUC by 0.10 in never-smokers versus 0.07 in ever-smokers, precisely the population where EMR-based tools have the fewest risk factors to draw on.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Opportunistic screening from existing imaging.** CXR-Lung-Risk runs on chest X-rays already being obtained for other clinical reasons. It processes an image in under one second, costs nothing per scan (the model is open-source), and the radiation dose is already incurred. This is not a new test; it is new information from an old one.
+
+2. **Never-smokers stand to benefit most.** Current COPD screening strategies lean heavily on smoking history. A growing proportion of COPD occurs in never-smokers, where clinical risk scores have fewer inputs and weaker discrimination. CXR-Lung-Risk's largest AUC improvement appeared in this group.
+
+3. **Complementary to clinical risk scores, not a replacement.** The combined model (CXR-Lung-Risk + TargetCOPD) consistently outperformed either alone. The imaging model captures structural and physiological signals invisible to the EMR; the clinical model captures symptoms, medications, and smoking history invisible to the X-ray.
+
+4. **Number needed to screen is plausible.** At high CXR-Lung-Risk, 2.7% of ever-smokers and 3.8% of never-smokers had COPD diagnosed within one year, suggesting that 26 to 37 patients would need screening to detect one undiagnosed case.
+
+<Callout type="pitfall">
+  This was a single-center, retrospective study at a Boston hospital system where over 85% of patients were White. The model has not been prospectively validated, and COPD diagnosis relied on ICD codes from the EMR rather than confirmatory spirometry. Smoking status, a key variable, was extracted from clinical notes using an algorithm, not verified directly. Whether CXR-Lung-Risk performs comparably across diverse populations, health systems, and imaging equipment remains untested.
+</Callout>
+
+5. **Saliency maps point to biologically plausible regions.** High CXR-Lung-Risk scores correlated with activations in the upper lung zones and mediastinum, consistent with emphysematous changes and hyperinflation. This does not prove the model "understands" COPD, but it aligns with known radiographic findings.
+
+6. **Proteomic associations strengthen the biological signal.** The correlation with SCGB3A2 (a bronchiolar club cell cytokine protective against fibrosis) and lysozyme (overexpressed in COPD and pulmonary fibrosis) suggests the model detects imaging patterns tied to specific disease pathways, not just generic lung abnormality.
+
+---
+
+## My Takeaway
+
+Half of COPD cases remain undiagnosed, and guidelines do not recommend screening asymptomatic adults. That leaves a gap between the disease's prevalence and its detection, one that existing tools fill poorly, especially for never-smokers. What makes this study interesting is not the AUC (which is moderate) but the deployment model: an open-source algorithm that runs in the background on chest X-rays clinicians are already ordering, flags patients who might benefit from spirometry, and adds information that the clinical record alone cannot provide. The retrospective, single-center design and reliance on ICD codes for COPD diagnosis are real limitations. A prospective trial is the obvious next step. Still, the idea that a routine chest X-ray contains enough latent signal to predict a disease it was never ordered to detect is worth watching closely.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100903)

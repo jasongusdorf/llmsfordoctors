@@ -1,0 +1,66 @@
+---
+title: "LLMs Accept Fabricated Medical Claims One-Third of the Time, and Clinical Language Makes It Worse"
+journal: "Lancet Digital Health"
+year: 2026
+doi: "10.1016/j.landig.2025.100949"
+keyFinding: "Across 20 LLMs and 3.4 million prompts, models accepted fabricated medical content in 31.7% of base cases (50,108 of 158,000). Hospital discharge notes produced the highest susceptibility at 46.1%, while social media misinformation triggered only 8.9%. Wrapping false claims in logical fallacies, such as appeal to popularity or appeal to authority, paradoxically reduced susceptibility in 8 of 10 fallacy types. GPT-4o scored highest on a composite robustness metric (0.895) but still accepted 10.6% of fabrications."
+lastUpdated: 2026-03-29
+tags: [misinformation, llm, safety, clinical-notes, hallucination, benchmarking, patient-safety]
+socialPost: "LLMs accepted fabricated medical claims 31.7% of the time across 3.4M prompts. Clinical discharge notes were the worst: 46.1% susceptibility. Social media posts? Just 8.9%. Formal medical language fools models more than Reddit rhetoric does."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Omar and colleagues probed 20 LLMs with more than 3.4 million prompts containing medical misinformation drawn from three sources: modified MIMIC-IV discharge notes with physician-inserted fabrications, real Reddit health misinformation posts, and 300 physician-validated simulated vignettes. Each prompt appeared in a neutral base form and in ten versions wrapped in a named logical fallacy (appeal to authority, appeal to popularity, ad hominem, slippery slope, and six others). For every run, the team recorded two binary outcomes: whether the model accepted the false claim (susceptibility) and whether it flagged the fallacious framing (detection). The benchmark used reproducible templates rephrased ten times per fallacy to reduce lexical bias, and all prompts were validated independently by two physicians.
+
+---
+
+## Key Findings
+
+- **31.7% overall susceptibility** (50,108 of 158,000 base prompts): nearly one in three fabricated medical statements went unchallenged across all models and data sources
+
+- **Hospital discharge notes were the most dangerous format.** MIMIC-based prompts produced **46.1% susceptibility** (46,108 of 100,000), more than five times the rate of social media misinformation at **8.9%** (2,479 of 28,000)
+
+- **Logical fallacies reduced susceptibility in 8 of 10 categories** (all p&lt;0.0001). Appeal to popularity (the bandwagon framing) cut susceptibility by **19.8 percentage points** compared to base prompts. Appeal to authority, by contrast, increased it by **2.9 percentage points**
+
+- **Fallacy detection improved under fallacious framing.** Correct-call rates rose from 51.7% at baseline to between 60.1% (appeal to authority) and 76.9% (appeal to popularity) when the fallacy template was present
+
+- **GPT-4o led the composite robustness score at 0.895**, combining 10.6% susceptibility with 89.7% fallacy detection. Llama-4-Scout (0.864) and gpt-oss-20b (0.858) followed. Medical fine-tuned models scored between 0.302 and 0.573, consistently worse than their general-purpose counterparts
+
+- **Model susceptibility ranged from 0.7% (gpt-oss-20b) to 63.6% (Gemma-3-4B-it)** on base prompts, a 63-point spread across models receiving identical input
+
+- **Medical fine-tuned models underperformed general models** across the board, with composite scores between 0.302 (MediPhi) and 0.573 (Med-Qwen2-7B), driven by higher baseline susceptibility (30-55%) and weaker fallacy detection (below 50%)
+
+<Callout type="evidence">
+  The central finding is counterintuitive: wrapping a false claim in a logical fallacy mostly helped models reject it. The explanation is mechanical, not reassuring. Safety fine-tuning trains models on adversarial corpora full of phrases like "everyone says" and "a famous doctor claims." Models learned to flag those rhetorical markers, not the underlying falsehood. When the same fabrication appeared in clean clinical prose, the safety layer had nothing to catch.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Formal clinical language is the highest-risk input for LLM misinformation.** Discharge notes, with their declarative structure and authoritative tone, produced susceptibility rates five times higher than social media posts. Any system that feeds clinical notes into an LLM for summarization, coding, or decision support inherits this vulnerability.
+
+2. **Safety alignment is tuned to rhetoric, not to truth.** Models flagged fallacy-labeled prompts at high rates because they recognized the rhetorical pattern, not because they verified the medical claim. A fabricated recommendation written in standard clinical language ("drink a glass of cold milk daily to soothe esophagitis-related bleeding") passed through undetected in more than half the models tested.
+
+3. **Medical fine-tuning made models worse, not better.** Fine-tuned medical models showed higher susceptibility and lower fallacy detection than general-purpose models. The likely cause: these models are built on smaller base architectures with stricter refusal training that limits flexibility without improving accuracy. MediPhi refused most prompts entirely but detected only 9.1% of fabrications it did engage with.
+
+<Callout type="pitfall">
+  Clinicians using LLM-powered tools to process discharge notes or after-visit summaries face a specific risk: fabricated content written in clinical register is precisely the type these models are least equipped to catch. A model that flags "everyone knows vaccines cause autism" while accepting "administer cold milk for esophageal bleeding" per a discharge note has a safety layer calibrated to tone, not to evidence.
+</Callout>
+
+4. **Model size helps but does not solve the problem.** Larger models (above 30 billion parameters) typically stayed below 25% susceptibility, and Spearman correlations between parameter count and susceptibility were consistently negative (range: -0.69 to -0.86). Still, post-training alignment and safety tuning mattered more than scale. gpt-oss-20b achieved the lowest practical susceptibility (0.7%) despite moderate size.
+
+5. **Evaluation frameworks need to test beyond accuracy.** Standard medical benchmarks that measure factual recall on multiple-choice questions miss the failure mode this study exposes. Models that score well on board-style exams can still accept fabricated claims embedded in clinical text, because the vulnerability is contextual, not knowledge-based.
+
+---
+
+## My Takeaway
+
+This paper reframes the LLM safety conversation for clinical use. The risk is not that a patient will trick a chatbot with a Reddit post about vaccine conspiracies; models handle that reasonably well. The risk is that an LLM processing a discharge note will accept a fabricated recommendation because it looks and reads like everything else in the clinical record. That is the harder problem, and current safety alignment is not built for it. The finding that medical fine-tuned models performed worse than general models is particularly sobering for anyone assuming that domain-specific training equals domain-specific safety. It does not, at least not yet.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100949)

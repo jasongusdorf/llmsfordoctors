@@ -1,0 +1,60 @@
+---
+title: "Machine Learning Predicts Prehospital Transfusion Needs in Trauma Using Only Field Data"
+journal: "Lancet Digital Health"
+year: 2026
+doi: "10.1016/j.landig.2025.100945"
+keyFinding: "An XGBoost model trained on 364,350 trauma patients from the US National Trauma Data Bank and externally validated on 54,210 patients across Germany, Austria, Switzerland, Ireland, and Canada predicted any prehospital transfusion need with an AUC of 0.87 (95% CI 0.86-0.87) and PRBC transfusion with an AUC of 0.88 (95% CI 0.87-0.89), outperforming conventional triggers including shock index (AUC 0.73), haemoglobin concentration (AUC 0.82), and Revised Trauma Score (AUC 0.70). Patients classified as high probability had significantly greater overall mortality, haemorrhagic death, need for operative bleeding control, and earlier transfusion than low-probability patients."
+lastUpdated: 2026-03-29
+tags: [trauma, transfusion, prehospital, machine-learning, xgboost, emergency-medicine, clinical-decision-support]
+socialPost: "ML model predicts prehospital transfusion need with AUC 0.87 across 54K patients in 5 countries, beating shock index (0.73) and haemoglobin (0.82). High-probability patients had 16.2% haemorrhagic mortality vs 0.9% in the low group."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Sigle et al. developed and externally validated machine learning models to predict prehospital blood transfusion needs in trauma patients using 22 routinely documented field variables: vital signs, injury distributions by body region, trauma mechanisms, and antithrombotic medication status. The derivation cohort comprised 455,437 patients from the US National Trauma Data Bank (January 2010 to December 2020), split 80/20 for training and internal validation. External validation used 54,210 patients from three registries spanning Germany, Austria, Switzerland (TraumaRegister DGU), Ireland (National Office of Clinical Audit, Major Trauma Audit), and Canada (Alberta Trauma Registry). The study tested multiple algorithms (logistic regression, random forest, SVM, XGBoost, AdaBoost, LightGBM, naive Bayes, multilayer perceptron) and selected XGBoost for its superior performance. Models included binary classifiers for individual blood products (PRBCs, platelets, FFP), a multiclass classifier for optimal transfusion combinations, and a regressor for estimating PRBC volume. The study followed TRIPOD+AI reporting guidelines.
+
+---
+
+## Key Findings
+
+- **AUC for any transfusion was 0.87** (95% CI 0.86-0.87) on external validation; **0.88 for PRBCs** (95% CI 0.87-0.89), **0.87 for platelet concentrates** (95% CI 0.86-0.89), and **0.90 for fresh frozen plasma** (95% CI 0.89-0.91)
+- **Internal validation AUCs were higher**: 0.92 for PRBCs, 0.95 for platelet concentrates, 0.95 for FFP, and 0.92 for any transfusion
+- **The model outperformed all conventional prehospital triggers** on the TraumaRegister DGU dataset: shock index achieved an AUC of 0.73, haemoglobin at emergency department 0.82, Injury Severity Score 0.81, NISS 0.80, and Revised Trauma Score 0.70
+- **Positive predictive value for PRBCs was 0.93** (95% CI 0.93-0.94) and **negative predictive value was 0.98** (95% CI 0.98-0.98) in the pooled external validation cohort
+- **New Injury Severity Scale (NISS) was the single most important predictor** across all blood products by SHAP analysis, followed by abdominal injury severity (AIS region 4) and age
+- **Haemorrhagic mortality at 72 hours** was 0.9% in the low-probability group, 4.7% in the intermediate group, and **16.2% in the high-probability group**
+- **High-probability patients had the greatest cumulative incidence of operative bleeding control** within 6 hours (59.4% vs 40.1% intermediate and 25.7% low) and the earliest transfusion times
+
+<Callout type="evidence">
+  The model's discrimination held across countries, years of admission, and patient age groups (paediatric vs adult), with no meaningful performance differences in subgroup analyses. This multinational stability is notable because transfusion practices, trauma patterns, and registry inclusion criteria varied across the five participating countries.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Injury pattern outweighs vital signs for predicting transfusion need.** SHAP analysis showed that injury severity scores and body-region-specific injury data drove predictions far more than vital signs, which differed only slightly between transfused and non-transfused patients. This challenges reliance on haemodynamic triggers alone in prehospital transfusion protocols.
+
+2. **A purely prehospital model is feasible, though less accurate.** When the investigators replaced formal injury severity scores (which require imaging) with emergency physician field assessments of injury severity across nine body regions, the model still achieved an AUC of 0.86 for PRBC prediction. Formal imaging is not required.
+
+3. **Risk stratification carries real prognostic weight.** The model's probability groups separated patients by mortality, haemorrhagic death, operative bleeding control, and transfusion timing. This is not just a transfusion prediction tool; it is a severity classifier that could guide resource mobilisation, helicopter dispatch, and destination decisions.
+
+<Callout type="pitfall">
+  The study is retrospective and registry-based. Transfusion "ground truth" reflects what clinicians decided to give, not necessarily what patients needed. The authors found that some patients predicted to need transfusion but not transfused had "trauma twins" (computationally similar patients) who were transfused, suggesting either inconsistent practice or registry underreporting. Until prospective validation confirms that acting on these predictions improves outcomes, the model remains a technical proof of concept.
+</Callout>
+
+4. **Abdominal and pelvic injuries are the hardest to classify correctly.** NLP analysis of misclassified patients revealed that underprediction clustered around face, scalp, and upper extremity lacerations and fractures, while overprediction was associated with superficial injuries of the lower extremity, pelvis, and subcutaneous tissue. Penetrating abdominal injuries with occult bleeding remain a predictive challenge.
+
+5. **Volume estimation is still poor.** The PRBC volume regressor achieved an R-squared of only 0.16 in the derivation cohort and 0.10 on external validation. Predicting whether a patient needs blood is feasible; predicting how much remains unreliable with prehospital data alone.
+
+---
+
+## My Takeaway
+
+The core finding here is quietly important: injury pattern is a better predictor of transfusion need than vital signs. Prehospital providers have spent decades watching blood pressure and heart rate to guide resuscitation decisions, and this model suggests that where and how someone is injured matters more than the haemodynamic numbers at the scene. The multinational validation is genuinely strong, covering registries with different documentation standards and transfusion cultures. What the study cannot answer is the question that matters most: does acting on these predictions earlier actually save lives? The prognostic separation between probability groups is striking (0.9% vs 16.2% haemorrhagic mortality), but that association does not prove that earlier transfusion, triggered by the model, would have changed those outcomes. A prospective trial is the obvious next step. The authors built a web application for probabilistic triage; whether anyone will test it in the field remains to be seen.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100945)

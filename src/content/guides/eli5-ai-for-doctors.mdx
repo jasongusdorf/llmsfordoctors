@@ -1,0 +1,97 @@
+---
+title: "ELI5: AI for Doctors"
+description: "A clear, jargon-free explanation of what AI language tools are, how they work, and what they're actually useful for in clinical practice."
+tags: [beginner, explainer, eli5, getting-started]
+lastUpdated: 2026-04-05
+featured: false
+hideToc: true
+socialPost: "New guide: ELI5 — AI for Doctors. A jargon-free explanation of what these tools are and how they help in clinical practice. Written for the colleague who keeps hearing about AI but hasn't had 10 minutes to figure out what it actually does."
+---
+
+import Callout from '../../components/Callout.astro';
+
+You've heard the pitch a dozen times by now. AI is going to transform medicine. Your hospital sent an email. A colleague brought it up at lunch. You're not opposed to it; you just haven't had a spare 10 minutes to figure out what it actually does.
+
+This is that 10 minutes.
+
+---
+
+## What is an LLM?
+
+LLM stands for "large language model." ChatGPT is one. Claude, Gemini, and Copilot are others. They all do the same basic thing: you type text in, they generate text back.
+
+They're not search engines. They don't look things up in a database. They produce new text, word by word, based on patterns learned from a massive corpus of writing: books, websites, journal articles, clinical documentation, and everything in between.
+
+Think of autocomplete on your phone, but scaled up by several orders of magnitude. Your phone sees "See you" and predicts "later." An LLM sees an entire paragraph of clinical history and predicts a reasonable assessment and plan. It doesn't understand the medicine the way you do. It's extraordinarily good at predicting what a knowledgeable person would write next, given the context you've provided.
+
+The result is a tool that can draft clinical notes, summarize literature, generate patient education materials, and reason through differential diagnoses. Not perfectly. But well enough to be useful as a starting point.
+
+<Callout type="tip">
+An LLM doesn't "know" things the way you do. It doesn't have memories, beliefs, or clinical experience. It generates the statistically most likely continuation of whatever you typed. Sometimes that output is exactly right. Sometimes it's confidently wrong. You always review before using it.
+</Callout>
+
+---
+
+## What does it know, and how?
+
+An LLM's training data includes a vast cross-section of the internet and published literature, including medical textbooks, clinical guidelines, and journal articles. It doesn't memorize individual papers, but it absorbs patterns: the relationship between symptoms and diagnoses, how treatment algorithms flow, what a well-structured clinical note looks like.
+
+The result is a system that performs surprisingly well on medical knowledge benchmarks, and the trajectory is worth paying attention to.
+
+GPT-4, released in early 2023, passed the USMLE Step 1, Step 2 CK, and Step 3 exams, scoring well above the passing threshold on all three. On MedQA, a standardized set of USMLE-style questions used to benchmark these models, GPT-4 answered roughly 86% of questions correctly. That was considered remarkable at the time.
+
+Two years later, GPT-5 scored 95.8% on the same benchmark, with its strongest gains on Step 2 questions (the ones that test clinical decision-making, not just recall). For context, the human passing threshold on MedQA is 60%, and the 95th percentile among human test-takers is 87%. GPT-5 beats both by a comfortable margin. That's a 10-point jump in two years on a test that doesn't get easier.
+
+The pattern is consistent across model families. Each generation gets meaningfully better at medical reasoning, not just at regurgitating facts but at applying knowledge to clinical scenarios. The gap between "impressive party trick" and "genuinely useful clinical tool" has closed faster than most physicians expected.
+
+That said, these models don't reason the way you do. An LLM doesn't build a mental model of a patient's physiology or weigh competing hypotheses against clinical experience. It recognizes patterns across an enormous volume of medical text and generates responses consistent with those patterns. When the pattern is well-represented in the training data (common presentations, standard workups, established guidelines), the output tends to be reliable. When the case is unusual or the evidence is thin, the model is more likely to produce something plausible but wrong.
+
+Think of it as a colleague who has read everything but seen no patients. Impressive recall, solid pattern matching, no clinical intuition. The recall keeps getting better. The intuition is still yours.
+
+---
+
+## What does it do for doctors?
+
+Three things matter in practice.
+
+**It writes documentation faster.** Paste de-identified clinical information into an LLM, ask it to draft a progress note or discharge summary, and you'll get a reasonable first draft in seconds. Review it, edit it, sign it. Most physicians who adopt this workflow report cutting their documentation time roughly in half. The charting doesn't disappear, but it becomes less of a time sink.
+
+**It translates complexity for patients.** Take a dense radiology report or a complicated medication change and ask the LLM to explain it at a reading level your patient can follow. You'll get a draft that needs your review, but it's faster than writing patient-facing explanations from scratch, particularly for portal messages.
+
+**It serves as a thinking partner for clinical reasoning.** Describe a case, ask for a differential, and the LLM will generate a structured list that includes the diagnoses you were already considering, plus occasionally one you weren't. It won't replace your clinical judgment. It can pressure-test it, especially during overnight shifts or unfamiliar presentations.
+
+---
+
+## What should I be cautious about?
+
+**Hallucination is the main risk.** LLMs sometimes generate statements that read as authoritative and are entirely fabricated: a drug interaction that doesn't exist, a study that was never published, a guideline recommendation that's subtly wrong. The technical term is "hallucination." The practical implication is that you should treat every LLM output the same way you'd treat a medical student's note. Read it. Verify anything that matters.
+
+**It doesn't have access to your patient's chart.** Unless your institution has deployed an AI tool integrated with your EHR, the LLM knows nothing about your patient beyond what you paste into the conversation. And you need to strip identifying information first.
+
+**Conversations don't persist.** The LLM doesn't remember your last session, your preferences, or your patient panel. Every conversation starts from zero. It's a tool, not a colleague.
+
+<Callout type="hipaa">
+Never paste patient names, dates of birth, or medical record numbers into a consumer AI tool. De-identify first. In practice, that means removing the patient's name and date of birth before pasting. The <a href="/guides/hipaa-compliance">HIPAA guide</a> covers the full picture.
+</Callout>
+
+---
+
+## Is it safe to use?
+
+The technology is safe. The data handling is what matters.
+
+Consumer AI tools (free ChatGPT, Claude, Gemini) are not covered by a Business Associate Agreement. That means no protected health information goes in. If you de-identify the text first, stripping names, dates, MRNs, and anything else that could identify a patient, you can use any of these tools without a HIPAA concern.
+
+If your hospital provides an AI tool with a BAA in place, you can use it with identified patient data per institutional policy. Ask your IT department or compliance office whether such a tool exists at your institution. Increasingly, the answer is yes.
+
+---
+
+## Where do I start?
+
+**If you want the full clinical workflow,** read <a href="/guides/llms-in-clinical-care-101">LLMs in Clinical Care 101</a>. It walks through the three-step process: de-identify, prompt, review.
+
+**If you want to try it right now,** open <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">Claude</a> or <a href="https://chat.openai.com" target="_blank" rel="noopener noreferrer">ChatGPT</a> and type:
+
+> I'm writing a follow-up letter for a patient with newly diagnosed type 2 diabetes. Draft a brief, warm letter explaining their diagnosis, what it means, and the next steps we discussed: metformin 500mg twice daily, dietary counseling referral, and A1c recheck in 3 months. Write at a 6th-grade reading level.
+
+Read what comes back. Edit it. That's the entire concept: the AI generates a first draft, you make it yours. Everything else on this site builds on that idea.

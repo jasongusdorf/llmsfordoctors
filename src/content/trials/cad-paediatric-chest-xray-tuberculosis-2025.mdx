@@ -1,0 +1,66 @@
+---
+title: "AI Chest X-ray Reading for Childhood TB: Adult Models Fall Short"
+journal: "Lancet Digital Health"
+year: 2025
+doi: "10.1016/j.landig.2025.100884"
+keyFinding: "Computer-aided detection systems for chest x-rays have been developed and approved for adult tuberculosis triage, but their performance drops in children. CAD4TB version 7 achieved only 19% sensitivity in Gambian children under 14 at the manufacturer-recommended threshold, and existing paediatric models trained on small, geographically narrow datasets reach AUCs of 0.70 to 0.97, with the strongest results limited to pneumonia classification rather than tuberculosis detection. The authors call for large, diverse paediatric CXR repositories with standardised labelling and age-specific thresholds to close this gap."
+lastUpdated: 2026-03-29
+tags: [radiology, pediatrics, tuberculosis, chest-x-ray, computer-aided-detection, global-health, deep-learning, transfer-learning]
+socialPost: "CAD4TB hit 19% sensitivity for TB in kids under 14. Adult-trained CXR algorithms do not transfer to children. Paediatric TB needs its own models, datasets, and thresholds. New Lancet viewpoint maps the gap."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This Lancet Digital Health viewpoint by DuPont, Castro, Kik, Palmer, Seddon, and Jaganath reviews the state of computer-aided detection (CAD) for reading paediatric chest x-rays in the context of tuberculosis. The authors searched PubMed, Google Scholar, Embase, and Web of Science for studies published before January 2025 that developed automated CXR reading models for children. They synthesise findings across preprocessing, transfer learning, multiclass classification, and reference standard challenges, then define the ideal characteristics of a paediatric CXR repository and the analytical steps needed to build child-specific CAD systems.
+
+The piece is not a clinical trial. It is a structured review of a field where the need is acute (tuberculosis kills more children than any other infectious disease) and the tools are not yet fit for purpose.
+
+---
+
+## Key Findings
+
+- **CAD4TB version 7 achieved only 19% sensitivity** for tuberculosis in 724 Gambian children aged 0 to 14 years at the manufacturer-recommended threshold, with 99% specificity. Adjusting to 90% sensitivity dropped specificity to **6.9%**, rendering the tool clinically useless for paediatric screening.
+
+- **Fine-tuning adult models on paediatric data improved performance modestly.** Palmer and colleagues fine-tuned CAD4TB with 445 paediatric CXRs and raised the AUC from 0.58 to **0.72** (95% CI 0.62 to 0.85). That improvement still fell below the WHO target accuracy for tuberculosis triage (90% sensitivity, 70% specificity or above).
+
+- **Paediatric pneumonia models performed better than TB-specific ones.** A fine-tuned CNN on **3,905 CXRs** from South African children aged 1 to 59 months achieved an AUC of **0.87** with 82.8% sensitivity and 81% specificity for pneumonia detection using a radiographic reference standard.
+
+- **Transfer learning from adult models showed promise for pneumonia classification.** A CNN pretrained on an adult dataset (CheXpert, N=224,316) and fine-tuned on 410 paediatric PERCH images achieved an AUC of **0.977** (95% CI 0.97 to 0.98) for pneumonia detection, with 95.3% sensitivity and 95.5% specificity.
+
+- **Performance dropped sharply in younger children.** CAD4TB sensitivity was **5%** (95% CI 1 to 23) in children under 5, compared with **27%** (95% CI 15 to 43) in those aged 5 to 14. Models also struggled with perihilar abnormalities, which are common in paediatric TB but rare in adult disease.
+
+- **No prospective validation exists** for any CAD system designed specifically for childhood tuberculosis. All published results come from retrospective analyses on small, geographically limited datasets.
+
+<Callout type="evidence">
+  The central finding is a mismatch between where the tools exist and where the burden falls. Commercial CAD systems for tuberculosis have been validated in adults across multiple countries. In children, the same systems fail because paediatric TB looks different on a chest x-ray: hilar lymphadenopathy instead of cavitary lesions, airway compression instead of upper-lobe infiltrates, and a thymus that obscures mediastinal structures in young children. Adult-trained algorithms were never designed to detect these findings.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Adult CAD thresholds cannot be applied to children.** A system that achieves 90% sensitivity in adults may reach single-digit sensitivity in children under 5. Clinicians using commercial CAD products for paediatric TB screening should understand that manufacturer-recommended thresholds have not been validated in this population.
+
+2. **Paediatric CXR repositories need geographic and clinical diversity.** The authors specify that training datasets should include children from high-burden countries, span ages 0 to 10, include lateral views, and carry standardised annotations by experts in paediatric TB radiology. Most existing datasets meet few of these criteria.
+
+3. **Subgroup-specific thresholds are necessary.** Performance varies by age, HIV status, nutritional status, and clinical setting (inpatient versus outpatient). A single threshold will not work across these populations. The WHO target profile for TB screening (90% sensitivity, 70% specificity or above) should be validated separately in paediatric subgroups.
+
+<Callout type="pitfall">
+  A CAD system reporting high overall accuracy may still miss tuberculosis in the children who need it most. Performance in children under 5, in malnourished children, and in children with HIV has been evaluated in only a handful of studies with small sample sizes. Deploying adult-calibrated tools in paediatric settings without age-specific validation risks false reassurance: a negative CAD result in a young child may reflect the algorithm's blind spot, not the absence of disease.
+</Callout>
+
+4. **Transfer learning is the most viable path forward.** Building paediatric models from scratch requires datasets that do not yet exist. Fine-tuning adult models on smaller paediatric datasets has shown consistent (if modest) improvement and reduces computational requirements, making it more feasible in the low-resource settings where paediatric TB is most prevalent.
+
+5. **The reference standard problem compounds everything else.** Microbiological confirmation of TB in children is difficult (young children cannot produce sputum reliably), so many paediatric studies rely on radiographic reference standards, which incorporate the same CXR findings the algorithm is trying to detect. This circular logic inflates apparent accuracy and makes cross-study comparison unreliable.
+
+---
+
+## My Takeaway
+
+This viewpoint articulates a problem that should concern anyone working on AI in global health: the populations with the greatest disease burden are the last to get validated tools. Tuberculosis is the leading infectious cause of death in children worldwide, and WHO recommended CAD for TB screening in 2021, yet no commercial product has demonstrated acceptable accuracy in children. The 19% sensitivity figure for CAD4TB in Gambian children is not a failure of one product; it is a structural failure of a field that trains on adult data and assumes the models will generalise downward. The path forward the authors describe, diverse paediatric repositories with standardised labelling and transfer learning from adult models, is sensible but requires coordinated investment that has not materialised. Until it does, paediatric TB diagnosis in low-resource settings will continue to depend on human readers whose accuracy and availability are themselves limited.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100884)

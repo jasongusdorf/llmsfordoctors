@@ -1,0 +1,68 @@
+---
+title: "AI Nudges Clinicians to Keep Patients on IV Antibiotics, Not Switch to Oral"
+journal: "Lancet Digital Health"
+year: 2025
+doi: "10.1016/j.landig.2025.100912"
+keyFinding: "In a randomised multimethod study of 42 UK clinicians across 23 hospitals, an AI clinical decision support system for intravenous-to-oral antibiotic switching significantly reduced the odds of switching (OR 0.13, 95% CI 0.03-0.50; p=0.0031) when it recommended against switching. Across all 504 observations, the CDSS decreased switching odds by 40% (OR 0.60, 95% CI 0.42-0.86; p=0.0053). AI explanations were accessed only 9% of the time, and the system usability scale score was 72.3 out of 100."
+lastUpdated: 2026-03-29
+tags: [antimicrobial-stewardship, clinical-decision-support, antibiotic-prescribing, infectious-disease, randomised-controlled-trial, explainability, behavioural-science]
+socialPost: "AI CDSS for IV-to-oral antibiotic switching reduced odds of switching by 87% when it recommended against (OR 0.13, p=0.003). But clinicians accessed AI explanations only 9% of the time. The recommendation drove behaviour, not the reasoning."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Bolton and colleagues at Imperial College London recruited 42 clinicians from 23 UK hospitals between April and August 2024 to evaluate an AI clinical decision support system (CDSS) for intravenous-to-oral antibiotic switching. The study used three methods: semistructured interviews about prescribing behaviour and AI perceptions, a randomised clinical vignette experiment with 12 case scenarios, and validated usability and technology acceptance questionnaires (SUS and TAM).
+
+Each participant reviewed all 12 vignettes through a custom web app built with Django. For each case, clinicians decided whether to switch a patient from intravenous to oral antibiotics. Participants were randomly assigned to receive either standard of care information (UK Health Security Agency guidelines) or the AI CDSS recommendation alongside standard of care for each vignette. The two groups saw opposite interventions for each case, ensuring equal data collection across conditions. The AI model, trained on MIMIC-IV (10,362 patient stays) and Imperial College Healthcare NHS Trust data (5,610 patient stays), had mean AUROCs of 0.80 and 0.79 on those datasets, respectively.
+
+Of the 12 vignettes, four had correct AI predictions, four had incorrect predictions, and four were uncertain (ground truth could not be defined). Six cases used simulated Imperial College Healthcare data; six used real MIMIC-IV patient records.
+
+---
+
+## Key Findings
+
+- **The AI CDSS changed behaviour in one direction.** For the single vignette where a statistically significant difference emerged (patient 7), clinicians assigned to the CDSS were far less likely to switch from IV to oral antibiotics (OR 0.13, 95% CI 0.03-0.50; p=0.0031). The AI and guideline CDSS both recommended not switching for this patient, and the ground truth confirmed that recommendation.
+
+- **Across all 504 observations, the CDSS reduced switching odds by 40%** (OR 0.60, 95% CI 0.42-0.86; p=0.0053) in the generalised linear mixed-effects model. The effect was consistent across participants: the random slope variance for the intervention within clinicians was negligible (less than 0.01).
+
+- **When the AI was incorrect, clinicians often detected it.** For cases where AI predictions were wrong (patients 3, 4, 10, and 11), no significant differences in decisions were observed between CDSS and standard of care groups, suggesting clinicians could identify and disregard incorrect recommendations.
+
+- **AI explanations were rarely used.** Only 55% of participants viewed any AI explanation during the study. Across all cases where decision support was available, explanations were accessed just 9% of the time. Guideline CDSS explanations were viewed even less, at 5%.
+
+- **The system scored 72.3 out of 100 on the SUS**, above the threshold of 68 considered "good." TAM scores were 3.6 out of 5 for perceived usefulness, 3.8 for perceived ease of use, and 4.1 for self-efficacy.
+
+- **79% of participants said they would use the CDSS** if they had access. 64% agreed it could integrate into their current workflow. Half of participants disagreed that the AI changed their decisions, despite the observed behavioural shift in the vignette data.
+
+<Callout type="evidence">
+  The asymmetry matters. The AI CDSS influenced clinicians toward not switching (the more conservative option) but did not push them toward switching when it recommended doing so. This aligns with the culture of cautious prescribing that 40% of participants described in interviews: clinicians were more receptive to AI support that confirmed a safer-seeming course of action.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **AI decision support reinforces conservative prescribing instincts, not aggressive ones.** The CDSS had its greatest influence when recommending against switching from IV to oral antibiotics. When it recommended switching, clinicians largely ignored the advice. For antimicrobial stewardship programs trying to promote earlier oral switches, this bias toward caution is a problem. The tool may inadvertently prolong unnecessary IV therapy.
+
+2. **Explanations do not drive the behavioural effect.** Clinicians accessed AI explanations 9% of the time. Even for patient 7, where the CDSS produced the only statistically significant shift in decisions, just 13% of participants who aligned with the AI recommendation viewed the explanation. The recommendation itself, not the reasoning behind it, changed behaviour.
+
+3. **Clinicians can spot incorrect AI predictions, at least in structured scenarios.** When the AI was wrong, participants generally detected the error and maintained their independent judgment. Whether this holds in real clinical settings with time pressure, fatigue, and incomplete information is an open question.
+
+<Callout type="pitfall">
+  Half of participants said the AI did not change their decisions. The vignette data showed otherwise. This gap between perceived and actual influence should concern anyone deploying clinical AI: if clinicians do not recognise when a tool is shaping their behaviour, they cannot critically evaluate whether that influence is appropriate.
+</Callout>
+
+4. **Infrastructure barriers remain substantial.** 50% of participants cited challenges with changing established prescribing behaviour. 45% said hospital IT systems were not ready for AI integration. Participants consistently preferred systems that integrate directly into the electronic health record over standalone web apps.
+
+5. **Trust accrues through experience, not explanation.** Participants valued shadow-mode deployment (running AI in the background before clinical use), training, and accumulating personal experience over technical explainability. Only 10% identified trust through experience as primary; 33% mentioned the need for explainability in interviews, yet almost none used explanations in practice.
+
+---
+
+## My Takeaway
+
+This study reveals a pattern that will recur across clinical AI: the tool's influence is real but asymmetric, and clinicians do not perceive it accurately. The CDSS pushed prescribers toward the conservative option (keep the IV) and had no measurable effect when recommending the opposite. For antimicrobial stewardship, where the clinical goal is often to switch patients to oral antibiotics sooner, that asymmetry is not a feature. It is a liability. The finding that explanations went largely unused, even as the recommendation itself shifted behaviour, suggests that the field's investment in explainable AI may be solving the wrong problem. Clinicians do not want to know why the AI thinks what it thinks. They want to know whether they can trust it, and they build that trust through repeated exposure, not through reading a rationale on a screen.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100912)

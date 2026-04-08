@@ -1,0 +1,134 @@
+---
+title: "Everyone Loves the AI Scribe"
+description: "AI scribes have accomplished something rare in health IT: doctors and patients both want them in the room. Three RCTs and consistent deployment data explain why."
+tags: [ambient-ai, documentation, burnout, patient-satisfaction, clinical-workflow, editorial]
+lastUpdated: 2026-03-28
+featured: true
+socialPost: "Three RCTs in NEJM AI show ambient AI scribes reduce burnout and documentation time. The surprise: even when time savings weren't significant, burnout still improved. Patients prefer the visits too, because their doctor is finally looking at them."
+---
+
+import Callout from '../../components/Callout.astro';
+
+The computer entered the exam room sometime around 2009, riding a wave of federal incentive money and good intentions, and it has not left. For fifteen years it has occupied a position between physician and patient: not physically (it sits on a desk or a rolling cart) but attentionally. The physician's gaze travels a triangle. Patient, screen, patient, screen. Anyone who has sat on the exam table side of this arrangement knows what it feels like. You are mid-sentence. Your doctor starts typing. You stop talking. It takes them a moment to notice.
+
+This problem has a name in the burnout literature and a number in time-motion studies: primary care physicians spend roughly two hours on documentation for every hour of patient contact. It has generated a small industry of consultants, wellness retreats, and inbox management tools. None of them fixed it, because none of them could remove the fundamental obligation. Someone, or something, had to type the note.
+
+Now something does. An AI scribe listens to the encounter through a microphone, generates a structured clinical note, and drops it into the chart. The physician reviews, edits, signs. The encounter itself is liberated from the keyboard. The pitch is simple, which is part of why it works. Several products compete for the job: Microsoft's [Dragon Copilot](/tools/dragon-copilot), [Abridge](/tools/abridge), [Nabla](/tools/nabla), [Suki](/tools/suki), [DeepScribe](/tools/deepscribe), [Augmedix](/tools/augmedix). They differ in ways that matter, and we [review them individually](/tools) on this site. But the category itself has achieved something no health IT tool has managed in recent memory. Physicians want to use it. Patients want it in the room. The evidence, which is now substantial, supports both enthusiasms.
+
+## Contents
+
+- [Three Trials, One Direction](#three-trials-one-direction)
+- [The View from the Exam Table](#the-view-from-the-exam-table)
+- [Why This One Worked](#why-this-one-worked)
+- [The Caveats Worth Keeping](#the-caveats-worth-keeping)
+- [Both Sides of the Stethoscope](#both-sides-of-the-stethoscope)
+
+---
+
+## Three Trials, One Direction
+
+The evidence for AI scribes passed from anecdotal to rigorous in 2025, when *NEJM AI* published three randomized trials in rapid succession. Each approached the question from a different angle. They arrived at the same place.
+
+The first, and most revealing, was a head-to-head comparison. [Lukac et al.](/trials/ambient-ai-scribes-dax-nabla-rct-2025) randomized 238 UCLA physicians across fourteen specialties to one of three arms: DAX Copilot, Nabla, or usual care. For eight weeks, the researchers tracked documentation time, burnout scores, and self-reported accuracy.
+
+The headline finding was a split decision. Nabla reduced time-in-note by 9.5% (P=0.02). DAX did not. But the finding beneath the headline was more interesting, and stranger: both tools improved burnout metrics by nearly identical margins. Mini-Z scores rose by about 2.8 points. Physician task load dropped by roughly 35 points on a 400-point scale. Work exhaustion fell for both groups.
+
+Consider what that means. One tool saved measurable time. The other didn't. Yet both groups of physicians felt better. The implication is that the psychological weight of documentation, the low-grade dread that accumulates across a clinic day, lifts when someone else is handling the note. Even if the clock doesn't move much.
+
+<Callout type="evidence">
+  The divergence between time savings and burnout is the most revealing finding in this trial. It suggests that the cognitive burden of charting, the knowledge that notes are waiting, weighs on physicians independently of the actual minutes spent. Removing that weight matters more than shaving time.
+</Callout>
+
+The second trial went deeper. [Afshar et al.](/trials/ambient-ai-practitioner-wellbeing-rct-2025) ran a 24-week stepped-wedge RCT with 66 practitioners using Abridge across clinics in Wisconsin and Illinois. This was the longer, more methodologically rigorous study: validated well-being instruments, objective EHR metrics, and enough follow-up to detect whether the effect wore off. It didn't.
+
+Work exhaustion dropped by 0.44 points on a 5-point scale (P&lt;0.001). Documentation time fell by 0.36 hours per day, which translates to roughly 90 hours per year per clinician. Billing codes improved, an underappreciated finding; better documentation feeds more accurate coding, which can partially offset the cost of deployment. Quality scores ranged from 3.97 to 4.99 out of 5. The AI did not degrade over six months.
+
+<Callout type="evidence">
+  This is the most rigorous ambient AI trial to date. Twenty-four weeks, stepped-wedge randomization, objective EHR metrics, validated burnout instruments. The effect is both statistically significant and clinically meaningful.
+</Callout>
+
+A [third study, from the University of Wisconsin](/trials/ambient-ai-pragmatic-trial-playbook-2025), was less concerned with whether ambient AI works and more concerned with what happens when you try to run it inside a real health system. Their implementation framework achieved 65.4% daily utilization, far above the roughly 30% in the UCLA trial. The most instructive moment came when a routine EHR template change, wholly unrelated to the AI, dropped ICD-10 coding accuracy from 79% to 35%. Real-time monitoring caught it. Without the monitoring, nobody would have noticed until the billing complaints arrived.
+
+The technology is not fragile. Hospitals are complicated. Any tool that touches documentation touches everything downstream. Governance is not overhead. It is the mechanism by which the technology stays useful.
+
+Across all three trials, physicians reported the same things: less dread about charting, more presence during encounters, fewer evenings spent finishing notes. No physician in any of these studies reported wanting to go back to typing.
+
+---
+
+## The View from the Exam Table
+
+The physician evidence is robust. Three RCTs, consistent direction, meaningful effect sizes. The patient evidence is earlier-stage and softer in its methodology, but it points in one direction with unusual consistency.
+
+Patients notice when their doctor is looking at them.
+
+This should not qualify as a revelation, but it does, because the EHR made sustained eye contact during a medical encounter genuinely unusual. Fifteen years of screen-mediated visits have trained patients to expect divided attention. When the screen disappears from the interaction, the shift is immediate and, by patient accounts, profound.
+
+Survey data from ambient AI deployments show high patient acceptance. Across more than 48,000 encounters in the UCLA trial, exactly one adverse event was reported, grade 1, mild. Patients are not merely tolerating a microphone in the room. They prefer visits where their doctor is present in the conversation rather than in the chart.
+
+There is an older literature that predicted this. Studies of human medical scribes, the person who sits in the corner typing while the physician talks, showed the same pattern a decade ago. Patients did not mind the extra body in the room. They preferred it to the alternative, which was their doctor's fractured attention. AI scribes accomplish the same thing without the extra salary, which is one reason they are scaling in ways human scribes never could.
+
+<Callout type="tip">
+  Patient consent for ambient recording varies by state. Two-party consent states require explicit permission before the microphone turns on. Build the consent workflow before the pilot, not during it.
+</Callout>
+
+The consent question is the one place where patient reception gets genuinely complicated, and it deserves more thought than it typically receives. A microphone in a medical encounter raises obvious concerns. Most patients, when the purpose is explained, consent readily.
+
+But "most" is not "all." The patients most likely to decline are often those whose encounters most need accurate documentation: patients with stigmatized conditions, patients with limited English proficiency, patients who distrust the healthcare system for reasons rooted in history rather than paranoia. A rushed disclosure at check-in is not informed consent. It is a checkbox. The difference matters.
+
+---
+
+## Why This One Worked
+
+Health IT has a dismal record with physician adoption. Meaningful Use. CPOE. Clinical decision support. The twenty-click medication reconciliation. Each promised to improve care, and each added friction to the clinician's day. Physicians have been burned often enough that skepticism is the default posture toward anything new in the EHR.
+
+AI scribes cleared that bar faster than any clinical technology in recent memory. The explanation is structural, not magical, and it comes down to three properties that almost no other health IT tool shares.
+
+**The problem is visceral.** Documentation burden is not an abstraction that requires a dashboard to perceive. Every physician experiences it, every day, in a form that is personally irritating. You do not need a change management consultant to explain why less charting is desirable. The value proposition is self-evident in a way that population health analytics never was and never will be.
+
+**The workflow change is subtractive.** This is the crucial distinction. Nearly every tool that has entered the clinical workflow in the past two decades has added something: an alert, a click, a screen, a required field. AI scribes remove something. The physician's job during the encounter becomes simpler, closer to what it was before EHRs existed. In health IT, subtraction is so rare it registers as a kind of miracle.
+
+**The benefit is immediate.** The first time a physician finishes a visit and finds a draft note in the chart that needs only minor edits, the value is apparent without explanation. Compare this to quality dashboards, where the benefit accrues to the system and the individual physician's experience of their workday does not change at all. Ambient AI offers a return on the very first encounter. No marketing budget can replicate that.
+
+<Callout type="evidence">
+  The burnout improvement without corresponding time savings, seen in the DAX arm of the UCLA trial, reinforces this analysis. The psychological benefit of knowing the note is handled appears to be therapeutic on its own. Physicians feel better before the clock confirms they should.
+</Callout>
+
+---
+
+## The Caveats Worth Keeping
+
+The enthusiasm is real and, based on the evidence, justified. But three concerns deserve honest treatment rather than the hand-wave they receive in vendor presentations.
+
+**Accuracy is good, not flawless.** Both platforms in the UCLA trial scored approximately 2.7 to 2.8 on a 5-point Likert scale for clinically significant inaccuracy frequency. "Occasional" errors, in a system that touches a third of encounters, means mistakes are entering the medical record at a steady rate. They are not catastrophic; one adverse event across 48,000 visits is an excellent safety signal. But inaccurate notes have downstream consequences for care coordination, billing, and legal exposure that extend well beyond the visit where the error was introduced.
+
+Note review is not optional. It is the price of the technology.
+
+<Callout type="pitfall">
+  "Occasional" inaccuracies means clinical errors are entering the medical record regularly. Ambient AI requires mandatory note review workflows. The time saved by automated documentation should not be spent skipping the review step.
+</Callout>
+
+**Adoption is not automatic.** In the UCLA trial, physicians used the tools for only about 30% of their visits, despite getting them free. The Wisconsin implementation, with active governance and workflow support, achieved 65.4%. That gap is informative: the technology works, but deploying it well requires investment in training, integration, and the kind of ongoing operational attention that health systems are not always inclined to provide. Understanding why physicians skip the tool for certain encounters matters as much as measuring what happens when they don't.
+
+**The equity question is open.** AI scribes trained primarily on English-language encounters may perform differently with non-English-speaking patients, patients with speech differences, or encounters conducted through an interpreter. The published trials have not adequately addressed this. A technology that works better for some populations than others does not narrow disparities. It widens them. Health systems should audit performance across languages, accents, and encounter types before assuming the benefit is uniform.
+
+---
+
+## Both Sides of the Stethoscope
+
+AI scribes are not the most technically ambitious application of artificial intelligence in medicine. Diagnostic imaging algorithms are more complex. Clinical reasoning engines tackle harder problems. Predictive models touch higher stakes.
+
+But AI scribes may be the most consequential clinical AI tool available right now, for a reason that has less to do with the sophistication of the technology than with the nature of the problem it solves. Documentation burden is the thing physicians identify, consistently and across specialties, as the primary source of their professional misery. AI scribes address it directly. And they do so in a way that patients can feel in the room: in the quality of attention they receive, in the simple and startling experience of being looked at by their doctor.
+
+The remaining questions are real. Accuracy needs to improve. Equity needs to be measured. Adoption needs governance. But these are implementation problems, not existential ones. The technology works. The evidence is clear. Physicians and patients agree on that, and anyone who has spent time in health IT knows how rare that consensus is.
+
+It almost never happens.
+
+---
+
+## Related on this site
+
+- [Ambient AI Scribes: DAX Copilot vs Nabla RCT](/trials/ambient-ai-scribes-dax-nabla-rct-2025) — the first head-to-head RCT of two ambient AI platforms
+- [Ambient AI Reduces Practitioner Burnout](/trials/ambient-ai-practitioner-wellbeing-rct-2025) — 24-week stepped-wedge RCT, the strongest burnout evidence to date
+- [A Playbook for Deploying Ambient AI](/trials/ambient-ai-pragmatic-trial-playbook-2025) — open-source implementation framework from Wisconsin
+- [Abridge](/tools/abridge), [Nabla](/tools/nabla), [Dragon Copilot](/tools/dragon-copilot), [Suki](/tools/suki), [DeepScribe](/tools/deepscribe), [Augmedix](/tools/augmedix) — individual tool reviews
+- [The Evidence Landscape: LLMs in Medicine, 2025-2026](/editorials/evidence-landscape-2025) — comprehensive survey of the clinical AI evidence base

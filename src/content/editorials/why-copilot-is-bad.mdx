@@ -9,41 +9,41 @@ socialPost: "\"Copilot\" is the name Microsoft applied to three different produc
 
 import Callout from '../../components/Callout.astro';
 
-In January 2026, Microsoft's enterprise AI assistant summarized emails that were labeled "confidential." The system was supposed to respect those labels. It didn't. Microsoft confirmed the bug, deployed a fix, and moved on.
+Sometime in January 2026, a Microsoft 365 administrator noticed something unsettling. The company's AI assistant had been reading emails marked "confidential" and cheerfully summarizing them for anyone who asked. The sensitivity labels, the ones the company paid Microsoft to enforce, had simply been ignored. Microsoft confirmed the bug, deployed a patch, and said nothing more about it.
 
-That same month, GitHub's coding assistant went down entirely during a software update. Error rates hit 100%. Recovery was slow because the system depended on OpenAI's infrastructure, which was also having problems. Developers lost their AI assistant mid-task, with no workaround.
+That same month, at some indeterminate hour, GitHub Copilot stopped working entirely. A routine model update went wrong. Error rates hit 100%. Developers who had woven the tool into their minute-by-minute workflow discovered, with the particular frustration of someone whose pen runs dry mid-sentence, that there was no workaround. The system depended on OpenAI's infrastructure, which was also having a bad day.
 
-Neither incident fully explains why "Copilot is bad" has become a common refrain across very different user groups: office workers, software developers, and casual Windows users. But together with the structural problems underneath, they explain why Microsoft's AI brand has a trust problem that a smarter model won't solve.
+Neither incident, on its own, explains why "Copilot is bad" has settled into the collective vocabulary of office workers, software developers, and Windows users alike. But they are symptoms of something structural, a problem no model upgrade, however brilliant, can fix.
 
 ---
 
-## The Name Problem
+## Three Products Walk Into a Brand
 
-The most important thing to understand about Copilot is that it's not one product. It's a brand name applied to at least three different products that work differently, cost differently, and have different rules about what they do with your data.
+The first thing to know about Copilot is that it does not exist. Not as a single product, anyway. "Copilot" is a brand name stretched across three distinct offerings that share nothing except a name and a parent company.
 
-**Copilot on Windows** is a free chatbot built into the operating system. It can browse the web and answer general questions. It does not have access to your work files, your email, or your organization's data. Technically, it runs as a web app inside Microsoft's Edge browser, which is why it sometimes feels more like a website than a built-in feature.
+**Copilot on Windows** is a free chatbot built into the operating system. It browses the web. It answers general questions. It cannot see your work files, your email, or your organization's data. It runs, somewhat revealingly, as a web app inside Microsoft's Edge browser. This is why it feels less like a built-in feature and more like a website that wandered in through the side door.
 
-**Microsoft 365 Copilot** is the enterprise version, built into Word, Excel, Outlook, and Teams. This one *can* access your organization's data: your emails, your SharePoint files, your Teams messages. It costs $30 per user per month on top of an existing Microsoft 365 subscription, with no free trial. There's also a "Copilot Chat" version that's included free for some enterprise users, but it can only search the web, not your organization's files, unless your IT team sets up additional (paid) integrations.
+**Microsoft 365 Copilot** is the enterprise version, wired into Word, Excel, Outlook, and Teams. This one *can* access your organization's data: emails, SharePoint files, Teams messages, the works. It costs $30 per user per month on top of an existing Microsoft 365 subscription. No free trial. A stripped-down "Copilot Chat" version ships free to some enterprise users, though it can only search the web, not your files, unless IT configures paid integrations.
 
-**GitHub Copilot** is a coding assistant for software developers. It suggests code, answers programming questions, and can now autonomously make changes to code repositories. It has its own pricing tiers, usage limits, and policies.
+**GitHub Copilot** is a coding assistant for software developers. It suggests code, answers programming questions, and can now make autonomous changes to repositories. It has its own pricing, its own usage limits, its own data policies.
 
-Microsoft has published FAQ pages explaining the differences between these products. The fact that those pages need to exist tells you everything about the confusion.
+Microsoft has published FAQ pages explaining the differences between these products. The existence of those pages is the diagnosis.
 
 <Callout type="pitfall">
-  If someone at your hospital tried the free Windows Copilot, found it unhelpful, and concluded that the $30/month enterprise version is a waste of money, they compared two fundamentally different products that happen to share a name. This confusion is the single biggest driver of "Copilot is bad" sentiment.
+  If someone at your hospital tried the free Windows Copilot, found it unhelpful, and concluded that the $30/month enterprise version is a waste of money, they were comparing two fundamentally different products that happen to share a name. This confusion is the single largest driver of "Copilot is bad" sentiment.
 </Callout>
 
 ---
 
-## When the Safety Net Failed
+## The Lock That Didn't Hold
 
-Negative feelings about software are one thing. Broken safety guarantees are another.
+There is a difference between software that disappoints and software that breaks a safety promise.
 
-The January 2026 incident (internally tracked as CW1226324) involved Microsoft 365 Copilot Chat reading and summarizing emails that had been explicitly marked as "confidential" using Microsoft's own sensitivity labels. These labels are part of Microsoft Purview, the governance system that enterprises pay for specifically to control what AI can and can't access.
+The January 2026 incident (internally tracked as CW1226324) involved Microsoft 365 Copilot Chat reading and summarizing emails explicitly marked "confidential" with Microsoft's own sensitivity labels. These labels are part of Microsoft Purview, the governance system that enterprises pay for precisely to control what AI can and cannot access.
 
-The bug meant the AI did something it was architecturally supposed to be prevented from doing. Microsoft fixed it. But for enterprise customers who bought Copilot partly *because* it was supposed to honor these controls, the damage was not about one batch of wrongly summarized emails. It was about the principle: if the safety controls can fail at the software level, what else might they miss?
+The bug meant the AI did something it was architecturally forbidden from doing. Microsoft fixed it. For the enterprise customers who bought Copilot partly *because* of those controls, the fix was beside the point. The question had changed. Not "do the safety controls work?" but "what else might they miss?"
 
-For healthcare organizations, this is directly relevant. If your institution uses Microsoft sensitivity labels to protect patient information, and Copilot is deployed in your environment, the question is not whether the labels work most of the time. The question is what happens during the window when they don't.
+For healthcare organizations, this question has a specific weight. If your institution uses Microsoft sensitivity labels to protect patient information and Copilot operates in your environment, the relevant concern is not whether the labels work most of the time. It is what happens during the window when they do not.
 
 <Callout type="hipaa">
   If your organization is considering Microsoft 365 Copilot and relies on sensitivity labels or data loss prevention policies to protect PHI, the CW1226324 incident is a case study in why defense in depth matters. One control layer is not enough. Ask what happens when the primary control fails.
@@ -51,82 +51,80 @@ For healthcare organizations, this is directly relevant. If your institution use
 
 ---
 
-## The Privacy Picture
+## A Field Guide to Three Privacy Regimes
 
-Privacy works differently across the three Copilots, and the differences matter.
+Privacy across the three Copilots is not one policy with variations. It is three separate policies that happen to coexist under a shared logo.
 
-**Consumer Copilot** (the free Windows version) saves your conversations by default and stores them for 18 months. Microsoft says the data can be used for troubleshooting, monitoring, and performance improvement. You can opt out of having your conversations used to train AI models, but you have to find that setting and turn it off. Microsoft also discloses that human reviewers may read conversations to improve accuracy and safety. All of this is disclosed in the privacy FAQ. For people who assumed the conversation was private and ephemeral, these disclosures feel like a betrayal even though they're documented.
+**Consumer Copilot** (the free Windows version) saves your conversations by default and stores them for 18 months. Microsoft says the data can be used for troubleshooting, monitoring, and performance improvement. You can opt out of having your conversations train AI models, provided you locate the setting and switch it off. Microsoft also discloses that human reviewers may read conversations to improve accuracy and safety. All of this appears in the privacy FAQ. For people who assumed the conversation was private and fleeting, the disclosures land like a betrayal, even though they were there all along.
 
-**Enterprise Copilot** (the paid Microsoft 365 version) has stronger protections. Microsoft states that prompts and responses are not used to train their AI models. Enterprise data protection applies. But there's an important nuance: Copilot in the enterprise surfaces information based on what you already have permission to access. If your organization has poorly managed file permissions (shared drives that everyone can read, inherited access that was never cleaned up, documents stored in the wrong location), Copilot will find and surface that information.
+**Enterprise Copilot** (the paid Microsoft 365 version) carries stronger protections. Microsoft states that prompts and responses are not used to train their AI models. Enterprise data protection applies. There is, however, a subtlety worth understanding: Copilot surfaces information based on what you already have permission to access. If your organization has poorly managed file permissions (shared drives everyone can read, inherited access never cleaned up, documents stored in the wrong location), Copilot will find and surface that information.
 
-This is not a bug. Copilot is doing what it was designed to do: searching everything you're allowed to see. But when it surfaces a document that someone thought was private (because it was buried in an obscure folder, not because it was actually restricted), the reaction is: "Copilot exposed confidential information." In reality, the information was always accessible. Copilot just found it faster than any human would have.
+This is not a bug. Copilot is doing exactly what it was built to do: searching everything you are allowed to see. When it surfaces a document someone thought was private, because it was buried in an obscure folder rather than actually restricted, the reaction is predictable: "Copilot exposed confidential information." In reality, the information was always accessible. Copilot just found it faster than any human would have.
 
-**GitHub Copilot** has its own data policies that vary by pricing tier, including options to prevent your code from being used for training. For healthcare organizations writing code, the relevant concern is whether proprietary code or data used in development could be reflected in the model's suggestions to other users.
-
----
-
-## Why It Feels Like a Browser Instead of a Feature
-
-A common complaint about the Windows version of Copilot is that it doesn't feel like part of Windows. It feels like a web page wearing a Windows costume.
-
-This is because it is. Microsoft's own documentation describes the Copilot app as a "Progressive Web App" that runs on the Edge browser engine. This is the same technology used for web-based apps. It means Copilot inherits Edge's behavior: if you uninstall Edge, Copilot breaks. Links you click inside Copilot open in Edge-adjacent windows. A March 2026 update added persistent tabs and optional password syncing inside the Copilot app, making it feel even more like a browser.
-
-Copilot also comes pre-installed and pinned to the taskbar on new Windows 11 computers. For users who didn't choose it, the first experience is trying to figure out how to remove it, which is not the ideal introduction to a product.
-
-In March 2026, Microsoft publicly committed to reducing "unnecessary" Copilot integration points in Windows. The company also reorganized its Copilot leadership team. These moves are a direct acknowledgment that the backlash against "Copilot everywhere" had become a business problem, not just a social media grievance.
+**GitHub Copilot** maintains its own data policies, which vary by pricing tier and include options to prevent your code from being used for training. For healthcare organizations writing code, the concern is whether proprietary code or development data could be reflected in the model's suggestions to other users.
 
 ---
 
-## When the Assistant Goes Down
+## The Web App Wearing a Windows Costume
 
-For software developers using GitHub Copilot, the January 2026 outage was a vivid illustration of dependence risk. A configuration error during a routine model update caused error rates to spike. The tool was partially or fully unavailable for an extended period, and recovery was delayed because it depended on OpenAI's systems.
+A persistent complaint about the Windows version of Copilot is that it does not feel like part of Windows. It feels like a browser tab pretending to be something more.
 
-This matters because coding assistants are not like most software tools. They're embedded in the flow of work at the keystroke level. When email goes down for an hour, people switch to chat or wait. When a coding assistant goes down mid-task, the developer's workflow breaks immediately and visibly.
+This perception is accurate. Microsoft's own documentation describes the Copilot app as a "Progressive Web App" running on the Edge browser engine. Uninstall Edge and Copilot breaks. Click a link inside Copilot and it opens in an Edge-adjacent window. A March 2026 update added persistent tabs and optional password syncing inside the Copilot app, pushing it further toward browser territory.
 
-GitHub logged additional Copilot degradations in February 2026. The pattern reinforced the perception that the tool is unreliable at exactly the moments you depend on it.
+Copilot also arrives pre-installed and pinned to the taskbar on new Windows 11 machines. For users who never asked for it, the first experience is trying to figure out how to remove it. Not the ideal first impression.
 
-For non-developers, the relevant lesson is about dependence on AI tools that rely on external services. If a clinical AI assistant depends on a cloud service that goes down, what's the fallback? What does the workflow look like without it? These are the same questions hospitals ask about any critical system, and AI assistants deserve the same scrutiny.
-
----
-
-## The Pricing Puzzle
-
-Copilot's pricing is understandable if you study it. Most people don't study it.
-
-The free Windows Copilot is free. Microsoft 365 Copilot costs $30 per user per month on top of an existing Microsoft 365 plan, with no trial period. The "Copilot Chat" version is included for some enterprise users but only searches the web, not your files, unless you deploy additional integrations that cost extra. Building custom AI workflows ("agents") requires yet another pricing layer.
-
-GitHub Copilot has a free tier with monthly limits, a Business tier at $19/user/month, and an Enterprise tier at $39/user/month. Usage beyond certain thresholds incurs additional per-request charges.
-
-Each pricing decision makes sense in isolation. Together, they create a landscape where "Copilot" can mean anything from free to expensive, and users feel they're being charged incrementally to unlock capabilities they assumed were included.
+In March 2026, Microsoft publicly committed to reducing what it called "unnecessary" Copilot integration points in Windows and reorganized its Copilot leadership team. These moves amount to a concession: the backlash against Copilot's omnipresence had become a business problem, not merely a social media grievance.
 
 ---
 
-## How Copilot Compares
+## The Sound of Silence at the Keyboard
 
-The most useful comparison between Copilot and alternatives like ChatGPT, Gemini, or Claude is not about which AI is smarter. Model quality shifts with every update, and vendors rarely disclose which specific model is running at any given moment.
+For software developers, the January 2026 GitHub Copilot outage illustrated something that sounds abstract until you live it: dependence risk.
 
-The more durable comparison is about clarity. Each competitor, whatever its flaws, offers a relatively coherent product identity. ChatGPT is a chat interface. Claude is a chat interface. Gemini is a chat interface. You open it, you talk to it, you understand what it does.
+A configuration error during a routine model update caused error rates to spike. The tool went partially or fully dark for an extended period. Recovery was slow because the system's dependency chain ran through OpenAI's infrastructure. Coding assistants are not like most software tools. They embed themselves at the keystroke level, in the flow of thought. When email goes down for an hour, people switch to chat or simply wait. When a coding assistant vanishes mid-task, the developer's workflow fractures immediately and visibly.
 
-"Copilot" is three different products with different capabilities, different privacy rules, and different price points, sharing a name. Users form impressions based on whichever version they encounter first. If that first encounter is the free Windows chatbot and their expectation was "AI that knows my work," disappointment is inevitable.
+GitHub logged additional Copilot degradations in February 2026. The pattern reinforced a growing suspicion: the tool is unreliable at precisely the moments you depend on it.
 
-Microsoft's March 2026 decision to unify Copilot's consumer and commercial teams under one leader is an attempt to fix this. Whether organizational restructuring can undo two years of accumulated brand confusion is an open question.
+For clinicians, the analogy writes itself. If a clinical AI assistant depends on a cloud service, what happens when that service goes down? What does the workflow look like without it? These are the same questions hospitals ask about any critical system. AI assistants deserve no exemption.
+
+---
+
+## The Price of Confusion
+
+Copilot's pricing makes sense if you study it. Most people do not study it.
+
+The free Windows Copilot is free. Microsoft 365 Copilot costs $30 per user per month on top of an existing Microsoft 365 plan, with no trial period. "Copilot Chat" is included free for some enterprise users but searches only the web, not your files, unless additional paid integrations are deployed. Building custom AI workflows ("agents") requires yet another pricing layer.
+
+GitHub Copilot offers a free tier with monthly limits, a Business tier at $19 per user per month, and an Enterprise tier at $39 per user per month. Usage beyond certain thresholds incurs per-request charges.
+
+Each pricing decision makes sense in isolation. Together, they produce a landscape where "Copilot" can mean anything from free to expensive, and users feel they are being charged incrementally to unlock capabilities they assumed were included.
+
+---
+
+## The Competition Is Simpler (and That Matters)
+
+The most useful comparison between Copilot and its competitors is not about which AI is smarter. Model quality shifts with every update, and vendors rarely disclose which specific model is running at any given moment.
+
+The more durable comparison is about legibility. ChatGPT is a chat interface. Claude is a chat interface. Gemini is a chat interface. You open it. You talk to it. You understand what it does. "Copilot" is three different products with different capabilities, different privacy rules, and different price points sharing a name. Users form impressions based on whichever version they encounter first. If that first encounter is the free Windows chatbot and their expectation was "AI that knows my work," disappointment is not a risk. It is a certainty.
+
+Microsoft's March 2026 decision to unify Copilot's consumer and commercial teams under a single leader is an attempt to repair this. Whether an organizational restructuring can undo two years of accumulated brand confusion remains, to put it politely, an open question.
 
 <Callout type="evidence">
-  The perception problem is not just anecdotal. Security researchers have documented that GitHub Copilot can suggest code with known vulnerabilities. Studies presented at major computer science conferences tested Copilot against common security weaknesses and found that some generated code was exploitable. This doesn't make Copilot uniquely bad (all AI coding tools have this problem), but it means the negative perception is grounded in published research, not just frustration.
+  The perception problem is not purely anecdotal. Security researchers have documented that GitHub Copilot can suggest code with known vulnerabilities. Studies presented at major computer science conferences tested Copilot against common security weaknesses and found that some generated code was exploitable. This does not make Copilot uniquely bad (all AI coding tools share this problem), but it means the negative perception is grounded in published research, not just frustration.
 </Callout>
 
 ---
 
-## What This Means for Healthcare
+## What This Means for the People Buying It
 
-If your institution is evaluating any version of Copilot for clinical or administrative use, the problems documented here are worth understanding, not because Copilot is uniquely flawed, but because the same dynamics will play out with any enterprise AI product.
+If your institution is evaluating any version of Copilot for clinical or administrative use, the problems here are worth understanding, not because Copilot is uniquely flawed, but because the same dynamics will follow any enterprise AI product.
 
-**Ask which product you're actually getting.** "Copilot" can mean a free chatbot, a $30/month enterprise tool, or a coding assistant. The capabilities are different. The privacy protections are different. The name is the same.
+**Ask which product you are actually getting.** "Copilot" can mean a free chatbot, a $30/month enterprise tool, or a coding assistant. The capabilities differ. The privacy protections differ. The name does not.
 
-**Ask what happens when the safety controls fail.** The January 2026 sensitivity-label bypass is a reminder that governance controls work until they don't. If your primary defense against the AI accessing PHI is a software-enforced policy, you need a second defense.
+**Ask what happens when the safety controls fail.** The January 2026 sensitivity-label bypass is a reminder that governance controls work until they do not. If your primary defense against the AI accessing PHI is a software-enforced policy, you need a second defense.
 
 **Ask about the audit trail.** Who shows up in the log when the AI reads an email, a document, or a patient record? If the answer is unclear, the compliance implications are significant.
 
-**Ask about the fallback.** If the AI service goes down (as GitHub Copilot did in January), what does the workflow look like without it? AI tools that become essential should be evaluated with the same rigor as any critical system.
+**Ask about the fallback.** If the AI service goes down (as GitHub Copilot did in January), what does the workflow look like without it? AI tools that become essential deserve the same scrutiny as any critical system.
 
-The pattern here extends well beyond Microsoft. Every vendor shipping AI under a single brand name across multiple products, price points, and governance models will face the same trust erosion. The lesson for healthcare organizations is to evaluate what's actually running, not what's being marketed.
+The pattern extends well beyond Microsoft. Every vendor shipping AI under a single brand name across multiple products, price points, and governance models will face the same trust erosion. The lesson for healthcare organizations is to evaluate what is actually running, not what is being marketed.

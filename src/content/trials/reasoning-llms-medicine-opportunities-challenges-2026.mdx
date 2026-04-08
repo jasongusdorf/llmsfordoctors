@@ -1,0 +1,59 @@
+---
+title: "Reasoning LLMs in Medicine: Visible Thinking, Same Accuracy"
+journal: "Lancet Digital Health"
+year: 2026
+doi: "10.1016/j.landig.2025.100931"
+keyFinding: "Four reasoning-driven LLMs (OpenAI o1, OpenAI o3-mini, DeepSeek R1, Gemini 2.0 Flash Thinking) benchmarked on 500 MedMCQA questions across five medical domains showed no significant differences in diagnostic accuracy (range 0.796 to 0.854) despite distinct reasoning styles. Each model exhibited reasoning flaws analogous to human cognitive biases, including framing effects, primacy bias, and skipped inferential steps. The authors identify reasoning hallucinations, where chain-of-thought outputs produce logically plausible but clinically invalid conclusions, as a challenge distinct from traditional LLM hallucinations."
+lastUpdated: 2026-03-29
+tags: [reasoning-llms, clinical-reasoning, openai-o1, deepseek-r1, gemini, benchmarking, chain-of-thought, medical-education, clinical-decision-support]
+socialPost: "Four reasoning LLMs scored 0.796 to 0.854 on 500 medical questions with no significant accuracy gap. The real finding: each reasons differently, and all show cognitive biases (framing, primacy) mirroring human clinical errors."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Wang, Xiong, Zou, and colleagues compared four reasoning-driven LLMs (OpenAI o1, OpenAI o3-mini, DeepSeek R1, Gemini 2.0 Flash Thinking) against each other and against earlier traditional LLMs on medical question-answering tasks. They benchmarked the four models on 500 randomly selected questions from MedMCQA, drawing 100 questions each from internal medicine, ophthalmology, radiology, pathology, and surgery. Each question included a correct answer with an explanation for ground-truth comparison. The authors measured accuracy, macro-F1 score, and five text-generation metrics (ROUGE-L, METEOR, BARTScore, BERTScore, AlignScore). They also performed a structured qualitative analysis of reasoning processes across five clinical cases, using evaluation axes adapted from a published framework for clinical reasoning in medical education. Evaluators were blinded to which model produced each output. This is a Viewpoint with original benchmarking data, not a clinical trial.
+
+---
+
+## Key Findings
+
+- **No significant accuracy differences among the four models** on MedMCQA: OpenAI o1 scored **0.844**, o3-mini **0.854**, DeepSeek R1 **0.854**, and Gemini 2.0 Flash Thinking **0.796** (all pairwise comparisons p greater than 0.05)
+- **Macro-F1 scores told a different story.** OpenAI o1 (**0.846**), o3-mini (**0.857**), and DeepSeek R1 (**0.855**) all significantly outperformed Gemini (**0.799**; all p less than 0.001 after Bonferroni correction), indicating more robust performance across answer categories
+- **Text-generation quality varied by metric.** OpenAI o1, o3-mini, and DeepSeek R1 outperformed Gemini on ROUGE-L; Gemini scored highest on METEOR and BARTScore. No single model dominated across all measures
+- **Reasoning styles diverged substantially.** DeepSeek R1 most closely mimicked clinician reasoning, justifying hypotheses with evidence and refining them. OpenAI o1 prioritized hypotheses logically but sometimes skipped full symptom analysis. Gemini produced exhaustive, systematic differential diagnoses but forced evidence to fit hypotheses and treated irrelevant data as significant
+- **All four models exhibited cognitive biases** analogous to those seen in human clinical reasoning: framing effects, primacy bias, and hindsight bias
+- **Reasoning hallucinations represent a distinct failure mode.** Chain-of-thought outputs can produce logically plausible but clinically invalid inferences, such as drawing erroneous causal links between symptoms and diseases, while appearing coherent and well-structured
+
+<Callout type="evidence">
+  Accuracy convergence across models is notable: the gap between the highest and lowest scorer was 5.8 percentage points. The clinically meaningful differences lie not in how often these models get the right answer but in how they get there. DeepSeek R1 skipped intermediate reasoning steps in some cases. OpenAI o1 and o3-mini showed more frequent logical skips and less thorough refinement than clinicians. Gemini overweighted irrelevant data. These are not academic distinctions; they map onto real diagnostic error patterns.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Reasoning transparency does not equal reasoning correctness.** Visible chain-of-thought steps create an impression of rigor, but all four models produced reasoning that was internally coherent yet clinically wrong. Clinicians who rely on the appearance of structured reasoning without independently verifying each step risk a new form of automation bias.
+
+2. **Different models suit different clinical tasks.** OpenAI o1 excels at complex scientific reasoning where evidence must be weighed hierarchically. OpenAI o3-mini balances transparency with efficiency, potentially useful for medical education. DeepSeek R1 most closely mirrors how clinicians actually reason through a differential. Gemini 2.0 Flash Thinking, with its low latency, fits time-sensitive environments like triage. No single model is best for all clinical applications.
+
+3. **Running open-source reasoning models locally costs real money.** DeepSeek R1, with 671 billion total parameters, requires 8 to 16 NVIDIA H100 or A100 GPUs. An on-premise 8xH100 server costs roughly $834,000 upfront plus $119,000 to $124,000 annually for staffing and cooling. A HIPAA-eligible cloud equivalent runs about $860,000 per year.
+
+<Callout type="pitfall">
+  Reasoning hallucinations are harder to catch than traditional hallucinations. A standard LLM hallucination (an invented drug name, a fabricated citation) is verifiable. A reasoning hallucination, where the model draws a plausible but incorrect causal chain between real clinical findings, looks like sound clinical logic. It requires domain expertise to detect, and the chain-of-thought format may actually increase overtrust by making the error look deliberate and well-supported.
+</Callout>
+
+4. **Multilingual reasoning is not yet reliable.** Current reasoning-driven LLMs reason primarily in English and translate outputs. Clinicians in non-English-speaking settings face degraded reasoning quality, not just degraded language quality. This limits equitable global deployment.
+
+5. **Regulatory frameworks have not caught up.** Neither the FDA's AI/ML SaMD guidance nor the EU AI Act mandates audit trails of model reasoning in clinical contexts. The authors identify this as a gap that compromises accountability, particularly for models whose primary value proposition is transparent reasoning.
+
+---
+
+## My Takeaway
+
+The most useful finding here is not the accuracy numbers. It is that four models with nearly identical accuracy reason in fundamentally different ways, and all of them reason badly in ways that resemble how clinicians reason badly. DeepSeek R1 mimics the clinical thought process most faithfully but still skips steps. Gemini is thorough to a fault, treating noise as signal. OpenAI's models are efficient but sometimes jump to conclusions. For clinicians evaluating these tools, the right question is not "which model is most accurate?" but "which model's failure modes am I best equipped to catch?" That framing inverts the usual vendor pitch, and it is exactly how we should be thinking about reasoning LLMs in clinical practice.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100931)

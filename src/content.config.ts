@@ -40,6 +40,7 @@ const guides = defineCollection({
     tags: z.array(z.string()),
     lastUpdated: z.date(),
     featured: z.boolean().default(false),
+    hideToc: z.boolean().default(false),
     socialPost: z.string().optional(),
   }),
 });

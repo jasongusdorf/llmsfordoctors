@@ -1,0 +1,64 @@
+---
+title: "Deep Learning Brain Age Mapping Reveals Contralesional Neuroplasticity After Stroke"
+journal: "Lancet Digital Health"
+year: 2026
+doi: "10.1016/j.landig.2025.100942"
+keyFinding: "In 501 chronic stroke patients across 34 cohorts, a graph convolutional network estimated regional brain age from MRI. Larger lesions accelerated aging in ipsilesional regions (beta 0.54 to 0.95 across networks, p&lt;0.05) but decelerated aging in contralesional regions, particularly the ventral attention and language network (beta -0.37, p=0.02). Of the top 20 predictors of motor outcome, eight were contralesional brain age measures and none were ipsilesional, suggesting that compensatory neuroplasticity in the unaffected hemisphere, not damage severity alone, shapes motor recovery."
+lastUpdated: 2026-03-29
+tags: [neurology, stroke, neuroplasticity, deep-learning, neuroimaging, brain-age, rehabilitation, motor-recovery]
+socialPost: "In 501 chronic stroke patients, deep learning mapped regional brain age from MRI. Of the top 20 motor outcome predictors, 8 were contralesional brain age measures and 0 were ipsilesional. Recovery may depend on the unaffected side."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Park and colleagues analyzed structural MRI scans from 501 individuals with chronic unilateral stroke (more than 180 days post-stroke) drawn from the ENIGMA Stroke Recovery Working Group, a dataset spanning 34 cohorts across eight countries. They trained a graph convolutional network on 17,791 healthy individuals from the UK Biobank to estimate regional brain age across 18 functional subregions (nine per hemisphere). The metric of interest was brain predicted age difference (PAD): the gap between predicted and chronological age for each region. Positive PAD means the region looks older than expected. Negative PAD means it looks younger.
+
+The team used linear mixed-effects models to test associations between lesion size, lesion load, and regional brain PAD. Machine learning classifiers (random forest, gradient boosting, AdaBoost, XGBoost) predicted motor outcomes from lesion loads, regional brain PADs, and clinical covariates. Structural equation modelling examined directional relationships among corticospinal tract lesion load, regional brain PAD in both hemispheres, and motor scores.
+
+---
+
+## Key Findings
+
+- **Larger stroke lesions accelerated aging in ipsilesional brain regions** across most functional networks, with beta coefficients ranging from **0.54 to 0.95** (FDR-corrected p&lt;0.05). The ipsilesional limbic (beta **0.95**, p&lt;0.0001) and frontoparietal (beta **0.76**, p&lt;0.0001) networks showed the strongest associations.
+
+- **Contralesional regions showed the opposite pattern.** Larger lesions were associated with *younger*-appearing brain tissue in the contralesional ventral attention and language network (beta **-0.37**, 95% CI -0.70 to -0.05, p=0.02), consistent with compensatory neuroplasticity.
+
+- **Of the top 20 predictors of motor outcome, eight were contralesional brain PAD measures and none were ipsilesional.** The three most important features were corticospinal tract lesion load (importance score **0.065**), salience network lesion load (**0.059**), and contralesional frontoparietal network brain PAD (**0.049**).
+
+- **Worse motor outcomes were directly associated with younger contralesional brain PAD** (beta **0.204**, 95% CI 0.11 to 0.30, p&lt;0.0001), suggesting the brain compensates more aggressively when impairment is severe.
+
+- **Structural equation modelling confirmed a bidirectional pathway:** higher corticospinal tract lesion load predicted worse motor outcomes (beta **-0.355**, p&lt;0.0001) and higher ipsilesional brain PAD (beta **0.262**, p&lt;0.0001), which in turn was linked to younger contralesional brain PAD (beta **0.213**, p&lt;0.0001).
+
+<Callout type="evidence">
+  The core finding inverts a common assumption. The contralesional hemisphere is not merely a bystander after stroke. Its regional brain age, a proxy for structural integrity and plasticity, predicted motor outcomes more reliably than any ipsilesional measure. This positions contralesional brain age as a candidate biomarker for recovery potential.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Contralesional brain age may serve as a biomarker for motor recovery potential.** If validated prospectively, regional brain PAD in the unaffected hemisphere could help clinicians identify which chronic stroke patients retain the structural substrate for motor gains, informing rehabilitation intensity and expectations.
+
+2. **The salience network deserves clinical attention in stroke recovery.** Lesion load in the salience network influenced brain PAD across both hemispheres and ranked as the second most important predictor of motor outcome. This network, which coordinates attentional shifting and interhemispheric communication, may mediate how effectively the contralesional hemisphere compensates for damage.
+
+3. **Brain age estimation could personalize rehabilitation timing.** The authors note that future longitudinal studies should track when contralesional brain age changes are strongest, which could reveal optimal intervention windows for intensive rehabilitation or neuromodulation.
+
+<Callout type="pitfall">
+  This is a cross-sectional, retrospective study. The directional claims from structural equation modelling are hypotheses, not established causal pathways. Brain age estimates are indirect measures of structural health, not direct assays of neuroplasticity. And with 52% of participants recruited from the USA, generalizability to stroke populations with different genetic backgrounds, healthcare access, or rehabilitation standards remains uncertain.
+</Callout>
+
+4. **The graph convolutional network approach is openly available.** The regional brain age model code is published on GitHub, making this method reproducible for other research groups studying post-stroke neuroplasticity or brain aging more broadly.
+
+5. **Ipsilesional brain age alone is insufficient for prognostication.** None of the top 20 motor outcome predictors were ipsilesional brain PAD measures. Prognostic models that focus only on lesion characteristics or damaged-hemisphere metrics may miss the strongest signal: how the intact hemisphere responds.
+
+---
+
+## My Takeaway
+
+The finding that matters here is not that stroke damages the brain (we knew that) or that bigger lesions cause more damage (obvious). It is that the unaffected hemisphere appears to respond to severe motor impairment by becoming structurally younger, and that this compensatory response predicts motor outcomes better than anything measured on the damaged side. If this holds up in longitudinal studies, contralesional brain age could become something rehabilitation medicine currently lacks: a quantitative, imaging-based biomarker that tells you not how bad the damage is, but how much capacity for recovery remains. The gap between those two questions is where clinical decisions live.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100942)

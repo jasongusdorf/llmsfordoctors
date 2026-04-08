@@ -1,0 +1,65 @@
+---
+title: "Predicting Colorectal Cancer Mutations from H&E Slides: One Model, Multiple Biomarkers"
+journal: "Lancet Digital Health"
+year: 2025
+doi: "10.1016/j.landig.2025.100891"
+keyFinding: "A single multi-target transformer predicted multiple genetic alterations from routine H&E-stained colorectal cancer slides across 1,912 patients from seven cohorts. For MSI detection, the model achieved an AUROC of 0.93 (SD 0.01) on external validation, matching or exceeding single-target models. For BRAF, the multi-target model reached an AUROC of 0.78 (SD 0.01), outperforming the single-target transformer (0.72, SD 0.06; p&lt;0.0001). Predictions with high AUROCs correlated strongly with MSI-associated morphology, suggesting the model relies on shared phenotypic features rather than independently detecting each mutation."
+lastUpdated: 2026-03-29
+tags: [pathology, deep-learning, colorectal-cancer, microsatellite-instability, biomarker-prediction, computational-pathology, genomics]
+socialPost: "Multi-target transformer predicts MSI, BRAF, RNF43, and KRAS from routine colorectal H&E slides. AUROC 0.93 for MSI on external validation. High-performing predictions clustered around MSI-associated morphology."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Gustav, Kather, and colleagues trained a transformer-based deep learning model to predict multiple genetic alterations simultaneously from digitised H&E-stained colorectal cancer slides. The primary dataset comprised 1,376 patients from five cohorts within the GECCO consortium (EPIC, CORSA, IWHS, CRA, and WHI), all with matched targeted sequencing data covering up to 356 genes. An additional 536 patients from TCGA and CPTAC served as secondary external validation.
+
+The model used a multi-target encoder-decoder architecture. Whole-slide images were tessellated into tiles (256 x 256 micrometres), features were extracted using a pre-trained CTransPath extractor, and a transformer simultaneously generated predictions for MSI, hypermutation, and mutations in BRAF, BMPR2, RNF43, TP53, KRAS, APC, and ZNRF3. Seven-fold cross-validation on the training cohorts produced seven models; the median performer was evaluated on the held-out CRA and WHI test sets. Single-target transformers trained on the same data served as the comparison.
+
+The co-occurrence of genetic alterations with MSI was assessed through hierarchical clustering and association rule mining across the GECCO cohorts, quantifying how mutations group together and share morphological features.
+
+---
+
+## Key Findings
+
+- **MSI detection reached an AUROC of 0.93 (SD 0.01)** on external validation with the multi-target model, compared with 0.91 (SD 0.02) for the single-target transformer
+- **BRAF prediction improved significantly with multi-target training**: AUROC 0.78 (SD 0.01) versus 0.72 (SD 0.06) for the single-target model (p&lt;0.0001)
+- **RNF43 also benefited from multi-target training**: AUROC 0.86 (SD 0.01) versus 0.80 (SD 0.05) for the single-target model (p=0.0021)
+- **Hypermutation detection achieved an AUROC of 0.88 (SD 0.01)**, consistent with the literature range of 0.81 to 0.87
+- **Biomarkers with high predictive performance correlated strongly with MSI**, and predictions depended on MSI-associated morphology (medullary growth, tumour-infiltrating lymphocytes, mucinous differentiation)
+- **Two distinct genetic clusters emerged**: cluster 1 (TP53, KRAS, APC) associated with microsatellite-stable tumours, and cluster 2 (BRAF, BMPR2, ZNRF3, RNF43) associated with MSI and hypermutation
+- **KRAS showed no significant improvement** from multi-target training (AUROC 0.65, SD 0.03, versus 0.65, SD 0.02; p=0.56), and no cases of MSI with KRAS mutation appeared in the CPTAC cohort
+- **Model attention focused on tumour regions**, with minimal attribution to pen marks or non-tumour areas, despite no explicit tumour labelling during training
+
+<Callout type="evidence">
+  The multi-target model's strongest gains over single-target models occurred for biomarkers that co-occur with MSI: BRAF and RNF43. For biomarkers associated with microsatellite-stable tumours (TP53, APC, KRAS), performance differences between multi-target and single-target models were modest or absent. This pattern suggests the model learns a composite MSI-associated phenotype and applies it across correlated targets, rather than detecting each mutation's morphological signature independently.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **A single model could replace multiple molecular tests in resource-limited settings.** Targeted sequencing panels remain expensive and inaccessible for many patients with colorectal cancer worldwide. A model that screens for MSI, BRAF, RNF43, and hypermutation from a routine H&E slide, already available for every surgical specimen, could identify patients who need confirmatory molecular testing while sparing those who do not.
+
+2. **Pre-screening, not diagnosis, is the appropriate clinical framing.** The AUROCs here (0.78 to 0.93 for the strongest targets) support triage: flagging slides that warrant reflex molecular testing. They do not support using the model as a standalone diagnostic for treatment-determining biomarkers like MSI or BRAF V600E.
+
+3. **Shared morphology between MSI and co-occurring mutations complicates interpretation.** Because MSI-associated morphology (mucinous differentiation, tumour-infiltrating lymphocytes, medullary growth) drives predictions for BRAF and RNF43 as well, a high BRAF prediction score may reflect MSI-associated phenotype rather than BRAF-specific morphology. Clinicians reviewing model outputs would need to interpret individual biomarker predictions in the context of the MSI score, not independently.
+
+<Callout type="pitfall">
+  The model's reliance on MSI-associated morphology is a double-edged finding. It explains why multi-target training improves BRAF and RNF43 prediction, but it also means these predictions are partly proxies for MSI status. In microsatellite-stable tumours, where BRAF and RNF43 mutations are rare, the model showed reduced discrimination. A high BRAF score in a microsatellite-stable case may reflect morphological overlap rather than a true BRAF mutation.
+</Callout>
+
+4. **Generalisability has clear boundaries.** The cohorts were predominantly White (75.8%) and drawn from North American and European populations. Under-representation of non-White individuals and the small sample sizes for rare mutations limit confidence in how the model would perform in more diverse populations or on mutations with low prevalence.
+
+5. **Co-occurrence analysis matters for future model design.** The study's finding that genetic alterations cluster into MSI-associated and MSS-associated groups has implications beyond this model. Future deep learning studies predicting molecular biomarkers from histopathology should account for mutational co-occurrence and shared phenotypes, or risk overestimating how well they detect individual targets.
+
+---
+
+## My Takeaway
+
+The core finding here is less about the model's performance numbers, which are solid, and more about what drives them. This multi-target transformer does well on BRAF and RNF43 not because it independently detects each mutation's morphological fingerprint, but because those mutations travel with MSI, and MSI has a distinctive phenotype the model already recognises. That is both the study's strength and its limitation. For pre-screening in low-resource settings, where the question is "does this slide warrant molecular testing?", the approach is clinically useful. For precision biomarker prediction, where the question is "does this specific tumour carry a BRAF mutation?", the confounding effect of MSI-associated morphology remains a problem the field has not solved.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100891)

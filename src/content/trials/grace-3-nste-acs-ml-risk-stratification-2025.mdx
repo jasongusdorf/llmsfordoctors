@@ -1,0 +1,60 @@
+---
+title: "GRACE 3.0: Machine Learning Sharpens Risk Stratification in NSTE-ACS"
+journal: "Lancet Digital Health"
+year: 2025
+doi: "10.1016/j.landig.2025.100907"
+keyFinding: "In 609,063 NSTE-ACS patients across ten countries, machine learning-based GRACE 3.0 models achieved AUC 0.90 (95% CI 0.89-0.91) for in-hospital mortality and time-dependent AUC 0.84 (95% CI 0.82-0.86) for 1-year mortality on external validation, outperforming GRACE 2.0 in risk discrimination and reclassification. An individualised treatment effect model identified patients who benefit from early invasive management (HR 0.60, 95% CI 0.41-0.88; absolute risk reduction 14.4%), a subgroup not fully captured by current risk-based stratification."
+lastUpdated: 2026-03-29
+tags: [cardiology, risk-stratification, machine-learning, acute-coronary-syndrome, clinical-decision-support, xgboost, prediction-model, external-validation]
+socialPost: "GRACE 3.0 uses ML to predict in-hospital (AUC 0.90) and 1-year mortality (tAUC 0.84) in NSTE-ACS across 609K patients. An individualized treatment effect model found who benefits from early invasive management (HR 0.60)."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Wenzl, Kofoed, and colleagues used data from 609,063 patients with NSTE-ACS across ten countries (England, Wales, Northern Ireland, Sweden, Switzerland, Germany, Denmark, Spain, the Netherlands, and Czechia) collected between January 2005 and June 2024. They developed three machine learning models using XGBoost: an in-hospital mortality model (validating the existing GRACE 3.0), a new sex-specific 1-year mortality model, and an individualised treatment effect model predicting the benefit of early invasive management. The in-hospital model used the existing GRACE 3.0 architecture. The 1-year mortality model was developed in 400,054 patients from England, Wales, and Northern Ireland, then externally validated in seven countries. Both models use nine readily available clinical variables: age, sex, heart rate, systolic blood pressure, creatinine, cardiac arrest, ST-segment deviation, troponin elevation, and Killip class. The treatment effect model was developed via post-hoc analysis of the VERDICT trial (n=1,111), using the R-learner framework with Rboost to estimate individualised benefit of early versus delayed invasive coronary angiography and revascularisation over a median follow-up of 4.3 years.
+
+---
+
+## Key Findings
+
+- The GRACE 3.0 in-hospital mortality model achieved **AUC 0.90 (95% CI 0.89-0.91)** on pooled external validation, with country-level AUCs ranging from 0.85 in Spain and the Netherlands to 0.92 in Denmark and Czechia
+- The new GRACE 3.0 1-year mortality model achieved **pooled time-dependent AUC 0.84 (95% CI 0.82-0.86)** on external validation, with country-level tAUCs from 0.79 in Spain to 0.86 in Sweden
+- Both models **outperformed GRACE 2.0** with statistically significant improvements in discrimination (delta AUC 0.02, p&lt;0.0001 for in-hospital; delta tAUC 0.01, p&lt;0.0001 for 1-year) and reclassification (NRI 0.47, p=0.025 for in-hospital; NRI 0.46, p&lt;0.0001 for 1-year)
+- Age and creatinine carried the **highest feature importance** for both mortality models, followed by heart rate and systolic blood pressure
+- The individualised treatment effect model identified high-benefit patients who, when randomly assigned to early invasive management, had **HR 0.60 (95% CI 0.41-0.88)** for the composite primary outcome, with an **absolute risk reduction of 14.4%** (p for interaction = 0.014)
+- Patients with no-to-moderate predicted benefit showed **no significant effect** from early invasive management (HR 1.06, 95% CI 0.80-1.40)
+- Patients predicted to benefit from early invasive management were **younger, more likely female, had lower creatinine, more signs of myocardial ischaemia, and worse haemodynamic status**, a profile that differs from those identified by conventional risk-based strategies
+
+<Callout type="evidence">
+  The treatment effect model reveals something counterintuitive: current risk-based stratification recommends early invasive management for the highest-risk patients, but the individualised model found that the patients who actually benefit most are younger with worse ischaemic features and better renal function. Risk of dying and likelihood of benefiting from a specific treatment are not the same thing, and GRACE 3.0 attempts to separate the two.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **GRACE 3.0 replaces 2.0 for short-term risk assessment, and extends it to 1-year mortality.** The in-hospital model is externally validated across seven countries with consistently strong discrimination. The 1-year mortality model fills a gap that GRACE 2.0 never addressed, enabling longer-term risk conversations with patients and more targeted secondary prevention.
+
+2. **Nine bedside variables are enough.** Both mortality models rely on clinical variables available within minutes of presentation: age, sex, heart rate, blood pressure, creatinine, troponin, ST-segment deviation, cardiac arrest, and Killip class. No biobanking, no advanced imaging, no genomics. A web calculator is already available at grace-3.com.
+
+3. **The treatment effect model challenges the assumption that higher risk equals greater benefit from early intervention.** Combined analyses of randomised trials, including VERDICT, showed no interaction between the current GRACE risk threshold and benefit from early invasive management. The individualised model suggests we have been stratifying treatment based on prognosis when we should be stratifying based on predicted treatment effect.
+
+<Callout type="pitfall">
+  The treatment effect model was developed from a single RCT (VERDICT, n=1,111) via post-hoc analysis, and externally validated in only 1,036 patients from the same trial's geographically separated hospitals. Prospective validation in a larger, independent population is necessary before this model should guide clinical decisions about timing of invasive management. The mortality models are ready for clinical use; the treatment effect model is not.
+</Callout>
+
+4. **Sex-specific calibration matters.** The GRACE 3.0 models explicitly account for sex differences in NSTE-ACS presentation and outcomes. Given that women with NSTE-ACS are underrepresented in many registries and have historically been less likely to receive invasive management, sex-specific prediction is a meaningful step toward equitable risk assessment.
+
+5. **The study is European only.** All ten participating countries are European. Extrapolation to non-European populations, where the epidemiology of ACS, access to invasive management, and baseline comorbidity profiles differ, requires additional validation.
+
+---
+
+## My Takeaway
+
+This is a well-executed extension of one of cardiology's most widely used risk scores, built on an unusually large and geographically diverse dataset. The mortality models do what they claim: they outperform GRACE 2.0, they validate across borders, and they use variables every emergency department already collects. The more provocative finding is the treatment effect model, which suggests that the patients who benefit most from early invasive management are not the ones current guidelines would prioritize for it. That finding, if confirmed prospectively, would represent a genuine shift in how we think about NSTE-ACS treatment stratification. For now, though, the treatment effect model rests on a post-hoc analysis of a single trial with roughly 1,000 patients. The mortality calculator is ready for the bedside. The treatment effect model is ready for a larger trial.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100907)

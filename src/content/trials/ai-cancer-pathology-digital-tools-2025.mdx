@@ -1,0 +1,70 @@
+---
+title: "AI in Cancer Pathology: What's Ready, What's Not, and What Might Break"
+journal: "Lancet Digital Health"
+year: 2025
+doi: "10.1016/j.landig.2025.100933"
+keyFinding: "Of more than 1,200 FDA-cleared AI medical devices, only two (Paige Prostate and Galen Second Read) have received authorization for primary diagnostic use in histopathology. Around 26 AI tools hold regulatory approval in the UK and EU for pathology, most designed for breast cancer IHC workflows. A 2024 review of 778 AI pathology studies found only ten met rigorous evaluation standards, with many showing moderate to high risk of bias. Foundation models trained on whole-slide images can now predict molecular biomarkers like microsatellite instability and BRAF mutations directly from H&E slides, but vision-language models remain vulnerable to simple adversarial attacks, including pen marks on slides that mislead GPT-4 and Claude."
+lastUpdated: 2026-03-29
+tags: [oncology, pathology, digital-pathology, biomarkers, foundation-models, regulatory, health-equity, computer-vision]
+socialPost: "1,200+ AI devices have FDA clearance. Only 2 are approved for primary diagnostic pathology. A pen mark on a slide can fool GPT-4. This Lancet review maps where cancer pathology AI actually stands."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Shaktah, Carrero, Hewitt, and colleagues reviewed AI applications across cancer pathology, organizing them into three tiers: quantification tools that automate routine tasks (Ki-67 counting, PD-L1 scoring), prediction models that detect molecular biomarkers directly from H&E-stained slides, and generalist or agentic AI systems that integrate text and images for diagnostic reasoning. The authors searched PubMed, Google Scholar, and journal databases for studies published between January 2018 and July 2025, focusing on clinical validation, regulatory status, and equity in access to digital pathology infrastructure.
+
+This is a narrative review, not a systematic review or meta-analysis. It synthesizes evidence from published studies, FDA clearance records, CE marking data, and preprints to map the current state of AI in cancer pathology and identify gaps between technical capability and clinical deployment.
+
+---
+
+## Key Findings
+
+- **Only 2 of more than 1,200 FDA-cleared AI devices** are authorized for primary diagnostic use in histopathology: Paige Prostate and Galen Second Read. Around **26 AI tools** hold CE marking or regulatory approval in the UK and EU, most designed for breast cancer IHC workflows.
+
+- **A 2024 review of 778 AI pathology studies** found that only **10 met rigorous evaluation standards**, with many showing moderate to high risk of bias. The gap between published model performance and real-world validation remains wide.
+
+- **AI models predict molecular biomarkers from standard H&E slides** without additional staining. Deep learning can identify microsatellite instability in colorectal cancer, BRAF mutations in colorectal cancer, EGFR mutations in lung adenocarcinoma, and homologous recombination deficiency in breast cancer directly from routine histology.
+
+- **PD-L1 combined positive score (CPS)**, which guides immunotherapy decisions, requires multiple classification steps and carries high interobserver variability. AI-based PD-L1 quantification has predicted immunotherapy response in trials and reduced scoring variability among pathologists.
+
+- **A TROP2 biomarker workflow** integrating antibodies, stainers, scanners, viewers, and algorithms received **FDA breakthrough designation in 2024** for identifying patients with higher response to datopotamab deruxtecan, though large-scale validation is pending.
+
+- **Foundation models** (CTransPath, Uni, CONCH) pre-trained on large histopathology datasets show high classification performance even under weakly supervised conditions. PathChat, a multimodal AI copilot trained on nearly 500,000 pathology-specific image-text pairs, handles both multiple-choice and open-ended diagnostic questions.
+
+- **Vision-language models remain vulnerable to adversarial attacks.** Simple pen marks on histopathology slides can mislead GPT-4 and Claude, raising security concerns for clinical deployment.
+
+- **Dermatology AI models previously described as performant showed AUC as low as 0.5 on dark skin.** Fine-tuning on diverse datasets restored performance and enabled models to outperform dermatologists, but the initial failure underscores that bias is baked in when training data is not representative.
+
+<Callout type="evidence">
+  The regulatory landscape tells the real story. More than 1,200 AI medical devices have FDA clearance, but pathology has produced just two approvals for primary diagnostic use. Most approved tools are assistive, meaning a pathologist still makes the final call. The field has moved faster in technical capability than in clinical proof.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Biomarker quantification is the nearest clinical application.** AI tools for Ki-67, PD-L1 CPS, and HER2 scoring address real workflow bottlenecks: these assays are labor-intensive, subjective, and central to treatment decisions. Pathologists evaluating these tools should ask whether they have been validated on their specific tissue type, staining protocol, and scanner platform, because identical stainers, protocols, and antibody lots still yield variable results across laboratories.
+
+2. **Molecular prediction from H&E slides could reduce time and cost, but correlation is not causation.** The ability to predict MSI, BRAF, or EGFR status from routine slides without molecular testing is appealing. These models generate candidate biomarkers from statistical associations. They require rigorous prospective validation before replacing confirmatory molecular assays.
+
+3. **Interobserver variability does not disappear with AI; it shifts.** AI reduces scoring disagreements among pathologists for PD-L1 and HER2, but manual scoring still limits adjudication of borderline cases. The absence of a manual scoring equivalent for AI-first biomarkers (like the TROP2 workflow) creates a new category of tests where the AI score is the only score.
+
+<Callout type="pitfall">
+  Most AI pathology tools carry regulatory designations as assistive devices, not autonomous diagnostic systems. A pathologist reviews the output. When these tools are deployed in settings with fewer pathologists (precisely the settings where they are most needed), the practical distinction between "assistive" and "autonomous" blurs. The regulatory framework assumes a level of human oversight that may not exist where the technology is most consequential.
+</Callout>
+
+4. **Digital pathology infrastructure is a prerequisite that most laboratories lack.** Only a small fraction of laboratories have adopted digital pathology for routine use. High financial costs, low digitization capacity, data privacy concerns, and scanner heterogeneity remain barriers. AI tools validated on one scanner platform may not generalize to another.
+
+5. **Agentic AI in pathology is speculative.** Systems that autonomously retrieve clinical data, analyze slides, and generate diagnostic recommendations exist in concept and early prototypes. The LLMs underpinning these systems are prone to hallucinations in unpredictable scenarios, and benchmarking agentic pathology workflows is in its preliminary stages.
+
+---
+
+## My Takeaway
+
+This review is useful precisely because it maps the distance between what AI can do on a benchmark and what it can do in a pathology lab. The technical results are genuinely impressive: predicting microsatellite instability from an H&E slide, quantifying PD-L1 without manual scoring variability, training foundation models on hundreds of thousands of whole-slide images. But the regulatory and deployment numbers tell a sobering parallel story. Two FDA-authorized tools for primary diagnosis. Ten of 778 studies meeting rigorous evaluation standards. Dermatology models that performed at chance on dark skin until someone thought to include diverse training data. The field's central tension is not whether AI works in pathology; it is whether anyone has proved it works where it will actually be used, on the scanners, staining protocols, and patient populations that define real clinical practice.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100933)

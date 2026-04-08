@@ -1,0 +1,61 @@
+---
+title: "Predicting Which DCD Liver Donors Will Die in Time: A Machine-Learning Model That Outperforms Surgeons"
+journal: "Lancet Digital Health"
+year: 2025
+doi: "10.1016/j.landig.2025.100918"
+keyFinding: "A LightGBM model trained on 1616 DCD donors from six US transplant centres predicted progression to death with AUCs of 0.83 at 30 min and 0.81 at 60 min from extubation, significantly outperforming the DCD-N score (AUC 0.69-0.73), the Colorado Calculator (AUC 0.66-0.69), and average surgeon predictions (futile procurement rate 0.20 vs 0.08 for the model). In prospective validation across 207 donors, AUCs held at 0.83 (30 min) and 0.81 (60 min)."
+lastUpdated: 2026-03-29
+tags: [transplant-surgery, liver-transplant, machine-learning, clinical-decision-support, organ-donation, gradient-boosting, prospective-validation]
+socialPost: "LightGBM model predicts DCD liver donor death timing better than surgeons. AUC 0.83 at 30 min vs 0.69 for existing scores. Futile procurement rate: 8% (model) vs 20% (surgeons). Validated prospectively at six US centres across 207 donors."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Yanagawa et al. developed a LightGBM model to predict whether donation-after-circulatory-death (DCD) liver donors would progress to death within 30, 45, or 60 minutes of extubation. The clinical problem is concrete: roughly half of DCD donors do not die within the required window, and the procurement teams dispatched to retrieve those organs go home empty-handed. Each futile procurement costs operating room time, transport logistics, and (when normothermic machine perfusion is involved) equipment worth hundreds of thousands of dollars. Current practice relies on surgeon judgment, which varies widely between individuals and centres.
+
+The model was trained on data from **1616 DCD donors** across six US transplant centres (Stanford, Cleveland Clinic, University of Rochester, Columbia, University of Florida, Virginia Commonwealth) collected between December 2022 and June 2023. Predictors included GCS score, neurological reflexes, hemodynamics, blood gases, lab values, and mechanism of death. The study used a time-based split: retrospective validation on **398 donors** (July 2023 to August 2023), then prospective validation on **207 donors** (March 2024 to September 2024) using a publicly deployed online interface. Eleven transplant surgeons independently evaluated the retrospective cohort to benchmark human performance.
+
+---
+
+## Key Findings
+
+- **Cross-validation AUCs for the LightGBM model reached 0.833 (95% CI 0.798-0.868) at 30 min** and 0.805 (0.770-0.841) at 60 min from extubation, significantly exceeding both the DCD-N score (0.799 and 0.739, respectively) and the Colorado Calculator (0.694 and 0.663)
+- **Retrospective validation confirmed the advantage**: LightGBM AUCs of 0.834 at 30 min and 0.799 at 60 min, compared with 0.760 and 0.739 for the DCD-N score and 0.694 and 0.663 for the Colorado Calculator (p&lt;0.0001 at all timepoints vs. Colorado Calculator)
+- **Prospective validation on 207 donors maintained performance**, with AUCs of 0.831 (0.768-0.885) at 30 min, 0.812 (0.749-0.874) at 45 min, and 0.805 (0.740-0.868) at 60 min
+- **The model's futile procurement rate was 7.8% (95% CI 0.051-0.104)** at 30 min, compared with 19.5% (0.156-0.232) for the average surgeon, a 60% relative reduction
+- **Cases with poor surgeon consensus (5 vs 6 split decisions) showed the widest gap**: model accuracy of 0.70 vs surgeon accuracy of 0.51, with surgeon futile procurement rates reaching 0.29 compared to the model's 0.11
+- **Key predictive features** identified by SHAP analysis were neurological reflexes (cough, corneal, gag), end PaO2/FiO2 ratio, overbreathing ventilation status, GCS score, and end arterial blood pH
+
+<Callout type="evidence">
+  The model's advantage was most pronounced where it matters most: when surgeons disagreed. In cases with poor consensus among 11 evaluators, the LightGBM model had nearly twice the accuracy of the average surgeon (0.70 vs 0.51) and less than half the futile procurement rate (0.11 vs 0.29). The model was also robust to missing data, maintaining AUCs above 0.75 with up to three missing predictor values.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Futile procurements cost more than wasted time.** Each failed DCD procurement means unnecessary operating room use, surgical team mobilization, transport logistics, and increasingly, the deployment of normothermic machine perfusion equipment that can cost millions of dollars across a transplant programme annually. A 60% reduction in futile procurements translates directly to recovered resources.
+
+2. **Surgeon judgment is inconsistent, and this model quantifies how much.** The 11-surgeon evaluation revealed that only 104 of 384 cases (27%) had strong agreement. In cases with poor agreement, surgeons performed barely better than a coin flip (accuracy 0.51). The model provides a consistent, reproducible second opinion for precisely the cases where human intuition is least reliable.
+
+3. **The model handles missing data gracefully, which matters for real-world deployment.** Clinical data from organ offer calls is often incomplete. The LightGBM framework retained missing values natively, and AUCs dropped only modestly (from 0.83 to 0.79 at 30 min) with up to three missing predictors. This robustness is essential for any tool expected to function at 2 a.m. with whatever data the organ procurement organization can provide.
+
+<Callout type="pitfall">
+  The model predicts whether a donor will die within a time window. It does not predict organ quality, recipient outcomes, or whether the liver will ultimately be used. A donor who progresses to death on schedule may still yield an organ declined for other reasons. The 50% non-utilization rate in DCD liver transplantation reflects multiple factors beyond timing, and this model addresses only one of them.
+</Callout>
+
+4. **Threshold adjustment enables centre-specific calibration.** The model outputs a continuous index (0-100), and transplant centres can adjust the acceptance threshold to match their tolerance for futile procurements versus missed opportunities. A threshold of 50 balanced both; higher thresholds reduce futile procurements further at the cost of missing viable donors.
+
+5. **Prospective validation across six centres over seven months is unusually strong for a surgical ML tool.** Most prediction models in transplant surgery are validated retrospectively on the same population that generated them. This study's temporal split and real-time deployment via a public web interface provide stronger evidence of generalizability than the field typically offers.
+
+---
+
+## My Takeaway
+
+Half of all DCD liver procurement attempts in the US fail because the donor does not die quickly enough after extubation. That is a staggering waste of surgical resources, and the current alternative is asking a surgeon to guess based on whatever clinical data arrives with the organ offer call. This study shows that a gradient-boosting model, trained on straightforward clinical variables, can cut futile procurements by 60% while maintaining accuracy even with incomplete data. The most compelling finding is not the overall AUC but the performance gap in cases where surgeons themselves cannot agree: the model nearly doubles human accuracy in those situations. Whether transplant centres adopt this specific tool or a successor, the days of relying on individual surgeon intuition for DCD timing predictions should be numbered.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100918)

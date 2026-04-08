@@ -1,0 +1,64 @@
+---
+title: "LLM-Simplified Radiology Reports: Patients Understand More, but 1 in 100 Contains a Clinically Significant Error"
+journal: "Lancet Digital Health"
+year: 2026
+doi: "10.1016/j.landig.2025.100960"
+keyFinding: "Across 38 studies and 12,922 simplified reports, patients rated LLM-rewritten radiology reports 87% more understandable than original radiologist-authored versions (mean Likert difference 2.00, 95% CI 1.54-2.46). Clinicians rated them highly for accuracy (4.45/5) and completeness (4.53/5). The overall error rate was 7.2% (95% CI 5.1-10.0%), with clinically significant errors occurring in 0.9% of reports (95% CI 0.6-1.5%)."
+lastUpdated: 2026-03-29
+tags: [radiology, patient-education, llm, readability, meta-analysis, patient-communication, systematic-review]
+socialPost: "Meta-analysis of 38 studies: LLM-simplified radiology reports scored 87% more understandable than originals. Clinician accuracy rating 4.45/5. But 7.2% had errors, 0.9% clinically significant. Reading level dropped from university to middle school."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Alabed and colleagues conducted the first systematic review and meta-analysis of LLMs used to simplify radiology reports for patients. They searched MEDLINE, Embase, CENTRAL, medRxiv, bioRxiv, and arXiv from database inception through November 11, 2025, identifying 38 studies published between 2022 and 2025. These studies generated 12,922 simplified reports across six imaging modalities, assessed by 508 evaluators: 387 lay people and 121 clinicians (66% radiologists, 23% physicians, 9% orthopaedic surgeons). GPT (OpenAI) was used in 35 of 38 studies, with GPT-4 the most common model (18 studies, 47%). Most studies were small, single-centre, and conducted in English. Primary outcomes were patient and public self-reported understanding (Likert scales), clinician-assessed quality (accuracy, completeness, simplicity), and objective readability metrics (Flesch-Kincaid Grade Level, Flesch Reading Ease Score). The study was registered with PROSPERO (CRD420251027489), and quality was assessed with the MAIC-10 tool.
+
+---
+
+## Key Findings
+
+Patients and lay assessors rated LLM-simplified reports **87% more understandable** than original radiologist-authored reports. The pooled mean Likert score for understanding was **4.04** (SD 0.94) for simplified reports versus **2.16** (SD 1.20) for originals, with a pooled mean difference of **2.00** (95% CI 1.54-2.46) across ten studies.
+
+Clinicians rated LLM-simplified reports highly across all quality dimensions. Accuracy had a pooled mean of **4.45/5** (95% CI 4.27-4.63) across 27 studies. Completeness scored **4.53/5** (95% CI 4.30-4.76) across 14 studies. Simplicity reached **4.32/5** (95% CI 3.97-4.67) across eight studies.
+
+Readability shifted from university-level to school-level text. For CT reports, the mean Flesch-Kincaid Grade Level dropped from **13.4** (university) to **7.3** (ages 11-13), a **47% reduction**. The Flesch Reading Ease Score rose from 28.0 to 73.6, a **163% increase**. X-ray and MRI reports showed similar improvements: 42% and 21% FKGL reductions, respectively.
+
+The pooled error rate across 13 studies was **7.2%** (95% CI 5.1-10.0%), covering 7,774 reports and 353 incorrect reports. Clinically significant errors, those that could alter diagnosis or severity, occurred at a rate of **0.9%** (95% CI 0.6-1.5%) across two studies and 4,037 reports.
+
+GPT-4 achieved a higher accuracy rating than GPT-3.5: **4.77** (95% CI 4.60-4.94) versus **4.09** (95% CI 3.78-4.40).
+
+Patient satisfaction with LLM-rewritten reports was **3.81/5** (SD 0.82) across 140 reports and 316 patients. Empathy perception scored **3.61/5** (SD 0.79) across 177 reports and 143 patients. Trust in simplified reports was rated slightly lower than in radiologist-authored versions in one study.
+
+<Callout type="evidence">
+  The core finding is a clean trade: LLM simplification produces reports patients can actually read (school-level versus university-level text) without sacrificing the clinical content that matters to radiologists (accuracy 4.45/5, completeness 4.53/5). The error rate is low but not zero, and the 0.9% clinically significant error rate means roughly 1 in 100 simplified reports could mislead a patient about their diagnosis.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Readability gains are real and consistent across modalities.** LLMs reduced reading levels by 5 to 6 grade levels for CT, x-ray, and MRI reports. For the 40% of UK adults who struggle with health content, this shift from university-level prose to middle-school-level language is the difference between understanding a report and not understanding it.
+
+2. **Clinician confidence in accuracy does not eliminate the need for review.** Radiologists and physicians rated simplified reports 4.45/5 for accuracy, but 7.2% of reports contained errors of some kind. A human-in-the-loop model, where clinicians review and authorize LLM-generated drafts before patient access, remains essential.
+
+3. **Simplification makes reports longer, not shorter.** LLMs do not merely substitute simpler words. They add definitions, explanations, and analogies for technical terminology. This expansion enhances comprehension but increases the review burden for radiologists already under workload pressure. The Royal College of Radiologists has noted that departments lack capacity to handle the query volume that patient access already generates.
+
+4. **Trust lags behind understanding.** Patients in one study rated trust in radiologist-written reports slightly higher than in LLM-rewritten versions. Concerns about depersonalization, standardized phrasing, and data privacy may explain this gap. Patients supported AI-generated explanations only when supervised by their clinician.
+
+5. **No study tested real-world deployment.** All 38 studies were evaluations, not implementations. None assessed what happens when patients receive LLM-simplified reports as part of routine care, including effects on follow-up appointments, anxiety, clinical queries, or health outcomes. The gap between "patients rate this as more understandable" and "patients make better decisions with this" remains unmeasured.
+
+<Callout type="pitfall">
+  Improved readability scores do not equal improved comprehension. Readability formulas (Flesch-Kincaid, ARI) measure surface features of text: sentence length, syllable counts, word complexity. Radiology reports are full of abbreviations, numbers, and unusual punctuation that make these metrics unstable. A report can score well on Flesch-Kincaid while still confusing a patient about what their findings mean. No study in this review tested actual patient comprehension with validated instruments.
+</Callout>
+
+---
+
+## My Takeaway
+
+This meta-analysis answers a question that seemed almost too obvious to study: can LLMs make radiology reports easier to read? They can, and by a wide margin. The more interesting question is what happens next. A 0.9% clinically significant error rate sounds reassuringly small until you consider that the NHS App already gives millions of patients direct access to their imaging reports. At that scale, 1 in 100 is not a rounding error. And the finding that simplified reports are often longer than the originals creates a real tension: the tool that makes reports comprehensible to patients also makes them harder for radiologists to review quickly. The studies reviewed here measured perceived understanding, not actual understanding, and none tested whether patients who read simplified reports made different (or better) decisions about their care. That is the study I am waiting for.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100960)

@@ -1,0 +1,57 @@
+---
+title: "AI as a Second Reader in Breast Cancer Screening: Comparable Detection, Different Cancers"
+journal: "Lancet Digital Health"
+year: 2025
+doi: "10.1016/j.landig.2025.100882"
+keyFinding: "In 42,236 Dutch population-based screening mammograms, combining one human reader with AI increased breast cancer sensitivity by 8.4 percentage points over double human reading (60.2% vs 51.7%, p&lt;0.0001), at the cost of a 2.0 percentage point decrease in specificity. AI and human readers missed different cancers: AI-identified interval and future breast cancers were more often invasive (93.4%), larger (mean 18.5 mm vs 14.3 mm), and lymph-node-positive (23.0% vs 16.5%) than human-read screen-detected cancers, suggesting clinically relevant findings missed by radiologists."
+lastUpdated: 2026-03-29
+tags: [breast-cancer, mammography, screening, radiology, population-health, cancer-detection]
+socialPost: "Dutch screening study (42,236 mammograms): combining one radiologist + AI caught 16.4% more breast cancers than double human reading. Cancers only AI found were larger, more invasive, and more often node-positive. Different eyes catch different things."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Van Winkel and colleagues retrospectively processed 42,236 consecutive 2D screening mammograms from the Dutch population-based breast cancer screening programme (September 2016 to August 2018) through Transpara version 1.7.0, an AI cancer detection system by ScreenPoint Medical. They then verified outcomes against the Netherlands Cancer Registry with up to 52 months of case-level follow-up, capturing not only screen-detected cancers but also interval cancers and future breast cancers that emerged after the screening round.
+
+The study simulated four screening scenarios: single human reading, double human reading (the Dutch standard), stand-alone AI, and combined single human reading with AI as a second reader. Of the 42,100 women included, 580 exams were linked to a breast cancer diagnosis: 291 screen-detected cancers, 102 interval cancers, and 187 future breast cancers. The AI's operating point was fixed at the recall rate of the first human reader, making direct sensitivity comparisons possible across scenarios.
+
+---
+
+## Key Findings
+
+- **Combined single human reading with AI achieved 60.2% sensitivity** (95% CI 56.1-64.2), compared with **51.7% for double human reading** (95% CI 47.6-55.9) and 46.9% for single human reading alone
+- **Sensitivity increased by 8.4 percentage points** (95% CI 5.7-11.2, p&lt;0.0001) when AI was added to a single human reader, a relative increase of **16.4%** over double human reading
+- **Specificity decreased by 2.0 percentage points** (95% CI 1.8-2.1, p&lt;0.0001) in the combined scenario compared with double human reading (95.8% vs 97.7%)
+- **AI detected 282 screen-detected cancers** as a stand-alone reader; human double reading detected 291. AI missed 70 human-detected cancers but found an additional 61 interval and future breast cancers
+- **No significant performance difference across breast density categories** was found between combined single human reading with AI and other scenarios
+- **AI-identified cancers missed by human readers were clinically distinct**: 93.4% invasive (vs 66.7% for screen-detected), mean tumour size 18.5 mm (vs 14.3 mm), and 23.0% lymph-node-positive (vs 16.5%)
+
+<Callout type="evidence">
+  AI and radiologists do not miss the same cancers. The cancers only AI flagged, those overlooked by double human reading, were larger, more invasive, and more often node-positive at eventual diagnosis. This is the opposite of an overdiagnosis signal; it suggests AI detects clinically relevant lesions that radiologists systematically overlook.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **AI as a second reader adds real detection, not just volume.** The 61 additional interval and future breast cancers identified by AI were not low-risk findings. They were more advanced at diagnosis than screen-detected cancers, indicating that earlier AI-prompted detection could have changed staging and treatment.
+
+2. **Replacing double reading with single reader plus AI is plausible, not proven.** The sensitivity gain is clear, but the 2.0 percentage point specificity decrease means more recalls, more diagnostic workups, and more patient anxiety. Whether that trade-off is acceptable depends on the screening programme, the arbitration process, and the population's tolerance for false positives.
+
+3. **An effective arbitration process is essential.** The authors emphasize that deploying AI as a second reader without a structured arbitration mechanism for discordant results would produce an unacceptable increase in false positives. The MASAI trial's approach, where AI triaged low-risk mammograms to single reading while high-risk cases received double reading, offers one model.
+
+<Callout type="pitfall">
+  The study used a single AI system (Transpara 1.7.0) within one screening programme in the Netherlands. Generalizability to other AI products, imaging hardware, and screening populations is unconfirmed. Several authors disclosed financial relationships with ScreenPoint Medical, the AI system's manufacturer.
+</Callout>
+
+---
+
+## My Takeaway
+
+What makes this study worth reading closely is not the sensitivity numbers, which confirm what earlier work suggested, but the tumour biology data. The cancers AI caught that humans missed were not incidental findings or borderline lesions. They were invasive, node-positive, larger cancers that would have presented clinically between screening rounds. That pattern argues against the overdiagnosis concern and for the complementary value of human and AI reading. The practical question is no longer whether AI sees things radiologists miss. It does. The question is how to build an arbitration workflow that captures those gains without drowning screening programmes in false-positive recalls.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100882)

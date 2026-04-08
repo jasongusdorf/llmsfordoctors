@@ -1,0 +1,59 @@
+---
+title: "Predicting New-Onset AF in the ICU: A Machine Learning Model That Might Actually Be Usable"
+journal: "Lancet Digital Health"
+year: 2025
+doi: "10.1016/j.landig.2025.100896"
+keyFinding: "The METRIC-AF gradient-boosted tree model, trained on 39,084 ICU patients from UK and US databases, achieved a C statistic of 0.812 (95% CI 0.805-0.822) on external validation in 33,844 UK patients, outperforming a published logistic regression comparator (C statistic 0.786; p=0.0003). A simplified three-variable bedside tool using age, serum urea, and oxygen requirement achieved a C statistic of 0.727 (95% CI 0.716-0.739). Low serum magnesium concentrations below 0.7 mmol/L were independently associated with increased AF risk."
+lastUpdated: 2026-03-29
+tags: [critical-care, atrial-fibrillation, prediction-model, machine-learning, gradient-boosted-trees, icu, external-validation, electrolytes]
+socialPost: "METRIC-AF predicts new-onset atrial fibrillation in ICU patients. C statistic 0.812 on external validation in 33,844 patients, beating a published comparator (0.786, p=0.0003). A 3-variable bedside tool (age, urea, O2 need) scored 0.727."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Bedford and colleagues conducted a multicentre retrospective cohort study using data from seven ICUs across three centres in the UK (PICRAM database) and four in the USA (MIMIC-IV). They included 39,084 patients aged 16 and older, admitted to a general ICU for more than three hours, without a history or presentation of clinically significant arrhythmia. The primary outcome was new-onset atrial fibrillation during the first seven days of ICU stay, defined as documented AF lasting at least 30 seconds on the bedside observation chart. Candidate predictors were identified through an international Delphi consensus process. The team developed a gradient-boosted tree model (METRIC-AF) using ten routinely collected clinical variables, updated at three-hour intervals throughout the ICU stay, to predict AF risk over a rolling 24-hour window. Internal validation used cross-validation across all seven ICUs. External validation was performed on 33,844 patients from the CCHIC database, comprising four UK health-care trusts not involved in model development. The study was reported according to TRIPOD+AI guidelines.
+
+---
+
+## Key Findings
+
+- **7.2% of ICU patients (2,797 of 39,084) developed new-onset atrial fibrillation** during the first seven days of their stay, consistent with published incidence data
+- **The METRIC-AF model achieved a mean internal-external cross-validation C statistic of 0.830** (95% CI 0.809-0.853) with ten predictors; performance improved only marginally with more predictors beyond ten
+- **External validation C statistic was 0.812** (95% CI 0.805-0.822), significantly better than the published SAFE comparator model at **0.786** (95% CI 0.778-0.801; p=0.0003), with superior net benefit across clinically relevant risk thresholds
+- **The ten selected model predictors** were age, day of ICU stay, heart rate, FiO2, maximum mean arterial pressure, serum urea concentration, maximum serum urea during stay, presence of atrial ectopic beats, noradrenaline infusion rate, and presence of a central venous catheter
+- **A simplified three-variable bedside graphical tool** (age, serum urea concentration, and oxygen requirement) achieved a C statistic of **0.727** (95% CI 0.716-0.739), stratifying patients into five risk groups
+- **Serum magnesium concentrations below 0.7 mmol/L were associated with increased AF risk** after adjustment for renal function, with risk rising progressively as concentrations fell further; no evidence supported targeting high-normal magnesium levels
+
+<Callout type="evidence">
+  The model uses only routinely collected variables, updated every three hours. That matters. Prior ICU AF prediction models have relied on predictors not routinely measured (ST segment height, mean values requiring a full stay), or have been validated only internally or against data from the same source. METRIC-AF was developed on US and UK data, then externally validated on an independent UK dataset from four separate health-care trusts.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Risk stratification at the bedside is now feasible with three variables.** The simplified graphical tool requires only age, serum urea, and oxygen requirement. These are available within hours of ICU admission. The tool stratifies patients into five risk groups, identifying a large low-risk group unlikely to benefit from prophylactic interventions.
+
+2. **Hypomagnesaemia below 0.7 mmol/L is an actionable finding.** The association between low magnesium and new-onset AF persisted after adjustment for renal function and was dose-dependent. This supports a specific, testable intervention target for randomised trials, not the current common practice of maintaining high-normal magnesium levels.
+
+3. **The model could support trial enrichment for AF prevention studies.** Identifying high-risk patients before they develop AF is the prerequisite for testing prophylactic strategies (rate control agents, magnesium supplementation, rhythm monitoring protocols). METRIC-AF provides a tool for that selection.
+
+<Callout type="pitfall">
+  External validation was performed only in UK centres. The development data included US patients (MIMIC-IV), but the validation cohort did not. Performance in non-UK, non-US ICU populations remains unknown. The model also slightly underestimated overall AF risk in the validation dataset, which had a higher event rate (9.0% vs 7.2%) than the development cohort.
+</Callout>
+
+4. **Atrial ectopic beats were unavailable in the external validation dataset.** This predictor was randomly imputed at baseline prevalence. Sensitivity analyses showed stable performance across 1,000 imputations, but real-world performance could exceed what is reported here if ectopy data are captured.
+
+5. **The online prediction app enables independent external validation.** Users can upload their own datasets and receive predicted risks, lowering the barrier to testing generalisability in new populations before clinical adoption.
+
+---
+
+## My Takeaway
+
+Most ICU AF prediction models share two problems: they use variables that are not routinely available, and they have not been validated outside the centres that built them. METRIC-AF addresses both. Ten routine variables, three-hour update intervals, a separate external validation cohort from institutions that had no role in development. The simplified bedside tool is less discriminating but more practical, and a C statistic of 0.727 with three variables is honest work for a condition with a 7% base rate. The magnesium finding is the piece I expect to generate the most clinical discussion: the data suggest that the threshold for concern is 0.7 mmol/L, not the higher targets many ICUs aim for, and that the relationship is continuous rather than binary. That is a testable hypothesis, and METRIC-AF gives trialists a way to find the patients who would answer it.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100896)

@@ -1,0 +1,60 @@
+---
+title: "Machine Learning Predicts Who Benefits from Atezolizumab-Bevacizumab in Liver Cancer"
+journal: "Lancet Digital Health"
+year: 2026
+doi: "10.1016/j.landig.2025.100952"
+keyFinding: "An ensemble machine learning model trained on 44 baseline clinical variables predicted overall survival (AUC 0.75) and progression-free survival (AUC 0.64) in 774 patients with advanced hepatocellular carcinoma receiving atezolizumab plus bevacizumab. The model outperformed all established clinical benchmarks, including BCLC stage, AFP concentration, ALBI grade, and platelet-to-lymphocyte ratio, on an independent external validation cohort of 289 European patients. Low-risk patients had a median overall survival of 16.4 months versus 4.8 months in the high-risk group (p&lt;0.0001)."
+lastUpdated: 2026-03-29
+tags: [hepatocellular-carcinoma, immunotherapy, machine-learning, ensemble-model, survival-prediction, oncology, risk-stratification, clinical-decision-support]
+socialPost: "ML model using routine labs predicts who benefits from atezo-bev in liver cancer. AUC 0.75 for overall survival, validated externally on 289 patients across 8 countries. Low-risk group: 16.4 mo median OS. High-risk: 4.8 mo. Beat every clinical benchmark."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Vithayathil and colleagues conducted a retrospective cohort study across 24 centres in eight countries (Austria, Germany, Italy, Japan, South Korea, Taiwan, the UK, and the USA). They included 774 patients with advanced hepatocellular carcinoma (HCC) who received first-line atezolizumab plus bevacizumab between May 2018 and October 2023. Patients were divided into a combined Asia and North America cohort (n=485), split 70:30 into training (n=339) and internal validation (n=146) sets. The European cohort (n=289) served as an independent external validation set.
+
+Seven supervised machine learning algorithms (logistic regression, Bayesian, tree-based, and neural network methods) were trained on 44 baseline clinical variables. Thirteen feature selection techniques were tested. The three best-performing algorithm-feature combinations were combined into a final ensemble model for each outcome: 12-month overall survival and 6-month progression-free survival. Unsupervised k-means clustering then stratified patients into low-risk and high-risk groups based on model-generated probabilities.
+
+---
+
+## Key Findings
+
+- **The ensemble model achieved an AUC of 0.75 (95% CI 0.69-0.81)** for predicting 12-month overall survival in the external validation cohort, and **0.64 (95% CI 0.59-0.70)** for 6-month progression-free survival
+- **The model outperformed every established clinical benchmark** for overall survival prediction in external validation: BCLC stage (AUC 0.54), AFP concentration (0.60), ALBI grade (0.64), neutrophil-to-lymphocyte ratio (0.56), platelet-to-lymphocyte ratio (0.51), and combined ALBI grade plus BCLC stage (0.67)
+- **Low-risk patients had median overall survival of 16.4 months** (95% CI 14.2-21.6) versus **4.8 months** (95% CI 3.0-6.9) in the high-risk group (p&lt;0.0001)
+- **Overall response rates diverged sharply by risk group**: 34.1% in low-risk versus 19.0% in high-risk patients (p=0.047) for the overall survival model; disease control rates showed a similar split (72.0% vs 52.4%; p=0.011)
+- **Bilirubin, albumin, AFP, alkaline phosphatase, and macrovascular invasion** were the most important features driving overall survival predictions, as determined by permutation importance analysis
+
+<Callout type="evidence">
+  The model used only routinely collected clinical data: standard labs, tumour staging, and liver function markers. No genomic, radiomic, or proprietary biomarker data were required. This matters because the variables are already available in any oncology clinic managing HCC, meaning the model could be deployed without additional testing infrastructure.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Risk stratification before treatment initiation becomes concrete.** The 11.6-month gap in median overall survival between low-risk and high-risk groups is clinically actionable. Identifying high-risk patients before starting atezolizumab-bevacizumab could prompt earlier consideration of alternative regimens or more aggressive monitoring schedules.
+
+2. **Routine labs carry more predictive signal than clinicians typically extract from them.** The ensemble model's advantage over individual clinical benchmarks (BCLC stage, ALBI grade, AFP alone) comes from capturing non-linear interactions between variables that linear scoring systems miss. A single AFP value tells you something. AFP in the context of albumin, bilirubin, alkaline phosphatase, and macrovascular invasion status tells you more.
+
+3. **The model does not tell you whether to use atezolizumab-bevacizumab.** Without a control group receiving alternative treatment, the study cannot distinguish prognostic value (who will do poorly regardless) from predictive value (who will do poorly specifically on this regimen). A patient classified as high-risk might still do worse on every available alternative.
+
+<Callout type="pitfall">
+  This study has no control arm. The model identifies patients likely to have poor outcomes on atezolizumab-bevacizumab, but it cannot tell you whether those same patients would do better on lenvatinib, sorafenib, or durvalumab-tremelimumab. Prognostic and treatment-specific predictive effects are conflated.
+</Callout>
+
+4. **Progression-free survival prediction was weaker.** An AUC of 0.64 for PFS is modest. The authors note that incorporating radiomic and genomic data could improve this, but that would sacrifice the model's current advantage of relying solely on data already in every patient's chart.
+
+5. **External validation across continents strengthens the generalisability claim.** Training on Asian and North American patients and validating on Europeans, with principal component analysis showing no clear batch effect, is stronger evidence than single-centre internal validation. The consistent performance across geographically and aetiologically diverse cohorts (hepatitis B-predominant in Asia, alcohol-related disease more common in Europe) supports real-world applicability.
+
+---
+
+## My Takeaway
+
+The most useful thing about this study is not the AUC. It is the demonstration that routine clinical data, the same labs and staging information oncologists already order, can be combined through non-linear models to outperform every established scoring system for predicting immunotherapy outcomes in HCC. The practical question is whether the 0.75 AUC is high enough to change clinical decisions. In a disease where only a third of patients respond to first-line combination immunotherapy and the alternative is exposing non-responders to immune-related toxicity for no benefit, even moderate predictive accuracy has value if it prompts earlier, more honest conversations about prognosis. The missing piece, and it is a significant one, is a prospective trial with a control arm that can separate "this patient will do poorly on everything" from "this patient will do poorly on atezolizumab-bevacizumab specifically."
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100952)

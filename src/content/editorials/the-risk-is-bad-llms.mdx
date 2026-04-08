@@ -1,0 +1,90 @@
+---
+title: "The Risk to Medicine Isn't LLMs. It's Bad LLMs."
+description: "Hospitals are deploying the cheapest AI they can find and calling it innovation. The underpowered models built into EHRs and enterprise tools produce worse output than the physicians they're replacing. Institutions need to stop treating model quality as an IT decision."
+tags: [copilot, epic, model-quality, hallucination, enterprise-ai, claude, gpt, baa, hipaa, editorial]
+lastUpdated: 2026-04-05
+featured: true
+socialPost: "The biggest risk to clinical AI isn't the technology. It's hospitals deploying the cheapest models available and calling it innovation. When a bad LLM replaces a good physician's writing, the output gets worse. Model quality is a patient safety issue."
+---
+
+import Callout from '../../components/Callout.astro';
+
+The conversation about AI in medicine has been framed, from the beginning, as a question of whether. Whether LLMs are safe enough. Whether they hallucinate too often. Whether physicians should trust them at all.
+
+That framing is already obsolete. The question is no longer whether hospitals will deploy AI. They already have. The question is whether they'll deploy good AI or bad AI, and right now, the answer at most institutions is bad.
+
+---
+
+## The Model Behind the Curtain
+
+When a hospital "adopts AI," what does that mean in practice? In most cases, it means one of two things: Microsoft's DAX Copilot for ambient clinical documentation, or whatever generative AI features Epic has wired into the EHR. These are the tools that pass procurement. They come bundled with existing enterprise contracts. They require no new vendor relationships. IT approves them because they're already in the ecosystem.
+
+What they are not, generally, is good.
+
+The models powering these institutional tools are not the same models that score 95% on medical licensing exams. They are smaller, cheaper, and more constrained. Enterprise AI products optimize for cost per query, latency, and contractual simplicity, not for clinical reasoning quality. The model that generates your auto-drafted patient instruction sheet may be several generations behind the one your colleague is using on their personal Claude or ChatGPT subscription.
+
+This matters. Model quality is not a spectrum where "a little worse" means "slightly less helpful." In clinical documentation, the difference between a capable model and a mediocre one is the difference between a note that captures clinical reasoning and a note that sounds like clinical reasoning while missing the point entirely.
+
+---
+
+## What Bad Looks Like
+
+A physician who writes a progress note applies judgment at every step. Which findings are relevant. What the differential actually is, given this patient's history. Why one treatment was chosen over another. The note reflects thinking.
+
+A weak LLM generating the same note produces something that reads like a note. The structure is correct. The headings are right. The sentences are grammatically sound. But the clinical reasoning is shallow or absent. Pertinent negatives get dropped. The assessment collapses into a generic summary that could describe any patient with the same chief complaint. Medications appear in the plan without a clear rationale linking them to the assessment above.
+
+The result is a document that looks professional and communicates less than what the physician would have written by hand. When a resident or attending signs that note without a careful read (and the whole point of AI documentation is to save time, which means less careful reads), the medical record gets worse. Not in a way that triggers an alert. In a way that erodes the record's value as a clinical communication tool, slowly, across thousands of encounters.
+
+<Callout type="pitfall">
+The most dangerous failure mode isn't a hallucination you catch. It's a note that's 90% correct and subtly wrong in ways that only matter six months later, when another physician reads it to make a treatment decision.
+</Callout>
+
+---
+
+## The Hallucination Gap
+
+Not all models hallucinate at the same rate, and the differences are not small.
+
+GPT-3.5, the model generation that many early institutional deployments were built on, scored 58% on neuroscience board questions in published comparisons. Claude and GPT-4 scored above 80% on the same questions. On cardiology questions, Claude hit 78% while cheaper alternatives lagged behind. On the MedQA benchmark (USMLE-style questions), the gap between current frontier models and their predecessors is 10 to 15 percentage points.
+
+These numbers describe the gap between the AI your hospital chose and the AI that was available. When an institution deploys a model that gets one in three clinical questions wrong instead of one in seven, the hallucination rate isn't an abstract benchmark. It's the rate at which the system generates plausible-sounding clinical content that is incorrect.
+
+Physicians reviewing AI-generated text can catch errors, if they read carefully. But the entire value proposition of AI documentation is speed. "Review and sign" replaces "write from scratch." The faster the review, the more errors pass through. The worse the model, the more errors there are to catch.
+
+---
+
+## Why Hospitals Choose Badly
+
+The decision to deploy a specific AI model almost never involves the physicians who will use it. It is made by procurement teams evaluating enterprise contracts, IT departments managing vendor relationships, and compliance officers assessing BAA coverage. The criteria are cost, integration complexity, and legal risk. Model quality, the factor that determines whether the tool actually helps or actively degrades the clinical record, is rarely on the rubric.
+
+This produces a predictable outcome. The AI that wins the procurement process is the one that's cheapest to deploy, easiest to integrate, and already covered by an existing enterprise agreement. Microsoft products win because hospitals already run Microsoft. Epic's built-in AI wins because it's already in the EHR. Whether these tools use a frontier model or a model two generations behind is not a question anyone in the procurement chain is equipped to ask.
+
+The physicians who use these tools daily can tell the difference. They are the ones closing the AI-generated note, rewriting it from scratch, and wondering why the hospital paid for a tool that creates more work than it saves.
+
+---
+
+## The BAA Problem (and Its Solution)
+
+A common justification for choosing inferior institutional AI is HIPAA compliance. "We can't use Claude or ChatGPT because they don't have a BAA with our institution." This was true two years ago. It is increasingly false.
+
+Anthropic offers Claude through AWS Bedrock, Google Cloud Vertex AI, and Microsoft Azure, all with BAA coverage. Data submitted through these channels is not used to train future models. OpenAI offers similar enterprise agreements. The infrastructure for deploying high-quality models in a HIPAA-compliant environment exists. It has existed for over a year.
+
+The barrier is not legal. It is organizational. Signing a BAA with Anthropic or OpenAI requires a new vendor relationship, a new security review, and a new line item in the IT budget. It is simpler, in the short term, to use whatever came bundled with the existing Microsoft or Epic contract. Simpler for IT. Worse for patients.
+
+<Callout type="evidence">
+Claude achieved the highest overall accuracy (78%) on cardiology board questions in a published multi-model comparison, and scored highest for relevance and completeness in complex medical decision-making scenarios. These are the models hospitals are choosing not to deploy.
+</Callout>
+
+---
+
+## The Real Risk
+
+The argument against LLMs in medicine has always been that they hallucinate, that they get things wrong, that they can't be trusted with clinical decisions. That argument is correct, and it applies with particular force to the models hospitals are actually deploying.
+
+The frontier models (Claude Opus, GPT-4 and its successors) are not perfect. They hallucinate. They require physician oversight. But their error rates are measurably lower, their clinical reasoning is measurably stronger, and their output is measurably closer to what a competent physician would produce. The gap between these models and the ones running inside most hospital AI tools is not a matter of taste. It is a matter of clinical quality.
+
+When an institution deploys a cheap model that produces mediocre clinical documentation, and physicians sign that documentation because the whole point was to save time, the medical record degrades. When the record degrades, clinical communication degrades. When clinical communication degrades, patient care follows.
+
+The risk to medicine isn't AI. It's institutions treating model quality as a line item instead of a clinical decision, and choosing the AI equivalent of a first-year medical student when a senior resident was available for marginally more effort.
+
+The models are good enough now. The question is whether hospitals will use the good ones.

@@ -1,0 +1,61 @@
+---
+title: "A Simpler AI Scores Tumor-Infiltrating Lymphocytes as Well as the Complex Ones"
+journal: "Lancet Digital Health"
+year: 2025
+doi: "10.1016/j.landig.2025.100921"
+keyFinding: "ECTIL, a label-efficient deep learning model trained on only a few hundred whole-slide-level TIL scores, matched pathologist concordance across six cohorts (2340 patients, Pearson r 0.54 to 0.74, AUROC 0.80 to 0.94) without requiring pixel-level segmentation or cell-level annotations. In multivariate Cox regression, every 10% increase in ECTIL TIL score was independently associated with improved overall survival (HR 0.85, 95% CI 0.77 to 0.93; p=0.0007), similar to the pathologist's own score."
+lastUpdated: 2026-03-29
+tags: [digital-pathology, breast-cancer, tumor-infiltrating-lymphocytes, deep-learning, computational-pathology, biomarker, survival-analysis, triple-negative-breast-cancer]
+socialPost: "A simpler AI model scores tumor-infiltrating lymphocytes in breast cancer nearly as well as a pathologist, trained on 100x fewer annotations. Across 2340 patients: r up to 0.74, AUROC up to 0.94, with independent survival association."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Schirris, Voorthuis, and colleagues validated ECTIL (label-efficient computational stromal TIL assessment), a deep learning model that scores tumor-infiltrating lymphocytes (TILs) on standard H&E-stained breast cancer slides in a single step. The model skips the complex segmentation-detection pipelines used by existing computational TIL tools. Instead, it extracts morphological features from whole slide images using a publicly available pathology foundation model (RetCCL), then applies a gated attention-based multiple instance learning model to directly regress the slide-level TIL score.
+
+The study drew from six cohorts across three countries (USA, UK, Netherlands): TCGA (n=356), BASIS (n=247), N4+ (n=552), MATADOR (n=517), TRAIN II (n=292), and PARADIGM (n=390). PARADIGM served as the held-out external test set. Training required only a few hundred whole-slide-level TIL scores provided by a single pathologist per cohort. No pixel-level segmentation masks, cell-level annotations, or post-processing steps were needed. The authors compared ECTIL's concordance with the pathologist and assessed whether its scores independently predicted overall survival using univariate and multivariate Cox regression, adjusting for T stage, tumour grade, histology, lymphovascular invasion, and local treatment.
+
+---
+
+## Key Findings
+
+- **Pearson correlation coefficients across external cohorts ranged from r 0.54 to 0.74**, with the highest concordance on MATADOR (r 0.74; AUROC 0.94) and the lowest on N4+ (r 0.54; AUROC 0.82) and PARADIGM (r 0.58; AUROC 0.80)
+- **ECTIL-combined (trained on all molecular subtypes) achieved r 0.69 and AUROC 0.85** on the external PARADIGM test set, with ECTIL-TNBC (triple-negative only) reaching r 0.64 and AUROC 0.83 on the same cohort
+- **Every 10% increase in ECTIL-combined TIL score corresponded to a hazard ratio of 0.85** (95% CI 0.77 to 0.93; p=0.0007) for overall survival in multivariate analysis, nearly identical to the pathologist's HR of 0.86 (95% CI 0.81 to 0.92; p&lt;0.0001)
+- **Patients with ECTIL-combined scores at or above the median (27 or higher) had 90% three-year overall survival** (95% CI 85.8 to 94.4), compared with 83% (95% CI 78.3 to 88.8) for those below the median (p=0.0043)
+- **ECTIL requires two orders of magnitude fewer annotations** than existing pipelines. Training finishes in 10 minutes on a commodity GPU (NVIDIA GeForce RTX 2080 Ti), compared with models that demand thousands of pixel-level segmentations by expert pathologists
+- **Concordance between ECTIL-TCGA and the pathologist (r 0.74) approached the inter-rater agreement between two pathologists (r 0.80)** on the MATADOR dataset
+
+<Callout type="evidence">
+  This is the largest retrospective validation study of a computational TIL assessment method to date: 2340 patients, 2354 slides, six cohorts, three countries. The model's prognostic value held in multivariate analysis independent of tumour stage, grade, histology, and lymphovascular invasion, matching the pathologist's score in effect size.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **TIL scoring could become routine rather than resource-dependent.** TILs are a validated prognostic biomarker in triple-negative breast cancer, but visual assessment is labor-intensive and variable between pathologists. A model that runs on standard H&E slides and finishes in minutes removes the practical barrier to systematic scoring.
+
+2. **Label efficiency changes the deployment calculus.** Most computational pathology models require large annotated datasets curated by specialists. ECTIL trains on whole-slide-level scores alone, the same labels pathologists already generate in clinical practice. This makes it feasible for smaller institutions to train or fine-tune models on their own data without commissioning thousands of pixel-level annotations.
+
+3. **De-escalation trials are the next proving ground.** The authors plan to integrate ECTIL into a prospective de-escalation phase 3 clinical trial (NCT06476119) for patients with low-stage triple-negative breast cancer. If computational TIL scores can reliably identify patients with excellent prognosis, some may safely forgo adjuvant or neoadjuvant chemotherapy.
+
+4. **The model is open-source and publicly available.** Code and validation infrastructure are on GitHub (github.com/nki-ai/ectil). For institutions evaluating computational pathology tools, an open-source model with multicentre validation data is a rare commodity.
+
+<Callout type="pitfall">
+  ECTIL has a dilution problem. In large whole slide images with small tumour beds, many low-attention tiles still accumulate enough weight to pull the predicted score down, capping the model's maximum prediction at about 70%. The model also underperformed on invasive lobular carcinoma (r 0.36, AUROC 0.79), where tumour cells resemble lymphocytes morphologically. Quality control remains the pathologist's job: an empty slide or one without tumour tissue would still receive a score.
+</Callout>
+
+5. **Concordance is not equivalence.** Correlation coefficients of 0.54 to 0.74 indicate moderate to strong agreement, but ECTIL-combined tended to overpredict samples with low pathologist scores and underpredict those with high scores. The model does not replace the pathologist; it pre-screens or supplements.
+
+---
+
+## My Takeaway
+
+What matters here is not that a deep learning model can score TILs. Several can. What matters is how little this one needs to get there. ECTIL skips the expensive, annotation-heavy pipeline that has kept computational TIL assessment confined to well-resourced research centres. It trains on the labels pathologists already produce, runs on commodity hardware, and achieves concordance that approaches inter-pathologist agreement. The survival data seal the clinical relevance: ECTIL's hazard ratio for overall survival was statistically indistinguishable from the pathologist's own score. The real test comes with NCT06476119, where ECTIL will help decide which patients with triple-negative breast cancer can safely skip chemotherapy. That is where concordance on slides becomes consequence for patients.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100921)

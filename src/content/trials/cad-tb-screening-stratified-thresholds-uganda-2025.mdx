@@ -1,0 +1,68 @@
+---
+title: "AI Tuberculosis Screening in Uganda: One Threshold Doesn't Fit All"
+journal: "Lancet Digital Health"
+year: 2025
+doi: "10.1016/j.landig.2025.100934"
+keyFinding: "In a cross-sectional study of 52,835 Ugandan adults and adolescents screened with AI-interpreted chest x-rays (qXR v3.2), community-based CAD screening for Xpert-positive tuberculosis achieved an AUC of 0.92 (95% CI 0.90 to 0.94), higher than previous estimates. Stratifying x-ray score thresholds by age and sex improved sensitivity from 75.0% to 76.9% (p=0.046) at matched specificity, because TB prevalence was four times higher in men than women and older adults had three times the rate of false-positive x-ray abnormalities as younger participants."
+lastUpdated: 2026-03-29
+tags: [radiology, tuberculosis, chest-x-ray, computer-aided-detection, global-health, screening, diagnostic-accuracy, public-health]
+socialPost: "AI chest x-ray TB screening in 52,835 Ugandans: AUC 0.92, higher than prior estimates. Stratifying thresholds by age and sex raised sensitivity from 75.0% to 76.9% at matched specificity. TB prevalence was 4x higher in men. One threshold doesn't fit all."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Sung and colleagues conducted a cross-sectional diagnostic accuracy study nested within CHASE-TB, an ongoing cluster-randomised trial in Uganda (NCT05285202). Between June 2022 and March 2024, they screened 52,835 adults and adolescents aged 15 and older using portable digital chest x-rays interpreted by qXR version 3.2, a commercial AI system that assigns each image a tuberculosis probability score from 0 to 1. Screening was community-based: testing tents near health facilities, transit hubs, markets, and villages. Participants were offered screening regardless of symptoms.
+
+Any participant with an x-ray score at or above the threshold (initially 0.5, lowered to 0.1 during the study) was asked to provide sputum for Xpert MTB/RIF Ultra testing, the bacteriological reference standard. Participants with scores below 0.1 were not tested; their Xpert positivity rate was estimated at 0.1% based on external data from universal Xpert testing in Uganda.
+
+The primary analysis compared a universal CAD threshold (the same score for everyone) against thresholds stratified by age group (under 40 vs. 40 and older) and sex. Stratified thresholds were derived to equalise the pretest probability of Xpert positivity across demographic subgroups, so that confirmatory testing capacity would be allocated to where it was most efficient.
+
+---
+
+## Key Findings
+
+- **The AUC for CAD-based TB screening was 0.92** (95% CI 0.90 to 0.94), assuming 0.1% Xpert positivity among those with x-ray scores below 0.1. This is higher than the 0.76 to 0.88 range reported in most prior studies, which limited evaluation to symptomatic patients or those with abnormal x-rays.
+
+- **The manufacturer-recommended threshold of 0.5 yielded 79.1% sensitivity** (95% CI 74.3 to 83.2) and 94.8% specificity. Lowering the threshold to 0.1 increased sensitivity to 89.9% (86.1 to 92.7) but dropped specificity to 83.6% (83.2 to 83.9).
+
+- **Tuberculosis prevalence was four times higher in men** (1.2%) than in women (0.3%). Older participants (40 and above) were nearly three times as likely to have abnormal x-ray findings (x-ray score of 0.1 or greater) as younger participants: 26.0% vs. 9.0%.
+
+- **Stratifying thresholds by both age and sex improved sensitivity by 1.9 percentage points** (76.9% vs. 75.0%; p=0.046) at matched specificity (96.1% for both). The gain was modest in absolute terms but statistically significant and consistent across sensitivity analyses.
+
+- **Among participants with low but nonzero x-ray scores (0.1 to 0.5), 11.6% had a greater than 1% risk of Xpert positivity.** These individuals would be excluded from confirmatory testing at the default threshold of 0.5, limiting sensitivity to 79.1%.
+
+- **382 of 7,219 participants with valid Xpert results (5.3%) were Xpert-positive**, including 81 trace-positive. Younger age, male sex, tuberculosis symptoms, and previous TB treatment were all associated with positive results.
+
+<Callout type="evidence">
+  The higher AUC in this study reflects a methodological difference, not necessarily a better algorithm. Most prior evaluations tested CAD only on symptomatic patients or those with abnormal x-rays, inflating the denominator of true negatives excluded. By including all 52,835 screening participants (and estimating Xpert status for the 83% with scores below 0.1), this study measures what programs actually need to know: how well does CAD perform when applied to an entire community, including the vast majority with normal chest imaging?
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Lower CAD thresholds may be necessary for community screening.** The manufacturer default of 0.5 missed roughly one in five Xpert-positive cases. In high-burden settings where the cost of a missed TB diagnosis includes ongoing transmission, programs should consider thresholds closer to 0.1, with the understanding that this triples the number of people referred for sputum testing.
+
+2. **Stratifying by age and sex is simple and adds sensitivity without sacrificing specificity.** The demographic data required (age and sex) is already collected at screening. The sensitivity gain of 1 to 2 percentage points is small per individual but meaningful at population scale: in a program screening tens of thousands, it translates to additional active TB cases detected per cycle.
+
+3. **Older adults generate more false-positive x-rays, not more tuberculosis.** Participants aged 40 and older were three times more likely to have abnormal chest imaging but had similar TB prevalence to younger adults. Age-specific thresholds prevent these false positives from consuming confirmatory testing resources that could be directed toward higher-yield groups.
+
+<Callout type="pitfall">
+  The sensitivity estimates depend heavily on an assumption that cannot be directly verified: that 0.1% of participants with x-ray scores below 0.1 would test Xpert-positive. This group comprised 83% of all screened individuals. Sensitivity analyses using prevalence assumptions from 0.05% to 0.3% shifted the AUC from 0.83 to 0.95, a wide range that reflects genuine uncertainty about how many TB cases the algorithm scored as completely normal. Programs adopting these thresholds should treat the AUC of 0.92 as a plausible midpoint, not a precise measurement.
+</Callout>
+
+4. **Confirmatory testing capacity, not algorithm accuracy, is the binding constraint.** In resource-limited settings, every threshold reduction increases the number of Xpert tests needed. Stratified thresholds offer a way to direct limited testing capacity toward subgroups with the highest pretest probability, a form of resource-aware triage rather than uniform screening.
+
+5. **These findings apply to one CAD product in one country.** The study evaluated qXR version 3.2 in Ugandan communities. Whether the same stratification approach improves performance for other CAD systems (CAD4TB, Lunit INSIGHT CXR) or in other populations (different TB prevalence, different age distributions, different HIV burden) requires separate validation.
+
+---
+
+## My Takeaway
+
+The most useful finding here is not the AUC, which depends on assumptions about a population that was mostly untested. It is the demonstration that tuberculosis prevalence and x-ray false-positive rates vary by age and sex in opposite directions: men get TB more often, but older adults get flagged more often. A universal threshold ignores both of these patterns and wastes confirmatory testing on low-yield referrals. The sensitivity gain from stratification is modest (1 to 2 percentage points), but the logic is sound, costs nothing to implement, and scales to any screening program that already collects age and sex. The harder question, and the one this study honestly cannot answer, is what happens below the 0.1 threshold, where 83% of participants sat untested. Until someone runs Xpert on a random sample of those normal-looking x-rays, the true sensitivity of community CAD screening remains an educated estimate.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100934)

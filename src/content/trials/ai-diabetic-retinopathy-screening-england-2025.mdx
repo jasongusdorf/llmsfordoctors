@@ -1,0 +1,60 @@
+---
+title: "AI Retinal Screening Matches Human Graders in England's National Programme, but Not for Every Patient"
+journal: "Lancet Digital Health"
+year: 2025
+doi: "10.1016/j.landig.2025.100914"
+keyFinding: "Eight CE-marked automated retinal image analysis systems (ARIAS) achieved 83.7% to 98.7% sensitivity for referable diabetic retinopathy across 202,886 screening encounters in the NHS North East London programme. For moderate-to-severe non-proliferative and proliferative disease, sensitivity ranged from 96.7% to 99.8%, matching or exceeding primary human graders. Performance was equitable across ethnic groups, but sensitivity for mild disease (R1M1) varied widely, from 79.5% to 98.3%, and declined in patients over 75."
+lastUpdated: 2026-03-29
+tags: [ophthalmology, diabetic-retinopathy, screening, retinal-imaging, algorithmic-fairness, nhs, clinical-trials]
+socialPost: "Eight AI retinal screening systems tested on 202,886 NHS encounters: 96.7-99.8% sensitivity for sight-threatening diabetic retinopathy, equitable across ethnicities. Could reduce human grading by up to 80%. Mild disease detection varied widely by vendor."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Rudnicka and colleagues invited 25 CE-marked vendors to submit automated retinal image analysis systems (ARIAS) for evaluation against 202,886 consecutive diabetic eye screening encounters from the NHS North East London Diabetic Eye Screening Programme. Eight vendors participated. The dataset comprised 1.2 million retinal images collected between January 2021 and December 2022 from a sociodemographically diverse population: 29% White, 17% Black, 41% South Asian, with a wide age range and representation from one of the most deprived regions in the UK. The reference standard was the final human grade in the worst eye per encounter, assigned by up to three trained NHS graders following national protocols. Vendors had no access to human grading data. ARIAS performance was assessed overall and by subgroups of age, sex, ethnicity, and deprivation index. The primary outcome was sensitivity for referable diabetic retinopathy (grades M1, R2, and R3).
+
+---
+
+## Key Findings
+
+- **Sensitivity for referable diabetic retinopathy ranged from 83.7% to 98.7%** across the eight vendors, with the primary outcome defined as detection of any disease warranting referral or closer surveillance
+- **For moderate-to-severe non-proliferative (R2) and proliferative (R3) disease, sensitivity was 96.7% to 99.8%**, matching or exceeding the 85% quality assurance standard set for human graders in the NHS programme
+- **Sensitivity was consistent across ethnic groups** for R2 and R3 disease: 95.9% in White, 97.1% in Black, 96.8% in South Asian populations for R3 detection. No systematic bias was identified by sex or deprivation quintile
+- **Mild non-proliferative retinopathy with maculopathy (R1M1) was the weak point**, with sensitivity ranging from **79.5% to 98.3%** across vendors and greater variability by age group (up to 16 percentage points)
+- **False positive rates for no observable retinopathy ranged from 4.3% to 61.4%**, producing screen-positive rates of 19.1% to 73.5% and positive predictive values of 16.9% to 47.0%
+- **Primary grader sensitivity declined with age**: from 99.4% in patients under 30 to 91.7% in those 75 and older, likely reflecting poorer image quality from cataracts and small pupils. ARIAS showed a similar pattern
+- **ARIAS could reduce the need for human grading by 26% to 77%** depending on vendor, by triaging low-risk encounters out of the human grading queue
+
+<Callout type="evidence">
+  This is the largest open-label, vendor-independent, head-to-head evaluation of retinal AI systems in a real-world screening programme. The study's strength is its scale and diversity: 202,886 encounters from a population that is 41% South Asian, tested against human graders in routine clinical practice rather than curated research datasets.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **AI triage for diabetic retinopathy screening is ready for real-world deployment, with caveats.** For the disease grades that matter most clinically (R2 and R3, the grades that trigger referral to ophthalmology), multiple ARIAS matched or exceeded human grader sensitivity. The NHS standard for human graders is 85% sensitivity for referable retinopathy. Several algorithms cleared that bar across all demographic subgroups.
+
+2. **Mild disease detection remains a problem for some vendors.** The wide range in R1M1 sensitivity (79.5% to 98.3%) means that vendor selection matters. A screening programme adopting an ARIAS with poor R1M1 detection would miss patients with early maculopathy who need monitoring, even if it catches nearly all sight-threatening disease.
+
+3. **False positive rates vary enormously and determine workload savings.** The difference between a 19% and 74% screen-positive rate is the difference between genuine workload reduction and simply adding an extra step. Programmes evaluating ARIAS should weigh sensitivity and false positive rates together, not sensitivity alone.
+
+<Callout type="pitfall">
+  Equitable sensitivity across ethnic groups does not mean equitable outcomes. If an algorithm has a 61% false positive rate in one population and a similar rate in another, fairness in sensitivity coexists with substantial overreferral. Screening programmes should evaluate false positive rates by subgroup, not just detection rates.
+</Callout>
+
+4. **Older patients remain a challenge for both humans and AI.** Sensitivity for R3 and R3A declined in patients over 75, driven by image quality issues (cataracts, small pupils) that degrade both human and algorithmic performance. This age group will need continued attention regardless of whether AI or human graders do the first pass.
+
+5. **Cost-effectiveness depends on how ARIAS is deployed.** The authors estimate that ARIAS triage for human grading could save the NHS 8 to 10 million pounds annually. That estimate assumes a first-pass triage model: ARIAS sorts encounters into low-risk (no human grading) and medium-to-high-risk (human grading). Higher false positive rates erode those savings by keeping too many encounters in the human grading queue.
+
+---
+
+## My Takeaway
+
+The scale of this study is what makes it convincing. Single-vendor evaluations on curated datasets have been available for years; what has been missing is exactly this: eight systems, head-to-head, on 200,000 real screening encounters from a diverse NHS population, with the vendors blinded to human grades. The results confirm that AI can reliably detect the retinopathy grades that threaten vision. The harder question, which this study surfaces clearly, is whether screening programmes can tolerate the wide variation in false positive rates and mild disease detection across vendors. A programme that picks the wrong algorithm could miss early maculopathy in one patient and over-refer five others. The data support deployment, but they also support a rigorous, vendor-specific evaluation process before any programme commits.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100914)

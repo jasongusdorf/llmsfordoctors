@@ -1,0 +1,64 @@
+---
+title: "AI Stroke Imaging Across England's NHS: More Patients Got Thrombectomy"
+journal: "Lancet Digital Health"
+year: 2025
+doi: "10.1016/j.landig.2025.100927"
+keyFinding: "Across 107 NHS hospitals and 452,952 stroke patients over five years, AI imaging software (Brainomix 360 Stroke) at 26 evaluation sites was associated with a 100% relative increase in endovascular thrombectomy rates (from 2.3% to 4.6%). At the patient level, AI-reviewed cases had 57% higher odds of receiving thrombectomy (OR 1.57, 95% CI 1.33-1.86; p&lt;0.0001) and 64 minutes shorter door-in door-out times at primary stroke centres."
+lastUpdated: 2026-03-29
+tags: [stroke, neurology, imaging, thrombectomy, clinical-decision-support, radiology, nhs, prospective-study]
+socialPost: "Largest AI stroke imaging study to date: 452,952 patients across 107 NHS hospitals. AI-reviewed patients had 57% higher odds of thrombectomy and 64 min shorter transfer times. Treatment rates doubled at sites using the software."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Nagaratnam, Neuhaus, and colleagues conducted a prospective observational study across England's entire NHS stroke network: 107 hospitals, 452,952 patients with stroke, five years of data (January 2019 to December 2023). The study used the national stroke audit registry (SSNAP) to track endovascular thrombectomy rates before and after implementation of AI imaging software (Brainomix 360 Stroke) at 26 evaluation sites (20 primary stroke centres and 6 comprehensive stroke centres). The remaining 81 NHS stroke units served as comparators. Patient-level data were available for 71,017 ischaemic stroke patients at the evaluation sites, including a field recording whether AI software was used for image interpretation in each case. The primary outcome was the proportion of patients receiving endovascular thrombectomy. Secondary outcomes included door-in door-out times, intravenous thrombolysis rates, and modified Rankin Scale scores at discharge.
+
+---
+
+## Key Findings
+
+- **Thrombectomy rates doubled at evaluation sites**, rising from **2.3%** pre-implementation to **4.6%** post-implementation (a relative increase of 100%). Non-evaluation sites also improved, from 1.6% to 2.6% (a 62.5% relative increase), but the interaction between site type and time period was significant (OR 1.24, 95% CI 1.08-1.43; p=0.0026), indicating a larger gain at AI sites.
+
+- **At the patient level, AI-reviewed cases had 57% higher odds of receiving thrombectomy** (OR 1.57, 95% CI 1.33-1.86; p&lt;0.0001) after adjusting for age, gender, stroke severity, premorbid function, onset time, thrombolysis, and site. This held in propensity score sensitivity analyses.
+
+- **Door-in door-out time dropped by 64 minutes** when AI software was used. Among 747 patients transferred from primary to comprehensive stroke centres, the median was **128 minutes** with AI versus **192 minutes** without (p&lt;0.0001).
+
+- **AI-reviewed patients were more likely to receive intravenous thrombolysis**: 17.7% versus 9.0% (OR 1.99, 95% CI 1.79-2.22; p&lt;0.0001).
+
+- **Better clinical outcomes at discharge**: 47.1% of AI-reviewed patients achieved a good outcome (mRS 0-2) compared with 45.6% of those reviewed without AI (OR 1.16, 95% CI 1.07-1.25; p=0.0002). No difference in in-hospital mortality was detected.
+
+- **The effect was larger at primary stroke centres** (OR 2.34, 95% CI 1.78-3.10; p&lt;0.0001) than at comprehensive stroke centres (OR 1.28, 95% CI 1.03-1.58; p=0.023), consistent with the hypothesis that AI adds the most value where specialist neuroradiology is least available.
+
+<Callout type="evidence">
+  This is the largest prospective evaluation of AI stroke imaging software to date: national registry data, 452,952 patients, 107 hospitals, five years. The patient-level analysis, with multivariate adjustment and propensity score sensitivity checks, strengthens the association beyond what prior single-centre studies could show. The 57% higher odds of thrombectomy and 64-minute reduction in transfer time are clinically meaningful in a disease where every minute of delay costs neurons.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **AI imaging adds the most value where specialist radiology is scarcest.** The thrombectomy benefit was nearly twice as large at primary stroke centres as at comprehensive centres. Primary centres often lack 24/7 neuroradiology coverage, and the software fills that gap by identifying large vessel occlusion on CT angiography and quantifying early ischaemic changes on non-contrast CT. For hospitals debating whether to adopt stroke AI, the question is not whether they have good radiologists but whether they have good radiologists at 3 a.m. on a Saturday.
+
+2. **Faster transfers save time that matters.** The 64-minute reduction in door-in door-out time at primary stroke centres is substantial. In stroke, time from onset to reperfusion predicts functional outcome; a meta-analysis of seven RCTs found that every hour of delay to thrombectomy costs 5.3 disability-adjusted life-years per 1,000 patients treated. Faster identification and transfer is not a convenience metric.
+
+3. **The software raised thrombolysis rates, not just thrombectomy.** AI-reviewed patients were twice as likely to receive IV thrombolysis. This suggests the software's effect extends beyond identifying thrombectomy candidates; it may improve overall confidence in acute stroke diagnosis and accelerate the decision to treat.
+
+<Callout type="pitfall">
+  This is an observational study, not a randomized trial. The authors could not determine why AI software was not used for some patients at evaluation sites (46.4% were reviewed without it), and patients reviewed with AI had higher NIHSS scores and lower premorbid mRS, suggesting clinicians may have selectively used the tool for more severe presentations. Propensity score adjustments attenuated but did not eliminate this concern. The observed benefit in clinical outcomes (mRS at discharge) should be interpreted with particular caution given the short follow-up and baseline severity differences.
+</Callout>
+
+4. **Adoption was incomplete even at implementation sites.** Only 53.6% of patients at evaluation sites were reviewed with AI software after implementation. The authors note that some workflows required manual initiation, and clinician unfamiliarity may have limited uptake. Systematic, automatic processing of all stroke imaging, rather than physician-initiated use, would likely increase the software's population-level effect.
+
+5. **Non-evaluation sites improved too, complicating attribution.** By the end of the study, 69% of non-evaluation hospitals had independently adopted AI software. The observed improvement at comparator sites makes the AI-specific effect harder to isolate, though the interaction analysis and patient-level data help distinguish the signal.
+
+---
+
+## My Takeaway
+
+This study does what single-centre AI validation studies cannot: it shows what happens when you deploy imaging AI across an entire national health system, with all the messiness of real clinical workflows, variable adoption, and concurrent secular trends. The finding that matters most is not the headline thrombectomy rate, though doubling it is significant. It is the 64-minute reduction in transfer time at primary stroke centres, because that is the mechanism by which AI imaging translates into better outcomes. The software does not treat the stroke. It gets the right patients to the right hospital faster, and it does so most effectively where specialist expertise is least available. That is exactly the use case where clinical AI should prove its value, and this is the strongest real-world evidence to date that it does.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100927)

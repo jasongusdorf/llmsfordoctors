@@ -1,0 +1,62 @@
+---
+title: "LLMs Can Diagnose Rare Diseases, but Not Well Enough"
+journal: "Lancet Digital Health"
+year: 2026
+doi: "10.1016/j.landig.2025.100953"
+keyFinding: "Across nearly 50,000 rare disease cases spanning 4597 disorders, GPT-4o achieved a top-1 diagnostic recall of 33.1% and a top-5 recall of 56.9% on the screening task, rising to 64.2% and 85.9% when confirmatory test results were included. GPT-o1 pushed top-1 recall to 38.8% and top-5 to 70.9% on screening. Biomedical LLMs outperformed general-domain models of the same size, and all models performed better on genetically inherited diseases than on non-genetic conditions."
+lastUpdated: 2026-03-29
+tags: [rare-disease, llm, benchmark, diagnosis, gpt-4o, gpt-o1, biomedical-llm, clinical-decision-support]
+socialPost: "GPT-4o diagnosed rare diseases correctly on first guess 33% of the time across 50K cases and 4597 disorders. With confirmatory tests, top-5 recall hit 86%. GPT-o1 did better still. But one in three cases stumped every model tested."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Chen, Zhao, Zhou, and colleagues built RareArena, the largest rare disease diagnostic benchmark to date, by extracting and curating case reports from PubMed Central. The dataset comprises 49,760 cases for the rare disease screening (RDS) task and 22,901 cases for the rare disease confirmation (RDC) task, covering 4597 and 3522 Orphanet-defined disorders respectively. RDS simulates the pre-test clinical scenario: symptoms and examination findings are available, but confirmatory diagnostic tests have not yet been performed. RDC simulates the post-test scenario, where diagnostic test results are included in the case.
+
+The authors benchmarked ten LLMs across four categories: a proprietary model (GPT-4o), 70B general-domain open-source models (Llama3-1-70B, Qwen2-5-72B), 7B general-domain models (Llama3-1-8B, Qwen2-5-7B, Phi3-7B, Gemma2-9B), and biomedical LLMs (Llama3-70B-UltraMedical, Llama3-8B-UltraMedical, MedLlama-7B). GPT-o1 was evaluated on a 500-case subset. Models produced their top five diagnoses in a zero-shot chain-of-thought setting. Two physicians independently evaluated 100 randomly selected cases for leakage, fidelity, and complexity, confirming the dataset's quality.
+
+---
+
+## Key Findings
+
+- **GPT-4o achieved 33.1% top-1 recall and 56.9% top-5 recall** on the harder RDS task (no diagnostic test results), and **64.2% top-1 and 85.9% top-5 recall** on the RDC task (with diagnostic tests included)
+- **GPT-o1 outperformed GPT-4o on both tasks**, reaching 38.8% top-1 recall on RDS and 70.9% top-5 recall on RDS, with 64.1% top-1 and 90.2% top-5 on RDC
+- **Model size mattered, but domain training mattered more.** UltraMedical-70B outperformed the best 70B general-domain model by 1.8% in top-1 recall and 5.2% in top-5 recall on RDS. At the 7B scale, UltraMedical-8B and MedLlama-7B outperformed all general-domain small models on RDC
+- **GPT-4o performed significantly better on genetically inherited diseases** than on non-genetic conditions (p&lt;0.001 for both top-1 and top-5 recall across both tasks), with its strongest performance in systemic or rheumatologic diseases (48.5% top-1, 73.5% top-5 on RDS; 76.0% top-1, 93.5% top-5 on RDC)
+- **Neoplastic diseases proved hardest for RDS** (18.4% top-1 recall), likely because these diagnoses depend on histological results that the screening task excludes
+- **No evidence of data contamination**: chi-squared tests comparing model performance on cases published before and after each model's training cutoff found no significant differences (p>0.1) across all evaluation settings
+- **Human evaluation confirmed dataset quality**: 0% direct leakage, 100% diagnostic accuracy, and more than 80% of cases contained pertinent negatives and confounding positives reflecting real clinical complexity
+
+<Callout type="evidence">
+  The scale of RareArena dwarfs prior rare disease benchmarks. Previous datasets covered a maximum of 421 diseases. RareArena covers 4597, with a median of three cases per disorder, across all major medical subfields. That breadth makes it the first benchmark capable of testing whether LLMs can generalize across the full spectrum of rare disease, not just the conditions most represented in training data.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **LLMs already have diagnostic value for rare diseases, within limits.** A top-5 recall of 57% on the screening task means that in more than half of rare disease presentations, the correct diagnosis appeared somewhere in the model's shortlist, before any confirmatory testing. For conditions where the average time to diagnosis is ten years, even an imperfect differential list has clinical value.
+
+2. **Confirmatory test results nearly double diagnostic accuracy.** The jump from 33.1% to 64.2% in GPT-4o's top-1 recall between the RDS and RDC tasks quantifies how much diagnostic information LLMs extract from lab and pathology results. Clinicians considering LLM-assisted rare disease workups should expect substantially better performance when feeding in test results, not just symptoms and history.
+
+3. **Small models are not ready for rare disease diagnosis.** The 7B models achieved top-1 recall of only 19.1% on RDS and 39.8% on RDC at best. The gap between 7B and 70B models was more pronounced for top-1 recall than top-5, suggesting smaller models lack the precision to identify the correct diagnosis even when they can generate a reasonable differential.
+
+<Callout type="pitfall">
+  RareArena is a benchmark, not a clinical validation. All cases were derived from published case reports, which tend to be more complete and better organized than real-world clinical notes. The authors acknowledge this: messy, incomplete EHR documentation would likely degrade performance. A 33% top-1 recall on curated cases should not be read as a 33% accuracy rate in clinical practice.
+</Callout>
+
+4. **Subspecialty performance varies widely.** GPT-4o's top-1 recall ranged from 76.0% for systemic or rheumatologic diseases on the RDC task down to 50.5% for odontologic diseases and 18.4% for neoplastic diseases on the RDS task. Clinicians should not assume uniform competence across disease categories.
+
+5. **Performance correlated with training data exposure.** Models performed better on diseases that appeared more frequently in PubMed, as measured by publication count. The rarest of the rare, the conditions with the fewest published case reports, are also the ones LLMs are least equipped to diagnose.
+
+---
+
+## My Takeaway
+
+RareArena answers a question the field needed answered: can LLMs diagnose rare diseases at scale, across the full breadth of Orphanet's catalog? The answer is a qualified yes. GPT-4o placed the correct diagnosis in its top five more than half the time without test results, and 86% of the time with them. GPT-o1 pushed those numbers higher still. For a patient population where the diagnostic odyssey averages a decade, even an imperfect AI shortlist could compress that timeline. But the subgroup data tempers the optimism. Performance on neoplastic rare diseases was poor without histology. Performance on the rarest conditions tracked with how often those conditions appeared in the training literature, which means LLMs replicate the same knowledge gaps that already disadvantage these patients. The tool works best where the medical literature is richest, which is not where the need is greatest.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100953)

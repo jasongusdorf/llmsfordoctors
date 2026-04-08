@@ -1,0 +1,64 @@
+---
+title: "Digital Health for Cancer in Low-Income Countries: Where Technology Meets Scarcity"
+journal: "Lancet Digital Health"
+year: 2025
+doi: "10.1016/j.landig.2025.100937"
+keyFinding: "A narrative review of digital health interventions across the cancer care continuum in low- and middle-income countries finds that mobile screening, AI-assisted diagnosis, teleoncology, and virtual tumour boards are already reducing disparities in sub-Saharan Africa, South Asia, and Latin America, but that only 32% of randomised clinical trials have been conducted in LMICs, only 50% of surveyed Ugandan health facilities offered HPV vaccination, and only five LMICs have adequate cancer data to inform policy. The authors argue that AI tools trained on high-income country data risk poor performance when transferred, and that workforce development, regulatory harmonisation, and local data infrastructure must accompany any technology deployment."
+lastUpdated: 2026-03-29
+tags: [oncology, health-equity, global-health, screening, telehealth, radiology, pathology, clinical-decision-support, lmic]
+socialPost: "Only 32% of randomised cancer trials include LMIC patients. In Uganda, 50% of facilities lack HPV vaccination. This Lancet paper maps where digital tools (mobile screening, AI diagnosis) are closing gaps, and where they are not."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Gichoya, Mwavu, Minja, Kaonga, Purkayastha, and Newsome reviewed digital health interventions across the full cancer care continuum in low- and middle-income countries (LMICs): screening and awareness, diagnosis, treatment planning, clinical trial participation, workforce development, and health system strengthening. The review combines systematic literature analysis with the authors' collective experience building digital health programmes across sub-Saharan Africa, South Asia, and Latin America. It is the third paper in the Lancet Digital Health Series on Cancer, AI and Health Equity.
+
+The authors bring direct operational knowledge to the analysis. Gichoya leads the HITI Lab at Emory after training in Kenya. Minja built radiology training programmes across sub-Saharan Africa. Mwavu works on data science and AI at Mbarara University in Uganda. Kaonga has implemented digital health initiatives in over a dozen sub-Saharan African countries. Purkayastha deployed health information systems through WHO in Asia and Latin America. This grounding shapes the review's emphasis on implementation feasibility over theoretical promise.
+
+---
+
+## Key Findings
+
+- **90% of cervical cancer deaths** and up to **70% of all cancer deaths** anticipated by 2050 will occur disproportionately in LMICs, driven by limited screening, delayed diagnosis, and restricted access to treatment
+- **A geospatial analysis of 478 health facilities** across 12 districts in southwestern Uganda found that only **50% provided HPV vaccination**, **27% offered cervical cancer screening**, and a mere **2% had treatment capacity**; only seven facilities were within an hour's travel to the regional referral hospital
+- **Only 32% of randomised clinical trials** have been conducted in LMICs, constrained by limited funding, insufficient research infrastructure, and complex regulatory environments
+- **Only five LMICs** have adequate cancer data to inform national policy
+- **The Clinical Histopathology Imaging Evaluation Foundation framework**, trained on 60,000 whole-slide images across 15 datasets and 11 cancers, achieved an area under the ROC curve of **0.9397**, outperforming existing models by **10 to 14%**
+- **AI-supported breast cancer screening in Sweden** (the MASA trial) detected more cancers than standard double-physician reading while reducing radiologist workload by **44.3%**
+- **The Kilimanjaro method** integrates smartphone-based visual inspection with acetic acid into cervical cancer screening, with off-site expert mentorship via real-time digital consultation supplementing frontline nurses in rural clinics
+- **AI-derived body composition markers** from routine CT imaging predict treatment outcomes and surgical results more accurately than traditional functional status calculators, though adoption remains early
+- **Foundation models for pathology**, trained on broad datasets, reduce the need for large labelled collections and enable predictions with fewer computational resources, a property particularly relevant for LMICs with limited infrastructure
+
+<Callout type="evidence">
+  The disparity in research representation is stark. LMICs bear the majority of the global cancer burden but account for less than a third of randomised trial participation. Most AI tools for oncology are developed and validated on high-income country populations. When transferred to LMICs, these tools face dataset shifts from differences in tumour size, imaging equipment, acquisition protocols, and disease prevalence patterns that can erode performance.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Mobile-first screening works where centralised infrastructure does not.** In settings where 2% of health facilities have cervical cancer treatment capacity, smartphone-based screening with AI-assisted image analysis and remote expert mentorship (the Kilimanjaro method and similar programmes) offers a viable path. Community health workers already carry mobile phones; equipping them with screening checklists, digital referral tools, and home-based HPV testing kits creates a decentralised screening network that does not depend on patients reaching a regional hospital.
+
+2. **AI diagnostic tools trained in high-income countries will underperform in LMICs without local validation.** Most radiology and pathology AI models are trained on data from patients in high-income settings, where studies include predominantly healthy or disease-free individuals. In sub-Saharan Africa, datasets skew toward patients with disease, larger tumour sizes, and different imaging equipment. These distribution mismatches cause model performance to decline. Clinicians deploying AI diagnostic tools in LMICs should demand evidence of local validation, not just FDA clearance or European CE marking.
+
+3. **Virtual tumour boards bridge the specialist gap, and AI agents may extend them further.** Teleconference-based multidisciplinary tumour boards have already increased guideline adherence, expanded clinical trial access, and improved familiarity with current treatment data at remote hospitals. Institutions are now experimenting with AI agents that perform specialised tasks asynchronously within these boards, enabling participation across time zones without requiring all specialists to log in simultaneously.
+
+<Callout type="pitfall">
+  Technology without infrastructure is technology wasted. The review documents a consistent pattern: digital tools that perform well in pilot studies fail to scale when referral pathways are broken, workforce training is absent, or data governance is undefined. Evaluations of human-AI collaboration have revealed deskilling risk, automation bias, and neglect. Diverting resources from clinician training toward technology investments can widen disparities when AI systems operate without adequate supervision.
+</Callout>
+
+4. **Task shifting requires digital decision support to be safe.** Training nurses and clinical officers to administer chemotherapy and manage oncology follow-up (modelled on successful HIV/AIDS task-shifting strategies) depends on robust digital infrastructure: clinical decision support for guideline adherence, ambient AI for documentation, and AI-assisted data extraction for cancer registries that currently lag by two or more years.
+
+5. **Data sovereignty is a practical problem, not an abstract one.** Cloud vendors are unlikely to build data centres in every African country. The review notes that African data protection laws emphasise in-country storage, while Latin American frameworks prioritise patient autonomy and cross-border collaboration. Clinicians and health system leaders evaluating AI tools should ask where patient data is stored, how it is governed, and whether the tool functions in low-bandwidth environments.
+
+---
+
+## My Takeaway
+
+This is not a paper about technology. It is a paper about scarcity, and about whether digital tools can close gaps that decades of traditional health system investment have not. The most striking data point is not any AI performance metric; it is that 2% of Ugandan health facilities surveyed had cervical cancer treatment capacity, for a cancer that is the leading cause of cancer death in sub-Saharan Africa and is almost entirely preventable. The authors, all of whom have built programmes in the regions they describe, are clear-eyed about the limits of their own field. Foundation models that reduce labelling requirements, mobile screening tools that work without reliable internet, AI agents that enable asynchronous tumour boards across time zones: these are genuine contributions. They are also insufficient without functioning referral systems, trained clinicians, and data governance frameworks that do not yet exist in most of the countries where the cancer burden is greatest.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100937)

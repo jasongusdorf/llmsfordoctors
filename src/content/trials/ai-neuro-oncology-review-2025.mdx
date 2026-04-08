@@ -1,0 +1,60 @@
+---
+title: "AI in Neuro-Oncology: Strong on Imaging, Stalled on Translation"
+journal: "Lancet Digital Health"
+year: 2025
+doi: "10.1016/j.landig.2025.100876"
+keyFinding: "A systematic review of 52 studies found AI tools for CNS tumour imaging achieve AUC scores often exceeding 0.9 for detection and classification, and deep learning can infer molecular alterations (IDH, MGMT, 1p/19q co-deletion) from standard MRI with prediction accuracies above 0.83. But prospective, multicentre clinical validation remains rare, and foundation model adoption is limited by prohibitive resource requirements."
+lastUpdated: 2026-03-29
+tags: [neuro-oncology, brain-tumours, neuroimaging, deep-learning, radiomics, neuropathology, foundation-models, review]
+socialPost: "Lancet Digital Health review of 52 studies maps AI across neuro-oncology. Imaging AI achieves AUC >0.9 for tumour detection; deep learning infers IDH and MGMT status from MRI alone. Clinical translation is the bottleneck."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Voigtlaender and colleagues conducted a systematic review of AI applications across the full neuro-oncological care trajectory, from prevention through rehabilitation. They searched PubMed, Google Scholar, and ArXiv for studies published between January 2020 and December 2024, screening 4,769 records and selecting 52 original articles of high relevance (plus 11 added manually). The review covers imaging-based diagnosis, digital neuropathology, molecular characterisation, treatment planning (surgery, radiotherapy, systemic therapy), prognostication, and emerging approaches including foundation models, biophysical modelling, and synthetic data generation.
+
+---
+
+## Key Findings
+
+- **Deep learning-informed CNS tumour detection and classification improves neuroradiologist accuracy**, with multicentre studies showing AUC scores frequently exceeding **0.9** for standard imaging tasks
+- **Molecular alterations can be predicted non-invasively from MRI**: AI models infer IDH mutation, MGMT promoter methylation status, and 1p/19q co-deletion from structural and diffusion-weighted MRI with prediction accuracies **exceeding 0.83**
+- **Glioblastoma subtype prediction from RNA-seq data achieved AUC >0.83** for all classes, with potential to guide immunotherapy patient selection based on stemness profiles
+- **AI-assisted imaging guidance is entering operating rooms**, with feedback systems analysing operative video in real time to identify tissue likely harbouring tumour
+- **Neuropathology AI trained on whole-slide images achieves AUC often exceeding 0.9** for tumour localisation, segmentation, grading, and molecular classification, but dataset limitations (acquisition variability, labelling costs) constrain generalisability
+- **Foundation models show non-inferiority to unimodal models** on selected tasks, but adoption is limited by prohibitive computational and regulatory requirements
+- **The literature is heavily skewed toward imaging and radiomics**; few studies investigate omics, advanced techniques, or niche modalities
+
+<Callout type="evidence">
+  The gap between AI performance in controlled imaging studies and its clinical deployment in neuro-oncology follows a familiar pattern: technical metrics look excellent, but the validation infrastructure (prospective trials, multicentre cohorts, regulatory pathways) has not kept pace. The field has more proof-of-concept than proof-of-utility.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Non-invasive molecular profiling could change surgical planning.** If AI can reliably predict IDH status, MGMT methylation, and 1p/19q co-deletion from pre-operative MRI, it may inform extent-of-resection decisions and treatment sequencing before tissue is obtained. This remains investigational but is approaching clinical relevance for well-validated targets.
+
+2. **Intraoperative AI guidance is no longer theoretical.** Real-time analysis of surgical video and label-free optical imaging for molecular glioma subtyping during surgery is being tested. Robotic systems performing stereotactic microsurgery have shown non-inferiority to conventional techniques. These tools address the high-stakes, time-sensitive context where neuro-oncologists need decision support most.
+
+3. **Digital neuropathology is ready for specific, well-defined tasks.** Tumour detection, grading, and selected molecular classifications on whole-slide images are technically mature. The barriers are infrastructure (digitisation, storage, annotation standards) and institutional, not algorithmic.
+
+<Callout type="pitfall">
+  Most AI applications in neuro-oncology are validated on single imaging modalities for well-delineated tasks. CNS tumours are defined by inter- and intratumoural heterogeneity, ambiguous treatment-related changes (pseudoprogression, tissue necrosis), and mixed lesions. Performance on clean benchmark datasets may not survive contact with this clinical reality.
+</Callout>
+
+4. **Synthetic data and biophysical models offer a path around data scarcity.** Generative models can produce synthetic MRI images for training, and physics-constrained biophysical models can generate causally grounded imaging features. These approaches address the fundamental tension between neuro-oncology's small datasets and deep learning's data hunger.
+
+5. **AI-driven therapeutic target identification is the longest horizon but highest impact.** AI analysis of phosphosite interactomes and kinase-substrate networks in glioblastoma has identified potential drug targets, and AI-driven de novo compound design is under investigation. These applications are years from clinical impact but could change the therapeutic landscape for tumours where no novel agents have been approved in a decade.
+
+---
+
+## My Takeaway
+
+This review maps a field where the tools are technically impressive and the clinical need is urgent, but the connective tissue between them is thin. Neuro-oncology AI does imaging well: tumour detection, molecular inference from MRI, intraoperative guidance. What it does not yet do is prove, in prospective trials with real patients, that these capabilities change outcomes. The molecular prediction work is particularly compelling. If you can reliably predict IDH and MGMT status from a pre-operative MRI, that reshapes the conversation about biopsy timing and treatment sequencing. But "prediction accuracy exceeding 0.83" in a retrospective cohort is not the same as clinical utility in the operating room. The review is honest about this gap, and that honesty is more useful than the technology itself at this stage.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100876)

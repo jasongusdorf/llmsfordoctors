@@ -1,0 +1,63 @@
+---
+title: "NeonatalBERT: Predicting Neonatal Morbidities from Clinical Notes"
+journal: "Lancet Digital Health"
+year: 2025
+doi: "10.1016/j.landig.2025.100926"
+keyFinding: "NeonatalBERT, a BERT-based language model pre-trained on neonatal clinical notes, achieved a mean AUROC of 0.910 and mean AUPRC of 0.291 across 19 neonatal morbidities in a primary cohort of 32,321 newborns, outperforming Bio-ClinicalBERT (AUROC 0.884), BioBERT (0.877), and logistic regression on tabular data (0.775). In an external cohort of 7,061 neonates, NeonatalBERT maintained a mean AUROC of 0.935 and AUPRC of 0.360, with AUPRC up to 129.6 times higher than a random classifier for mortality prediction."
+lastUpdated: 2026-03-29
+tags: [neonatology, nlp, bert, clinical-notes, risk-prediction, nicu, prematurity]
+socialPost: "NeonatalBERT reads NICU notes from day 1 to predict 19 morbidities. Mean AUROC 0.910 across 32,321 newborns, beating tabular models (0.775) and general BERT. Validated externally. AUPRC for mortality: 129x random."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Xie et al. developed NeonatalBERT by taking an existing clinical language model (Bio-ClinicalBERT) and further pre-training it on 514,018 clinical notes from neonatal patients at Stanford Health Care. The model learned the language of neonatal medicine: maternal history notes, delivery records, progress notes, consultation summaries, and the particular vocabulary of the NICU.
+
+After pre-training, the researchers fine-tuned the model to predict 19 specific neonatal outcomes, from respiratory distress syndrome and bronchopulmonary dysplasia to sepsis, necrotising enterocolitis, and death. Only notes from the first day of life were used for prediction, constraining the model to the same information a clinician would have within 24 hours of birth.
+
+The primary cohort included 32,321 newborns from Stanford (2014 to 2021), split temporally: training on 2014 to 2020 data, testing on 2021 births. The external cohort drew 7,061 neonates from the Beth Israel Deaconess Medical Center MIMIC-III database, evaluated on 10 of the 19 outcomes. NeonatalBERT was compared against logistic regression on structured tabular data, BioBERT, Bio-ClinicalBERT, and conversational LLMs including Llama 3.
+
+---
+
+## Key Findings
+
+- **Mean AUROC of 0.910** (95% CI 0.900 to 0.921) across 19 neonatal outcomes in the primary cohort, compared with **0.884** for Bio-ClinicalBERT, **0.877** for BioBERT, and **0.775** for logistic regression on tabular data
+- **Mean AUPRC of 0.291** (95% CI 0.268 to 0.314), outperforming Bio-ClinicalBERT (0.238), BioBERT (0.217), and tabular logistic regression (0.194); AUPRC was chosen because it better reflects performance on rare, imbalanced outcomes
+- **External validation held up**: mean AUROC of **0.935** (95% CI 0.928 to 0.942) and mean AUPRC of **0.360** (95% CI 0.328 to 0.393) across 10 outcomes at a second institution
+- **AUPRC for mortality prediction was 129.6 times higher** than a random classifier, with other rare conditions similarly elevated: 88.2 times for pulmonary haemorrhage, 25.7 times for intraventricular haemorrhage, 14.1 times for patent ductus arteriosus
+- **Predictive performance improved over time**: average AUPRC rose from 0.291 on day 1 to 0.380 on day 3 and 0.417 on day 7 as more clinical notes accumulated
+- **Conversational LLMs (Llama 3) performed worse** in both sensitivity and specificity than NeonatalBERT, reinforcing that domain-specific models outperform general-purpose ones on structured clinical prediction tasks
+
+<Callout type="evidence">
+  The AUPRC advantage matters more than AUROC here. Most neonatal morbidities are rare, so a model that achieves high AUROC could still miss most cases. NeonatalBERT's AUPRC was 1.5 times higher than the next-best language model and 50% higher than tabular regression, a meaningful gain in the ability to identify the small number of infants who will develop complications.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **First-day risk stratification from notes alone.** NeonatalBERT uses only clinical notes written within 24 hours of birth. No structured data inputs are required. This means the model works even when labs, vitals, or coded diagnoses are incomplete or delayed, a common scenario in busy NICUs.
+
+2. **Complementary to, not competitive with, existing tools.** Current neonatal risk tools (like BiliTool for hyperbilirubinaemia) rely on specific structured data fields and address one condition at a time. NeonatalBERT reads the unstructured narrative and estimates risk for 19 conditions simultaneously, surfacing patterns clinicians may not explicitly document in structured fields.
+
+3. **Performance improves as the NICU stay unfolds.** The model's accuracy increased from day 1 through day 7, suggesting a workflow where daily updated risk estimates accompany morning rounds. The authors propose an EHR-integrated dashboard generating risk tables at the end of each clinical shift.
+
+<Callout type="pitfall">
+  This study is entirely retrospective. No prospective validation, no randomized evaluation, and no measurement of how clinicians respond to the model's predictions in practice. Whether NeonatalBERT changes clinical decisions, and whether those changes improve outcomes, remains untested. The model also inherits whatever biases exist in clinical documentation: if certain populations receive less detailed notes, the model's predictions for those infants will be less reliable.
+</Callout>
+
+4. **Rare conditions are where this matters most.** Necrotising enterocolitis, intraventricular haemorrhage, and neonatal death are uncommon enough that pattern recognition from individual experience is limited. A model that flags elevated risk days before clinical diagnosis could prompt earlier imaging, feeding protocol adjustments, or family conversations.
+
+5. **Generalisation requires local fine-tuning.** The external cohort at Beth Israel required its own fine-tuning step before NeonatalBERT performed well. Institutions considering adoption would need to fine-tune on their own clinical notes, which raises practical questions about data preparation, computational resources, and ongoing model maintenance.
+
+---
+
+## My Takeaway
+
+NeonatalBERT is a carefully constructed proof of concept that domain-specific language models, trained on the actual notes clinicians write, can outperform both generic AI models and traditional risk scores for predicting neonatal complications. The results are strong, especially for rare conditions where tabular models struggle. What I find most clinically compelling is the day-by-day improvement in performance: a model that gets more accurate as the clinical picture evolves mirrors how neonatologists themselves think. The gap between this retrospective validation and a tool that changes NICU outcomes remains wide, though. The next study needs to answer whether surfacing these risk estimates at the bedside leads to earlier interventions, or just more alert fatigue.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100926)

@@ -1,0 +1,64 @@
+---
+title: "Retraining a Long COVID Algorithm for a Pandemic That Keeps Changing"
+journal: "Lancet Digital Health"
+year: 2025
+doi: "10.1016/j.landig.2025.100887"
+keyFinding: "An updated XGBoost model (LCM 2.0) trained on 72,745 N3C patients achieved 84.3% detection with a 14.9% false positive rate for long COVID, estimating an adjusted prevalence of 10.4% among COVID-positive patients. The model no longer requires a documented acute COVID-19 date, allowing it to capture patients who tested at home or had reinfections."
+lastUpdated: 2026-03-29
+tags: [long-covid, machine-learning, phenotyping, ehr, xgboost, n3c, recover]
+socialPost: "Updated ML model for long COVID drops the requirement for a documented acute infection date. Trained on 72,745 N3C patients, it detected long COVID with 84.3% sensitivity and a 14.9% false positive rate. Adjusted prevalence estimate: 10.4%."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Crosskey, Pfaff, and colleagues re-engineered a machine learning pipeline originally built in 2021 to identify long COVID patients from electronic health records. The original model (LCM 1.0) relied on a patient's first documented acute COVID-19 date as an anchor point, gathered data from a fixed window around that date, and ignored reinfections. Three years into the pandemic, those assumptions no longer held: home testing made documented infections scarce, reinfections became common, and the U09.9 ICD-10 code for post-COVID conditions entered clinical use.
+
+The updated model (LCM 2.0) uses XGBoost trained on 72,745 patient records from the National COVID Cohort Collaborative (N3C), split evenly between 36,238 patients with long COVID labels and 36,507 without. Rather than anchoring to an acute infection date, LCM 2.0 evaluates overlapping 100-day windows that slide through time, issuing a long COVID probability for each window. When a patient had known acute COVID-19 during any window, the model censored data from 7 days before diagnosis to 28 days after, preventing it from confusing acute symptoms with long COVID. The team selected 200 diagnosis features from over 9,600 SNOMED parent concepts, choosing those with the highest covariance with long COVID status.
+
+To estimate false positive rates, the investigators ran the model on pre-pandemic EHR data (2018-19) from 5,572,579 patients, reasoning that high scores in a population that could not have had long COVID would approximate the false alarm rate.
+
+---
+
+## Key Findings
+
+- At a **threshold of 0.9**, the model achieved a **true positive rate of 84.3%** and a **false positive rate of 14.9%** on the validation set (1,890 long COVID patients, 1,899 controls)
+- **Person-based AUC reached 0.94**; window-based AUC was 0.91, reflecting the harder task of pinpointing when, not just whether, a patient has long COVID
+- Person-based performance: **precision 0.838, recall 0.495, F-score 0.623**. Window-based: **precision 0.969, recall 0.393, F-score 0.559**
+- Using the **historical control experiment** (pre-2020 data), the false positive rate was **7.5%**, yielding an **adjusted long COVID prevalence of 10.4%** among the 5,875,065 COVID-positive patients in N3C
+- The **top five features by Shapley importance** were number of outpatient visits in the window (0.56), dyspnea (0.56), findings related to attentiveness (0.29), patient age (0.20), and fatigue (0.19)
+- Other high-ranking features included chronic fatigue syndrome, chronic cough, palpitations, pneumonia caused by SARS-CoV-2, and sensory disorders of smell or taste, all well-documented long COVID manifestations
+- Essential hypertension was the only top-20 feature that **decreased** a patient's score, and patient age had a non-linear relationship with the label
+
+<Callout type="evidence">
+  The model's top features align with established long COVID symptomatology (dyspnea, fatigue, cognitive difficulty, chronic cough, palpitations, anosmia), which supports generalizability. The original model relied on features more specific to the N3C data structure. This version, by contrast, maps onto the clinical syndrome as most physicians understand it.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **No acute COVID-19 date required.** LCM 1.0 could not score patients who lacked a documented first infection. LCM 2.0 removes that dependency, making it usable for patients who tested at home, never tested, or had unrecorded reinfections. For researchers building long COVID cohorts, this is the single most consequential change.
+
+2. **Prevalence estimates carry a meaningful false positive rate.** The raw model-derived prevalence was 17.9%. After adjusting for the 7.5% false positive rate identified through the historical control experiment, the estimate dropped to 10.4%. Researchers using this model to define study cohorts should consider requiring additional inclusion criteria, such as a documented positive SARS-CoV-2 test, to increase specificity for their particular use case.
+
+3. **The threshold is tunable, not fixed.** The 0.9 threshold was chosen to maximize the Youden Index (detection rate minus false alarm rate). Studies prioritizing sensitivity over specificity can lower it; those needing cleaner cohorts can raise it. The model outputs a continuous probability score, not a binary label.
+
+<Callout type="pitfall">
+  A 14.9% false positive rate means roughly 1 in 7 patients flagged as having long COVID may not have it. Long COVID shares symptoms with myalgic encephalomyelitis/chronic fatigue syndrome, post-influenza syndromes, dysautonomia, and other post-viral conditions. EHR data alone cannot reliably distinguish between them. Downstream researchers should treat model output as a screening tool, not a diagnosis.
+</Callout>
+
+4. **The model demonstrates why ML pipelines need maintenance.** The pandemic changed the data underneath the original model: home testing reduced documented infections, reinfections introduced new patterns, and new ICD-10 codes altered labeling. The authors frame LCM 2.0 not as a replacement but as evidence that any clinical ML pipeline requires periodic re-engineering as the clinical and data landscape shifts.
+
+5. **Chart review was limited.** A 50-patient chart review from a single site provided supplementary validation, but the authors acknowledge it cannot substitute for true performance metrics. The silver standard (U09.9 codes plus long COVID clinic visits) inherits the code's known inconsistencies across institutions and providers.
+
+---
+
+## My Takeaway
+
+The most important contribution here is not the model's accuracy but its design philosophy. Clinical ML models are often treated as finished products once published. This paper treats the model as infrastructure that requires maintenance. The pandemic changed around the original algorithm: patients stopped getting tested at documented sites, reinfections accumulated, and a new ICD-10 code entered inconsistent clinical use. Rather than defending the original model's validity, the team rebuilt it. The 10.4% adjusted prevalence estimate is useful, and the symptom-aligned feature importance is reassuring, but the real lesson is methodological. If your ML pipeline depends on assumptions about how data are generated, and the data generation process changes, the pipeline breaks quietly. It does not announce that it has become unreliable. You have to go looking.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/j.landig.2025.100887)

@@ -13,42 +13,63 @@ import Callout from '../../components/Callout.astro';
   The SAIL 2025 review synthesizes one year of clinical AI evidence. Ambient documentation is everywhere but unproven on time savings. AI-guided ECG alerts reduced mortality by 17%. AI mammography found 17.6% more cancers without raising false recalls. AI hemorrhage triage showed no benefit. Insurers are using AI to autodeny claims. The pattern: narrow, well-defined AI tools work; broad, ambiguous ones don't.
 </Callout>
 
-## Study Design
+Forty-three health systems were surveyed. All forty-three reported active adoption of ambient AI documentation. Not most. Not a strong majority. Every single one. If you work in a hospital or large medical group in the United States, the question is no longer whether your institution will deploy an AI scribe. It already has, or it is about to. The speed is remarkable not because the technology is new, but because health systems are, as a species, pathologically slow adopters. Something shifted.
 
-A committee of researchers and clinicians at the Symposium on AI for Learning Health Systems (SAIL) 2025 reviewed clinical AI developments from 2024 to 2025 across six themes: clinical documentation, clinical decision support, insurance denials, clinician-AI interaction, AI regulation, and healthcare economics.
+That something is the subject of the SAIL 2025 review, published in *NEJM AI*, which attempted to take the pulse of clinical AI across six domains: documentation, decision support, insurance, clinician-AI interaction, regulation, and economics. The committee, a group of researchers and clinicians convened at the Symposium on AI for Learning Health Systems, had the unenviable task of synthesizing a year in which AI moved from research posters to hospital budgets. What they found is both encouraging and sobering, sometimes within the same sentence.
 
 ---
 
-## Key Findings
+## The Scribe Everyone Wanted, the Time Nobody Saved
 
-- **Ambient documentation** is the most widely adopted clinical AI application, with universal adoption activities reported across 43 surveyed health systems
-- An AI ECG alert system demonstrated a **17% reduction in 90-day mortality** in hospitalized patients (3.6% vs 4.3%, HR 0.83)
-- Real-time wearable sensor data led to **38% fewer heart failure rehospitalizations** in 90 days
-- A multicenter AI intracranial hemorrhage triage trial showed **no improvement** in sensitivity, specificity, or turnaround times
-- AI-assisted mammography screening found **17.6% more breast cancers** without raising false recalls (PRAIM study)
-- Health insurers are **using AI to autodeny claims** with minimal human review, prompting lawsuits
-- Burnout dropped from **77% to 51%** in one multicenter cohort after AI scribe implementation
-- A large longitudinal study showed **no significant reduction in documentation time** from ambient AI despite user satisfaction
+Start with documentation, because that is where the money went. Near-universal adoption. Burnout dropping from 77% to 51% in one multicenter cohort. Physicians reporting, in every survey, that they prefer AI-assisted visits. The enthusiasm is genuine and, by most measures, earned.
+
+Then the awkward finding. A large longitudinal study tracked documentation time before and after ambient AI deployment and found no significant reduction. Physicians liked the tools. They reported feeling better. But the clock did not move. This is consistent with what we saw in the [DAX-versus-Nabla trial](/trials/ambient-ai-scribes-dax-nabla-rct-2025): one platform saved time, the other didn't, and burnout improved for both. The benefit appears to be psychological as much as temporal. Knowing the note is handled lifts a weight, even when the minutes don't change.
 
 <Callout type="evidence">
-  2024-2025 was the year AI moved from research to implementation at scale. Some applications deliver clear patient benefits (ECG mortality reduction). Others show no improvement (hemorrhage triage). The evidence demands nuance, not enthusiasm.
+  The SAIL review confirms a pattern emerging across multiple ambient AI studies: user satisfaction and burnout reduction are robust, but objective time savings remain inconsistent. Institutions adopting these tools based on efficiency claims should look closely at what the data actually shows.
+</Callout>
+
+Institutions are buying enthusiasm, which is not nothing (physician morale is worth paying for), but they should stop pretending they are buying efficiency until the evidence catches up.
+
+---
+
+## When the AI Saves a Life, and When It Doesn't
+
+The starkest contrast in the review sits between two decision-support tools, both deployed prospectively, both targeting urgent clinical questions. One worked. The other failed.
+
+The success: an AI-guided ECG alert system for hospitalized patients. The system flagged high-risk patterns and notified clinical teams. The result was a 17% reduction in 90-day mortality (3.6% vs. 4.3%, hazard ratio 0.83). That is not a rounding error. That is patients who lived because an algorithm noticed something in a tracing that might have been filed without action. A separate wearable-sensor study found 38% fewer heart failure rehospitalizations over 90 days. The tools that monitor structured, continuous data and route it into clear workflows are producing real outcomes.
+
+The failure: a multicenter AI intracranial hemorrhage triage trial that showed no improvement in sensitivity, specificity, or turnaround times. The system, which had performed well in retrospective testing, did nothing useful when deployed in actual emergency departments. The gap between retrospective accuracy and prospective impact is one of the most important lessons in clinical AI, and this trial is its cleanest illustration. An algorithm that identifies hemorrhage on a scan already flagged as urgent does not change what happens next. The bottleneck was never pattern recognition. It was everything that follows.
+
+The PRAIM mammography study offered a third data point: AI-assisted screening detected 17.6% more breast cancers without increasing false recall rates. Screening, with its high volume, standardized images, and binary read structure, turns out to be exactly the kind of task where AI assistance translates cleanly into clinical benefit.
+
+<Callout type="evidence">
+  The pattern is consistent across domains. AI tools that process structured data within clear clinical workflows produce measurable patient benefit. Tools deployed into complex, variable environments without workflow redesign do not.
 </Callout>
 
 ---
 
-## Clinical Implications
+## The Insurer in the Machine
 
-1. **Documentation AI is adopted but unproven.** Near-universal adoption based on user satisfaction, despite inconsistent evidence of actual time savings or efficiency gains. Institutions are buying enthusiasm, not evidence.
+Then there is the finding the review could not ignore, though it sits outside the usual scope of clinical AI evaluation: health insurers using AI to autodeny claims with minimal human review.
 
-2. **Decision support has breakthrough results, sometimes.** The ECG mortality reduction and heart failure rehospitalization results change practice. The hemorrhage triage failure shows that retrospective accuracy doesn't guarantee real-world impact.
-
-3. **AI in insurance is a growing crisis.** AI-driven claim denials, patients flagged by AI but denied coverage, and the emerging "financial toxicity" of AI-enabled diagnosis are issues the clinical community needs to confront.
+This is not a theoretical concern. It is the subject of active litigation. AI denial systems are pattern-matchers trained on claims data, and they are fast. They can process a prior authorization request and issue a denial before a human has read the clinical note. The review frames this as "financial toxicity," which is an elegant term for what happens when a patient receives an AI-enabled diagnosis and an AI-enabled denial in the same week. One algorithm finds the cancer. Another decides the insurer won't pay for the treatment.
 
 <Callout type="pitfall">
-  The review highlights that AI-generated documentation hallucinations are a real safety concern, and that clinician automation bias (uncritically accepting AI output) compounds the risk. As AI notes become the norm, the medical record may become less trustworthy.
+  AI-driven claim denials are accelerating. Document your clinical reasoning thoroughly. These systems struggle with atypical presentations, and detailed notes are your best defense in an appeal.
 </Callout>
 
-4. **Clinician-AI collaboration depends on context.** AI-assisted mammography shows clear synergy; AI-assisted diagnostic reasoning shows uncertain benefit. The "doctor plus AI" equation is task-dependent, not universally positive.
+The clinical community has been slow to recognize this as an AI problem rather than a billing problem. It is both. The same technology that makes ambient documentation possible makes automated denials possible. The difference is who is deploying it, and toward what end.
+
+---
+
+## What the Review Means
+
+The SAIL committee reviewed six domains and found, essentially, one story told six ways. AI works when the task is specific, the data is structured, and the workflow is clear. ECG alerts. Mammography screening. Wearable monitoring. These are narrow tools solving well-defined problems, and the evidence supports them.
+
+AI struggles when the task is broad, the environment is variable, or the deployment lacks supporting infrastructure. Hemorrhage triage. Documentation time savings. Diagnostic reasoning assistance. The tools are not necessarily bad. They are mismatched to the conditions of their use.
+
+The review also surfaced a concern that deserves more attention than a bullet point: AI-generated documentation hallucinations are entering the medical record, and clinician automation bias (the tendency to accept AI output without adequate review) compounds the risk. As AI notes become the default, the medical record itself may become less reliable. That is a slow-moving problem, which means it will receive slow-moving attention, which means it will be worse by the time anyone acts on it.
 
 <Callout type="tip" title="What to do with this">
   **If your institution is adopting ambient AI:** Ask for time-savings data, not just satisfaction scores. The evidence shows clinicians like these tools but may not actually document faster. Demand before-and-after metrics on documentation time, note turnaround, and pajama time.
@@ -58,11 +79,9 @@ A committee of researchers and clinicians at the Symposium on AI for Learning He
   **If patients ask about AI-denied insurance claims:** Know that this is an active area of litigation. Document your clinical reasoning thoroughly; AI denial systems are pattern-matchers that struggle with atypical presentations.
 </Callout>
 
----
+The tools that arrived in 2024 and 2025 are not uniformly good or bad. They are specific. The question for clinicians evaluating them is not "Does AI work?" It never was. The question is whether this particular tool, solving this particular problem, in this particular workflow, has prospective evidence of benefit. For a handful of applications, the answer is now yes. For the rest, enthusiasm has outrun proof, which is a polite way of saying we bought the thing before we tested it.
 
-## My Takeaway
-
-The tools that work (ECG alerts, structured screening) are specific, well-defined, and integrated into clear clinical workflows. The tools that struggle (documentation time savings, hemorrhage triage) are broader, more ambiguous, or deployed without supporting workflow changes. Evaluate AI tools by rigorous outcomes, not adoption rates or user satisfaction.
+That, too, is a pattern with history.
 
 ---
 
