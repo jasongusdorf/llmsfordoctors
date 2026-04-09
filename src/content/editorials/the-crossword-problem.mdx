@@ -1,0 +1,145 @@
+---
+title: "The Crossword Problem"
+description: "A Sunday crossword reveals the central danger of clinical AI: a system that earns your trust with five brilliant answers, then spends it on the sixth."
+tags: [hallucination, trust, clinical-reasoning, verification, editorial]
+lastUpdated: 2026-04-09
+featured: true
+socialPost: "I sent my half-finished NYT Mini Crossword to ChatGPT. It read my handwriting, corrected my wrong answers, and solved the puzzle brilliantly. Then it fabricated a word that doesn't exist and explained it with total confidence. That's the whole problem with clinical AI, in one screenshot."
+---
+
+import Callout from '../../components/Callout.astro';
+
+Last Sunday I was stuck on the *Times* Mini Crossword. Not badly stuck. I had most of it filled in, a few squares wrong, the kind of half-finished state that would resolve itself after another cup of coffee. Instead, I took a photo and sent it to ChatGPT.
+
+What happened next was, in miniature, the entire case for and against using large language models in clinical medicine.
+
+The model read my handwriting from a phone photo. It parsed the grid. It cross-referenced my partially filled answers against the clues, identified the ones I'd gotten wrong, and corrected them. "Body guard?" was APRON, not ARMOR. (Someone guarding their body. Their clothes. Cute.) "Temporary Instagram update" was STORY. It nailed the lateral thinking, the puns, the wordplay. It did six or seven nontrivial things in sequence, each one requiring a different kind of reasoning, and it got them all right.
+
+Then it got to 5-Down.
+
+The clue was: "Got \_\_\_ bright ideas?" The answer, obviously, is ANY. "Got any bright ideas?" The model filled in ANYS, which is not a word. And rather than flagging uncertainty, or admitting it was stuck, or even just leaving the square blank, it wrote a confident little explanation: "'Got **any's** bright ideas?' Crossword logic sneaking in the possessive-ish form."
+
+That phrase, "crossword logic sneaking in the possessive-ish form," is the most dangerous kind of AI output. It sounds like it means something. It has the cadence of expertise. It is completely fabricated. There is no possessive-ish form. "Got any's bright ideas?" is not an expression in English. The model needed a four-letter word starting with A-N-Y, couldn't find one that existed, and instead of saying so, it wrote a plausible-sounding paragraph explaining why the nonsense answer was actually clever.
+
+Here is what matters: the explanation for ANYS arrived in the same tone, at the same confidence level, with the same fluency as the explanations for APRON and STORY. There was no change in register. No hedging. No signal whatsoever that the model had shifted from reasoning to fabricating.
+
+A reader who trusted the first five answers, correctly, had no way to know the sixth was invented.
+
+This is a crossword. The stakes are zero. But the pattern is not unique to crosswords, and the stakes in medicine are not zero.
+
+## Contents
+
+- [The Calibration Problem](#the-calibration-problem)
+- [The Trust Ratchet](#the-trust-ratchet)
+- [The Verification Burden](#the-verification-burden)
+- [What This Means for Clinical AI](#what-this-means-for-clinical-ai)
+- [The Honest Pitch](#the-honest-pitch)
+
+---
+
+## The Calibration Problem
+
+Physicians are trained, from the first day of medical school onward, to modulate confidence. "I'm not sure, but..." is not weakness. It is a clinical skill. The differential diagnosis exists because certainty is rare and premature closure kills. An attending who says "I think this is PE, but I want to rule out aortic dissection before we anticoagulate" is doing something sophisticated: communicating a leading hypothesis while explicitly flagging the alternative that would make the treatment plan dangerous.
+
+LLMs do not do this. They cannot do this, at least not reliably, because they have no internal mechanism for distinguishing what they know from what they're generating. A language model that produces "the recommended dose is 40mg daily" and a language model that produces "the recommended dose is 400mg daily" are performing the same computational operation. The tokens come out with the same fluency either way.
+
+This is not a bug that will be fixed in the next model release. It is a structural feature of how these systems work. Language models are trained to produce plausible continuations of text. When the correct answer is also the most plausible continuation, the system is accurate. When it isn't, the system is confidently wrong. And it has no way to tell you which situation you're in.
+
+<Callout type="pitfall">
+  The absence of a reliable confidence signal is structural, not incidental. Language models generate text by predicting the most plausible next token. There is no separate mechanism that checks whether the generated output is true. Hedging language ("I'm not entirely sure, but...") is itself generated text, not a genuine uncertainty signal.
+</Callout>
+
+In medicine, calibration is the difference between a useful consultant and a dangerous one. A colleague who says "I'm confident this is cellulitis" carries different weight than one who says "this could be cellulitis, but the distribution is unusual and I'd want to rule out a deep venous thrombosis." Both might be wrong. But the second one has given you a map of their uncertainty, which lets you allocate your own attention accordingly.
+
+An LLM gives you neither. It gives you the same voice, the same confidence, the same syntactic structure whether it is right or making something up. APRON and ANYS come out of the same mouth.
+
+Some models have begun to include hedging language: "I'm not entirely sure, but..." The problem is that this hedging is also generated text. It is not a reliable signal of actual uncertainty. A model that says "I'm fairly confident" before a correct answer and "I'm fairly confident" before a hallucinated one has not solved the calibration problem. It has dressed it up.
+
+---
+
+## The Trust Ratchet
+
+The crossword example illustrates something more insidious than simple inaccuracy. If the model had gotten everything wrong, I would have ignored it. If it had gotten the easy clues right and the hard ones wrong, I would have noticed the pattern. What actually happened was worse: it got the hard clues right, the ones requiring genuine lateral reasoning, and then fabricated an answer on what should have been the easiest one.
+
+Each correct answer was a turn of the ratchet. VODKA: correct, fine. APRON: correct, and clever. STORY: correct. DROVE, OPTED, KORAN: all correct, all requiring the model to override my wrong answers in the process. By the time it reached ANYS, it had built a track record that made skepticism feel unreasonable. Why would I doubt the sixth answer when the first five demonstrated better crossword reasoning than mine?
+
+This is the trust ratchet: partial accuracy that is accurate enough to earn trust, then spends that trust on confabulation. It is more dangerous than consistent failure because consistent failure gets caught. A medical student who is wrong about everything gets corrected immediately. A medical student who is right about five things and confidently wrong about the sixth, in a way that sounds just as authoritative as the five correct things, is a different kind of problem.
+
+Consider the clinical analogy. An LLM reviews a patient's medication list and correctly identifies a duplicate statin, flags a missed interaction between amiodarone and warfarin, notes that the metformin dose should be renally adjusted, and catches that the patient's allergy to sulfa drugs is relevant to their new antibiotic. Four correct, clinically important catches. On the strength of those four, the system then suggests discontinuing a medication because of a contraindication that does not exist, cited to a guideline that was never published.
+
+The physician who verified the first four findings, and found them accurate, is now in a difficult position. The system has demonstrated competence. The fifth recommendation arrived in the same format, with the same confidence, and included a citation. Checking the citation takes time. The temptation to trust it, to let the ratchet do its work, is not a character flaw. It is a predictable consequence of how human trust actually works.
+
+<Callout type="evidence">
+  Psychologists call this "automation bias," and it is one of the most replicated findings in human factors research. When an automated system has a track record of accuracy, humans defer to it even when their own judgment would have caught the error. The bias is proportional to the system's track record: a system that is right 95% of the time generates more automation bias, and therefore more dangerous errors on the remaining 5%, than a system that is right 80% of the time.
+</Callout>
+
+This is not hypothetical. A 2023 study in *JAMA Internal Medicine* found that physicians using an AI diagnostic tool were more likely to agree with incorrect AI suggestions than physicians working without AI assistance. The AI didn't make them worse at medicine. It made them worse at disagreeing with a confident system.
+
+---
+
+## The Verification Burden
+
+Here is the question that the crossword puzzle forces: if I have to verify every answer the model gives me, what exactly did it save me?
+
+I could have solved the crossword myself. It would have taken another ten minutes. Instead, I spent time uploading the photo, reading the model's output, feeling impressed by the correct answers, and then (because I happened to know the phrase "got any bright ideas") catching the fabrication. The net time savings were zero or negative. The net cognitive cost was higher, because verifying someone else's work is a different kind of effort than doing your own.
+
+This is the verification burden, and it is the unexamined assumption at the center of every pitch for clinical AI. The sales deck says: the AI reads the chart so you don't have to. The AI drafts the note. The AI checks the medications. The AI surfaces the relevant literature. All of which sounds like less work. But if the AI sometimes fabricates chart findings, invents medication interactions, or cites papers that don't exist, then the physician has not been relieved of the work. The physician has been given a new, different kind of work: auditing the AI's output for errors that arrive without warning and without any distinguishing feature.
+
+Reading a chart yourself is cognitively straightforward. You see the data, you process it, you form impressions. Auditing someone else's summary of the chart is harder, because you must hold two things in mind at once: the summary you've been given and the question of whether the summary is accurate. Any working physician knows this distinction intuitively. Reading a consult note you wrote is easy. Reading a consult note someone else wrote and deciding whether to trust it is work.
+
+The verification burden compounds in exactly the situations where AI is supposed to help most. A physician who is overworked, behind on charts, managing fifteen active patients, is precisely the physician who has the least cognitive bandwidth to audit AI output for subtle errors. The promise of AI is that it helps when you're drowning. The reality is that it requires the most vigilance when you're least equipped to provide it.
+
+<Callout type="pitfall">
+  Verification is only possible when you know enough to catch the error. A hospitalist might catch a fabricated drug interaction in their own field. They are less likely to catch one in a subspecialty area where their knowledge is thinner, which is often exactly the area where they're using the AI for help. The tool is least reliable precisely where you most need it, and you are least equipped to verify it precisely where it is least reliable.
+</Callout>
+
+There is a further problem. Verification is only possible when you know enough to catch the error. I caught ANYS because "got any bright ideas" is a phrase I know. If the clue had been more obscure, if the fabricated answer had been in a domain where I lacked expertise, I would have accepted it. The same is true in medicine. A hospitalist might catch a fabricated drug interaction in their own field. They are less likely to catch one in a subspecialty area where their knowledge is thinner, which is often exactly the area where they're using the AI for help.
+
+The tool is least reliable precisely where you most need it, and you are least equipped to verify it precisely where it is least reliable. That is not a workflow optimization. It is a trap.
+
+---
+
+## What This Means for Clinical AI
+
+None of this means language models are useless in medicine. They are demonstrably good at certain tasks: summarizing long documents, drafting templated text, translating medical jargon into patient-friendly language, generating differential diagnoses that, while they need verification, can serve as a cognitive checklist. These are real, valuable capabilities.
+
+But the way these tools are being marketed and deployed treats them as reliable systems that occasionally err, when the accurate framing is that they are unreliable systems that frequently impress. The distinction matters because it determines the workflow you build around them.
+
+If you believe the system is reliable with occasional errors, you build a workflow where the AI leads and the human spot-checks. This is the workflow most current products encourage: the AI drafts, the physician reviews. The review is expected to be quick, because the draft is expected to be mostly right.
+
+If you believe the system is unreliable but frequently impressive, you build a different workflow. The AI suggests, and the physician verifies from primary sources before acting. The AI is a brainstorming partner, not a first draft. Every output is treated as a hypothesis, not a finding. This workflow is slower. It is also honest about what these tools actually are.
+
+The gap between these two framings is where patient harm lives.
+
+We do not yet have good solutions to the calibration problem. Retrieval-augmented generation, systems that look up information before answering, helps in some cases but introduces its own failure modes. Confidence scores, when models provide them, are poorly calibrated. Chain-of-thought prompting can surface reasoning steps but does not guarantee those steps are sound; the model can reason its way to a fabrication just as fluently as it reasons its way to a correct answer. The ANYS explanation was, in its way, a chain of thought. It just happened to be a chain of thought in support of a made-up word.
+
+<Callout type="tip">
+  When using LLMs for clinical tasks, treat every output as a hypothesis to be verified, not a finding to be acted on. The correct mental model is a brainstorming partner who sometimes invents things, not a reference source that occasionally errs.
+</Callout>
+
+What we can do, right now, is be honest about the verification burden and stop pretending it doesn't exist. If a clinical AI tool requires physician verification to be safe, then the time cost of that verification belongs in the ROI calculation. If the verification takes as long as doing the task manually, the tool does not save time. If the verification requires expertise the user may not have, the tool is unsafe in the hands of its intended user. These are not edge cases. They are the default operating conditions.
+
+---
+
+## The Honest Pitch
+
+I still use language models. I used one to help me think through the structure of this essay (though not to write it). I use them to draft patient-education materials, to brainstorm differential diagnoses, to summarize dense regulatory documents. They are useful tools. They are not reliable ones.
+
+The honest pitch for clinical AI goes something like this: these systems will sometimes produce work that is better than what you'd do yourself, and sometimes produce work that is confidently, fluently, dangerously wrong. You will not be able to tell which is which from the output alone. You should use them the way you'd use a brilliant but occasionally psychotic consultant: listen carefully, verify everything, and never let the quality of the last five answers make you lazy about checking the sixth.
+
+The crossword sits on my desk. Five clues solved brilliantly, one word that doesn't exist, explained with the confidence of a tenured professor. Ninety percent of the way to a perfect tool. The question for medicine is whether ninety percent is good enough, and what we do about the other ten.
+
+The answer, for now, is the same thing physicians have always done with unreliable information delivered confidently. Verify. Check the primary source. Trust your training. And when something doesn't look right, even if the last five things looked perfect, stop and look again.
+
+ANYS is not a word. "Got any's bright ideas?" is not a phrase. And an AI system that can't tell you when it's guessing is not, whatever the marketing says, a clinical decision support tool. It is a clinical decision *suggestion* tool, and the distance between those two words is where the work of medicine still lives.
+
+*Jason G. Gusdorf, MD*
+
+---
+
+## Related on this site
+
+- [We Don't Know How to Evaluate Clinical AI](/editorials/evaluating-clinical-ai) — why traditional RCT methodology breaks down when the intervention changes every six months
+- [The Best Tutor and the Worst Crib Sheet](/editorials/llms-in-medical-education) — LLMs in medical education, and the risk of cognitive deskilling
+- [Which LLM for Clinical Reasoning?](/editorials/llm-clinical-reasoning-comparison) — head-to-head comparison of Claude, GPT-4o, o3, and Gemini on clinical tasks
+- [The Risk to Medicine Isn't LLMs. It's Bad LLMs.](/editorials/the-risk-is-bad-llms) — why the quality gap between frontier and deployed models is the real danger
