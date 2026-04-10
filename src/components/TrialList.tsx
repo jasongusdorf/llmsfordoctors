@@ -95,7 +95,7 @@ export default function TrialList({ trials, journals, tags }: Props) {
           placeholder="Search trials..."
           value={search}
           onInput={(e) => setSearch((e.target as HTMLInputElement).value)}
-          class="w-full px-3 py-2 rounded-md border border-clinical-300 dark:border-clinical-600 bg-white dark:bg-clinical-800 text-clinical-900 dark:text-clinical-100 placeholder-clinical-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          class="w-full px-3 py-2 rounded-md border border-clinical-300 dark:border-clinical-600 bg-warm-white dark:bg-clinical-800 text-clinical-900 dark:text-clinical-100 placeholder-clinical-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         />
 
         <div class="flex flex-wrap items-center gap-3">
@@ -173,7 +173,7 @@ export default function TrialList({ trials, journals, tags }: Props) {
             <li key={trial.id}>
               <a
                 href={`/trials/${trial.id}`}
-                class="block p-5 rounded-lg border border-clinical-200 dark:border-clinical-700 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-sm transition-all group bg-white dark:bg-clinical-800"
+                class="block p-5 rounded-lg border border-clinical-200 dark:border-clinical-700 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-sm transition-all group bg-warm-white dark:bg-clinical-800"
               >
                 <div class="flex items-start gap-4">
                   <div class="shrink-0 text-center min-w-[3.5rem]">

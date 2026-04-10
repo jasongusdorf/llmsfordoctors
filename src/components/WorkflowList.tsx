@@ -98,7 +98,7 @@ export default function WorkflowList({ workflows }: Props) {
       <li key={wf.id}>
         <a
           href={`/workflows/${wf.id}`}
-          class="block p-4 rounded-lg border border-clinical-200 dark:border-clinical-700 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-sm transition-all group bg-white dark:bg-clinical-800"
+          class="block p-4 rounded-lg border border-clinical-200 dark:border-clinical-700 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-sm transition-all group bg-warm-white dark:bg-clinical-800"
         >
           <h3 class="font-semibold text-clinical-900 dark:text-clinical-50 group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-1">
             {wf.title}

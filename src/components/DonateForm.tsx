@@ -209,7 +209,7 @@ export default function DonateForm({ stripeKey }: Props) {
           class={`px-4 py-2 text-sm font-medium transition-colors ${
             !isRecurring
               ? 'bg-blue-600 text-white'
-              : 'bg-white dark:bg-clinical-800 text-clinical-700 dark:text-clinical-300 hover:bg-clinical-50 dark:hover:bg-clinical-700'
+              : 'bg-warm-white dark:bg-clinical-800 text-clinical-700 dark:text-clinical-300 hover:bg-clinical-50 dark:hover:bg-clinical-700'
           }`}
         >
           One-time
@@ -220,7 +220,7 @@ export default function DonateForm({ stripeKey }: Props) {
           class={`px-4 py-2 text-sm font-medium transition-colors ${
             isRecurring
               ? 'bg-blue-600 text-white'
-              : 'bg-white dark:bg-clinical-800 text-clinical-700 dark:text-clinical-300 hover:bg-clinical-50 dark:hover:bg-clinical-700'
+              : 'bg-warm-white dark:bg-clinical-800 text-clinical-700 dark:text-clinical-300 hover:bg-clinical-50 dark:hover:bg-clinical-700'
           }`}
         >
           Monthly
@@ -237,7 +237,7 @@ export default function DonateForm({ stripeKey }: Props) {
             class={`px-5 py-2.5 rounded-md text-sm font-semibold transition-colors border ${
               selectedPreset === amount && !isCustom
                 ? 'bg-blue-600 text-white border-blue-600'
-                : 'bg-white dark:bg-clinical-800 text-clinical-700 dark:text-clinical-300 border-clinical-300 dark:border-clinical-600 hover:border-blue-400'
+                : 'bg-warm-white dark:bg-clinical-800 text-clinical-700 dark:text-clinical-300 border-clinical-300 dark:border-clinical-600 hover:border-blue-400'
             }`}
           >
             {PRESET_LABELS[i]}
@@ -249,7 +249,7 @@ export default function DonateForm({ stripeKey }: Props) {
           class={`px-5 py-2.5 rounded-md text-sm font-semibold transition-colors border ${
             isCustom
               ? 'bg-blue-600 text-white border-blue-600'
-              : 'bg-white dark:bg-clinical-800 text-clinical-700 dark:text-clinical-300 border-clinical-300 dark:border-clinical-600 hover:border-blue-400'
+              : 'bg-warm-white dark:bg-clinical-800 text-clinical-700 dark:text-clinical-300 border-clinical-300 dark:border-clinical-600 hover:border-blue-400'
           }`}
         >
           Custom
@@ -271,7 +271,7 @@ export default function DonateForm({ stripeKey }: Props) {
               setClientSecret(null);
             }}
             placeholder="Enter amount"
-            class="w-32 rounded-md border border-clinical-300 dark:border-clinical-600 bg-white dark:bg-clinical-800 px-3 py-2 text-clinical-900 dark:text-clinical-100 placeholder-clinical-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+            class="w-32 rounded-md border border-clinical-300 dark:border-clinical-600 bg-warm-white dark:bg-clinical-800 px-3 py-2 text-clinical-900 dark:text-clinical-100 placeholder-clinical-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
           />
         </div>
       )}

@@ -14,27 +14,30 @@
   --animate-fade-in-up: fade-in-up 0.8s ease-in-out 0.3s both;
 
   /* Design system colors (shadcn-compatible) */
-  --color-background: #ffffff;
+  --color-background: #f8f4ec;
   --color-foreground: #0f172a;
   --color-primary: #2563eb;
   --color-primary-foreground: #ffffff;
-  --color-secondary: #f1f5f9;
+  --color-secondary: #f0ead8;
   --color-secondary-foreground: #0f172a;
-  --color-muted: #f1f5f9;
+  --color-muted: #f0ead8;
   --color-muted-foreground: #64748b;
-  --color-accent: #f1f5f9;
+  --color-accent: #f0ead8;
   --color-accent-foreground: #0f172a;
   --color-destructive: #ef4444;
   --color-destructive-foreground: #ffffff;
-  --color-border: #e2e8f0;
-  --color-input: #e2e8f0;
+  --color-border: #ddd3be;
+  --color-input: #ddd3be;
   --color-ring: #2563eb;
 
+  /* Warm white for cards and elevated surfaces */
+  --color-warm-white: #fdfaf4;
+
   /* Clinical palette */
-  --color-clinical-50: #f8fafc;
-  --color-clinical-100: #f1f5f9;
-  --color-clinical-200: #e2e8f0;
-  --color-clinical-300: #cbd5e1;
+  --color-clinical-50: #f8f4ec;
+  --color-clinical-100: #f0ead8;
+  --color-clinical-200: #ddd3be;
+  --color-clinical-300: #c8b898;
   --color-clinical-400: #94a3b8;
   --color-clinical-500: #64748b;
   --color-clinical-600: #475569;
@@ -75,11 +78,11 @@
   --white: #fff;
   --black: #000;
   --transparent: transparent;
-  --aurora-1: #dbeafe;
-  --aurora-2: #eff6ff;
-  --aurora-3: #bfdbfe;
-  --aurora-4: #e0f2fe;
-  --aurora-5: #dbeafe;
+  --aurora-1: #f0ead8;
+  --aurora-2: #f8f4ec;
+  --aurora-3: #e8ddc4;
+  --aurora-4: #f5eedf;
+  --aurora-5: #f0ead8;
 }
 
 @keyframes aurora {

@@ -75,7 +75,7 @@ export default function VideoList({ videos }: Props) {
         {sorted.map((video) => (
           <li
             key={video.url}
-            class="p-4 rounded-lg border border-clinical-200 dark:border-clinical-700 bg-white dark:bg-clinical-800"
+            class="p-4 rounded-lg border border-clinical-200 dark:border-clinical-700 bg-warm-white dark:bg-clinical-800"
           >
             <div class="flex items-start gap-3">
               <PriorityStars priority={video.priority} />

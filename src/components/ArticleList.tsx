@@ -102,7 +102,7 @@ export default function ArticleList({ articles, basePath, tags }: Props) {
             <li key={article.id}>
               <a
                 href={`${basePath}/${article.id}`}
-                class="block p-5 rounded-lg border border-clinical-200 dark:border-clinical-700 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-sm transition-all group bg-white dark:bg-clinical-800"
+                class="block p-5 rounded-lg border border-clinical-200 dark:border-clinical-700 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-sm transition-all group bg-warm-white dark:bg-clinical-800"
               >
                 <div class="flex items-start justify-between gap-3">
                   <div class="flex-1 min-w-0">

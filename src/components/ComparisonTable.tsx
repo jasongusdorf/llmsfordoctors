@@ -144,7 +144,7 @@ export default function ComparisonTable({ tools, categories }: Props) {
               sorted.map((tool, i) => (
                 <tr
                   key={tool.slug}
-                  class={`${i % 2 === 0 ? 'bg-white' : 'bg-clinical-50'} ${tool.rating === 0 ? 'border-l-2 border-l-red-500' : ''}`}
+                  class={`${i % 2 === 0 ? 'bg-warm-white' : 'bg-clinical-50'} ${tool.rating === 0 ? 'border-l-2 border-l-red-500' : ''}`}
                 >
                   <td class="px-4 py-3 font-medium">
                     <a

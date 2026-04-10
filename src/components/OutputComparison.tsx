@@ -38,7 +38,7 @@ export default function OutputComparison({ prompt, outputs }: Props) {
             class={[
               'px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors',
               activeTab === i
-                ? 'border-b-2 border-blue-500 text-blue-600 bg-white'
+                ? 'border-b-2 border-blue-500 text-blue-600 bg-warm-white'
                 : 'text-clinical-500 hover:text-clinical-700 hover:bg-clinical-100',
             ].join(' ')}
           >
@@ -48,7 +48,7 @@ export default function OutputComparison({ prompt, outputs }: Props) {
       </div>
 
       {/* Content panel */}
-      <div class="p-4 bg-white">
+      <div class="p-4 bg-warm-white">
         <div class="mb-3">
           <span class="text-xs text-clinical-400">Tested: {active.dateTested}</span>
         </div>

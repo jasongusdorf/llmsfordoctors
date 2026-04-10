@@ -129,7 +129,7 @@ export default function TemplateList({ templates, categories, targetTools }: Pro
       <li key={tmpl.id}>
         <a
           href={`/templates/${tmpl.id}`}
-          class="block p-4 rounded-lg border border-clinical-200 dark:border-clinical-700 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-sm transition-all group bg-white dark:bg-clinical-800"
+          class="block p-4 rounded-lg border border-clinical-200 dark:border-clinical-700 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-sm transition-all group bg-warm-white dark:bg-clinical-800"
         >
           <h3 class="font-semibold text-clinical-900 dark:text-clinical-50 group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-1">
             {tmpl.title}
@@ -164,7 +164,7 @@ export default function TemplateList({ templates, categories, targetTools }: Pro
           placeholder="Search templates..."
           value={search}
           onInput={(e) => setSearch((e.target as HTMLInputElement).value)}
-          class="w-full px-3 py-2 rounded-md border border-clinical-300 dark:border-clinical-600 bg-white dark:bg-clinical-800 text-clinical-900 dark:text-clinical-100 placeholder-clinical-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          class="w-full px-3 py-2 rounded-md border border-clinical-300 dark:border-clinical-600 bg-warm-white dark:bg-clinical-800 text-clinical-900 dark:text-clinical-100 placeholder-clinical-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         />
 
         {/* Category pills */}

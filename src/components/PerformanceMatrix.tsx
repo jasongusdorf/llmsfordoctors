@@ -53,7 +53,7 @@ export default function PerformanceMatrix({ tasks, models, ratings }: Performanc
         </thead>
         <tbody>
           {tasks.map((task, i) => (
-            <tr key={task} class={i % 2 === 0 ? 'bg-white' : 'bg-clinical-50'}>
+            <tr key={task} class={i % 2 === 0 ? 'bg-warm-white' : 'bg-clinical-50'}>
               <td class="px-4 py-3 font-medium text-clinical-800 whitespace-nowrap">
                 {task}
               </td>
