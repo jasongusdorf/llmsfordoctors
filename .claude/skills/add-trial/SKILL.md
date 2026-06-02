@@ -116,13 +116,15 @@ After writing the file, push the new trial to the front of the social posting qu
 
 1. First, read the current queue:
 ```bash
-npx wrangler kv key get --namespace-id=7aaff7582add425c9e6372c1dc9cd0f4 "queue" 2>/dev/null
+npx wrangler kv key get --namespace-id=7aaff7582add425c9e6372c1dc9cd0f4 --remote "queue" 2>/dev/null
 ```
 
 2. If the queue exists, prepend the new trial. If it doesn't exist or is empty, create a new array:
 ```bash
-npx wrangler kv key put --namespace-id=7aaff7582add425c9e6372c1dc9cd0f4 "queue" '[{"slug":"<slug>","collection":"trials"}]'
+npx wrangler kv key put --namespace-id=7aaff7582add425c9e6372c1dc9cd0f4 --remote "queue" '[{"slug":"<slug>","collection":"trials"}]'
 ```
+
+ALWAYS use `--remote`. Without it, the write lands in local KV and never reaches the production worker that posts to X.
 
 The `<slug>` must match the filename without the `.mdx` extension.
 
