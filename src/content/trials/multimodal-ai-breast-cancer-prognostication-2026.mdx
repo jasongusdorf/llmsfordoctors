@@ -1,0 +1,53 @@
+---
+title: "An AI Pathology Test That Edged Out the 21-Gene Assay in Breast Cancer"
+journal: "Nature Communications"
+year: 2026
+doi: "10.1038/s41467-026-73088-y"
+keyFinding: "An AI test combining digital pathology with clinical data, developed on 8,161 breast cancer patients, predicted disease-free interval at a C-index of 0.71. In head-to-head comparison it showed numerically higher discrimination (C-index 0.67) than the standard-of-care 21-gene recurrence assay (0.61), and it performed in triple-negative disease (C-index 0.71) where no guideline-recommended genomic assay currently exists."
+lastUpdated: 2026-06-02
+tags: [oncology, breast-cancer, digital-pathology, prognosis, multimodal-ai, risk-stratification, computational-pathology]
+socialPost: "An AI test reading digital pathology plus clinical data, built on 8,161 breast cancer patients, predicted recurrence at a C-index of 0.71 and numerically beat the 21-gene assay head-to-head (0.67 vs 0.61). It also worked in triple-negative disease, where no guideline genomic assay exists today."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Breast cancer treatment is steered by risk: who needs chemotherapy, who can safely avoid it. Molecular subtype and clinicopathologic features get you partway, and genomic assays like the 21-gene recurrence score refine the estimate for a subset of patients, at meaningful cost and with limited reach across subtypes. This study, from a group whose authors include Yann LeCun, asks whether an AI model reading the digital pathology slide alongside routine clinical data can do the same job or better. The team developed and evaluated the test on **8,161 patients**, integrating whole-slide images with clinicopathologic variables to predict disease-free interval, and compared it directly against the standard-of-care 21-gene assay.
+
+---
+
+## Key Findings
+
+- The AI test predicted **disease-free interval** at a **C-index of 0.71** (95% CI, 0.68 to 0.75), with a hazard ratio of **3.63** between high- and low-risk groups (p&lt;0.001)
+- In a **direct head-to-head**, the AI test showed numerically higher discrimination (**C-index 0.67**) than the **21-gene assay (0.61)** on the same patients
+- It held up **across molecular subtypes**, including **triple-negative breast cancer** (C-index **0.71**, HR 3.81), where no guideline-recommended genomic assay currently exists
+- The inputs are a digital pathology slide and clinical data that are already generated in routine care, not a separate send-out genomic test
+
+<Callout type="evidence">
+  The triple-negative result is the one to dwell on. Genomic recurrence assays were validated mainly in hormone-receptor-positive disease, leaving triple-negative patients without an equivalent tool. An AI test that reads the slide every patient already has, and that performs in the subtype the genomic assays do not cover, addresses a real gap rather than duplicating an existing one.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **The economic case is as notable as the accuracy.** The AI test runs on a digital slide and clinical fields that exist in the chart, while the 21-gene assay is a separate, costly send-out. Matching or modestly beating it from data already on hand changes access, especially outside well-resourced centers.
+
+2. **It extends risk stratification to subtypes the genomic assays skip.** Performing in triple-negative disease means a tool that could inform chemotherapy decisions for patients who currently have no validated genomic option.
+
+3. **"Numerically higher" is not "statistically superior."** The head-to-head C-index difference (0.67 vs. 0.61) favors the AI test, but the confidence intervals overlap, so the honest claim is non-inferiority with an edge, not a decisive win. The accessibility argument may matter more than the discrimination gap.
+
+<Callout type="pitfall">
+  Digital pathology models are sensitive to the scanner and the staining protocol that produced the slide. A model trained across a particular set of labs can quietly lose accuracy on slides from a scanner it never saw, and that drift is invisible at the point of care. Before trusting this kind of test, a center needs to know it was validated on slides resembling its own, not just on the development cohort.
+</Callout>
+
+---
+
+## My Takeaway
+
+The framing that gets attention is "AI beats the 21-gene assay," and that overstates a result whose confidence intervals overlap. The more durable point is that the AI test was roughly as good using only the slide and clinical data already generated for every patient, which is a real argument about cost and reach rather than a marginal argument about C-index. The triple-negative performance is where I would focus: a validated risk tool for the subtype that genomic assays were never built for would change conversations about chemotherapy that currently rest on clinical judgment alone. The caveats are the usual ones for computational pathology, generalization across scanners and labs, and the fact that disease-free interval prediction is not yet a prospective demonstration that acting on the score improves outcomes. Promising, accessible, and not yet ready to retire the genomic assay.
+
+---
+
+[Read the full article at Nature Communications](https://doi.org/10.1038/s41467-026-73088-y)

@@ -1,0 +1,53 @@
+---
+title: "Screening for Asthma and COPD From the Sound of a Cough"
+journal: "Scientific Reports"
+year: 2026
+doi: "10.1038/s41598-026-54803-7"
+keyFinding: "A machine learning model combining respiratory-sound acoustic features (cough and vowel recordings) with clinical metadata, trained on the public AIRS Kaggle benchmark, classified patients as healthy, asthma, or COPD with 90.3% overall accuracy and class-wise F1 scores of 0.945, 0.915, and 0.842. Removing the multimodal feature fusion dropped accuracy by 7.8 points. The work is a retrospective benchmark study with no prospective clinical validation."
+lastUpdated: 2026-06-02
+tags: [pulmonology, asthma, copd, respiratory-sound, machine-learning, screening, telemedicine, spirometry]
+socialPost: "Diagnosing asthma and COPD usually needs spirometry. A model trained on cough and vowel recordings plus basic clinical data sorted patients into healthy, asthma, or COPD at 90.3% accuracy on a public benchmark. Promising for low-resource screening, but it is a retrospective dataset study, not a clinical trial."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Diagnosing asthma and COPD typically requires spirometry, which is resource-intensive, episodic, and hard to deliver at scale in remote or low-resource settings. This study tests whether the sound of breathing can stand in for some of that. The authors built a machine learning model that fuses **handcrafted acoustic features** from cough and vowel recordings (spectral and temporal descriptors like MFCCs, chroma, and mel-spectrograms) with **precomputed sound embeddings and structured clinical metadata**, then classifies a patient as healthy, asthma, or COPD using a class-weighted CatBoost ensemble. It was developed and tested on the **AIRS Kaggle benchmark dataset**, a standardized public dataset, which makes the work reproducible but also means it is a dataset study rather than a clinical one.
+
+---
+
+## Key Findings
+
+- The model reached an **overall accuracy of 90.3%**, with class-wise F1 scores of **0.945 (healthy)**, **0.915 (asthma)**, and **0.842 (COPD)**
+- COPD was the hardest class, with the lowest F1, reflecting phenotypic overlap with the other groups
+- Ablation showed each design choice mattered: removing the **multimodal feature fusion** cost **7.8 points** of accuracy, removing the attention mechanism cost 4.9, and dropping data augmentation cost 6.7
+- Agreement metrics were solid for an imbalanced three-class problem (Matthews correlation coefficient **0.856**, Cohen's kappa **0.849**)
+
+<Callout type="evidence">
+  The ablation is the most informative part. The 7.8-point drop when feature fusion is removed shows the model is not riding on the acoustics alone; combining sound features with clinical metadata is what carries the performance. That is a useful design lesson, and it also tempers the "diagnose from a cough" framing, since the structured clinical data is doing real work.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **The appeal is access, if it ever reaches patients.** A sound-plus-questionnaire screen that runs on a phone could triage who needs spirometry in settings where spirometry is scarce. That is the right use case, and it is explicitly a screening tool, not a diagnosis.
+
+2. **Benchmark accuracy is not clinical accuracy.** The result lives entirely on a curated Kaggle dataset. Real patients cough in noisy rooms, on varied microphones, with comorbidities the benchmark does not represent. The authors themselves call for prospective validation on diverse, multi-institutional cohorts.
+
+3. **COPD, the costlier miss, was the weakest class.** The lowest F1 fell on the diagnosis where a missed or delayed catch carries the most consequence. Any deployment would need to know how the model behaves at the asthma-COPD boundary in real patients, not on balanced benchmark data.
+
+<Callout type="pitfall">
+  Reproducible on a public benchmark is not the same as ready for clinic, and the gap is wide here. Models trained on clean, balanced datasets routinely collapse on real-world audio, where background noise, microphone variation, and unrepresented patient populations degrade exactly the acoustic features the model depends on. Treat the 90.3% as a benchmark ceiling, not a clinical expectation.
+</Callout>
+
+---
+
+## My Takeaway
+
+This is a competent benchmark paper, and it is important to read it as one. The accuracy is good, the ablations are honest about what drives it, and the use of a public dataset means others can reproduce and extend the work, which is more than many clinical AI papers offer. But the distance between "90.3% on the AIRS Kaggle benchmark" and "useful for screening real patients" is the whole story, and it is unmeasured. Respiratory-sound classification has a long track record of impressive curated-dataset numbers that do not survive contact with a noisy exam room and a microphone the model never trained on. The concept is worth pursuing precisely because spirometry access is a real bottleneck, but until there is a prospective study on diverse patients and devices, this belongs in the "promising direction" column, not the "tool I would use" column.
+
+---
+
+[Read the full article at Scientific Reports](https://doi.org/10.1038/s41598-026-54803-7)

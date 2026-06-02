@@ -1,0 +1,54 @@
+---
+title: "The Real Value of Predictive AI Isn't the Prediction. It's Who Gets Treated."
+journal: "NEJM AI"
+year: 2026
+doi: "10.1056/AIpc2600139"
+keyFinding: "This economic analysis argues predictive AI multiplies the return on the therapies it directs by concentrating treatment on patients who benefit most. In a remote monitoring example, targeting patients at 60% rather than 30% baseline ED risk cuts the number needed to treat from 37 to 19; adding response-based targeting cuts it to roughly 7, raising the cost offset past the breakeven point. The implication: AI models should be judged on the outcomes they produce, not on AUC alone."
+lastUpdated: 2026-06-02
+tags: [predictive-ai, clinical-decision-support, health-economics, risk-stratification, value-based-care, number-needed-to-treat, health-policy]
+socialPost: "A health economist reframes predictive AI: its value is not the prediction, it is better targeting. Aim remote monitoring at 60% rather than 30% baseline risk and the number needed to treat falls from 37 to 19. Add response-based targeting and it drops to 7, flipping the therapy from money-losing to break-even."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This Policy Corner makes an economic argument that cuts against how predictive AI is usually evaluated. The standard scorecard is statistical: how well does the model discriminate, what is its AUC. The author argues that misses the point. A predictive model's real value is that it changes who gets treated, and when a therapy is concentrated among patients who benefit most, the number needed to treat falls and the return on that therapy rises. He calls predictive AI an "ROI multiplier" on the treatments it guides, working through two mechanisms: **risk-based targeting** (treat the patients at highest baseline risk) and **response-based targeting** (treat the patients most likely to respond). The argument is illustrated with two worked examples, remote physiological monitoring and Alzheimer's disease, then extended to the data, payment, and regulatory conditions that would let it work.
+
+---
+
+## Key Findings
+
+- In **remote physiological monitoring**, a program offered to patients at a **30%** baseline annual risk of an emergency department visit, with a pooled relative risk of 0.91, yields an absolute risk reduction of 2.7 points, a **number needed to treat of 37**, and a cost offset of roughly **$60 per patient-year**, well below breakeven
+- Targeting patients at **60%** baseline risk instead doubles the absolute risk reduction, cuts the **NNT to about 19**, and raises the offset to **$120**, purely from better selection, with no change in the treatment's effect
+- Adding **response-based targeting** (a relative risk of 0.75 in the selected subgroup) cuts the **NNT to roughly 7** and pushes the cost offset past **$300 per patient-year**, enough to reach breakeven
+- For **Alzheimer's disease**, broad deployment of an amyloid antibody like lecanemab (which slowed decline about **27% over 18 months**) implies an NNT of 25 to 30 to delay one institutionalization; targeting a high-progression subgroup could cut that to **10 to 12**, raising the per-patient cost offset from under $2,000 to $4,000 to $5,000
+- Realizing any of this depends on three conditions: longitudinal linked data, payment models (capitation, two-sided-risk ACOs) that let investors capture the savings, and regulatory clarity on iterative model updates
+
+<Callout type="evidence">
+  The reframing has teeth. A therapy that looks unaffordable at the population average can become cost-effective when AI concentrates it on the right subgroup, without the drug or device changing at all. That means the value of a predictive model is borrowed from the therapy it directs, which is why judging the model on AUC alone misses where the money and the patient benefit actually come from.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **A "low-value" therapy may just be a poorly targeted one.** Treatments that disappoint when given broadly, from remote monitoring to expensive disease-modifying drugs, can clear the cost-effectiveness bar when a model identifies who actually benefits. The therapy was never the problem; the allocation was.
+
+2. **Statistical performance is the wrong yardstick.** The author argues, in line with recent TRIPOD+AI and decision-analytic guidance, that models should be evaluated on the outcomes their recommendations produce, not on discrimination metrics that say nothing about how the output changes a treatment decision.
+
+3. **Payment structure determines whether any of this happens.** Under fee-for-service, an organization that uses AI to reduce avoidable utilization cuts its own revenue. The incentive to invest in precise targeting exists mainly under risk-bearing arrangements, which is a policy fact, not a technical one.
+
+<Callout type="pitfall">
+  Precision targeting has a flip side worth naming. Concentrating a therapy on the highest-benefit subgroup raises per-patient value but shrinks the treated population, which is good for cost but means narrowing who is offered treatment. If the model's risk estimate is biased against a group with thin training data, "response-based targeting" can quietly become a mechanism for withholding care from the patients the data underrepresented.
+</Callout>
+
+---
+
+## My Takeaway
+
+This is a conceptual piece, not a trial, and its worked examples are illustrative arithmetic rather than measured results, so read the specific numbers as scaffolding for an argument. But the argument is the right one. We keep asking whether a predictive model is accurate when the question that determines its worth is whether it changes the right decisions. The NNT math is genuinely clarifying: the same remote-monitoring program is a money-loser at a 30% risk threshold and a break-even proposition at 60%, and nothing about the intervention changed except who received it. The uncomfortable corollary, which the author underplays, is that targeting is also rationing with a friendlier name, and a model that targets badly will exclude badly. The framing is valuable; the equity guardrails are the part still to be built.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIpc2600139)

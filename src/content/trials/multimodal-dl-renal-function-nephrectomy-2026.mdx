@@ -1,0 +1,53 @@
+---
+title: "Predicting Kidney Function Loss Before Choosing How Much Kidney to Remove"
+journal: "Nature Communications"
+year: 2026
+doi: "10.1038/s41467-026-73813-7"
+keyFinding: "A multimodal deep learning model combining contrast-enhanced CT with clinical data from 1,621 patients predicted rapid glomerular filtration rate decline (greater than 3 mL/min/1.73 m² per year) after radical nephrectomy, reaching an AUC of 0.788 to 0.873 across external test sets and separating patients into groups with significantly different risk of chronic kidney disease progression."
+lastUpdated: 2026-06-02
+tags: [oncology, urology, renal-cell-carcinoma, nephrectomy, chronic-kidney-disease, deep-learning, ct-imaging, surgical-decision-making]
+socialPost: "For complex kidney tumors, surgeons weigh nephron-sparing partial nephrectomy against the simpler radical option. A model reading preoperative CT plus clinical data predicted rapid kidney function decline after radical surgery at 0.788 to 0.873 AUC, helping flag patients who should get the harder, kidney-preserving operation."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+For a complex kidney tumor, the surgeon faces a trade-off: a partial nephrectomy spares functioning kidney tissue but is technically demanding, while a radical nephrectomy removes the whole kidney and is simpler but costs the patient nephrons they may later need. The decision turns on a question that is hard to answer in advance: will this particular patient's remaining kidney function hold up after a radical operation, or will it decline fast enough to justify the harder, kidney-preserving surgery? This multicenter study built a deep learning model to forecast that. The authors analyzed **preoperative contrast-enhanced CT images plus clinical data from 1,621 patients** with renal cell carcinoma and trained a multimodal model to predict **rapid GFR decline**, defined as an annual drop greater than **3 mL/min/1.73 m²**, after radical nephrectomy.
+
+---
+
+## Key Findings
+
+- The model predicted rapid postoperative GFR decline with an **AUC of 0.788 to 0.873** across external test sets, indicating performance that held up on patients from centers outside the development cohort
+- It separated patients into **high- and low-risk groups** with significantly different risks of progressing to chronic kidney disease
+- The inputs are a **standard preoperative CT** and routine clinical variables, both already obtained before any nephrectomy decision
+- The intended use is concrete: flag the patients for whom a technically challenging partial nephrectomy is worth pursuing because radical surgery would leave them with inadequate kidney function
+
+<Callout type="evidence">
+  The clinical logic is clean. The model does not try to choose the operation; it answers the one preoperative question that should inform the choice. If a patient is predicted to tolerate radical nephrectomy with stable kidney function, the simpler surgery is reasonable. If rapid decline is likely, that tilts the calculus toward the harder nephron-sparing approach despite its difficulty.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **It targets a genuine decision point, not a downstream label.** Plenty of imaging models predict outcomes no one acts on. This one informs a choice surgeons actively struggle with, before the operation, when the prediction can still change the plan.
+
+2. **External validation across centers is a real strength.** Holding an AUC near 0.79 to 0.87 on outside test sets is more reassuring than a single-institution result, because surgical and imaging practices vary, and a model that survives that variation is closer to usable.
+
+3. **The threshold definition matters clinically.** A greater-than-3 mL/min/1.73 m² annual decline is the line between expected aging of kidney function and a trajectory toward chronic kidney disease. Anchoring the prediction to that clinically meaningful cutoff, rather than a generic risk score, makes the output actionable.
+
+<Callout type="pitfall">
+  A prediction that nudges toward partial nephrectomy carries surgical risk of its own. Nephron-sparing surgery for a complex tumor means longer operative time, more bleeding, and a higher chance of positive margins or complications. A model that flags rapid decline is only useful if the surgeon also weighs whether this patient can safely undergo the harder operation; "preserve the kidney" is not free, and the oncologic priority still comes first.
+</Callout>
+
+---
+
+## My Takeaway
+
+What I like about this study is its discipline: it does not try to automate the surgical decision, it answers the single preoperative question that should feed into it, and it validates that answer on outside patients. The choice between partial and radical nephrectomy for a complex tumor is exactly the kind of judgment where a calibrated risk estimate, available before the patient is on the table, could shift practice. The honest limits are that this is retrospective, that it predicts a functional surrogate rather than a hard patient outcome like dialysis or survival, and that knowing a patient will lose kidney function does not by itself mean the difficult nephron-sparing operation is the right call for them. As a preoperative input to a shared decision, though, it is the right shape for a clinical tool.
+
+---
+
+[Read the full article at Nature Communications](https://doi.org/10.1038/s41467-026-73813-7)

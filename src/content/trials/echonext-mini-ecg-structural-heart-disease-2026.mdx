@@ -1,0 +1,53 @@
+---
+title: "An Open ECG Dataset for Structural Heart Disease, and a Model That Reads It"
+journal: "NEJM AI"
+year: 2026
+doi: "10.1056/AIdbp2500516"
+keyFinding: "EchoNext-Mini is a publicly released dataset of 100,000 ECGs from 36,286 patients, each linked to echocardiogram-confirmed structural heart disease labels; 52% of ECGs were positive for some structural disease. The accompanying open-source model detected any structural heart disease from the ECG waveform at an AUROC of 82.0, with 70.1% sensitivity and 77.9% specificity, approaching the 85.2 AUROC of the larger proprietary EchoNext model."
+lastUpdated: 2026-06-02
+tags: [cardiology, ecg, structural-heart-disease, screening, echocardiography, open-source, dataset, clinical-decision-support]
+socialPost: "Structural heart disease is underdiagnosed because echocardiography is the only gold standard and it is not everywhere. A new open dataset of 100,000 ECGs linked to echo findings, plus a model that reads them at 82.0 AUROC, lets anyone build ECG-based screening tools."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Structural heart disease, the valve, wall, and chamber problems that include reduced ejection fraction, thickened ventricular walls, and significant valvular lesions, stays underdiagnosed in large part because echocardiography is the only definitive test and it is neither cheap nor universally available. The same group that published EchoNext, a neural network that flags structural disease from a standard 12-lead ECG, has now released a smaller version for the research community. The EchoNext-Mini dataset is a deidentified subset of the original: **100,000 ECGs from 36,286 patients** at NewYork-Presbyterian/Columbia, each paired with echocardiogram-derived diagnoses across **11 categories** of structural heart disease plus demographics. The authors trained a model with the same architecture as the original and made both the data and the model publicly available.
+
+---
+
+## Key Findings
+
+- The dataset is heavily enriched for disease: **52% of ECGs were positive for some structural heart disease**, with the most common being elevated left ventricular wall thickness (**24%**), heart failure with reduced ejection fraction (**24%**), and pulmonary hypertension (**19%**)
+- The EchoNext-Mini model detected any structural heart disease from the ECG waveform at an **AUROC of 82.0** (95% CI, 80.9 to 83.1), with a sensitivity of **70.1%** and a specificity of **77.9%**
+- Performance on individual subdiagnoses ranged from an **AUROC of 73.4** for left ventricular wall thickness of at least 1.3 cm to **86.6** for right ventricular systolic dysfunction
+- The open model trailed the original proprietary EchoNext (AUROC **85.2**) by roughly 3 points, a modest gap for a model trained on a fraction of the data
+
+<Callout type="evidence">
+  The contribution here is not a new performance ceiling; it is access. The original EchoNext outperformed cardiologists and held up in a prospective silent validation. Releasing 100,000 labeled ECGs lowers the barrier for any group to test, audit, or improve ECG-based structural heart disease detection without first assembling a proprietary echo-linked cohort.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **The ECG may become a screening triage step for echocardiography.** A waveform model that catches 70% of structural disease at 78% specificity is not a substitute for an echo, but it can identify which asymptomatic patients with an existing ECG deserve one. That changes the economics of screening in primary care and resource-limited settings.
+
+2. **Open datasets accelerate scrutiny, not just development.** A publicly available, echo-labeled ECG cohort lets independent researchers probe where these models fail, including across demographic subgroups, rather than relying on the developing institution's own evaluation.
+
+3. **The single-institution origin is a known constraint.** The data come from one academic medical center, and the 52% disease prevalence reflects a referral population, not the community. Models trained on EchoNext-Mini will need external validation before any screening claim generalizes.
+
+<Callout type="pitfall">
+  A 70.1% sensitivity means roughly three in ten patients with structural heart disease are missed by the ECG model. Used as a rule-out, it would falsely reassure those patients. The right framing is rule-in triage: a positive result prompts an echo, while a negative result does not close the question.
+</Callout>
+
+---
+
+## My Takeaway
+
+The interesting move here is releasing the data, not the model. Most clinical AI lives behind institutional walls, validated by the people who built it, which makes independent failure-mode analysis nearly impossible. A 100,000-ECG cohort with echo-confirmed labels is a public asset that other groups can stress-test, including for the demographic blind spots that ECG models are prone to. The model itself is a reasonable baseline rather than a breakthrough, and that is the point: it gives the community a floor to beat. For practicing cardiologists the near-term relevance is the underlying premise, that the ECG sitting in nearly every chart carries more structural information than we routinely extract from it.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIdbp2500516)

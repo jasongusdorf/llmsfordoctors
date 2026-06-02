@@ -1,0 +1,54 @@
+---
+title: "Who Consented to Be Recorded? The Legal Hole Under Ambient AI Scribes"
+journal: "NEJM AI"
+year: 2026
+doi: "10.1056/AIp2600203"
+keyFinding: "Ambient AI scribes record clinical encounters under a patchwork of state law: 34 states and DC require only one party to consent, 12 require all parties, and 4 apply mixed standards. The first class action, Saucedo v. Sharp Healthcare (November 2025), alleges recording without consent and falsely templated consent notes. In all-party states, eavesdropping violations can carry criminal penalties including up to seven years' imprisonment, and HIPAA does not cover the gap."
+lastUpdated: 2026-06-02
+tags: [ambient-ai, ai-scribes, documentation, legal-liability, consent, privacy, health-policy]
+socialPost: "Ambient AI scribes record patient visits, but recording consent is governed by state eavesdropping law, not HIPAA. 34 states need one-party consent, 12 need all-party, 4 are mixed. The first class action (Saucedo v. Sharp Healthcare) alleges templated consent notes for visits the patient says he never agreed to record."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Ambient AI scribes listen to the patient encounter and draft the note, and they have spread through health systems faster than the law governing them has settled. This Perspective maps the legal exposure, organized around the first major class action in the space. In **Saucedo v. Sharp Healthcare**, filed November 2025, a patient alleges that Sharp deployed the Abridge scribe across its system and recorded his visit without consent, that a templated statement was added to his record claiming he had consented when he says he did not, that the recording was transmitted to the vendor without separate authorization, and that the system could not honor his deletion request. The authors use the case to walk through the statutory landscape that actually governs clinical recording, which is not HIPAA but state wiretapping and eavesdropping law.
+
+---
+
+## Key Findings
+
+- Recording consent is set by state law, and it is a patchwork: **34 states and DC** require only **one party** to consent, **12 states** require **all parties**, and **4 states** apply **mixed standards** that vary by whether the encounter is in person or by telehealth
+- These statutes operate independently of HIPAA, apply to all participants rather than just patients, and apply regardless of how sensitive the conversation is
+- In all-party and mixed states, eavesdropping violations can carry both civil and criminal penalties, including imprisonment of **up to seven years**
+- "Bycatching," the incidental capture of conversations from people outside the patient-clinician pair, is a live risk in shared spaces like emergency departments and inpatient wards, and in all-party states may legally require consent from bystanders, family, interpreters, and staff
+- The criminal exposure for eavesdropping often falls on the **individual** who initiated the recording, so clinicians in all-party states should not assume the institution shields them
+
+<Callout type="evidence">
+  The core misconception is that HIPAA and a vendor's business associate agreement cover recording. They do not. HIPAA governs how protected health information is used and disclosed; it says nothing about whether you were allowed to make the audio recording in the first place. That question lives in state eavesdropping statutes that predate ambient AI and were never written with it in mind.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Know your state's rule before you assume consent is handled.** A clinician in California, Massachusetts, Pennsylvania, or another all-party state faces a materially different obligation than one in a one-party state, and the templated "patient consented" line in the note is exactly what the Saucedo suit is built around.
+
+2. **Auto-inserted consent language is a liability, not a safeguard.** The authors argue institutions should prohibit automated templated consent documentation and require active, verifiable consent for both recording and transmission, with an opt-out that does not compromise care.
+
+3. **Shared clinical spaces are the hard case.** In an emergency department or a semiprivate ward, the microphone catches more than the target patient. In all-party states that incidental capture may itself require consent from everyone nearby, a requirement that is logistically difficult and easy to overlook.
+
+<Callout type="pitfall">
+  The personal-liability point is the one clinicians miss. Civil suits target health systems, but criminal eavesdropping statutes can reach the person who pressed record. Until courts or legislatures carve out a health care exemption, a clinician in an all-party state who relies on a templated consent note may be personally exposed in a way the institution's lawyers cannot fully absorb.
+</Callout>
+
+---
+
+## My Takeaway
+
+The Saucedo complaint reads like a preview of where this is headed: not a dispute over whether ambient AI helps, but over whether anyone actually asked the patient. The technology was adopted on the assumption that a HIPAA-compliant vendor agreement covered the legal bases, and it does not, because the binding question is governed by state recording law that varies wildly across the country. The practical takeaway for clinicians is unglamorous and important: find out whether your state requires all-party consent, and do not trust an auto-populated note to prove the patient agreed. The cleaner long-term fix is legislative, a health care carve-out that tells everyone what the rules are, but that does not exist yet, and in the meantime the exposure is real and partly personal.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIp2600203)

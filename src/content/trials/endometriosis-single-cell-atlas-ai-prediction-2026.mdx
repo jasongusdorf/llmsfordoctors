@@ -1,0 +1,53 @@
+---
+title: "A Cell-by-Cell Atlas of Endometriosis, and an 11-Gene Model to Predict It"
+journal: "Nature Communications"
+year: 2026
+doi: "10.1038/s41467-026-73020-4"
+keyFinding: "Researchers built a single-cell atlas of 466,371 endometrial cells from 35 endometriosis and 25 non-endometriosis donors, none on hormonal treatment, revealing increased inflammation, adhesion, proliferation, and angiogenesis in the eutopic endometrium of patients. Neural network models predicted disease severity at a median AUC of 0.83, including one model based on just 11 dysregulated genes. The models are not externally validated and are framed as hypothesis-generating."
+lastUpdated: 2026-06-02
+tags: [gynecology, endometriosis, single-cell-sequencing, biomarkers, diagnosis, neural-networks, womens-health]
+socialPost: "Endometriosis affects 1 in 9 women and takes 6 to 11 years to diagnose, often requiring surgery. A single-cell atlas of 466,371 endometrial cells found inflammatory and proliferative changes even in non-lesion tissue, and an 11-gene neural net predicted disease at a median AUC of 0.83. Early, not yet validated."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Endometriosis affects roughly **1 in 9 women**, and the path to diagnosis is notoriously slow: an average of **6 to 11 years** from first symptoms, often ending only after surgical laparoscopy, because there is no validated in vitro diagnostic test. This study attacks the problem at the level of individual cells. The authors built a **single-cell atlas of 466,371 endometrial cells** from **35 endometriosis and 25 non-endometriosis donors**, importantly all free of exogenous hormonal treatment, which removes a confounder that has muddied prior work. They characterized how gene expression and cell-to-cell signaling differ in the endometrium of affected patients, then used a tool called ScaiVision to train neural networks that predict disease and its severity from the molecular data.
+
+---
+
+## Key Findings
+
+- The eutopic endometrium of endometriosis patients showed broad molecular shifts, including increased **inflammation, adhesion, proliferation, cell survival, and angiogenesis** across multiple cell types
+- These changes appear in the **endometrium itself**, not just in the ectopic lesions, suggesting the tissue that sheds each month is already altered in disease
+- Neural network models predicted endometriosis of varying severity at a **median AUC of 0.83**
+- A parsimonious model built on just **11 dysregulated genes** reached the same predictive performance on held-out samples, pointing toward a compact candidate signature
+
+<Callout type="evidence">
+  The decision to study only patients off hormonal treatment is what gives the atlas its value. Hormones reshape the endometrium profoundly, and prior datasets mixing treated and untreated patients could not cleanly separate disease biology from drug effect. A hormone-naive atlas across menstrual cycle phases is the cleaner reference these molecular comparisons needed.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **The long-term prize is a non-surgical diagnostic.** If an 11-gene signature in accessible endometrial tissue can flag endometriosis, it points toward a biopsy-based or eventually less invasive test that could shorten a diagnostic odyssey that now averages the better part of a decade.
+
+2. **The biology suggests therapeutic targets, not just diagnostic ones.** The specific pathways flagged, inflammation, adhesion, angiogenesis, are druggable, and identifying which are dysregulated in the endometrium itself gives drug development concrete leads beyond hormonal suppression.
+
+3. **An AUC of 0.83 is a starting line.** It is promising for a hard diagnostic problem, but it is a development-cohort number on 60 donors, and the authors are explicit that the models are not yet externally validated.
+
+<Callout type="pitfall">
+  The authors say it plainly, and it should not get lost in the enthusiasm: these models are not externally validated and are meant for hypothesis generation, not clinical use. A median AUC of 0.83 on 60 carefully selected, hormone-naive donors says little about how an 11-gene classifier would perform in a general clinic, where patients are on hormones, have comorbid conditions, and present at every cycle phase. This is the first step toward a test, not the test.
+</Callout>
+
+---
+
+## My Takeaway
+
+The strongest part of this paper is the atlas, not the classifier. A clean, hormone-naive, single-cell map of the endometrium in endometriosis is a genuine resource, and the finding that the disease leaves a molecular fingerprint in the eutopic tissue, not only in the lesions, reframes how to think about both diagnosis and pathophysiology. The 11-gene model is the headline that will travel, and it is the part to hold most loosely: 60 donors, no external validation, and the authors' own framing as hypothesis-generating. For a condition where women routinely wait years for a surgical diagnosis, even an early molecular lead matters, because the current standard is so poor. But the distance from "median AUC 0.83 in a research cohort" to "a test a gynecologist can order" is long, and this paper is honest about standing at the beginning of it.
+
+---
+
+[Read the full article at Nature Communications](https://doi.org/10.1038/s41467-026-73020-4)

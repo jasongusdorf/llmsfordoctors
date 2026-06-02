@@ -1,0 +1,54 @@
+---
+title: "Where Does the Recording Go? The Privacy Fine Print of AI Scribes"
+journal: "NEJM AI"
+year: 2026
+doi: "10.1056/AIpc2501401"
+keyFinding: "AI scribes generate four data types (audio, transcript, draft note, approved note) and vendor handling varies sharply: audio retention ranges from immediate deletion (Freed, within 60 seconds) to 90 days (Microsoft Dragon Copilot), and most vendors use deidentified data for AI training. HIPAA sets no retention limits, while Medicare requires the physician-approved note be kept five years; audio and transcripts usually fall outside the medical record unless a health system chooses to keep them."
+lastUpdated: 2026-06-02
+tags: [ai-scribes, ambient-ai, privacy, data-governance, hipaa, documentation, health-policy]
+socialPost: "AI scribes create four kinds of data: audio, transcript, draft note, and approved note. Vendors handle them very differently: audio retention runs from under 60 seconds (Freed) to 90 days (Microsoft Dragon Copilot), and most train AI on deidentified data. HIPAA sets no retention rules; the choices fall to the health system."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+When an AI scribe records a visit, it does not produce one artifact, it produces four: the audio, a transcript, an unedited draft note, and the physician-approved note that enters the chart. Each can be stored, shared, or used to train the vendor's model on different terms, and there is no harmonized standard. This Policy Corner surveys how leading vendors actually handle these data types and maps the federal and state law that constrains health systems. The authors compare published retention and training policies across vendors including Freed, Heidi Health, Microsoft Dragon Copilot, Nabla, Suki, Sunoh.ai, Tali AI, and Upheal, and analyze where HIPAA, Medicare regulations, and state privacy laws do and do not reach.
+
+---
+
+## Key Findings
+
+- **Audio retention varies enormously:** Freed deletes it within **60 seconds** of generating the note, Nabla processes it in chunks and never retains it, Sunoh.ai deletes after **7 days**, Tali AI keeps it up to **48 hours**, and Microsoft Dragon Copilot retains it up to **90 days**
+- **Transcript and note retention is longer and more variable,** from 14-day defaults to Heidi Health's "never delete" default, with vendors often blurring the unedited draft note and the final approved note
+- Across vendors that train on this data, the consistent practice is **deidentified data only**, with protected health information excluded, though some vendors (Abridge) disclose retention only through private contracts
+- **HIPAA sets no minimum or maximum retention period.** Medicare requires the physician-approved note be kept at least **5 years** as part of the medical record; audio and transcripts likely fall outside "medical record" unless the system treats them as documentation
+- State medical records laws generally require retention of **5 to 10 years**, and state wiretapping and consumer-privacy laws add another layer, as the Saucedo v. Sharp Healthcare suit illustrates
+
+<Callout type="evidence">
+  The tension is structural. The most privacy-protective choice is to delete the audio and transcript the moment the note is finalized. But health systems increasingly want to keep them, as ground truth to audit scribe accuracy, for research, and to evaluate clinician behavior. Those are legitimate uses, and they pull directly against the patient's privacy interest. The default should not be silent retention.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Retention is a choice, and right now the vendor often makes it by default.** A health system that has not specified its preference is inheriting the vendor's, which might be "never delete." The authors argue systems should define collection, storage, access, retention, and deletion explicitly for each of the four data types before signing a business associate agreement.
+
+2. **Deidentification helps but does not fully solve the problem.** Removing HIPAA's 18 identifiers lets a transcript be shared more freely, but reidentification remains possible, and deidentifying audio is technically much harder because the voice itself is a biomarker. Data use agreements should include explicit reidentification bans.
+
+3. **Selling PHI for AI development is a trap.** The authors note that sharing PHI with a company in exchange for a perpetual license to use any resulting AI tool can violate HIPAA's prohibition on the sale of PHI without prior written authorization, a live issue in recent case law.
+
+<Callout type="pitfall">
+  The least visible data type carries the most risk. The physician-approved note is governed by familiar medical-records rules. The audio recording is the orphan: HIPAA does not require keeping it, deidentifying it is hard, and a 90-day retention window means a sensitive conversation sits on a vendor's cloud long after the visit, often without the patient or the clinician knowing for how long.
+</Callout>
+
+---
+
+## My Takeaway
+
+The useful contribution here is the table, and what it reveals is that there is no industry norm, only a spread of vendor defaults that range from privacy-conscious to indefinite. For a clinician, the practical implication is to stop assuming the scribe handles privacy sensibly and start asking the procurement-level questions: Is the audio kept, and for how long? Is my patient's transcript training someone's model? Can a patient actually get a recording deleted on request? Those are the questions the Saucedo plaintiff is now litigating, and the answers turn out to depend less on HIPAA than on a contract most clinicians never see. The honest summary is that the law gives health systems wide latitude on retention, which means the privacy posture of an AI scribe is a governance decision, not a technical given.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIpc2501401)

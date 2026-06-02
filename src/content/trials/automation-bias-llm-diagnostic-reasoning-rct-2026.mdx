@@ -1,0 +1,54 @@
+---
+title: "AI Literacy Training Didn't Stop Doctors From Following the Chatbot Off a Cliff"
+journal: "NEJM AI"
+year: 2026
+doi: "10.1056/AIoa2501001"
+keyFinding: "In a randomized trial of 44 physicians who had completed 20 hours of AI literacy training, those given LLM suggestions containing deliberate errors scored a mean 73.3% on diagnostic reasoning versus 84.9% for physicians given error-free suggestions, an adjusted 14.0-percentage-point drop (P<0.0001). Top-choice diagnosis accuracy fell from 90.5% to 76.1%. Training and clinical experience did not protect against this automation bias."
+lastUpdated: 2026-06-02
+tags: [llm, clinical-reasoning, automation-bias, diagnostic-error, patient-safety, randomized-controlled-trial, ai-literacy]
+socialPost: "44 physicians completed 20 hours of AI literacy training, then diagnosed cases with ChatGPT-4o. When the model's suggestions contained deliberate errors, diagnostic accuracy fell from 84.9% to 73.3%. Training did not prevent it. More experienced doctors were not more resistant."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+The worry about large language models in diagnosis is not that they are wrong, it is that they are wrong persuasively, and that clinicians will defer to a fluent answer rather than scrutinize it. This single-blind randomized trial set out to measure that automation bias under conditions designed to favor the physician. The authors recruited **44 physicians in Pakistan** who had each completed a **20-hour AI literacy program** covering LLM capabilities, prompt engineering, and how to critically evaluate AI output. Participants were randomized 1:1 to diagnose six clinical vignettes with ChatGPT-4o available as an optional consult. The control group received error-free LLM suggestions on all six cases. The treatment group received suggestions with deliberate, clinically significant errors seeded into three of the six, randomly ordered to prevent pattern recognition. Physicians could consult the model or ignore it, and kept access to conventional resources like PubMed. The primary outcome was a blinded composite diagnostic reasoning score.
+
+---
+
+## Key Findings
+
+- Physicians given erroneous LLM suggestions scored a mean **73.3%** on diagnostic reasoning versus **84.9%** in the control group, an adjusted **14.0-percentage-point reduction** (95% CI, −18.9 to −9.1; P&lt;0.0001)
+- Top-choice diagnosis accuracy fell from **90.5%** to **76.1%**, an adjusted 18.3-point drop
+- The effect was not explained by differential AI use: consultation rates were nearly identical (**68.9%** treatment vs. **66.7%** control)
+- **Experience offered no protection.** Physicians above the median in years of practice showed a larger drop (−16.6 points) than those below it (−9.1)
+- An unexplained subgroup signal: male physicians showed a −25.8-point drop while female physicians showed −2.1, a difference the authors flag as descriptive and not a formal test
+
+<Callout type="evidence">
+  The design isolates the failure mode that matters. This was not LLM versus no LLM; both groups had the model, and prior work shows correct suggestions help. The question was whether trained, autonomous physicians could catch and override wrong suggestions. They largely could not. A 14-point accuracy collapse from seeding errors into half the cases is the cost of fluent confidence.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **AI literacy training is necessary but clearly not sufficient.** Health systems are leaning on training programs to inoculate clinicians against over-reliance. These physicians had 20 hours of it and still followed the model into error. Training the user is not a substitute for validating the tool.
+
+2. **On-demand consultation does not preserve judgment the way we assume.** The premise that letting clinicians choose when to consult AI keeps them in control did not hold. Voluntary, discretionary use produced the same deference as forced review.
+
+3. **The seniority finding should unsettle anyone counting on experienced clinicians as a backstop.** Years in practice did not confer resistance, and pointed in the wrong direction. Whatever protects against automation bias, it is not simply expertise.
+
+<Callout type="pitfall">
+  The dangerous LLM error is the subtle one. These were errors designed to be detectable by a competent physician but not obvious on casual review, which is exactly what hallucinations look like in practice. A model that was reliably, obviously wrong would be safer than one that is usually right and occasionally, plausibly, wrong.
+</Callout>
+
+---
+
+## My Takeaway
+
+This is a small trial with an outsized message, and the message is uncomfortable: the standard mitigation for AI over-reliance, train the clinician and keep them in the loop, did not work here. Forty-four physicians is not a large sample, the cohort was drawn from a single AI-training program in one country, and the subgroup findings should be read as hypotheses. But the central result is hard to wave away. We are deploying diagnostic LLMs into workflows on the assumption that a trained physician will catch the model's mistakes, and this trial suggests that assumption is shaky precisely when it matters, when the error is subtle and the prose is confident. The burden belongs on validation and guardrails, not on the clinician's willpower.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2501001)
