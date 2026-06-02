@@ -1,0 +1,53 @@
+---
+title: "EchoJEPA: A Foundation Model That Learns the Heart and Ignores the Noise"
+journal: "arXiv (preprint)"
+year: 2026
+doi: "10.48550/arXiv.2602.02603"
+keyFinding: "EchoJEPA, trained on 18 million echocardiograms from 300,000 patients, learns anatomy by predicting masked latent representations rather than reconstructing pixels. With frozen backbones it improved left ventricular ejection fraction estimation by about 20% and right ventricular systolic pressure by 17% over leading baselines, reached 79% view-classification accuracy using just 1% of labeled data (versus 42% for the best baseline at 100%), and its zero-shot performance on pediatric patients exceeded fully fine-tuned baselines."
+lastUpdated: 2026-06-02
+tags: [cardiology, echocardiography, foundation-model, self-supervised-learning, ejection-fraction, medical-imaging, preprint]
+socialPost: "EchoJEPA is an echo foundation model trained on 18M studies from 300K patients. By predicting latent anatomy instead of pixels, it improved ejection fraction estimation ~20%, hit 79% view classification with 1% of labels (vs 42% at full data), and beat fine-tuned baselines zero-shot on kids."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Echocardiography is noisy by nature: speckle, shadowing, and acquisition artifacts sit on top of the anatomy a model is actually trying to learn. Most foundation models train by reconstructing pixels, which forces them to model the noise as faithfully as the heart. EchoJEPA takes a different route, borrowing the joint-embedding predictive architecture popularized for video by Yann LeCun's group. Instead of reconstructing pixels, it predicts masked representations in a learned latent space, where speckle can be discarded. The model was pretrained on **18 million echocardiograms from roughly 300,000 patients**, which the authors describe as the largest echo pretraining corpus assembled to date, and evaluated with a multi-view probing framework that keeps the backbone frozen. This is a preprint from the Bo Wang lab; it has not yet completed peer review.
+
+---
+
+## Key Findings
+
+- With a **frozen backbone**, EchoJEPA improved **left ventricular ejection fraction** estimation by approximately **20%** and **right ventricular systolic pressure** estimation by **17%** over leading baselines
+- It was strikingly **label-efficient**: it reached **79% view-classification accuracy using only 1% of labeled data**, versus **42%** for the best baseline trained on the full labeled set
+- It was more **robust** to image degradation, declining only **2%** under physics-informed acoustic perturbations compared with **17%** for competitors
+- Its **zero-shot** performance on **pediatric patients** exceeded fully fine-tuned baselines, despite never being tuned on children
+
+<Callout type="evidence">
+  The label-efficiency number is the one that matters for clinical translation. A model that hits 79% on a task with 1% of the labels, where the best competitor needs all of them to reach 42%, changes the economics of building echo AI. Annotated echo data is the scarce resource; a model that needs far less of it lowers the barrier to every downstream application.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **This is a backbone, not a product.** EchoJEPA does not read echos for patients. It is a pretrained representation that downstream models can build on, and its value is that those downstream models should need less labeled data and generalize better.
+
+2. **The robustness and pediatric results point at the real problem with echo AI: generalization.** Models trained on adult studies from one lab routinely fail on different machines, different operators, and different patient populations. A model that degrades only 2% under acoustic perturbation and works zero-shot on children is addressing exactly the brittleness that has kept echo AI in the validation phase.
+
+3. **Latent prediction may generalize beyond echo.** The authors frame this as evidence that predicting representations, rather than pixels, is a better paradigm for noisy medical imaging broadly. Ultrasound, with its inherent speckle, is the natural proving ground, and the companion US-JEPA work makes the same argument for general ultrasound.
+
+<Callout type="pitfall">
+  Frozen-backbone probing on benchmark tasks is not the same as prospective clinical performance, and a 20% relative improvement in ejection fraction estimation is a benchmark delta, not a demonstration that a cardiologist's read changes. This is a preprint reporting representation-learning metrics. Before any of it touches a patient, it needs the prospective, multi-site validation that echo AI has historically struggled to deliver.
+</Callout>
+
+---
+
+## My Takeaway
+
+The interesting claim in EchoJEPA is not the headline accuracy, it is the sample efficiency and the robustness, because those are the properties that have kept echocardiography AI stuck. Echo is operator-dependent, machine-dependent, and label-poor, and a model that needs a hundredth of the labels while shrugging off acoustic noise is attacking the right constraints. The pediatric zero-shot result is the kind of thing that makes you sit up: a model that never saw children outperforming one that was fine-tuned on them suggests it learned something closer to cardiac anatomy than to the surface statistics of its training set. The caveats are real and worth stating plainly: this is a preprint, the metrics are from frozen-backbone probes, and the distance from "better LVEF estimation on a benchmark" to "a tool I trust in the echo lab" is the entire unfinished part of the story. But as a bet on how to build the next generation of echo models, latent prediction looks like the right direction.
+
+---
+
+[Read the full preprint on arXiv](https://doi.org/10.48550/arXiv.2602.02603)

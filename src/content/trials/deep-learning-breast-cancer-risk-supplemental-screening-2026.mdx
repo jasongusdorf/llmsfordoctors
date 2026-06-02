@@ -1,0 +1,54 @@
+---
+title: "A Risk Model That Reads the Mammogram Beats Breast Density at Predicting Cancer"
+journal: "JAMA Network Open"
+year: 2026
+doi: "10.1001/jamanetworkopen.2026.10559"
+keyFinding: "In 123,091 screening mammograms from 67,019 women, a deep learning risk model predicted 5-year breast cancer far better than radiologist-assessed breast density (AUROC 0.71 vs 0.53, P<0.001). It also stratified false-negative screening results, which rose from 0.6 per 1,000 in the low-risk group to 2.1 per 1,000 in the high-risk group. Adding breast density to the model did not improve it, arguing for image-derived risk over the binary dense-versus-nondense trigger now written into federal policy."
+lastUpdated: 2026-06-02
+tags: [radiology, breast-cancer, mammography, screening, risk-stratification, deep-learning, breast-density]
+socialPost: "Federal law now makes breast density a trigger for supplemental screening, but density barely predicts cancer (AUROC 0.53). In 123,091 mammograms, a deep learning risk model reading the same image reached 0.71 and stratified false-negative screens. The case for risk-based, not density-based, screening."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Since September 2024, federal law requires that women be told whether their breasts are dense, a category that captures 40% to 50% of screened women and is meant to flag both higher cancer risk and the masking of tumors on mammography. In more than 30 states, dense breasts now unlock insurance coverage for supplemental imaging. The problem is that breast density is a coarse, subjectively assessed binary that varies between radiologists and predicts cancer weakly. This retrospective cohort study tested whether a deep learning model reading the same mammogram could do better. The authors analyzed **123,091 bilateral screening mammograms from 67,019 women** aged 30 and older, performed across five sites of an academic health system from 2009 to 2018, with follow-up through 2023 to capture 5-year outcomes. They compared a deep learning risk model against radiologist-assessed BI-RADS density for predicting future cancer and false-negative screens.
+
+---
+
+## Key Findings
+
+- The deep learning model predicted **5-year breast cancer** far better than density: **AUROC 0.71** (95% CI, 0.70-0.72) versus **0.53** (95% CI, 0.52-0.54) for density (P&lt;0.001)
+- **False-negative rates rose across model risk groups**: **0.6 per 1,000** examinations in the low-risk group, **1.0** in intermediate, and **2.1** in high-risk
+- By density, false-negative rates were **1.7 per 1,000** for dense breasts versus **0.6** for nondense, a real but much coarser separation
+- **Adding breast density to the deep learning model did not improve it**, indicating the model already captures whatever signal density carries
+- The cohort was large and mature: median age 58, with 41.4% of mammograms classified as dense
+
+<Callout type="evidence">
+  The density comparison is almost stark. An AUROC of 0.53 is barely better than a coin flip, which is what density alone offers as a cancer predictor, yet it is the metric now written into federal notification law and state coverage mandates. A model reading the identical image reaches 0.71. The policy is anchored to the weaker of two signals that come from the same mammogram.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **The case for risk-based supplemental screening is now quantified.** Offering supplemental imaging to every woman with dense breasts treats a poor predictor as a triage rule. A model that stratifies actual cancer risk could direct supplemental MRI or ultrasound to the women most likely to benefit and spare the rest the cost and false positives.
+
+2. **False-negative stratification is the clinically pointed result.** The model did not just predict who gets cancer; it identified who is likely to have a cancer missed on a normal-looking screen. Those are precisely the women for whom supplemental imaging has the most to offer, and density identified them only weakly.
+
+3. **Policy and evidence have diverged.** The authors are direct that density notification law predates these tools and reflects the science of its time. Their data support transitioning toward image-derived risk models as the trigger for supplemental screening, though that shift requires prospective validation and a path through the regulatory and payment systems built around density.
+
+<Callout type="pitfall">
+  A retrospective AUROC, however large the cohort, is not a screening program. The model was validated on historical data from one health system, and deep learning risk models are known to vary across mammography vendors, populations, and image-acquisition settings. Before density triggers are replaced by an algorithm, the model needs prospective, multi-vendor validation and careful attention to whether it performs equitably across the groups that density-based policy was, in part, meant to protect.
+</Callout>
+
+---
+
+## My Takeaway
+
+The comparison at the center of this study is hard to argue with: two signals come from the same mammogram, and the one now embedded in federal law performs at chance while the deep learning model reaches a respectable 0.71. That is a strong argument that breast density, for all its regulatory momentum, is the wrong trigger for supplemental screening. The false-negative result is what gives the paper clinical teeth, because identifying women whose cancers are likely to be missed on a normal screen is exactly the use case supplemental imaging exists to serve. The caution is the familiar one for imaging AI: this is retrospective, single-system, and unvalidated prospectively, and a model that will be used to gate access to imaging carries real equity stakes that a benchmark AUROC cannot address. Still, the direction is clear, and the policy built on density is going to look increasingly hard to defend as these models mature.
+
+---
+
+[Read the full article at JAMA Network Open](https://doi.org/10.1001/jamanetworkopen.2026.10559)

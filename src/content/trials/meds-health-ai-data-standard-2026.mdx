@@ -1,0 +1,53 @@
+---
+title: "The Boring Infrastructure Health AI Has Been Missing: A Data Standard for EHRs"
+journal: "NEJM AI"
+year: 2026
+doi: "10.1056/AIra2501253"
+keyFinding: "The Medical Event Data Standard (MEDS) is an open-source data standard and ecosystem for applying AI to electronic health record data, designed for simplicity, portability, and foundation-model workflows. As of March 2026 it was in use across 21 institutions, 27 papers and preprints, 17 datasets, and 12 AI algorithms. Tools built on it report computational speedups from 1.9 to roughly 40,000 times faster than prior workflows and up to 70% fewer lines of code."
+lastUpdated: 2026-06-02
+tags: [health-ai, ehr, data-standards, foundation-models, reproducibility, open-source, infrastructure, review]
+socialPost: "Health AI on EHR data has no widely adopted data standard, which quietly blocks reproducibility and open-source progress. MEDS is one answer: by March 2026 it spanned 21 institutions, 17 datasets, and 12 algorithms, with tools reporting up to 40,000x speedups and 70% less code. Plumbing, but it matters."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Observational health informatics has long had shared data standards, and they made the field reproducible and cumulative. The newer work of applying AI to electronic health record data has had no equivalent, and that absence quietly holds the field back: results are hard to reproduce, open-source tools are hard to share, and foundation models are hard to develop collaboratively when every group reshapes the raw data its own way. The **Medical Event Data Standard (MEDS)** is an open-source data standard and ecosystem built to fill that gap. This article, from the standard's authors, describes MEDS in detail and reviews its adoption, strengths, and weaknesses. It was designed around three priorities: simplicity, transportability of algorithms across datasets, and support for the workflows used to train foundation models. (This summary is based on the published abstract; the full text is available to NEJM AI subscribers.)
+
+---
+
+## Key Findings
+
+- As of **March 2026**, MEDS was in use across **21 institutions**, in at least **27 academic papers and preprints**, supporting work with **17 datasets** and **12 AI algorithms**
+- Tools in the MEDS ecosystem reported computational **speedups ranging from 1.9 to roughly 40,000 times** faster than prior tools or common ad hoc workflows
+- In case-study comparisons, codebases built on MEDS used **up to 70% fewer lines** of functional Python code
+- The standard has supported the development of several **frontier foundation models** for EHR data
+
+<Callout type="evidence">
+  The adoption numbers are the argument. A data standard is only worth anything if people use it, and 21 institutions, 17 datasets, and 12 algorithms is the kind of traction that distinguishes a standard from a proposal. The order-of-magnitude speedups and the code reductions explain why: MEDS is being adopted not out of virtue but because building on it is faster and simpler than the alternative.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **This is upstream of anything a clinician touches, and that is exactly why it matters.** Clinicians will never see MEDS. But the reliability of the EHR-based AI tools they eventually do see depends on whether the field can reproduce results and build on each other's work, which is what a shared standard enables.
+
+2. **Reproducibility is the real payoff.** Much of health AI cannot be replicated because the data pipeline is bespoke and undocumented. A common standard makes it possible to run someone else's method on your data and to trust that a published result means what it claims, which is a precondition for the field maturing.
+
+3. **Foundation models need standardized fuel.** Training large models on EHR data across institutions is nearly impossible when every site's data is shaped differently. A standard explicitly built for foundation-model workflows lowers that barrier, which is part of why MEDS has been adopted for frontier model development.
+
+<Callout type="pitfall">
+  A standard described by its own creators reviewing its own adoption is informative but not neutral. The speedup and code-reduction figures come from case studies the authors selected, and "27 papers" includes preprints, so the maturity of the ecosystem is easy to overstate. Adoption is genuine and growing, but whether MEDS becomes the durable standard for health AI, or one of several competing ones, is not something this review can settle.
+</Callout>
+
+---
+
+## My Takeaway
+
+Infrastructure papers do not get the attention that a flashy model does, and this one deserves more than it will get. The unglamorous truth is that most of health AI's reproducibility problem is a data-plumbing problem: every group transforms raw EHR data differently, so results do not transfer and tools do not compose. A widely adopted standard is the fix, and MEDS has real traction, with adoption numbers and performance gains that explain why people are choosing it. The appropriate skepticism is that this is the authors reviewing their own standard, and the field has seen data standards compete and fragment before, so it is too early to call MEDS the winner. But the direction is right, and for anyone who cares whether the EHR-based AI tools reaching the bedside are built on reproducible foundations, this kind of work is the part of the field that quietly determines whether the rest holds up.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIra2501253)

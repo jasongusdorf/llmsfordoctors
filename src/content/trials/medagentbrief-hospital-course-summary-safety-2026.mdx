@@ -1,0 +1,54 @@
+---
+title: "An AI Discharge-Summary Tool, Tested in the Wild: Used Often, Harm Rare, Burnout Down"
+journal: "JAMA Network Open"
+year: 2026
+doi: "10.1001/jamanetworkopen.2026.16556"
+keyFinding: "In a prospective pilot at one academic inpatient unit, an agentic LLM workflow (MedAgentBrief, built on Gemini 2.5 Pro) generated nightly hospital course summaries for 384 discharges. Physicians used the AI content in 57.0% of cases. Of 100 summaries reviewed, 25% had omissions and 20% inaccuracies but only 2% hallucinations; 88% were rated as having no harm potential and none caused severe harm. Physician burnout scores fell significantly (1.75 to 1.20, P=0.03)."
+lastUpdated: 2026-06-02
+tags: [llm, documentation, discharge-summary, clinician-burnout, patient-safety, ambient-ai, prospective-study]
+socialPost: "An agentic LLM (Gemini 2.5 Pro) drafted hospital course summaries for 384 real discharges. Physicians used the AI content 57% of the time. Hallucinations were rare (2%), 88% of summaries posed no harm potential, and physician burnout dropped significantly. A rare prospective safety look, not retrospective."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Most evidence that large language models can write discharge summaries comes from retrospective studies, where a model drafts a note and researchers grade it after the fact. What happens when the tool is actually deployed, and physicians decide in real time whether to trust it, has been largely untested. This prospective single-arm pilot at a Stanford academic inpatient medicine unit closes that gap. The intervention, **MedAgentBrief**, is an agentic workflow built on **Gemini 2.5 Pro** that ran nightly, drafting hospital course summaries from each patient's history and physical and daily progress notes, then emailing the draft to the physician for optional use. The study ran from August to October 2025, with baseline comparisons from the preceding four months. The primary outcome was the physician-rated potential for and severity of harm from the unedited summaries, scored on the AHRQ Common Format Harm Scale. Secondary outcomes included use rate, error types, documentation time from EHR logs, cognitive burden, and burnout.
+
+---
+
+## Key Findings
+
+- The system generated **1,274 summaries** across **384 hospital discharges**; physicians used the AI content in **219 cases (57.0%)**
+- Among **100 summaries** with physician feedback, reviewers noted **omissions in 25%** and **inaccuracies in 20%**, but **hallucinations in only 2%**
+- On the harm scale, **88% of unedited summaries** were rated as having **no harm potential**, **1%** as likely to cause moderate harm, and **none** as causing severe harm
+- Mean physician **burnout** scores dropped significantly from before to after the intervention (**1.75 to 1.20**, P=0.03)
+- **Time savings were heterogeneous**: 5 of 7 physicians with matched baseline data saw reductions, but the overall change (10.7 to 7.8 minutes) was not statistically significant (P=0.13)
+
+<Callout type="evidence">
+  The distinction between error types is the useful part. Omissions and inaccuracies were common (a quarter and a fifth of reviewed summaries), but outright hallucinations, the failure mode that most alarms clinicians, were rare at 2%. That pattern fits the technology: an LLM summarizing real source notes is far less likely to fabricate than one answering an open-ended question, because the grounding is built in.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Prospective deployment data is what the field has been missing.** Retrospective grading tells you a model can write a passable summary; it does not tell you whether physicians will use it or whether it is safe in the loop. A 57% use rate with no severe harm is the kind of evidence that should inform real adoption decisions.
+
+2. **The burnout signal is the headline, and it is also the softest.** A significant drop in burnout scores supports the core promise of documentation AI. But this is a single-arm pilot with no concurrent control, so the before-and-after comparison cannot separate the tool's effect from secular trends or the Hawthorne effect of being in a study.
+
+3. **Time savings did not reach significance, which is worth sitting with.** The intuition is that AI drafts save time; here the time data were heterogeneous and the overall difference was not significant. If the benefit is real, it may be more about cognitive relief than minutes saved, which the burnout finding hints at.
+
+<Callout type="pitfall">
+  Omissions are the quiet danger in summarization, and they showed up in a quarter of reviewed summaries. A hallucination is jarring and gets caught; a missing detail, a held anticoagulant, a pending culture, an unresolved finding, reads as a clean note and passes review precisely because nothing looks wrong. A physician who trusts an AI hospital course because it is fluent and contains no obvious fabrication can still sign out a summary that omits the one thing the next clinician needed.
+</Callout>
+
+---
+
+## My Takeaway
+
+This is the rare discharge-summary study that watched the tool work in a real hospital rather than grading it in a lab, and that alone makes it worth attention. The safety picture is reassuring in the way you would expect for grounded summarization: hallucinations were rare, and most summaries posed no harm potential. The burnout reduction is the result everyone will quote, and it is plausible, but a single-arm pilot at one unit cannot carry the weight of a causal claim, and the nonsignificant time data should keep expectations honest. What I find most useful is the error breakdown, because it tells clinicians where to look: not for fabricated facts, which were rare, but for omissions, which were common and are exactly the kind of error a fluent note hides. The tool looks usable and reasonably safe in this setting. Whether it reduces burnout across different units, with a real control group, is the study that should come next.
+
+---
+
+[Read the full article at JAMA Network Open](https://doi.org/10.1001/jamanetworkopen.2026.16556)

@@ -1,0 +1,53 @@
+---
+title: "US-JEPA: Teaching an Ultrasound Model to Predict Meaning, Not Pixels"
+journal: "arXiv (preprint)"
+year: 2026
+doi: "10.48550/arXiv.2602.19322"
+keyFinding: "US-JEPA is a self-supervised ultrasound foundation model that learns by predicting masked latent representations rather than reconstructing noisy pixels. Its key design choice, a frozen domain-specific teacher providing stable training targets (the SALT objective), avoids the brittle, expensive online teacher used by standard methods. Under linear probing on UltraBench, a new multi-organ public benchmark, it matched or exceeded both ultrasound-specific and general vision foundation models."
+lastUpdated: 2026-06-02
+tags: [ultrasound, foundation-model, self-supervised-learning, medical-imaging, representation-learning, preprint]
+socialPost: "Ultrasound is too noisy for pixel-reconstruction AI. US-JEPA learns by predicting masked latent representations instead, using a frozen teacher for stable targets. On UltraBench, a new multi-organ benchmark, it matched or beat both ultrasound-specific and general vision foundation models."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Ultrasound is a hard modality for self-supervised learning. The images are noisy, the speckle is stochastic, and a model that trains by reconstructing pixels wastes its capacity modeling random texture instead of anatomy. US-JEPA sidesteps this by adopting the joint-embedding predictive architecture: rather than reproducing pixels, it predicts masked representations in a latent space where noise can be ignored. Its specific contribution is the training target. Standard JEPAs rely on an online "teacher" network updated by exponential moving average, which is hyperparameter-sensitive and computationally costly. US-JEPA instead uses **SALT (Static-teacher Asymmetric Latent Training)**, a frozen, domain-specific teacher that supplies stable latent targets and pushes the student to build on the teacher's semantic priors. The authors also assembled **UltraBench**, a public benchmark spanning multiple organs and pathologies, and ran what they describe as the first rigorous head-to-head of all publicly available ultrasound foundation models. This is a preprint and has not completed peer review.
+
+---
+
+## Key Findings
+
+- Under **linear probing** across diverse classification tasks, US-JEPA performed **competitively with or better than** both domain-specific ultrasound foundation models and universal vision foundation models
+- The **SALT objective** replaced the unstable, expensive exponential-moving-average teacher with a frozen one, decoupling student and teacher optimization
+- **UltraBench**, the multi-organ, multi-pathology public benchmark the authors built, enabled the first standardized comparison of existing ultrasound foundation models on common ground
+- The results support the broader thesis that **masked latent prediction**, not pixel reconstruction, is the stable and efficient path for ultrasound representation learning
+
+<Callout type="evidence">
+  The benchmark may outlast the model. Ultrasound foundation models have proliferated without a common yardstick, so claims of state-of-the-art performance have been hard to adjudicate. A public, multi-organ benchmark that puts every model on the same tasks is the kind of infrastructure that lets the field actually measure progress, independent of which model happens to win this round.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **This is foundational plumbing, not a clinical tool.** US-JEPA reads no patients and makes no diagnoses. It is a pretrained ultrasound backbone for other models to build on, and its relevance is upstream of the clinic.
+
+2. **The companion to EchoJEPA, generalized.** Where EchoJEPA applies latent prediction to echocardiography with a large clinical evaluation, US-JEPA makes the same architectural argument across ultrasound organs and pathologies. Together they suggest latent prediction is becoming the default approach for the modality.
+
+3. **A shared benchmark helps clinicians read the literature.** When the next ultrasound AI paper claims superiority, a standardized benchmark like UltraBench is what lets a clinician or a procurement team judge whether the claim means anything.
+
+<Callout type="pitfall">
+  Linear-probing accuracy on a curated benchmark is a long way from clinical utility. These are representation-quality metrics, not diagnostic performance on real patients, and a model that probes well on UltraBench has not been shown to help anyone interpret a scan. Read this as a methods advance for building ultrasound AI, not as evidence about any clinical task.
+</Callout>
+
+---
+
+## My Takeaway
+
+US-JEPA is a methods paper, and the honest way to read it is as a building block rather than a result that touches care. Its two contributions are worth noting, though. The SALT objective is a pragmatic fix to a real annoyance: the moving-average teacher that JEPAs depend on is finicky and expensive, and swapping it for a frozen domain-specific teacher is the kind of unglamorous engineering that makes these models easier to train. The more lasting contribution may be UltraBench, because a field cannot improve what it cannot measure consistently, and ultrasound foundation models have lacked a common test. For a practicing clinician, none of this is actionable today; its value is that the echo and ultrasound tools you may eventually use will likely be built on representations learned this way. The pixels were never the point, and these models are the first to act like it.
+
+---
+
+[Read the full preprint on arXiv](https://doi.org/10.48550/arXiv.2602.19322)

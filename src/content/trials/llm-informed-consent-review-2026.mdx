@@ -1,0 +1,58 @@
+---
+title: "Can a Language Model Fix the Consent Form? A Map of Where It Might Help"
+journal: "NEJM AI"
+year: 2026
+doi: "10.1056/AIra2600073"
+keyFinding: "This narrative review maps large language model applications across seven parts of the research informed-consent process: glossary generation, plain-language revision, visual aid creation, accessibility and formatting, translation, teach-back and comprehension validation, and interactive chat-based consent. Consent forms remain too long, too complex, and written above the reading level most participants can follow; the review catalogs where LLMs could plausibly help and the guardrails their use would require."
+lastUpdated: 2026-06-02
+tags: [llm, informed-consent, clinical-research, health-literacy, patient-communication, research-ethics, review]
+socialPost: "Research consent forms are too long and written above most participants' reading level. A NEJM AI review maps where LLMs could help across seven areas, from plain-language rewrites and translation to teach-back and chat-based consent, and where the guardrails need to be. A landscape, not a trial."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+The informed consent form is supposed to make research comprehensible to the people who join it. In practice it does the opposite: forms are long, cognitively demanding, and written at reading levels that most participants cannot follow, which undermines the ethical premise that consent is informed. This narrative review surveys where large language models might intervene. Rather than testing a tool, it maps the landscape, organizing LLM applications across **seven domains** of the consent process and laying out the considerations for using them responsibly within research and ethical-review frameworks. (This summary is based on the published abstract; the full text is available to NEJM AI subscribers.)
+
+---
+
+## Key Findings
+
+The review organizes LLM applications for informed consent into seven areas:
+
+- **Glossary generation**, defining technical terms in place so participants are not left to decode jargon
+- **Plain-language revision**, rewriting dense legal and clinical prose at an accessible reading level
+- **Visual aid generation**, producing diagrams and figures to carry information that text alone conveys poorly
+- **Accessibility and document formatting**, restructuring forms for readability and for participants with disabilities
+- **Translation** into other languages, widening access for non-English speakers
+- **Teach-back and comprehension validation**, checking that a participant actually understood rather than assuming it
+- **Interactive, chat-based consent**, letting participants ask questions and get grounded answers during the process
+
+<Callout type="evidence">
+  The most promising applications are the ones with a verification step built in. Teach-back and comprehension validation do not just deliver information; they test whether it landed, which is the actual goal of consent. An LLM that confirms understanding addresses the failure that long forms cause, rather than producing a different document that participants still do not read.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **The opportunity is real because the baseline is poor.** Consent forms fail at their core job, so the bar for improvement is low. Plain-language rewriting and translation are exactly the kind of bounded, reviewable tasks where LLMs are already strong, and where a human can verify the output before a participant ever sees it.
+
+2. **Chat-based consent is the highest-risk, highest-reward application.** Letting a participant interrogate a model about a trial could genuinely improve understanding, but it moves the model from rewriting a fixed document to answering open-ended questions, where hallucination and subtle misstatement become live risks in a setting with legal and ethical weight.
+
+3. **Ethical-review frameworks have to catch up.** The authors frame integration with research and IRB processes as a precondition, not an afterthought. A consent form rewritten or a question answered by an LLM still has to satisfy the oversight that governs human-subjects research.
+
+<Callout type="pitfall">
+  Consent is a legal and ethical act, not just a readability problem, and that raises the stakes on every error. An LLM that subtly alters the meaning of a risk disclosure while making it more readable has not improved consent; it has compromised it in a way that is harder to catch precisely because the prose is cleaner. Every LLM-touched consent artifact needs human verification against the approved protocol, and the friendlier the output reads, the more important that check becomes.
+</Callout>
+
+---
+
+## My Takeaway
+
+This is a landscape review, not a study, and it is most useful as a checklist of where the technology fits the problem and where it does not. The framing is sound: consent forms genuinely fail the people they are meant to inform, and several of the seven applications, plain-language rewriting, translation, glossary generation, are bounded tasks with human review that play to what LLMs already do well. The teach-back idea is the one I find most compelling, because it targets comprehension rather than just presentation, which is the actual point of consent. The chat-based application is where I would be most cautious, since open-ended answering in a setting with legal consequences is exactly where these models are least predictable. As a map of a fast-moving area the review is helpful; the work that matters next is the empirical test of whether any of these applications measurably improves participant understanding, which a narrative review cannot establish.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIra2600073)
