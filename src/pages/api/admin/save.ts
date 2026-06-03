@@ -12,13 +12,17 @@ export const POST: APIRoute = async ({ request }) => {
   if (request.headers.get('X-Requested-With') !== 'lfd-editor') return json({ error: 'Bad request' }, 400);
   if (!(await isAuthed(request.headers.get('Cookie')))) return json({ error: 'Unauthorized' }, 401);
 
-  const { collection, slug, frontmatter, body } = (await request.json().catch(() => ({}))) as {
+  const parsed = (await request.json().catch(() => null)) as unknown;
+  const payload = (parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {}) as {
     collection?: string; slug?: string; frontmatter?: Record<string, unknown>; body?: string;
   };
+  const { collection, slug, frontmatter, body } = payload;
 
   if (!collection || !isCollection(collection)) return json({ error: 'Unknown collection' }, 400);
   if (!slug || !SLUG_RE.test(slug)) return json({ error: 'Invalid slug' }, 400);
-  if (!frontmatter || typeof body !== 'string') return json({ error: 'Missing content' }, 400);
+  if (!frontmatter || typeof frontmatter !== 'object' || Array.isArray(frontmatter) || typeof body !== 'string') {
+    return json({ error: 'Missing or malformed content' }, 400);
+  }
 
   const errors = validateContent(collection as CollectionName, frontmatter, body);
   if (errors.length) return json({ error: errors.join('; ') }, 400);
