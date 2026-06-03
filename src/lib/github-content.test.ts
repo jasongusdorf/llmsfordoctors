@@ -16,6 +16,20 @@ describe('getFile', () => {
     const fetchMock = vi.fn(async () => new Response('{}', { status: 404 }));
     expect(await getFile(cfg, 'src/content/guides/missing.mdx', fetchMock as any)).toBeNull();
   });
+
+  it('requests ref=main with an auth header', async () => {
+    const fetchMock = vi.fn(async () => new Response(JSON.stringify({ content: btoa('x'), sha: 's' }), { status: 200 }));
+    await getFile(cfg, 'src/content/guides/x.mdx', fetchMock as any);
+    const url = fetchMock.mock.calls[0][0] as string;
+    expect(url).toContain('?ref=main');
+    const init = fetchMock.mock.calls[0][1] as RequestInit;
+    expect((init.headers as Record<string, string>).Authorization).toBe('Bearer t');
+  });
+
+  it('throws on a non-404 error status', async () => {
+    const fetchMock = vi.fn(async () => new Response('{}', { status: 500 }));
+    await expect(getFile(cfg, 'src/content/guides/x.mdx', fetchMock as any)).rejects.toThrow();
+  });
 });
 
 describe('putFile', () => {
@@ -32,5 +46,17 @@ describe('putFile', () => {
   it('throws on a 409 conflict', async () => {
     const fetchMock = vi.fn(async () => new Response('{"message":"conflict"}', { status: 409 }));
     await expect(putFile(cfg, 'src/content/guides/x.mdx', 'b', 'stale', 'msg', fetchMock as any)).rejects.toThrow();
+  });
+
+  it('encodes multibyte UTF-8 content losslessly', async () => {
+    const content = 'café \u2014 naïve 🩺 日本語';
+    let sentB64 = '';
+    const fetchMock = vi.fn(async (_url: string, init: RequestInit) => {
+      sentB64 = JSON.parse(init.body as string).content;
+      return new Response(JSON.stringify({ commit: { html_url: 'https://github.com/commit/2' } }), { status: 200 });
+    });
+    await putFile(cfg, 'src/content/guides/x.mdx', content, 'sha', 'msg', fetchMock as any);
+    const bytes = Uint8Array.from(atob(sentB64), c => c.charCodeAt(0));
+    expect(new TextDecoder().decode(bytes)).toBe(content);
   });
 });
