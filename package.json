@@ -36,7 +36,8 @@
     "stripe": "^20.4.1",
     "tailwind-merge": "^3.5.0",
     "tailwindcss": "^4.2.2",
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.2",
+    "yaml": "^2.9.0"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
