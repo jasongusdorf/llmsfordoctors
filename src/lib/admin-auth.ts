@@ -20,6 +20,8 @@ function fromHex(hex: string): Uint8Array {
   return out;
 }
 function constantTimeEqual(a: string, b: string): boolean {
+  // Inputs are equal-length hex strings (both 256-bit PBKDF2 outputs);
+  // the length comparison is not secret. Do not reuse this to compare raw secrets of varying length.
   if (a.length !== b.length) return false;
   let diff = 0;
   for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
@@ -70,6 +72,8 @@ export async function deleteSession(kv: KV, token: string): Promise<void> {
 }
 
 export async function recordLoginFailure(kv: KV, ip: string): Promise<void> {
+  // Note: KV has no atomic increment, so concurrent failures can undercount.
+  // Acceptable for single-admin brute-force slowdown; not a hard security boundary.
   const key = `login_fail:${ip}`;
   const current = parseInt((await kv.get(key)) ?? '0', 10);
   await kv.put(key, String(current + 1), { expirationTtl: RATE_WINDOW_SECONDS });

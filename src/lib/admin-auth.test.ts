@@ -17,7 +17,7 @@ describe('password hashing', () => {
     const hash = await hashPassword('pw');
     const parts = hash.split(':');
     expect(parts.length).toBe(3);
-    expect(parseInt(parts[0], 10)).toBeGreaterThan(0);
+    expect(parseInt(parts[0], 10)).toBeGreaterThanOrEqual(100_000);
   });
 
   it('returns false for a malformed stored hash', async () => {
@@ -29,7 +29,7 @@ describe('sessions', () => {
   it('creates, validates, and deletes a session', async () => {
     const kv = createMockKV();
     const token = await createSession(kv as any);
-    expect(token.length).toBeGreaterThanOrEqual(32);
+    expect(token.length).toBe(64);
     expect(await validateSession(kv as any, token)).toBe(true);
     await deleteSession(kv as any, token);
     expect(await validateSession(kv as any, token)).toBe(false);
