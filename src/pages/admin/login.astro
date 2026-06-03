@@ -1,0 +1,32 @@
+---
+export const prerender = false;
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { isAuthed } from '../../lib/admin-session';
+
+const redirect = Astro.url.searchParams.get('redirect') ?? '/';
+if (await isAuthed(Astro.request.headers.get('Cookie'))) return Astro.redirect(redirect);
+---
+
+<BaseLayout title="Admin Login" description="Admin login">
+  <div class="max-w-sm mx-auto px-4 py-20">
+    <h1 class="font-heading text-2xl font-bold mb-6">Admin Login</h1>
+    <form id="login-form" class="space-y-4">
+      <input type="password" id="password" name="password" required placeholder="Password"
+        class="w-full rounded-md border border-clinical-300 dark:border-clinical-600 bg-warm-white dark:bg-clinical-800 px-3 py-2 text-sm" />
+      <button type="submit" class="px-5 py-2.5 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm">Sign in</button>
+      <p id="login-error" class="text-sm text-red-600 hidden"></p>
+    </form>
+  </div>
+  <script define:vars={{ redirect }}>
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const password = document.getElementById('password').value;
+      const err = document.getElementById('login-error');
+      const res = await fetch('/api/admin/login', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password }),
+      });
+      if (res.ok) { window.location.href = redirect; }
+      else { const d = await res.json().catch(() => ({})); err.textContent = d.error || 'Login failed'; err.classList.remove('hidden'); }
+    });
+  </script>
+</BaseLayout>

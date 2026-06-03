@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import ToolLayout from '../../layouts/ToolLayout.astro';
+import AdminEditButton from '../../components/AdminEditButton.astro';
 import { getWorkflowsForTool } from '../../utils/collections';
 
 export async function getStaticPaths() {
@@ -29,4 +30,5 @@ const relatedWorkflowItems = relatedWorkflows.map((wf) => ({
   relatedWorkflows={relatedWorkflowItems}
 >
   <Content />
+  <AdminEditButton collection="tools" slug={entry.id} />
 </ToolLayout>

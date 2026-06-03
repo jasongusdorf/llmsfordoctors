@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import ContentLayout from '../../layouts/ContentLayout.astro';
+import AdminEditButton from '../../components/AdminEditButton.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('templates');
@@ -59,4 +60,5 @@ const categoryLabels: Record<string, string> = {
   relatedItems={relatedItems}
 >
   <Content />
+  <AdminEditButton collection="templates" slug={entry.id} />
 </ContentLayout>

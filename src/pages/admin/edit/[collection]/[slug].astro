@@ -1,0 +1,30 @@
+---
+export const prerender = false;
+import { env } from 'cloudflare:workers';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import AdminEditor from '../../../../components/AdminEditor.tsx';
+import { isAuthed } from '../../../../lib/admin-session';
+import { isCollection, parseMdx } from '../../../../lib/mdx-file';
+import { getFile, type GithubConfig } from '../../../../lib/github-content';
+
+const { collection, slug } = Astro.params;
+const here = Astro.url.pathname;
+
+if (!(await isAuthed(Astro.request.headers.get('Cookie')))) {
+  return Astro.redirect(`/admin/login?redirect=${encodeURIComponent(here)}`);
+}
+if (!collection || !isCollection(collection) || !slug) return new Response('Not found', { status: 404 });
+
+const cfg: GithubConfig = {
+  token: (env as any).GITHUB_TOKEN,
+  owner: (env as any).GITHUB_OWNER ?? 'jasongusdorf',
+  repo: (env as any).GITHUB_REPO ?? 'llmsfordoctors',
+};
+const file = await getFile(cfg, `src/content/${collection}/${slug}.mdx`);
+if (!file) return new Response('Article not found', { status: 404 });
+const { frontmatter, body } = parseMdx(file.text);
+---
+
+<BaseLayout title={`Edit: ${slug}`} description="Editor">
+  <AdminEditor client:load collection={collection} slug={slug} initialFrontmatter={frontmatter} initialBody={body} />
+</BaseLayout>

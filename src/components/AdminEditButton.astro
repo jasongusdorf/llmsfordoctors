@@ -1,0 +1,15 @@
+---
+interface Props { collection: string; slug: string; }
+const { collection, slug } = Astro.props;
+---
+<a
+  id="admin-edit-link"
+  href={`/admin/edit/${collection}/${slug}`}
+  class="hidden fixed bottom-6 right-6 z-50 px-4 py-2 rounded-full bg-clinical-900 text-white text-sm font-semibold shadow-lg hover:bg-clinical-800"
+>Edit</a>
+<script>
+  fetch('/api/admin/whoami', { credentials: 'same-origin' })
+    .then((r) => r.json())
+    .then((d) => { if (d.authed) document.getElementById('admin-edit-link')?.classList.remove('hidden'); })
+    .catch(() => {});
+</script>

@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import ContentLayout from '../../layouts/ContentLayout.astro';
+import AdminEditButton from '../../components/AdminEditButton.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('trials');
@@ -57,4 +58,5 @@ const doiUrl = entry.data.doi ? `https://doi.org/${entry.data.doi}` : null;
   </div>
 
   <Content />
+  <AdminEditButton collection="trials" slug={entry.id} />
 </ContentLayout>

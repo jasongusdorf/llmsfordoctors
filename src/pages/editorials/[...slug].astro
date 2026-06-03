@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import ContentLayout from '../../layouts/ContentLayout.astro';
+import AdminEditButton from '../../components/AdminEditButton.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('editorials');
@@ -42,4 +43,5 @@ const { Content, headings } = await render(entry);
     </nav>
   )}
   <Content />
+  <AdminEditButton collection="editorials" slug={entry.id} />
 </ContentLayout>

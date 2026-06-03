@@ -29,7 +29,9 @@
     "astro": "^6.0.6",
     "astro-pagefind": "^1.8.5",
     "clsx": "^2.1.1",
+    "dompurify": "^3.4.8",
     "lucide-astro": "^0.556.0",
+    "marked": "^14.1.4",
     "preact": "^10.29.0",
     "satori": "^0.25.0",
     "sharp": "^0.34.5",
@@ -40,6 +42,7 @@
     "yaml": "^2.9.0"
   },
   "devDependencies": {
+    "@types/dompurify": "^3.0.5",
     "@types/node": "^25.5.0",
     "@types/sharp": "^0.31.1",
     "tsx": "^4.21.0",
