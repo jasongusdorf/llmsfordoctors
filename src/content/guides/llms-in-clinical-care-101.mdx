@@ -1,191 +1,177 @@
 ---
 title: "LLMs in Clinical Care 101"
-description: "A step-by-step workflow for using LLMs in clinical practice: starting with de-identification, ending with better notes in less time."
-tags: [beginner, workflow, hipaa, clinical, getting-started, deidentification]
-lastUpdated: 2026-03-21
+description: "The safe, practical way to use LLMs in clinical care: don't paste the chart, paste your clinical judgment. Match the tool and the input to the risk of the task."
+tags: [beginner, workflow, hipaa, clinical, getting-started, deidentification, baa]
+lastUpdated: 2026-06-03
 featured: true
-socialPost: "This guide covers the practical workflow for using an LLM in clinical care: de-identify the patient data, prompt the model, review the output. De-identification takes 30 seconds and determines whether the workflow is safe."
+socialPost: "The safest, most practical way to use an LLM in clinical care is not to paste the chart after scrubbing a few identifiers. It is to paste your clinical judgment: a short, clinician-curated summary of what matters. Match the tool and the input to the risk of the task."
 ---
 
 import Callout from '../../components/Callout.astro';
 import PromptPlayground from '../../components/PromptPlayground.astro';
 
-You want to use AI to make your clinical documentation faster. Good: it can cut note-writing time in half. But there is a right way and a wrong way to do it. The wrong way puts patient data at risk. The right way takes 30 extra seconds and protects you, your institution, and your patients.
+You want to use AI to make clinical documentation faster, and it can: a good prompt turns twenty minutes of discharge writing into three. The instinct, though, is to copy the whole note out of the chart, scrub a few names, and paste it into ChatGPT. That instinct is the problem. It is the slowest path to the most risk and, often, the worst output.
 
-This guide teaches you the practical, day-to-day workflow for using an LLM in clinical care. It is the workflow. If you read one guide on this site, make it this one.
-
----
-
-## The Core Workflow
-
-Every clinical LLM interaction follows the same three steps:
-
-1. **De-identify**: strip patient identifiers from your clinical text
-2. **Prompt**: paste the cleaned text into your LLM with a saved template
-3. **Review**: read the output critically before using it
-
-That's it. Three steps. The rest of this guide walks through each one in detail.
-
----
-
-## Step 1: De-identify the Note
-
-This is the most important step. Skip it and you've sent PHI to a third-party server. Do it and you can use almost any LLM safely, even consumer tools without a BAA.
-
-### The Find-and-Replace Method
-
-This is the fastest de-identification method for daily use. It takes under 30 seconds once you've done it a few times.
-
-1. **Copy the note from Epic** (or your EHR) into a plain text editor: Word, TextEdit, Notepad, whatever is on the computer in front of you.
-
-2. **Find and replace the patient's name with "Patient."** Use Ctrl+H (or Cmd+H on Mac). Replace all instances (first name, last name, and any combined forms). If the note says "Mr. Johnson" and "David Johnson" and "Johnson," replace all of them.
-
-3. **Find and replace the date of birth with nothing.** Just delete it. The LLM does not need the patient's birthday to write a discharge summary. If you need age-based context, type "72-year-old male" separately; that is not an identifier.
-
-4. **Scan for other identifiers.** Quickly check for MRNs, account numbers, addresses, phone numbers, or specific dates of service. Remove them. This takes 5 seconds with practice.
-
-5. **Copy the cleaned text.** You're ready for step 2.
-
-<Callout type="hipaa">
-  HIPAA defines 18 categories of identifiers. For daily clinical use, the three you'll encounter most are **name**, **date of birth**, and **MRN**. Removing these three covers 95% of the risk in a typical progress note or discharge summary. See the full list in the <a href="/guides/hipaa-compliance">HIPAA Compliance Guide</a>.
-</Callout>
+There is a better default, and it fits on one line.
 
 <Callout type="tip">
-  Build this into muscle memory. After a few days, the find-and-replace step becomes automatic, like washing your hands between patients. It adds almost no time to your workflow and eliminates the biggest risk of using AI in clinical care.
+  **The short version.** Do not paste the chart. Paste your clinical judgment. For most tasks the model needs a short, clinician-curated summary, not the raw record. Match the tool and the input to the risk of the task, and read every output before you use it.
 </Callout>
 
-### Why a Text Editor and Not Directly in the LLM?
-
-You want a buffer between your EHR and the LLM. If you copy from Epic and paste directly into ChatGPT, you will forget to de-identify. It will happen (not today, not tomorrow, but eventually). The text editor is your scrub sink. You stop there, clean the data, and then move on.
-
-<Callout type="pitfall">
-  Do not rely on "I'll just be careful." You are a busy clinician seeing 15–25 patients a day. You will forget. The intermediate step (copy into a text editor first, de-identify, then paste into the LLM) is a system-level safeguard. Systems beat intentions.
-</Callout>
+The model rarely needs the full medical record. It needs the relevant diagnoses, the key events, the active decision, and the specific output you want. Writing that summary takes thirty seconds, and it is faster, safer, and usually better than copying raw EHR text. If you read one guide on this site, make it this one.
 
 ---
 
-## Step 2: Prompt with a Saved Template
+## Match the Tool to the Risk
 
-You should not be writing your prompt from scratch every time. That's slow and inconsistent. Instead, save 2–3 prompt templates for the tasks you do most often and reuse them.
+Clinical AI tasks fall into three tiers. The right tool and the right input depend on which tier you are in.
 
-### How to Set Up Templates
+### Tier 1: Generic tasks, no patient data
 
-Most LLMs let you save prompts or create reusable conversations:
+Many of the most useful LLM tasks contain no patient information at all. These are the easiest and lowest-risk uses, and any general-purpose model handles them well.
 
-- **Claude**: Use Projects. Create a project called "Clinical Templates" and add your prompt templates as project instructions. Every new conversation in that project starts with your template already loaded.
-- **ChatGPT**: Use Custom Instructions or GPTs. Set your system prompt once and it persists.
-- **Any LLM**: At minimum, keep a text file on your desktop with your templates. Copy-paste the template, then paste your de-identified note below it.
+- "Explain SGLT2 inhibitors to a patient with heart failure at an 8th-grade reading level."
+- "Generate a generic discharge instruction template for pneumonia."
+- "Draft a prior authorization letter template for a GLP-1 medication."
+- "Make this generic patient handout more readable."
+- "Give me a checklist for the outpatient workup of hyponatremia."
 
-### Example: Discharge Summary Template
+Because none of these prompts carry patient-specific information, they are appropriate for any consumer LLM, as long as you still review the output for accuracy.
 
-Here's a template you can save and reuse every time you write a discharge summary:
+### Tier 2: Abstracted patient tasks, the everyday sweet spot
 
-<PromptPlayground tool="Claude" title="Discharge Summary Template">
-You are an experienced hospitalist physician. Using the clinical information I paste below, draft a concise discharge summary for the outpatient primary care provider.
+Most patient-specific work does not require the chart. It requires a short summary you write yourself: the minimum clinical facts the task needs, in your own words.
 
-Format with these sections:
-1. Admission Diagnosis
-2. Brief Hospital Course (paragraph form, 3–5 sentences)
-3. Significant Results (labs, imaging, procedures; only clinically relevant findings)
-4. Discharge Medications (changes only: new, stopped, dose-changed)
-5. Discharge Condition
-6. Follow-up Instructions
-7. Return Precautions (plain language, suitable for patient handout)
+<PromptPlayground tool="Any LLM" title="Curated summary instead of a pasted note">
+Older adult with HFrEF and CKD3 admitted for acute decompensated heart failure. Improved with IV diuresis, going home on increased torsemide. Creatinine rose mildly but stabilized before discharge.
 
-Be concise and clinically precise. No filler phrases. Use standard medical abbreviations where appropriate.
-
----
-
-[Paste de-identified clinical note here]
+Draft plain-language discharge instructions focused on daily weights, low-salt diet adherence, follow-up labs, and return precautions.
 </PromptPlayground>
 
-### Other Common Templates
+This beats pasting a discharge summary for two reasons. It forces you to decide what matters before the model gets involved, which is the part only a clinician can do. And it keeps stale, copied-forward, contradictory, and irrelevant chart data out of the prompt, so the model can't mistake clutter for signal.
 
-You'll likely want templates for:
+The curated-summary approach covers most of what clinicians actually want from an LLM:
 
-- **Patient education handouts**: "Explain [condition] and [treatment plan] in plain language at an 8th grade reading level"
-- **Prior authorization letters**: "Write a medical necessity letter for [treatment] citing relevant clinical guidelines"
-- **Differential diagnosis reasoning**: "Given the following presentation, generate a ranked differential with supporting and opposing evidence for each"
-- **Handoff summaries**: "Summarize this patient's current status for a cross-cover handoff in 5 bullet points"
+- Patient instructions and after-visit summaries
+- Handoff and sign-out summaries
+- Discharge counseling language
+- Differential diagnosis brainstorming
+- Patient-friendly explanations
+- Prior authorization drafts
+- Message replies and clinic note phrasing
 
-Each template saves you from thinking about prompt structure so you can focus on the clinical content.
+The goal is not to have the model read the chart for you. It is to have the model turn your clinical understanding into a cleaner written product.
 
 <Callout type="tip">
-  Start with one template. The discharge summary is the best starting point: it's the most time-consuming documentation task, the format is predictable, and the output is easy to verify. Once you're comfortable with one, add more.
+  Save your prompts so you are not rewriting them every time. In Claude, create a Project called "Clinical Templates" and put your prompts in the project instructions. In ChatGPT, use a custom GPT or saved instructions. At minimum, keep a text file on your desktop. Then each task is just: write the two-line summary, drop it under the saved prompt, go. Browse ready-made versions in the <a href="/templates">templates library</a>.
 </Callout>
 
----
+### Tier 3: Raw chart text and PHI, institution-approved tools only
 
-## Step 3: Review the Output
+Some tasks genuinely need the source material: a full note, a discharge summary, a lab table, a consult, a medication list. When the task requires copying PHI-rich text, use a tool your institution has approved for that purpose, under appropriate privacy, security, and contractual safeguards.
 
-AI is not a physician. It is a writing tool. You are still the clinician responsible for everything in the note.
-
-**What to check:**
-
-- **Accuracy**: Does the output match the clinical facts you provided? AI will occasionally invent details that sound plausible. Look for medications, dosages, or findings that weren't in your input.
-- **Completeness**: Did it include everything important? Follow-up appointments, pending results, and return precautions are commonly omitted.
-- **Tone and audience**: Is the language appropriate for the intended reader? A PCP handoff should be clinical. A patient handout should be plain language.
-- **Hallucinations**: AI can fabricate lab values, medication names, or clinical events. If something in the output wasn't in your input, delete it or verify it.
-
-<Callout type="pitfall">
-  Never sign a note you haven't read. The AI draft is a first draft; treat it like a resident's note. Read it, edit it, own it. If it's wrong and you signed it, it's your error, not the AI's.
-</Callout>
+Do not paste raw or near-raw EHR text into a consumer LLM unless your institution has explicitly approved that tool for that use, or the text has been properly de-identified. The next two sections cover what "approved" and "de-identified" actually mean, because both are easy to get wrong.
 
 ---
 
-## The Complete Workflow in Practice
+## Why Not Just Paste the Whole Note?
 
-Here's what this looks like in real time, start to finish:
+Copying a block of chart text is tempting, and it creates two distinct problems.
 
-| Step | Action | Time |
-|------|--------|------|
-| 1 | Copy progress note from Epic into TextEdit | 5 sec |
-| 2 | Cmd+H → replace "Johnson" with "Patient" → Replace All | 5 sec |
-| 3 | Cmd+H → replace "04/15/1952" with "" → Replace All | 5 sec |
-| 4 | Quick scan for MRN, remove if present | 5 sec |
-| 5 | Copy cleaned text | 2 sec |
-| 6 | Open Claude project with saved discharge summary template | 5 sec |
-| 7 | Paste de-identified note, hit Enter | 3 sec |
-| 8 | Review AI output, edit as needed | 2–3 min |
-| 9 | Copy final version back into Epic | 5 sec |
-| **Total** | | **~3–4 min** |
+The first is privacy. EHR notes are dense with identifiers that are easy to miss in a quick scan: names, dates, MRNs, phone numbers, addresses, locations, ordering and consulting providers, even family members. Miss one and you have sent PHI to a third-party server.
 
-Compare this to writing a discharge summary from scratch: 15–20 minutes.
+The second is clinical quality, and it is the one clinicians underestimate. Notes are noisy. They carry copied-forward problems, outdated medication lists, conflicting histories, irrelevant labs, boilerplate, and plans that changed three days later. Paste all of that in and the model may summarize the wrong information with complete confidence. The clinical risk is concrete: an after-visit summary built on last week's medication list, or a handoff that repeats a problem you resolved on day two. A curated summary gives the model the facts that matter and leaves out the rest.
 
 ---
 
-## What About HIPAA-Compliant LLMs?
+## The Institution-Approved Path: Enterprise LLMs and BAAs
 
-Some LLMs are available under a Business Associate Agreement (BAA), which means your institution has a contract allowing PHI to be processed by that vendor. If your institution has set this up, you may be able to skip the de-identification step for that specific tool.
+The honest answer to "how do I safely use the chart itself" is not a clever scrubbing trick. It is that your hospital should hold a Business Associate Agreement (BAA) with a high-quality LLM vendor, and route clinical use through that approved product.
 
-**But here's the thing:** the de-identification workflow is still good practice, even with a BAA in place. Why?
+A BAA is the contract that lets a vendor handle PHI on a covered entity's behalf. The important and widely misunderstood point: the BAA-eligible product is a different product from the app you use at home. ChatGPT Plus is not ChatGPT Enterprise. The free claude.ai is not Claude's HIPAA-ready Enterprise plan. The model may be the same; the data handling, retention, and contractual terms are not.
 
-- BAAs can be revoked or changed. If you build a habit of always de-identifying, you're never caught off guard.
-- Not every tool you'll use will have a BAA. The habit transfers across tools.
-- De-identification reduces your institutional risk footprint regardless of the contract.
+As of mid-2026, the major frontier vendors offer covered paths, and both launched dedicated healthcare tiers in early 2026:
+
+- **OpenAI.** A BAA is available for ChatGPT Enterprise (sales-managed accounts) and for the API. OpenAI launched ChatGPT for Healthcare in January 2026 for regulated clinical environments; PHI entered through these products is not used to train the models. The consumer tiers (Free, Plus, Pro, Team) and ChatGPT Business are not covered.
+- **Anthropic.** Claude offers HIPAA-ready Enterprise plans where an admin opts in and the BAA is click-to-accept, plus API BAAs. Claude can also be used under a BAA through Amazon Bedrock or Google Vertex AI, where the cloud provider's agreement covers the inference path. Free, Pro, Max, Team, and the Console are not covered.
 
 <Callout type="hipaa">
-  A BAA does not make a tool "safe." It makes it "legally compliant under specific conditions." You should still follow your institution's specific policies, which may impose additional restrictions beyond what the BAA covers.
+  A signed BAA covers the vendor's obligations, not yours. It does not make every use appropriate. The tool still has to be approved for the specific workflow, configured correctly, and used according to institutional policy. What your staff type into the prompt, and which tier they use, sits entirely outside the BAA. Vendor terms change; confirm the current arrangement with your institution before using any tool with PHI.
+</Callout>
+
+If you are evaluating tools, the model-by-model detail lives in our reviews of <a href="/tools/claude">Claude</a>, <a href="/tools/openai">OpenAI</a>, and <a href="/tools/gemini">Gemini</a> for clinical practice. For the full compliance picture, see the <a href="/guides/hipaa-compliance">HIPAA Compliance Guide</a>.
+
+---
+
+## De-identification: Useful, But Not Magic
+
+When you do not have an approved tool and need to lower the risk of a piece of text, de-identification helps. It is a risk-reduction technique, not a permission slip, and the distinction matters.
+
+HIPAA de-identification is a specific legal standard. The Safe Harbor method requires removing 18 categories of identifiers: names, all dates except year, geographic units smaller than a state, phone and fax numbers, email addresses, MRNs, account numbers, URLs, IP addresses, biometric identifiers, full-face photographs, and any other unique identifying detail.
+
+In day-to-day practice, names, dates of birth, MRNs, and dates of service are the high-risk identifiers you will meet most often. A fast find-and-replace in a plain text editor handles them: copy the text out of the chart, replace the name with "Patient," delete the date of birth (the model does not need a birthday; "72-year-old man" is not an identifier), and scan for an MRN or address. Thirty seconds with practice.
+
+But removing those four does not make the remaining text de-identified. A rare diagnosis, an unusual mechanism of injury, a specific location, or an exact timeline can still single out a patient. Treat manual de-identification as turning a high-risk input into a lower-risk one, not as a green light to use any tool for anything.
+
+<Callout type="pitfall">
+  Do not rely on "I'll just be careful." Seeing 15 to 25 patients a day, you will eventually paste something you meant to scrub. The fix is structural: if a task needs the chart, route it through an approved tool. If it doesn't, write the curated summary instead. Systems beat intentions.
 </Callout>
 
 ---
 
-## Getting Started Today
+## The Minimum-Necessary Prompt
 
-1. **Pick one task.** Discharge summaries are the best starting point.
-2. **Save one template.** Use the discharge summary template above or adapt it to your style.
-3. **Practice the de-identification step** three times. By the fourth patient, it will be automatic.
-4. **Review every output.** This is non-negotiable. You are the physician of record.
+Before any clinical prompt, ask one question: what is the least information the model needs to do this well?
 
-You don't need to overhaul your practice. You need one workflow, done consistently. Start there. The rest will follow.
+Leave out the full chart if the model only needs the diagnosis and the plan. Leave out exact dates if relative timing ("on day three") is enough. Leave out demographics unless they change the clinical answer. Leave out names, locations, room numbers, and family details unless there is a specific, approved reason to include them.
+
+Good LLM use starts before the prompt, with the decision about what belongs in it.
+
+---
+
+## A Practical Workflow
+
+For everyday clinical use:
+
+1. Decide which tier the task is in: generic, abstracted patient-specific, or PHI-rich.
+2. Use no patient information when you can.
+3. When you need patient context, write a brief clinician-curated summary instead of pasting the chart.
+4. Include only the minimum necessary.
+5. Use an institution-approved tool for raw notes, copied chart text, or other PHI-rich work.
+6. Read and edit every output before it touches clinical care.
+
+The model is not the physician. It is not the chart reviewer. It is not responsible for the final note, message, or plan. You are.
+
+---
+
+## What to Check Before You Use the Output
+
+Every LLM-generated clinical output gets the same read-through:
+
+- **Accuracy.** Does it match the facts you provided?
+- **Completeness.** Did it keep the important follow-up, pending results, medication changes, and return precautions?
+- **Hallucinations.** Did it invent a medication, lab value, diagnosis, or event? If it wasn't in your input, verify it or cut it.
+- **Tone.** Is the wording right for the audience? A handoff is clinical; a patient handout is plain language.
+- **Clinical judgment.** Is the plan medically appropriate?
+- **Privacy.** Did the output reintroduce any identifying detail?
+
+Never sign, send, or copy forward LLM-generated content without reading and editing it. Treat the draft like a resident's note: read it, fix it, own it. If it is wrong and you signed it, it is your error, not the model's.
+
+---
+
+## Bottom Line
+
+The safest practical approach is not "paste the note after removing a few identifiers."
+
+It is this: use generic prompts when no patient data is needed, use a short clinician-curated summary for everyday patient-specific tasks, route raw chart text through an institution-approved tool under a BAA, and review every output. This protects patients, lowers legal and institutional risk, and usually produces better clinical writing, because the model receives the facts that matter instead of a noisy block of copied chart text.
 
 ---
 
 ## What's Next
 
-- **[Prompting 101](/guides/prompting-101)** -- Learn the four principles that turn a vague prompt into a clinically useful one: set the role, provide context, specify format, and iterate.
-- **[HIPAA Compliance Guide](/guides/hipaa-compliance)** -- The full compliance picture: 18 identifiers, BAAs, vendor evaluation, and what to do when things go wrong.
-- **[Which LLM for Clinical Reasoning?](/editorials/llm-clinical-reasoning-comparison)** -- A head-to-head comparison to help you pick the right model for the task.
+- **[Prompting 101](/guides/prompting-101)**: the four principles that turn a vague prompt into a clinically useful one: set the role, provide context, specify format, and iterate.
+- **[HIPAA Compliance Guide](/guides/hipaa-compliance)**: the full picture: 18 identifiers, BAAs, vendor evaluation, and what to do when something goes wrong.
+- **[Which LLM for Clinical Reasoning?](/editorials/llm-clinical-reasoning-comparison)**: a head-to-head comparison to help you pick the right model for the task.
 
 ---
 
@@ -193,18 +179,20 @@ You don't need to overhaul your practice. You need one workflow, done consistent
 
 1. **HHS Office for Civil Rights.** "Guidance Regarding Methods for De-identification of Protected Health Information in Accordance with the HIPAA Privacy Rule." November 26, 2012. [hhs.gov/hipaa/for-professionals/special-topics/de-identification](https://www.hhs.gov/hipaa/for-professionals/special-topics/de-identification/index.html)
 
-2. **45 CFR 164.514(b)(2).** HIPAA Privacy Rule -- Safe Harbor method and the 18 identifiers that must be removed for de-identification. [law.cornell.edu/cfr/text/45/164.514](https://www.law.cornell.edu/cfr/text/45/164.514)
+2. **45 CFR 164.514(b)(2).** HIPAA Privacy Rule, Safe Harbor method and the 18 identifiers that must be removed for de-identification. [law.cornell.edu/cfr/text/45/164.514](https://www.law.cornell.edu/cfr/text/45/164.514)
 
-3. **Schoolcraft D, Meltzer AC, Sangal R, et al.** "Health Insurance Portability and Accountability Act Liability in the Age of Generative Artificial Intelligence." *JACEP Open.* 2026;7(2):100317. [doi:10.1016/j.acepjo.2025.100317](https://pmc.ncbi.nlm.nih.gov/articles/PMC12859502/)
+3. **OpenAI.** "Introducing OpenAI for Healthcare." 2026. [openai.com/index/openai-for-healthcare](https://openai.com/index/openai-for-healthcare/)
 
-4. **Shah SV.** "Accuracy, Consistency, and Hallucination of Large Language Models When Analyzing Unstructured Clinical Notes in Electronic Medical Records." *JAMA Network Open.* 2024;7(8):e2425953. [doi:10.1001/jamanetworkopen.2024.25953](https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2822301)
+4. **OpenAI Help Center.** "How can I get a Business Associate Agreement (BAA) with OpenAI for the API Services?" [help.openai.com](https://help.openai.com/en/articles/8660679-how-can-i-get-a-business-associate-agreement-baa-with-openai)
 
-5. **"Large Language Models and the Degradation of the Medical Record."** *New England Journal of Medicine.* 2024. [doi:10.1056/NEJMp2405999](https://www.nejm.org/doi/abs/10.1056/NEJMp2405999)
+5. **Anthropic.** "Advancing Claude in healthcare and the life sciences." 2026. [anthropic.com/news/healthcare-life-sciences](https://www.anthropic.com/news/healthcare-life-sciences)
 
-6. **Topaz M, Peltonen LM, Zhang Z.** "Beyond Human Ears: Navigating the Uncharted Risks of AI Scribes in Clinical Practice." *npj Digital Medicine.* 2025;8:569. [doi:10.1038/s41746-025-01895-6](https://www.nature.com/articles/s41746-025-01895-6)
+6. **Anthropic Privacy Center.** "Business Associate Agreements (BAA) for Commercial Customers." [privacy.claude.com](https://privacy.claude.com/en/articles/8114513-business-associate-agreements-baa-for-commercial-customers)
 
-7. **American Medical Association.** Policy H-480.940: "Augmented Intelligence in Health Care." Adopted June 2018. [policysearch.ama-assn.org](https://policysearch.ama-assn.org/policyfinder/detail/augmented%20intelligence?uri=/AMADoc/HOD.xml-H-480.940.xml)
+7. **Schoolcraft D, Meltzer AC, Sangal R, et al.** "Health Insurance Portability and Accountability Act Liability in the Age of Generative Artificial Intelligence." *JACEP Open.* 2026;7(2):100317. [doi:10.1016/j.acepjo.2025.100317](https://pmc.ncbi.nlm.nih.gov/articles/PMC12859502/)
 
-8. **Chew K, Snyder K, Pert C.** "How Physicians Might Get in Trouble Using AI (or Not Using AI)." *Missouri Medicine.* 2025;122(3):169-172. [PMC12309835](https://pmc.ncbi.nlm.nih.gov/articles/PMC12309835/)
+8. **Shah SV.** "Accuracy, Consistency, and Hallucination of Large Language Models When Analyzing Unstructured Clinical Notes in Electronic Medical Records." *JAMA Network Open.* 2024;7(8):e2425953. [doi:10.1001/jamanetworkopen.2024.25953](https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2822301)
 
-9. **Rezaeikhonakdar D.** "AI Chatbots and Challenges of HIPAA Compliance for AI Developers and Vendors." *J Law Med Ethics.* 2023;51(4):988-995. [doi:10.1017/jme.2024.15](https://pmc.ncbi.nlm.nih.gov/articles/PMC10937180/)
+9. **"Large Language Models and the Degradation of the Medical Record."** *New England Journal of Medicine.* 2024. [doi:10.1056/NEJMp2405999](https://www.nejm.org/doi/abs/10.1056/NEJMp2405999)
+
+10. **Rezaeikhonakdar D.** "AI Chatbots and Challenges of HIPAA Compliance for AI Developers and Vendors." *J Law Med Ethics.* 2023;51(4):988-995. [doi:10.1017/jme.2024.15](https://pmc.ncbi.nlm.nih.gov/articles/PMC10937180/)
