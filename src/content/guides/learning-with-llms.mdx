@@ -1,0 +1,181 @@
+---
+title: "How to Learn With an LLM (Without Deskilling Yourself)"
+description: "Seven techniques for using a large language model to sharpen your clinical reasoning instead of dulling it. The principle behind all of them: make the model work you, not work for you."
+tags: [learning, clinical-reasoning, cognitive-deskilling, study-skills, prompting, residents, medical-students]
+lastUpdated: 2026-06-03
+featured: true
+hideToc: false
+socialPost: "An LLM can deepen your understanding or quietly atrophy it, and the two look identical. Seven techniques to make the model sharpen your reasoning instead of replacing it. The rule behind all of them: answer first, then let it attack your answer."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+There are two ways to ask a large language model about a clinical topic, and they produce opposite physicians.
+
+The first is to type the question and read the answer. Fast, fluent, and forgettable. You will recognize the material when you see it again and be unable to generate it when you need it. The second is to use the model as a sparring partner: produce your own reasoning first, then make the model attack it, probe it, and find the place where your understanding runs out. Slower, harder, and the only one that builds anything.
+
+This guide is the second way, made concrete.
+
+<Callout type="tip">
+  If you remember nothing else: **make the model work you, not work for you.** Produce your own answer first, then use the LLM to challenge it. Every technique below is a variation on that one move.
+</Callout>
+
+A note on privacy before you start: everything here works on textbook physiology and hypothetical cases, so you should not need real patient data at all. Keep it that way. If a real case prompts the question, abstract it to the underlying mechanism first. See [LLMs in Clinical Care 101](/guides/llms-in-clinical-care-101) for why a curated, de-identified summary beats pasting the chart.
+
+## Contents
+
+- [1. Answer First, Then Verify](#1-answer-first-then-verify)
+- [2. Make It Ask, Not Tell](#2-make-it-ask-not-tell)
+- [3. Chase the Mechanism, Not the Fact](#3-chase-the-mechanism-not-the-fact)
+- [4. Steelman, Then Refute](#4-steelman-then-refute)
+- [5. Teach It Back](#5-teach-it-back)
+- [6. Find the Edge of Your Knowledge](#6-find-the-edge-of-your-knowledge)
+- [7. Calibrate Before You Peek](#7-calibrate-before-you-peek)
+- [The Deskilling Tripwires](#the-deskilling-tripwires)
+- [Quick Reference](#quick-reference)
+
+---
+
+## 1. Answer First, Then Verify
+
+The single highest-yield habit. Before you ask the model anything, commit your own answer to the screen or to paper. Then ask the model to grade it.
+
+This works because of a well-replicated finding in learning science called the generation effect: information you struggle to produce is retained far better than information you simply read. The struggle is not friction in the way of learning. It is the learning. Skip it and you have outsourced the one cognitive act that would have made the knowledge yours.
+
+<PromptPlayground tool="Any LLM" title="Grade my reasoning, do not replace it">
+I am studying [topic]. Here is my own explanation, written before consulting you:
+
+[paste your attempt, including the parts you are unsure about]
+
+Do not rewrite it for me. Instead: tell me what I got right, mark each claim that is wrong or imprecise, and point to the single biggest gap in my reasoning. Ask me a follow-up question about the part I seem least sure of.
+</PromptPlayground>
+
+The instruction "do not rewrite it for me" matters. Left to its defaults, the model will hand you a polished replacement, and you will nod along at fluency you did not earn. Force it to mark up your work instead.
+
+---
+
+## 2. Make It Ask, Not Tell
+
+Flip the direction of the conversation. Instead of the model answering your questions, instruct it to question you, one at a time, and to withhold the answer until you have committed to yours.
+
+This turns the LLM into the thing medical training never has enough of: a tireless attending who will run a Socratic case with you at any hour, at exactly your level, without making you feel slow.
+
+<PromptPlayground tool="Any LLM" title="Socratic mode">
+Act as an attending running a Socratic teaching session with me on [topic, e.g. the workup of hyponatremia]. Ask me one question at a time. Wait for my answer before continuing. Do not give me the answer first; if I am wrong, give me a hint and let me try again. Start easy and escalate as I get them right. Begin.
+</PromptPlayground>
+
+The failure mode to watch for: the model breaking character and dumping the full answer after your first stumble. When it does, just reply "don't tell me yet, give me a hint," and it will fall back in line.
+
+---
+
+## 3. Chase the Mechanism, Not the Fact
+
+Most questions have a factual answer and a mechanistic one underneath it. "SGLT2 inhibitors can cause euglycemic DKA" is the fact. *Why* is the understanding, and it is what lets you predict the next case instead of memorizing this one. Use the model to climb down the causal chain by asking "why" until it reaches the edge of what is actually known.
+
+Start with the fact, then drill:
+
+- "Why does SGLT2 inhibition promote ketogenesis even when glucose is normal?"
+- "Why does the glucosuria lower insulin and raise glucagon?"
+- "Why does that ratio shift the liver toward beta-oxidation?"
+
+By the third or fourth "why," you are usually at genuine physiology rather than board-exam phrasing, and you will often find the model starting to hedge, which is itself information about where the settled science ends.
+
+<PromptPlayground tool="Any LLM" title="The why-ladder">
+I want to understand the mechanism of [phenomenon], not just the fact of it. State the one-sentence fact, then let me drive: I will keep asking "why" and I want you to go one causal step deeper each time, stopping at the point where the mechanism is genuinely uncertain or debated. Tell me clearly when we reach that point.
+</PromptPlayground>
+
+---
+
+## 4. Steelman, Then Refute
+
+Clinical reasoning is largely the discipline of not falling in love with your first diagnosis. Use the model to manufacture the disagreement that a busy ward rarely supplies. Commit to your leading diagnosis, then order the model to argue against it as hard as it can.
+
+<PromptPlayground tool="Any LLM" title="Argue against me">
+Case: [brief hypothetical vignette]. My leading diagnosis is [X] and my plan is [Y].
+
+Do not agree with me. Build the strongest possible case that I am wrong: what does [X] fail to explain, what is the most dangerous diagnosis I am anchoring away from, and what one piece of data would most change my mind? Then tell me whether my reasoning survives.
+</PromptPlayground>
+
+This is the cognitive-debiasing move in miniature. For the fuller version applied to real cases, see the [cognitive debiasing workflow](/workflows/cognitive-debiasing) and the [clinical reasoning workflow](/workflows/clinical-reasoning).
+
+---
+
+## 5. Teach It Back
+
+You do not understand something until you can explain it plainly. Explain the concept to the model as if teaching a student, then ask it to find the places where you hand-waved. This is the Feynman technique with an examiner attached.
+
+The trick is to write your explanation in plain language, no jargon, because jargon is where vague understanding hides. "It downregulates the receptor" can paper over a gap that "it physically removes the channel from the membrane so the cell stops responding" cannot.
+
+<PromptPlayground tool="Any LLM" title="Find the gaps in my explanation">
+Here is how I would explain [concept] to a first-year student, in plain language:
+
+[your explanation, no jargon allowed]
+
+Point out exactly where I oversimplified to the point of being wrong, where I used a term as a placeholder for something I did not actually explain, and what a sharp student would ask me that I could not currently answer.
+</PromptPlayground>
+
+---
+
+## 6. Find the Edge of Your Knowledge
+
+Efficient studying means spending your time at the boundary of what you know, not re-reading what you have already mastered. The model can locate that boundary fast: ask it to quiz you with escalating difficulty until you miss, then concentrate there.
+
+<PromptPlayground tool="Any LLM" title="Escalate until I fail">
+Quiz me on [topic] with progressively harder questions, one at a time, starting at the level of a strong intern and increasing in difficulty until I get one wrong. When I miss one, stop escalating, tell me what I misunderstood, and give me three more questions at that exact level so I can consolidate before we move on.
+</PromptPlayground>
+
+The point of failure is not a verdict on you. It is the map of where to study. Most people never find it because studying alone tends to drift toward the comfortable and familiar.
+
+---
+
+## 7. Calibrate Before You Peek
+
+Good physicians are not just often right; they know how confident to be. Build that calibration deliberately: before the model reveals an answer, commit to yours *and* to a confidence level. Over time, comparing your stated confidence to your actual accuracy is the fastest way to find where you are overconfident, which is exactly where errors hide.
+
+<PromptPlayground tool="Any LLM" title="Confidence check">
+Ask me [topic] questions one at a time. For each, I will give my answer and a confidence from 50 to 100 percent before you respond. Track my calibration across the session: tell me where I was confidently wrong versus appropriately uncertain, and what that pattern suggests I should review.
+</PromptPlayground>
+
+---
+
+## The Deskilling Tripwires
+
+Every technique above can quietly invert into the lazy version. These are the warning signs that you have stopped learning and started outsourcing.
+
+<Callout type="pitfall">
+  You are deskilling, not learning, when: you reach for the model before forming any answer of your own; you accept the first response without checking a primary source; you feel the fluent glow of "that makes sense" but could not reproduce the explanation an hour later; or you could not complete the task at all with the laptop closed.
+</Callout>
+
+Three habits keep you on the right side of that line:
+
+1. **The laptop-closed test.** After any session, close the model and reproduce the key reasoning from memory. If you cannot, you recognized the answer rather than learned it. Go back.
+2. **Verify the load-bearing claims.** LLMs state wrong facts with the same confidence as right ones. Anything you will rely on clinically gets checked against a primary source, not the model's say-so. The [crossword problem](/editorials/the-crossword-problem) is the whole reason: five brilliant answers buy your trust, and the sixth spends it.
+3. **Notice when fluency replaces effort.** The feeling of understanding is not the same as understanding. The fix is always the same: produce, do not just consume.
+
+For the argument behind all of this, why the same tool deepens or hollows out a physician depending entirely on how it is taught, see [The Deskilling We Choose](/editorials/the-deskilling-we-choose) and [The Best Tutor and the Worst Crib Sheet](/editorials/llms-in-medical-education).
+
+---
+
+## Quick Reference
+
+| Technique | The instruction that makes it work | What it builds |
+|-----------|-----------------------------------|----------------|
+| Answer first, then verify | "Don't rewrite it; mark up my attempt" | Retrieval, retention |
+| Make it ask, not tell | "Ask me one question at a time, no answers" | Active reasoning |
+| Chase the mechanism | "Go one causal step deeper each 'why'" | Transferable understanding |
+| Steelman, then refute | "Do not agree with me; argue I'm wrong" | Debiasing, breadth |
+| Teach it back | "Find where I hand-waved" | Depth, honesty about gaps |
+| Find the edge | "Escalate until I fail, then drill there" | Efficient study targeting |
+| Calibrate before you peek | "Track my confidence vs accuracy" | Knowing what you don't know |
+
+The thread running through the table is one rule worth keeping where you study: the LLM is most valuable exactly when it makes the work harder, not easier. The day it starts saving you effort is usually the day it has stopped teaching you anything.
+
+---
+
+## Where to go next
+
+- **[The Deskilling We Choose](/editorials/the-deskilling-we-choose)**: why teaching these habits is the profession's responsibility, not the learner's alone
+- **[Prompting 101](/guides/prompting-101)**: the four principles that turn a vague prompt into a precise one
+- **[Which LLM for Clinical Reasoning?](/editorials/llm-clinical-reasoning-comparison)**: which model to reach for when the reasoning has to be good
+- **[Cognitive Debiasing Workflow](/workflows/cognitive-debiasing)**: the steelman-and-refute move, applied to real cases
