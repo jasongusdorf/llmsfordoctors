@@ -10,9 +10,11 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   const ip = clientIp(request);
   if (await isRateLimited(kv, ip)) return json({ error: 'Too many attempts. Try again later.' }, 429);
 
-  const { password } = (await request.json().catch(() => ({}))) as { password?: string };
   const stored = (env as any).ADMIN_PASSWORD_HASH as string | undefined;
-  if (!password || !stored || !(await verifyPassword(password, stored))) {
+  if (!stored) return json({ error: 'Login is not configured' }, 500);
+
+  const { password } = (await request.json().catch(() => ({}))) as { password?: string };
+  if (!password || !(await verifyPassword(password, stored))) {
     await recordLoginFailure(kv, ip);
     return json({ error: 'Invalid password' }, 401);
   }
