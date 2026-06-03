@@ -8,7 +8,7 @@ export interface ParsedMdx {
   body: string;
 }
 
-const FRONTMATTER_RE = /^---\n([\s\S]*?)\n---\n?/;
+const FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/;
 const EM_DASH = '\u2014';
 
 export function parseMdx(raw: string): ParsedMdx {
@@ -31,7 +31,7 @@ const REQUIRED: Record<CollectionName, string[]> = {
   trials: ['title', 'journal', 'year', 'doi', 'keyFinding', 'lastUpdated', 'tags'],
   templates: ['title', 'category', 'targetTool', 'tags', 'lastUpdated'],
   workflows: ['title', 'category', 'tools', 'tags', 'timeToRead', 'lastUpdated'],
-  videos: ['title', 'url', 'channel', 'summary', 'category'],
+  videos: ['title', 'url', 'channel', 'summary', 'category', 'llm', 'topic', 'priority', 'dateAdded'],
 };
 
 export function isCollection(name: string): name is CollectionName {
@@ -47,7 +47,9 @@ export function validateContent(
 
   for (const field of REQUIRED[collection]) {
     const v = frontmatter[field];
-    if (v === undefined || v === null || v === '') errors.push(`Missing required field: ${field}`);
+    if (v === undefined || v === null || v === '' || (Array.isArray(v) && v.length === 0)) {
+      errors.push(`Missing required field: ${field}`);
+    }
   }
 
   const fmText = JSON.stringify(frontmatter);

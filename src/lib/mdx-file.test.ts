@@ -33,6 +33,8 @@ describe('serializeMdx', () => {
     const out = parseMdx(serializeMdx(frontmatter, body));
     expect(out.frontmatter.title).toBe('Hello');
     expect(out.body.trim()).toBe('Body line one.\n\nBody line two.');
+    expect(out.frontmatter.tags).toEqual(['a', 'b']);
+    expect(out.frontmatter.featured).toBe(false);
   });
 
   it('produces a leading and trailing frontmatter fence', () => {
@@ -58,7 +60,7 @@ describe('validateContent', () => {
   it('rejects an em dash in the body', () => {
     const errors = validateContent('guides', {
       title: 'T', description: 'D', tags: ['x'], lastUpdated: '2026-06-03',
-    }, 'A sentence — with an em dash.');
+    }, 'A sentence \u2014 with an em dash.');
     expect(errors.some(e => e.toLowerCase().includes('em dash'))).toBe(true);
   });
 
@@ -68,5 +70,12 @@ describe('validateContent', () => {
       socialPost: 'x'.repeat(257),
     }, 'Body');
     expect(errors.some(e => e.includes('256'))).toBe(true);
+  });
+
+  it('flags an empty required array', () => {
+    const errors = validateContent('guides', {
+      title: 'T', description: 'D', tags: [], lastUpdated: '2026-06-03',
+    }, 'Body');
+    expect(errors.some(e => e.includes('tags'))).toBe(true);
   });
 });
