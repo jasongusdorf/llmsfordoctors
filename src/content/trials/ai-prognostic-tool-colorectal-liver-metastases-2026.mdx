@@ -1,0 +1,60 @@
+---
+title: "AI Prognostic Tool Improves Surgical Oncologists' Mortality Predictions in Colorectal Liver Metastases"
+journal: "NPJ Digital Medicine"
+year: 2026
+doi: "10.1038/s41746-026-02606-5"
+keyFinding: "In a prospective, randomized multi-reader multi-case trial (NCT07027605), 12 surgical oncologists assessed 166 colorectal liver metastasis cases with and without ML-based prognostic tool assistance. Model assistance significantly improved AUC for 3-year mortality prediction (mean difference 0.091; 95% CI 0.001-0.181; P=0.048), reduced decision time from 3.04 to 2.53 minutes per case, and increased clinician confidence, with the greatest benefits observed among junior to mid-level surgeons."
+lastUpdated: 2026-04-09
+tags: [colorectal-cancer, liver-disease, machine-learning, surgical-discharge, oncology, clinical-decision-support, prediction-model]
+socialPost: "Prospective RCT: 12 surgical oncologists assessed 166 colorectal liver metastasis cases with and without an ML prognostic tool. AI assistance improved AUC for 3-year mortality by 0.091 (P=0.048), cut decision time by 17%, and benefited junior surgeons most (npj Digital Medicine)."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This prospective, randomized multi-reader multi-case (MRMC) trial (NCT07027605) enrolled 12 surgical oncologists to evaluate whether a machine learning prognostic tool improves clinical decision-making in colorectal liver metastases (CRLM). Each surgeon assessed 166 retrospective CRLM cases in a crossed design: each case was evaluated both with and without AI assistance, with a 5-week washout period between sessions to minimize recall bias. Between January and July 2025, 12 readers completed 3,984 total assessments. The primary endpoint was the difference in AUC for predicting 3-year overall mortality. Secondary endpoints included accuracy across additional prognostic measures, decision time, and reader confidence. The ML tool was trained on baseline clinical variables to produce individualized mortality probability estimates.
+
+---
+
+## Key Findings
+
+- **AI assistance significantly improved AUC for 3-year mortality prediction**: mean difference **0.091** (95% CI 0.001-0.181; P=0.048)
+- **Accuracy improved consistently across secondary prognostic endpoints**, including progression-free survival and other time-to-event measures
+- **Decision time decreased from 3.04 to 2.53 minutes per case** with AI assistance, a 17% reduction
+- **Reader confidence increased** when the prognostic tool was available
+- **Benefits were greatest for junior to mid-level surgical oncologists**, suggesting the tool helps close the experience gap rather than providing marginal gains to already-expert clinicians
+- **Total of 3,984 assessments** across the study, providing substantial statistical power for the MRMC design
+- **The crossed design controlled for case mix**: every surgeon saw every case under both conditions, isolating the effect of the tool from inter-reader variability
+
+<Callout type="evidence">
+  The experience-gradient finding is important. Most AI-augmentation studies show uniform effects across clinician experience levels. Here, junior surgeons benefited more, which suggests the tool provides information (prognostic calibration) that experienced surgeons have already internalized but less experienced surgeons have not.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Prognostic calibration is a concrete, high-value target for clinical AI.** Surgical oncologists routinely make treatment decisions (operate vs. systemic therapy vs. palliative care) based on implicit survival estimates. An AI tool that makes those estimates explicit and more accurate directly informs the highest-stakes decision in CRLM management.
+
+2. **The trial design should become a model for clinical AI evaluation.** MRMC designs, in which every reader sees every case under both conditions, are the gold standard for diagnostic accuracy studies. The 5-week washout is a thoughtful addition that addresses the memory confound. This methodology avoids the between-group noise that plagues parallel-arm AI trials with small reader samples.
+
+3. **Junior surgeon benefit has training implications.** If the tool's primary value is in improving prognostic calibration for less experienced surgeons, it could serve as a training aid during fellowship. Exposure to AI-calibrated survival estimates during formative years may accelerate the development of prognostic intuition.
+
+<Callout type="pitfall">
+  The P value of 0.048 barely crosses the significance threshold, and the confidence interval for the AUC difference (0.001-0.181) includes near-zero effects. A larger study could yield a narrower estimate and more definitive conclusion. The authors appropriately describe this as exploratory.
+</Callout>
+
+4. **Faster decisions are a bonus, not a justification.** The 17% reduction in decision time is a welcome secondary finding, but prognostic accuracy is what matters. A tool that makes clinicians faster but not more accurate would be worthless; here, both metrics improved.
+
+5. **The gap between published prediction models and deployed tools remains wide.** Thousands of clinical prediction models are published annually. This trial asks the question that nearly all of them skip: does giving a clinician the model's output actually change their assessment for the better? The answer here is yes, modestly.
+
+---
+
+## My Takeaway
+
+This study does something rare: it tests whether a prediction model improves the clinician, not just the prediction. Thousands of ML models for cancer prognosis have been published; nearly all report AUCs and stop there. The assumption that better predictions lead to better decisions is so pervasive that it rarely gets tested. Here it is tested, and the result is positive but modest. An AUC improvement of 0.091 is meaningful in surgical oncology, where the difference between operating and not operating can be the difference between cure and futility. The experience-gradient finding is the most actionable result: junior surgeons, who are still calibrating their prognostic intuition, benefit most. That is exactly the population you would want to target with a decision support tool.
+
+---
+
+[Read the full article at NPJ Digital Medicine](https://doi.org/10.1038/s41746-026-02606-5)

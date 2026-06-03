@@ -1,0 +1,59 @@
+---
+title: "AI Chest X-Ray Prioritization Does Not Speed Lung Cancer Diagnosis: The LungIMPACT Trial"
+journal: "Nature Medicine"
+year: 2026
+doi: "10.1038/s41591-026-04253-5"
+keyFinding: "In a multicentre RCT of 93,326 primary care chest X-rays across the UK, AI-based worklist prioritization had no significant effect on time to CT (53 days in both arms; ratio of geometric means 0.97, 95% CI 0.93-1.02, P=0.31) or time to lung cancer diagnosis (44 vs 46 days; P=0.84). No differences were observed in time to referral, time to treatment, or stage at diagnosis. AI and radiology reports were discordant in 30.3% of CXRs."
+lastUpdated: 2026-04-09
+tags: [lung-cancer, chest-x-ray, radiology, rct, triage, screening, implementation]
+socialPost: "The LungIMPACT RCT (93,326 CXRs, Nature Medicine): AI worklist prioritization did not reduce time to CT or lung cancer diagnosis. Median 53 days to CT in both arms (P=0.31). AI and radiologist reports disagreed on 30.3% of X-rays. A negative trial with implications for how we deploy imaging AI."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Woznitza et al. conducted a prospective, multicentre, randomized controlled trial (ISRCTN 78987039) testing whether AI prioritization of primary care chest X-rays could shorten the time to CT and lung cancer diagnosis. The trial ran across multiple NHS sites in the UK. AI software was available in both study arms; the randomization, done by day, determined whether AI-flagged CXRs were moved to the top of the radiology worklist (prioritization "on") or processed in standard order (prioritization "off"). Of 97,731 CXRs, 4,405 were excluded for data compliance issues or randomization failures, leaving 93,326 for analysis: 45,987 in the prioritization arm and 47,339 in the control arm. The primary outcomes were time to CT and time to lung cancer diagnosis. Secondary outcomes included urgent suspected cancer referrals, lung cancer incidence and stage, time to treatment, AI-radiologist concordance, and algorithm accuracy.
+
+---
+
+## Key Findings
+
+- **Median time to CT was 53 days in both arms** (IQR 17-145 with AI prioritization, 19-141 without), with a ratio of geometric means of 0.97 (95% CI 0.93-1.02; P=0.31)
+- **When restricted to CTs within 14 days of CXR**, median time was 8 days in both groups
+- **Lung cancer was diagnosed in 558 people** (0.6% of all CXRs). Median time to diagnosis was **44 days (prioritization on) vs 46 days (off)**, ratio of geometric means 0.98 (95% CI 0.83-1.16; P=0.84)
+- **No significant differences in time to urgent referral** (14 vs 15 days; P=0.13), **time to treatment** (76 vs 72.5 days; P=0.99), or **stage at diagnosis** (P=0.34)
+- **AI and radiology reports were discordant in 30.3% of CXRs** (28,261 cases). Expert radiology review of discordant cases identified actionable findings in 23.9% (6,750 cases)
+- A total of **13,347 CTs were performed**; 2,766 occurred within 14 days of CXR
+
+<Callout type="evidence">
+  This is one of the largest prospective RCTs of AI in radiology to date, and it is definitively negative. The null result held across every primary and secondary endpoint. The bottleneck in the lung cancer pathway is not how quickly a radiologist reads the chest X-ray; it lies elsewhere in the referral and diagnostic chain.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Worklist prioritization is the wrong deployment model for CXR AI in primary care.** The trial does not show that AI cannot detect lung cancer on chest X-rays; it shows that moving flagged films to the top of the reading list does not accelerate the downstream pathway. Radiology reporting was not the rate-limiting step.
+
+2. **The 30.3% discordance rate deserves separate attention.** Nearly one in three CXRs produced different conclusions from AI and radiologists. Among those discordant cases, expert review found actionable pathology in almost a quarter. Whether this represents AI overcalling, radiologist undercalling, or both, it signals that the AI is seeing things radiologists are not, and vice versa.
+
+3. **Negative trials are valuable and publishable.** The NHS and clinical AI community invested substantially in this trial, and the result is unambiguous: this particular implementation does not work. That clarity prevents other health systems from repeating the experiment and redirects resources toward deployment models that might.
+
+<Callout type="pitfall">
+  The intervention was worklist prioritization, not AI-assisted interpretation. The AI was available in both arms. Radiologists in the control arm could still see AI results; they simply were not reordered. This design tests the logistical value of queue-jumping, not the diagnostic value of AI itself.
+</Callout>
+
+4. **Future research should target referral and pathway bottlenecks.** If the delay occurs between radiology reporting and GP referral, or between referral and CT scheduling, then AI prioritization at the reading stage cannot help. Pathway-level interventions (automated GP alerts, direct CT booking triggered by AI flags) are the logical next candidates.
+
+5. **The 0.6% lung cancer detection rate provides context for prevalence.** In a primary care CXR population, fewer than 1 in 150 X-rays leads to a cancer diagnosis. AI tools operating at this prevalence face the base-rate problem: even high sensitivity produces large absolute numbers of false positives.
+
+---
+
+## My Takeaway
+
+This trial matters precisely because it is negative. The assumption behind AI worklist prioritization is intuitive: if AI flags a suspicious chest X-ray and the radiologist reads it sooner, the patient gets diagnosed faster. LungIMPACT tested that assumption in 93,000 patients and found it wrong. The bottleneck is not the radiologist's reading speed. It is everything that happens after the report is written: the GP seeing the result, the referral being made, the CT being scheduled. A faster radiology report changes nothing if it sits unread in an inbox for days. The 30% discordance rate is, to me, the more interesting finding. It means AI and radiologists are systematically disagreeing on a third of chest X-rays. Whether that disagreement contains clinical value, or represents noise, is the question the next trial should answer.
+
+---
+
+[Read the full article at Nature Medicine](https://doi.org/10.1038/s41591-026-04253-5)

@@ -1,0 +1,60 @@
+---
+title: "Smartphone Photos of Resected Lung Tumors Predict Pathological Invasiveness in Real Time"
+journal: "Lancet Digital Health"
+year: 2026
+doi: "10.1016/S2589-7500(25)00147-5"
+keyFinding: "SuRImage, a deep learning model trained on smartphone photographs of surgically resected lung adenocarcinoma taken under natural operating room lighting, achieved AUCs of 0.84 (95% CI 0.82-0.86) for invasiveness identification, 0.87 (0.86-0.88) for three-class diagnosis, and 0.85 (0.83-0.86) for IASLC grading in a prospective multicentric cohort of 1,529 patients. Surgeon diagnostic accuracy for grading improved from 63.8% to 73.4% with SuRImage assistance, and the model outperformed frozen section analysis."
+lastUpdated: 2026-04-09
+tags: [lung-cancer, deep-learning, pathology, smartphone, surgery, intraoperative, diagnostic-accuracy]
+socialPost: "Smartphone photos of resected lung tumors, taken under normal OR lighting, predicted pathological invasiveness with AUC 0.84-0.87. Outperformed frozen section. Surgeon accuracy rose from 63.8% to 73.4% with AI assistance. First study using macroscopic features for this task (Lancet Dig Health)."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This prospective, multicentric diagnostic study enrolled 1,529 patients with clinical stage IA lung adenocarcinoma (LUAD) from three hospitals in China between June 2020 and September 2023, with external validation cohorts of 116 and 82 patients from two additional centers. Surgical resection images were captured using standard smartphones under natural operating room lighting conditions, with no special imaging equipment. Deep learning models were trained on 2,344 images from the primary site and evaluated on three tasks of increasing granularity: binary classification of invasive vs non-invasive adenocarcinoma; three-class diagnosis (adenocarcinoma in situ, minimally invasive adenocarcinoma, and invasive adenocarcinoma); and five-class grading according to the International Association for the Study of Lung Cancer (IASLC) Grading System. The study was registered with the Chinese Clinical Trial Registry (ChiCTR2300075999). A literature search found no prior studies using macroscopic features for AI-based lung adenocarcinoma diagnosis.
+
+---
+
+## Key Findings
+
+- **AUC for invasive adenocarcinoma identification was 0.84** (95% CI 0.82-0.86) at the primary center
+- **AUC for three-class diagnosis was 0.87** (95% CI 0.86-0.88), distinguishing adenocarcinoma in situ, minimally invasive, and invasive adenocarcinoma
+- **AUC for five-class IASLC grading was 0.85** (95% CI 0.83-0.86)
+- **SuRImage outperformed frozen section analysis** for determining pathological invasiveness, a notable result given that frozen section is the current intraoperative standard
+- **Thoracic surgeon diagnostic accuracy improved from 63.8% (95% CI 60.6-67.0) to 73.4% (67.7-79.2)** for invasiveness grading when assisted by SuRImage
+- **The model used only smartphone photographs**, requiring no specialized imaging hardware, no tissue processing, and no pathologist involvement at the point of capture
+- **This is the first study to use macroscopic (gross) features** for AI-based invasiveness prediction in lung adenocarcinoma
+
+<Callout type="evidence">
+  The practical constraints matter as much as the performance numbers. Frozen section requires a cryostat, a pathologist, and 20-30 minutes. SuRImage requires a phone and a few seconds. In settings where intraoperative pathology is slow or unavailable, the time and resource savings could change surgical decision-making at the point of care.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Surgical strategy in early-stage lung adenocarcinoma depends on invasiveness.** Guidelines recommend sublobar resection for preinvasive and minimally invasive disease but lobectomy with lymph node dissection for invasive adenocarcinoma. A real-time, in-OR tool that distinguishes these categories could spare patients unnecessary extensive surgery, or prevent inadequate resection.
+
+2. **The smartphone as a diagnostic instrument is the conceptual breakthrough.** The model works on uncontrolled, natural-lighting photographs taken with consumer devices. This eliminates the hardware barrier entirely and makes the tool theoretically deployable in any operating room worldwide, including resource-limited settings without on-site pathology.
+
+3. **Frozen section, the current standard, is not always accurate.** Frozen section has known limitations for grading lung adenocarcinoma, particularly at the boundaries between minimally invasive and invasive disease. A complementary AI tool that provides a second opinion from a different data modality (macroscopic rather than microscopic) adds information the pathologist does not have.
+
+<Callout type="pitfall">
+  The study population is entirely Chinese, enrolled from three hospitals in Guangdong province. Lung adenocarcinoma morphology, tumor size distributions, and surgical technique may differ across populations. External validation in non-Chinese cohorts is needed before generalizability can be assumed.
+</Callout>
+
+4. **Surgeon accuracy improved by nearly 10 percentage points with AI assistance.** This is one of the cleaner demonstrations of AI-augmented clinician performance: the tool provides information (predicted grade), the surgeon integrates it with their own assessment, and accuracy rises. The human remains in the loop.
+
+5. **Image standardization will be the deployment challenge.** Operating room lighting, camera angle, blood on the specimen, and tissue orientation all vary. The model was trained on images captured under a protocol; real-world adoption will need to demonstrate robustness to the messier conditions of routine surgical practice.
+
+---
+
+## My Takeaway
+
+The most striking thing about this study is what it does not require. No frozen section, no cryostat, no pathologist, no specialized camera. A surgeon takes a phone photo of the resected specimen and gets a real-time prediction of invasiveness that outperforms the current standard. The clinical logic is compelling: if you know the tumor is minimally invasive before you close, you can perform a less extensive resection and spare the patient a lobectomy. The single-population limitation is real but addressable. What makes this paper worth watching is the access angle. Plenty of hospitals, particularly in low- and middle-income countries, lack intraoperative pathology. They do not lack smartphones.
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/S2589-7500(25)00147-5)

@@ -1,0 +1,62 @@
+---
+title: "4,609 Studies, 19 Randomized Trials: The Real Evidence Base for Clinical LLMs"
+journal: "Nature Medicine"
+year: 2026
+doi: "10.1038/s41591-026-04229-5"
+keyFinding: "An LLM-assisted systematic review identified 4,609 peer-reviewed studies of LLMs in clinical medicine published between January 2022 and September 2025 (roughly 3.2 papers per day), but only 1,048 used real patient data and just 19 were prospective randomized trials. ChatGPT and OpenAI models constituted 65.7% of all evaluated models. At least 25% of studies had sample sizes below 30."
+lastUpdated: 2026-04-09
+tags: [systematic-review, llm, clinical-reasoning, benchmark, ai-evaluation, ai-research, meta-analysis]
+socialPost: "4,609 LLM studies in clinical medicine since 2022, roughly 3.2 per day. Only 19 were prospective RCTs. 25% had N<30. ChatGPT/OpenAI models accounted for 65.7% of all evaluations. Nature Medicine systematic review maps the gap between volume and rigor."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This LLM-assisted systematic review searched PubMed, Embase, and Scopus for studies evaluating large language models in clinical medicine published between January 2022 and September 2025. The search returned 23,614 records; after deduplication, 12,894 unique studies remained. Rather than manual screening, the investigators used GPT-5 (with reasoning effort set to high) to filter and tier studies programmatically. They validated this approach by having two independent groups of five human reviewers screen a random sample of 500 studies. GPT-5 achieved a Cohen's kappa of 0.820 (95% CI 0.765-0.870) against human consensus, with sensitivity of 0.911 and specificity of 0.921 for inclusion decisions. Studies were categorized into four tiers: Tier S (prospective RCTs of deployed systems), Tier I (real clinical data, retrospective or prospective), Tier II (simulated or synthetic clinical data), and Tier III (knowledge recall tasks such as exam questions). The final included set comprised 4,609 studies.
+
+---
+
+## Key Findings
+
+- **4,609 studies met inclusion criteria**, an estimated 3.2 papers per day over the study period
+- **Only 1,048 studies (22.7%) used real-world patient data** (Tier S/I). The majority tested simulated scenarios (1,857 studies, Tier II) or exam-style tasks (1,704 studies, Tier III)
+- **Just 19 studies were prospective randomized trials** (Tier S), less than 0.5% of all included studies
+- **The earliest RCT was published July 2024**: a smoking cessation chatbot (QuitBot) that outperformed the NCI text-line SmokefreeTXT (OR 2.58, 95% CI 1.34-4.99; P=0.005)
+- **ChatGPT and OpenAI models constituted 65.7%** of all evaluated models; Gemini/Bard was a distant second at 13.1%
+- **The most common tasks were patient-facing communication and education** (17.4% of tasks), followed by knowledge retrieval (12.7%) and education/simulation (12.0%)
+- **At least 25% of studies had sample sizes below 30**
+- **Across 1,046 head-to-head comparisons, LLMs outperformed humans in 33%**, with performance strongly dependent on task realism and the level of training of the human comparator
+- **Tier II studies grew significantly faster** than Tier I studies (3.03 vs 2.03 studies per month; P=0.02), meaning the field is producing simulated evaluations at a faster rate than real-world ones
+
+<Callout type="evidence">
+  The ratio tells the story: for every prospective RCT, there are roughly 242 other studies. The field is not lacking research volume. It is lacking the kind of research that can inform clinical deployment decisions.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **The evidence base for clinical LLMs is wide but shallow.** Thousands of studies demonstrate that LLMs can answer medical questions, pass exams, and generate plausible clinical text. Fewer than 20 have tested whether deploying an LLM in a real clinical environment changes patient outcomes or clinician behavior in a controlled setting.
+
+2. **OpenAI model dominance creates a generalizability problem.** Nearly two-thirds of all evaluations tested ChatGPT or GPT-4. Results from these studies may not transfer to Claude, Gemini, Llama, or other models with different training data, architecture, and safety tuning. The literature tells us more about one company's products than about the technology class as a whole.
+
+3. **Small sample sizes are pervasive.** One in four studies had fewer than 30 data points. At that scale, even large effect sizes are unstable, and publication bias toward positive results is difficult to detect.
+
+4. **Simulated evaluations are outpacing real-world ones.** The rate of Tier II (simulated) studies is growing faster than Tier I (real data) studies. This gap is likely to widen as it remains easier and cheaper to test an LLM on crafted clinical vignettes than to integrate it into a clinical workflow and measure what happens.
+
+<Callout type="pitfall">
+  LLMs outperformed humans in only a third of head-to-head comparisons, and that proportion is inflated by exam-style and simulated tasks where LLMs perform best. In real-world evaluations with higher task complexity and genuine clinical uncertainty, the win rate is likely lower.
+</Callout>
+
+5. **The review itself demonstrates a meta-point about LLM utility.** Using GPT-5 for systematic review screening achieved near-human reliability (kappa 0.82) and processed 12,894 abstracts at a scale that would have been prohibitively expensive to do manually. Literature triage may be one of the strongest near-term use cases for clinical LLMs.
+
+---
+
+## My Takeaway
+
+This paper quantifies what many of us have felt: the clinical LLM literature is enormous and growing exponentially, yet almost none of it answers the question that matters for patient care. Can deploying this tool in a real clinical environment safely improve outcomes? Nineteen RCTs out of 4,609 studies is a sobering ratio. The finding that 25% of studies have sample sizes under 30 is equally telling. We are building a research base on vignettes, exam questions, and small demonstrations, then extrapolating to clinical deployment. The authors' use of an LLM to conduct the review is an elegant proof of concept for exactly the kind of task (high volume, structured criteria, tolerable error rate) where LLMs add clear value. The irony is not lost: the best evidence for LLM utility in this paper is the methodology, not the findings it uncovered.
+
+---
+
+[Read the full article at Nature Medicine](https://doi.org/10.1038/s41591-026-04229-5)

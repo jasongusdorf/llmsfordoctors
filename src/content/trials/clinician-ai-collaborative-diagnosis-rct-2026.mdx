@@ -1,0 +1,56 @@
+---
+title: "AI as First Opinion vs Second Opinion: Both Improve Diagnostic Accuracy in RCT"
+journal: "NPJ Digital Medicine"
+year: 2026
+doi: "10.1038/s41746-026-02545-1"
+keyFinding: "In a randomized controlled trial of 70 clinicians (NCT06911645), a collaborative AI diagnostic system improved accuracy over conventional resources regardless of whether AI served as the first opinion (85%) or second opinion (82%), compared to 75% without AI. Performance was not statistically different from AI alone (90%), and the AI-generated synthesis integrating both clinician and AI assessments was the key design element."
+lastUpdated: 2026-04-09
+tags: [rct, diagnosis, clinical-reasoning, llm, physician-performance, human-ai-collaboration]
+socialPost: "RCT of 70 clinicians: a collaborative AI diagnostic system improved accuracy to 85% (AI first) and 82% (AI second) vs 75% with conventional resources. AI alone scored 90%. The workflow design, not just the model, drove the gains (npj Digital Medicine)."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This randomized controlled trial (NCT06911645) enrolled 70 clinicians to test a custom system designed for collaborative diagnostic reasoning. The system was built around a structured workflow: the clinician and AI each independently assessed a clinical case, followed by an AI-generated synthesis that integrated both perspectives, explicitly highlighting agreements, disagreements, and providing commentary on discrepancies. Clinicians were randomized to one of two collaborative workflows: AI as first opinion (the clinician sees the AI assessment before forming their own) or AI as second opinion (the clinician forms their assessment first, then sees the AI's). Both groups were compared against a control condition using conventional diagnostic resources only. A fourth comparison arm assessed AI-alone performance on the same cases. The primary outcome was diagnostic accuracy.
+
+---
+
+## Key Findings
+
+- **AI-first workflow: 85% diagnostic accuracy**; AI-second workflow: **82% accuracy**; both significantly higher than **75% with conventional resources alone**
+- **AI alone achieved 90% accuracy**, not statistically different from either collaborative workflow
+- **Both collaborative workflows produced comparable results**, suggesting that whether AI leads or follows the clinician matters less than the synthesis step
+- **The AI-generated synthesis, which explicitly compared clinician and AI reasoning, was the distinctive design element**; rather than simply presenting a diagnosis, it surfaced where the human and AI agreed, where they diverged, and why
+- **Qualitative analysis revealed that workflow order shaped how clinicians engaged with AI**: in the AI-first condition, clinicians were more likely to anchor on the AI's assessment; in the AI-second condition, clinicians were more likely to maintain their initial diagnosis
+
+<Callout type="evidence">
+  The convergence of both workflows toward AI-alone accuracy suggests that the synthesis step, not the ordering, does the heavy lifting. When a system explicitly highlights disagreements between clinician and AI reasoning, clinicians tend to resolve those disagreements correctly, regardless of which assessment came first.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Workflow architecture matters as much as model performance.** A 90%-accurate AI that simply displays a diagnosis may be less effective than the same AI embedded in a structured collaborative workflow. This trial's key contribution is not the AI itself but the interaction design: independent assessments, followed by a structured synthesis that forces the clinician to engage with discrepancies.
+
+2. **The anchoring effect is real but manageable.** In the AI-first condition, clinicians anchored more heavily on the AI's initial assessment. This is the automation bias concern that dominates the human-AI interaction literature. The trial suggests it does not meaningfully degrade accuracy, possibly because the synthesis step provides a second opportunity to reconsider.
+
+3. **Collaborative AI may close the gap between model and clinician performance.** The 15-percentage-point gap between AI alone (90%) and unaided clinicians (75%) narrowed to 5-8 points with the collaborative system. The clinician is still underperforming the AI, but the gap is smaller than in prior studies where AI was presented as a simple second opinion without structured synthesis.
+
+<Callout type="pitfall">
+  Seventy clinicians is a modest sample for detecting differences between two active workflows. The trial was powered to compare each workflow against the conventional-resources control, not to detect small differences between AI-first and AI-second conditions. Larger trials may reveal workflow-dependent effects that this study could not detect.
+</Callout>
+
+4. **The "teammate" framing reflects a real shift in clinical AI design.** Most deployed clinical AI operates as a tool: it produces an output, the clinician accepts or rejects it. This study prototypes a teammate model in which the AI engages with the clinician's reasoning, not just the clinical data. Whether that distinction changes behavior at scale is the next question.
+
+---
+
+## My Takeaway
+
+The 10-percentage-point accuracy gain over conventional resources is consistent with other recent clinician-AI trials. What sets this one apart is the synthesis step. Instead of AI offering a diagnosis and the clinician deciding whether to trust it, the system surfaces exactly where and why the clinician and AI disagree. That is a fundamentally different interaction. It asks the clinician not to accept or reject, but to reason through a specific point of conflict. The modest sample size limits what we can conclude about the ordering question, but the trial's real contribution is showing that how AI is presented to clinicians may matter as much as what it says.
+
+---
+
+[Read the full article at NPJ Digital Medicine](https://doi.org/10.1038/s41746-026-02545-1)

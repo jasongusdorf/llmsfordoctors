@@ -1,0 +1,55 @@
+---
+title: "Multiagent LLM Framework Simulates Liver Transplant Selection Committee Decisions"
+journal: "Lancet Digital Health"
+year: 2026
+doi: "10.1016/S2589-7500(25)00148-7"
+keyFinding: "A multiagent LLM-based system, in which AI agents role-played as hepatologist, transplant surgeon, social worker, and other committee members, simulated liver transplantation selection committee discussions in a retrospective cohort. The framework produced accurate, objective assessments of transplant candidacy and demonstrated reduced social bias compared to single-agent LLM prompting."
+lastUpdated: 2026-04-09
+tags: [llm, liver-transplant, clinical-decision-support, agents, transplant-surgery, equity, algorithmic-fairness]
+socialPost: "A Lancet Digital Health study used a multiagent LLM system, with AI agents playing hepatologist, surgeon, and social worker, to simulate liver transplant selection committees. The framework reduced social bias compared to single-agent prompting. A proof of concept for agent-based clinical decision support."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This retrospective cohort study developed and evaluated a multiagent LLM-based system designed to replicate the deliberative process of a liver transplantation selection committee. Rather than prompting a single LLM for a yes-or-no transplant decision, the investigators created multiple AI agents, each assigned the role and perspective of a specific committee member (hepatologist, transplant surgeon, social worker, and others). These agents engaged in structured simulated discussion, debating each patient's candidacy from their respective clinical and psychosocial vantage points before reaching a consensus recommendation. The system was tested against real committee decisions from a retrospective patient cohort. The investigators compared the multiagent framework to traditional single-agent LLM prompting (including prompts instructing the model to behave ethically) on both decision accuracy and measures of social bias.
+
+---
+
+## Key Findings
+
+- **The multiagent framework produced accurate transplant candidacy assessments** that aligned with real committee decisions
+- **Social bias was reduced relative to single-agent approaches.** Prior work has shown that prompting a single LLM to "be fair" or "avoid bias" has limited effectiveness; the multiagent structure, where competing perspectives are forced to surface and be debated, significantly outperformed single-agent ethical prompting
+- **The system simulated multidisciplinary deliberation**, incorporating clinical (MELD score, disease trajectory, surgical risk), psychosocial (social support, adherence history), and ethical (equity, waitlist position) considerations in a structured dialogue format
+- **The framework is generalizable.** The authors propose that the same architecture could be applied to tumor boards, multidisciplinary clinical rounds, and other consensus-driven medical decisions
+
+<Callout type="evidence">
+  The core insight is architectural, not just technical. A single LLM asked whether a patient should receive a transplant produces a monolithic answer. Multiple LLM agents debating the question from different clinical perspectives produce a deliberative process that is more transparent, more auditable, and, in this study, less biased.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Agent-based architecture may mitigate bias in ways that single-model prompting cannot.** Telling an LLM to be fair is a weak intervention. Structuring the system so that different perspectives must be explicitly represented and reconciled is a stronger one. This aligns with how human committees are designed to work: the social worker catches what the surgeon misses, and vice versa.
+
+2. **Transplant selection is a compelling test case for clinical AI.** The decision is high-stakes, multidimensional, and known to be influenced by subjective factors including race, socioeconomic status, and institutional culture. An AI system that can make the deliberative process more objective and reproducible addresses a real equity concern.
+
+3. **This is a proof of concept, not a deployment-ready tool.** The study is retrospective and evaluates agreement with past committee decisions. It does not demonstrate that the AI would improve outcomes, nor does it address what happens when the AI disagrees with the committee on a borderline case.
+
+<Callout type="pitfall">
+  Using past committee decisions as the ground truth creates a circularity problem. If existing committees exhibit bias (which the transplant equity literature suggests they do), training or evaluating against their decisions can bake that bias in. The multiagent system may reduce bias relative to a single LLM, but the benchmark itself is imperfect.
+</Callout>
+
+4. **The tumor board application is the most immediate practical extension.** Multidisciplinary tumor boards face similar challenges: time pressure, variable attendance, implicit hierarchy among specialties, and inconsistent documentation of the reasoning behind decisions. An agent-based system that pre-structures the discussion and ensures each relevant perspective is represented could serve as decision support, even if the final call remains with the human committee.
+
+---
+
+## My Takeaway
+
+The architecture here is more interesting than the specific results. Single-agent LLMs produce answers. Multiagent LLMs produce debates. For decisions that depend on weighing competing clinical, ethical, and social considerations, the debate is the product, not a byproduct. Liver transplant selection is one of the highest-stakes allocation decisions in medicine, and the current process is opaque, subjective, and uneven across institutions. Whether an LLM-based simulation of that process reduces those problems or merely reproduces them in a different format is an open question. The bias reduction findings are encouraging, but the real test will be prospective: does this framework change which patients get transplanted, and do those patients do better?
+
+---
+
+[Read the full article at Lancet Digital Health](https://doi.org/10.1016/S2589-7500(25)00148-7)
