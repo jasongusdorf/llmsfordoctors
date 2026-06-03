@@ -84,13 +84,13 @@ You are a day team physician handing off your patient list to the night float te
 
 For each patient below, generate a night float handoff in this format:
 
-**[Patient identifier] — [STABLE / WATCHER / UNSTABLE]**
+**[Patient identifier]: [STABLE / WATCHER / UNSTABLE]**
 **Code status:** [Full code / DNR-DNI / other]
 
 **One-liner:** [Age] [sex] with [key history] admitted for [reason], HD [X]. [Current trajectory in &lt;10 words].
 
 **Overnight Action Items:**
-- [ ] [Task with specific timeframe — e.g., "Recheck K+ at 22:00, replete if &lt;3.5"]
+- [ ] [Task with specific timeframe, e.g., "Recheck K+ at 22:00, replete if &lt;3.5"]
 - [ ] [Task]
 - [ ] [Task]
 
@@ -98,7 +98,7 @@ For each patient below, generate a night float handoff in this format:
 - If [scenario] → [action]
 - If [scenario] → [action]
 
-**Do NOT need to be called for:** [Things that are expected/already addressed — e.g., "Patient's family may call; they are aware of the plan and no update needed overnight"]
+**Do NOT need to be called for:** [Things that are expected/already addressed, e.g., "Patient's family may call; they are aware of the plan and no update needed overnight"]
 
 ---
 
@@ -120,7 +120,7 @@ You are a primary team physician preparing a handoff for weekend coverage. The c
 
 For each patient below, generate a weekend handoff:
 
-**[Patient identifier] — [STABLE / WATCHER / UNSTABLE]**
+**[Patient identifier]: [STABLE / WATCHER / UNSTABLE]**
 **Code status:** [Full / DNR-DNI / MOLST details]
 **Anticipated discharge:** [Expected date or "Not before Monday because..."]
 
@@ -207,12 +207,12 @@ WATCHER
 72-year-old female with COPD, type 2 DM, and CKD stage 3, admitted for community-acquired pneumonia with RLL consolidation and small parapneumonic effusion, now hospital day 2. Currently improving on ceftriaxone/azithromycin with downtrending WBC and improving oxygenation, though still requiring 2L supplemental O2.
 
 **A: Action List**
-- Follow up blood cultures (drawn on admission, still pending — check daily)
-- Recheck BMP in AM (Cr 1.6, up from baseline 1.4 — monitor for further rise given IV antibiotics and CKD)
+- Follow up blood cultures (drawn on admission, still pending, check daily)
+- Recheck BMP in AM (Cr 1.6, up from baseline 1.4, monitor for further rise given IV antibiotics and CKD)
 - Continue ceftriaxone 1g IV daily + azithromycin 500mg IV daily
-- Fingerstick glucose AC and HS per sliding scale — patient's home metformin is held given Cr elevation
+- Fingerstick glucose AC and HS per sliding scale; patient's home metformin is held given Cr elevation
 - Incentive spirometry Q1H while awake
-- Reassess O2 requirement in AM — trial wean to 1L if SpO2 >92%
+- Reassess O2 requirement in AM: trial wean to 1L if SpO2 >92%
 
 **S: Situation Awareness & Contingency Planning**
 - If SpO2 drops below 90% on 2L NC → increase to 4L NC, obtain ABG, consider repeat CXR to evaluate for worsening effusion or new process. If not improving on 4L, call respiratory for high-flow assessment.
@@ -232,7 +232,7 @@ WATCHER
 - For cross-cover signout, prioritize anticipatory guidance over background history.
 - **Common AI failure mode:** The model tends to write generic contingency plans ("if patient worsens, escalate care"). Replace these with patient-specific, actionable if-then statements with exact thresholds and specific interventions.
 - **Medication timing:** AI may not correctly calculate next medication doses or trough timing. Always verify against the MAR (medication administration record).
-- **Illness severity classification:** The model may default to "STABLE" for most patients. Review the severity tag critically — a patient who is clinically stable but has a high-risk pending result (e.g., troponin trend) may warrant "WATCHER" status.
+- **Illness severity classification:** The model may default to "STABLE" for most patients. Review the severity tag critically: a patient who is clinically stable but has a high-risk pending result (e.g., troponin trend) may warrant "WATCHER" status.
 - **Code status accuracy:** If you include code status in the prompt, verify it against the actual orders. AI cannot check the medical record.
 - **Multiple patients:** When handing off multiple patients, verify that the AI has not mixed up clinical details between patients. This is a known failure mode when batch-processing several patients in a single prompt.
 - **Print formatting:** If printing handoff sheets, review for truncation. AI output may exceed one page per patient despite instructions.
@@ -241,5 +241,5 @@ WATCHER
 
 ## Related
 
-- [SOAP Progress Note](/templates/progress-note-soap) — the day's notes that inform tonight's sign-out
-- [Discharge Summary](/templates/discharge-summary-basic) — when handoff becomes handover at discharge
+- [SOAP Progress Note](/templates/progress-note-soap): the day's notes that inform tonight's sign-out
+- [Discharge Summary](/templates/discharge-summary-basic): when handoff becomes handover at discharge

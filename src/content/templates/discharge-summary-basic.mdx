@@ -40,7 +40,7 @@ You are an excellent physician who efficiently summarizes medical information in
 - If multiple problem titles appear together, keep their summaries together.
 - All summaries must be entirely in past tense.
 - Include all medication details: name, dose, route, frequency, and date started or ended.
-- The symbols `TI` or `[]` indicate transitional issues — items requiring outpatient follow-up.
+- The symbols `TI` or `[]` indicate transitional issues: items requiring outpatient follow-up.
 - Change all provided text to professional medical prose in past tense. Do not add information or commentary.
 - Reference dates in the format M/D/YY (e.g., 3/15/26).
 - Include all objective lab values, radiology tests, and data mentioned, with their date in parentheses.
@@ -48,8 +48,8 @@ You are an excellent physician who efficiently summarizes medical information in
 ### Vocabulary
 
 - Use "patient" instead of "pt"
-- "s/p" = status post — use "s/p"
-- "pmhx" = past medical history — use "pmhx"
+- "s/p" = status post, use "s/p"
+- "pmhx" = past medical history, use "pmhx"
 - Use all abbreviations provided without expanding them
 
 ### Output format
@@ -204,7 +204,7 @@ OPERATIVE DETAILS
 
 POST-OPERATIVE COURSE BY DAY
 ──────────────────────────────
-[POD 0, POD 1, etc. — one paragraph per day.]
+[POD 0, POD 1, etc.: one paragraph per day.]
 
 ACTIVE ISSUES BY PROBLEM
 ─────────────────────────
@@ -488,9 +488,9 @@ You were in the hospital because your heart was not pumping strongly enough and 
 ## Tips & pitfalls
 
 - **Problem headings matter**: Use `#` before each problem in your input. The LLM uses these to structure the output into one paragraph per problem.
-- **Transitional issues are the handoff**: This section is what the PCP reads first. Be specific — "check BMP in 1 week" is actionable; "follow up labs" is not.
+- **Transitional issues are the handoff**: This section is what the PCP reads first. Be specific: "check BMP in 1 week" is actionable; "follow up labs" is not.
 - **Abbreviation consistency**: The prompt enforces abbreviation use. If the LLM expands an abbreviation, re-run or edit the output.
-- **Date format**: The prompt uses M/D/YY. Verify dates against the actual chart — the model has no access to real calendar data.
+- **Date format**: The prompt uses M/D/YY. Verify dates against the actual chart, the model has no access to real calendar data.
 - **Medication verification**: Always cross-reference the medication section against the actual medication reconciliation before signing.
 - **Common AI failure mode**: The model may omit unchanged home medications that are clinically relevant (e.g., anticoagulants, immunosuppressants). Cross-reference the full med list.
 - **Pending results**: AI often writes "no pending results" even when cultures, pathology, or outpatient labs are outstanding. Double-check.
@@ -499,7 +499,7 @@ You were in the hospital because your heart was not pumping strongly enough and 
 
 ## Related
 
-- [SOAP Progress Note](/templates/progress-note-soap) — the daily notes that feed into this summary
-- [Handoff / Sign-Out](/templates/handoff-signout) — structured handoff for the covering team before discharge
-- [Discharge Summary Workflow](/workflows/discharge-summary) — step-by-step workflow for building the discharge summary
-- [Discharge Instructions](/templates/discharge-instructions) — standalone patient-facing discharge instructions template
+- [SOAP Progress Note](/templates/progress-note-soap): the daily notes that feed into this summary
+- [Handoff / Sign-Out](/templates/handoff-signout): structured handoff for the covering team before discharge
+- [Discharge Summary Workflow](/workflows/discharge-summary): step-by-step workflow for building the discharge summary
+- [Discharge Instructions](/templates/discharge-instructions): standalone patient-facing discharge instructions template

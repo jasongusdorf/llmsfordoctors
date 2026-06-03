@@ -41,7 +41,7 @@ export function ssoRoutes(db: DbInterface) {
       return c.redirect('/login?return=sso');
     }
 
-    // Session valid — get full user and build SSO return
+    // Session valid: get full user and build SSO return
     const user = db.getUserById(session.user_id);
     if (!user || user.status !== 'active') {
       return c.redirect('/login?return=sso');
