@@ -67,5 +67,20 @@ if (!wrangler.kv_namespaces.some((ns) => ns.binding === 'NEWS_CACHE')) {
   }
 }
 
+// Ensure the admin editor's KV namespace is present (read from root wrangler.jsonc)
+if (!wrangler.kv_namespaces.some((ns) => ns.binding === 'ADMIN_STORE')) {
+  const rootConfig = JSON.parse(
+    readFileSync('wrangler.jsonc', 'utf-8')
+      .replace(/\/\/.*$/gm, '')
+      .replace(/\/\*[\s\S]*?\*\//g, '')
+  );
+  const adminKv = rootConfig.kv_namespaces?.find((ns) => ns.binding === 'ADMIN_STORE');
+  if (adminKv) {
+    wrangler.kv_namespaces.push(adminKv);
+  } else {
+    console.warn('[post-build] WARNING: ADMIN_STORE KV namespace not found in root wrangler.jsonc');
+  }
+}
+
 writeFileSync(WRANGLER_PATH, JSON.stringify(wrangler, null, 2));
 console.log('[post-build] Patched wrangler.json with cron trigger and KV binding');

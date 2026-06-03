@@ -15,6 +15,10 @@
     {
       "binding": "SOCIAL_STORE",
       "id": "7aaff7582add425c9e6372c1dc9cd0f4"
+    },
+    {
+      "binding": "ADMIN_STORE",
+      "id": "a18f39572f0641e99d4d86b6ecf73919"
     }
   ],
   "triggers": {
