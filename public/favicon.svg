@@ -1,8 +1,30 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
-  <style>
-    .bg { fill: #2563eb; }
-    .letter { fill: #fff; font-family: sans-serif; font-weight: 700; font-size: 80px; }
-  </style>
-  <rect class="bg" width="128" height="128" rx="24"/>
-  <text class="letter" x="50%" y="54%" dominant-baseline="central" text-anchor="middle">Ld</text>
+  <!-- Brand square -->
+  <rect width="128" height="128" rx="24" fill="#2563eb"/>
+
+  <!-- Antenna -->
+  <line x1="64" y1="30" x2="64" y2="20" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="64" cy="17" r="5" fill="#fff"/>
+
+  <!-- Robot head -->
+  <rect x="36" y="30" width="56" height="48" rx="13" fill="#fff"/>
+  <!-- Eyes -->
+  <circle cx="53" cy="52" r="6.5" fill="#2563eb"/>
+  <circle cx="75" cy="52" r="6.5" fill="#2563eb"/>
+  <!-- Mouth -->
+  <rect x="52" y="66" width="24" height="4" rx="2" fill="#93c5fd"/>
+
+  <!-- Shoulders -->
+  <path d="M32 106 q0 -18 18 -18 h28 q18 0 18 18 v6 h-64 z" fill="#fff"/>
+
+  <!-- Stethoscope (black), draped around the neck -->
+  <!-- Neck band over the shoulders -->
+  <path d="M46 92 Q64 110 82 92" fill="none" stroke="#111" stroke-width="6.5" stroke-linecap="round"/>
+  <!-- Earpiece tube hanging right -->
+  <path d="M82 92 q8 12 6 22" fill="none" stroke="#111" stroke-width="6.5" stroke-linecap="round"/>
+  <!-- Tube to chestpiece hanging left -->
+  <path d="M46 92 q-10 13 -4 24" fill="none" stroke="#111" stroke-width="6.5" stroke-linecap="round"/>
+  <!-- Chestpiece -->
+  <circle cx="43" cy="116" r="10" fill="#111"/>
+  <circle cx="43" cy="116" r="5" fill="#4b4b4b"/>
 </svg>

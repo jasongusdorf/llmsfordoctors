@@ -35,76 +35,97 @@ function buildSvg(title: string, subtitle?: string): string {
   const W = 1200;
   const H = 630;
 
-  const titleLines = wrapText(escapeXml(title), 34);
-  const titleFontSize = titleLines.length > 2 ? 48 : 56;
-  const titleLineHeight = titleFontSize * 1.2;
+  // ---- microSD card geometry ----
+  const cx0 = 70; // card left
+  const cy0 = 64; // card top
+  const cx1 = 1130; // card right
+  const cy1 = 566; // card bottom
+  const rx = 26; // corner radius
+  const chamfer = 92; // angled top-right corner (the microSD cut)
 
-  // Vertically center the text block
-  const subtitleLines = subtitle ? wrapText(escapeXml(subtitle), 55) : [];
-  const subtitleVisibleLines = subtitleLines.slice(0, 3);
-  const subtitleFontSize = 24;
+  // Card outline: rounded everywhere except a straight chamfer at top-right.
+  const cardPath = [
+    `M ${cx0 + rx} ${cy0}`,
+    `L ${cx1 - chamfer} ${cy0}`,
+    `L ${cx1} ${cy0 + chamfer}`,
+    `L ${cx1} ${cy1 - rx}`,
+    `Q ${cx1} ${cy1} ${cx1 - rx} ${cy1}`,
+    `L ${cx0 + rx} ${cy1}`,
+    `Q ${cx0} ${cy1} ${cx0} ${cy1 - rx}`,
+    `L ${cx0} ${cy0 + rx}`,
+    `Q ${cx0} ${cy0} ${cx0 + rx} ${cy0}`,
+    'Z',
+  ].join(' ');
+
+  // ---- printed label text (Quadraat, matching the site) ----
+  const font = 'Quadraat, Georgia, serif';
+  const textX = cx0 + 60;
+
+  const titleLines = wrapText(escapeXml(title), 30);
+  const titleFontSize = titleLines.length > 2 ? 52 : 64;
+  const titleLineHeight = titleFontSize * 1.18;
+
+  const subtitleLines = subtitle ? wrapText(escapeXml(subtitle), 58) : [];
+  const subtitleVisibleLines = subtitleLines.slice(0, 2);
+  const subtitleFontSize = 26;
   const subtitleLineHeight = subtitleFontSize * 1.5;
-  const subtitleBlockHeight = subtitle ? 32 + subtitleVisibleLines.length * subtitleLineHeight : 0;
-  const totalTextHeight = titleLines.length * titleLineHeight + subtitleBlockHeight;
-  const titleStartY = Math.max(160, (H - totalTextHeight) / 2 + titleFontSize * 0.8);
 
-  const subtitleStartY = titleStartY + (titleLines.length - 1) * titleLineHeight + 40;
+  // Vertically center the brand + title + subtitle block within the card.
+  const brandGap = 56;
+  const subtitleGap = 48;
+  const titleBlock = titleLines.length * titleLineHeight;
+  const subtitleBlock = subtitle ? subtitleGap + subtitleVisibleLines.length * subtitleLineHeight : 0;
+  const blockHeight = brandGap + titleBlock + subtitleBlock;
+  const blockTop = (cy0 + cy1) / 2 - blockHeight / 2;
+
+  const brandY = blockTop + 18;
+  const titleStartY = brandY + brandGap + titleFontSize * 0.8;
+  const subtitleStartY = titleStartY + (titleLines.length - 1) * titleLineHeight + subtitleGap;
 
   const titleElements = titleLines
     .map(
       (line, i) =>
-        `<text x="80" y="${titleStartY + i * titleLineHeight}" font-family="sans-serif" font-size="${titleFontSize}" font-weight="bold" fill="#f1f5f9">${line}</text>`
+        `<text x="${textX}" y="${titleStartY + i * titleLineHeight}" font-family="${font}" font-size="${titleFontSize}" font-weight="bold" fill="#1f2937">${line}</text>`
     )
     .join('\n  ');
+
+  const subtitleBar = subtitle
+    ? `<rect x="${textX}" y="${subtitleStartY - subtitleFontSize + 4}" width="3" height="${subtitleVisibleLines.length * subtitleLineHeight}" rx="1.5" fill="#2563eb" opacity="0.7"/>`
+    : '';
 
   const subtitleElements = subtitleVisibleLines
     .map(
       (line, i) =>
-        `<text x="96" y="${subtitleStartY + i * subtitleLineHeight}" font-family="sans-serif" font-size="${subtitleFontSize}" fill="#94a3b8">${line}</text>`
+        `<text x="${textX + 20}" y="${subtitleStartY + i * subtitleLineHeight}" font-family="${font}" font-size="${subtitleFontSize}" fill="#5b6573">${line}</text>`
     )
     .join('\n  ');
 
-  // Subtle quote-bar next to subtitle
-  const subtitleBar = subtitle
-    ? `<rect x="80" y="${subtitleStartY - subtitleFontSize + 4}" width="3" height="${subtitleVisibleLines.length * subtitleLineHeight}" rx="1.5" fill="#3b82f6" opacity="0.6"/>`
-    : '';
-
   return `<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="${W}" y2="${H}" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#1e293b"/>
-    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#3a2f17" flood-opacity="0.18"/>
+    </filter>
   </defs>
 
-  <!-- Background -->
-  <rect width="${W}" height="${H}" fill="url(#bg)"/>
+  <!-- Warm parchment background (sitewide palette) -->
+  <rect width="${W}" height="${H}" fill="#f8f4ec"/>
 
-  <!-- Left accent bar -->
-  <rect x="0" y="0" width="5" height="${H}" fill="#2563eb"/>
+  <!-- Card body: chamfered top-right corner reads as a memory card -->
+  <path d="${cardPath}" fill="#fffdf8" stroke="#e7e0d0" stroke-width="2" filter="url(#shadow)"/>
 
-  <!-- Subtle grid dots for texture -->
-  <pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-    <circle cx="2" cy="2" r="0.8" fill="#334155" opacity="0.5"/>
-  </pattern>
-  <rect width="${W}" height="${H}" fill="url(#dots)"/>
-
-  <!-- Site name -->
-  <text x="80" y="72" font-family="sans-serif" font-size="18" font-weight="bold" letter-spacing="3" fill="#3b82f6">LLMs for Doctors</text>
+  <!-- Brand -->
+  <text x="${textX}" y="${brandY}" font-family="${font}" font-size="20" font-weight="bold" letter-spacing="4" fill="#2563eb">LLMS FOR DOCTORS</text>
 
   <!-- Title -->
   ${titleElements}
 
-  <!-- Subtitle / content preview -->
+  <!-- Subtitle -->
   ${subtitleBar}
   ${subtitleElements}
 
-  <!-- Bottom divider -->
-  <rect x="80" y="${H - 64}" width="${W - 160}" height="1" fill="#334155"/>
-
   <!-- Attribution -->
-  <text x="80" y="${H - 32}" font-family="sans-serif" font-size="17" fill="#64748b">llmsfordoctors.com</text>
-  <text x="${W - 80}" y="${H - 32}" font-family="sans-serif" font-size="17" fill="#475569" text-anchor="end">Jason Gusdorf, MD</text>
+  <text x="${textX}" y="${cy1 - 34}" font-family="${font}" font-size="18" fill="#8a8170">llmsfordoctors.com</text>
+  <text x="${cx1 - 46}" y="${cy1 - 34}" font-family="${font}" font-size="18" fill="#a39a86" text-anchor="end">Jason Gusdorf, MD</text>
 </svg>`;
 }
 
