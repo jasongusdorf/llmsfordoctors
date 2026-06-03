@@ -9,8 +9,6 @@ interface Props {
   initialBody: string;
 }
 
-const FIELDS = ['title', 'description', 'socialPost', 'tags', 'lastUpdated', 'featured'];
-
 export default function AdminEditor({ collection, slug, initialFrontmatter, initialBody }: Props) {
   const [fm, setFm] = useState<Record<string, unknown>>(initialFrontmatter);
   const [body, setBody] = useState(initialBody);
@@ -30,6 +28,51 @@ export default function AdminEditor({ collection, slug, initialFrontmatter, init
     else setStatus({ kind: 'error', msg: d.error || 'Save failed' });
   }
 
+  function renderField(k: string) {
+    const v = fm[k];
+    if (typeof v === 'boolean') {
+      return (
+        <label class="text-sm flex items-center gap-2 py-1">
+          <input type="checkbox" checked={v} onInput={(e) => setField(k, (e.target as HTMLInputElement).checked)} />
+          <span class="text-clinical-500">{k}</span>
+        </label>
+      );
+    }
+    if (typeof v === 'number') {
+      return (
+        <label class="text-sm">
+          <span class="block text-clinical-500 mb-1">{k}</span>
+          <input type="number"
+            class="w-full rounded border border-clinical-300 dark:border-clinical-600 bg-warm-white dark:bg-clinical-800 px-2 py-1 text-sm"
+            value={String(v)}
+            onInput={(e) => { const n = Number((e.target as HTMLInputElement).value); setField(k, Number.isNaN(n) ? v : n); }} />
+        </label>
+      );
+    }
+    if (Array.isArray(v)) {
+      return (
+        <label class="text-sm">
+          <span class="block text-clinical-500 mb-1">{k}</span>
+          <input
+            class="w-full rounded border border-clinical-300 dark:border-clinical-600 bg-warm-white dark:bg-clinical-800 px-2 py-1 text-sm"
+            value={(v as unknown[]).join(', ')}
+            onInput={(e) => setField(k, (e.target as HTMLInputElement).value.split(',').map((s) => s.trim()).filter(Boolean))} />
+        </label>
+      );
+    }
+    // Date object -> show ISO date (YYYY-MM-DD); string/other -> text. Stored back as a string.
+    const display = v instanceof Date ? v.toISOString().slice(0, 10) : (v == null ? '' : String(v));
+    return (
+      <label class="text-sm">
+        <span class="block text-clinical-500 mb-1">{k}</span>
+        <input
+          class="w-full rounded border border-clinical-300 dark:border-clinical-600 bg-warm-white dark:bg-clinical-800 px-2 py-1 text-sm"
+          value={display}
+          onInput={(e) => setField(k, (e.target as HTMLInputElement).value)} />
+      </label>
+    );
+  }
+
   return (
     <div class="max-w-7xl mx-auto px-4 py-8">
       <div class="flex items-center justify-between mb-4">
@@ -41,26 +84,12 @@ export default function AdminEditor({ collection, slug, initialFrontmatter, init
       </div>
 
       {status.kind === 'ok' && (
-        <p class="text-sm text-green-600 mb-3">{status.msg} {status.url && <a class="underline" href={status.url} target="_blank">View commit</a>}</p>
+        <p class="text-sm text-green-600 mb-3">{status.msg} {status.url && <a class="underline" href={status.url} target="_blank" rel="noopener noreferrer">View commit</a>}</p>
       )}
       {status.kind === 'error' && <p class="text-sm text-red-600 mb-3">{status.msg}</p>}
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-4">
-        {FIELDS.filter(f => f in fm).map(f => (
-          <label class="text-sm">
-            <span class="block text-clinical-500 mb-1">{f}</span>
-            <input
-              class="w-full rounded border border-clinical-300 dark:border-clinical-600 bg-warm-white dark:bg-clinical-800 px-2 py-1 text-sm"
-              value={Array.isArray(fm[f]) ? (fm[f] as unknown[]).join(', ') : String(fm[f] ?? '')}
-              onInput={(e) => {
-                const raw = (e.target as HTMLInputElement).value;
-                if (Array.isArray(fm[f])) setField(f, raw.split(',').map(s => s.trim()).filter(Boolean));
-                else if (typeof fm[f] === 'boolean') setField(f, raw === 'true');
-                else setField(f, raw);
-              }}
-            />
-          </label>
-        ))}
+        {Object.keys(fm).map((k) => renderField(k))}
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">

@@ -20,7 +20,13 @@ const cfg: GithubConfig = {
   owner: (env as any).GITHUB_OWNER ?? 'jasongusdorf',
   repo: (env as any).GITHUB_REPO ?? 'llmsfordoctors',
 };
-const file = await getFile(cfg, `src/content/${collection}/${slug}.mdx`);
+let file;
+try {
+  file = await getFile(cfg, `src/content/${collection}/${slug}.mdx`);
+} catch (e) {
+  const msg = e instanceof Error ? e.message : 'GitHub error';
+  return new Response(`Could not load article from GitHub: ${msg}`, { status: 502 });
+}
 if (!file) return new Response('Article not found', { status: 404 });
 const { frontmatter, body } = parseMdx(file.text);
 ---

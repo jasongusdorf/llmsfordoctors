@@ -3,7 +3,9 @@ export const prerender = false;
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { isAuthed } from '../../lib/admin-session';
 
-const redirect = Astro.url.searchParams.get('redirect') ?? '/';
+const redirectParam = Astro.url.searchParams.get('redirect') ?? '/';
+// Only allow same-site absolute paths (must start with a single '/', not '//').
+const redirect = /^\/(?!\/)/.test(redirectParam) ? redirectParam : '/';
 if (await isAuthed(Astro.request.headers.get('Cookie'))) return Astro.redirect(redirect);
 ---
 
