@@ -39,6 +39,11 @@ export const POST: APIRoute = async ({ request }) => {
   const errors = validateContent(collection as CollectionName, frontmatter, body);
   if (errors.length) return json({ error: errors.join('; ') }, 400);
 
+  const CREATABLE = ['guides', 'editorials'];
+  if (create && !CREATABLE.includes(collection)) {
+    return json({ error: 'New articles can only be guides or editorials' }, 400);
+  }
+
   const cfg: GithubConfig = {
     token: (env as any).GITHUB_TOKEN,
     owner: (env as any).GITHUB_OWNER ?? 'jasongusdorf',
@@ -47,13 +52,24 @@ export const POST: APIRoute = async ({ request }) => {
   const path = `src/content/${collection}/${slug}.mdx`;
   const text = serializeMdx(frontmatter, body);
 
+  async function loadExisting(): Promise<{ text: string; sha: string } | null | Response> {
+    try {
+      return await getFile(cfg, path);
+    } catch (e) {
+      const m = e instanceof Error ? e.message : 'GitHub error';
+      return json({ error: `Could not reach GitHub: ${m}` }, 502);
+    }
+  }
+
   if (create) {
-    const existing = await getFile(cfg, path);
+    const existing = await loadExisting();
+    if (existing instanceof Response) return existing;
     if (existing) return json({ error: 'An article with that address already exists' }, 409);
     return commit(cfg, path, text, undefined, `content: create ${slug} via web editor`);
   }
 
-  const existing = await getFile(cfg, path);
+  const existing = await loadExisting();
+  if (existing instanceof Response) return existing;
   if (!existing) return json({ error: 'File not found; cannot create new files here' }, 404);
   return commit(cfg, path, text, existing.sha, `content: edit ${slug} via web editor`);
 };
