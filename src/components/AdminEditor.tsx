@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 
@@ -21,6 +21,9 @@ export default function AdminEditor({ collection, slug: initialSlug, initialFron
   const [slug, setSlug] = useState(initialSlug);
   const [slugEdited, setSlugEdited] = useState(false);
   const [status, setStatus] = useState<{ kind: 'idle' | 'saving' | 'ok' | 'error'; msg?: string; url?: string; viewPath?: string }>({ kind: 'idle' });
+  // Preview is computed in the browser only: DOMPurify needs a DOM, which the server does not have.
+  const [preview, setPreview] = useState('');
+  useEffect(() => { setPreview(renderPreviewDoc(body)); }, [body]);
 
   const setField = (k: string, v: unknown) => {
     setFm({ ...fm, [k]: v });
@@ -140,7 +143,7 @@ export default function AdminEditor({ collection, slug: initialSlug, initialFron
         <iframe
           title="preview" sandbox=""
           class="w-full h-[70vh] rounded border border-clinical-200 dark:border-clinical-700 bg-white"
-          srcdoc={renderPreviewDoc(body)}
+          srcdoc={preview}
         />
       </div>
       <p class="text-xs text-clinical-400 mt-2">Preview renders standard markdown. Callout and PromptPlayground blocks appear as placeholders here and render fully after publish.</p>
