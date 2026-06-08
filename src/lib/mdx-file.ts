@@ -57,10 +57,5 @@ export function validateContent(
     errors.push('Contains an em dash (U+2014); use a colon, comma, semicolon, or hyphen instead');
   }
 
-  const social = frontmatter.socialPost;
-  if (typeof social === 'string' && social.length > 256) {
-    errors.push(`socialPost is ${social.length} chars; max is 256`);
-  }
-
   return errors;
 }

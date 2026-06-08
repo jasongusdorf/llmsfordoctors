@@ -162,9 +162,16 @@ export function selectContent(
   return null;
 }
 
+// X counts any URL as 23 chars; with one separating space that leaves 256 for the
+// post text (280 - 23 - 1). A longer socialPost is truncated so the tweet still posts.
+const MAX_POST_CHARS = 256;
+
 export function buildTweetText(item: ContentItem, siteUrl: string): string {
   const path = COLLECTION_URL_PREFIX[item.collection] ?? `/${item.collection}/`;
-  return `${item.socialPost} ${siteUrl}${path}${item.id}`;
+  const post = item.socialPost.length > MAX_POST_CHARS
+    ? item.socialPost.slice(0, MAX_POST_CHARS - 1).trimEnd() + '…'
+    : item.socialPost;
+  return `${post} ${siteUrl}${path}${item.id}`;
 }
 
 export function shouldResetCollection(

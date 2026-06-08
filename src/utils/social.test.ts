@@ -121,6 +121,14 @@ describe('buildTweetText', () => {
     const text = buildTweetText(item, 'https://llmsfordoctors.com');
     expect(text).toBe('GPT-4 matched gastroenterologists on DDx. https://llmsfordoctors.com/trials/gpt4-gastro');
   });
+
+  it('truncates a long socialPost so the post text fits within 256 chars', () => {
+    const item = makeContentItem({ id: 'long', collection: 'guides', socialPost: 'a'.repeat(400) });
+    const text = buildTweetText(item, 'https://llmsfordoctors.com');
+    const postText = text.slice(0, text.indexOf(' https://'));
+    expect(postText.length).toBeLessThanOrEqual(256);
+    expect(postText.endsWith('…')).toBe(true);
+  });
 });
 
 describe('shouldResetCollection', () => {

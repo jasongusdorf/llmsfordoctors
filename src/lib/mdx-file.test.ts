@@ -64,12 +64,12 @@ describe('validateContent', () => {
     expect(errors.some(e => e.toLowerCase().includes('em dash'))).toBe(true);
   });
 
-  it('rejects a socialPost longer than 256 chars', () => {
+  it('does not limit socialPost length (the tweet builder truncates instead)', () => {
     const errors = validateContent('guides', {
       title: 'T', description: 'D', tags: ['x'], lastUpdated: '2026-06-03',
-      socialPost: 'x'.repeat(257),
+      socialPost: 'x'.repeat(400),
     }, 'Body');
-    expect(errors.some(e => e.includes('256'))).toBe(true);
+    expect(errors).toEqual([]);
   });
 
   it('flags an empty required array', () => {
