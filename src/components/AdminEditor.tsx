@@ -102,10 +102,18 @@ export default function AdminEditor({ collection, slug: initialSlug, initialFron
     <div class="max-w-7xl mx-auto px-4 py-8">
       <div class="flex items-center justify-between mb-4">
         <h1 class="font-heading text-xl font-bold">{isCreate ? `New ${collection.replace(/s$/, '')}` : `Editing ${collection}/${slug}`}</h1>
-        <button onClick={publish} disabled={status.kind === 'saving'}
-          class="px-5 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm disabled:opacity-50">
-          {status.kind === 'saving' ? 'Saving...' : isCreate ? 'Create' : 'Publish'}
-        </button>
+        <div class="flex flex-col items-end gap-1">
+          <button onClick={publish} disabled={status.kind === 'saving'}
+            class="px-5 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm disabled:opacity-50">
+            {status.kind === 'saving' ? 'Saving...' : isCreate ? 'Create' : 'Publish'}
+          </button>
+          {!isCreate && (
+            <a href={`/${collection}/${slug}`} target="_blank" rel="noopener noreferrer"
+              class="text-sm text-blue-600 dark:text-blue-400 underline">
+              See live document
+            </a>
+          )}
+        </div>
       </div>
 
       {status.kind === 'ok' && (
