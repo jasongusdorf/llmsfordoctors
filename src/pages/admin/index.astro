@@ -1,0 +1,35 @@
+---
+export const prerender = false;
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { isAuthed } from '../../lib/admin-session';
+
+if (!(await isAuthed(Astro.request.headers.get('Cookie')))) {
+  return Astro.redirect('/admin/login?redirect=/admin');
+}
+---
+<BaseLayout title="Admin" description="Admin">
+  <div class="max-w-2xl mx-auto px-4 py-16">
+    <h1 class="font-heading text-3xl font-bold mb-2">Write</h1>
+    <p class="text-clinical-500 mb-8">Start a new article, or open any article on the site and click Edit to change it.</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <a href="/admin/new/guides" class="block p-6 rounded-lg border border-clinical-200 dark:border-clinical-700 hover:border-clinical-300 hover:shadow-md transition-all bg-warm-white dark:bg-clinical-800">
+        <h2 class="font-heading text-lg font-semibold mb-1">Write a new guide</h2>
+        <p class="text-sm text-clinical-500">A practical, how-to piece.</p>
+      </a>
+      <a href="/admin/new/editorials" class="block p-6 rounded-lg border border-clinical-200 dark:border-clinical-700 hover:border-clinical-300 hover:shadow-md transition-all bg-warm-white dark:bg-clinical-800">
+        <h2 class="font-heading text-lg font-semibold mb-1">Write a new editorial</h2>
+        <p class="text-sm text-clinical-500">An opinion or analysis piece.</p>
+      </a>
+    </div>
+    <form method="POST" action="/api/admin/logout" class="mt-10">
+      <button class="text-sm text-clinical-400 underline">Log out</button>
+    </form>
+  </div>
+  <script>
+    document.querySelector('form[action="/api/admin/logout"]')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      await fetch('/api/admin/logout', { method: 'POST' });
+      window.location.href = '/';
+    });
+  </script>
+</BaseLayout>

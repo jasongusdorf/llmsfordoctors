@@ -1,0 +1,25 @@
+---
+export const prerender = false;
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import AdminEditor from '../../../components/AdminEditor.tsx';
+import { isAuthed } from '../../../lib/admin-session';
+
+const { collection } = Astro.params;
+if (!(await isAuthed(Astro.request.headers.get('Cookie')))) {
+  return Astro.redirect(`/admin/login?redirect=/admin/new/${collection}`);
+}
+const ALLOWED = ['guides', 'editorials'];
+if (!collection || !ALLOWED.includes(collection)) {
+  return new Response('You can only create guides and editorials here.', { status: 404 });
+}
+
+const today = new Date().toISOString().slice(0, 10);
+const templates: Record<string, Record<string, unknown>> = {
+  guides: { title: '', description: '', tags: [], lastUpdated: today, featured: false, socialPost: '' },
+  editorials: { title: '', description: '', tags: ['editorial'], lastUpdated: today, featured: false, socialPost: '' },
+};
+const template = templates[collection];
+---
+<BaseLayout title={`New ${collection}`} description="New article">
+  <AdminEditor client:load mode="create" collection={collection} slug="" initialFrontmatter={template} initialBody="" />
+</BaseLayout>
