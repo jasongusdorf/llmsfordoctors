@@ -33,12 +33,12 @@ export async function getFile(
 }
 
 export async function putFile(
-  cfg: GithubConfig, path: string, text: string, sha: string, message: string, fetchFn: typeof fetch = fetch,
+  cfg: GithubConfig, path: string, text: string, sha: string | undefined, message: string, fetchFn: typeof fetch = fetch,
 ): Promise<{ commitUrl: string }> {
   const res = await fetchFn(`${API}/repos/${cfg.owner}/${cfg.repo}/contents/${path}`, {
     method: 'PUT',
     headers: { ...headers(cfg.token), 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message, content: textToB64(text), sha, branch: 'main' }),
+    body: JSON.stringify({ message, content: textToB64(text), branch: 'main', ...(sha ? { sha } : {}) }),
   });
   if (!res.ok) throw new Error(`GitHub putFile failed: ${res.status}`);
   const json = await res.json() as { commit: { html_url: string } };

@@ -59,4 +59,25 @@ describe('putFile', () => {
     const bytes = Uint8Array.from(atob(sentB64), c => c.charCodeAt(0));
     expect(new TextDecoder().decode(bytes)).toBe(content);
   });
+
+  it('omits sha from the body when creating a new file', async () => {
+    let sent: any = null;
+    const fetchMock = vi.fn(async (_url: string, init: RequestInit) => {
+      sent = JSON.parse(init.body as string);
+      return new Response(JSON.stringify({ commit: { html_url: 'https://github.com/commit/3' } }), { status: 200 });
+    });
+    await putFile(cfg, 'src/content/guides/new.mdx', 'body', undefined, 'msg', fetchMock as any);
+    expect('sha' in sent).toBe(false);
+    expect(sent.branch).toBe('main');
+  });
+
+  it('includes sha when updating', async () => {
+    let sent: any = null;
+    const fetchMock = vi.fn(async (_url: string, init: RequestInit) => {
+      sent = JSON.parse(init.body as string);
+      return new Response(JSON.stringify({ commit: { html_url: 'https://github.com/commit/4' } }), { status: 200 });
+    });
+    await putFile(cfg, 'src/content/guides/x.mdx', 'body', 'abc123', 'msg', fetchMock as any);
+    expect(sent.sha).toBe('abc123');
+  });
 });

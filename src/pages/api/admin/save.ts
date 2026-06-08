@@ -8,15 +8,27 @@ export const prerender = false;
 
 const SLUG_RE = /^[a-z0-9-]+$/;
 
+async function commit(cfg: GithubConfig, path: string, text: string, sha: string | undefined, message: string) {
+  try {
+    const { commitUrl } = await putFile(cfg, path, text, sha, message);
+    return json({ ok: true, commitUrl }, 200);
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : 'Commit failed';
+    const conflict = msg.includes('409');
+    return json({ error: conflict ? 'File changed since you loaded it; reload and retry' : msg }, conflict ? 409 : 500);
+  }
+}
+
 export const POST: APIRoute = async ({ request }) => {
   if (request.headers.get('X-Requested-With') !== 'lfd-editor') return json({ error: 'Bad request' }, 400);
   if (!(await isAuthed(request.headers.get('Cookie')))) return json({ error: 'Unauthorized' }, 401);
 
   const parsed = (await request.json().catch(() => null)) as unknown;
   const payload = (parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {}) as {
-    collection?: string; slug?: string; frontmatter?: Record<string, unknown>; body?: string;
+    collection?: string; slug?: string; frontmatter?: Record<string, unknown>; body?: string; create?: unknown;
   };
   const { collection, slug, frontmatter, body } = payload;
+  const create = Boolean(payload.create);
 
   if (!collection || !isCollection(collection)) return json({ error: 'Unknown collection' }, 400);
   if (!slug || !SLUG_RE.test(slug)) return json({ error: 'Invalid slug' }, 400);
@@ -33,19 +45,17 @@ export const POST: APIRoute = async ({ request }) => {
     repo: (env as any).GITHUB_REPO ?? 'llmsfordoctors',
   };
   const path = `src/content/${collection}/${slug}.mdx`;
+  const text = serializeMdx(frontmatter, body);
+
+  if (create) {
+    const existing = await getFile(cfg, path);
+    if (existing) return json({ error: 'An article with that address already exists' }, 409);
+    return commit(cfg, path, text, undefined, `content: create ${slug} via web editor`);
+  }
 
   const existing = await getFile(cfg, path);
   if (!existing) return json({ error: 'File not found; cannot create new files here' }, 404);
-
-  const text = serializeMdx(frontmatter, body);
-  try {
-    const { commitUrl } = await putFile(cfg, path, text, existing.sha, `content: edit ${slug} via web editor`);
-    return json({ ok: true, commitUrl }, 200);
-  } catch (e) {
-    const msg = e instanceof Error ? e.message : 'Commit failed';
-    const conflict = msg.includes('409');
-    return json({ error: conflict ? 'File changed since you loaded it; reload and retry' : msg }, conflict ? 409 : 500);
-  }
+  return commit(cfg, path, text, existing.sha, `content: edit ${slug} via web editor`);
 };
 
 function json(body: unknown, status: number) {
