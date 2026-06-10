@@ -45,6 +45,7 @@ Content lives in `src/content/` as `.mdx` files. Schema defined in `src/content.
 ## Key Conventions
 
 - Tool ratings: 0-5 scale. Rating 0 triggers red warning border on the review page and red left border in the comparison table
+- Tool `order` frontmatter breaks rating ties on /tools (lower = earlier). Use multiples of 10 so a new tool can slot between two others without renumbering
 - Video priority: 1-5 scale (5 = "drop everything")
 - Tool categories: note-writing, clinical-reasoning, patient-education, literature-review, admin-billing, board-prep, general
 - Video categories: tutorial, lecture, demo, interview
