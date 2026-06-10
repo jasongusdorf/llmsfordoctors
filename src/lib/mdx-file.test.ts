@@ -79,3 +79,42 @@ describe('validateContent', () => {
     expect(errors.some(e => e.includes('tags'))).toBe(true);
   });
 });
+
+describe('validateContent, tools guardrails', () => {
+  const toolFm = (over: Record<string, unknown> = {}) => ({
+    title: 'T',
+    slug: 't',
+    vendor: 'V',
+    rating: 4,
+    verdict: 'v',
+    pricing: 'Free',
+    hasBaa: true,
+    categories: ['general'],
+    lastUpdated: '2026-06-10',
+    ...over,
+  });
+
+  it('accepts a valid tool with an order field', () => {
+    expect(validateContent('tools', toolFm({ order: 30 }), 'Body')).toEqual([]);
+  });
+
+  it('accepts a valid tool without an order field', () => {
+    expect(validateContent('tools', toolFm(), 'Body')).toEqual([]);
+  });
+
+  it('rejects a rating above 5', () => {
+    expect(validateContent('tools', toolFm({ rating: 7 }), 'Body').join(' ')).toMatch(/rating/);
+  });
+
+  it('rejects a negative rating', () => {
+    expect(validateContent('tools', toolFm({ rating: -1 }), 'Body').join(' ')).toMatch(/rating/);
+  });
+
+  it('rejects a non-numeric rating', () => {
+    expect(validateContent('tools', toolFm({ rating: '4' }), 'Body').join(' ')).toMatch(/rating/);
+  });
+
+  it('rejects a non-numeric order', () => {
+    expect(validateContent('tools', toolFm({ order: 'first' }), 'Body').join(' ')).toMatch(/order/);
+  });
+});

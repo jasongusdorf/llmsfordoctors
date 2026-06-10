@@ -52,6 +52,17 @@ export function validateContent(
     }
   }
 
+  if (collection === 'tools') {
+    const rating = frontmatter.rating;
+    if (rating !== undefined && (typeof rating !== 'number' || Number.isNaN(rating) || rating < 0 || rating > 5)) {
+      errors.push('rating must be a number between 0 and 5');
+    }
+    const order = frontmatter.order;
+    if (order !== undefined && (typeof order !== 'number' || !Number.isFinite(order))) {
+      errors.push('order must be a number');
+    }
+  }
+
   const fmText = JSON.stringify(frontmatter);
   if (body.includes(EM_DASH) || fmText.includes(EM_DASH)) {
     errors.push('Contains an em dash (U+2014); use a colon, comma, semicolon, or hyphen instead');
