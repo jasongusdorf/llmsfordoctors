@@ -4,19 +4,19 @@ slug: doximity
 vendor: "Doximity"
 rating: 4
 order: 40
-verdict: "Solid clinician tool with verified BAA, but know which features are HIPAA-designated"
+verdict: "Free AI suite including an ambient scribe with verified BAA, but know which features are HIPAA-designated"
 pricing: "Free with Doximity membership"
 hasBaa: true
 categories: [note-writing, patient-education, admin-billing, general]
-lastUpdated: 2026-03-18
-socialPost: "Doximity is an AI documentation tool embedded in the clinician network most physicians already use for faxing and messaging. It has a published BAA, but BAA coverage applies only to specific designated features."
+lastUpdated: 2026-06-10
+socialPost: "Doximity's free AI suite now includes Doximity GPT, an ambient scribe, and Doximity Ask, all embedded in the clinician network most physicians already use. It has a published BAA, but coverage applies only to designated features."
 ---
 
 import Callout from '../../components/Callout.astro';
 
 ## Overview
 
-Doximity is one of the largest verified clinician networks in the United States, and its AI tools (including DoXGPT) are embedded directly within that network. For physicians already using Doximity for faxing, messaging, and professional networking, the addition of AI-assisted note drafting and patient communication tools is a natural extension.
+Doximity is one of the largest verified clinician networks in the United States, and its AI tools are embedded directly within that network. The suite has grown well beyond letter drafting: Doximity GPT handles drafting and clinical queries, Doximity Scribe provides ambient documentation and dictation, and Doximity Ask answers clinical questions, with physician-led review of AI answers (PeerCheck) rolling out in 2026. For physicians already using Doximity for faxing, messaging, and professional networking, these tools are a natural extension, and all of them are free for verified U.S. physicians, NPs, PAs, and medical students.
 
 Doximity publishes a member-facing Business Associate Agreement, and enterprise BAAs are available for organizational deployments. The platform states that users can include PHI in prompts within designated secure features, with data encrypted both in transit and at rest.
 
@@ -34,13 +34,14 @@ Doximity brings practical advantages for day-to-day clinical workflows:
 
 - **Established clinician network**: over 80% of U.S. physicians have a Doximity account, reducing onboarding friction
 - **Verified BAA**: member-facing BAA is published and available for review, with enterprise agreements also described
-- **Letter and note drafting**: AI-assisted generation of referral letters, patient instructions, and clinical correspondence
+- **Ambient scribe at no cost**: Doximity Scribe listens during visits (including Dialer calls), supports specialty note templates and dictation, and is free for verified clinicians; rare in a market where ambient tools are enterprise-only
+- **Letter and note drafting**: AI-assisted generation of referral letters, patient instructions, and clinical correspondence via Doximity GPT
 - **Fax integration**: HIPAA-compliant fax capability integrated with AI tools, useful for referral workflows
 - **Patient communication tools**: draft patient-facing educational content adapted to appropriate reading levels
 - **No additional cost**: AI features are included with standard Doximity membership
 
 <Callout type="tip">
-  Doximity's strength is in the communication layer: referral letters, patient instructions, and prior authorization language. If your primary need is ambient documentation or structured notes, look at dedicated scribing tools instead.
+  Doximity's historical strength is the communication layer: referral letters, patient instructions, and prior authorization language. Doximity Scribe now adds credible ambient documentation, and at free it is worth trialing before an enterprise scribe procurement. For deep EHR integration (notes flowing directly into the chart), dedicated enterprise tools still have the edge.
 </Callout>
 
 ---
@@ -53,8 +54,8 @@ Be aware of these limitations before relying on Doximity for PHI-containing work
 - **Feature boundaries can be unclear**: knowing exactly which tool mode you are in requires attention. There is no universal "safe mode" that covers everything.
 - **BAA retention language**: the BAA describes data retention when return or destruction is not feasible, which may not align with your organization's data minimization expectations
 - **Chart volume risk**: avoid uploading entire charts when only a specific section is needed. More data in the prompt means more data subject to the platform's retention and processing terms.
-- **Limited clinical reasoning depth**: DoXGPT is useful for drafting and communication but is not positioned as a clinical decision support tool
-- **No ambient documentation**: Doximity does not offer encounter recording or ambient scribing. For that workflow, you need a dedicated ambient tool.
+- **Limited clinical reasoning depth**: Doximity GPT is useful for drafting and communication but is not positioned as a clinical decision support tool
+- **No direct EHR integration**: Scribe generates the note, but getting it into the chart is still a copy-paste step; enterprise ambient tools write into the EHR directly
 
 <Callout type="pitfall">
   Before entering PHI into any Doximity tool, confirm you are using a feature explicitly designated as HIPAA-secure. The BAA does not blanket-cover every feature on the platform. When in doubt, check Doximity's current documentation or ask your compliance team.
@@ -87,6 +88,6 @@ If you are already a Doximity member, the AI tools are worth exploring for commu
 ## Related tools
 
 - [Claude](/tools/claude): best-in-class for nuanced clinical reasoning and long-form drafting; a stronger option when you need depth beyond letter writing
-- [OpenAI (ChatGPT / GPT-4)](/tools/openai): another general-purpose LLM for clinical drafting; compare BAA availability and reasoning quality against DoXGPT
+- [OpenAI (ChatGPT / GPT-5.5)](/tools/openai): another general-purpose LLM for clinical drafting; compare BAA availability and reasoning quality against Doximity GPT
 - [Condition Explainer template](/templates/condition-explainer): use with Claude or GPT-4 to generate patient education handouts similar to what Doximity's tools produce
 - [New Medication Guide template](/templates/new-medication-guide): structured template for patient-facing medication education, a complement to Doximity's communication tools

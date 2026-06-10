@@ -8,17 +8,17 @@ verdict: "Azure OpenAI buried under legacy architecture: too slow, too shallow, 
 pricing: "Included with Epic EHR licensing (enterprise)"
 hasBaa: true
 categories: [note-writing, clinical-reasoning, general]
-lastUpdated: 2026-03-23
-socialPost: "Epic's built-in AI drafts in-basket replies and note summaries using GPT-4 via Azure OpenAI, but only 19.4% of physicians use those drafts and published research shows no measurable time savings."
+lastUpdated: 2026-06-10
+socialPost: "Epic's built-in AI drafts in-basket replies, note summaries, and now ambient notes via AI Charting, using OpenAI models through Azure. Published research found only 19.4% of AI drafts used and no measurable time savings."
 ---
 
 import Callout from '../../components/Callout.astro';
 
 ## Overview
 
-Epic has been integrating AI features directly into its EHR, including in-basket message drafting, note summarization, and patient-facing reply generation, powered by GPT-4 through Microsoft Azure OpenAI. The appeal is obvious: AI that lives where you already work, covered under your existing BAA, with no copy-paste workflow needed.
+Epic has been integrating AI features directly into its EHR, including in-basket message drafting, note summarization, and patient-facing reply generation, powered by OpenAI models through Microsoft Azure. In February 2026 Epic added AI Charting, an ambient scribe built into its clinician-facing assistant Art: it listens during visits, drafts the note, suggests orders from the conversation, and takes voice commands for note structure. The appeal is obvious: AI that lives where you already work, covered under your existing BAA, with no copy-paste workflow needed.
 
-The reality is deeply disappointing, and the reasons are structural. Epic's AI inherits all of Microsoft's model constraints via the Azure OpenAI pipeline, then adds its own orchestration, guardrails, and EHR-specific system prompts on top. Each layer degrades output quality. The result is a tool that real-world data shows physicians largely ignore: only 19.4% of AI-drafted messages are actually used, and research has confirmed the current implementation has not yet resulted in measurable time savings.
+The reality so far has been disappointing, and the reasons are structural. Epic's AI inherits all of Microsoft's model constraints via the Azure OpenAI pipeline, then adds its own orchestration, guardrails, and EHR-specific system prompts on top. Each layer degrades output quality. The published evidence on the in-basket feature shows physicians largely ignored it: only 19.4% of AI-drafted messages were actually used, and research confirmed no measurable time savings. AI Charting is too new for independent utilization data; what exists so far is Epic's own reporting.
 
 ---
 
@@ -41,7 +41,7 @@ The reality is deeply disappointing, and the reasons are structural. Epic's AI i
 - **Legacy architecture**: Epic's EHR was built decades before LLMs existed. Bolting AI onto this architecture means the model operates within the constraints of Epic's data model, API surface, and UI framework, none designed for real-time generative AI
 
 <Callout type="pitfall">
-  Epic has over 125 AI projects in motion. The platform will evolve. But as of early 2026, the current implementation actively wastes more physician time than it saves. Revisit when Epic publishes utilization data showing meaningful adoption.
+  Epic has well over 100 AI projects in motion, and the February 2026 launch of AI Charting shows the platform is evolving quickly. But the only independent published evidence still describes a tool that wastes more physician time than it saves; Epic's adoption claims are vendor-reported. Revisit when independent utilization data on AI Charting appears.
 </Callout>
 
 ---
@@ -56,6 +56,8 @@ The reality is deeply disappointing, and the reasons are structural. Epic's AI i
 
 ## Bottom Line
 
-Epic's AI is a case study in what happens when you bury a capable model under legacy architecture and institutional inertia. GPT-4 can reason, but not after passing through Azure's constraints, Epic's orchestration layer, and a UI built for checkbox medicine. The 19.4% utilization rate tells the real story: physicians tried it and stopped.
+Epic's AI is a case study in what happens when you bury a capable model under legacy architecture and institutional inertia. OpenAI's models can reason, but not after passing through Azure's constraints, Epic's orchestration layer, and a UI built for checkbox medicine. The 19.4% utilization rate on in-basket drafts tells the real story of the first generation: physicians tried it and stopped.
+
+AI Charting, launched in February 2026, is Epic's bid to change that story, and its position inside the EHR gives it a structural advantage no third-party scribe can match. Whether the output quality matches dedicated tools like Abridge or Dragon Copilot is exactly the question independent data has not yet answered.
 
 The compliance story is clean, but compliance alone does not make a tool worth using. Physicians who need real AI-assisted reasoning should use a standalone LLM with a proper de-identification workflow until Epic demonstrates meaningful improvements in speed, quality, and transparency.

@@ -1,24 +1,24 @@
 ---
-title: "OpenAI (GPT-4o / o1 / o3) for Clinical Practice"
+title: "OpenAI (ChatGPT / GPT-5.5) for Clinical Practice"
 slug: openai
 vendor: OpenAI
 rating: 4
 order: 60
-verdict: "The o-series reasoning models are the best available for structured diagnostic thinking"
-pricing: "Free tier + $20/mo Plus + $200/mo Pro"
+verdict: "GPT-5.5 Thinking is the best available model for structured diagnostic reasoning"
+pricing: "Free tier + $8/mo Go + $20/mo Plus + $100-200/mo Pro"
 hasBaa: true
 categories: [clinical-reasoning, note-writing, general]
-lastUpdated: 2026-03-19
-socialPost: "OpenAI offers GPT-4o for fast clinical documentation and the o-series models (o1, o3) for structured diagnostic reasoning using extended chain-of-thought. Rated 4/5."
+lastUpdated: 2026-06-10
+socialPost: "OpenAI's ChatGPT offers GPT-5.5 Instant for fast clinical documentation and GPT-5.5 Thinking for structured diagnostic reasoning using extended chain-of-thought. Rated 4/5."
 ---
 
 import Callout from '../../components/Callout.astro';
 
 ## Overview
 
-OpenAI offers a family of models that spans from the fast, general-purpose GPT-4o to the deliberate, chain-of-thought-driven o-series (o1, o3). For clinical users, the distinction matters enormously: GPT-4o is a capable workhorse for routine tasks, while the o-series models represent a genuine leap forward for structured diagnostic reasoning.
+OpenAI has consolidated its once-confusing model lineup. ChatGPT now runs on the GPT-5.5 family: GPT-5.5 Instant for fast, general-purpose work and GPT-5.5 Thinking for deliberate, extended reasoning, with GPT-5.5 Pro available on the Pro plan for the hardest problems. For clinical users, the distinction matters enormously: Instant is a capable workhorse for routine tasks, while Thinking is a genuine leap forward for structured diagnostic reasoning. (The GPT-4o and o-series models reviewed here previously have been retired.)
 
-The o3 model in particular applies extended chain-of-thought computation before producing an answer. In practice, this means it will walk through a differential systematically, weigh competing diagnoses against each other, and surface considerations that faster models skip, behavior that closely mirrors how a careful clinician thinks.
+The Thinking mode applies extended chain-of-thought computation before producing an answer. In practice, this means it will walk through a differential systematically, weigh competing diagnoses against each other, and surface considerations that faster models skip, behavior that closely mirrors how a careful clinician thinks.
 
 OpenAI makes a Business Associate Agreement available at the enterprise tier, enabling HIPAA-compliant use of patient data for healthcare organizations.
 
@@ -26,10 +26,10 @@ OpenAI makes a Business Associate Agreement available at the enterprise tier, en
 
 ## Clinical Strengths
 
-- **Differential diagnosis generation**: o1 and o3's chain-of-thought reasoning produces structured, ordered differentials with explicit reasoning steps
+- **Differential diagnosis generation**: GPT-5.5 Thinking's chain-of-thought reasoning produces structured, ordered differentials with explicit reasoning steps
 - **Complex clinical reasoning**: excels at multi-step problems: drug-drug interactions, atypical presentations, rare disease workups
-- **Note writing with GPT-4o**: fast enough for real-time documentation assistance; produces well-formatted SOAP notes and discharge summaries
-- **Instruction following**: GPT-4o reliably produces output in specified formats (tables, structured templates, numbered lists)
+- **Note writing with GPT-5.5 Instant**: fast enough for real-time documentation assistance; produces well-formatted SOAP notes and discharge summaries
+- **Instruction following**: reliably produces output in specified formats (tables, structured templates, numbered lists)
 - **Broad general knowledge**: strong performance across specialties, including areas with sparse training data
 
 ---
@@ -38,14 +38,14 @@ OpenAI makes a Business Associate Agreement available at the enterprise tier, en
 
 | Clinical Task | Best Model | Why |
 |---|---|---|
-| Differential diagnosis (complex case) | o3 | Deep chain-of-thought reasoning; systematic |
-| Differential diagnosis (routine) | o1 or GPT-4o | Faster; sufficient for most presentations |
-| SOAP note / discharge summary | GPT-4o | Speed matters; output quality is excellent |
-| Drug interaction check | o1 | Reasoning depth catches subtle interactions |
-| Patient education letter | GPT-4o | Fast; excellent at tone and reading level |
-| Literature question ("Is there evidence for X?") | GPT-4o + web browsing | Built-in search in ChatGPT |
-| Rare disease workup | o3 | Extended reasoning handles sparse evidence well |
-| Board-style question analysis | o1 or o3 | Step-by-step reasoning matches vignette format |
+| Differential diagnosis (complex case) | GPT-5.5 Thinking | Deep chain-of-thought reasoning; systematic |
+| Differential diagnosis (routine) | GPT-5.5 Instant | Faster; sufficient for most presentations |
+| SOAP note / discharge summary | GPT-5.5 Instant | Speed matters; output quality is excellent |
+| Drug interaction check | GPT-5.5 Thinking | Reasoning depth catches subtle interactions |
+| Patient education letter | GPT-5.5 Instant | Fast; excellent at tone and reading level |
+| Literature question ("Is there evidence for X?") | GPT-5.5 Instant + web search | Built-in search in ChatGPT |
+| Rare disease workup | GPT-5.5 Thinking or Pro | Extended reasoning handles sparse evidence well |
+| Board-style question analysis | GPT-5.5 Thinking | Step-by-step reasoning matches vignette format |
 
 ---
 
@@ -53,33 +53,34 @@ OpenAI makes a Business Associate Agreement available at the enterprise tier, en
 
 | Tier | Monthly Cost | HIPAA / BAA | Notes |
 |---|---|---|---|
-| Free | $0 | No | GPT-4o access, limited usage |
-| Plus | $20 | No | Higher limits, o1 access, web browsing |
-| Pro | $200 | No | Unlimited o1 Pro, o3 access |
-| Team | $30/user | No | Shared workspace, higher limits |
+| Free | $0 | No | Limited GPT-5.5 Instant access |
+| Go | $8 | No | More Instant usage; this tier may include ads |
+| Plus | $20 | No | GPT-5.5 Thinking, expanded limits, projects |
+| Pro | From $100 | No | GPT-5.5 Pro reasoning; $100 and $200 usage tiers |
+| Business | Per seat | No | Shared workspace, admin controls |
 | Enterprise | Custom | **Yes** | BAA available, SSO, audit logs, data controls |
 | API | Pay-per-token | **Yes (with BAA)** | BAA required at account setup; programmatic access |
 
 <Callout type="hipaa">
-  Only the Enterprise tier and API (with a signed BAA) are HIPAA-compliant. Free, Plus, Pro, and Team subscriptions at chat.openai.com do NOT include a BAA. Do not enter real patient information on the consumer ChatGPT tiers.
+  Only the Enterprise tier and API (with a signed BAA) are HIPAA-compliant. Free, Go, Plus, Pro, and Business subscriptions at chatgpt.com do NOT include a BAA. Do not enter real patient information on the consumer ChatGPT tiers.
 </Callout>
 
 ---
 
 ## Weaknesses
 
-- **Confusing model lineup**: GPT-4o, o1, o1-mini, o1-pro, o3, o3-mini: the naming is opaque and the differences are not intuitive for non-technical users
-- **o-series is slow**: o3 in particular takes significantly longer to respond than GPT-4o; not suitable for real-time note dictation
-- **Consumer tiers are not HIPAA-compliant**: the most accessible tiers (Free, Plus, Pro) cannot be used with patient data; enterprise setup adds friction
-- **Hallucination risk**: like all LLMs, the o-series can produce confident but incorrect clinical details; extended reasoning reduces but does not eliminate errors
-- **No persistent memory by default**: each session starts fresh; you must re-establish patient context manually
+- **Thinking mode is slow**: GPT-5.5 Thinking and Pro take significantly longer to respond than Instant; not suitable for real-time note dictation
+- **Consumer tiers are not HIPAA-compliant**: the most accessible tiers (Free, Go, Plus, Pro) cannot be used with patient data; enterprise setup adds friction
+- **Ads on the Go tier**: the $8 Go plan may include advertising, an uncomfortable fit for anything adjacent to clinical work
+- **Hallucination risk**: like all LLMs, GPT-5.5 can produce confident but incorrect clinical details; extended reasoning reduces but does not eliminate errors
+- **Memory cuts both ways**: ChatGPT retains memory across sessions by default on paid plans; convenient, but review what it remembers if you have discussed clinical scenarios on a consumer account
 
 ---
 
 ## HIPAA & Privacy
 
 <Callout type="hipaa">
-  The standard ChatGPT consumer product (Free, Plus, Pro, Team tiers at chat.openai.com) does NOT include a Business Associate Agreement (BAA). Do not enter real patient information on these tiers. For HIPAA-compliant use, your organization must have an OpenAI Enterprise agreement or use the API under a signed BAA. Contact OpenAI's enterprise sales team to initiate the BAA process.
+  The standard ChatGPT consumer product (Free, Go, Plus, Pro, and Business tiers at chatgpt.com) does NOT include a Business Associate Agreement (BAA). Do not enter real patient information on these tiers. For HIPAA-compliant use, your organization must have an OpenAI Enterprise agreement or use the API under a signed BAA. Contact OpenAI's enterprise sales team to initiate the BAA process.
 </Callout>
 
 OpenAI's Enterprise tier includes:
@@ -95,7 +96,7 @@ Individual physicians without enterprise access should use only de-identified da
 
 ## Bottom Line
 
-If structured diagnostic reasoning is your primary use case, the o-series models are the best available tools as of early 2026. The chain-of-thought approach genuinely mirrors careful clinical thinking in a way that faster models do not. For routine note-writing and documentation tasks, GPT-4o is fast and reliable.
+If structured diagnostic reasoning is your primary use case, GPT-5.5 Thinking is the best available tool as of mid-2026. The chain-of-thought approach genuinely mirrors careful clinical thinking in a way that faster models do not. For routine note-writing and documentation tasks, GPT-5.5 Instant is fast and reliable.
 
 The practical barrier is HIPAA compliance: the consumer tiers that most physicians use daily do not include a BAA. Organizations willing to set up enterprise agreements gain access to a genuinely powerful clinical reasoning tool.
 

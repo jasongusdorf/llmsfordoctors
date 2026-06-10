@@ -4,12 +4,12 @@ slug: microsoft-copilot
 vendor: Microsoft
 rating: 0
 order: 140
-verdict: "A throttled model with no internet, an artificial character ceiling, and reasoning that cannot keep up: unusable for clinical work"
+verdict: "A throttled model with no internet, opaque input ceilings, and reasoning that cannot keep up: unusable for clinical work"
 pricing: "Free tier + $20/mo Copilot Pro + $30/user/mo M365 Copilot"
 hasBaa: true
 categories: [clinical-reasoning, note-writing, general]
-lastUpdated: 2026-03-23
-socialPost: "Microsoft Copilot wraps GPT-4o in Microsoft's orchestration layer, reducing its capability significantly. In hospital deployments, internet access is disabled to protect PHI, leaving a 16,000-character input limit and shallow reasoning."
+lastUpdated: 2026-06-10
+socialPost: "Microsoft Copilot wraps GPT-5 in Microsoft's orchestration layer, reducing its capability significantly. In hospital deployments, internet access is disabled to protect PHI, leaving throttled input limits and shallow reasoning."
 ---
 
 import Callout from '../../components/Callout.astro';
@@ -18,7 +18,7 @@ import Callout from '../../components/Callout.astro';
 
 Microsoft Copilot is the AI assistant embedded across Windows, Edge, and Microsoft 365. On paper, it should be a natural fit for physicians already living in Outlook, Word, and Teams. In practice, it is the most frustrating LLM experience we have tested, and in healthcare enterprise deployments, it gets even worse.
 
-The core problem is architectural: Copilot does not give you direct access to GPT-4o. It wraps the model in Microsoft's orchestration layer (system prompts, guardrails, and input throttling) that systematically degrades the raw model's capability. Developers on GitHub have described the output as "completely awful" and "way worse and basically useless" compared to the same model accessed through OpenAI directly.
+The core problem is architectural: Copilot does not give you direct access to the underlying model (now GPT-5). It wraps the model in Microsoft's orchestration layer (system prompts, guardrails, and input throttling) that systematically degrades the raw model's capability. Developers on GitHub have described the output as "completely awful" and "way worse and basically useless" compared to the same model accessed through OpenAI directly. The GPT-5 upgrade improved the underlying model; the orchestration problem it sits behind has not changed.
 
 In hospital environments, the experience degrades further. At institutions like Beth Israel Deaconess Medical Center, real-time internet access is disabled within Copilot to protect PHI. This means you lose web grounding, real-time search, and any ability to cross-reference current guidelines or literature, the features Microsoft markets as Copilot's differentiators. What remains is a character-limited, internet-disabled, guardrail-wrapped shell of a model that is slower and shallower than every direct-access alternative.
 
@@ -37,10 +37,10 @@ In hospital environments, the experience degrades further. At institutions like 
 
 ## Weaknesses
 
-- **16,000-character input limit**: cannot process a full H&P, operative report, or multi-day progress note. This is a cost-control decision: Microsoft serves hundreds of millions of free-tier users and throttles input size to manage server load, not because the underlying model can't handle more. Users report the limit fluctuates unpredictably between 2,000 and 128,000 characters depending on account tier and time of day
+- **Opaque, fluctuating input limits**: depending on account tier, users hit input ceilings that block a full H&P, operative report, or multi-day progress note. This is a cost-control decision: Microsoft serves hundreds of millions of free-tier users and throttles input size to manage server load, not because the underlying model can't handle more. Users report the limit shifts unpredictably with account tier and load, and Microsoft does not publish it
 - **Internet disabled in healthcare deployments**: institutions disable Copilot's real-time web access to protect PHI. This strips away web grounding, live search, and guideline retrieval, leaving you with a closed-loop model that cannot access any external knowledge. The features that might partially compensate for weak reasoning are exactly the ones that get turned off in the only setting where you're allowed to use it with patient data
 - **Slow response times**: noticeably slower than Claude, GPT-4o (direct), and Gemini for equivalent prompts. The orchestration layer adds latency on top of model inference time
-- **Poor clinical reasoning**: this is what happens when you wrap a capable model in consumer guardrails optimized for broad safety rather than clinical depth. Differentials are shallow and generic. Misses pertinent negatives, fails to weigh findings appropriately, and rarely produces the structured, stepwise thinking that the same GPT-4o delivers through OpenAI's own interface
+- **Poor clinical reasoning**: this is what happens when you wrap a capable model in consumer guardrails optimized for broad safety rather than clinical depth. Differentials are shallow and generic. Misses pertinent negatives, fails to weigh findings appropriately, and rarely produces the structured, stepwise thinking that the same GPT-5 delivers through OpenAI's own interface
 - **No user control**: you cannot pick the model, adjust prompts, or tune output. What Microsoft's pipeline decides to give you is what you get
 - **Confusing product tiers**: "Copilot," "Copilot Pro," "Microsoft 365 Copilot," and "Copilot Studio" blur together with different capabilities, different character limits, and different compliance postures
 
@@ -58,4 +58,4 @@ In hospital environments, the experience degrades further. At institutions like 
 
 The irony of Microsoft Copilot is that it runs on a model capable of strong clinical reasoning, then wraps it in so many layers of throttling, guardrails, and input restrictions that the capability never reaches you. In healthcare enterprise deployments, the situation is worse: internet access gets disabled to protect PHI, removing the web grounding that might partially offset the weak reasoning. You are left with a slow, character-limited, offline model that produces shallow output.
 
-Physicians should access GPT-4o directly through OpenAI (with a BAA on the enterprise tier) or use Claude instead. You are paying for a worse version of a product you can get elsewhere, and in the hospital, you are getting the worst version of that worse version.
+Physicians should access GPT-5.5 directly through OpenAI (with a BAA on the enterprise tier) or use Claude instead. You are paying for a worse version of a product you can get elsewhere, and in the hospital, you are getting the worst version of that worse version.

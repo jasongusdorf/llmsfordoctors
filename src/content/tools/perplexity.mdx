@@ -4,12 +4,12 @@ slug: perplexity
 vendor: "Perplexity AI"
 rating: 3
 order: 120
-verdict: "The only major LLM that cites real sources in real-time: valuable for evidence-grounded reasoning, unreliable for structured clinical tasks"
-pricing: "Free tier + $20/mo Pro"
-hasBaa: false
+verdict: "Real-time citations make it valuable for evidence-grounded lookups; BAA now available for enterprise customers, but consumer tiers remain off-limits for PHI"
+pricing: "Free tier + $20/mo Pro + Enterprise"
+hasBaa: true
 categories: [literature-review, clinical-reasoning]
-lastUpdated: 2026-03-19
-socialPost: "Perplexity answers clinical questions with real-time citations from current sources. Rated 3/5: the only major AI that provides attributed, live-sourced evidence in response to clinical queries."
+lastUpdated: 2026-06-10
+socialPost: "Perplexity answers clinical questions with real-time citations from current sources. Rated 3/5: attributed, live-sourced evidence for clinical queries, now with an enterprise BAA option."
 ---
 
 import Callout from '../../components/Callout.astro';
@@ -20,7 +20,7 @@ Perplexity occupies a unique niche among clinical AI tools: it is the only major
 
 This makes it genuinely valuable for a specific category of clinical question: evidence lookups, quick literature checks, and "what does the current evidence say about this drug/intervention/guideline?" queries. For these use cases (and these use cases specifically) Perplexity has no close competitor.
 
-However, Perplexity is not designed as a structured clinical reasoning tool. It is not suitable for differential generation, note writing, or complex diagnostic workups where you need careful, organized output. And critically: **Perplexity does not offer a BAA**, which means it cannot be used with real patient data under any circumstances in a HIPAA-regulated context.
+However, Perplexity is not designed as a structured clinical reasoning tool. It is not suitable for differential generation, note writing, or complex diagnostic workups where you need careful, organized output. And the compliance picture requires attention: Perplexity now offers a Business Associate Agreement, but **only for Enterprise customers**. The free and Pro tiers most clinicians use carry no BAA, so patient data stays out of them.
 
 ---
 
@@ -48,7 +48,7 @@ Perplexity's 3/5 overall rating reflects its limited scope for general clinical 
 | Differential diagnosis generation | No | Use Claude or o3 instead |
 | SOAP note / clinical documentation | No | Not designed for structured output |
 | Complex multi-step reasoning | No | Lacks deliberate chain-of-thought |
-| Anything involving patient data | **Never** | No BAA; hard stop |
+| Anything involving patient data | **Enterprise BAA only** | Consumer tiers carry no BAA; hard stop there |
 
 The pattern is consistent: Perplexity excels when your question is "what does the evidence say?" and the answer requires current, citable sources. It underperforms when your question is "help me think through this clinical problem" and the answer requires structured reasoning.
 
@@ -56,7 +56,7 @@ The pattern is consistent: Perplexity excels when your question is "what does th
 
 ## Weaknesses
 
-- **No BAA (hard constraint)**: Perplexity AI does not offer a Business Associate Agreement. This is a hard stop: it cannot be used with any patient data, in any context, in a HIPAA-regulated setting. There is no enterprise pathway to unlock compliance.
+- **BAA is enterprise-only**: Perplexity's Enterprise terms prohibit PHI unless a BAA has been executed, and the BAA is available only to Enterprise customers. For the free and Pro tiers that individual clinicians actually use, patient data remains a hard stop.
 - **Not designed for structured prompts**: clinical prompt templates (SOAP format, DDx lists, step-by-step reasoning) produce inconsistent results; the tool is optimized for question-answer, not structured generation
 - **Source quality varies**: Perplexity cites sources, but source quality ranges from PubMed abstracts to low-quality health websites; citations require evaluation, not just acknowledgment
 - **Shallow synthesis**: responses tend to aggregate sources rather than reason deeply across them; complex clinical questions get surface-level answers with references rather than careful analysis
@@ -67,10 +67,10 @@ The pattern is consistent: Perplexity excels when your question is "what does th
 ## HIPAA & Privacy
 
 <Callout type="hipaa">
-  Perplexity AI does NOT offer a Business Associate Agreement (BAA) and has no enterprise HIPAA-compliant tier. This is a hard constraint with no current workaround. Do not enter any patient information (not names, not dates of birth, not diagnoses, not any of the 18 HIPAA identifiers) into Perplexity. Use it only for de-identified evidence questions: "what is the evidence for drug X in condition Y?" not "my patient John Smith with MRN 12345 has condition Y."
+  Perplexity offers a Business Associate Agreement (BAA) only to Enterprise customers; its Enterprise terms prohibit PHI unless a BAA has been executed. The free and Pro tiers carry NO BAA. Unless your organization has signed an Enterprise BAA with Perplexity, do not enter any patient information (not names, not dates of birth, not diagnoses, not any of the 18 HIPAA identifiers). Use it only for de-identified evidence questions: "what is the evidence for drug X in condition Y?" not "my patient John Smith with MRN 12345 has condition Y."
 </Callout>
 
-There is no BAA pathway for Perplexity as of early 2026. Until one is available, Perplexity should be treated as a general reference tool (similar to searching PubMed or UpToDate) and used only for de-identified queries.
+For individual clinicians without an organizational Enterprise agreement, Perplexity should be treated as a general reference tool (similar to searching PubMed or UpToDate) and used only for de-identified queries. If your organization has Perplexity Enterprise, confirm with your compliance office that a BAA is actually executed before assuming coverage.
 
 **Safe use pattern:** Ask about drugs, conditions, guidelines, and interventions in the abstract. Never paste clinical notes, patient identifiers, or case details.
 
@@ -80,6 +80,6 @@ There is no BAA pathway for Perplexity as of early 2026. Until one is available,
 
 Perplexity is the best available tool for one specific clinical workflow: evidence-grounded lookup with real-time citations. "Is there an RCT for this?" "What does the current ADA guideline say?" "What was that NEJM trial on X?": these are Perplexity's native strengths, and no competing AI product does them as efficiently.
 
-The 3/5 overall rating reflects the hard limits: no BAA makes it unsuitable for any patient-data workflow, and its structured reasoning output is weak. Within its lane, it is an excellent tool. Outside that lane, use Claude or OpenAI's o-series instead.
+The 3/5 overall rating reflects the limits: the BAA exists only at the Enterprise tier, leaving the tiers most clinicians use unsuitable for any patient-data workflow, and its structured reasoning output is weak. Within its lane, it is an excellent tool. Outside that lane, use Claude or GPT-5.5 Thinking instead.
 
 For a head-to-head comparison of clinical reasoning capabilities across major LLMs, see the [LLM Clinical Reasoning Comparison guide](/editorials/llm-clinical-reasoning-comparison).

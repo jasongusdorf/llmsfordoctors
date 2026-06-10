@@ -5,20 +5,20 @@ vendor: Anthropic
 rating: 5
 order: 10
 verdict: "Best-in-class for long clinical narratives and nuanced reasoning"
-pricing: "Free tier + $20/mo Pro"
+pricing: "Free tier + $20/mo Pro + $100-200/mo Max"
 hasBaa: true
 categories: [note-writing, clinical-reasoning, patient-education, literature-review, general]
-lastUpdated: 2026-03-18
-socialPost: "Claude is Anthropic's large language model, rated 5/5 for long-form note generation, nuanced clinical reasoning, and patient communication. One of the few commercial LLMs with a BAA available, making it usable with real patient data in HIPAA-covered"
+lastUpdated: 2026-06-10
+socialPost: "Claude is Anthropic's large language model, rated 5/5 for long-form note generation, nuanced clinical reasoning, and patient communication. With Claude for Healthcare and a BAA on HIPAA-ready tiers, it can be used with real patient data in covered organizations."
 ---
 
 import Callout from '../../components/Callout.astro';
 
 ## Overview
 
-Claude is Anthropic's flagship large language model, and as of early 2026 it remains the strongest choice for most clinical use cases. It excels at long-form text generation, following complex multi-part instructions, and producing nuanced, hedged clinical language, all of which matter at the bedside.
+Claude is Anthropic's flagship large language model, and as of mid-2026 it remains the strongest choice for most clinical use cases. It excels at long-form text generation, following complex multi-part instructions, and producing nuanced, hedged clinical language, all of which matter at the bedside. The current frontier model is Claude Opus 4.8, released in May 2026.
 
-Anthropic has made a BAA available for healthcare organizations, making Claude one of the few major commercial LLMs that can be used with real patient data in a HIPAA-compliant setting.
+In January 2026 Anthropic launched Claude for Healthcare, a set of HIPAA-ready products for providers, payers, and health tech companies. It includes connectors to the CMS Coverage Database, ICD-10 codes, the NPI Registry, and PubMed, plus agent skills for FHIR development and prior authorization review. Combined with the BAA Anthropic offers on its HIPAA-ready services, Claude is one of the few major commercial LLMs that can be used with real patient data in a HIPAA-compliant setting.
 
 ---
 
@@ -32,7 +32,7 @@ Claude consistently outperforms competing models in these clinical tasks:
 - **Literature summarization**: handles complex abstracts and synthesizes findings well
 - **Instruction following**: reliably produces output in specified formats (tables, SOAP, bullet points)
 
-The model's large context window (200K tokens in Claude 3.5+) makes it particularly useful for summarizing lengthy records, operative reports, or multi-page specialist notes.
+The model's large context window (1 million tokens in Claude Opus 4.8 on the API) makes it particularly useful for summarizing lengthy records, operative reports, or multi-page specialist notes.
 
 ---
 
@@ -41,9 +41,9 @@ The model's large context window (200K tokens in Claude 3.5+) makes it particula
 No model is perfect. Be aware of these limitations:
 
 - **Hallucination risk**: while lower than some competitors, Claude will occasionally fabricate drug dosages, references, or clinical details. Always verify.
-- **Not connected to live data**: Claude cannot access UpToDate, PubMed, or real-time drug databases. Its knowledge has a training cutoff.
-- **No memory across sessions**: each conversation starts fresh. You must re-establish context each time.
-- **Consumer tier not HIPAA-compliant**: the free claude.ai and standard API tiers do not include a BAA. You must use the enterprise/API tier with a BAA for PHI.
+- **Live data requires setup**: web search and the PubMed and CMS connectors cover many lookups, but Claude still cannot access UpToDate or institution-specific formularies, and the healthcare connectors require enterprise configuration.
+- **Memory cuts both ways**: paid plans now retain memory across conversations. Convenient for projects, but review what the model remembers if you have discussed clinical scenarios, and remember that memory on a consumer account is not BAA-covered.
+- **Consumer tier not HIPAA-compliant**: the free claude.ai, Pro, and Max tiers do not include a BAA. You must use a HIPAA-ready tier (enterprise or API with zero data retention) under a signed BAA for PHI.
 
 ---
 
@@ -54,7 +54,7 @@ Claude is our top recommendation for two specific clinical reasoning tasks:
 - **Case synthesis**: when you have a complex patient with multiple problems, extensive workup results, and diagnostic uncertainty, Claude produces the most coherent, well-organized assessments. Its large context window means you can paste the full picture without summarizing away details.
 - **Cognitive debiasing**: when asked to challenge your working diagnosis, Claude pushes back more substantively than competing models. Its natural hedging tendency (sometimes a weakness) becomes a genuine strength when the task is finding holes in reasoning.
 
-For **differential diagnosis generation**, we recommend OpenAI's o3 model instead; its chain-of-thought reasoning produces more structured, auditable differentials. See our [head-to-head comparison guide](/editorials/llm-clinical-reasoning-comparison) for detailed output comparisons.
+For **differential diagnosis generation**, we recommend ChatGPT's reasoning mode (GPT-5.5 Thinking) instead; its extended reasoning produces more structured, auditable differentials. See our [head-to-head comparison guide](/editorials/llm-clinical-reasoning-comparison) for detailed output comparisons.
 
 **Related workflows:** [Clinical Reasoning with AI](/workflows/clinical-reasoning) | [Cognitive Debiasing with AI](/workflows/cognitive-debiasing)
 
@@ -63,13 +63,14 @@ For **differential diagnosis generation**, we recommend OpenAI's o3 model instea
 ## HIPAA & Privacy
 
 <Callout type="hipaa">
-  The standard Claude.ai consumer product (free and Pro tiers at claude.ai) does NOT include a Business Associate Agreement (BAA). Do not enter real patient information on claude.ai unless your organization has a signed BAA with Anthropic. For HIPAA-compliant use, contact Anthropic about enterprise access or use the API under a signed BAA.
+  The standard Claude.ai consumer product (free, Pro, and Max tiers at claude.ai) does NOT include a Business Associate Agreement (BAA). Do not enter real patient information on claude.ai unless your organization has a signed BAA with Anthropic. For HIPAA-compliant use, contact Anthropic about Claude for Healthcare and enterprise access, or use the API under a signed BAA.
 </Callout>
 
-Anthropic's enterprise tier includes:
-- Business Associate Agreement (BAA)
-- Zero data retention (prompts not used for training)
+Anthropic's HIPAA-ready offering includes:
+- Business Associate Agreement (BAA) covering the first-party API and enterprise products
+- Zero data retention required for BAA coverage (prompts not used for training)
 - SOC 2 Type II compliance
 - Audit logging capabilities
+- Claude for Healthcare connectors (CMS coverage data, ICD-10, NPI Registry, PubMed)
 
-For most clinical organizations, the enterprise API is the correct tier. Individual physicians should use only de-identified data on the consumer tier.
+For most clinical organizations, an enterprise agreement or the API with zero data retention is the correct tier. Individual physicians should use only de-identified data on the consumer tiers.

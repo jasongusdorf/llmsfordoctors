@@ -8,7 +8,7 @@ verdict: "Strong ambient documentation with published security posture and EHR i
 pricing: "Enterprise pricing (contact vendor)"
 hasBaa: true
 categories: [note-writing, general]
-lastUpdated: 2026-03-18
+lastUpdated: 2026-06-10
 socialPost: "Abridge is an ambient documentation platform that listens to patient-clinician encounters and generates structured notes in the EHR. It has FIPS 140-2 encryption, SOC 2 Type 2, and a published BAA."
 ---
 
@@ -20,7 +20,9 @@ Abridge is an ambient clinical documentation platform that listens to patient-cl
 
 The platform runs on Google Cloud Platform (GCP) infrastructure and publishes its BAA terms. Abridge has achieved SOC 2 Type 2 certification and uses FIPS 140-2 validated encryption, a meaningful security baseline that exceeds what many competing tools publish publicly.
 
-Abridge is positioned squarely at the ambient documentation problem: reducing clinician documentation burden while maintaining note quality. It is not a general-purpose LLM or clinical reasoning tool.
+Abridge is positioned squarely at the ambient documentation problem: reducing clinician documentation burden while maintaining note quality. It is not a general-purpose LLM, though it has begun expanding beyond pure documentation: in 2026 Abridge announced partnerships with the New England Journal of Medicine and the JAMA Network to surface journal content as clinical decision support within its platform.
+
+One market dynamic worth knowing: Abridge built much of its enterprise footprint as Epic's first "Pal" partner, with deep Epic integration. Epic has since launched its own ambient scribe (AI Charting, February 2026), turning its largest partner into a direct competitor. Abridge remains one of the largest independent players, with a valuation north of $5 billion, but health systems on Epic now face a build-versus-buy choice that did not exist when many Abridge contracts were signed.
 
 For health systems evaluating ambient documentation vendors, Abridge's published security posture and FIPS-validated encryption make it one of the easier platforms to move through a security review. The procurement process is enterprise-only, which means individual clinicians cannot trial the product independently.
 
@@ -51,7 +53,8 @@ Consider these factors when evaluating Abridge:
 - **Retention varies by deployment**: data retention and deletion timelines depend on your specific contract settings. One published example describes 30-day deletion, but your terms may differ.
 - **Data aggregation clause**: the BAA explicitly permits PHI use for data aggregation and de-identification purposes. If your organization has strict data minimization policies, this clause warrants review.
 - **GCP dependency**: all data is stored and processed within Google Cloud Platform. Organizations with cloud hosting restrictions should verify this is acceptable.
-- **Ambient-only focus**: if you need clinical reasoning, literature search, or patient education tools, Abridge does not address those use cases
+- **Documentation-first focus**: if you need general clinical reasoning, literature search, or patient education tools, Abridge does not address those use cases; its new journal-content decision support is an adjunct to the scribe, not a standalone reference
+- **Epic competition**: Epic's own AI Charting now competes directly on Epic installations; factor the EHR vendor's roadmap into any long-term Abridge contract
 - **Consent workflows**: as with any ambient tool that records encounters, patient consent is a prerequisite. Verify your state's recording consent requirements and establish workflows before deployment.
 
 <Callout type="pitfall">
