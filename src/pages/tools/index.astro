@@ -14,6 +14,7 @@ const toolsData = allTools.map((t) => ({
   pricing: t.data.pricing,
   verdict: t.data.verdict,
   categories: t.data.categories,
+  order: t.data.order,
 }));
 
 const allCategories = [...new Set(allTools.flatMap((t) => t.data.categories))].sort();

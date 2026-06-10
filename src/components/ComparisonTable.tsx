@@ -1,4 +1,5 @@
 import { useState } from 'preact/hooks';
+import { compareTools, type SortKey, type SortDir } from '../lib/tool-sort';
 
 interface Tool {
   name: string;
@@ -8,15 +9,13 @@ interface Tool {
   pricing: string;
   verdict: string;
   categories: string[];
+  order?: number;
 }
 
 interface Props {
   tools: Tool[];
   categories: string[];
 }
-
-type SortKey = 'name' | 'rating' | 'pricing';
-type SortDir = 'asc' | 'desc';
 
 function StarRating({ rating }: { rating: number }) {
   const isWarning = rating === 0;
@@ -46,25 +45,7 @@ export default function ComparisonTable({ tools, categories }: Props) {
     ? tools
     : tools.filter((t) => t.categories.includes(activeCategory));
 
-  const sorted = [...filtered].sort((a, b) => {
-    let valA: string | number;
-    let valB: string | number;
-
-    if (sortKey === 'name') {
-      valA = a.name.toLowerCase();
-      valB = b.name.toLowerCase();
-    } else if (sortKey === 'rating') {
-      valA = a.rating;
-      valB = b.rating;
-    } else {
-      valA = a.pricing.toLowerCase();
-      valB = b.pricing.toLowerCase();
-    }
-
-    if (valA < valB) return sortDir === 'asc' ? -1 : 1;
-    if (valA > valB) return sortDir === 'asc' ? 1 : -1;
-    return 0;
-  });
+  const sorted = [...filtered].sort((a, b) => compareTools(a, b, sortKey, sortDir));
 
   function handleSort(key: SortKey) {
     if (sortKey === key) {
