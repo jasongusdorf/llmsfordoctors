@@ -80,6 +80,38 @@ describe('validateContent', () => {
   });
 });
 
+describe('tools file round-trip', () => {
+  const TOOL_SAMPLE = `---
+title: "Claude for Clinical Practice"
+slug: claude
+vendor: Anthropic
+rating: 5
+order: 10
+verdict: "Best-in-class"
+pricing: "Free tier + $20/mo Pro"
+hasBaa: true
+categories: [note-writing, general]
+lastUpdated: 2026-03-18
+---
+
+Body text.
+`;
+
+  it('preserves lastUpdated through parse and serialize', () => {
+    const { frontmatter, body } = parseMdx(TOOL_SAMPLE);
+    // Pins the core-schema behavior: a switch to a Date-producing YAML schema
+    // would corrupt lastUpdated on re-serialize.
+    expect(typeof frontmatter.lastUpdated).toBe('string');
+    const out = serializeMdx(frontmatter, body);
+    expect(out).toMatch(/^lastUpdated: 2026-03-18$/m);
+    const again = parseMdx(out);
+    expect(again.frontmatter.rating).toBe(5);
+    expect(again.frontmatter.order).toBe(10);
+    expect(again.frontmatter.hasBaa).toBe(true);
+    expect(again.frontmatter.categories).toEqual(['note-writing', 'general']);
+  });
+});
+
 describe('validateContent, tools guardrails', () => {
   const toolFm = (over: Record<string, unknown> = {}) => ({
     title: 'T',
