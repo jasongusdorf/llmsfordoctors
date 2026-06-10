@@ -52,6 +52,7 @@ const tools = defineCollection({
     slug: z.string(),
     vendor: z.string(),
     rating: z.number().min(0).max(5),
+    order: z.number().optional(),
     verdict: z.string(),
     pricing: z.string(),
     hasBaa: z.boolean(),
