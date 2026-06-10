@@ -65,13 +65,20 @@ export default function AdminEditor({ collection, slug: initialSlug, initialFron
       );
     }
     if (typeof v === 'number') {
+      const isRating = k === 'rating' && collection === 'tools';
       return (
         <label class="text-sm">
           <span class="block text-clinical-500 mb-1">{k}</span>
           <input type="number"
+            min={isRating ? 0 : undefined}
+            max={isRating ? 5 : undefined}
             class="w-full rounded border border-clinical-300 dark:border-clinical-600 bg-warm-white dark:bg-clinical-800 px-2 py-1 text-sm"
             value={String(v)}
-            onInput={(e) => { const n = Number((e.target as HTMLInputElement).value); setField(k, Number.isNaN(n) ? v : n); }} />
+            onInput={(e) => {
+              const n = Number((e.target as HTMLInputElement).value);
+              if (Number.isNaN(n)) { setField(k, v); return; }
+              setField(k, isRating ? Math.min(5, Math.max(0, n)) : n);
+            }} />
         </label>
       );
     }
