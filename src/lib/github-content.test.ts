@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { getFile, putFile } from './github-content';
+import { getFile, putFile, getDeployState } from './github-content';
 
 const cfg = { token: 't', owner: 'jasongusdorf', repo: 'llmsfordoctors' };
 
@@ -79,5 +79,52 @@ describe('putFile', () => {
     });
     await putFile(cfg, 'src/content/guides/x.mdx', 'body', 'abc123', 'msg', fetchMock as any);
     expect(sent.sha).toBe('abc123');
+  });
+
+  it('returns the commit sha alongside the url', async () => {
+    const fetchMock = vi.fn(async () => new Response(
+      JSON.stringify({ commit: { html_url: 'https://github.com/commit/5', sha: 'deadbeef' } }), { status: 200 },
+    ));
+    const out = await putFile(cfg, 'src/content/guides/x.mdx', 'b', 'abc', 'msg', fetchMock as any);
+    expect(out.commitSha).toBe('deadbeef');
+  });
+});
+
+describe('getDeployState', () => {
+  const runsResponse = (runs: unknown[]) =>
+    new Response(JSON.stringify({ workflow_runs: runs }), { status: 200 });
+
+  it('reports pending when no workflow run exists yet for the sha', async () => {
+    const fetchMock = vi.fn(async () => runsResponse([]));
+    expect(await getDeployState(cfg, 'deadbeef', fetchMock as any)).toBe('pending');
+    expect(fetchMock.mock.calls[0][0] as string).toContain('/actions/runs?head_sha=deadbeef');
+  });
+
+  it('reports building while a run is queued or in progress', async () => {
+    const fetchMock = vi.fn(async () => runsResponse([{ status: 'in_progress', conclusion: null }]));
+    expect(await getDeployState(cfg, 'deadbeef', fetchMock as any)).toBe('building');
+  });
+
+  it('reports success when the run completed successfully', async () => {
+    const fetchMock = vi.fn(async () => runsResponse([{ status: 'completed', conclusion: 'success' }]));
+    expect(await getDeployState(cfg, 'deadbeef', fetchMock as any)).toBe('success');
+  });
+
+  it('reports failure when the run completed unsuccessfully', async () => {
+    const fetchMock = vi.fn(async () => runsResponse([{ status: 'completed', conclusion: 'failure' }]));
+    expect(await getDeployState(cfg, 'deadbeef', fetchMock as any)).toBe('failure');
+  });
+
+  it('succeeds only when every run for the sha has completed', async () => {
+    const fetchMock = vi.fn(async () => runsResponse([
+      { status: 'completed', conclusion: 'success' },
+      { status: 'in_progress', conclusion: null },
+    ]));
+    expect(await getDeployState(cfg, 'deadbeef', fetchMock as any)).toBe('building');
+  });
+
+  it('throws on an error status', async () => {
+    const fetchMock = vi.fn(async () => new Response('{}', { status: 500 }));
+    await expect(getDeployState(cfg, 'deadbeef', fetchMock as any)).rejects.toThrow();
   });
 });

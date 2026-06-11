@@ -26,7 +26,7 @@ export default function AdminEditor({ collection, slug: initialSlug, initialFron
   const [body, setBody] = useState(initialBody);
   const [slug, setSlug] = useState(initialSlug);
   const [slugEdited, setSlugEdited] = useState(false);
-  const [status, setStatus] = useState<{ kind: 'idle' | 'saving' | 'ok' | 'error'; msg?: string; url?: string; viewPath?: string }>({ kind: 'idle' });
+  const [status, setStatus] = useState<{ kind: 'idle' | 'saving' | 'deploying' | 'error'; msg?: string; url?: string; viewPath?: string }>({ kind: 'idle' });
   // Preview is computed in the browser only: DOMPurify needs a DOM, which the server does not have.
   const [preview, setPreview] = useState('');
   useEffect(() => { setPreview(renderPreviewDoc(body)); }, [body]);
@@ -49,44 +49,73 @@ export default function AdminEditor({ collection, slug: initialSlug, initialFron
       body: JSON.stringify({ collection, slug, frontmatter: fmToSend, body, create: isCreate }),
     });
     const d = await res.json().catch(() => ({}));
-    if (res.ok) {
-      setStatus({
-        kind: 'ok',
-        msg: isCreate ? 'Created. Live in about a minute.' : 'Publishing. Live in about a minute.',
-        url: d.commitUrl,
-        viewPath: `/${collection}/${slug}`,
-      });
-    } else {
+    if (!res.ok) {
       setStatus({ kind: 'error', msg: d.error || 'Save failed' });
+      return;
     }
+
+    const viewPath = `/${collection}/${slug}`;
+    if (!d.commitSha) {
+      // Saved, but we cannot track the deploy; fall back to a manual link.
+      setStatus({ kind: 'error', msg: 'Saved, but deploy tracking is unavailable. The page updates in a minute or two.', url: d.commitUrl, viewPath });
+      return;
+    }
+    await waitForDeployThenGo(d.commitSha, d.commitUrl, viewPath);
+  }
+
+  // Polls the deploy triggered by the commit, then navigates to the live page.
+  async function waitForDeployThenGo(sha: string, commitUrl: string, viewPath: string) {
+    const POLL_MS = 5000;
+    const MAX_MS = 6 * 60 * 1000;
+    const started = Date.now();
+    while (Date.now() - started < MAX_MS) {
+      const elapsed = Math.round((Date.now() - started) / 1000);
+      setStatus({ kind: 'deploying', msg: `Saved. Deploying the site... ${elapsed}s`, url: commitUrl, viewPath });
+      await new Promise((r) => setTimeout(r, POLL_MS));
+      try {
+        const res = await fetch(`/api/admin/deploy-status?sha=${sha}`, { credentials: 'same-origin' });
+        if (!res.ok) continue; // transient; keep polling
+        const { state } = (await res.json()) as { state?: string };
+        if (state === 'success') {
+          window.location.assign(viewPath);
+          return;
+        }
+        if (state === 'failure') {
+          setStatus({ kind: 'error', msg: 'Your change is committed, but the site deploy failed. Check GitHub Actions.', url: commitUrl, viewPath });
+          return;
+        }
+      } catch {
+        // network blip; keep polling
+      }
+    }
+    setStatus({ kind: 'error', msg: 'Deploy is taking longer than expected. Your change is committed and will appear when the deploy finishes.', url: commitUrl, viewPath });
   }
 
   return (
     <div class="max-w-7xl mx-auto px-4 py-8">
       <div class="flex items-center justify-between mb-4">
         <h1 class="font-heading text-xl font-bold">{isCreate ? `New ${collection.replace(/s$/, '')}` : `Editing ${collection}/${slug}`}</h1>
-        <div class="flex flex-col items-end gap-1">
-          <button onClick={publish} disabled={status.kind === 'saving'}
-            class="px-5 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm disabled:opacity-50">
-            {status.kind === 'saving' ? 'Saving...' : isCreate ? 'Create' : 'Publish'}
-          </button>
-          {!isCreate && (
-            <a href={`/${collection}/${slug}`} target="_blank" rel="noopener noreferrer"
-              class="text-sm text-blue-600 dark:text-blue-400 underline">
-              See live document
-            </a>
-          )}
-        </div>
+        <button onClick={publish} disabled={status.kind === 'saving' || status.kind === 'deploying'}
+          class="px-5 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm disabled:opacity-50">
+          {status.kind === 'saving' ? 'Saving...'
+            : status.kind === 'deploying' ? 'Deploying...'
+            : isCreate ? 'Create' : 'Publish'}
+        </button>
       </div>
 
-      {status.kind === 'ok' && (
+      {status.kind === 'deploying' && (
         <p class="text-sm text-green-600 mb-3">
+          {status.msg} You will be taken to the live page when it finishes.{' '}
+          {status.url && <a class="underline" href={status.url} target="_blank" rel="noopener noreferrer">commit</a>}
+        </p>
+      )}
+      {status.kind === 'error' && (
+        <p class="text-sm text-red-600 mb-3">
           {status.msg}{' '}
           {status.viewPath && <a class="underline" href={status.viewPath}>View page</a>}{' '}
           {status.url && <a class="underline" href={status.url} target="_blank" rel="noopener noreferrer">commit</a>}
         </p>
       )}
-      {status.kind === 'error' && <p class="text-sm text-red-600 mb-3">{status.msg}</p>}
 
       {isCreate && (
         <label class="block text-sm mb-4">

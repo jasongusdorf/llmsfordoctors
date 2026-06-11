@@ -10,8 +10,8 @@ const SLUG_RE = /^[a-z0-9-]+$/;
 
 async function commit(cfg: GithubConfig, path: string, text: string, sha: string | undefined, message: string) {
   try {
-    const { commitUrl } = await putFile(cfg, path, text, sha, message);
-    return json({ ok: true, commitUrl }, 200);
+    const { commitUrl, commitSha } = await putFile(cfg, path, text, sha, message);
+    return json({ ok: true, commitUrl, commitSha }, 200);
   } catch (e) {
     const msg = e instanceof Error ? e.message : 'Commit failed';
     const conflict = msg.includes('409');
