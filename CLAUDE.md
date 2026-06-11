@@ -36,6 +36,7 @@ Content lives in `src/content/` as `.mdx` files. Schema defined in `src/content.
 | Collection | Path | Key fields |
 |---|---|---|
 | tools | `src/content/tools/` | title, slug, vendor, rating (0-5), verdict, pricing, hasBaa, categories |
+| editorials | `src/content/editorials/` | title, description, tags, featured |
 | videos | `src/content/videos/` | title, url, channel, summary, category, llm[], topic[], priority (1-5) |
 | templates | `src/content/templates/` | title, category, targetTool, tags |
 | guides | `src/content/guides/` | title, description, tags, featured |
@@ -50,6 +51,10 @@ Content lives in `src/content/` as `.mdx` files. Schema defined in `src/content.
 - Tool categories: note-writing, clinical-reasoning, patient-education, literature-review, admin-billing, board-prep, general
 - Video categories: tutorial, lecture, demo, interview
 - Templates page orders categories with note-writing first (not alphabetical)
+
+## Web Editor
+
+Admin editor at `/admin` (password login; dashboard lists all collections, edit/create for every collection). Publishing commits the MDX to GitHub via `/api/admin/save` (edit saves use `patchMdx` for minimal diffs), which triggers the "Deploy on Content Change" workflow. **A publish takes 2-3 minutes to go live** (full Actions build); the editor polls `/api/admin/deploy-status` and auto-navigates to the page when the deploy lands. If GitHub skips creating a run (happens with rapid successive pushes), the status endpoint self-heals by dispatching the workflow after 45s. The worker's `GITHUB_TOKEN` secret needs `repo` + `workflow` scopes (contents write, actions read, workflow dispatch).
 
 ## Git
 
