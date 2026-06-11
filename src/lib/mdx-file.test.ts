@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { parseMdx, serializeMdx, validateContent } from './mdx-file';
+import { parseMdx, serializeMdx, validateContent, patchMdx } from './mdx-file';
 
 const SAMPLE = `---
 title: "Hello"
@@ -148,5 +148,69 @@ describe('validateContent, tools guardrails', () => {
 
   it('rejects a non-numeric order', () => {
     expect(validateContent('tools', toolFm({ order: 'first' }), 'Body').join(' ')).toMatch(/order/);
+  });
+});
+
+describe('patchMdx', () => {
+  const ORIGINAL = `---
+title: "OpenEvidence for Clinical Search"
+slug: openevidence
+vendor: "OpenEvidence"
+rating: 3
+order: 110
+verdict: "Strong evidence retrieval, but verify BAA status before using with PHI"
+pricing: "Free tier available"
+hasBaa: false
+categories: [clinical-reasoning, literature-review, general]
+lastUpdated: 2026-03-18
+socialPost: "OpenEvidence is a clinical AI search platform that surfaces peer-reviewed evidence summaries for point-of-care questions."
+---
+
+Body text here.
+`;
+
+  function fmOf(raw: string) {
+    return parseMdx(raw).frontmatter;
+  }
+
+  it('changing one field leaves every other frontmatter line byte-identical', () => {
+    const fm = { ...fmOf(ORIGINAL), rating: 4 };
+    const out = patchMdx(ORIGINAL, fm, 'Body text here.');
+    const beforeLines = ORIGINAL.split('\n');
+    const afterLines = out.split('\n');
+    expect(afterLines).toContain('rating: 4');
+    for (const line of beforeLines) {
+      if (line.startsWith('rating:')) continue;
+      expect(afterLines).toContain(line);
+    }
+    // Quoted strings keep their quotes
+    expect(out).toContain('title: "OpenEvidence for Clinical Search"');
+    // Flow arrays stay flow
+    expect(out).toContain('categories: [clinical-reasoning, literature-review, general]');
+  });
+
+  it('round-trips with no changes byte-identically in the frontmatter block', () => {
+    const fm = fmOf(ORIGINAL);
+    const out = patchMdx(ORIGINAL, fm, 'Body text here.');
+    expect(out.split('---')[1]).toBe(ORIGINAL.split('---')[1]);
+  });
+
+  it('adds a new key and removes a deleted key', () => {
+    const fm = { ...fmOf(ORIGINAL) } as Record<string, unknown>;
+    delete fm.socialPost;
+    fm.featured = true;
+    const out = patchMdx(ORIGINAL, fm, 'Body text here.');
+    expect(out).not.toContain('socialPost');
+    expect(out).toContain('featured: true');
+  });
+
+  it('replaces the body wholesale', () => {
+    const fm = fmOf(ORIGINAL);
+    const out = patchMdx(ORIGINAL, fm, 'New body.');
+    expect(parseMdx(out).body.trim()).toBe('New body.');
+  });
+
+  it('throws on input with no frontmatter', () => {
+    expect(() => patchMdx('no frontmatter', {}, 'x')).toThrow();
   });
 });

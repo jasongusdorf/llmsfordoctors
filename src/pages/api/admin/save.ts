@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { env } from 'cloudflare:workers';
-import { isCollection, serializeMdx, validateContent, type CollectionName } from '../../../lib/mdx-file';
+import { isCollection, serializeMdx, patchMdx, validateContent, type CollectionName } from '../../../lib/mdx-file';
 import { getFile, putFile, type GithubConfig } from '../../../lib/github-content';
 import { isAuthed } from '../../../lib/admin-session';
 
@@ -50,7 +50,6 @@ export const POST: APIRoute = async ({ request }) => {
     repo: (env as any).GITHUB_REPO ?? 'llmsfordoctors',
   };
   const path = `src/content/${collection}/${slug}.mdx`;
-  const text = serializeMdx(frontmatter, body);
 
   async function loadExisting(): Promise<{ text: string; sha: string } | null | Response> {
     try {
@@ -65,13 +64,13 @@ export const POST: APIRoute = async ({ request }) => {
     const existing = await loadExisting();
     if (existing instanceof Response) return existing;
     if (existing) return json({ error: 'An article with that address already exists' }, 409);
-    return commit(cfg, path, text, undefined, `content: create ${slug} via web editor`);
+    return commit(cfg, path, serializeMdx(frontmatter, body), undefined, `content: create ${slug} via web editor`);
   }
 
   const existing = await loadExisting();
   if (existing instanceof Response) return existing;
   if (!existing) return json({ error: 'File not found; cannot create new files here' }, 404);
-  return commit(cfg, path, text, existing.sha, `content: edit ${slug} via web editor`);
+  return commit(cfg, path, patchMdx(existing.text, frontmatter, body), existing.sha, `content: edit ${slug} via web editor`);
 };
 
 function json(body: unknown, status: number) {

@@ -1,4 +1,4 @@
-import { parse as yamlParse, stringify as yamlStringify } from 'yaml';
+import { parse as yamlParse, stringify as yamlStringify, parseDocument } from 'yaml';
 
 export const COLLECTIONS = ['editorials', 'guides', 'tools', 'trials', 'templates', 'workflows', 'videos'] as const;
 export type CollectionName = (typeof COLLECTIONS)[number];
@@ -17,6 +17,29 @@ export function parseMdx(raw: string): ParsedMdx {
   const frontmatter = (yamlParse(match[1]) ?? {}) as Record<string, unknown>;
   const body = raw.slice(match[0].length);
   return { frontmatter, body };
+}
+
+// Formatting-preserving update: only keys whose values changed are rewritten;
+// untouched keys keep their original quote style, array layout, and wrapping.
+export function patchMdx(
+  originalRaw: string,
+  frontmatter: Record<string, unknown>,
+  body: string,
+): string {
+  const match = originalRaw.match(FRONTMATTER_RE);
+  if (!match) throw new Error('No frontmatter block found');
+  const doc = parseDocument(match[1]);
+  const original = (doc.toJS() ?? {}) as Record<string, unknown>;
+
+  for (const [key, value] of Object.entries(frontmatter)) {
+    if (JSON.stringify(original[key]) !== JSON.stringify(value)) doc.set(key, value);
+  }
+  for (const key of Object.keys(original)) {
+    if (!(key in frontmatter)) doc.delete(key);
+  }
+
+  const fm = doc.toString({ lineWidth: 0, flowCollectionPadding: false }).trimEnd();
+  return `---\n${fm}\n---\n\n${body.replace(/^\n+/, '')}`;
 }
 
 export function serializeMdx(frontmatter: Record<string, unknown>, body: string): string {
