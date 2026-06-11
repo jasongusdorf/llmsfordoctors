@@ -39,11 +39,6 @@ export const POST: APIRoute = async ({ request }) => {
   const errors = validateContent(collection as CollectionName, frontmatter, body);
   if (errors.length) return json({ error: errors.join('; ') }, 400);
 
-  const CREATABLE = ['guides', 'editorials'];
-  if (create && !CREATABLE.includes(collection)) {
-    return json({ error: 'New articles can only be guides or editorials' }, 400);
-  }
-
   const cfg: GithubConfig = {
     token: (env as any).GITHUB_TOKEN,
     owner: (env as any).GITHUB_OWNER ?? 'jasongusdorf',

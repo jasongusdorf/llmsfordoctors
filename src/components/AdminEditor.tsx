@@ -36,10 +36,11 @@ export default function AdminEditor({ collection, slug: initialSlug, initialFron
       return;
     }
     setStatus({ kind: 'saving' });
+    const fmToSend = isCreate && 'slug' in fm ? { ...fm, slug } : fm;
     const res = await fetch('/api/admin/save', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'lfd-editor' },
-      body: JSON.stringify({ collection, slug, frontmatter: fm, body, create: isCreate }),
+      body: JSON.stringify({ collection, slug, frontmatter: fmToSend, body, create: isCreate }),
     });
     const d = await res.json().catch(() => ({}));
     if (res.ok) {
