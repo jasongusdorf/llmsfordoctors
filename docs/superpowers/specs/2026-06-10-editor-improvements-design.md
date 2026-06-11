@@ -42,7 +42,7 @@ The current editor (built 2026-06) works but has rough edges observed in product
 ### 3. Minimal-diff saving
 
 - New function `patchMdx(originalRaw: string, frontmatter: Record<string, unknown>, body: string): string` in `src/lib/mdx-file.ts`.
-- Uses the `yaml` package's `parseDocument` on the original frontmatter block, then sets only keys whose values differ from the original, deletes keys removed by the editor, and serializes with `doc.toString()`. Untouched keys keep their original quote style, array formatting, and line wrapping.
+- Uses the `yaml` package's `parseDocument` on the original frontmatter block, then sets only keys whose values differ from the original, deletes keys removed by the editor, and serializes with `doc.toString()` (`lineWidth: 0`, `flowCollectionPadding: false`). Untouched keys keep their original quote style and array formatting. One known normalization: a string that an earlier serializer left line-wrapped is unwrapped to a single line on the first save that touches the file (content identical, and the single-line form is stable afterward). Preserving arbitrary wrapping is incompatible with preventing new wrapping, which is the bug this section exists to fix.
 - The body is replaced wholesale (it is the editor's textarea content).
 - `src/pages/api/admin/save.ts` already refetches the existing file to obtain its SHA; the edit path now passes that file's text to `patchMdx` instead of calling `serializeMdx`. The create path keeps using `serializeMdx`.
 - Regression test reproduces the 2026-06-10 incident: change one frontmatter field on a tools file with quoted strings, flow arrays, and a wrapped multi-line `socialPost`; assert every untouched line is byte-identical.

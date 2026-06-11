@@ -149,6 +149,11 @@ describe('validateContent, tools guardrails', () => {
   it('rejects a non-numeric order', () => {
     expect(validateContent('tools', toolFm({ order: 'first' }), 'Body').join(' ')).toMatch(/order/);
   });
+
+  it('rejects a malformed lastUpdated date', () => {
+    expect(validateContent('tools', toolFm({ lastUpdated: 'not a date' }), 'Body').join(' ')).toMatch(/lastUpdated/);
+    expect(validateContent('tools', toolFm({ lastUpdated: '2026-6-1' }), 'Body').join(' ')).toMatch(/lastUpdated/);
+  });
 });
 
 describe('patchMdx', () => {
@@ -212,5 +217,29 @@ Body text here.
 
   it('throws on input with no frontmatter', () => {
     expect(() => patchMdx('no frontmatter', {}, 'x')).toThrow();
+  });
+
+  it('normalizes a previously wrapped multi-line socialPost to one stable line', () => {
+    // Regression fixture for the 2026-06-10 incident: the old serializer
+    // line-wrapped socialPost. With lineWidth: 0 a wrapped scalar is unwrapped
+    // once (content identical), and the single-line form is stable afterward.
+    const WRAPPED = `---
+title: OpenEvidence for Clinical Search
+rating: 3
+socialPost: "OpenEvidence is a clinical AI search platform that surfaces
+  peer-reviewed evidence summaries for point-of-care questions. Rated 3/5:
+  strong for evidence lookups."
+---
+
+Body.
+`;
+    const fm = parseMdx(WRAPPED).frontmatter;
+    const out = patchMdx(WRAPPED, { ...fm, rating: 4 }, 'Body.');
+    expect(out).toContain('rating: 4');
+    const oneLine = 'socialPost: "OpenEvidence is a clinical AI search platform that surfaces peer-reviewed evidence summaries for point-of-care questions. Rated 3/5: strong for evidence lookups."';
+    expect(out).toContain(oneLine);
+    // Stability: patching the normalized output again changes nothing.
+    const again = patchMdx(out, { ...parseMdx(out).frontmatter }, 'Body.');
+    expect(again.split('---')[1]).toBe(out.split('---')[1]);
   });
 });

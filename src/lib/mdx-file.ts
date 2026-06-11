@@ -75,6 +75,15 @@ export function validateContent(
     }
   }
 
+  // The Astro build types these as z.date(); a malformed value committed by
+  // the editor would fail the auto-deploy build, so guard the format here.
+  for (const dateField of ['lastUpdated', 'dateAdded']) {
+    const v = frontmatter[dateField];
+    if (v !== undefined && !(typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v))) {
+      errors.push(`${dateField} must be a date in YYYY-MM-DD format`);
+    }
+  }
+
   if (collection === 'tools') {
     const rating = frontmatter.rating;
     if (rating !== undefined && (typeof rating !== 'number' || Number.isNaN(rating) || rating < 0 || rating > 5)) {
