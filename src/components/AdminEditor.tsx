@@ -68,13 +68,23 @@ export default function AdminEditor({ collection, slug: initialSlug, initialFron
     const POLL_MS = 5000;
     const MAX_MS = 6 * 60 * 1000;
     const started = Date.now();
+    let checkFailures = 0;
+    let lastProblem = '';
     while (Date.now() - started < MAX_MS) {
       const elapsed = Math.round((Date.now() - started) / 1000);
-      setStatus({ kind: 'deploying', msg: `Saved. Deploying the site... ${elapsed}s`, url: commitUrl, viewPath });
+      // Surface persistent status-check problems instead of spinning silently.
+      const note = checkFailures >= 3 ? ` (status check failing: ${lastProblem}; still trying)` : '';
+      setStatus({ kind: 'deploying', msg: `Saved. Deploying the site, usually 2-3 minutes... ${elapsed}s${note}`, url: commitUrl, viewPath });
       await new Promise((r) => setTimeout(r, POLL_MS));
       try {
         const res = await fetch(`/api/admin/deploy-status?sha=${sha}`, { credentials: 'same-origin' });
-        if (!res.ok) continue; // transient; keep polling
+        if (!res.ok) {
+          checkFailures += 1;
+          const d = (await res.json().catch(() => ({}))) as { error?: string };
+          lastProblem = d.error ? `${d.error}` : `HTTP ${res.status}`;
+          continue;
+        }
+        checkFailures = 0;
         const { state } = (await res.json()) as { state?: string };
         if (state === 'success') {
           window.location.assign(viewPath);
@@ -84,8 +94,9 @@ export default function AdminEditor({ collection, slug: initialSlug, initialFron
           setStatus({ kind: 'error', msg: 'Your change is committed, but the site deploy failed. Check GitHub Actions.', url: commitUrl, viewPath });
           return;
         }
-      } catch {
-        // network blip; keep polling
+      } catch (e) {
+        checkFailures += 1;
+        lastProblem = e instanceof Error ? e.message : 'network error';
       }
     }
     setStatus({ kind: 'error', msg: 'Deploy is taking longer than expected. Your change is committed and will appear when the deploy finishes.', url: commitUrl, viewPath });
