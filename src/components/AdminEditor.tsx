@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'preact/hooks';
-import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 import FieldInput from './FieldInput';
+import { transformMdxForPreview, PREVIEW_CSS } from '../lib/preview-render';
 
 interface Props {
   collection: string;
@@ -120,22 +120,12 @@ export default function AdminEditor({ collection, slug: initialSlug, initialFron
           srcdoc={preview}
         />
       </div>
-      <p class="text-xs text-clinical-400 mt-2">Preview renders standard markdown. Callout and PromptPlayground blocks appear as placeholders here and render fully after publish.</p>
+      <p class="text-xs text-clinical-400 mt-2">Preview approximates the live page, including Callouts. Interactive blocks (PromptPlayground) render as static boxes.</p>
     </div>
   );
 }
 
 function renderPreviewDoc(body: string): string {
-  const placeheld = body
-    .replace(/<Callout[^>]*>/g, '\n> **[Callout]**\n')
-    .replace(/<\/Callout>/g, '\n')
-    .replace(/<PromptPlayground[^>]*>/g, '\n> **[Prompt]**\n')
-    .replace(/<\/PromptPlayground>/g, '\n')
-    .replace(/^import .*$/gm, '');
-  const safe = DOMPurify.sanitize(marked.parse(placeheld, { async: false }) as string);
-  return `<!doctype html><html><head><meta charset="utf-8">
-<style>body{font:16px/1.65 ui-sans-serif,system-ui;max-width:46rem;margin:1.5rem auto;padding:0 1rem;color:#1f2937}
-h1,h2,h3{font-weight:700;line-height:1.25;margin:1.4em 0 .5em}code{background:#f3f0e8;padding:.1em .3em;border-radius:3px}
-blockquote{border-left:3px solid #cbd5e1;margin:1em 0;padding:.2em 1em;color:#475569}</style></head>
-<body>${safe}</body></html>`;
+  const safe = DOMPurify.sanitize(transformMdxForPreview(body));
+  return `<!doctype html><html><head><meta charset="utf-8"><style>${PREVIEW_CSS}</style></head><body>${safe}</body></html>`;
 }
