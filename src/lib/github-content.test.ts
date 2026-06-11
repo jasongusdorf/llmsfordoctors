@@ -1,5 +1,8 @@
 import { describe, it, expect, vi } from 'vitest';
-import { getFile, putFile, getDeployState } from './github-content';
+import {
+  getFile, putFile, decideDeployState, listContentDeployRuns, dispatchContentDeploy, getCommitDate,
+  type WorkflowRun,
+} from './github-content';
 
 const cfg = { token: 't', owner: 'jasongusdorf', repo: 'llmsfordoctors' };
 
@@ -90,41 +93,78 @@ describe('putFile', () => {
   });
 });
 
-describe('getDeployState', () => {
-  const runsResponse = (runs: unknown[]) =>
-    new Response(JSON.stringify({ workflow_runs: runs }), { status: 200 });
+describe('decideDeployState', () => {
+  const SHA = 'a'.repeat(40);
+  const OTHER = 'b'.repeat(40);
+  const committed = '2026-06-11T14:24:43Z';
+  const run = (over: Partial<WorkflowRun>): WorkflowRun => ({
+    head_sha: SHA, status: 'completed', conclusion: 'success', created_at: '2026-06-11T14:25:00Z', ...over,
+  });
+  const soonAfter = new Date('2026-06-11T14:25:00Z');   // 17s after commit
+  const wellAfter = new Date('2026-06-11T14:26:00Z');   // 77s after commit
 
-  it('reports pending when no workflow run exists yet for the sha', async () => {
-    const fetchMock = vi.fn(async () => runsResponse([]));
-    expect(await getDeployState(cfg, 'deadbeef', fetchMock as any)).toBe('pending');
-    expect(fetchMock.mock.calls[0][0] as string).toContain('/actions/runs?head_sha=deadbeef');
+  it('uses the run for our sha when one exists', () => {
+    expect(decideDeployState([run({})], SHA, committed, soonAfter)).toBe('success');
+    expect(decideDeployState([run({ status: 'in_progress', conclusion: null })], SHA, committed, soonAfter)).toBe('building');
+    expect(decideDeployState([run({ conclusion: 'failure' })], SHA, committed, soonAfter)).toBe('failure');
   });
 
-  it('reports building while a run is queued or in progress', async () => {
-    const fetchMock = vi.fn(async () => runsResponse([{ status: 'in_progress', conclusion: null }]));
-    expect(await getDeployState(cfg, 'deadbeef', fetchMock as any)).toBe('building');
+  it('treats a later run on another commit as covering ours', () => {
+    // Linear history: a run created after our commit deploys a descendant.
+    expect(decideDeployState([run({ head_sha: OTHER })], SHA, committed, wellAfter)).toBe('success');
+    expect(decideDeployState([run({ head_sha: OTHER, status: 'queued', conclusion: null })], SHA, committed, wellAfter)).toBe('building');
   });
 
-  it('reports success when the run completed successfully', async () => {
-    const fetchMock = vi.fn(async () => runsResponse([{ status: 'completed', conclusion: 'success' }]));
-    expect(await getDeployState(cfg, 'deadbeef', fetchMock as any)).toBe('success');
+  it('ignores runs created before our commit', () => {
+    const stale = run({ head_sha: OTHER, created_at: '2026-06-11T14:24:00Z' });
+    expect(decideDeployState([stale], SHA, committed, wellAfter)).toBe('dispatch');
   });
 
-  it('reports failure when the run completed unsuccessfully', async () => {
-    const fetchMock = vi.fn(async () => runsResponse([{ status: 'completed', conclusion: 'failure' }]));
-    expect(await getDeployState(cfg, 'deadbeef', fetchMock as any)).toBe('failure');
+  it('reports failure when the only later run failed, instead of re-dispatching', () => {
+    const failed = run({ head_sha: OTHER, conclusion: 'failure' });
+    expect(decideDeployState([failed], SHA, committed, wellAfter)).toBe('failure');
   });
 
-  it('succeeds only when every run for the sha has completed', async () => {
-    const fetchMock = vi.fn(async () => runsResponse([
-      { status: 'completed', conclusion: 'success' },
-      { status: 'in_progress', conclusion: null },
-    ]));
-    expect(await getDeployState(cfg, 'deadbeef', fetchMock as any)).toBe('building');
+  it('waits patiently right after the commit, then asks for a dispatch', () => {
+    expect(decideDeployState([], SHA, committed, soonAfter)).toBe('pending');
+    expect(decideDeployState([], SHA, committed, wellAfter)).toBe('dispatch');
+  });
+});
+
+describe('GitHub Actions helpers', () => {
+  it('listContentDeployRuns queries the content workflow by filename', async () => {
+    const fetchMock = vi.fn(async () => new Response(JSON.stringify({
+      workflow_runs: [{ head_sha: 'x'.repeat(40), status: 'completed', conclusion: 'success', created_at: '2026-06-11T00:00:00Z' }],
+    }), { status: 200 }));
+    const runs = await listContentDeployRuns(cfg, fetchMock as any);
+    expect(runs).toHaveLength(1);
+    expect(fetchMock.mock.calls[0][0] as string).toContain('/actions/workflows/deploy-content.yml/runs');
   });
 
-  it('throws on an error status', async () => {
+  it('listContentDeployRuns throws on an error status', async () => {
     const fetchMock = vi.fn(async () => new Response('{}', { status: 500 }));
-    await expect(getDeployState(cfg, 'deadbeef', fetchMock as any)).rejects.toThrow();
+    await expect(listContentDeployRuns(cfg, fetchMock as any)).rejects.toThrow();
+  });
+
+  it('dispatchContentDeploy POSTs a dispatch on main and reports success', async () => {
+    const fetchMock = vi.fn(async () => new Response(null, { status: 204 }));
+    expect(await dispatchContentDeploy(cfg, fetchMock as any)).toBe(true);
+    const [url, init] = fetchMock.mock.calls[0] as [string, RequestInit];
+    expect(url).toContain('/actions/workflows/deploy-content.yml/dispatches');
+    expect(init.method).toBe('POST');
+    expect(JSON.parse(init.body as string)).toEqual({ ref: 'main' });
+  });
+
+  it('dispatchContentDeploy reports false when the token cannot dispatch', async () => {
+    const fetchMock = vi.fn(async () => new Response('{}', { status: 403 }));
+    expect(await dispatchContentDeploy(cfg, fetchMock as any)).toBe(false);
+  });
+
+  it('getCommitDate returns the committer date', async () => {
+    const fetchMock = vi.fn(async () => new Response(JSON.stringify({
+      commit: { committer: { date: '2026-06-11T14:24:43Z' } },
+    }), { status: 200 }));
+    expect(await getCommitDate(cfg, 'a'.repeat(40), fetchMock as any)).toBe('2026-06-11T14:24:43Z');
+    expect(fetchMock.mock.calls[0][0] as string).toContain('/commits/');
   });
 });

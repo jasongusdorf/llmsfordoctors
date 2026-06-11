@@ -1,6 +1,9 @@
 import type { APIRoute } from 'astro';
 import { env } from 'cloudflare:workers';
-import { getDeployState, type GithubConfig } from '../../../lib/github-content';
+import {
+  decideDeployState, listContentDeployRuns, dispatchContentDeploy, getCommitDate,
+  type GithubConfig,
+} from '../../../lib/github-content';
 import { isAuthed } from '../../../lib/admin-session';
 
 export const prerender = false;
@@ -20,8 +23,17 @@ export const GET: APIRoute = async ({ request, url }) => {
   };
 
   try {
-    const state = await getDeployState(cfg, sha);
-    return json({ state }, 200);
+    const [runs, commitDate] = await Promise.all([
+      listContentDeployRuns(cfg),
+      getCommitDate(cfg, sha),
+    ]);
+    const decision = decideDeployState(runs, sha, commitDate, new Date());
+    if (decision !== 'dispatch') return json({ state: decision }, 200);
+
+    // GitHub never created a run for this push; start one ourselves. The next
+    // poll will see the dispatched run (created after the commit) as building.
+    const dispatched = await dispatchContentDeploy(cfg);
+    return json({ state: dispatched ? 'building' : 'pending', dispatched }, 200);
   } catch (e) {
     const msg = e instanceof Error ? e.message : 'GitHub error';
     return json({ error: msg }, 502);

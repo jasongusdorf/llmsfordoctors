@@ -46,20 +46,71 @@ export async function putFile(
 }
 
 export type DeployState = 'pending' | 'building' | 'success' | 'failure';
+export type DeployDecision = DeployState | 'dispatch';
 
-// State of the GitHub Actions runs triggered by a commit. 'pending' means no
-// run has been created yet (Actions can lag a few seconds behind the push).
-export async function getDeployState(
-  cfg: GithubConfig, sha: string, fetchFn: typeof fetch = fetch,
-): Promise<DeployState> {
+export interface WorkflowRun {
+  head_sha: string;
+  status: string;            // queued | in_progress | completed
+  conclusion: string | null; // success | failure | ... (null until completed)
+  created_at: string;        // ISO 8601 Z
+}
+
+const CONTENT_WORKFLOW = 'deploy-content.yml';
+// GitHub occasionally creates no run for a push that lands seconds after the
+// previous one; give Actions this long before concluding the run is missing.
+const DISPATCH_AFTER_MS = 45_000;
+
+// Decides what a deploy poll should report. A run for our exact sha wins.
+// Otherwise, because this repo's main history is linear (all editor pushes
+// are fast-forward), any run created after our commit deploys a descendant
+// that contains it. If no such run appears, ask the caller to dispatch one.
+export function decideDeployState(
+  runs: WorkflowRun[], sha: string, commitDate: string, now: Date,
+): DeployDecision {
+  const mine = runs.filter((r) => r.head_sha === sha);
+  if (mine.length > 0) {
+    if (mine.some((r) => r.status !== 'completed')) return 'building';
+    return mine.every((r) => r.conclusion === 'success') ? 'success' : 'failure';
+  }
+  const later = runs.filter((r) => r.created_at > commitDate);
+  if (later.some((r) => r.status !== 'completed')) return 'building';
+  if (later.some((r) => r.conclusion === 'success')) return 'success';
+  if (later.some((r) => r.conclusion !== null)) return 'failure';
+  const age = now.getTime() - new Date(commitDate).getTime();
+  return age > DISPATCH_AFTER_MS ? 'dispatch' : 'pending';
+}
+
+export async function listContentDeployRuns(
+  cfg: GithubConfig, fetchFn: typeof fetch = fetch,
+): Promise<WorkflowRun[]> {
   const res = await fetchFn(
-    `${API}/repos/${cfg.owner}/${cfg.repo}/actions/runs?head_sha=${sha}&per_page=10`,
+    `${API}/repos/${cfg.owner}/${cfg.repo}/actions/workflows/${CONTENT_WORKFLOW}/runs?per_page=20`,
     { headers: headers(cfg.token) },
   );
-  if (!res.ok) throw new Error(`GitHub getDeployState failed: ${res.status}`);
-  const json = await res.json() as { workflow_runs: Array<{ status: string; conclusion: string | null }> };
-  const runs = json.workflow_runs;
-  if (runs.length === 0) return 'pending';
-  if (runs.some((r) => r.status !== 'completed')) return 'building';
-  return runs.every((r) => r.conclusion === 'success') ? 'success' : 'failure';
+  if (!res.ok) throw new Error(`GitHub listContentDeployRuns failed: ${res.status}`);
+  const json = await res.json() as { workflow_runs: WorkflowRun[] };
+  return json.workflow_runs.map(({ head_sha, status, conclusion, created_at }) => ({ head_sha, status, conclusion, created_at }));
+}
+
+export async function dispatchContentDeploy(
+  cfg: GithubConfig, fetchFn: typeof fetch = fetch,
+): Promise<boolean> {
+  const res = await fetchFn(
+    `${API}/repos/${cfg.owner}/${cfg.repo}/actions/workflows/${CONTENT_WORKFLOW}/dispatches`,
+    {
+      method: 'POST',
+      headers: { ...headers(cfg.token), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ref: 'main' }),
+    },
+  );
+  return res.ok;
+}
+
+export async function getCommitDate(
+  cfg: GithubConfig, sha: string, fetchFn: typeof fetch = fetch,
+): Promise<string> {
+  const res = await fetchFn(`${API}/repos/${cfg.owner}/${cfg.repo}/commits/${sha}`, { headers: headers(cfg.token) });
+  if (!res.ok) throw new Error(`GitHub getCommitDate failed: ${res.status}`);
+  const json = await res.json() as { commit: { committer: { date: string } } };
+  return json.commit.committer.date;
 }

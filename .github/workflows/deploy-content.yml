@@ -5,6 +5,10 @@ on:
     branches: [main]
     paths:
       - 'src/content/**'
+  # Safety valve: GitHub occasionally skips run creation for rapid
+  # successive pushes; the editor's deploy-status endpoint dispatches
+  # a run manually when that happens.
+  workflow_dispatch:
 
 permissions:
   contents: read
