@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'preact/hooks';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
+import FieldInput from './FieldInput';
 
 interface Props {
   collection: string;
@@ -16,7 +17,12 @@ function slugify(s: string): string {
 
 export default function AdminEditor({ collection, slug: initialSlug, initialFrontmatter, initialBody, mode = 'edit' }: Props) {
   const isCreate = mode === 'create';
-  const [fm, setFm] = useState<Record<string, unknown>>(initialFrontmatter);
+  const [fm, setFm] = useState<Record<string, unknown>>(() => {
+    if (mode === 'edit' && 'lastUpdated' in initialFrontmatter) {
+      return { ...initialFrontmatter, lastUpdated: new Date().toISOString().slice(0, 10) };
+    }
+    return initialFrontmatter;
+  });
   const [body, setBody] = useState(initialBody);
   const [slug, setSlug] = useState(initialSlug);
   const [slugEdited, setSlugEdited] = useState(false);
@@ -53,57 +59,6 @@ export default function AdminEditor({ collection, slug: initialSlug, initialFron
     } else {
       setStatus({ kind: 'error', msg: d.error || 'Save failed' });
     }
-  }
-
-  function renderField(k: string) {
-    const v = fm[k];
-    if (typeof v === 'boolean') {
-      return (
-        <label class="text-sm flex items-center gap-2 py-1">
-          <input type="checkbox" checked={v} onInput={(e) => setField(k, (e.target as HTMLInputElement).checked)} />
-          <span class="text-clinical-500">{k}</span>
-        </label>
-      );
-    }
-    if (typeof v === 'number') {
-      const isRating = k === 'rating' && collection === 'tools';
-      return (
-        <label class="text-sm">
-          <span class="block text-clinical-500 mb-1">{k}</span>
-          <input type="number"
-            min={isRating ? 0 : undefined}
-            max={isRating ? 5 : undefined}
-            class="w-full rounded border border-clinical-300 dark:border-clinical-600 bg-warm-white dark:bg-clinical-800 px-2 py-1 text-sm"
-            value={String(v)}
-            onInput={(e) => {
-              const n = Number((e.target as HTMLInputElement).value);
-              if (Number.isNaN(n)) { setField(k, v); return; }
-              setField(k, isRating ? Math.min(5, Math.max(0, n)) : n);
-            }} />
-        </label>
-      );
-    }
-    if (Array.isArray(v)) {
-      return (
-        <label class="text-sm">
-          <span class="block text-clinical-500 mb-1">{k}</span>
-          <input
-            class="w-full rounded border border-clinical-300 dark:border-clinical-600 bg-warm-white dark:bg-clinical-800 px-2 py-1 text-sm"
-            value={(v as unknown[]).join(', ')}
-            onInput={(e) => setField(k, (e.target as HTMLInputElement).value.split(',').map((s) => s.trim()).filter(Boolean))} />
-        </label>
-      );
-    }
-    const display = v instanceof Date ? v.toISOString().slice(0, 10) : (v == null ? '' : String(v));
-    return (
-      <label class="text-sm">
-        <span class="block text-clinical-500 mb-1">{k}</span>
-        <input
-          class="w-full rounded border border-clinical-300 dark:border-clinical-600 bg-warm-white dark:bg-clinical-800 px-2 py-1 text-sm"
-          value={display}
-          onInput={(e) => setField(k, (e.target as HTMLInputElement).value)} />
-      </label>
-    );
   }
 
   return (
@@ -147,7 +102,10 @@ export default function AdminEditor({ collection, slug: initialSlug, initialFron
       )}
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-4">
-        {Object.keys(fm).map((k) => renderField(k))}
+        {Object.keys(fm).map((k) => (
+          <FieldInput key={k} collection={collection} k={k} v={fm[k]} isCreate={isCreate}
+            onChange={(value) => setField(k, value)} />
+        ))}
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
