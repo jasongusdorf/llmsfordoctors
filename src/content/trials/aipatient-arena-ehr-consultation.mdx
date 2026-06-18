@@ -45,9 +45,11 @@ Scores are mean values on a 1 to 5 scale, reported as ranges across the models t
 
 ## My Takeaway
 
-The finding that lands is the shape of the competence, not the digits. These models are good at the performance of a consultation and weaker at its substance. They take a tidy history and explain themselves well, then under-cover the information and reason to a shakier diagnosis. That is a more uncomfortable result than a low overall score would be, because the strong dimensions are the ones a casual observer notices and the weak ones are the ones that hurt a patient.
+The shape of the result is more telling than any single score. On a 1 to 5 scale these models looked strong on the visible craft of a consultation, questioning skills 4.43 to 4.99, ethical conduct 4.38 to 4.93, explanation clarity 3.80 to 4.72, and weak exactly where it counts: handling ambiguous patient responses 2.57 to 3.32, information coverage 2.08 to 3.02, and diagnostic accuracy 2.63 to 3.55. A model that interviews like a 4.7 and diagnoses like a 2.9 is a specific and uncomfortable profile, because the strengths are what a casual observer notices and the weaknesses are what harm a patient.
 
-I would file this as a useful argument for how to test these tools rather than a verdict on any of them. It is a preprint, the patients are simulated, and the scoring leans on other models, so the exact numbers deserve caution. But the premise is right: if you only grade the final answer, a model that interviews beautifully and quietly misses the diagnosis looks fine. The job of a real evaluation is to catch the quiet miss, and that means watching the whole consultation, not just its closing line.
+Methodologically the design is the contribution. It is EHR-grounded, multi-turn, and validated on two out-of-distribution external cohorts (119 and 67 patients) beyond the 437-patient primary set, and the process-based scoring surfaced concrete failures (repetitive questioning, omitted past medical history, poor handling of uncertainty) that a final-answer benchmark would hide. The limits are equally clear: it is a preprint with no resolvable DOI yet, the patients are EHR-derived knowledge-graph simulations rather than real people, and the competence scoring leans on LLM assistance, so part of the evaluation shares the weaknesses it measures. The numbers are best read as a competence profile, not a precise grade.
+
+The practical implication is a testing discipline. If you are piloting a consultation or intake tool, judge the whole conversation, not the tidy summary it produces at the end, because that is where the missed history and the unchased ambiguous answer live. Fluency is not safety, and this is direct evidence that the two can come apart in the same model.
 
 ---
 
