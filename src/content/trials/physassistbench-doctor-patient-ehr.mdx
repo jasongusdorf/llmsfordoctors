@@ -1,0 +1,54 @@
+---
+title: "Fine at Fetching One Fact, Lost Coordinating a Visit: An LLM Physician-Assistant Benchmark"
+journal: "arXiv (preprint)"
+year: 2026
+doi: "10.48550/arXiv.2606.18613"
+keyFinding: "PhysAssistBench tests whether LLMs can do the realistic job of assisting a physician: handle vague requests, query a FHIR EHR with the right tool calls, and interview an ambiguous patient, all in one multi-turn session built from real MIMIC-IV cases. Across 14 leading models, performance fell sharply as the task moved from looking up a single fact (82.6) to gathering data across multiple tools (47.5), and that multi-tool bottleneck did not improve with model scale. Even the strongest models were far from reliable."
+lastUpdated: 2026-06-18
+tags: [llm-evaluation, benchmark, ehr, fhir, tool-use, clinical-assistant, multi-turn, agentic, mimic-iv, preprint]
+socialPost: "A new benchmark (PhysAssistBench) tests LLMs at the real assistant job: vague physician requests, FHIR EHR tool calls, and ambiguous patient interviews in one session. Models handled single lookups well (82.6) but collapsed on multi-tool data gathering (47.5), and scale did not fix it. Preprint."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Most medical LLM benchmarks test one skill at a time: medical knowledge, or EHR retrieval, or patient communication. Real physician assistance needs all three at once, inside a single conversation, where the physician's request is underspecified, the patient describes symptoms loosely, and the EHR demands precise tool calls. PhysAssistBench, an arXiv preprint, is built to test that combination rather than any one piece.
+
+The authors turned static real records from MIMIC-IV into "agentic patients," interactive agents that hold a multi-turn clinical scenario together while staying faithful to the underlying record. The benchmark spans four clinical scenarios (diagnostic workup, medication safety, treatment response, discharge planning) and four task types: Information Lookup (retrieve one fact with one EHR tool), Data Gathering (combine two or more sources with multiple tool calls), Clinical Reasoning, and Write/Update. Each turn also carries one of three forms of implicit physician phrasing, the kind of elliptical request a busy clinician actually types. Every session uses a standardized FHIR R4 tool set. The curated evaluation set is 1,296 manually reviewed, physician-validated turns, and the benchmark is bilingual (English and Chinese).
+
+They ran 14 leading models: five proprietary (including GPT-5.4, Claude-Opus-4.7, and Gemini-3.1-Pro) and nine open-weight, each with reasoning mode on and up to 16 tool calls per turn. Scoring used a four-item rubric (accuracy of reported values, correct clinical interpretation, use of prior context, and absence of hallucinated facts), reported both per turn and per session, where a single weak turn fails the entire session.
+
+## Key Findings
+
+- **Task type set a stable difficulty ladder.** Aggregated across models, scores fell from Information Lookup (82.6) to Write/Update (76.1) to Clinical Reasoning (54.9) to Data Gathering (47.5). Fetching a single fact is largely solved; composing multiple tool calls to gather data is not.
+- **The multi-tool bottleneck did not yield to scale.** Data Gathering was the universal weak point, and its narrow spread across models (standard deviation 5.6 to 7.6) means bigger or newer models did not meaningfully escape it. This is a structural limit, not a gap a stronger model closes.
+- **Implicit phrasing hurt, unevenly.** Among the forms of underspecified physician requests, predicate ellipsis was the hardest, dragging the weakest category to 59.6.
+- **The session metric is unforgiving on purpose.** Because one weak turn fails a whole session, models that look adequate turn-by-turn degrade sharply when judged on completing an entire interaction cleanly.
+- **The bottom line is coordination.** The authors conclude that even the strongest models remain far from reliable as physician assistants, and that the failure is interaction and coordination across knowledge, communication, and systems, not a shortfall in any single one.
+
+<Callout type="evidence">
+  The design choice that makes this worth reading is forcing the three skills to co-occur. A model can ace a knowledge exam, retrieve a lab, and chat with a patient in isolation, then fall apart when it has to decide when to query the record, when to ask the patient, and how to combine both into one answer. That seam is where the benchmark shows the models breaking.
+</Callout>
+
+## Clinical Implications
+
+1. **Single-lookup demos do not predict assistant reliability.** A tool that flawlessly answers "what was the last potassium" is doing the easiest task in this benchmark. The work that fails is the realistic part: pulling from several places and integrating it under a vague request. Judge a prospective assistant on the multi-step task, not the lookup.
+
+2. **The danger zone is multi-tool data gathering.** If you are evaluating an EHR-connected assistant, stress-test the cases where it must chain several queries and reconcile them. That is where these models were weakest and where bigger models did not help, so it will not quietly fix itself with the next release.
+
+3. **This is a benchmark on simulated patients, not a clinical study.** The patients are EHR-derived agents, the tasks are predefined, and the scoring leans on a judge model. The scenarios also exclude high-stakes settings like critical care and referral. The result describes model behavior in a controlled arena, not how a specific product performs in your clinic.
+
+<Callout type="pitfall">
+  This is an arXiv preprint and has not been peer-reviewed. It uses synthetic agentic patients generated from records and an LLM judge to score competence, so parts of the evaluation share the failure modes it measures. Weight the qualitative pattern (coordination and multi-tool use are the weak link) over any single number.
+</Callout>
+
+## My Takeaway
+
+The useful idea here is that the bottleneck for clinical LLMs has moved. It is no longer mainly "does the model know enough medicine." On the realistic assistant task, knowledge is the easy part and coordination is the hard part: knowing when to read the chart, when to ask the patient, and how to stitch several tool calls into one reliable answer. That the multi-tool gathering score barely moved across 14 models, including the strongest available, is the line worth remembering. It says this is a capability we have not built yet, not one we are one model release away from.
+
+I would treat the exact numbers cautiously, because it is a preprint with simulated patients and model-based scoring. But the framing is the right one for anyone deploying these tools: the realistic failure is not a wrong fact, it is botched coordination across the record and the patient. Test for that, because it is both the likeliest way an assistant fails in practice and the part that is not improving on its own.
+
+---
+
+[Read the full article on arXiv](https://doi.org/10.48550/arXiv.2606.18613)
