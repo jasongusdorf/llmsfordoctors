@@ -1,0 +1,56 @@
+---
+title: "ICD Codes Come With a Built-In Hierarchy. Teaching EHR Models to Use It Helps a Little"
+journal: "arXiv (preprint)"
+year: 2026
+doi: "10.48550/arXiv.2606.15447"
+keyFinding: "EHR foundation models usually treat ICD diagnosis codes as flat, unrelated tokens, ignoring the disease-family hierarchy already baked into ICD-10-CM. Feeding that hierarchy into the model, either as extra tokens in a BERT-style sequence or as edges in a graph embedding, gave small but consistent gains on MIMIC-IV prediction tasks (for example, readmission AUROC rose from about 0.68 to 0.69 for the token model and 0.70 to 0.71 for the graph model). The graph version also transferred more robustly to a second hospital dataset."
+lastUpdated: 2026-06-18
+tags: [ehr, foundation-model, icd-10, representation-learning, machine-learning, mimic-iv, risk-prediction, infrastructure, preprint]
+socialPost: "ICD-10 codes carry a built-in hierarchy (disease families, subcategories, fine detail) that EHR foundation models usually flatten away. Encoding that hierarchy gave small but consistent gains on MIMIC-IV prediction, and the graph-based version transferred better to a second hospital. Preprint."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This is infrastructure research, not a clinical study. It is about how the prediction models built on top of EHR data represent diagnosis codes. ICD-10-CM is a tree: codes roll up into subcategories, which roll up into broad disease families. Most EHR foundation models throw that structure away and treat each code as an isolated token, so the model has to relearn from scratch that two codes in the same family are related. The authors (Georgia Tech and Optum AI) ask whether handing the model that hierarchy as a built-in hint improves what it learns.
+
+They tested two ways of injecting the hierarchy:
+
+- **HICD-BERT**: a BERT-style transformer over a patient's diagnosis sequence, augmented with extra tokens marking each code's position at different levels of the ICD tree.
+- **HICD-Graph**: a graph-based code embedding where hierarchy-aware edges (parent and child relationships) are combined with how often codes co-occur in practice.
+
+Models were pretrained and evaluated in-domain on MIMIC-IV, then tested for transfer on a second hospital dataset (eICU) using a frozen encoder, meaning the pretrained representations were reused without retraining. They compared three levels of the hierarchy (labeled G0, G1, G2) against a flat, no-hierarchy baseline across two binary clinical prediction tasks, one of which was hospital readmission.
+
+## Key Findings
+
+- **Hierarchy beat flat codes, modestly but consistently.** Both model types improved over their no-hierarchy baselines. On readmission, the token model's AUROC rose from about 0.68 to 0.69 and the graph model's from about 0.70 to 0.71, with similar small gains in F1. These are real but small improvements, not a step change.
+- **The two model types preferred different levels.** The graph model benefited from using all levels of the hierarchy, while the token model gained most from the finest-grained level. There was no single "best" level; it depended on both the task and how the hierarchy was encoded.
+- **The graph version transferred better.** When the frozen MIMIC-IV encoder was applied to the separate eICU hospital data, the graph-based hierarchy encoding held up robustly, which matters because transferring across institutions is where many EHR models fall apart.
+- **Hierarchy reshaped the embedding space sensibly.** Encoding the tree pulled clinically related diagnoses closer together in the model's internal representation, which is the behavior you would want.
+
+<Callout type="evidence">
+  The contribution is a clean, almost free idea: the coding system already contains clinical structure, so use it as an inductive bias rather than making the model rediscover it. The honest size of the effect is small (roughly a single AUROC point), but it is consistent across two different modeling approaches and survives transfer to a second hospital, which is more convincing than one big number on one dataset.
+</Callout>
+
+## Clinical Implications
+
+1. **This will not change your clinical day, and that is fine.** Nothing here is a tool a clinician uses. It is a design choice inside the risk-prediction and patient-representation models that institutions build. The relevance is indirect: models built this way may generalize a little better to your hospital.
+
+2. **It is a reason to ask vendors a sharper question.** If you are evaluating an EHR-based risk model, "does it account for the structure of the coding system, or treat every diagnosis code as unrelated?" is now a fair and answerable question, and the cross-hospital transfer result suggests it bears on whether the model will hold up outside the site it was trained on.
+
+3. **Small gains still need clinical validation.** A one-point AUROC improvement on a benchmark does not establish that a downstream tool is safe or useful at the bedside. It is an argument about model design, several steps upstream of anything that touches a patient.
+
+<Callout type="pitfall">
+  This is an arXiv preprint under review, not peer-reviewed or externally validated. The evaluation is two binary tasks on MIMIC-IV plus one transfer task on eICU, both research databases, and it covers only ICD diagnosis codes, not medications, procedures, or labs. The authors are explicit that generalizability to other outcomes, institutions, and EHR systems is still unproven.
+</Callout>
+
+## My Takeaway
+
+I like this paper for its modesty. It does not claim a breakthrough. It points out that we routinely flatten a clinically meaningful structure that is already sitting in the data for free, and shows that not doing so helps a bit, more reliably when the hierarchy is encoded as a graph and tested across hospitals. That last part is the piece worth holding onto, because cross-institution transfer is the usual graveyard of EHR models, and a design choice that makes transfer sturdier is more valuable than the same gain measured only in-domain.
+
+The honest caveat is the effect size. We are talking about roughly one AUROC point on research datasets, on two tasks, in a preprint. That is a promising direction for the people building EHR foundation models, not evidence that any clinical tool just got better. I would file it under "good engineering hygiene for clinical ML," and watch whether the cross-dataset advantage holds up when someone tests it on more outcomes and a real health system.
+
+---
+
+[Read the full article on arXiv](https://doi.org/10.48550/arXiv.2606.15447)
