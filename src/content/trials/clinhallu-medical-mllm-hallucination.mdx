@@ -49,10 +49,12 @@ They then ran "stage-replacement interventions," swapping in the correct output 
 
 ## My Takeaway
 
-The honest value of this paper is the mental model, not the metrics. Splitting an image AI's mistake into "did it see it, did it know it, did it reason it" is the right question, and the answer (for medical images, the seeing is usually where it breaks) matches what should worry a clinician most. We spend a lot of energy testing whether models know medicine and much less checking whether they actually perceive what is in front of them.
+The finding worth carrying is specific: across four datasets, visual misrecognition was the dominant failure, with average rates above 40 percent, and on radiology VQA-RAD it hit 42.9 percent versus 13.7 percent for knowledge errors. The bottleneck shifts with the task (MedXpertQA flips to a 43.1 percent knowledge-error rate), but the pattern holds, and the stage-replacement experiments make the causal point: handing the model the correct visual reading raised accuracy by roughly 20 points on VQA-RAD. The model tier gap is large too, with Gemini-3-Flash at about 80 percent accuracy and visual hallucination near 26 percent, while smaller open models sat in the 40s with visual error rates of 60 to 65 percent.
 
-I would not cite the exact numbers as settled. It is a preprint, the tasks are short VQA rather than real clinical decisions, and the reasoning traces it grades against were themselves machine-generated before validation, which is a subtle circularity. But the framing is sound and portable: when a multimodal tool gives you a confident read on an image, the failure mode to probe first is whether it saw the image correctly at all. The rest of the reasoning can be flawless and still sit on top of a hallucinated picture.
+The design is the strength here. Decomposing a wrong answer into seeing, knowing, and integrating, then intervening on each stage, is more informative than a single accuracy score, and testing across four datasets and modalities adds breadth. The weaknesses are real and the authors are partly candid about them. This is a preprint and not peer-reviewed, the tasks are short visual question answering rather than real clinical decisions, and most damaging, the reference reasoning traces it grades against were themselves machine-generated before validation, so the benchmark's ground truth shares the failure mode it is measuring. Treat the exact percentages as directional and the qualitative ranking as the durable result.
+
+For a clinician, the practical lesson transfers even though the benchmark is artificial: when you evaluate any tool that reads an image, a radiograph, a slide, a photo, the first thing to stress-test is whether it actually perceives the finding, not whether it can recite the relevant medicine. A fluent, correct-sounding explanation built on a misread image is the failure mode most likely to slip past a reviewer who never checks the model against the original picture.
 
 ---
 
-[Read the full article on arXiv](https://doi.org/10.48550/arXiv.2606.14697)
+[Read the full preprint on arXiv](https://doi.org/10.48550/arXiv.2606.14697)
