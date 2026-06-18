@@ -1,0 +1,56 @@
+---
+title: "Good Interviewer, Weak Diagnostician: Testing LLMs Across the Whole Consultation"
+journal: "Preprint (not peer-reviewed)"
+year: 2026
+doi: "PREPRINT-IDENTIFIER-PENDING"
+keyFinding: "AIPatient Arena evaluated LLMs across eight dimensions of a full, multi-turn clinical consultation grounded in real EHR data (437 patients plus two external cohorts of 119 and 67). Models scored well on interview questioning (4.43 to 4.99 out of 5), ethics (4.38 to 4.93), and clear explanation (3.80 to 4.72), but stayed weak on the parts that matter most: handling ambiguous patient answers (2.57 to 3.32), information coverage (2.08 to 3.02), and diagnostic accuracy (2.63 to 3.55). Final-answer accuracy alone hid these process failures."
+lastUpdated: 2026-06-18
+tags: [llm-evaluation, clinical-consultation, multi-turn, ehr, diagnostic-reasoning, benchmark, simulated-patient, knowledge-graph, preprint]
+socialPost: "A new EHR-grounded benchmark put LLMs through full multi-turn consultations and scored eight skills. They were strong on history-taking, ethics, and clear explanation, but weak where it counts: handling ambiguous answers, covering the needed information, and reaching the right diagnosis. Preprint."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Most evaluations of medical LLMs are static and single-turn: a question goes in, an answer comes out, and the answer is graded. Real consultations are nothing like that. They unfold over multiple turns, the patient's story is incomplete and sometimes contradictory, and the clinician has to decide what to ask next. This preprint proposes AIPatient Arena, a framework that tries to grade the whole workflow rather than the final answer.
+
+The system turns real electronic health record (EHR) data into patient-specific knowledge graphs, which then drive a simulated patient the model can interview across multiple turns. Each consultation is scored on eight dimensions of clinical competence, spanning how the model gathers information, reasons about it, and communicates. The authors ran it on a primary cohort of 437 patients and two out-of-distribution external validation cohorts (119 and 67 patients) to check that the patterns held outside the development set.
+
+## Key Findings
+
+Scores are mean values on a 1 to 5 scale, reported as ranges across the models tested.
+
+- **Strong where the stakes are lower.** Models did well on medical interview questioning skills (4.43 to 4.99), ethical and professional conduct (4.38 to 4.93), and clarity of clinical explanations (3.80 to 4.72). They ask reasonable questions and explain themselves clearly.
+- **Middling on synthesis and safety.** Information integration (3.19 to 4.21) and medication safety and justification (3.13 to 3.78) landed in the moderate band.
+- **Weak exactly where it matters.** The lowest scores were in the most clinically consequential dimensions: handling ambiguous patient responses (2.57 to 3.32), information coverage (2.08 to 3.02), and diagnostic accuracy and reasoning (2.63 to 3.55).
+- **The process failures were specific and recurrent.** Looking at the consultations themselves, the authors found repetitive questioning, omission of past medical history, inadequate handling of uncertainty, and limited empathy.
+- **More context helped diagnosis, not treatment.** Giving the model richer conversational history improved its diagnostic reasoning but produced limited gains in treatment planning.
+
+<Callout type="evidence">
+  The core argument is methodological: a model can score well on final-answer benchmarks while failing the process. Here the same models that interviewed competently still missed information and reached weak diagnoses, and only a turn-by-turn evaluation made that visible. That is the contribution worth taking seriously, more than any single dimension score.
+</Callout>
+
+## Clinical Implications
+
+1. **A smooth interview is not a safe one.** These models are good at sounding like a competent clinician, asking sensible questions, and explaining clearly, while being weak at covering everything that matters and landing the right diagnosis. The fluent surface is exactly what makes the gaps easy to miss.
+
+2. **Watch the parts that do not show up in a transcript.** The recurring failures (skipping past medical history, repeating questions, not chasing an ambiguous answer) are process errors. A reviewer reading only the model's final summary would not catch them. If you are piloting a consultation tool, evaluate the conversation, not just the output.
+
+3. **This grades models, not products, and on simulated patients.** The patients here are EHR-derived knowledge-graph simulations, not real people, and the cohorts are specific. The numbers describe how these models behave in this arena, not how a given commercial tool will perform in your clinic.
+
+<Callout type="pitfall">
+  This is a preprint and has not been peer-reviewed. It also relies on a simulated patient built from EHR data and on LLM-assisted scoring of clinical competence, so some of the evaluation machinery shares the same failure modes it is measuring. Treat the specific numbers as directional and the ranking of strengths and weaknesses as the durable takeaway.
+</Callout>
+
+## My Takeaway
+
+The finding that lands is the shape of the competence, not the digits. These models are good at the performance of a consultation and weaker at its substance. They take a tidy history and explain themselves well, then under-cover the information and reason to a shakier diagnosis. That is a more uncomfortable result than a low overall score would be, because the strong dimensions are the ones a casual observer notices and the weak ones are the ones that hurt a patient.
+
+I would file this as a useful argument for how to test these tools rather than a verdict on any of them. It is a preprint, the patients are simulated, and the scoring leans on other models, so the exact numbers deserve caution. But the premise is right: if you only grade the final answer, a model that interviews beautifully and quietly misses the diagnosis looks fine. The job of a real evaluation is to catch the quiet miss, and that means watching the whole consultation, not just its closing line.
+
+---
+
+_Note: the source PDF did not contain this preprint's own DOI or repository identifier. The link below points to a title search; the real identifier should be added before this is published._
+
+[Find the full article (title search)](https://www.medrxiv.org/search/AIPatient+Arena)
