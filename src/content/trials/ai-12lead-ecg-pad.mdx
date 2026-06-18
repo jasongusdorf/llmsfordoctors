@@ -1,0 +1,57 @@
+---
+title: "An AI Reads a Resting ECG to Flag Low Cardiorespiratory Fitness"
+journal: "JMIR Medical Informatics"
+year: 2026
+doi: "10.2196/81105"
+keyFinding: "An AI model trained on resting 12-lead ECGs identified people with low peak oxygen consumption (peak VO2 under 14 mL/kg/min, a marker of poor cardiorespiratory fitness and higher mortality) with an AUC of 0.87 in external validation when ECG was combined with simple patient characteristics. ECG alone (AUC 0.84) outperformed patient characteristics alone, but precision and recall sat around 0.6 to 0.7, so this is a screening signal, not a diagnostic replacement for exercise testing."
+lastUpdated: 2026-06-18
+tags: [ecg, deep-learning, cardiorespiratory-fitness, peak-vo2, screening, cardiopulmonary-exercise-test, development-validation, cardiology]
+socialPost: "A resting 12-lead ECG, read by an AI model, flagged people with low cardiorespiratory fitness (peak VO2 under 14 mL/kg/min) at AUC 0.87 in external validation. ECG alone beat age/sex/BMI/heart-rate inputs. Precision and recall near 0.6 to 0.7, so it is a screen, not a verdict."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Peak oxygen consumption (peak VO2) is one of the strongest predictors of cardiovascular and all-cause mortality, and it improves with intervention, so catching a low value early matters. The catch is that measuring it properly requires cardiopulmonary exercise testing (CPET), which needs a treadmill or bike, a metabolic cart, and a supervised protocol. Most patients never get one. This study asked whether a test almost everyone does get, a resting 12-lead ECG, carries enough signal to flag who has low fitness.
+
+The team trained a model on resting ECGs recorded immediately before CPET, so every ECG had a true measured peak VO2 attached to it. Low peak VO2 was defined as under 14 mL/kg/min. They compared three inputs: individual characteristics alone (IC: age, sex, BMI, resting heart rate, heart rate variability), ECG alone, and ECG plus IC. The pipeline used a wavelet transform to extract features from the ECG waveform, a gradient-boosting classifier for prediction, and resampling to handle the class imbalance.
+
+- **Development cohort:** 965 individuals (56% with cardiac or pulmonary disorders), mainly at Chang Gung Memorial Hospital, Linkou.
+- **External validation cohort:** 242 independent individuals (80% with cardiac disorders) at the Keelung branch.
+- **Prevalence of low peak VO2:** 27% (261/965) in development, 38% (92/242) in validation.
+
+## Key Findings
+
+- **ECG plus patient characteristics performed best.** For predicting low peak VO2, it reached AUC 0.89 with precision 0.72 and recall 0.72 in cross-validation, and AUC 0.87 with precision 0.67 and recall 0.61 in external validation.
+- **The ECG carried more signal than the demographics.** ECG alone (AUC 0.84) outperformed individual characteristics alone. Adding the characteristics to the ECG gave only a modest further bump.
+- **Wavelet feature extraction mattered.** Pulling multiscale features from the waveform improved accuracy, which the authors highlight as the methodological lever.
+- **Real-world prevalence was high.** More than a quarter of the development cohort and over a third of the validation cohort had low fitness, in a population already enriched for cardiac and pulmonary disease.
+
+<Callout type="evidence">
+  The model was validated against measured peak VO2 from formal exercise testing, not against a surrogate or a chart label, and the validation cohort was a separate hospital site. That is a real external check. But this is only the second study to estimate peak VO2 from an ECG, and the cohorts are small (965 and 242), so treat AUC 0.87 as a promising early result, not a settled performance number.
+</Callout>
+
+## Clinical Implications
+
+1. **This is a screening signal, not a substitute for CPET.** At precision and recall around 0.6 to 0.7 in external validation, the model misses a meaningful share of low-fitness patients and flags some who are fine. The useful framing is triage: who should get sent for formal exercise testing, not who definitely has poor fitness.
+
+2. **The appeal is the input, not the accuracy.** A resting 12-lead ECG is cheap, fast, and already in the chart. A model that turns that into a fitness flag could surface at-risk patients who would never be referred for CPET. Whether that is worth acting on depends on what you would do differently with the flag.
+
+3. **Do not generalize the numbers to your patients yet.** The cohorts were mostly East Asian and heavily enriched for cardiac and pulmonary disease, with low-fitness prevalence of 27% to 38%. In a healthier or different population, both the prevalence and the model's precision would shift, and the authors explicitly caution against applying it elsewhere without revalidation.
+
+<Callout type="pitfall">
+  The model extracts high-dimensional waveform features and does not map them to specific ECG findings, so there is no interpretable "why" behind a given prediction. A clinician cannot look at the flagged ECG and see the reasoning, which makes it harder to catch when the model is wrong and harder to trust at the bedside.
+</Callout>
+
+## My Takeaway
+
+The number to anchor on is the external-validation AUC of 0.87 for the combined ECG-plus-characteristics model, with precision 0.67 and recall 0.61, alongside ECG alone at 0.84, which beat the age, sex, BMI, and heart-rate inputs on their own. Those are honest mid-tier numbers. A recall of 0.61 means the model misses nearly 40 percent of genuinely low-fitness patients, and a precision of 0.67 means a third of its flags are false. The headline that an ECG carries fitness signal beyond the obvious demographics is real, but the model is a rough screen, not a measurement.
+
+On methods, the strength is the reference standard: every ECG was paired with a directly measured peak VO2 from cardiopulmonary exercise testing, and the model was validated on a separate hospital cohort rather than a held-out split. The weaknesses are the size and shape of those cohorts. Development was 965 patients and validation 242, both mostly East Asian and heavily enriched for cardiac or pulmonary disease, with low-fitness prevalence of 27 and 38 percent. Precision is prevalence-dependent, so in a healthier outpatient panel the same model would flag a far larger share of false positives. It is also only the second study of its kind, the classifier is a gradient-boosting model rather than the "neural network" the abstract loosely calls it, and it offers no interpretable mapping from ECG features to the prediction. This is peer-reviewed in JMIR Medical Informatics, which is reassuring, but it is early work.
+
+Practically, this is a proof of concept to watch, not a tool to adopt. If a version of it ever reaches your EHR, treat a positive flag as a prompt to consider formal exercise testing, not as a fitness verdict, and be especially skeptical of its performance in a population healthier than the high-morbidity cohort it was built on.
+
+---
+
+[Read the full article at JMIR Medical Informatics](https://doi.org/10.2196/81105)
