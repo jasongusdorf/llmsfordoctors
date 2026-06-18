@@ -1,0 +1,54 @@
+---
+title: "Beyond the Risk Score: A Roadmap for AI That Simulates a Patient's Future"
+journal: "arXiv (preprint)"
+year: 2026
+doi: "10.48550/arXiv.2606.16721"
+keyFinding: "This review argues that most medical AI still returns static labels and risk scores, when the clinical question is dynamic: how will this illness progress, and how would different interventions change that path? It proposes 'medical world models' that learn an internal simulator of patient-state dynamics, organized around three coupled capabilities (building the patient state, modeling how it evolves, and using the simulation to compare treatment options). The central caution is that a plausible-looking simulated trajectory is not the same as a clinically correct or safe one."
+lastUpdated: 2026-06-18
+tags: [review, world-models, clinical-decision-support, disease-progression, digital-twin, treatment-effect, generative-ai, foundation-models, preprint]
+socialPost: "A new review proposes 'medical world models': AI that does not just label disease but simulates how a patient's state will evolve and how interventions would change it. The roadmap has three parts (state, dynamics, decisions) and one big warning: a plausible simulated future is not a correct one. Preprint."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This is a review and roadmap, not an experiment. The authors (Zhejiang University and Harvard) start from a gap that any clinician will recognize. Medicine is a dynamic process: a patient's state evolves, and the interventions you choose change where it goes. Yet most medical AI still hands back a static output, a disease label, a risk score, a generated report, and says little about how the illness will progress, how uncertainty grows over time, or how a different treatment would reshape the same patient's trajectory.
+
+The paper borrows the "world model" idea from general AI. A world model learns an internal representation of state plus a model of how that state changes, so the system can imagine future states before acting. Applied to medicine, the "environment" is the evolving patient and the care process around them, and the useful state is not a raw image or record but a compact representation of anatomy, physiology, disease burden, history, uncertainty, and treatment context. The field is currently scattered across foundation models, longitudinal modeling, disease simulation, treatment-effect estimation, reinforcement learning, and digital twins. The review pulls these into a single framework and sketches a path to connect the pieces.
+
+## Key Findings
+
+The roadmap is built around three coupled capabilities:
+
+- **Patient-state construction.** Turn multimodal inputs (images, clinical text, physiological signals, EHR events, molecular data, procedural video) into a usable internal representation of the patient, including uncertainty and treatment context, rather than a single label.
+- **Clinical dynamics modeling.** Simulate how that state evolves over time, producing trajectory "rollouts" of how the illness may progress. The review distinguishes event trajectories (EHR sequences of diagnoses, medications, procedures, labs), mechanistic trajectories (closer to physiology but harder to observe and validate), and procedural trajectories (explicit actions that must satisfy anatomical, physical, and safety constraints).
+- **Intervention decision support.** Use the simulator to compare treatment-conditioned futures, asking not just "what is wrong" but "what happens if I do A versus B," which is where causal inference and reinforcement learning enter.
+
+The honest center of the paper is its open-problems section. Current systems are starting to produce plausible rollouts, but the authors are blunt that plausibility is not clinical usefulness. A simulated future can look realistic, follow common care patterns, and match observed associations while still being wrong about cause and unsafe to act on. Validating these simulators, especially the mechanistic and intervention-conditioned ones, is the hard, unsolved part.
+
+<Callout type="evidence">
+  The value here is conceptual, not empirical. There is no trial, no benchmark number, no model to download. It is a framing argument: that the next useful step for medical AI is from recognizing the present state to simulating future states under different actions, and a structured account of what that would require.
+</Callout>
+
+## Clinical Implications
+
+1. **It names a real limitation of today's tools.** Most deployed medical AI answers "what is the current state" and stops. The clinical questions that follow, where is this heading and what should I do about it, are exactly the ones these systems do not answer. That gap is worth keeping in mind when a vendor's risk score is presented as decision support.
+
+2. **Treatment-conditioned prediction is the part to scrutinize hardest.** A model that forecasts a trajectory under one course of care is making a causal claim, not just a pattern match. Causal claims from observational data are where this whole area is most likely to mislead, so "how was the intervention effect validated" is the question that matters most.
+
+3. **Nothing here is ready for the bedside.** This is a direction for research, not a tool or an evidence base. No clinician changes anything tomorrow because of it. Its usefulness is as a lens for judging the next wave of products that will claim to simulate patient futures.
+
+<Callout type="pitfall">
+  This is an arXiv preprint and a conceptual review, so it carries no clinical validation by design. Its own strongest warning is the one to carry forward: a generated trajectory that looks clinically reasonable can still be causally wrong. When a future system shows you a simulated "what if," the realism of the output tells you nothing about whether acting on it is safe.
+</Callout>
+
+## My Takeaway
+
+The framing is the contribution, and it is a good one. Stating plainly that medicine is a control problem, not a labeling problem, is more clarifying than it sounds, because it explains why so many accurate-looking models still feel useless at the bedside: they describe the present and go quiet on the future and the decision. Organizing the scattered work on simulation, causal inference, and digital twins under one "perception, dynamics, planning" structure is a sensible way to see where the field actually is.
+
+What keeps me honest about it is the paper's own caveat, which I think is the most important sentence in it: plausible is not useful. A simulated trajectory that looks right is the most seductive failure mode in medical AI, because it invites action while hiding whether the underlying causal model is sound. I would read this as a thoughtful map of where the field wants to go, and as a standing reminder that when these systems start showing clinicians imagined futures, the burden of proof is on the causal validity of the simulation, not on how convincing it looks.
+
+---
+
+[Read the full article on arXiv](https://doi.org/10.48550/arXiv.2606.16721)
