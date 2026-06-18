@@ -1,0 +1,64 @@
+---
+title: "General-Purpose LLMs Outperform Specialized Clinical AI Tools on Medical Benchmarks"
+journal: "Nature Medicine"
+year: 2026
+doi: "10.1038/s41591-026-04431-5"
+keyFinding: "Across MedQA, HealthBench, and 100 real de-identified physician queries scored by 12 blinded clinicians, frontier models (GPT-5.2, Gemini 3.1 Pro, Claude Opus 4.6) beat the two specialized clinical tools (OpenEvidence, UpToDate Expert AI) at every stage. On the real-query benchmark the clinical tools scored no better than Google's AI Overview, and UpToDate AI refused 19% of questions."
+lastUpdated: 2026-06-18
+tags: [llm-evaluation, benchmark, openevidence, uptodate, clinical-reasoning, gpt-5, gemini, claude, ai-safety, retrieval-augmented-generation]
+socialPost: "Frontier LLMs (GPT-5.2, Gemini 3.1 Pro, Claude Opus 4.6) beat specialized clinical AI tools (OpenEvidence, UpToDate Expert AI) on MedQA, HealthBench, and 100 real physician queries scored by 12 blinded clinicians. The clinical tools scored no better than Google's AI Overview."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Specialized clinical AI tools are being sold to clinicians on the promise that domain-specific training or retrieval beats a general model. Their base models and pipelines are not public, so health systems have to take that promise on faith. This study tested it directly. The authors evaluated two commercial clinical tools, OpenEvidence and UpToDate Expert AI, against three frontier general-purpose models: OpenAI GPT-5.2, Google Gemini 3.1 Pro, and Anthropic Claude Opus 4.6.
+
+The evaluation ran in three stages:
+
+- **MedQA**: 500 USMLE-style multiple-choice questions testing medical knowledge.
+- **HealthBench**: 500 free-response items measuring agreement with expert clinicians, graded by a panel of LLM judges to reduce single-model bias.
+- **Real Clinical Queries (RCQ)**: 100 anonymized queries that physicians had actually sent to a HIPAA-compliant GPT instance at NYU Langone during live care. Twelve blinded US clinicians scored each model's answer on four dimensions (clinical correctness, completeness, safety, and clarity) on a 1 to 4 scale, with three raters per response, producing 1,800 model-question annotations. Google Search AI Overview was added here as a real-world control, since clinicians encounter it constantly.
+
+The clinical tools have no public API, so they were queried through their browser interfaces.
+
+## Key Findings
+
+- **MedQA.** Gemini led at 97.4% (95% CI 95.6 to 98.5), then GPT at 94.2% and Claude at 90.2%. Both clinical tools scored lower: OpenEvidence 89.6%, UpToDate 88.4%. Gemini and GPT each beat both clinical tools at significance.
+- **HealthBench (0 to 100).** GPT scored highest at 88.0 (95% CI 85.9 to 90.1), Gemini 79.3, Claude 77.0. Both clinical tools trailed: OpenEvidence 62.6, UpToDate 61.3. Across all seven themed categories, GPT ranked first or tied for first and the two clinical tools ranked lowest or tied for lowest.
+- **Real physician queries.** Two clear tiers emerged. The frontier models clustered at the top (Gemini 3.62, GPT 3.54, Claude 3.52, no significant differences among them). The clinical tools and Google sat below: OpenEvidence 3.24, UpToDate AI 3.17, Google AI Overview 3.27. The clinical tools had 49% to 87% lower odds of receiving a higher rating than Gemini.
+- **The clinical tools did not beat Google.** OpenEvidence and UpToDate AI scored about the same as the auto-enabled Google Search AI Overview on real queries.
+- **UpToDate AI refused 19% of queries**, far more than the 1% to 3% refusal rate of the other models. OpenEvidence scored lowest on clarity (2.84), so its main weakness was communication rather than knowledge.
+- **Safety was a wash.** No model produced more harmful content or more hallucinations than any other. The gap was in quality, not danger.
+- All 12 clinicians independently ranked the frontier models above the clinical tools (Kendall's W = 0.651, P = 2.3 x 10⁻⁷).
+
+<Callout type="evidence">
+  The result holds across three very different tests: a multiple-choice exam, a structured clinician-alignment benchmark, and unfiltered real-world questions scored by blinded physicians. The agreement across all three, and across all 12 raters, is what makes the finding hard to dismiss as a quirk of one benchmark.
+</Callout>
+
+## Clinical Implications
+
+1. **A specialized label is not evidence of better performance.** Two of the most visible clinical AI products lost to the very general-purpose models they are implicitly marketed against, and tied with a free consumer tool. If you are evaluating a clinical AI product, ask the vendor for independent, real-world comparison data, not benchmark numbers the vendor generated.
+
+2. **Refusal rate is a usability cost, not just a safety feature.** UpToDate AI declined nearly one query in five. A tool that frequently refuses pushes the clinician back to the open web, which is one way a curated product can end up no more useful than Google.
+
+3. **Knowledge and communication are separate failure modes.** OpenEvidence knew the medicine but scored worst on clarity. When you judge a tool, read the actual answers for completeness and safety-critical omissions, not just whether the facts are right.
+
+<Callout type="pitfall">
+  None of the models, frontier or specialized, produced significantly more harmful output, but "no more harmful than the others" is not the same as safe. The clinicians still flagged incomplete content and safety-critical omissions, especially from OpenEvidence and Google AI Overview. A confident, well-written answer that leaves out the dangerous caveat is the failure mode to watch.
+</Callout>
+
+4. **Read this as a snapshot, not a verdict.** These are specific model versions tested at one point in time. The clinical tools were queried through their browser interfaces because they expose no API, which may have constrained their retrieval and output formatting. Standardized benchmarks like MedQA and HealthBench also risk training-data leakage, and HealthBench is an OpenAI product, which may favor GPT. The authors themselves treat the blinded real-query evaluation as the most trustworthy stage, and it told the same story as the rest.
+
+## My Takeaway
+
+The result that matters is the one hardest to game, and this study earned it. On the 100 real physician queries scored by 12 blinded clinicians (1,800 annotations), the frontier models clustered at the top (Gemini 3.62, GPT 3.54, Claude 3.52 on a 1 to 4 scale) while OpenEvidence (3.24) and UpToDate AI (3.17) sat a full tier below and were statistically indistinguishable from Google's free AI Overview (3.27). The clinical tools had 49 to 87 percent lower odds of a higher rating than Gemini, and all 12 raters independently ranked the frontier models above them (Kendall's W 0.651). That agreement across a multiple-choice exam (MedQA), a structured rubric (HealthBench), and unscripted real queries is what makes the headline hard to wave away.
+
+The methodology deserves credit and scrutiny in equal measure. This is peer-reviewed in Nature Medicine, the blinded real-query arm is free of training-data contamination, and the authors are appropriately cautious in treating it as their most trustworthy stage. But the deck is not perfectly even: the clinical tools have no API and were driven through their browser interfaces, which may constrain their retrieval and formatting; MedQA and HealthBench carry known leakage risk; HealthBench is an OpenAI product on which GPT-5.2 scored highest (88.0), an overlap the authors flag; and frontier models served as both contestants and judges, mitigated only partly by using a multimodel panel. None of these overturn a gap this size, but they caution against reading the exact point spreads as precise.
+
+For a practicing physician the takeaway is concrete: a "purpose-built for medicine" label is a marketing claim, not evidence of better performance, and at least two prominent products could not separate themselves from a free general tool on real questions. Before paying a premium for a clinical wrapper, test a frontier model on your own real queries, and ask any vendor for independent, real-world comparison data rather than self-reported benchmark numbers. Watch the refusal behavior too: UpToDate AI declined 19 percent of queries, which is its own usability cost.
+
+---
+
+[Read the full article at Nature Medicine](https://doi.org/10.1038/s41591-026-04431-5)
