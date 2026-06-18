@@ -45,10 +45,12 @@ They ran 14 leading models: five proprietary (including GPT-5.4, Claude-Opus-4.7
 
 ## My Takeaway
 
-The useful idea here is that the bottleneck for clinical LLMs has moved. It is no longer mainly "does the model know enough medicine." On the realistic assistant task, knowledge is the easy part and coordination is the hard part: knowing when to read the chart, when to ask the patient, and how to stitch several tool calls into one reliable answer. That the multi-tool gathering score barely moved across 14 models, including the strongest available, is the line worth remembering. It says this is a capability we have not built yet, not one we are one model release away from.
+The durable result is the difficulty ladder and what it does not respond to. Aggregated across 14 models, scores fell from Information Lookup (82.6) to Write/Update (76.1) to Clinical Reasoning (54.9) to Data Gathering (47.5), and the data-gathering bottleneck barely moved across models, with a cross-model standard deviation of only 5.6 to 7.6. That narrow spread is the point: composing several tool calls to assemble information is not a gap that the strongest model closes, which reframes the limitation as structural rather than a matter of scale. Implicit phrasing compounded it, dragging the weakest request category to 59.6.
 
-I would treat the exact numbers cautiously, because it is a preprint with simulated patients and model-based scoring. But the framing is the right one for anyone deploying these tools: the realistic failure is not a wrong fact, it is botched coordination across the record and the patient. Test for that, because it is both the likeliest way an assistant fails in practice and the part that is not improving on its own.
+The benchmark's strengths are that it forces knowledge, communication, and EHR tool use to co-occur in one session, uses real MIMIC-IV cases behind its agentic patients, runs a standardized FHIR R4 tool set, and grades with a deliberately unforgiving session metric where a single weak turn fails the whole encounter. The caveats are the familiar preprint ones: not peer-reviewed, simulated rather than real patients, an LLM judge in the loop, predefined tasks, and an explicit exclusion of high-stakes settings like critical care and referral. The 1,296 physician-validated turns are a genuine strength, but the scoring machinery still shares some of the fragility it probes.
+
+For a physician evaluating an EHR-connected assistant, the actionable message is to stop being reassured by clean single-fact demos. A tool that flawlessly answers "what was the last potassium" is doing the easiest task here. Stress-test the cases where it must pull from several sources under a vague request and reconcile them, because that is where these models were weakest and where a newer model is least likely to rescue you.
 
 ---
 
-[Read the full article on arXiv](https://doi.org/10.48550/arXiv.2606.18613)
+[Read the full preprint on arXiv](https://doi.org/10.48550/arXiv.2606.18613)
