@@ -47,10 +47,12 @@ Models were pretrained and evaluated in-domain on MIMIC-IV, then tested for tran
 
 ## My Takeaway
 
-I like this paper for its modesty. It does not claim a breakthrough. It points out that we routinely flatten a clinically meaningful structure that is already sitting in the data for free, and shows that not doing so helps a bit, more reliably when the hierarchy is encoded as a graph and tested across hospitals. That last part is the piece worth holding onto, because cross-institution transfer is the usual graveyard of EHR models, and a design choice that makes transfer sturdier is more valuable than the same gain measured only in-domain.
+The honest center of this paper is its effect size. Encoding the ICD hierarchy improved readmission prediction from an AUROC of about 0.68 to 0.69 for the token model (HICD-BERT) and from about 0.70 to 0.71 for the graph model (HICD-Graph), with similarly small F1 gains, and the statistically flagged improvements were consistent rather than large. The more interesting structure is that the two architectures used the hierarchy differently, the graph benefiting from all levels and the token model from the finest granularity, and that the graph encoding held up when its frozen MIMIC-IV encoder was probed on the separate eICU cohort.
 
-The honest caveat is the effect size. We are talking about roughly one AUROC point on research datasets, on two tasks, in a preprint. That is a promising direction for the people building EHR foundation models, not evidence that any clinical tool just got better. I would file it under "good engineering hygiene for clinical ML," and watch whether the cross-dataset advantage holds up when someone tests it on more outcomes and a real health system.
+As methodology this is careful but narrow. The strengths are that the benefit appears across two distinct modeling approaches and, more importantly, survives a cross-dataset transfer test, which is the setting where EHR models usually degrade. The weaknesses bound the claim: it is a preprint; the evaluation is two binary tasks on MIMIC-IV plus one transfer task on eICU, both research databases; it covers only ICD diagnosis codes and not medications, procedures, or labs; and the hierarchy levels are defined differently for each architecture, which complicates direct comparison. One author group is Optum AI, worth noting though the result is modest and mechanistic rather than promotional.
+
+For a clinician this changes nothing at the bedside and is not meant to. Its practical value is as a sharper question for anyone evaluating an EHR-based risk model: does it treat diagnosis codes as unrelated tokens or respect the structure of the coding system, and how was it shown to transfer across institutions. A one-point AUROC gain on research data is an argument about model design, several steps upstream of any tool that should touch a patient.
 
 ---
 
-[Read the full article on arXiv](https://doi.org/10.48550/arXiv.2606.15447)
+[Read the full preprint on arXiv](https://doi.org/10.48550/arXiv.2606.15447)
