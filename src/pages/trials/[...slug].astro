@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import ContentLayout from '../../layouts/ContentLayout.astro';
 import AdminEditButton from '../../components/AdminEditButton.astro';
+import DownloadPdfButton from '../../components/DownloadPdfButton.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('trials');
@@ -12,6 +13,7 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 
 const doiUrl = entry.data.doi ? `https://doi.org/${entry.data.doi}` : null;
+const canonicalUrl = new URL(`/trials/${entry.id}`, Astro.site).href;
 ---
 
 <ContentLayout
@@ -24,6 +26,11 @@ const doiUrl = entry.data.doi ? `https://doi.org/${entry.data.doi}` : null;
     { label: entry.data.title },
   ]}
 >
+  <!-- Download action (hidden from the printed PDF via no-print) -->
+  <div class="not-prose mb-4 flex justify-end">
+    <DownloadPdfButton />
+  </div>
+
   <!-- Citation header -->
   <div class="not-prose mb-8 p-5 rounded-lg bg-clinical-50 dark:bg-clinical-800 border border-clinical-200 dark:border-clinical-700">
     <dl class="grid sm:grid-cols-2 gap-3 text-sm">
@@ -57,6 +64,14 @@ const doiUrl = entry.data.doi ? `https://doi.org/${entry.data.doi}` : null;
     </dl>
   </div>
 
-  <Content />
+  <div class="trial-pdf-body">
+    <Content />
+  </div>
+
+  <!-- Source line, shown only in the printed/PDF version -->
+  <p class="print-only trial-pdf-source">
+    Editorial summary from LLMs for Doctors. This is our plain-language summary of the cited study, not the original paper. Read this summary online at {canonicalUrl}
+  </p>
+
   <AdminEditButton collection="trials" slug={entry.id} />
 </ContentLayout>
