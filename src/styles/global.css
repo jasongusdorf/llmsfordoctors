@@ -105,9 +105,45 @@
   }
 }
 
+/* Elements that should appear only in the printed / saved-as-PDF version. */
+.print-only { display: none; }
+
 @media print {
+  @page { margin: 1.6cm; }
   nav, footer, .no-print, .dark-mode-toggle { display: none !important; }
   body { font-size: 12pt; line-height: 1.5; color: #000; background: #fff; }
   a { color: #000; text-decoration: underline; }
   a[href^="http"]::after { content: ' (' attr(href) ')'; font-size: 0.8em; }
+
+  /* Let the article use the full page width once the chrome is stripped. */
+  article { max-width: none !important; }
+
+  /* Keep headings attached to the text that follows them. */
+  h1, h2, h3 { break-after: avoid; page-break-after: avoid; }
+
+  /* Show print-only elements (e.g. the source/attribution line). */
+  .print-only { display: block !important; }
+  .trial-pdf-source {
+    margin-top: 1.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #999;
+    font-size: 0.8em;
+    color: #333;
+  }
+
+  /*
+   * Trial-summary callouts (Evidence, Pitfall, etc.) carry `no-print` for the
+   * rest of the site, but in a trial summary they hold substantive appraisal,
+   * so they must survive into the PDF. Re-show them inside trial content with a
+   * neutral print style. Higher specificity + !important overrides .no-print.
+   */
+  .trial-pdf-body aside.no-print {
+    display: block !important;
+    border: 1px solid #999;
+    border-left: 4px solid #555;
+    padding: 0.6rem 0.85rem;
+    margin: 0.85rem 0;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
 }
