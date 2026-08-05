@@ -1,0 +1,84 @@
+---
+title: "Explainability Halves Automation Bias in Mammography. One in Five Reads Is Still Wrong."
+journal: "European Radiology"
+year: 2026
+doi: "10.1007/s00330-026-12666-6"
+keyFinding: "Six radiologists each read 200 mammograms across three phases: unaided, with AI, and with AI plus Grad-CAM saliency maps. With AI recommendations deliberately shifted by one BI-RADS category in 30% of cases, automation bias occurred in 36.1% of manipulated reads and anchoring-related revision bias in 33.9%. Adding saliency maps cut these to 17.8% and 17.2% (adjusted OR 0.56 and 0.61, both P less than 0.001). Bias fell with experience but never disappeared: expert readers still showed 15.0% residual bias."
+lastUpdated: 2026-08-04
+tags: [radiology, mammography, automation-bias, explainability, xai, reader-study, cognitive-bias, human-factors]
+socialPost: "6 radiologists, 200 mammograms, 1,200 reads. When AI recommendations were deliberately wrong, radiologists followed them 36% of the time. Adding a saliency heatmap halved that to 18%. Halved, not fixed. Expertise helped and did not immunize."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Pesapane and colleagues ran a monocentric, fully crossed simulation reader study at the European Institute of Oncology between March and June 2024. Six board-certified breast radiologists were stratified into three experience groups of two each: 0 to 5 years, 5 to 10 years, and more than 10 years.
+
+Each radiologist read the same 200 mammograms in three phases, giving 1,200 interpretations. Phase 1 was unaided. Phase 2 added a BI-RADS-like AI recommendation. Phase 3 added a Grad-CAM saliency heatmap alongside the recommendation. A minimum four-week washout separated phases, case order was re-randomized for each reader in each phase, and readers were blinded to the reference standard and to their own prior interpretations.
+
+The 200 cases were diagnostic rather than screening mammograms, deliberately enriched to 100 malignant and 100 benign or negative. Reference standard was histopathology in 118 cases (59.0%) and at least 24 months of imaging and clinical follow-up in 82 (41.0%). Readers had no access to priors, pathology, ultrasound, MRI, or clinical information.
+
+The manipulation is the core of the design. In 30% of examinations, 60 per phase, the AI's BI-RADS-like recommendation was deliberately shifted by exactly one category, with upward and downward shifts balanced 30 and 30. Readers were not told this had been done. Within each phase, 100 cases showed the AI recommendation upfront before the reader's own assessment, testing automation bias, and 100 showed it after the reader recorded a preliminary BI-RADS, testing anchoring-related revision. That gives 180 manipulated reader-case pairs per bias type per phase.
+
+Automation bias was coded as present when a reader changed their Phase 1 unaided decision to conform to the incorrect AI category, moving further from the reference standard. Anchoring bias was coded as a change in the reader's initial assessment toward a discordant AI recommendation. Analysis used generalized linear mixed models with random intercepts for reader and case, adjusted for presentation workflow, experience group, and error direction.
+
+---
+
+## Key Findings
+
+- **With standard AI, automation bias occurred in 65 of 180 manipulated reads (36.1%) and anchoring bias in 61 of 180 (33.9%).**
+
+- **With saliency maps added, automation bias fell to 32 of 180 (17.8%) and anchoring bias to 31 of 180 (17.2%).** Adjusted odds ratios 0.56 (95% CI, 0.44 to 0.71) and 0.61 (95% CI, 0.48 to 0.78), both P less than 0.001.
+
+- **Experience reduced baseline bias but did not eliminate residual bias.** Automation bias in Phase 2 ran 41.7% in the low-experience group, 36.7% in medium, and 30.0% in high. In Phase 3 the same groups were at 20.0%, 18.3%, and 15.0%. Every reduction was significant, with the largest absolute drop among the least experienced.
+
+- **The authors' summary is the right one:** "expert readers may already exhibit partial resistance to misleading AI inputs. Nonetheless, even in this group, the residual bias levels highlight that expertise alone does not immunize against automation or anchoring effects."
+
+- **Direction of the AI error made no systematic difference.** Upward shifts produced automation bias in 38.9% and downward in 33.3%; anchoring bias 35.6% and 32.2%.
+
+- **Reader-to-reader variability was wide.** In Phase 2, automation bias ranged from 23.3% to 46.7% across the six readers; in Phase 3, from 13.3% to 23.3%.
+
+- **The effect held on the AI's genuine errors, not just the manipulated ones.** The native AI disagreed with the reference standard in 24 of 200 examinations (12.0%). On those, automation bias went from 31.9% to 20.8% and anchoring bias from 27.8% to 18.1% with saliency maps.
+
+- **Accuracy improved modestly.** On the 140 non-manipulated cases, accuracy was 86.2% unaided, 87.0% with AI, and 90.1% with AI plus explainability. Across all 1,200 reads, 86.0%, 85.8%, and 88.8%.
+
+- **Inter-reader agreement was Fleiss' kappa 0.68 (95% CI, 0.65 to 0.71).**
+
+<Callout type="pitfall">
+  A design detail with real consequences: in the manipulated cases the categorical recommendation was altered but the Grad-CAM heatmap was left as the model's genuine, unaltered output. So the manipulated explainable condition does not reproduce an end-to-end wrong AI. Part of the benefit may come from readers detecting the mismatch between a shifted category and an honest heatmap, which is exactly the discrepancy a real failing system would not offer. The authors recognized this and ran the native-error sensitivity analysis above, where both outputs were unmodified, and found the same direction.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **The number to remember is 17.8%, not the 50% reduction.** Halving a bias that starts at 36% leaves you following a wrong AI recommendation in roughly one in five manipulated cases. Explainability is a guardrail, not a fix. Framing this study as "XAI solves automation bias" inverts its message.
+
+2. **Seniority is not a defense, and it is often treated as one.** Institutions frequently address AI risk by assigning oversight to experienced clinicians. The most experienced readers here still showed 15.0% residual bias with the best available support. Their advantage over junior readers was roughly 12 percentage points at baseline, which is meaningful and nowhere near protective.
+
+3. **The presentation workflow did not matter as much as expected.** Showing the AI recommendation before versus after the reader's own assessment produced no significant interaction with phase (P = 0.21), and baseline bias rates were similar for both. The intuition that recording your own read first inoculates you was not supported at the magnitude one would hope.
+
+4. **Accuracy and bias are different endpoints.** Accuracy improved only about 4 percentage points across the three phases, while bias halved. A study measuring only accuracy would have concluded that explainability adds little. The safety-relevant behavior lives in the bias measure.
+
+5. **The magnitude does not transfer to screening practice, and the authors say so.** The dataset was diagnostic rather than screening, enriched to 50% malignancy, and the AI was made wrong in 30% of cases, far above any deployed high-performing system. The paper "is best interpreted as demonstrating the existence, direction, and relative modifiability of cognitive vulnerability under discordant AI advice, rather than the real-world prevalence of such bias in screening programs."
+
+---
+
+## Limits Worth Naming
+
+Six readers is a small number for subgroup analysis by experience, with two per stratum, and the authors flag this. It is a single academic center. The endpoint measures commission-type bias only, following a wrong recommendation, and does not capture omission errors from the absence of a prompt. The authors also note that the second endpoint is "an anchoring-related post-assessment revision effect rather than a pure textbook form of anchoring bias." There is some internal inconsistency between the narrative text and the tables for the Phase 3 per-experience-group counts, and between the discussion and Table 3 for the high-experience P values; the table values are the ones I have used. No funding was received and the authors declare no relationships with relevant companies.
+
+---
+
+## My Takeaway
+
+This is one of very few studies that measures the thing everyone worries about rather than asserting it. Automation bias in AI-assisted imaging is usually discussed as a theoretical risk. Here it is 36.1% of manipulated reads, with a mixed-effects model behind it and a native-error sensitivity analysis showing the same pattern on the AI's real mistakes.
+
+The explainability result is genuinely good news and it is being oversold everywhere I have seen it cited. A saliency map roughly halves your susceptibility to a wrong recommendation. It also leaves you following that recommendation about a fifth of the time, and it leaves your most senior colleague following it 15% of the time. If the deployment plan for a clinical AI tool rests on the assumption that an experienced clinician reviewing the output will catch the errors, this paper prices that assumption.
+
+The authors close with a line I keep thinking about: the task will not be to accept the AI's answer, but to ask what the AI saw, and whether it matters. The heatmap makes that question askable. It does not make it get asked.
+
+---
+
+[Read the full article at European Radiology](https://doi.org/10.1007/s00330-026-12666-6)

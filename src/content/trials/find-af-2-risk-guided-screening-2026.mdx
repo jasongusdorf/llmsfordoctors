@@ -1,0 +1,82 @@
+---
+title: "A 12-Variable AF Risk Model That Travels, Unevenly: FIND-AF 2.0"
+journal: "Circulation"
+year: 2026
+doi: "10.1161/CIRCULATIONAHA.126.079391"
+keyFinding: "FIND-AF 2.0, a 12-variable random forest predicting 6-month new atrial fibrillation, was validated across roughly 13 million patients in five countries. AUROC ranged from 0.835 in Israel to 0.747 in Canada. In a prospective single-arm study of 1,923 patients at 15 UK primary care sites, 3 weeks of handheld single-lead ECG found AF in 46 of 1,021 high-risk patients (4.5%) versus 5 of 902 low-risk (0.6%), odds ratio 8.46 (95% CI, 3.35 to 21.40). Of 51 patients diagnosed, 49 (96.1%) started anticoagulation."
+lastUpdated: 2026-08-04
+tags: [atrial-fibrillation, screening, cardiology, risk-prediction, machine-learning, external-validation, primary-care, ecg, anticoagulation]
+socialPost: "FIND-AF 2.0 uses age, sex, and 10 comorbidities to guide AF screening. Validated across 13 million patients in 5 countries, AUROC ran 0.835 in Israel to 0.747 in Canada. That 0.09 spread is the story: portable in principle, uneven in practice."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Nadarajah, Wu, and colleagues developed FIND-AF 2.0 in CPRD-GOLD, a UK primary care database, using 2,081,139 individuals aged 30 or older without prior AF or atrial flutter (mean age 49.9 years, 50.7% women), split 80/20 for development and internal validation. The model is a random forest predicting newly diagnosed AF or atrial flutter within 6 months.
+
+The predictor set is deliberately small: 12 variables, chosen by consensus, all capturable from diagnostic code lists. Age as a continuous variable, sex, and ten comorbidities (diabetes, heart failure, hypertension, stroke or TIA, ischemic heart disease, COPD, valvular heart disease, chronic kidney disease, rheumatoid arthritis, hyperthyroidism). The five most important were age, heart failure, ischemic heart disease, valvular heart disease, and hypertension. The screening threshold was a risk score of 0.0053 or above, corresponding to the top decile of risk in a general population without known AF. Reporting followed TRIPOD plus AI.
+
+External validation used four further cohorts: JMDC in Japan (7,795,244), Clalit Health Services in Israel (2,166,795), CIROC in Canada (627,919), and CDARS in Hong Kong SAR, China (149,145).
+
+The prospective arm was a single-arm interventional validation study at 15 UK primary care sites, enrolling between October 2023 and February 2025. Of 127,216 patients screened for eligibility and 17,063 invited, 1,960 consented and 1,923 completed. Eligibility required age 30 or older, no prior AF, not on palliative care or long-term anticoagulation, and an indication for anticoagulation if AF were found (CHA2DS2-VASc 2 or above in men, 3 or above in women). Recruitment was batched to target roughly 55% high-risk. Participants took four handheld single-lead ECG recordings per day (Zenicor II) for three weeks, plus any time they had palpitations. AF required at least one 30-second episode of irregular rhythm without P waves, confirmed by two electrophysiologists blinded to risk classification.
+
+---
+
+## Key Findings
+
+- **Discrimination varied substantially by country.** AUROC was 0.835 (95% CI, 0.828 to 0.842) in Israel, 0.819 (0.809 to 0.829) in the UK, 0.753 (0.725 to 0.771) in China, 0.751 (0.745 to 0.757) in Japan, and 0.747 (0.741 to 0.753) in Canada.
+
+- **Calibration varied even more.** Calibration slopes ran from 0.567 in Canada and 0.783 in the UK, both indicating overfit predictions, to 1.256 in Japan and 1.431 in Israel, indicating the opposite. A slope of 1.0 is ideal.
+
+- **Cutting the model from 75 variables to 12 cost nothing.** The original FIND-AF reached AUROC 0.824 (0.814 to 0.834) against FIND-AF 2.0's 0.819; the difference was 0.005 (95% CI, −0.009 to 0.019; P = 0.49).
+
+- **It beat CHA2DS2-VASc and C2HEST in four of five cohorts.** In Japan, 0.751 versus 0.624 and 0.678. In Canada, 0.747 versus 0.695 and 0.697. In China, 0.753 versus 0.709 and 0.682. In the UK, 0.819 versus 0.784 and 0.757. In Israel all three performed comparably (0.835, 0.838, 0.834) with no statistically significant difference.
+
+- **Prospectively, the risk split worked.** AF was found in 46 of 1,021 high-risk participants (4.5%) versus 5 of 902 low-risk (0.6%); odds ratio 8.46 (95% CI, 3.35 to 21.40; P less than 0.001). AF appeared on the very first recording in 22 of 1,021 high-risk (2.1%) versus 2 of 902 low-risk (0.2%).
+
+- **At the prespecified threshold, sensitivity was 90.2% (95% CI, 79.0 to 95.7), PPV 4.5% (3.4 to 6.0), NPV 99.4% (98.7 to 99.8).** For comparison, CHA2DS2-VASc at 3 or above in men and 4 or above in women gave sensitivity 72.5% and PPV 3.8%; C2HEST at 1 or above gave sensitivity 96.1% and PPV 2.7%; screening ages 75 and 76 as in STROKESTOP gave sensitivity 13.7% and PPV 3.0%.
+
+- **CHARGE-AF was calculable in only 49.7% of participants,** and in the UK primary care dataset only 22% of eligible patients had complete data for it (34% for EHR-AF). A model you cannot compute is not a comparator.
+
+- **Adherence was high:** 98.0% took at least 25 recordings, 90.1% at least 50, with a mean of 74.8 per participant, and the distribution did not differ between risk groups.
+
+- **Downstream, 49 of the 51 patients diagnosed (96.1%) were started on oral anticoagulants by their primary care physician.**
+
+- **AF burden was bimodal.** Median burden among high-risk cases was 33.4% (IQR, 5.1 to 91.6) versus 6.5% (3.6 to 10.9) in low-risk cases (P = 0.18), and 14 of 46 high-risk cases had AF in more than 80% of recordings.
+
+<Callout type="evidence">
+  In a separate Finnish registry cohort of 229,565 patients with AF who were not anticoagulated, ischemic stroke occurred at 6.0 per 100 patient-years in the FIND-AF 2.0 high-risk group versus 1.7 in the low-risk group (incidence rate ratio 3.43; 95% CI, 3.14 to 3.74). The corresponding CHA2DS2-VASc contrast was 5.9 versus 1.2 (rate ratio 5.08). So the model identifies people whose AF, if found, carries real stroke risk, though CHA2DS2-VASc separated stroke risk more sharply than FIND-AF 2.0 did.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **The cross-country spread is the most useful number in the paper.** A model that discriminates at 0.835 in one health system and 0.747 in another has not failed, but it has not been shown to be interchangeable either. The authors say the optimal threshold "may vary in different geographies and requires prospective assessment." That is the honest generalization of nearly every EHR-derived risk model, and this paper is unusual in giving you the evidence to see it rather than reporting a pooled figure that hides it.
+
+2. **Parsimony was free here, and that matters for implementation.** Twelve coded variables can be computed across a national primary care database. Seventy-five cannot, easily. CHARGE-AF's 50% computability in a prospective cohort and 22% in routine UK primary care data is a concrete illustration of why elaborate models fail at the point of deployment.
+
+3. **The prospective study answers a narrower question than it appears to.** It was single-arm and non-randomized, and the authors say plainly that they "cannot say for certain that FIND-AF 2.0-guided screening increases AF detection compared with routine care." It shows that the risk stratification separates who will be found to have AF on monitoring. It does not show that screening this population improves outcomes.
+
+<Callout type="pitfall">
+  Whether treating screen-detected AF improves outcomes remains unresolved, and the authors say so directly. Fifty-one AF diagnoses across 1,923 participants is a small number of events, wide enough that the confidence intervals for PPV, NPV, and sensitivity overlap between competing screening strategies. The SAFER randomized trial of 82,000 people aged 70 and over is due in 2027.
+</Callout>
+
+4. **The population screened was not diverse.** In the prospective arm, 95.8% of participants were of White ethnicity, and 99.2% of the high-risk group. The authors do not flag this as a limitation, but it constrains what the prospective result supports.
+
+5. **Note where the risk stratification comes from.** With age plus ten comorbidities and a 6-month horizon, most of the discrimination is being carried by age and cardiovascular burden. The authors report the model beat CHA2DS2-VASc, which is also mostly age and cardiovascular burden. The gain is real but incremental, and in Israel it disappeared entirely.
+
+---
+
+## My Takeaway
+
+This is a well-built model reported with unusual candor about where it works less well, and the multinational validation is the reason to read it. Most prediction papers give you one AUROC. This one gives you five, in five health systems, and lets you see an 0.09 spread that no pooled estimate would have shown.
+
+What I would take from it clinically is not a screening recommendation. It is a template for the question to ask about any risk model someone wants to deploy locally: not what its AUROC was, but what its AUROC was in the health system least like the one it was built in. Here that answer is 0.747, with a calibration slope of 0.567.
+
+The prospective arm is a genuine strength, and the 96.1% anticoagulation initiation rate is reassuring about the downstream pathway. But it is a single-arm study that establishes risk separation, not screening benefit. That question belongs to SAFER, and it is a year away.
+
+---
+
+[Read the full article at Circulation](https://doi.org/10.1161/CIRCULATIONAHA.126.079391)

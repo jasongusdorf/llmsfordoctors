@@ -1,0 +1,86 @@
+---
+title: "Ask a Model If It Stigmatizes Patients and It Says No. Watch What It Does Instead."
+journal: "Nature Health"
+year: 2026
+doi: "10.1038/s44360-026-00164-4"
+keyFinding: "Six frontier LLMs scored below the pooled human benchmark on validated stigma scales in 34 of 36 model-scale comparisons. In 61,200 contextual story-completion decisions across 51 scenarios and 10 health conditions, the same models produced stigma-congruent responses at odds ratios of 17.45 for mental health conditions and 13.02 for HIV or HBV, against a healthy baseline. Human participants showed the same pattern at similar magnitude."
+lastUpdated: 2026-08-04
+tags: [bias, equity, stigma, mental-health, hiv, evaluation, llm, fairness, benchmarking]
+socialPost: "Six LLMs looked cleaner than humans on validated stigma questionnaires. Then researchers changed only the patient's diagnosis inside 51 everyday scenarios and ran 61,200 decisions. Odds of a stigmatizing continuation: 17.45x for mental illness, 13.02x for HIV or HBV. Explicit fairness audits measure the wrong thing."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Wang, Zhou, and Zhou tested six LLMs: GPT-5.1, Claude-4.5 (Sonnet), Llama-3.3 (70B), Grok-4, DeepSeek-3.2, and Qwen-3 (plus). The design has two arms that deliberately measure the same construct two different ways.
+
+**The explicit arm.** Each model completed six validated stigma instruments across three domains: the HIV Stigma Scale, the HIV-related Stigma and Discrimination Scale (public stigma subscale), the Toronto HBV Stigma Scale, the HBV Stigma Scale, the Community Attitudes toward Mental Illness scale, and the Depression Stigma Scale (public subscale). Model scores were compared against pooled human benchmarks from published studies over the past two decades, totaling 56,612 participants. Ten independent runs per model-scale combination gave 36 comparisons.
+
+**The contextual arm.** Fifty-one everyday social scenarios spanning work, education, public life, and family were presented as short vignettes ending in an incomplete sentence for the model to continue. Within each scenario the prompt and situation were held constant and only the focal person's health condition was varied across ten conditions: five mental health (schizophrenia, bipolar disorder, depression, anxiety, alcohol dependence), two highly stigmatized physical (HIV, HBV), two low-stigmatized physical (chronic back pain, hypertension), and healthy. Fifty-one scenarios times 10 conditions times 2 languages times 10 repetitions times 6 models gives 61,200 decisions.
+
+Scenarios were built from recurring stigma themes in the literature and first-person accounts, reviewed by a panel, and informed by semi-structured interviews with 12 people living with the focal conditions. Fifty-six people living with these conditions rated the scenarios for realism; 99.6% of scenario-level ratings exceeded the scale midpoint. Two full-time research assistants coded every continuation over five months against a six-type stigma codebook (danger perception, incompetence and devaluation, blame, social distance, control and surveillance, benevolence and pity). Inter-coder agreement was Cohen's kappa 0.87 for the binary stigma classification.
+
+A parallel human comparison collected 5,529 valid observations from 399 participants, 286 recruited via Prolific and 113 in a supervised laboratory setting.
+
+---
+
+## Key Findings
+
+- **On explicit scales the models look better than people.** LLM scores were significantly lower than the pooled human benchmarks in 34 of 36 model-scale comparisons, with Glass's delta ranging from −2.88 to −1.01 (P less than 0.001). GPT-5.1 was the exception on two scales.
+
+- **In contextual judgments the picture inverts.** Against a healthy baseline, models produced stigma-congruent continuations at odds ratio 17.45 (95% CI, 15.38 to 19.81) for mental health conditions, 13.02 (95% CI, 11.42 to 14.85) for HIV and HBV, and 4.43 (95% CI, 3.87 to 5.06) for low-stigmatized physical conditions. All P less than 0.001.
+
+- **Humans in the same task showed the same pattern:** 22.83 for mental health, 14.54 for HIV and HBV, 3.40 for low-stigmatized physical conditions. Formal comparison found no significant difference between LLMs and humans overall (P = 0.683) or within any condition category (P = 0.255 to 0.690).
+
+- **Model spread was very wide.** For mental health versus healthy, Claude-4.5 was lowest at OR 9.78 (95% CI, 6.93 to 13.80) and Llama-3.3 highest at OR 34.78 (95% CI, 23.95 to 50.51). For HIV and HBV the range ran from Claude-4.5 at 3.95 to Llama-3.3 at 40.21.
+
+- **The effect was not an artifact of comparing against healthy people.** Using low-stigmatized physical conditions as the reference instead, mental health and HIV or HBV remained significantly elevated for both models and humans (OR 2.94 to 6.71, P less than 0.001).
+
+- **Context mattered.** Relative to low-stigmatized physical conditions, the largest effects appeared in public and everyday scenarios (mental health OR 4.78; HIV and HBV OR 4.51) and the smallest in education (mental health OR 2.65) and family and intimate settings (HIV and HBV OR 2.03).
+
+- **The failure mode differed by condition.** Schizophrenia and bipolar disorder drew threat and control responses; depression and anxiety drew pity; alcohol dependence drew blame, control, and incompetence. Principal components analysis separated a threat-oriented dimension (29.3% of variance) from a moral-evaluative one (20.6%).
+
+- **Reasoning modes helped, unevenly.** Enabling reasoning reduced stigma-congruent responses for GPT-5.1 (OR 0.37), Grok-4 (0.47), and DeepSeek-3.2 (0.48), but barely for Claude-4.5 (0.90) and not significantly for Qwen-3 (0.92, P = 0.065). A prompted mitigation strategy cut the overall rate more (OR 0.43; 95% CI, 0.42 to 0.45).
+
+- **Language changed the result.** Chinese prompts produced more stigma-congruent responses than English for mental health conditions (OR 1.52; 95% CI, 1.43 to 1.61), and the gap varied by model from OR 1.12 (GPT-5.1) to 2.52 (Qwen-3).
+
+<Callout type="evidence">
+  The authors are explicit that the models are not worse than people here. In contextual judgment the model and human effect sizes are statistically indistinguishable. The finding is not that AI is uniquely biased. It is that the questionnaire we use to certify AI as unbiased detects none of this, and would have cleared every model tested.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **The standard fairness audit is measuring the wrong behavior.** If your institution evaluates a clinical LLM by asking it direct questions about equitable treatment, you are testing whether it can recognize a fairness question. Every model tested passed that. The authors' framing is a shift "from auditing what models say about fairness to auditing whether models decide fairly."
+
+2. **The test that worked is one an institution could actually run.** Hold the clinical scenario constant, vary only the patient's diagnosis, and see whether the downstream recommendation moves. That is a tractable local validation for any deployed decision-support or triage tool, and it does not require the vendor's cooperation.
+
+3. **The conditions at highest risk are the ones that fill medical wards.** Mental illness, substance use, HIV, and hepatitis B are common comorbidities in inpatient populations, and they are the categories where the shift was largest. A model quietly encoding social distance or danger toward a patient with schizophrenia is a plausible mechanism for the disparities we already document in this population.
+
+4. **Model choice is not neutral.** A nearly fourfold spread in odds ratios between Claude-4.5 and Llama-3.3 on the same task is larger than most benchmark differences that drive procurement decisions.
+
+<Callout type="pitfall">
+  Language is a live variable. The same models were measurably more stigma-congruent in Chinese than in English, and the size of that gap differed by model family. Any deployment serving a multilingual patient population inherits a bias profile that has been validated, if at all, in one language.
+</Callout>
+
+---
+
+## Limits Worth Naming
+
+The authors are careful about what this is. The explicit arm is not a construct-equivalent measure of human explicit attitudes; in a model it likely captures norm-compliant responding under survey framing rather than an attitude in any psychological sense. The contextual task is sentence completion, not multi-turn dialogue with a real patient history, and the authors call for testing in triage chat, counseling support, and clinician-facing summarization. The human baseline was collected in a research setting. The 51 scenarios are a finite sample, and an exploratory intersectional analysis using identity-cued names found significant main effects of health condition but no significant interactions with gender or ethnicity cues. And the results apply to the specific model versions tested between June and December 2025.
+
+---
+
+## My Takeaway
+
+The design is the contribution. Two measurements of the same construct, one that clears the models and one that condemns them, run on the same six systems in the same study. That is a much harder result to dismiss than another paper reporting that a model said something biased.
+
+The human comparison is what keeps it honest. These models are not more stigmatizing than the people whose text trained them. They are about as stigmatizing, in the same direction, on the same conditions. What makes that worse rather than reassuring is scale and invisibility: a physician's bias operates one encounter at a time and is at least in principle available to reflection, while a model's operates identically across every encounter and reports, when asked, that it has none.
+
+For anyone sitting on a committee that evaluates a clinical LLM, the practical takeaway is short. Stop accepting the fairness questionnaire as evidence. Ask to see what happens when you change only the diagnosis.
+
+---
+
+[Read the full article at Nature Health](https://doi.org/10.1038/s44360-026-00164-4)

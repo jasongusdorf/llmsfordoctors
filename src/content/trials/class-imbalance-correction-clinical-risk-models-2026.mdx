@@ -1,0 +1,74 @@
+---
+title: "The Most Common Fix in Clinical Prediction Pipelines Makes the Probabilities Wrong"
+journal: "JAMIA"
+year: 2026
+doi: "10.1093/jamia/ocag127"
+keyFinding: "Across 10 clinical datasets and 605,842 patients, rebalancing training data to a 1:1 class ratio with SMOTE, random oversampling, or random undersampling produced no discrimination benefit (median ROC-AUC change −0.002 to −0.01; PR-AUC −0.10 to −0.03) and consistently degraded calibration (Brier score increase 0.029 to 0.080), with calibration intercepts and slopes moving far from ideal. The authors recommend training on the original data and using threshold tuning instead."
+lastUpdated: 2026-08-04
+tags: [prediction-models, calibration, machine-learning, methodology, risk-scores, smote, model-validation, clinical-decision-support]
+socialPost: "10 datasets, 605,842 patients. SMOTE and resampling did not improve discrimination in clinical risk models, and they reliably wrecked calibration. If you are reviewing a locally built sepsis or readmission model, ask two questions: was resampling used, and was calibration checked afterward."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Andersen and colleagues ran a cross-problem empirical evaluation across 10 clinical datasets covering 605,842 patients, with outcome prevalences the authors describe as ranging from 1.9% to 34.9%. The datasets span undiagnosed type 2 diabetes in NHANES (n = 45,431), weekly hypoglycemia and elevated ketones in type 1 diabetes, the Pima Indian diabetes set, sepsis survival in the Norwegian Patient Registry (110,204 admissions), self-reported diabetes in BRFSS (253,680), cardiovascular death in prediabetes from the SELECT placebo arm (5,636), coronary artery disease in Dan-NICAD (4,407), hypoglycemia in eICU (3,661,651 blood-glucose cases across 208 hospitals), and 48-hour ICU mortality (61,203 stay days).
+
+The design detail that makes this convincing: the original model developers were invited to retrain their own models, modifying only the class distribution in the training data. Everything else in each development pipeline stayed the same. Model families included logistic regression, gradient boosting, CatBoost, random forest, artificial neural networks, XGBoost, AutoGluon, and the tabular foundation model TabPFN.
+
+Three correction methods were tested, each targeting a fully balanced 1:1 ratio: random oversampling (ROS), random undersampling (RUS), and SMOTE (k = 5 neighbors). Resampling was applied to training data only; test sets retained the true class distribution. Each model was trained four ways: original data plus the three corrections. Analysis used 5,000 bootstrap samples of paired differences with Wilcoxon signed-rank tests.
+
+---
+
+## Key Findings
+
+- **No discrimination benefit.** Median ROC-AUC change relative to the original models was −0.002 to −0.01 for ROS and SMOTE (P less than .05); for RUS no significant improvement was observed (P = .12).
+
+- **PR-AUC got worse,** which matters more than ROC-AUC when outcomes are rare: ROS −0.1 (P less than .01), RUS −0.1 (P less than .01), SMOTE −0.03 (P less than .01).
+
+- **Calibration degraded consistently.** Median Brier score increase of 0.029 to 0.080 across all three resampling strategies (P less than .05), with a tendency toward both lower calibration slope and lower intercept.
+
+- **The individual dataset numbers show how far the probabilities move.** In the undiagnosed type 2 diabetes set, XGBoost went from a Brier score of 0.027 and a calibration intercept of −0.20 on the original data to a Brier of 0.184 and an intercept of −3.42 under undersampling, while ROC-AUC stayed at 0.83. In the sepsis dataset, gradient boosting held ROC-AUC at 0.70 across all four conditions while the intercept moved from −0.46 to +2.54 and the Brier score went from 0.067 to 0.226.
+
+- **The one case where discrimination improved came with a large calibration cost.** In eICU hypoglycemia, RUS raised ROC-AUC from 0.88 to 0.91, but the Brier score went from 0.016 to 0.118 and PR-AUC fell from 0.22 to 0.19.
+
+- **AutoGluon on the diabetes dataset lost real discrimination under SMOTE,** falling from ROC-AUC 0.84 to 0.73 and PR-AUC 0.14 to 0.06.
+
+- **Excluding the largest dataset did not change the conclusions.** The direction and magnitude held across all resampling methods and metrics.
+
+<Callout type="evidence">
+  The mechanism the authors give is simple and worth remembering. Resampling changes how often the model sees each class during training, so it learns probabilities from an altered event rate. Deployed against the true event rate in held-out data, those probabilities shift systematically up or down. Discrimination survives because ranking is preserved. Calibration does not, because the absolute numbers are now anchored to a prevalence that does not exist.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **Ranking and probability are different products, and clinicians consume the second one.** A model can keep its AUC while telling you a patient has a 40% chance of an outcome that actually carries 4% risk. If a deterioration score is driving a bedside decision, or a readmission model is driving resource allocation, the predicted probability is the thing being used. This paper shows the most common preprocessing step in the pipeline is the thing most likely to corrupt it.
+
+2. **The practical question for any locally built model is two sentences long.** Was class imbalance correction applied during training, and was calibration assessed on held-out data afterward? The authors' own recommendation is to train on the original data whenever feasible, evaluate and report calibration, use threshold tuning or cost-sensitive decision rules to hit the sensitivity you want, and if resampling is used, validate calibration on independent data before clinical use.
+
+3. **Whatever you wanted from resampling, threshold tuning gives you without the damage.** The authors make this point directly: gains attributed to resampling, such as better sensitivity at a chosen cutoff, can typically be reproduced by adjusting the decision threshold on a calibrated model, leaving the underlying probability estimates intact.
+
+<Callout type="pitfall">
+  This study did not test whether post-hoc recalibration repairs the damage. It recommends recalibration on a validation set before deployment, and it notes prior work in which balancing-induced miscalibration was not fully correctable by standard recalibration. Treat "we recalibrated afterward" as an untested defense rather than a solved problem.
+</Callout>
+
+4. **Scope limits worth stating.** Only the aggressive 1:1 target ratio was tested; more moderate ratios such as 1:2 or 1:4 were not, and the authors flag them as a possibly better tradeoff. Hybrid resampling and cost-sensitive or weighted-loss approaches, which adjust the training objective rather than the data, were also not evaluated and may behave differently.
+
+5. **Note the funding and disclosures.** The first author is a Novo Nordisk employee, several co-authors are employed by or hold shares in Novo Nordisk or Roche Diagnostics, and the work was supported by Novo Nordisk Foundation grants. Nothing about the result serves a commercial interest that I can identify, and the finding is a negative one about a method rather than a positive one about a product, but the disclosure list is long enough to mention.
+
+---
+
+## My Takeaway
+
+This is the least glamorous paper in this batch and probably the most immediately useful. Class imbalance correction is close to reflexive in applied machine learning, taught as a standard remedy for rare outcomes, and rare outcomes are most of what we predict in medicine. The finding is that the remedy does nothing for the metric everyone reports and quietly breaks the property clinicians actually need.
+
+The design is what sells it. Asking the original developers to retrain their own models with only the class distribution changed removes the usual objection that an outside team implemented someone else's pipeline badly. Ten datasets, eight model families, and the effect is consistent enough that the sensitivity analysis dropping the largest dataset barely moves it.
+
+If you sit on an informatics or quality committee that reviews homegrown risk models, this is the paper to keep. The question it licenses you to ask is narrow, concrete, and hard to deflect.
+
+---
+
+[Read the full article at JAMIA](https://doi.org/10.1093/jamia/ocag127)

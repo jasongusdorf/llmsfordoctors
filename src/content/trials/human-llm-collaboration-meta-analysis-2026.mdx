@@ -1,0 +1,82 @@
+---
+title: "Does AI Help Doctors? The Meta-Analysis Says Probably, and the Prediction Interval Says We Do Not Know"
+journal: "npj Digital Medicine"
+year: 2026
+doi: "10.1038/s41746-026-02382-2"
+keyFinding: "Ten peer-reviewed studies met inclusion criteria. Pooled across two trials, composite diagnostic and management scores improved 4.88 percentage points with human plus LLM collaboration (95% CI, +0.65 to +9.12), but the 95% prediction interval ran from −31.65 to +41.42, which the authors say means a future study could plausibly find no benefit or substantial harm. Time efficiency was null (+0.40 minutes; 95% CI, −4.18 to +4.97), and in three-arm studies human plus AI did not reliably beat AI alone."
+lastUpdated: 2026-08-04
+tags: [meta-analysis, clinical-decision-support, diagnostic-accuracy, evidence-synthesis, human-ai-collaboration, automation-bias, llm]
+socialPost: "The pooled benefit of doctor plus LLM is +4.88 percentage points on composite diagnostic and management scores. The prediction interval runs from −31.65 to +41.42. That is the honest state of the evidence: a real average effect, and no idea whether it will show up in your setting."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Wang and colleagues searched MEDLINE, Embase, the Cochrane Library, and Web of Science Core Collection from inception to June 28, 2025, registered as PROSPERO CRD420251068272 and reported to PRISMA 2020. Of 1,235 records, 182 were duplicates, 958 were excluded at title and abstract, and 95 full texts were assessed. Ten peer-reviewed studies were included, nine randomized and one non-randomized. Three medRxiv preprints were used for sensitivity evidence only.
+
+The population was licensed clinicians in clinical care, the intervention was LLM-based assistance, and the comparator was the standard human-only workflow. Eight of the ten studies were two-arm (human plus AI versus human); two added an AI-only arm. Participant numbers per study ranged from 3 clinicians reading 200 cases up to 362 participants. Models were predominantly GPT-4 and ChatGPT, with AMIE, DeepSeek-R1, and the PEACH decision-support system also represented. Most participants were attending physicians and residents.
+
+Pooling used random-effects inverse-variance models with Paule-Mandel tau-squared and Hartung-Knapp-Sidik-Jonkman adjustment, which the authors chose because every outcome had three or fewer studies. Ninety-five percent prediction intervals were reported for all random-effects syntheses, described in the methods as a complementary descriptor of external heterogeneity.
+
+<Callout type="pitfall">
+  Read the k values before the effect sizes. The composite score analysis pools two studies. The accuracy analysis pools two studies. The time analysis pools three. This is a systematic review with a meta-analysis attached to a very small number of trials, and almost every limitation follows from that.
+</Callout>
+
+---
+
+## Key Findings
+
+- **Composite diagnostic and management scores (k = 2): mean difference +4.88 percentage points (95% CI, +0.65 to +9.12), I-squared 35.6%.** The 95% prediction interval was **−31.65 to +41.42**. The authors translate the point estimate as roughly 5 fewer diagnostic or management errors per 100 encounters, and then immediately caveat it.
+
+- **The authors' own sentence on that interval is the finding:** the estimate "must be tempered by the small number of studies (k = 2) and the extremely wide 95% prediction interval (−31.65 to 41.42), which indicates that future studies could plausibly find no benefit or even substantial harm."
+
+- **Diagnostic and interpretive accuracy (k = 2): risk ratio 1.59, and the confidence interval includes the null.** The prediction interval was 0.02 to 163.67, which the authors describe as "confirming a lack of generalizability." Note that the paper prints two different sets of interval estimates for this outcome in different places; see the flag below.
+
+- **Time efficiency was null (k = 3): +0.40 minutes (95% CI, −4.18 to +4.97), I-squared 70.1%, prediction interval −7.18 to +7.98.** Positive values mean the AI-assisted workflow was slower. One study reported a modest delay of +119 seconds (95% CI, +17 to +221).
+
+- **In the three-arm studies, human plus AI did not beat AI alone.** The authors call this the "collaboration paradox" and report a synergy ratio of approximately 1. In one critical-care study, human plus AI accuracy was 58% against standalone AI at roughly 60%.
+
+- **Factual error rates in the documentation studies stayed high, roughly 26% to 36%,** which the authors say undermines the quality gains those studies reported.
+
+- **Risk of bias: 2 of 9 randomized trials were low risk and 7 of 9 had some concerns,** driven mainly by deviations from intended interventions and by subjective outcome measurement with incomplete blinding. The non-randomized study was rated moderate risk.
+
+- **No publication-bias testing was possible.** With fewer than 10 studies per outcome, funnel plots and Egger or Begg tests were not performed. The authors substituted a qualitative assessment and called the risk low to moderate.
+
+---
+
+## Clinical Implications
+
+1. **A prediction interval answers a different question than a confidence interval, and it is the question clinicians actually have.** The confidence interval describes uncertainty about the average effect across the studies already done. The prediction interval describes the range in which the effect in a new setting, your setting, would plausibly fall. Here the first is narrow enough to exclude zero and the second spans from substantial harm to large benefit. Any summary of this literature that quotes +4.88 percentage points without that second number is telling you half of it.
+
+2. **The collaboration paradox is the most uncomfortable result in the paper.** The implicit argument for human-in-the-loop deployment is that the pairing beats either party alone. In the two studies that could test it, it did not reliably do so. The authors name plausible mechanisms: cognitive dissonance when AI advice conflicts with the clinician's initial read, and miscalibration from automation and confirmation bias. Their conclusion is that human-in-the-loop is "not a universal safeguard, but a complex interaction that can introduce new failure modes."
+
+3. **Do not expect time savings from diagnostic LLM assistance.** The pooled estimate is essentially zero and directionally slower. Whatever the case for these tools, throughput is not currently it.
+
+4. **The evidence base is mostly simulated.** The authors' first stated limitation is that the included evidence rests on near-clinical simulations, vignettes, and standardized case files rather than patient-facing trials, which they say "severely limits the external validity and generalizability of our findings."
+
+<Callout type="evidence">
+  The authors cite an external analysis by Vaccaro and colleagues covering 106 experimental studies and 370 effect sizes, in which human-AI teams performed significantly worse than the best single agent, human or AI (Hedges' g = −0.23; 95% CI, −0.39 to −0.07). That is outside medicine, but it is the same shape as the collaboration paradox found here.
+</Callout>
+
+---
+
+## A Flag on the Numbers
+
+This paper prints two non-identical sets of interval estimates for the accuracy outcome. In one place the random-effects risk ratio is given as 1.59 with a 95% CI of 0.08 to 32.74 and a prediction interval of 0.02 to 163.67, which is also what the abstract reports. Elsewhere in the same results subsection the confidence interval is given as 0.99 to 2.70 and the prediction interval as 0.78 to 3.26. The paper does not label or reconcile the two. There are similar smaller inconsistencies in the GRADE ratings and in the risk-of-bias description of the non-randomized study.
+
+None of this changes the direction of the finding, and the point estimate is stable across specifications. But if you cite the accuracy result, cite it as imprecise and non-significant rather than attaching a specific interval to it.
+
+---
+
+## My Takeaway
+
+This is the most honest thing published about whether AI helps doctors, and its honesty is mostly negative. The pooled benefit on composite diagnostic and management scores is real and modest. The prediction interval says we cannot yet tell whether it will replicate anywhere in particular. The time savings are absent. The three-arm data suggest the human in the loop may be adding less than we assume, and possibly diluting a stronger AI output through inconsistent overrides.
+
+What makes it useful rather than merely deflating is that it names the unit of the problem. Ten studies, nine randomized, almost all on vignettes, is not enough to support any general claim about human-AI collaboration in medicine. The authors' recommendation is preregistered, pragmatic, multicenter trials embedded in real workflows with harmonized outcomes that prioritize safety and error metrics. That is the right ask, and it is a long way from where the field is.
+
+The number to carry is not 4.88. It is the interval around it.
+
+---
+
+[Read the full article at npj Digital Medicine](https://doi.org/10.1038/s41746-026-02382-2)

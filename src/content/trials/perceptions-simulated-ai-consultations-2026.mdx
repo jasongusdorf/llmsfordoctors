@@ -1,0 +1,86 @@
+---
+title: "Patients Were Less Stressed Talking to the AI. They Also Remembered Less."
+journal: "npj Digital Medicine"
+year: 2026
+doi: "10.1038/s41746-026-03022-5"
+keyFinding: "163 healthy volunteers received simulated bad news about Huntington's disease from one of four consultation modalities. In an exploratory grouping, AI-styled consultations produced lower subjective stress than human ones (52.05 vs 63.50; p = .004, d = −.46) and a steeper cortisol decline (interaction β = −0.040, p = .009). Memory was not uniformly worse: open-format recall did not differ, but the text chatbot arm scored lowest on closed-format recall (0.86) and visual memory (0.64). Both AI arms were Wizard-of-Oz simulations run by human operators in 2022."
+lastUpdated: 2026-08-04
+tags: [patient-communication, breaking-bad-news, stress, cortisol, memory, patient-experience, simulation, human-factors]
+socialPost: "163 people got simulated bad news from a human or an AI. The AI conditions produced measurably less stress, by self-report and by salivary cortisol. Recall was not uniformly worse, but the text chatbot arm was lowest on recognition and visual memory. Small, simulated, and worth reading anyway."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Mayer and colleagues ran a four-arm between-subjects randomized experiment at Heidelberg University's Core Facility for Neurocognitive Systems Research, with data collected May to October 2022. It was pre-registered on OSF as part of a larger interventional trial, and approved as protocol S-067/2022.
+
+One hundred sixty-three healthy volunteers were randomized to one of four consultation modalities: human in-person (n = 45), human video visit (n = 39), AI chatbot with text only (n = 39), or AI avatar with a synthesized voice and a humanlike figure on screen (n = 40). Participants were 78.5% female with a mean age of 25.9 years, and were paid 25 euros.
+
+Both AI arms were **Wizard-of-Oz simulations**. Participants were told they were interacting with an autonomous AI physician while a trained human operator controlled the interaction, selecting from pre-written script segments or typing responses. The same three researchers acted as both the human physicians and the wizards, and were visually and acoustically anonymized in the AI conditions.
+
+The scenario was deliberately distressing. Each participant went through two interviews: the first told them a screening result indicated a one-in-three probability of Huntington's disease, and after a 5 to 10 minute break the second communicated a positive genetic test result. No saliva was actually analyzed and no genetic testing took place. Participants had consented to being told they would not undergo real testing, and were debriefed afterward.
+
+Outcomes: five salivary cortisol samples across the session, analyzed with a longitudinal mixed-effects model on log-transformed values; two visual analog scales for subjective stress averaged into a composite; memory tested with 6 open-ended, 7 closed-ended, and 3 visual-environment questions scored right or wrong; and a single-item perceived credibility measure. The a priori power analysis named subjective stress and the cortisol area under the curve as the primary outcomes and required 128 participants.
+
+<Callout type="pitfall">
+  The headline human-versus-AI contrast is an **exploratory** analysis. The pre-planned comparison was across all four conditions. That four-arm ANOVA on subjective stress was significant (F(3, 159) = 2.91, p = .036) but Tukey post-hoc found **no significant pairwise differences between any two conditions**. The clean human-versus-AI result appears only when the four arms are collapsed into two, which the authors describe as "an exploratory step."
+</Callout>
+
+---
+
+## Key Findings
+
+- **Subjective stress, exploratory two-group comparison:** human 63.50 (SD 24.41) versus AI 52.05 (SD 25.13); Wilcoxon W = 4182, p = .004, d = −.46.
+
+- **Cortisol, four-arm model:** a significant main effect of time (β = −0.086, p less than .001), no significant main effect of condition, and one significant interaction: AI avatar showed a steeper decline than human in-person (β = −0.042, p = .046). The chatbot interaction was not significant (p = .170), nor was human video visit (p = .713).
+
+- **That cortisol interaction did not survive covariate adjustment.** In the sensitivity analysis controlling for age, sex, BMI, smoking, contraceptives, menstruation, shift work, time awake, mindfulness practice, and room temperature, the AI avatar interaction fell to β = −0.035, p = .107.
+
+- **The two-group cortisol comparison was more robust:** the combined AI group showed a steeper decline than the combined human group (β = −0.040, p = .009), and this held under covariate adjustment.
+
+- **Memory was not uniformly worse with AI.** Open-format recall did not differ across conditions (F(3, 153) = 0.83, p greater than .05). Closed-format recognition did (F(3, 153) = 4.71, p = .004), with the AI chatbot lowest at 0.86, significantly below human video visit (0.96, p = .003) and below the AI avatar (0.94, p = .031). Visual memory differed most (Welch F(3, 83.67) = 12.57, p less than .001), with the chatbot lowest at 0.64 and human video visit highest at 0.92.
+
+- **Higher cortisol was associated with worse open-format recall overall** (β = −0.02, p = .026), consistent with the stress-memory hypothesis. But the interactions ran the other way in the AI arms: in the AI avatar condition higher cortisol predicted better open-format recall (β = 0.04, p = .003), and in the chatbot condition higher cortisol predicted better visual memory (β = 0.07, p = .003).
+
+- **Perceived credibility did not differ significantly across conditions** (F(3, 159) = 2.18, p = .093), though the AI avatar was numerically lowest (31.90 versus 44.95 to 47.89 for the others). Mean credibility was **below the scale midpoint in every condition**.
+
+- **Credibility predicted stress strongly** (β = 0.52, p less than .001) with a significant interaction for the AI avatar (β = −0.36, p = .027).
+
+- **No sex differences reached significance** on any outcome.
+
+---
+
+## Clinical Implications
+
+1. **The interesting result is that stress and recall came apart, not that AI is worse at either.** The authors' own summary is careful: "lower stress in AI*-based consultations does not necessarily translate into better memory performance, and that stress-memory relations may depend on the specific consultation modality rather than showing a uniform pattern across conditions." Anyone citing this as "AI consultations are calmer but more forgettable" is compressing a messier result. Open-ended recall, arguably the closest analogue to remembering what your doctor told you, did not differ at all.
+
+2. **Modality mattered more than agent type.** The text chatbot was the outlier on both memory measures, and the avatar was not. Whether a patient reads text or hears a voice with a face may be doing more work here than whether they believe a human or a machine is on the other end.
+
+3. **We measure satisfaction and not comprehension, and this is a reason to worry about that.** If a communication channel can lower distress while leaving recognition and visual recall lower, then the metric health systems collect routinely and the metric that determines whether a patient follows a plan can move in opposite directions. That concern survives even though this study did not demonstrate a clean tradeoff.
+
+4. **Do not extrapolate to breaking real bad news.** Participants were healthy volunteers who had consented to a role-play and knew no genetic testing was occurring. Mean perceived credibility was below the midpoint in all four conditions, which the authors treat as a serious limitation: participants "did not experience the simulated consultations as fully equivalent to real clinical encounters."
+
+<Callout type="tip">
+  The application the authors actually propose is modest and sensible: not replacing physicians for serious news, but offering "a low-threshold follow-up option after consultations" for patients hesitant to re-contact their doctor. That use case sits comfortably within what this data supports.
+</Callout>
+
+---
+
+## Limits Worth Naming
+
+The AI arms were human-operated simulations, not AI systems, and the authors are explicit that findings "reflect the psychological perspective, i.e., the individual interpretation while interacting with an AI, rather than AI systems as constantly adapted and deployed in clinical practice." Data were collected in 2022, before widespread exposure to advanced conversational AI, so participants' expectations were likely "lower or more abstract" than today's. The sample was young, 78.5% female, and healthy. The four conditions differed in more than agent type, including framing, apparent size, and interpersonal distance, so agent effects cannot be disentangled from modality effects. Perceived realism was rated lowest for the avatar. And no study-wide alpha correction was applied, deliberately, to preserve power; the authors "strongly encourage future independent replication."
+
+---
+
+## My Takeaway
+
+I nearly cut this one for being small and simulated, and kept it because the question it asks is one nobody else is asking with objective measures. Salivary cortisol across five timepoints plus a scored recall test is a real attempt to get past satisfaction surveys, and the honest answer it produces is complicated.
+
+The finding that will get quoted, that AI consultations are calmer and less memorable, is half supported. The calm is reasonably well supported in the exploratory grouping and by cortisol. The forgetting is specific to one arm and one or two of three memory measures, and it did not appear in open-ended recall at all. If it replicates in a form that generalizes, it would complicate the entire "AI improves the patient experience" framing, because we measure the satisfaction and not the comprehension. But it is one study, on 163 healthy young adults, in a scenario nobody believed, with human operators pretending to be machines four years ago.
+
+I would file it as a question worth asking rather than a finding to act on. The question is whether the affect that makes a communication channel feel better is the same property that makes it easier to forget. Nobody knows. Somebody should.
+
+---
+
+[Read the full article at npj Digital Medicine](https://doi.org/10.1038/s41746-026-03022-5)
