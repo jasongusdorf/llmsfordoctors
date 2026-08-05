@@ -1,0 +1,82 @@
+---
+title: "The Illusion of Safety: An Argument About FDA AI Oversight, Not an Audit of It"
+journal: "PLOS Digital Health"
+year: 2025
+doi: "10.1371/journal.pdig.0000866"
+keyFinding: "A narrative commentary arguing that FDA review of AI medical devices leaves clinical benefit, generalizability, validation cohorts, and bias mitigation inconsistently documented, and that post-market surveillance is underdeveloped and largely invisible to clinicians. It proposes mandatory post-market monitoring with re-approval on performance drift, disclosure of training data, demographic subgroup evaluation, and community-sourced regulation. It reports no device counts or percentages of its own."
+lastUpdated: 2026-08-04
+tags: [regulation, fda, ai-safety, post-market-surveillance, health-equity, medical-devices, policy, commentary]
+socialPost: "PLOS Digital Health's 'The illusion of safety' is worth reading, and worth reading accurately. Despite the audit language in its title and summary, it reports no device counts, no percentages, and no database query. It is an argument about FDA oversight, not a measurement of it."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## What This Paper Is
+
+Abulibdeh, Celi, and Sejdić published this in PLOS Digital Health under the banner "Research Article," and its author summary uses audit language: "we examined how the U.S. Food and Drug Administration (FDA) has reviewed and authorized AI medical devices to date. We reviewed publicly available FDA documentation and assessed the transparency and rigor of the evidence provided."
+
+It is worth being precise about what follows that sentence, because the title and framing invite a misreading. The paper contains no Methods section, no Results section, no named database, no date range, no denominator, no inclusion or exclusion criteria, and no numeric findings. The words "510(k)," "predicate," and "recall" do not appear anywhere in it. There are no percentages in the text at all.
+
+What it is, instead, is a well-argued narrative commentary on the structure of FDA oversight of AI-enabled medical devices, written by authors including Leo Anthony Celi, and ending in a concrete reform agenda. Read that way it is useful. Read as a quantitative audit, it will not support a single number you might want to cite from it.
+
+<Callout type="pitfall">
+  If you need counts, this is not the source. The paper's own qualitative claim is that "many tools lacked clear demonstration of clinical benefit or generalizability, and critical details such as testing procedures, validation cohorts, and bias mitigation strategies were often missing," with no figure attached to "many" or "often." For quantified reporting gaps in FDA-cleared AI devices, go to the papers it cites, or to our summary of the [950-device NEJM AI analysis](/trials/ai-medical-device-commercialization-safety-2025), which does report counts.
+</Callout>
+
+---
+
+## The Argument
+
+**Regulatory architecture is decades old.** The authors note that the FDA's medical device framework was largely established in 1976 and "has remained relatively unchanged despite technological advancements." Higher-risk AI-driven devices follow different pathways, but those "may still not fully account for the unique risks and complexities of these technologies."
+
+**Post-market surveillance is the weakest link.** This is the paper's most developed thread. The FDA emphasizes post-market monitoring in its lifecycle approach, but "the implementation of robust, real-time monitoring mechanisms remains inconsistent and underdeveloped." Continuous monitoring "requires advanced infrastructure and significant resources, which are not yet fully integrated into the regulatory process and may even exceed the capacity of existing regulatory frameworks." And the part that matters most to a practicing clinician: "while post-market surveillance is a manufacturer's responsibility, there is little visibility into how it is conducted or whether it effectively ensures long-term device safety."
+
+**Inconsistent guidelines make cross-device comparison impossible.** Variability in post-market standards "makes it difficult to compare safety and performance across different AI/ML-enabled medical devices."
+
+**The non-device carve-out.** The authors note that if a tool "allows healthcare professionals to independently assess its recommendations, in some cases it may not be classified as a medical device and is therefore exempt from certain regulatory requirements." That exemption is where a large share of clinical LLM tooling currently sits.
+
+**Predetermined change control plans cut both ways.** The 2021 AI/ML action plan and the April 2023 draft guidance on predetermined change control plans let developers "address AI's continuous evolution without repeatedly seeking new FDA approvals." That is necessary for a technology that updates, and it also means the cleared version may not be the deployed version.
+
+**A concrete example of downstream harm.** The authors cite work linking wearables, particularly those detecting atrial fibrillation, to increased emergency department visits from false positives. No magnitude is given.
+
+---
+
+## What They Recommend
+
+The five numbered recommendations to the FDA:
+
+1. Mandate extensive post-market monitoring, and require updates to approvals "if significant drift or performance degradation is detected."
+2. Require AI developers to disclose the composition of their training data and the methodologies behind their models.
+3. Require evaluations of how AI tools perform across different demographic groups to mitigate biases.
+4. Involve manufacturers, healthcare providers, patients, and regulatory bodies in the development of AI regulations.
+5. Community-source the regulation of health AI, explicitly including patients and caregivers "from historically underrepresented groups such as ethnic minorities, women and gender minorities, individuals from lower socioeconomic strata, people with disabilities, elderly individuals, and rural or underserved communities."
+
+Elsewhere they propose independent FDA-sanctioned auditing bodies publishing public summary reports of methods, datasets, performance outcomes, and identified biases; mandatory registries or open-access repositories; clinician certification in AI ethics and bias detection tied to continuing education or licensure; structured partnerships with universities using students under faculty supervision for real-time monitoring; financial incentives such as expedited review or tax credits for companies that share source data and use diverse clinical validation; and interagency coordination with ONC and CMS.
+
+---
+
+## Clinical Implications
+
+1. **"FDA-cleared" describes a review pathway, not a demonstrated clinical benefit.** That is the durable takeaway, and it does not depend on any number. When a vendor leads with clearance, the follow-up questions are which pathway, against which predicate, validated in which population, and monitored how after deployment.
+
+2. **The monitoring gap is the one clinicians can act on locally.** If manufacturer post-market surveillance is invisible from the outside, then local performance monitoring is not redundant with regulatory oversight; it is the only monitoring that exists in your institution. The authors' recommendation that post-deployment evaluation prioritize "patient outcomes, health system performance, and workforce impact" is a reasonable local specification.
+
+3. **The change-control point is practical.** A device cleared on one model version may be updated without a new submission. For any deployed tool, it is fair to ask when the underlying model last changed and what was re-validated when it did.
+
+<Callout type="tip">
+  The paper has no Limitations section and does not acknowledge the absence of quantification. It also declares that the authors "received no specific funding for this work" while the author contributions list "Funding acquisition." Neither undermines the argument, but both are worth noting if you are weighing how much authority to give it.
+</Callout>
+
+---
+
+## My Takeaway
+
+I nearly left this one out, because the gap between how it presents itself and what it contains is wide enough to be a problem. The title, the "Research Article" label, and the author summary's "we examined," "we reviewed," and "our findings" all promise an audit. There is no audit in it.
+
+What there is, is a clear and well-sourced argument by people who know the regulatory landscape, ending in a reform agenda specific enough to argue with. The post-market surveillance section in particular says something I have not seen put as plainly elsewhere: that manufacturer-run surveillance is both mandated and unobservable, which means the reassurance clinicians take from clearance is partly an inference about a process nobody outside the manufacturer can see. That is the illusion in the title, and the paper earns it.
+
+Pair it with the [950-device analysis](/trials/ai-medical-device-commercialization-safety-2025) for the numbers, and read this one for the argument. Do not cite it for either job the other one does.
+
+---
+
+[Read the full article at PLOS Digital Health](https://doi.org/10.1371/journal.pdig.0000866)

@@ -1,0 +1,127 @@
+---
+title: "Where the Scribe Evidence Stops"
+description: "The randomized evidence for ambient AI scribes comes from low-acuity ambulatory clinics. The deployments are moving to emergency departments, ICUs, inpatient nursing, and ambulances. Two 2025-2026 opinion pieces map the gap, and it is wider than the marketing suggests."
+tags: [ambient-ai, documentation, clinical-workflow, patient-safety, health-equity, governance, editorial]
+lastUpdated: 2026-08-04
+featured: false
+socialPost: "Every randomized trial of ambient AI scribes was run in low-acuity ambulatory care. The deployments are now in EDs, ICUs, and inpatient nursing. There is no evidence yet that scribes improve clinical or patient-centered outcomes, and speaker attribution is unsolved. Pilot freely. Do not assume."
+---
+
+import Callout from '../../components/Callout.astro';
+
+We have been enthusiastic about ambient AI scribes on this site, and I still think the enthusiasm is warranted. [Everyone loves the AI scribe](/editorials/ai-scribes-everyone-loves) laid out three randomized trials pointing the same direction, and the direction is good: less documentation time, less dread about charting, more presence in the room.
+
+What that piece did not say, because I had not thought carefully enough about it, is where the evidence ends. Two opinion pieces in *npj Digital Medicine*, a Perspective by Ohde and colleagues in March 2026 and a Comment by Topaz, Peltonen and Zhang in September 2025, make the boundary explicit. Neither is a study. Both are arguments, and I want to be clear about which of their claims carry citations and which are assertion, because they differ.
+
+<Callout type="pitfall">
+  Genre matters. Ohde et al. is labeled a Perspective. Topaz et al. is labeled a Comment. Neither reports original data. Where they cite, I say so. Where they assert, I say that too, because some of their most quotable claims are the uncited ones.
+</Callout>
+
+## Contents
+
+- [The Sentence That Should Be on Every Procurement Slide](#the-sentence-that-should-be-on-every-procurement-slide)
+- [The Settings Nobody Has Studied](#the-settings-nobody-has-studied)
+- [Who Said What](#who-said-what)
+- [The Error You Will Not See](#the-error-you-will-not-see)
+- [The Regulatory Hole](#the-regulatory-hole)
+- [What I Would Actually Do](#what-i-would-actually-do)
+
+---
+
+## The Sentence That Should Be on Every Procurement Slide
+
+Ohde and colleagues write, without citation:
+
+> "Studies of ambient scribes have mainly focused on clinician efficiency, well-being, time savings, and costs, with no evidence yet of improved clinical or patient-centered outcomes."
+
+And then, on whether better documentation might eventually reduce harm: "this remains to be proven. Further research is needed."
+
+That is worth holding next to what the trials actually showed. The [UCLA head-to-head trial](/trials/ambient-ai-scribes-dax-nabla-rct-2025) found Nabla cut time in note by 9.5% and DAX did not, in the same health system. The [UW Health stepped-wedge trial](/trials/ambient-ai-practitioner-wellbeing-rct-2025) found reduced work exhaustion and about 0.36 fewer documentation hours per day. The [Wisconsin implementation study](/trials/ambient-ai-pragmatic-trial-playbook-2025) showed what governance has to look like for any of it to hold.
+
+Those are real findings about documentation time and clinician well-being. None of them is a finding about patients. The honest sell for an ambient scribe is that it gives the clinician time and lowers the dread. It is not, on current evidence, that it improves care.
+
+Even the time savings are less consistent than the category's reputation. Ohde cites a Mass General Brigham analysis finding median total EHR time reduced by 5.6 minutes per appointment; the largest deployment study to date, at Permanente, covering over 2.5 million uses, finding minimal savings of about 18 seconds per appointment; and an Intermountain Health matched cohort study reporting no statistically significant productivity gains. Topaz cites a separate study finding savings of only 34 seconds per note with significant individual variability. The authors attribute the heterogeneity to differences in which tool was evaluated, sample sizes, and the absence of standardized outcome measurement.
+
+---
+
+## The Settings Nobody Has Studied
+
+Here is the gap, in the authors' own terms. The existing literature "has concentrated primarily on ambient AI scribes within low-acuity ambulatory environments." For emergency departments, ICUs, and operating theaters, environments Ohde describes as "noisy, dynamic, and clamant," the position is: "It is unknown if the benefits observed in ambulatory settings translate to such environments." Vendors "have begun marketing ambient scribe solutions specifically for ED workflows while their use and evidence in critical care and inpatient settings remains limited."
+
+For pre-hospital and EMS use, the authors flag that lack of integration with hospital EHR systems poses practical limits. For low- and middle-income countries, where the WHO projects a shortfall of 11 million health workers by 2030, they name intermittent connectivity, underdeveloped legal and regulatory frameworks, and linguistic diversity as barriers. For virtual care they raise ethical questions without claiming an evidence base.
+
+Primary care is the one setting they call well-suited, and even there: "While comprehensive data on their use remains limited, early evidence suggests..."
+
+I have not found a randomized trial of an ambient scribe on an inpatient ward. If one exists I would like to know about it. In the meantime, the systems marketed for inpatient nursing documentation and admit-to-discharge workflows are being sold ahead of the evidence, and the category's ambulatory RCTs are doing rhetorical work they were not designed to do.
+
+---
+
+## Who Said What
+
+The technical barrier Ohde treats as central is one that never comes up in an ambulatory clinic with two people in the room.
+
+> "Even in a quiet and controlled environment, available AI scribe products are unable to consistently identify or distinguish between multiple speakers."
+
+That claim is asserted, not cited, and I flag it because it is the load-bearing one. The supporting argument is concrete: most products record from a single device, often the physician's phone, and "Emergency situations can easily involve simultaneous conversations between multiple physicians, and allied health staff, and patient companions, limiting the ability of a single device to accurately capture and distinguish all conversations."
+
+Topaz's taxonomy of scribe failures, cited to work by Mess and colleagues, names speaker attribution errors as one of four categories, alongside fabrication, omission, and misinterpretation: "Current systems struggle to consistently distinguish between multiple speakers, potentially attributing patient statements to clinicians or vice versa."
+
+Think about what that means on a ward round. A family member says the patient has been confused for a week. A consultant floats a diagnosis and then talks themself out of it. A nurse mentions a fall that happened overnight. If the record cannot reliably say who said what, the note is not merely incomplete; it may attribute clinical assertions to people who did not make them. Ohde's proposed reporting standard, "source attribution/provenance (linking key assertions to diarized speakers/time stamps)," is the right ask, and it is not what current products provide.
+
+---
+
+## The Error You Will Not See
+
+Both pieces converge on documentation error, and our summary of the [Asgari framework paper](/trials/llm-summarisation-safety-hallucination-framework-2025) puts numbers on it: across 450 GPT-4-generated notes annotated by 50 physicians, hallucinations appeared in 1.47% of note sentences and omissions in 3.45% of transcript sentences, with 44% of hallucinations graded major against 16.7% of omissions, and hallucinations concentrating in the Plan section.
+
+Topaz adds two arguments that the error rates do not capture.
+
+The first is the **information overload paradox**. If a scribe captures everything discussed, the note gets longer, and length is not the same as quality. Ohde calls this note bloat: "medical records that become excessively long or redundant" when systems capture verbatim without sufficient summarization, producing more time spent reviewing prior notes and downstream inefficiencies. Both authors note that increased note length is not unique to AI scribes; the EHR has been generating it for fifteen years. But a tool sold as reducing documentation burden that increases the burden of reading documentation has moved the work rather than removed it.
+
+The second is the **workload paradox**, which Topaz asserts without citation and which sounds right to anyone who has watched an efficiency gain get absorbed: "Healthcare organizations may respond by increasing patient volume expectations based on promised efficiency gains, creating a workload paradox where modest time savings are offset by greater demands and the cognitive burden of reviewing AI-generated errors."
+
+There is a related finding worth citing here, from Topaz's own prior research: in home healthcare, approximately 50% of patient problems and 21% of interventions discussed verbally between nurses and patients were never documented in the EHR. That is the human baseline. It is not a defense of AI omission rates, but it is context for them.
+
+---
+
+## The Regulatory Hole
+
+Topaz makes an argument I have not seen stated as directly elsewhere, and it is entirely uncited, which does not make it wrong but does mean it is an assertion rather than a finding:
+
+> "Currently, most AI scribes operate without specific FDA oversight, as they are often classified as administrative tools rather than medical devices, creating a regulatory gap that leaves safety and efficacy standards largely unaddressed. Major commercial AI scribes are marketed as HIPAA-eligible services rather than medical devices, allowing them to bypass formal FDA evaluation processes despite their direct impact on clinical documentation."
+
+Ohde's account is more granular and better sourced. Pure transcription tools are unlikely to be considered medical devices. The NHS has issued guidance suggesting that scribes with summarization capability do require regulatory scrutiny. The EU Medical Device Regulation and the FDA's Software as a Medical Device framework "have yet to provide clear, harmonized guidance on classification and risk categorization."
+
+The distinction that matters is summarization. A transcript is a recording. A summary is a clinical judgment about what mattered, and 44% of the hallucinations in that summary are serious enough to change management. Whether that crosses into device territory is exactly the unresolved question, and it is being resolved by default, through deployment, while regulators deliberate.
+
+### The equity argument
+
+Topaz raises the disparity that concerns me most, and I want to report it precisely because it is frequently cited with numbers it does not contain.
+
+The paper states that speech recognition shows "significantly higher error rates for African American speakers and reduced accuracy when transcribing speech from African American patients compared to White patients," citing work by Martin and Wright and by Zolnoori and colleagues, the latter described as the authors' own recent research. **No word-error-rate figures appear anywhere in the paper.** I have seen this claim circulate with specific percentages attached to it; those percentages are not in this Comment, and if you need them you need to go to the underlying studies.
+
+The claim itself, unquantified, is enough to matter. Topaz's inference is that "patients with non-standard accents, limited English proficiency, or those from marginalized communities may receive inadequate documentation," which is framed as a suggestion rather than a demonstration. Combine that with the regulatory position, that these tools are largely outside device oversight as administrative software, and you get a plausible mechanism for a systematic, unmonitored, unmeasured disparity in documentation quality.
+
+Ohde makes a structural version of the same point: "proprietary models rarely reveal their training and validation data for bias and fairness analysis."
+
+---
+
+## What I Would Actually Do
+
+I have not changed my view that ambient scribes are the most useful AI deployment in medicine right now. I have changed my view about what the evidence licenses.
+
+**Pilot in high-acuity settings, but call it a pilot.** There is no trial evidence for inpatient, ED, ICU, or pre-hospital use. That is a reason to generate evidence, not a reason to refuse. It is a strong reason not to describe an inpatient deployment as supported by the scribe literature, because the scribe literature is ambulatory.
+
+**Ask the speaker attribution question first.** In any multi-speaker environment this is the technical constraint that determines whether the output is trustworthy. Ask the vendor how the system diarizes, what its attribution error rate is, and whether assertions in the note are traceable to a speaker and a timestamp. Ohde notes that some vendors incorporate traceable transcript references; most do not.
+
+**Read the Plan section twice.** That is where major hallucinations concentrate, and where negation errors (the model recording the opposite of what was said) cluster. Those will not look wrong. They will look like ordinary clinical sentences.
+
+**Do not accept aggregate vendor data for your specialty.** The UCLA trial showed two market-leading products producing materially different results in one health system. Ohde and Topaz both document time-savings estimates spanning 18 seconds to 5.6 minutes per encounter across deployments. The category is not a commodity.
+
+**Set expectations at documentation time and clinician experience.** Not throughput. Not error reduction. Not outcomes. There is no evidence for those yet, and promising them is how a genuinely useful tool acquires a reputation for overpromising.
+
+**Ask what happens to the audio.** Ohde's sharpest observation is about the word itself: "ambient" branding "does not clearly inform patients that their conversations are recorded and saved, often in cloud infrastructure outside the organization's EHR," and "governance of these data streams is often unspecified." Consultations cover genetic risk, sexual and reproductive health, substance use, and domestic violence. Someone should be able to answer where the recording goes and how long it stays.
+
+None of this is an argument against the technology. It is an argument for knowing the shape of what we know. The evidence says these tools give clinicians time back in ambulatory clinics. Everything past that boundary is a hypothesis, and the deployments are already well past the boundary.
+
+*Jason G. Gusdorf, MD*

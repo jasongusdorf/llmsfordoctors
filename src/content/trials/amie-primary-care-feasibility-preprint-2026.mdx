@@ -1,0 +1,88 @@
+---
+title: "AMIE in a Real Clinic: Diagnoses Well, Plans Expensively"
+journal: "arXiv (preprint)"
+year: 2026
+doi: "10.48550/arXiv.2603.08448"
+keyFinding: "In a prospective single-arm feasibility study at Beth Israel Deaconess (NCT06911398), 100 urgent care patients text-chatted with AMIE before their visit and 98 completed both encounters. AMIE's differential contained the chart-confirmed final diagnosis in 90% of cases and its top candidate matched in 56%. Blinded evaluators rated AMIE and PCPs similarly on differential quality (P = 0.6), management appropriateness (P = 0.1), and safety (P = 1.0), but rated PCPs significantly better on cost effectiveness (P = 0.004) and practicality (P = 0.003). Zero safety stops occurred, under continuous physician supervision."
+lastUpdated: 2026-08-04
+tags: [preprint, conversational-ai, diagnostic-accuracy, primary-care, patient-facing, feasibility, google, amie, safety]
+socialPost: "AMIE, in a real BIDMC clinic with 100 patients. Its differential held the final diagnosis 90% of the time and matched PCPs on diagnosis quality and safety. It lost on cost effectiveness and practicality. The failure mode is not the diagnosis. It is the plan."
+---
+
+import Callout from '../../components/Callout.astro';
+
+<Callout type="pitfall">
+  **This is a preprint.** It is posted on arXiv (2603.08448v3, March 2026) and states nowhere that it has been peer reviewed. It was funded by Alphabet, most authors are employees of Google Research or Google DeepMind, the copyright line reads "© 2026 Google," and the blinding transformation and turn-level auto-rating were both performed using Gemini 2.5 Pro, a model from the sponsoring company. The BIDMC investigators are genuine co-leads and the study is pre-registered, but none of that substitutes for external peer review. Read the numbers as provisional.
+</Callout>
+
+## Study Design
+
+This is a prospective, single-arm feasibility study run at Healthcare Associates, the academic primary care practice at Beth Israel Deaconess Medical Center, between April and November 2025. It was pre-registered as NCT06911398 and reported to TRIPOD-LLM.
+
+Patients scheduled for an urgent care visit with a single chief complaint, already triaged as not needing emergency care, were invited to a remote text chat with AMIE zero to five days before their appointment. Eligibility required age 18 or over, English as primary language, active patient portal enrollment, and access to a laptop or desktop rather than a phone. Known pregnancy and mental health chief complaints were excluded by IRB constraint.
+
+Of 140 patients who consented by phone, 114 started an AMIE encounter and 100 completed one, an 87.7% completion rate. Two did not attend the subsequent PCP appointment, leaving 98 for analysis. Roughly 10% of the clinic's 1,452 urgent care visits during the period were enrolled.
+
+AMIE ran on Gemini 2.5 Pro with no domain-specific fine-tuning. After 50 encounters the base model was switched to Gemini 2.5 Flash because of latency constraints. Every conversation was monitored in real time by one of seven board-certified internists via screen share, with four prespecified criteria for terminating a session. The conversation transcript, summary, and candidate diagnoses were shared with the PCP before the visit; AMIE's management plan was generated for research only and withheld from both patient and provider.
+
+The comparison was not head-to-head in real time. The final diagnosis was established eight weeks later by a panel of three internists blinded to AMIE's output. Three independent clinical evaluators, drawn from a panel of eight board-certified internists, rated each case, with results aggregated by median. Differentials were truncated to equal length and management plans reformatted into a common template before blinded review. Five rating domains were tested with two-sided Wilcoxon signed-rank tests and Bonferroni correction.
+
+---
+
+## Key Findings
+
+- **Diagnostic accuracy against the chart-confirmed diagnosis:** top-1 56.1% (55 of 98), top-3 74.5% (73 of 98), top-5 84.7%, top-7 89.8% (88 of 98). Accuracy plateaued at 89.8% from the seventh candidate onward.
+
+- **Matched PCPs on three domains:** differential diagnosis quality (P = 0.6), management plan appropriateness (P = 0.1), management plan safety (P = 1.0).
+
+- **Lost on two:** cost effectiveness (P = 0.004) and practicality (P = 0.003), both favoring PCPs.
+
+- **Head-to-head preference ratings were mostly ties.** For differential quality, evaluators rated the two equal in 67 of 98 cases, PCP better in 18, AMIE better in 13. For management plan quality, equal in 47, PCP better in 26, AMIE better in 25.
+
+- **Zero safety stops** across all 100 conversations. On three occasions the supervising physician spoke up: twice to clarify symptoms or contingency criteria for emergency care, and once to correct AMIE's statement that a patient's surgery was in the future when it had already happened.
+
+- **Conversational quality was rated highly by clinicians,** with no more than three unfavorable ratings out of 98 for any criterion. The weakest areas were eliciting family history (4 unfavorable, and omission judged acceptable in 43 of 98 cases), past medical history (2), and medication history (1).
+
+- **Patients were more reserved than clinicians.** Unfavorable ratings stayed below 10% across criteria, but over 20% of patients selected "cannot rate" on four criteria, and the two weakest items were confidence that information would be kept confidential and whether the system appeared honest and trustworthy.
+
+- **Patient attitudes toward AI improved after the interaction** and did not change further after the PCP visit (Friedman P less than 0.001 overall; pre versus post P less than 0.001; post-AI versus post-provider P = 0.86).
+
+- **PCPs found it helpful more often than not:** among 44 who reviewed the output and completed the survey, 75% called it helpful, 68% harmless, 64% expressed trust, and 57% said it would change their behavior. But 16 of 60 PCP surveys (27%) indicated the PCP had not reviewed the transcript before the visit at all.
+
+<Callout type="evidence">
+  The blinding did not fully hold. Evaluators guessed at provenance in 84% of cases, and the rate of guessing and being correct was 59.18% (95% CI, 49.45 to 68.91). The authors report this openly. It means the pointwise rating comparisons carry some risk of unblinded judgment, in a direction that is hard to predict.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **The teachable failure mode is the plan, not the diagnosis.** AMIE matched experienced primary care physicians on differential quality and on safety, and lost specifically on whether the workup was practical and affordable. The authors' own explanation is that limited context "likely contributed to AMIE correctly assuming a broader differential diagnosis with subsequent inferiority in cost-effectiveness and practicality of workup." A broader differential is not wrong; it is expensive. When supervising a trainee using one of these tools, the diagnosis line may be sound while the plan is over-resourced. Review the plan.
+
+2. **The safety result is real but narrowly scoped.** Zero safety stops in 100 conversations is meaningful. It also occurred with a board-certified internist watching every conversation live, in a population screened to exclude pregnancy, mental health complaints, and anyone needing emergency care. The authors state plainly: "No patients included in this study were triaged to emergency care settings and thus the ability of AMIE to safely navigate this scenario in the real world remains unstudied."
+
+3. **The comparison gave the humans more information, and the asymmetry ran against the AI.** PCPs had the chart, the physical exam, and AMIE's own transcript and summary. AMIE had a text conversation and no EHR access. The authors describe this both as aiming for a fair comparison of each modality in its natural form and as a design that "favored physicians who had more context." Both are true, and the diagnostic parity is more impressive because of it.
+
+4. **Access barriers were built into the study and are underestimated by it.** Requiring a laptop or desktop excluded phone-only patients before enrollment, and roughly 7% of enrolled patients still could not complete for device reasons. The enrolled sample skewed younger than the clinic's urgent care population, where over half of visits were by patients over 60. Sixty-eight percent of participants were women.
+
+5. **Patient trust lagged patient satisfaction.** The items where patients were most reserved were confidentiality and trustworthiness, not clinical quality. That gap is a deployment problem distinct from accuracy.
+
+---
+
+## What This Does Not Show
+
+Single-arm, single-center, 100 patients, one chief complaint per visit, no pregnancy or mental health presentations, and continuous physician supervision throughout. The authors add a Hawthorne effect caveat to both the survey data and the safety data, noting that "foreknowledge of observation likely limited adversarial prompting." Roughly half the final diagnoses were presumptive rather than test-confirmed, which the authors call "a less robust reference standard." And the mid-study model swap from Gemini 2.5 Pro to Flash means the 100 encounters were not all produced by the same system.
+
+---
+
+## My Takeaway
+
+This is the most realistic deployment study of a patient-facing diagnostic LLM I have seen, and its main contribution is that it happened at all: real patients, real clinic, pre-registered, with a chart-adjudicated reference standard eight weeks out and a supervision protocol that made it ethical to run.
+
+The result I would carry is the split. Diagnosis and safety matched experienced PCPs. Practicality and cost effectiveness did not, and by a margin that survived Bonferroni correction. That is a specific, mechanistic, correctable failure, and it is the opposite of the failure mode people worry about. Nobody is anxious that AI will order too many tests. They should be.
+
+The caveats are large and mostly acknowledged by the authors. It is a preprint, funded and largely authored by the model's developer, with supervision on every conversation and the sickest patients screened out. What it establishes is feasibility and a direction, not efficacy.
+
+---
+
+[Read the preprint at arXiv](https://arxiv.org/abs/2603.08448)

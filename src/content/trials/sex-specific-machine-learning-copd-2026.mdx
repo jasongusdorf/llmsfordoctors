@@ -1,0 +1,82 @@
+---
+title: "A Pooled Model Can Be Right on Average and Wrong for Half the Population: Sex-Specific COPD Prediction"
+journal: "CHEST"
+year: 2026
+doi: "10.1016/j.chest.2026.07.5207"
+keyFinding: "Using CT imaging features in CanCOLD (n = 1,283) with external validation in SPIROMICS (n = 1,840), female-only models outperformed combined-sex and male-only models for both prevalent COPD (external AUC 0.84 vs 0.73 and 0.70) and incident COPD (external AUC 0.83 vs 0.77 and 0.71). Female-specific models selected lung parenchymal texture and lung shape features; male-specific models selected airway features. Adding sex as a covariate to a pooled model changed nothing at all."
+lastUpdated: 2026-08-04
+tags: [copd, sex-differences, health-equity, prediction-models, ct-imaging, radiomics, machine-learning, pulmonary, external-validation]
+socialPost: "Female-only COPD prediction models hit external AUC 0.84 where the pooled model reached 0.73. Adding sex as a covariate to the pooled model changed the performance by exactly nothing. The lesson is not 'adjust for sex.' It is that one model can be well calibrated on average and wrong for half your patients."
+---
+
+import Callout from '../../components/Callout.astro';
+
+<Callout type="pitfall">
+  **This is an accepted Journal Pre-proof, not the version of record.** The document states it "will undergo additional copyediting, typesetting and review before it is published in its final form" and that "during the production process, errors may be discovered which could affect the content." Pagination, figure numbers, and some printed values will not match the final article. Several internal inconsistencies in this version are noted below.
+</Callout>
+
+## Study Design
+
+Makimoto and colleagues developed sex-specific machine learning models for COPD using CT imaging features. Development used CanCOLD, a population-based Canadian cohort across nine sites of adults aged 45 to 90; 1,283 participants met criteria (742 male, 541 female). External validation used SPIROMICS, a US cohort across 12 sites of adults aged 40 to 80; 1,840 participants met criteria (1,014 male, 826 female).
+
+Two outcomes, both spirometry-defined. Prevalent COPD was FEV1/FVC below 0.70 at baseline. Incident COPD, restricted to participants with a smoking history and no COPD at baseline, was FEV1/FVC of 0.70 or above at baseline and below 0.70 at the roughly 3-year follow-up. The at-risk incident subsets were small: 305 in CanCOLD and 157 in SPIROMICS.
+
+Features came from TotalSegmentator lung, airway, and vessel masks: 107 lung radiomics features (18 first-order, 14 shape, 75 texture), 14 airway shape features, plus LAA950, HU15, total airway count, and commercial software measures. Clinical predictors included age, race, BMI, height, smoking status, and pack-years. Incident models were run with and without baseline spirometry as predictors.
+
+For each outcome, three models were built: combined-sex, male-only, and female-only. CanCOLD was split 75/25, correlated features removed, and LASSO selected the optimal five predictors. Four classifiers were tried and the highest-AUC one reported: multilayer perceptron for incident COPD, support vector machine for prevalent. AUCs were compared using a Z-statistic, since the authors note DeLong's test does not apply across different datasets.
+
+---
+
+## Key Findings
+
+**Prevalent COPD.** Internal CanCOLD test: female-only 0.84 (95% CI, 0.78 to 0.90) versus combined-sex 0.78 (0.73 to 0.82) and male-only 0.78 (0.72 to 0.84). External SPIROMICS: female-only 0.84 (0.81 to 0.86) versus combined-sex 0.73 (0.71 to 0.75) and male-only 0.70 (0.67 to 0.73). Female-only versus each comparator, P less than 0.001. Male-only versus combined-sex internally, P = 0.73.
+
+**Incident COPD, with spirometry as a predictor.** Internal: female-only 0.86 (0.74 to 0.98) versus combined-sex 0.78 (0.69 to 0.88) and male-only 0.76 (0.64 to 0.89). External: female-only 0.83 (0.74 to 0.91) versus combined-sex 0.77 (0.70 to 0.83) and male-only 0.71 (0.61 to 0.81).
+
+**Adding sex as a covariate to the combined model did nothing.** For incident COPD, including versus excluding sex gave identical AUC (0.78), identical F1, accuracy, sensitivity, specificity, and Brier score, and selected the same five features. Same result for prevalent COPD. This is the most quietly devastating table in the paper.
+
+**The models selected different biology.** For incident COPD the female-only model selected lung max 2D diameter slice, lung major axis length, and a texture feature, GLDM dependence non-uniformity. The male-only model selected airway max 3D diameter. For prevalent COPD the female model selected GLDM dependence entropy and airway minor axis length; the male model selected lung max 2D diameter slice. As the abstract puts it, female models selected "parenchymal texture and lung-shape features not selected in combined-sex models, whereas male-only models selected airway-based features."
+
+**Calibration was acceptable but not excellent.** Brier scores 0.16 to 0.19 internally and 0.18 to 0.24 externally for prevalent COPD, with the female-only model best in both.
+
+**The advantage held across classifiers.** Female-only models led on SVM, MLP, and logistic regression in both cohorts, though random forest narrowed or reversed the gap.
+
+<Callout type="pitfall">
+  One result the paper does not discuss. When baseline spirometry was removed as a predictor for incident COPD, the authors highlight that the female-only model outperformed the combined model internally (0.78 vs 0.57). But in external validation the same female-only model scored **AUC 0.43 (95% CI, 0.33 to 0.54)**, below chance, with the male-only model at 0.50. The text does not remark on this. It is the most important negative finding in the paper: without spirometry, the imaging-only incident model did not transfer.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **The finding is not "adjust for sex."** It is that adjusting for sex is inert. A pooled model with a sex term produced numerically identical performance and selected identical features. What worked was fitting separate models that were free to select different features entirely. The implication is that sex differences here are not a shift in the intercept but a difference in which anatomy carries the signal.
+
+2. **The direction of the disparity matters.** COPD is underdiagnosed in women, and the pooled model performed worst in exactly the group already underserved. Externally the combined-sex model reached 0.73 for prevalent COPD while a female-specific model reached 0.84. That gap is a concrete mechanism by which a well-validated tool can worsen an existing disparity while reporting good overall performance.
+
+3. **The generalizable question for any risk model is narrow.** If a condition has known sex-differential biology, was the model fit separately by sex, and was performance reported by sex? Most published models report neither. This paper shows what is lost when they do not.
+
+4. **Do not treat this as ready for use.** The incident cohorts are small: 305 at-risk participants in CanCOLD with 65 events, and 157 in SPIROMICS with 30. Radiomics texture features are known to be sensitive to scanner and acquisition protocol, and the authors name the protocol differences between cohorts as a likely reason for reduced external performance.
+
+5. **Note the disclosure.** The senior author is a consultant for VIDA Diagnostics, whose software was used to derive several of the CT measures.
+
+---
+
+## Limits Worth Naming
+
+The authors state three limitations. CT texture features are sensitive to scanner and acquisition protocol, and protocols differed between the development and validation cohorts. COPD was defined by the fixed FEV1/FVC ratio below 0.70, which they acknowledge is controversial; they also note that using the lower limit of normal instead would incorporate a sex term in the reference equation "and would likely obscure sex-specific structural differences," which is worth sitting with, since the choice of outcome definition partly shapes the finding. And sex was self-reported, not genetically determined.
+
+Beyond what the authors state: the two cohorts differ substantially in severity (SPIROMICS had 66% prevalent COPD in men versus 53% in CanCOLD, and far higher pack-years), no decision-curve or net-benefit analysis was performed, no multiplicity adjustment or formal sex-by-model interaction test was reported, and this pre-proof contains several numeric inconsistencies including a mismatched confidence interval for the male-only internal incident model and an external Brier range quoted in the text that cannot be reproduced from the table.
+
+---
+
+## My Takeaway
+
+The headline result is good and the meta-result is better. A female-specific model beating a pooled model by 11 AUC points in external validation is a strong finding on its own. The table showing that adding a sex covariate to the pooled model changed literally nothing is the one I would put in front of anyone building risk models, because it dismantles the standard remedy. Sex as a covariate lets the model shift a baseline. It does not let the model look at different anatomy.
+
+This is also a clean example of what equity work looks like when it is a modeling result rather than a rhetorical one. Nobody had to argue that the pooled model was unfair. They fit it three ways and reported all three.
+
+The caveats are real. Small incident cohorts, a pre-proof with unresolved inconsistencies, radiomics features known to be scanner-sensitive, and an external no-spirometry result of 0.43 that the text passes over in silence. I would not deploy any of these models. I would use the design as the argument.
+
+---
+
+[Read the full article at CHEST](https://doi.org/10.1016/j.chest.2026.07.5207)

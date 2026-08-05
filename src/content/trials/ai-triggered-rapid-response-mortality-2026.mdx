@@ -1,0 +1,80 @@
+---
+title: "An AI Alert Wired to the Rapid Response Team, and a Mortality Drop That Needs Reading Carefully"
+journal: "NEJM AI"
+year: 2026
+doi: "10.1056/AIoa2500973"
+keyFinding: "Across 11 hospitals and 23,132 high-risk admissions, pushing Epic Deterioration Index red alerts directly to the rapid response team was associated with a risk-adjusted mortality odds ratio of 0.82 (95% CI, 0.74 to 0.91). Unadjusted mortality fell from 23.1% to 18.6% and RRT activations rose from 25.3% to 37.5%, with no significant change in escalations of care. This is a quasi-experimental pre/post study, not a randomized trial, and mortality also fell significantly in the yellow-alert group that never triggered a push notification."
+lastUpdated: 2026-08-04
+tags: [rapid-response, deterioration-index, inpatient, mortality, clinical-decision-support, epic, implementation, hospital-medicine, quasi-experimental]
+socialPost: "11 hospitals, 23,132 high-risk inpatients. Routing Epic Deterioration Index alerts straight to the rapid response team was associated with 18% lower risk-adjusted odds of death. It is a pre/post study, and mortality also fell in the alert tier that triggered nothing. Read the sensitivity analyses."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Nahass, Hanna, and colleagues ran a staggered, multicenter, quasi-experimental cohort study across the 11 hospitals of RWJBarnabas Health (2 large academic, 6 community teaching, 3 nonteaching community; 4,756 beds, 360,400 annual admissions), all on a single Epic instance. They included consecutive adult inpatients admitted between October 1, 2022 and August 30, 2024 who reached an Epic Deterioration Index (EDI) score of 60 or higher at any point, excluding hospice admissions. That yielded 23,132 patients: 10,803 preintervention and 12,329 postintervention.
+
+The EDI is a proprietary ordinal logistic regression model using 31 variables, deployed across 187 Epic instances. A modified version excluding the Glasgow Coma Scale generated predictions every 15 minutes. Validated locally against inpatient mortality or discharge to hospice, the red threshold of 60 or higher had sensitivity 49.0%, specificity 98.9%, PPV 53.4%, and NPV 97.9% (AUROC 0.87). Roughly 11% of hospitalized patients reached that threshold before implementation.
+
+The intervention was not the model. The model was already running and being scored during the preintervention period; it simply was not acted on. What changed was the workflow wrapped around it. Once a patient crossed 60, an immediate push notification went to each hospital's rapid response team on their mobile devices, with guidance that red alert patients required timely in-person evaluation, plus a frontline education program built with physician and nursing leadership. Notifications were suppressed if the patient was already receiving ICU-level or comfort care, had triggered a sepsis alert or RRT event within 6 hours, had triggered a prior red alert within 48 hours, or was in a procedural area. Ten of 11 hospitals had 24/7 provider coverage on the RRT; 6 of 11 had dedicated RRT nurses.
+
+Analysis was multivariable regression with a hospital-specific, time-dependent intervention indicator and a random intercept for hospital, adjusting for age, sex, race and ethnicity, Elixhauser comorbidity score, EDI score, hospital type, and season. Prespecified sensitivity analyses compared patients just below the threshold (EDI 55 to 59) against those just above (60 to 65), examined the yellow and green tiers, and binned scores by decile.
+
+---
+
+## Key Findings
+
+- **Primary outcome, risk-adjusted in-hospital mortality: adjusted odds ratio 0.82 (95% CI, 0.74 to 0.91).** The authors describe this as an 18% decrease (95% CI, 9% to 26%) in the risk-adjusted odds of inpatient death.
+
+- **Unadjusted mortality fell from 23.14% to 18.63%,** an absolute difference of −4.51 percentage points (95% CI, −5.57 to −3.45).
+
+- **RRT activations rose from 25.32% to 37.49%,** an absolute difference of 12.22 percentage points (95% CI, 11.03 to 13.40; adjusted OR 1.74, 95% CI 1.61 to 1.88).
+
+- **Escalations of care did not significantly increase:** 1.05% to 1.15%, absolute difference 0.11 percentage points (95% CI, −0.17 to 0.38; adjusted OR 1.32, 95% CI 0.96 to 1.82). More patients were seen at the bedside without proportionally more transfers.
+
+- **By hospital type:** academic centers 21.2% to 17.2% (aOR 0.77, 95% CI 0.65 to 0.92); community teaching 28.5% to 25.1% (aOR 0.85, 95% CI 0.73 to 0.98); nonteaching community 19.9% to 17.7% (aOR 0.89, 95% CI 0.67 to 1.19, not significant).
+
+- **By hospital, the signal was uneven.** Unadjusted mortality decreased in 9 of 11 hospitals, adjusted odds ratios were below 1 in 7 of 11, and only 3 hospitals reached statistical significance individually.
+
+- **The threshold analysis, which is the one that tests mechanism, did not reach significance.** Patients just below the alert cutoff (EDI 55 to 59) went from 2.9% to 2.3% mortality (aOR 0.99, 95% CI 0.70 to 1.39). Patients just above it (60 to 65) went from 5.5% to 3.8% (aOR 0.86, 95% CI 0.63 to 1.17). The incremental effect attributable to the push notification itself was aOR 0.85 (95% CI, 0.6 to 1.2).
+
+- **Mortality also fell in the yellow tier, which never triggered a push notification:** 0.72% to 0.46% (aOR 0.77, 95% CI 0.63 to 0.95).
+
+- **By score bin,** the benefit concentrated in the lower red range: 60 to 69 (aOR 0.75, 95% CI 0.61 to 0.92) and 70 to 79 (aOR 0.78, 95% CI 0.66 to 0.93) were significant; 80 to 89 (0.91) and 90 or above (1.16) were not. Seventy-nine percent of patients fell in the 60 to 79 range.
+
+<Callout type="pitfall">
+  The yellow-tier result deserves as much attention as the headline. Patients scoring 30 to 59 got a colored banner but no push notification and no mandated RRT evaluation, and their mortality still fell significantly. Either the intervention produced a general heightening of attention across the whole hospital, which the authors themselves hypothesize, or something else was lowering mortality during the study period in a way the risk adjustment did not fully capture. Both readings are live.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **This is a workflow study with an AI trigger, not a study of the model.** The EDI was calculating scores throughout the preintervention period; nobody acted on them. What was added was a push notification, a named responder, an expectation of timely bedside evaluation, and an education program. A positive result here does not retroactively validate the Epic Deterioration Index, which has a well-documented history of disappointing external validation. It suggests that attaching a mandatory human pathway to an existing alert may be what moves the number. That lesson is considerably more portable than the model.
+
+2. **The mechanism analyses are weaker than the headline.** The cleanest test of whether the alert did the work compares patients just above the threshold with those just below, and it was null. So was the incremental push notification estimate. The authors attribute this to reduced sample size and note the direction was consistent, which is fair, but the honest summary is that the primary result is a strong association and the mechanism behind it is not established.
+
+3. **The pre and post groups were not balanced.** Hospital A contributed 13.9% of preintervention patients and 46.1% of postintervention patients. Winter admissions were 36.1% pre and 17.8% post; spring was 11.4% pre and 36.2% post. The model adjusts for hospital and season, but the authors flag residual confounding here themselves, and the staggered rollout means the case mix genuinely shifted underneath the comparison.
+
+4. **More bedside evaluations without more ICU transfers is the operationally interesting finding.** RRT activations rose by 12 percentage points while escalations of care stayed flat. If that pattern holds elsewhere, the cost of this intervention is rapid response nursing time rather than critical care beds.
+
+<Callout type="evidence">
+  Two hospitals showed no unadjusted mortality reduction, and the authors report that both had incomplete implementation: one lacked 24/7 RRT coverage, and at the other the RRT never signed in to the notification group. The intervention appears to depend on the human pathway actually being staffed and connected, which is a governance question rather than a technical one.
+</Callout>
+
+5. **If your institution runs the EDI, this is a paper for informatics, framed as a hypothesis.** The reasonable question to bring to a committee is not whether to trust the score. It is whether anyone is obligated to walk into the room when it fires, and whether that obligation is staffed around the clock.
+
+---
+
+## My Takeaway
+
+I want this result to be true, which is exactly why it deserves a careful read. An 18% reduction in the risk-adjusted odds of death is the largest inpatient signal I have seen from a deployed AI system, and the design details make it more interesting rather than less: each hospital served as its own control, the rollout was staggered, and the effect concentrated in exactly the score range where most patients sit.
+
+But the two analyses that would have told us the alert caused the benefit both came up short, and mortality fell in the tier where nothing was pushed. In-hospital mortality has been drifting down across US hospitals for structural reasons, and a pre/post design cannot separate that drift from the intervention no matter how good the risk adjustment is. The authors are appropriately careful, calling this an association in the title and the conclusion, and I would hold it the same way.
+
+What I would take to a QI committee is the design rather than the score. The intervention that plausibly did the work was a named team, a real-time notification, an expectation of in-person evaluation, and enough staffing to honor it. That can be built around any trigger. It is also the part that failed at the two hospitals where the result failed.
+
+---
+
+[Read the full article at NEJM AI](https://doi.org/10.1056/AIoa2500973)

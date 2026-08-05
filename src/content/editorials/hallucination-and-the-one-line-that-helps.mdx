@@ -1,0 +1,118 @@
+---
+title: "Hallucination, and the One Line That Helps"
+description: "GPT-5 elaborated on planted fabrications more often than GPT-4o did. The same one-line mitigation prompt that worked before cut it from 65% to 7.67%. Capability did not buy safety, prompt design still dominates it, and the errors clinicians should worry about most are the ones nothing was added to produce."
+tags: [hallucination, ai-safety, prompting, clinical-decision-support, health-equity, governance, editorial]
+lastUpdated: 2026-08-04
+featured: true
+socialPost: "GPT-5 ran with planted fabrications in 65% of runs, worse than GPT-4o's 53%. A single instruction to verify before acting cut it to 7.67%. Capability did not buy safety. And the more common failure is the opposite one: the model leaving something out."
+---
+
+import Callout from '../../components/Callout.astro';
+
+In April 2026, Mahmud Omar and colleagues at Mount Sinai published a short Comment in *npj Digital Medicine* with an unglamorous design and an uncomfortable result. They took two evaluation pipelines they had already published and re-ran them on GPT-5 to answer one question: did the new model fix the problems the old one had?
+
+It did not. On one axis it was worse.
+
+<Callout type="pitfall">
+  This is a Comment, dated April 4, 2026, not a research article. It is a re-run of previously published pipelines on a new model, described by the authors as "a single-timepoint evaluation using vendor default parameters," and they state that "The current analysis is descriptive by design." The bias half of the paper carries an explicit note that no formal significance testing was performed in the replication. The adversarial half does carry confidence intervals and a chi-square test.
+</Callout>
+
+## Contents
+
+- [The Number That Went the Wrong Way](#the-number-that-went-the-wrong-way)
+- [The One Line](#the-one-line)
+- [The Other Half of the Paper](#the-other-half-of-the-paper)
+- [The Failure You Should Actually Expect](#the-failure-you-should-actually-expect)
+- [What This Means for Governance](#what-this-means-for-governance)
+
+---
+
+## The Number That Went the Wrong Way
+
+The adversarial protocol is simple. Take a physician-validated clinical vignette. Insert one fabricated element, a finding that was never there. Give it to the model under a standard clinical prompt and see whether it builds on the fabrication or catches it.
+
+GPT-5 elaborated on the planted fabrication in **65% of runs** (95% CI, 61.1 to 68.7). The same pipeline on GPT-4o produced 53%.
+
+The authors' framing is the sentence to remember: "despite seemingly greater capability and agentic tooling, GPT-5 family models continued to exhibit systematic subgroup decision variation and susceptibility to adversarial inserts under fixed audits in this evaluation."
+
+Capability did not buy safety. It is worth sitting with why that is not surprising. A more capable model is better at producing a coherent, plausible, well-organized clinical narrative. If the premise it is elaborating from is false, greater capability produces a more convincing wrong answer, not a more skeptical one. Fluency and verification are different faculties, and only one of them has been improving quickly.
+
+The clinical translation is concrete, and it is not about chatbots. The authors describe it as a workflow risk: "under standard prompts, a single fabricated detail can be carried forward and elaborated into confident narrative or structured recommendations unless an explicit defense is in place." Charts contain errors. A diagnosis someone entered and nobody removed. A medication the patient stopped taking two years ago. A model summarizing that chart will tend to build on the error rather than flag it, which is the opposite of what a good consultant does.
+
+---
+
+## The One Line
+
+Here is the part that is actually useful at the bedside.
+
+The same mitigation prompt the authors had used in their earlier work, an explicit instruction to verify before acting, cut the fabrication elaboration rate from 65% to **7.67%** (95% CI, 5.16 to 11.24; chi-square 262.45, P less than 0.0001; odds ratio approximately 22).
+
+An odds ratio of 22 from one line of instruction is a larger effect than almost anything else in the clinical AI literature. The authors' own gloss is measured: this demonstrates "that guardrails are highly effective but do not eliminate risk," and reflects "a simple operational truth: without enforced mitigation, the model readily propagates false chart elements; with mitigation, residual error remains non-zero."
+
+Two things follow.
+
+**Use it.** If you are handing clinical text to a model, ask it explicitly to verify the premises and flag what it cannot confirm from the source, rather than assuming it will. That is a free intervention with a twenty-fold effect on one of the field's central failure modes. It belongs in [any clinician's prompting practice](/guides/prompting-101).
+
+**Do not trust it.** Residual error at 7.67% is not zero, and the mitigation works only when it is applied. The authors' word is the right one: safety "depended on making that mitigation mandatory." A prompt a clinician might remember to type is not a safeguard. A prompt enforced at the system level, in every call, is closer to one. That distinction is the whole difference between a personal habit and a control.
+
+---
+
+## The Other Half of the Paper
+
+The bias half deserves reporting, with its caveats attached.
+
+The pipeline ran 500 emergency department vignettes, each iterated across 32 versions, a control plus 31 sociodemographic labels, with identical clinical content throughout. GPT-5 showed the same patterns as GPT-4o. The largest variations were in flagging patients for urgent mental health screening, where "several historically marginalized groups, including Black unhoused, multiple LGBTQIA+ identities, and unhoused overall, were recommended for screening in 100% of runs despite identical clinical details."
+
+Triage urgency shifts were smaller but directional, peaking at +7.4% for Black transgender women. Testing choice showed a socioeconomic gradient, with lower-income labels receiving less advanced imaging: low-income −7.0%, middle-income −6.8%, high-income +2.2%.
+
+<Callout type="evidence">
+  The bias findings in this Comment are explicitly descriptive. The figure caption states: "Differences are descriptive; no formal significance testing was performed in this replication." The authors direct readers to their original publications for the statistical framework. Cite the direction and the pattern; do not cite these as significance-tested effects.
+</Callout>
+
+The authors do the intellectually honest thing and name the counterargument themselves: "We acknowledge that variation in clinical judgment across groups can be appropriate and sometimes warranted, including considerations of social, ethnic, demographic, and economic adversity." Their reply is that with clinical content held constant, "the magnitude and consistency we observed indicate that more work is needed in future models to ensure differences reflect actual clinical need rather than bias by demography."
+
+This converges with the [Nature Health study on contextual stigma](/trials/llm-stigma-contextual-judgements-2026), which found that models look clean on explicit stigma questionnaires while shifting their judgments substantially when only a patient's diagnosis changes. Two different teams, two different methods, same conclusion: hold everything constant except one patient attribute, and the recommendation moves.
+
+The authors' own estimate of scale, extrapolating to a typical emergency department volume of roughly 50,000 annual visits, is approximately 1,200 additional mental health referrals and 800 inappropriate treatment escalations per year. That is an illustrative projection from vignette data, not a measured deployment effect, and should be read as such.
+
+---
+
+## The Failure You Should Actually Expect
+
+Here is where I want to complicate the story, because "hallucination" has become the whole conversation and it should not be.
+
+The [Asgari framework paper](/trials/llm-summarisation-safety-hallucination-framework-2025) had 50 physicians annotate 450 GPT-4-generated clinical notes, covering 12,999 note sentences and 49,590 transcript sentences. Hallucinations appeared in 1.47% of note sentences. **Omissions appeared in 3.45% of transcript sentences, more than twice as often.**
+
+The severity runs the other way: 44% of hallucinations were graded major, against 16.7% of omissions. So hallucinations dominate the severity and omissions dominate the volume.
+
+These are different failures requiring different defenses, and only one of them has a good one.
+
+A fabrication is something on the page that should not be there. It can be caught by reading the page. A verify-before-acting instruction helps precisely because it directs attention at the assertions present in the text.
+
+An omission is nothing on the page. There is no artifact to inspect. A fluent, well-organized, complete-looking note that is missing the patient's anticoagulation history does not signal its own incompleteness, and no prompt asking the model to verify what it wrote will surface what it never wrote. The only reliable catch is comparison against the source, which is exactly the work the tool was adopted to eliminate.
+
+There is a third category worth naming separately. Among the hallucinations Asgari and colleagues classified, 30% were **negations**: the model recording the opposite of what was said, clustering in the Plan section. A negation does not read as an error. It reads as an ordinary clinical statement that happens to be backwards. Skimming for implausibility will not find it.
+
+So the practical hierarchy is roughly the inverse of the discourse. We talk almost exclusively about fabrication, which is the least common of the three and the most catchable. We talk almost not at all about omission, which is the most common and the least catchable.
+
+---
+
+## What This Means for Governance
+
+Omar and colleagues make a recommendation that I think is the most transferable thing in the paper, and it has nothing to do with prompts.
+
+> "Any model update that alters clinical output distributions should trigger re-evaluation on standardized benchmarks. Because providers frequently implement backend changes without public versioning, event-triggered auditing is more appropriate than calendar-based review."
+
+Their proposed mechanism is automated pipelines analogous to continuous integration in software engineering, with responsibility shared: developers disclosing update scopes and running internal safety suites, and independent researchers maintaining fixed benchmarks not optimized against by developers.
+
+This whole paper is an existence proof for that model. It required no new methodology. The authors had a pipeline, a new model shipped, they re-ran it, and found the safety profile had moved in the wrong direction on one axis. That took a fixed benchmark and someone willing to run it.
+
+Two other governance points from the same piece. The authors note that domain-specific models such as MedGemma "may exhibit different bias profiles, but fine-tuning does not inherently eliminate sociodemographic variation," which is consistent with other work finding medical fine-tuned models performing worse than general ones on adversarial robustness. And they flag that their evaluation used structured, physician-validated prompts, whereas "In patient-facing scenarios, prompts are unstructured and may include inaccurate details," so the risks "are likely amplified when patients generate prompts without the expertise to evaluate outputs."
+
+---
+
+## The Short Version
+
+Newer is not safer, and there is now a clean demonstration of it on a fixed benchmark. A one-line verify-first instruction cuts fabrication propagation roughly twenty-fold, which makes it the highest-yield thing a clinician can do about this problem, and it should be enforced at the system level rather than left to memory. Bias patterns did not improve between model generations, though the evidence for that here is descriptive. And the failure clinicians are least prepared for is not the model inventing something. It is the model leaving something out, in a note that reads perfectly.
+
+*Jason G. Gusdorf, MD*

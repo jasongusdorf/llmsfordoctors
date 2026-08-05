@@ -1,0 +1,100 @@
+---
+title: "The Benchmark Problem Gets a Name"
+description: "Thirty-six authors from Stanford, Harvard, Scripps and from Google, OpenAI, Anthropic, Microsoft and Amazon have proposed a framework for testing whether medical AI is ready to act on its own. It is an argument, not a result, and the most interesting thing about it is who is making it."
+tags: [benchmarks, evaluation, ai-safety, autonomy, governance, regulation, editorial]
+lastUpdated: 2026-08-04
+featured: true
+socialPost: "A 36-author Nature Medicine Comment argues existing medical AI benchmarks are misleading and proposes a replacement. Employees of Google, OpenAI, Anthropic, Microsoft and Amazon are co-authors on the yardstick their own models would be measured by. That is not disqualifying. It is the governance question."
+---
+
+import Callout from '../../components/Callout.astro';
+
+We have written before that [we don't know how to evaluate clinical AI](/editorials/evaluating-clinical-ai). That was an argument from the outside. In July 2026, *Nature Medicine* published a Comment making a version of the same argument from the inside, signed by thirty-six people who between them build the models, run the benchmarks, regulate the field, and write the guidelines.
+
+The author list is the story before the content is. Ethan Goh and Jonathan Chen at Stanford. Adam Rodman and Arjun Manrai and Pranav Rajpurkar at Harvard. Robert Wachter at UCSF. Eric Topol at Scripps. And then: Yun Liu, Po-Hsuan Cameron Chen and Mike Schaekermann of Google. Karan Singhal of OpenAI. Paxton Maeder-York of Anthropic. Daniel Lopez-Martinez of Amazon. Eric Horvitz of Microsoft. David Gunning, Bon Ku and Haider Warraich of ARPA-H.
+
+What they are proposing is called MAST, the Medical AI Superintelligence Test. What they are arguing is that the benchmarks currently used to justify deploying medical AI are, in their words, "misleading and insufficient."
+
+<Callout type="pitfall">
+  This is a Comment. It is an opinion format, not peer-reviewed primary research, and it reports no original data. Every figure in it is a citation to someone else's work. Read it as an agenda, which is what it is, and which is not a criticism: agendas are how fields decide what to measure next.
+</Callout>
+
+## Contents
+
+- [Three Ways a Benchmark Lies](#three-ways-a-benchmark-lies)
+- [The Argument About Autonomy](#the-argument-about-autonomy)
+- [What They Want Measured Instead](#what-they-want-measured-instead)
+- [Who Holds the Yardstick](#who-holds-the-yardstick)
+- [What This Changes on Monday](#what-this-changes-on-monday)
+
+---
+
+## Three Ways a Benchmark Lies
+
+The Comment's most useful contribution is that it does not make the lazy argument. The lazy argument is that benchmarks overstate AI capability. The paper's argument is that benchmark design distorts in *both* directions, and it gives an example of each.
+
+**Overstatement by framing.** Microsoft's sequential diagnosis tool, MAI-DxO, simulates a panel of clinical agents and reaches 85.5% accuracy on a benchmark built from more than 300 published clinicopathological cases. The authors note that Microsoft has framed this system as "the path to medical superintelligence," and that OpenEvidence has likewise described its roadmap as a pursuit of "medical superintelligence." The number is real. The extrapolation from published clinicopathological cases, which are curated, complete, and selected for diagnostic interest, to a claim about superintelligence is what the authors are objecting to. They add a second example: in the Utah AI-prescription pilot, a 99.2% concordance rate with clinician treatment decisions was claimed on the basis of a preprint, "even though that figure was derived from telehealth urgent-care encounters rather than chronic medication refills, a fundamentally different clinical task."
+
+**Understatement by constraint.** The reverse failure gets equal space, and it is the more surprising half. A stress test of ChatGPT Health found the system undertriaged 52% of emergencies. That sounds damning until you read the design: the evaluation "required a single best-choice response after just one patient message on a four-option scale of home, routine care, urgent, or emergency." In a follow-up study using more naturalistic multiturn interaction, accuracy improved from 48% to 80% in the case most associated with undertriage. The authors' conclusion is even-handed: "Single-response benchmarks are easier to develop, but may overstate risk and understate utility for conversational use cases."
+
+**Silence about the thing that matters.** The third failure is omission. The paper points to MedAgentBench, a benchmark designed to test agent performance in a realistic electronic health record setting, where the best-performing model achieved a 69.67% success rate across 300 clinically relevant tasks. We have [a summary of that benchmark](/trials/medagentbench-ehr-agent-benchmark-2025) on this site. Roughly 70% success on realistic EHR tasks is not a number anyone would accept from a colleague, and it is a number almost nobody quotes, because the benchmarks that get quoted are the exam-style ones.
+
+On those, the paper is blunt: knowledge-based assessments of medical competence, including the USMLE and MedQA, "have long been saturated by frontier models," and "have been incorporated into model training data, yet continue to appear in model evaluations." The result, in their phrase, is "a permissive environment for systems validated with wrong or poor-quality benchmarks."
+
+---
+
+## The Argument About Autonomy
+
+The part of this Comment that will age best is not about benchmarks at all. It is a claim about where deployment is heading regardless of what anyone intends.
+
+> "The uncomfortable truth is that as AI systems become more capable and clinicians come to rely on them more heavily, AI deployed as a decision-support tool will increasingly converge in practice toward de facto autonomous operation."
+
+The supporting argument is that decades of research on automation bias and alert fatigue show people are unreliable supervisors of automated systems over long periods, and that in high-volume workflows "requiring a human to review every output creates the appearance of safety without delivering it."
+
+That is a strong claim and the empirical literature backs it. Our summary of the [mammography reader study](/trials/mammography-cognitive-biases-explainable-ai-2026) found radiologists followed deliberately wrong AI recommendations in 36.1% of cases, and that adding explainability halved but did not eliminate the effect, leaving experienced readers at 15%. Our summary of the [human-LLM collaboration meta-analysis](/trials/human-llm-collaboration-meta-analysis-2026) found that in three-arm studies, human plus AI did not reliably outperform AI alone, which the authors of that paper called the collaboration paradox.
+
+The regulatory implication follows directly. If human-in-the-loop is the safety argument for a tool, and the human in the loop is measurably unreliable at the loop's job, then the safety argument is thinner than the deployment decision assumed. The Comment's point is that this makes rigorous evaluation of autonomous readiness "not a future concern, but one to consider today."
+
+---
+
+## What They Want Measured Instead
+
+The proposed criteria are worth reading even if MAST itself goes nowhere.
+
+**Superintelligence cannot mean better than average.** The authors argue it is achieved "only when even the best clinicians, or even teams of clinicians, are bested by AI across a range of clinically meaningful tasks," and that current evaluations underestimate human performance because "much of medicine is practised as collective teamwork," through specialist consultation, tumor board deliberation, and iterative reassessment. A benchmark that pits a model against a single physician denied their usual tools and colleagues is measuring the wrong human.
+
+**Assessment must span competencies, not accuracy.** At minimum: diagnostic reasoning, management reasoning, multimodal interpretation, safety and harm avoidance, and calibration under uncertainty. And it must extend beyond aggregate performance "detached from real-world cost-benefit trade-offs," because "a model that triages or manages patients more aggressively may improve sensitivity, but also increase overtreatment and costs, independent of accuracy." That is precisely the failure mode found in the [AMIE feasibility study](/trials/amie-primary-care-feasibility-preprint-2026), where the model matched primary care physicians on diagnosis and safety and lost on practicality and cost effectiveness.
+
+**Long-horizon tasks are the frontier.** Most evaluations still measure isolated single-step decisions, the next best diagnosis or test or treatment. Managing heart failure or chronic kidney disease "unfolds over months to years, requiring repeated reassessment, coordination, and adaptation." Clinical practice, they write, "requires more than generating the correct answer to a curated vignette; it requires maintaining the right context for action within existing information systems": retrieving prior records, distinguishing current from superseded diagnoses, synthesizing longitudinal data, and updating as information arrives.
+
+**Eventually the judges break.** The most philosophically interesting passage argues that human expert evaluation, today's gold standard, "begins to break down as models approach superintelligent thresholds." If a model consistently diverges from the best human experts and proves correct, human judgment is no longer a meaningful metric. Their illustration is AlphaGo's Move 37. Their conclusion is that benchmarks must eventually give way to hard clinical outcomes, and that "large randomized clinical trials that compare AI systems, physicians and standard care in real-world practice will ultimately be needed."
+
+---
+
+## Who Holds the Yardstick
+
+Here is what I keep returning to.
+
+MAST is described as "an iterative framework developed through academic industry engagement, including with the co-authors of this article." Employees of Google, OpenAI, Anthropic, Microsoft and Amazon are co-authors of the proposed test by which models built by Google, OpenAI, Anthropic, Microsoft and Amazon would be ranked.
+
+I do not think this is disqualifying, and I want to be clear about why. Consensus standards need the people who build the systems at the table, because the alternative is a standard that cannot be implemented. The competing interests are disclosed in full. And the paper's own arguments cut against its authors' commercial interests more often than for them: the section calling out vendor superintelligence claims names Microsoft's MAI-DxO and OpenEvidence directly.
+
+But "who controls the leaderboard" has stopped being a hypothetical governance question and become a live one, and the Comment does not answer it. There is no published governance structure for MAST described in the paper. There is no statement of who arbitrates disputes, who can be excluded, or what happens when a lab's model scores badly. For a framework explicitly designed to gate "more-autonomous clinical use," those are not administrative details.
+
+The honest position is that this is a good-faith effort by serious people that also happens to consolidate benchmark authorship among the parties with the most to gain from favorable benchmarks. Both halves are true.
+
+---
+
+## What This Changes on Monday
+
+Not much, directly, which is the usual and correct answer for a Comment. Three things carry over.
+
+**Stop quoting exam scores, and expect trainees to quote them.** When a resident says a model passes the boards, the useful reply is that board-style questions are the one clinical task with a clean answer key, which is exactly why models saturate them and exactly why saturation tells you almost nothing about ward performance. The paper's line about contaminated benchmarks continuing to appear in evaluations is the citation for that.
+
+**Ask what the benchmark was built to measure, in both directions.** The ChatGPT Health example is the useful teaching case, because it runs the way people do not expect. A frightening number can come from a study design that constrained the system into failure, just as a reassuring number can come from a design that flattered it. The question is not whether the number is high or low. It is whether the task in the benchmark resembles the task in the clinic.
+
+**Treat "a human reviews the output" as a claim requiring evidence.** This is the operational core of the paper. If your institution's safety case for a deployed tool is human oversight, then the relevant question is what proportion of erroneous outputs a supervising clinician actually catches under real workload. That number is measurable. In the settings where it has been measured, it is not reassuring.
+
+The Comment ends with three questions that are better than its answers: what must AI prove before we allow it to act autonomously in patient care, who judges those answers, and how do we measure progress when the systems start to surpass the judges. Nobody has good answers yet. It is a real improvement that the field is now arguing about the yardstick instead of the scores.
+
+*Jason G. Gusdorf, MD*

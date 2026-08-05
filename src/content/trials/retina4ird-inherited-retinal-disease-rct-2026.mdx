@@ -1,0 +1,80 @@
+---
+title: "What the Evidence Bar Actually Looks Like: A Randomized Trial of AI Decision Support in Inherited Retinal Disease"
+journal: "Nature Medicine"
+year: 2026
+doi: "10.1038/s41591-026-04545-w"
+keyFinding: "In a multicenter randomized trial at seven Chinese centers (NCT06839170), 295 patients with suspected inherited retinal disease were analyzed. Top-5 genetic diagnosis accuracy was 88.5% with Retina4IRD assistance versus 67.3% for specialists alone (P less than 0.001), meeting the prespecified primary endpoint. Top-1 accuracy was 37.8% versus 22.4%. In 13.9% of assisted cases the physician's initially correct answer became incorrect after seeing the model."
+lastUpdated: 2026-08-04
+tags: [randomized-controlled-trial, ophthalmology, genetics, rare-disease, clinical-decision-support, diagnostic-accuracy, imaging, foundation-models]
+socialPost: "A randomized trial of AI decision support in inherited retinal disease: top-5 genetic diagnosis 88.5% assisted vs 67.3% specialist alone. Prespecified endpoint, registered, 295 analyzed. Also worth reading: in 13.9% of assisted cases a correct answer became incorrect after the model spoke."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Jia and colleagues built Retina4IRD on a Vision Transformer pretrained with RETFound, taking color fundus photography, OCT, and clinical metadata (age, sex, family history, age of onset, disease duration) and outputting a ranked list of candidate pathogenic genotypes across 17 categories. Fifteen of those are genes with potentially available gene therapies or clinical trials, plus an incurable-genotype class and a negative class; the 15 treatable genes account for roughly 60% of inherited retinal disease cases in the validation cohort. Development drew on 5,167 images and 8,901 metadata items from 1,843 genetically confirmed individuals (3,376 eyes) across nine centers in China, South Korea, and Poland, with no patient overlap between training and validation sets.
+
+The trial itself is what distinguishes this paper. It was registered as NCT06839170, reported to DECIDE-AI, and ran from February 27 to July 1, 2025 at seven tertiary centers in China. Patients clinically suspected of inherited retinal disease were randomized 1:1 by a computer-generated sequence produced by an independent statistician, stratified by center. Three hundred were randomized; 295 with available sequencing reports were analyzed (148 assisted, 147 control). All participating specialists had more than a decade of experience in inherited retinal disease.
+
+In the assisted arm, history, fundus photography, and OCT were fed to Retina4IRD, which returned top-5 genotype predictions for the physician to review and confirm. In the control arm, physicians produced their own top-5 predictions from the same images and metadata without the model. The reference standard was whole-exome sequencing, with reports required within 30 days.
+
+The prespecified primary endpoint was top-5 gene prediction accuracy: whether the genotype later confirmed by sequencing appeared among the physician's five ranked predictions. Sample size was set at 300 for above 95% power to detect 85% versus 60%.
+
+---
+
+## Key Findings
+
+- **The primary endpoint was met: top-5 accuracy 88.5% with Retina4IRD versus 67.3% for specialists alone (P less than 0.001).**
+
+- **The gap was widest at the top of the list.** Top-1 accuracy 37.8% versus 22.4%; top-4 accuracy 81.8% versus 53.1%.
+
+- **The comparison holds within the assisted arm.** Specialists in the assisted group, working unaided first, reached 68.2% top-5 accuracy, essentially identical to the control arm's 67.3%. With assistance they reached 88.5%. The two arms were not staffed by differently skilled clinicians.
+
+- **Model-alone top-5 accuracy was 0.904 (95% CI, 0.896 to 0.912) on the internal test set,** 0.856 (0.850 to 0.863) on external Chinese centers, 0.901 (0.895 to 0.908) in South Korea, and 0.825 (0.818 to 0.833) in Poland.
+
+- **OCT carried more of the signal than fundus photography.** OCT plus metadata reached 0.892 internal and 0.868 external; fundus plus metadata reached 0.846 and 0.782. Adding clinical metadata to images changed top-5 accuracy by less than 0.01.
+
+- **Revision behavior, an exploratory analysis in the assisted arm:** correct revision proportion 93.6%, incorrect revision proportion 13.9%, net decision benefit 79.7%.
+
+- **The sex subgroup analysis did not hold up.** Top-5 accuracy differed significantly overall and in the female subgroup, but in the male subgroup P = 0.079.
+
+- **Performance dropped in advanced disease:** top-5 accuracy 0.736 in end-stage cases (best-corrected decimal acuity 0.1 or worse) versus 0.880 in later-onset disease.
+
+- **No adverse events were observed during the trial.**
+
+<Callout type="evidence">
+  Read this as a methods exemplar as much as a clinical result. Registered before enrollment, prespecified primary endpoint, independent statistician generating allocation, a hard external reference standard in whole-exome sequencing, a CONSORT flow diagram, and a within-arm unaided baseline that rules out the obvious confounder. Very little clinical AI research clears this bar.
+</Callout>
+
+---
+
+## Clinical Implications
+
+1. **This is subspecialty ophthalmology, and the transferable content is the design.** Almost no hospitalist will use Retina4IRD. What the paper demonstrates is that a randomized trial of AI decision support with a genetic reference standard is feasible in about five months at seven sites, which removes the usual excuse that these systems cannot be evaluated this way.
+
+2. **The 13.9% incorrect revision rate deserves as much attention as the headline.** In roughly one in seven assisted cases where the physician had it right, seeing the model made them wrong. The net effect was strongly positive, but the mechanism of harm is present and measurable, and it is the same automation-bias mechanism documented in other settings. A tool with a smaller net benefit and the same revision behavior would be harmful.
+
+3. **The role is explicitly pre-test triage, not replacement.** The authors state that predictions "serve as a pre-genetic test CDSS tool rather than a replacement for definitive genetic testing and expert genetic counseling, particularly when determining eligibility for gene therapy." Given that the model covers 17 categories accounting for roughly 60% of cases, a confident prediction is a hypothesis for sequencing to confirm.
+
+4. **Generalizability is genuinely constrained.** The model was trained primarily on a Chinese population and the trial ran exclusively in Chinese patients at tertiary centers with highly experienced specialists. External validation in Poland fell to 0.825 top-5. The authors say such evaluations "cannot fully substitute for formal generalizability evidence obtained across different healthcare systems and population backgrounds."
+
+<Callout type="pitfall">
+  The composite downstream management score, reported as 37.7 versus 28.5, is an exploratory post hoc analysis applied only to cases with a correct top-1 prediction, covering 24 assisted and 25 control management reports. The main text says the difference held across all four dimensions, but the printed P values for two of the four dimensions are 0.062 and 0.054. Treat that outcome as hypothesis-generating.
+</Callout>
+
+5. **A few internal inconsistencies are worth knowing about.** The CONSORT figure lists 152 assigned to the assisted arm and 148 to control, while the analyzed numbers are 148 and 147, which does not reconcile cleanly with the stated exclusions. Development cohort sizes are printed differently in the methods (1,137 patients) and results (989 patients), and the discussion cites a third figure. None of this affects the primary endpoint, but it means secondary numbers should be quoted carefully.
+
+---
+
+## My Takeaway
+
+I included this on a site aimed at general medicine because of what it proves about feasibility rather than what it says about retinal genetics. The recurring argument for why clinical AI cannot be held to a trial standard is that the technology moves too fast and the endpoints are too soft. This trial was registered, randomized, powered against a prespecified endpoint, and adjudicated against whole-exome sequencing, in a rare disease, in five months.
+
+The effect size is large, and the within-arm unaided baseline makes it credible. The 13.9% incorrect revision rate is the number I would carry into any discussion about deploying decision support: even when a tool works well, it will sometimes talk a correct clinician out of a correct answer, and the only way to know the net balance is to measure both directions.
+
+The generalizability caveat is real and the authors own it. What travels here is the study, not the model.
+
+---
+
+[Read the full article at Nature Medicine](https://doi.org/10.1038/s41591-026-04545-w)
