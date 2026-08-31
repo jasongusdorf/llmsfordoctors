@@ -1,0 +1,75 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import { BRIEF_SERIES, BRIEF_SERIES_BY_ID } from '../../../lib/brief-series';
+
+export async function getStaticPaths() {
+  const all = await getCollection('briefs');
+  return BRIEF_SERIES.map((meta) => ({
+    params: { series: meta.id },
+    props: {
+      meta,
+      entries: all
+        .filter((e) => e.data.series === meta.id)
+        .sort((a, b) => b.data.date.getTime() - a.data.date.getTime()),
+    },
+  }));
+}
+
+const { meta, entries } = Astro.props;
+---
+
+<BaseLayout title={`${meta.label} - LLMs for Doctors`} description={meta.blurb}>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumb
+      crumbs={[
+        { label: 'Home', href: '/' },
+        { label: 'Briefs', href: '/briefs' },
+        { label: meta.label },
+      ]}
+    />
+
+    <header class="mb-10">
+      <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mb-3">
+        {meta.label}
+      </h1>
+      <p class="text-lg text-clinical-600 dark:text-clinical-400">{meta.blurb}</p>
+      <p class="mt-2 text-sm uppercase tracking-wide text-clinical-500 dark:text-clinical-400">
+        {meta.cadence}
+      </p>
+    </header>
+
+    {entries.length === 0 ? (
+      <div class="text-center py-20 text-clinical-500 dark:text-clinical-400">
+        <p class="text-xl font-medium">No issues published yet.</p>
+      </div>
+    ) : (
+      <ol class="space-y-4">
+        {entries.map((entry) => (
+          <li>
+            <a
+              href={`/briefs/${entry.id}`}
+              class="block p-5 rounded-lg border border-clinical-200 dark:border-clinical-700 hover:border-blue-500 dark:hover:border-blue-400 transition-colors"
+            >
+              <div class="flex items-baseline justify-between gap-4">
+                <h2 class="font-heading text-lg font-semibold text-clinical-900 dark:text-clinical-50">
+                  {entry.data.title}
+                </h2>
+                <time
+                  datetime={entry.data.date.toISOString()}
+                  class="shrink-0 text-sm text-clinical-500 dark:text-clinical-400"
+                >
+                  {entry.data.date.toISOString().slice(0, 10)}
+                </time>
+              </div>
+              <p class="mt-1 text-clinical-600 dark:text-clinical-400">
+                {entry.data.description}
+              </p>
+            </a>
+          </li>
+        ))}
+      </ol>
+    )}
+  </div>
+</BaseLayout>

@@ -1,0 +1,59 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { BRIEF_SERIES } from '../../lib/brief-series';
+
+const all = await getCollection('briefs');
+
+const series = BRIEF_SERIES.map((meta) => {
+  const entries = all
+    .filter((e) => e.data.series === meta.id)
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+  return { meta, count: entries.length, latest: entries[0] ?? null };
+});
+---
+
+<BaseLayout
+  title="Briefs - LLMs for Doctors"
+  description="Recurring briefings on AI in medicine, major trials, the news, and internal medicine board prep."
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Briefs' }]} />
+
+    <header class="mb-10">
+      <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mb-3">
+        Briefs
+      </h1>
+      <p class="text-lg text-clinical-600 dark:text-clinical-400">
+        Standing briefings I write on a schedule. Each one is archived here as it goes out.
+      </p>
+    </header>
+
+    <div class="space-y-6">
+      {series.map(({ meta, count, latest }) => (
+        <a
+          href={`/briefs/${meta.id}`}
+          class="block p-6 rounded-lg border border-clinical-200 dark:border-clinical-700 hover:border-blue-500 dark:hover:border-blue-400 transition-colors"
+        >
+          <div class="flex items-baseline justify-between gap-4 mb-2">
+            <h2 class="font-heading text-xl font-semibold text-clinical-900 dark:text-clinical-50">
+              {meta.label}
+            </h2>
+            <span class="shrink-0 text-xs uppercase tracking-wide text-clinical-500 dark:text-clinical-400">
+              {meta.cadence}
+            </span>
+          </div>
+          <p class="text-clinical-600 dark:text-clinical-400 mb-3">{meta.blurb}</p>
+          <p class="text-sm text-clinical-500 dark:text-clinical-400">
+            {count === 0
+              ? 'No issues published yet.'
+              : `${count} issue${count === 1 ? '' : 's'}${
+                  latest ? ` · latest ${latest.data.date.toISOString().slice(0, 10)}` : ''
+                }`}
+          </p>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
