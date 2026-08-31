@@ -89,6 +89,25 @@ const trials = defineCollection({
   }),
 });
 
+const briefSeries = [
+  'news',
+  'synopsis',
+  'trials-digest',
+  'abim',
+] as const;
+
+const briefs = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/briefs' }),
+  schema: z.object({
+    title: z.string(),
+    series: z.enum(briefSeries),
+    date: z.date(),
+    description: z.string(),
+    tags: z.array(z.string()).default([]),
+    socialPost: z.string().optional(),
+  }),
+});
+
 const editorials = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/editorials' }),
   schema: z.object({
@@ -126,6 +145,7 @@ const videos = defineCollection({
 
 export const collections = {
   workflows,
+  briefs,
   guides,
   editorials,
   tools,

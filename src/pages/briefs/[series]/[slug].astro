@@ -1,0 +1,37 @@
+---
+import { getCollection, render } from 'astro:content';
+import ContentLayout from '../../../layouts/ContentLayout.astro';
+import AdminEditButton from '../../../components/AdminEditButton.astro';
+import { BRIEF_SERIES_BY_ID } from '../../../lib/brief-series';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('briefs');
+  return entries.map((entry) => {
+    const [series, ...rest] = entry.id.split('/');
+    return {
+      params: { series, slug: rest.join('/') },
+      props: { entry },
+    };
+  });
+}
+
+const { entry } = Astro.props;
+const meta = BRIEF_SERIES_BY_ID[entry.data.series];
+const { Content } = await render(entry);
+---
+
+<ContentLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  lastUpdated={entry.data.date}
+  tags={entry.data.tags}
+  breadcrumbs={[
+    { label: 'Home', href: '/' },
+    { label: 'Briefs', href: '/briefs' },
+    { label: meta.label, href: `/briefs/${meta.id}` },
+    { label: entry.data.date.toISOString().slice(0, 10) },
+  ]}
+>
+  <Content />
+  <AdminEditButton collection="briefs" slug={entry.id} />
+</ContentLayout>
