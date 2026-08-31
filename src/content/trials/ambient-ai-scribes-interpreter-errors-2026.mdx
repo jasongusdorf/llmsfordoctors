@@ -1,0 +1,61 @@
+---
+title: "When the Interpreter Gets It Wrong, the AI Scribe Writes It Down"
+journal: "JMIR Medical Informatics"
+year: 2026
+doi: "10.2196/88734"
+keyFinding: "In a small simulation study using 5 scripted Spanish and English encounters containing 20 deliberate interpreter errors, two ambient AI scribes copied those errors into the note in 55% (11/20) and 60% (12/20) of cases. Propagation was far higher for errors originating in patient speech (80% and 100%) than in clinician speech (30% and 20%). This is a scripted simulation with 20 errors, not a clinical trial, so treat the direction as the finding and the percentages as fragile."
+lastUpdated: 2026-08-17
+tags: [ambient-ai, documentation, medical-interpreting, language-access, health-equity, patient-safety, simulation-study, research-letter]
+socialPost: "Two ambient AI scribes were fed simulated interpreter-mediated visits containing 20 deliberate interpretation errors. They copied 55% and 60% of those errors into the note. Errors starting in patient speech propagated 80% and 100% of the time; errors starting in clinician speech, 30% and 20%. Small scripted study, but the asymmetry is the part to notice."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This is a **Research Letter**, not a full original-research paper. It reports a scripted simulation, not a clinical trial, and the entire evidence base is 20 deliberately planted errors. Hold the numbers loosely. The asymmetry they reveal is the reason it is worth reading anyway.
+
+The setup: the authors wrote 5 scripted clinical scenarios in Spanish and English containing a total of 20 deliberate interpreter errors, classified as omissions, substitutions, or additions, and planted in both patient and clinician speech. The error types were modeled on the interpretation errors documented in prior observational studies of real interpreter-mediated care.
+
+Three native Spanish-speaking medical students acted the encounters, holding consistent roles as patient, clinician, and interpreter. The encounters were audio-recorded and the recordings were run through two commercial ambient AI scribes: vendor A, described as having explicit Spanish support, and vendor B, which used GPT-4o. The vendors were anonymized deliberately, so this is not a product comparison.
+
+The primary outcome was error propagation, defined as the interpreter's error appearing in the AI-generated note. Two investigators independently reviewed every note; interrater agreement was 97.5% (39/40), with the single discrepancy resolved by consensus. Given 20 scripted errors, results were summarized descriptively with no inferential statistics. Testing was done on the model versions live in August 2025. The IRB determined this was not human subjects research.
+
+## Key Findings
+
+- **Both scribes propagated the majority of interpreter errors, under the primary coding rule.** Vendor A carried 55% (11/20) of the planted errors into the note; vendor B carried 60% (12/20).
+- **The asymmetry by speaker is the striking result.** For errors originating in patient speech, meaning the English rendering of what the Spanish-speaking patient said, vendor A propagated 80% (8/10) and vendor B propagated 100% (10/10). For errors originating in clinician speech, the Spanish rendering of what the English-speaking clinician said, the rates were 30% (3/10) and 20% (2/10).
+- **Omissions were the most contagious error type, under the primary coding rule.** Omissions propagated in 67% (6/9) of cases for vendor A and 78% (7/9) for vendor B. Substitutions propagated in 57% (4/7) for both. Additions were least likely to survive, at 25% (1/4) for both. This ranking is not robust: under the sensitivity analysis below, vendor A's omission rate falls to 44% and drops below its substitution rate.
+- **The sensitivity analysis matters and cuts the headline numbers down.** The primary coding rule counted a case as propagation when an interpreter's omission led the scribe to document an unsupported clinical denial, for example recording that a patient denied a symptom the interpreter never actually asked about. If those borderline cases are instead counted as non-propagation, overall rates fall to 45% (9/20) for vendor A and 55% (11/20) for vendor B, and omission propagation falls to 44% (4/9) and 67% (6/9). The speaker asymmetry moves too, but it does not disappear: patient-speech propagation falls to 70% (7/10) for vendor A and stays at 100% (10/10) for vendor B, while clinician-speech propagation falls to 20% (2/10) and 10% (1/10). So the gap is 70 versus 20 and 100 versus 10 under the stricter rule, which is if anything wider.
+
+<Callout type="evidence">
+  The design is the strength and the limit at once. Planting known errors is the only clean way to ask whether a scribe reproduces them, because in a real encounter you would not know the ground truth. But 20 scripted errors, three student actors, and recorded audio playback is a long way from a clinic. The authors say so plainly. Read this as a demonstration that the failure mode exists and has a direction, not as a measurement of how often it happens in practice.
+</Callout>
+
+## Clinical Implications
+
+1. **The error your scribe is most likely to preserve is the one you are least equipped to catch.** You can review a note against your own memory of what you said. You cannot review it against what the patient actually said in a language you do not speak. That is precisely the direction in which propagation was highest, at 80% and 100%. The review step that makes ambient documentation safe in a monolingual visit is structurally weaker here.
+
+2. **Watch for negatives you never earned.** One of the more unsettling examples: the interpreter dropped "black stools" from the clinician's question, the patient answered no to what remained, and the scribe documented a denial of both black stools and bright red blood. A documented negative appeared for a symptom that was never asked about. The authors are careful to leave open what to call this. Their coding rule counted it as propagation, and they note in the discussion that a closely related case, an omitted complaint of poor hearing that became "no other hearing problems," could equally be read as an unsupported negative finding or as a hallucination. That taxonomy question is unresolved and they say so. What is not in doubt is the clinical consequence: a negative finding in the chart normally means someone asked. Here it did not.
+
+3. **Vendor A's explicit Spanish support did not buy much.** It propagated 55% versus vendor B's 60%, which is a difference of one error out of twenty and means nothing at this sample size. Do not take a stated language-support capability as evidence of accuracy in interpreter-mediated encounters. Ask for the data.
+
+4. **This lands on a population that is already poorly served.** The authors note that over 26 million people in the United States have a non-English language preference, and that interpretation errors in routine care are well documented independent of AI. The scribe does not create those errors. It launders them into the permanent record, where they look like clean clinical prose.
+
+<Callout type="pitfall">
+  In at least two of the scenarios, the ones the authors label "wheezing" and "yellow crust," vendor A recovered the original Spanish-source content and bypassed the interpreter's faulty English. Vendor B propagated both. The paper gives these as examples rather than a count, so treat two as a floor and not a rate. It sounds like good news until you sit with it: one system was sometimes documenting the source speech and sometimes the interpretation, without telling you which. A note you cannot attribute to a speaker is a note you cannot audit.
+</Callout>
+
+## My Takeaway
+
+The numbers to anchor on are 55% and 60% overall propagation across two vendors, and the split underneath: 80% and 100% for errors starting in patient speech against 30% and 20% for errors starting in clinician speech. The sensitivity analysis pulls the overall figures to 45% and 55%, and I would quote that range rather than the single headline, because the borderline cases involve a genuine judgment call about whether an unsupported documented denial is propagation or hallucination. It is arguably both.
+
+I want to be careful about how much weight this bears. Twenty scripted errors, five scenarios, three medical students reading from a script, audio played back rather than captured live, one testing window in August 2025 against models that get silently updated. The authors list every one of those limitations themselves, and they explicitly frame the study as early evidence rather than a rate estimate. They also could not separate speech-recognition failure from language-model failure, because they graded final notes rather than intermediate transcripts. So the honest summary is: this establishes that the failure mode is real and that it is asymmetric, and it does not tell you how big it is.
+
+The asymmetry is what I keep returning to, because it has a candidate mechanism and the mechanism is plausible. The authors note that many foundation models and commercial speech systems are trained predominantly on English data, and then immediately concede that this alone does not account for all the cases they observed. Their further suggestion is that the systems may implicitly weight clinician speech over interpreted speech, and interpreted speech over patient speech. They offer that as a hypothesis requiring testing, not a result. If it is right, though, then the scribe is quietly reproducing the same hierarchy that language-discordant care already imposes, and doing it in the document that everyone downstream will treat as what happened.
+
+This extends rather than contradicts what I wrote in [Where the Scribe Evidence Stops](/editorials/where-the-scribe-evidence-stops). The equity concern in that piece came from a Comment that asserted disparities in transcription accuracy without reporting word-error rates. This is a small dataset, but it is a dataset, and it points the same way. Practically: if you use an ambient scribe with an interpreter, read the history of present illness against what the interpreter told you, treat every documented negative as unverified, and do not assume a Spanish-support badge has been tested on anything like this.
+
+---
+
+[Read the full article at JMIR Medical Informatics](https://doi.org/10.2196/88734)
