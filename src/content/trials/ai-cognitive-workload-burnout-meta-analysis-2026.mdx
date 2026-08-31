@@ -1,0 +1,75 @@
+---
+title: "Ambient Scribes Lower Cognitive Load. Nobody Knows What Alerts Do."
+journal: "Journal of Medical Internet Research"
+year: 2026
+doi: "10.2196/93618"
+keyFinding: "A systematic review and meta-analysis of 21 studies and 2885 health care professionals found that ambient AI documentation was associated with reduced NASA-TLX temporal demand (SMD -1.46, 95% CI -2.81 to -0.11, k=2) and effort (SMD -1.29, 95% CI -2.16 to -0.42, k=2), lower work exhaustion (MD -0.35, 95% CI -0.58 to -0.12, k=3), and lower burnout prevalence (OR 0.47, 95% CI 0.25 to 0.86, k=3). Certainty is thinner than those figures suggest: GRADE was moderate only for the effort subscale, low for temporal demand and for burnout, and very low for mental demand. Every pool holds 2 to 3 studies, and the prediction intervals for both burnout outcomes cross the null. Evidence for diagnostic imaging AI and clinical decision support was contradictory across studies and rated very low certainty."
+lastUpdated: 2026-08-17
+tags: [ambient-ai, documentation, burnout, cognitive-workload, clinical-decision-support, radiology-ai, systematic-review, meta-analysis, human-factors]
+socialPost: "Meta-analysis of 21 studies, 2885 clinicians. Ambient AI scribes: less cognitive workload (GRADE moderate) and less burnout (GRADE low, prediction interval crosses null, only 3 studies). Imaging AI and alert-based decision support: mixed or increased workload, very low certainty. Generative tools you review are not the same as discriminative tools that page you."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This is a systematic review and meta-analysis, not a trial, and most of what it pools is observational. That matters for how much weight the numbers carry, so I want it stated up front rather than buried in limitations.
+
+The authors registered the protocol in PROSPERO (CRD420261284298) before extracting data and reported per PRISMA 2020. They searched MEDLINE, Embase, Web of Science, and Cochrane CENTRAL from January 2015 to 2026 for studies measuring cognitive workload or burnout in health care professionals using clinical AI, restricted to studies using validated instruments: NASA-TLX, the Subjective Workload Assessment Technique, or the Paas Cognitive Load Scale for workload, and the Maslach Burnout Inventory, Oldenburg Burnout Inventory, Stanford Professional Fulfillment Index, Copenhagen Burnout Inventory, or Mini-Z for burnout. Risk of bias used RoB 2.0 for randomized studies and ROBINS-I for non-randomized ones, and certainty was graded with GRADE. Pooling used the Hartung-Knapp-Sidik-Jonkman adjustment with restricted maximum likelihood, and reported prediction intervals alongside confidence intervals.
+
+The search returned 8848 records, 7328 after deduplication, 309 assessed in full text, and **21 studies including 2885 health care professionals across 7 countries** made it in. The United States supplied 15 of the 21. Nineteen of 21 were published in 2024 or 2025.
+
+Designs were mostly not randomized: **3 RCTs**, 3 randomized crossover studies, 2 randomized simulation studies, and **13 observational studies**, of which 9 were uncontrolled pre-post.
+
+Interventions were sorted into 5 categories: ambient AI documentation (13 studies), clinical decision support systems (3), radiology AI (3), LLM-based inbox management (1), and an AI-delivered burnout intervention (1). **Only the ambient documentation studies could be pooled.** The other categories were too heterogeneous in design, subtype, and instrument, so they are reported narratively.
+
+<Callout type="pitfall">
+  The instrument requirement excluded two of the largest ambient scribe studies in existence, Tierney et al (n=7260) and Albrecht et al (n=181), because they used custom satisfaction surveys rather than NASA-TLX or a validated burnout measure. That is methodologically defensible and it also means the meta-analysis is pooling 2 to 3 small studies per outcome while much larger datasets sit outside the frame.
+</Callout>
+
+## Key Findings
+
+**Ambient AI documentation, the pooled results:**
+
+- **NASA-TLX temporal demand fell:** SMD -1.46 (95% CI -2.81 to -0.11; k=2; I2=31.1%)
+- **NASA-TLX effort fell:** SMD -1.29 (95% CI -2.16 to -0.42; k=2; I2=0%)
+- **PFI work exhaustion fell:** MD -0.35 (95% CI -0.58 to -0.12; k=3; I2=0%), but the **95% prediction interval was -1.03 to 0.33**, crossing zero
+- **Burnout prevalence fell:** OR 0.47 (95% CI 0.25 to 0.86; k=3; I2=0%), with a **95% prediction interval of 0.06 to 3.82**, which is very nearly uninformative
+- **Two pools favored ambient AI but did not reach significance:** NASA-TLX mental demand (SMD -1.29, 95% CI -3.64 to 1.07; k=2; I2=75.3%) and documentation time (SMD -0.24, 95% CI -1.10 to 0.61; I2=0%). Mental demand is the one pool with substantial heterogeneity, which is worth noticing given it is also the outcome most people mean when they say "cognitive load."
+
+**The other AI categories, none poolable:**
+
+- **Diagnostic imaging AI (3 observational studies) was inconsistent,** ranging from no significant reduction to increased workload. Computer-aided detection for prostate MRI produced no workload reduction despite improving diagnostic performance. A knowledge recommender embedded in radiology reporting did reduce cognitive load, though the review records no quantitative values for it.
+- **Clinical decision support (3 studies) was contradictory in both directions,** with workload reductions of 7% to 50% in some studies and an increase of 14 points in another. A pediatric sepsis prediction model increased perceived workload and alert fatigue. But the other two CDSS studies, both rated low risk of bias, significantly reduced it: a pediatric mobile CDSS tool (PedsGuide) reported mental demand of 6.34 versus 11.8 (P&lt;.001), and a trauma transfusion tool cut NASA-TLX scores relative to paper. One caution on that first study: the review's own results table reads it as halving mental demand, while the discussion section describes the same study as improving guideline adherence *without* lowering mental workload. The paper contradicts itself, and I would not build an argument on either reading. The authors' own summary word for this category is "mixed," and that is the right word.
+
+**GRADE certainty:** moderate for cognitive workload reduction with ambient AI, **low** for burnout reduction with ambient AI, **very low** for imaging AI and CDSS, and low for the single burnout-intervention RCT.
+
+<Callout type="evidence">
+  The prediction interval is the honest number here and it is why this review is better than its own headline. A confidence interval describes the pooled average. A prediction interval describes what you should expect in the next setting that tries it. For burnout prevalence the CI is 0.25 to 0.86 and the PI is 0.06 to 3.82. Translated: on average these deployments reduced burnout, and the next one could plausibly do nothing or make it worse. The authors state this plainly rather than hiding it, which is to their credit and is the opposite of how these findings usually get quoted.
+</Callout>
+
+## Clinical Implications
+
+1. **The split between tool types is the finding worth carrying around.** Generative tools produce a draft you review and approve. Discriminative tools, alerts and detection flags, push a signal you must verify against ground truth at the moment of decision. The ambient tools reduced workload fairly consistently. The alert-based and detection tools went both ways, sometimes substantially reducing workload and sometimes increasing it, with no way to predict which from the accuracy data. If your institution treats "AI" as one procurement category with one expected benefit, this review is the argument against that.
+
+2. **The authors name the mechanism "verification burden,"** the cognitive cost of reviewing, validating, and reconciling AI output with your own judgment. As tools proliferate, clinicians move from producing content to supervising it. They explicitly offer this as hypothesis-generating rather than demonstrated, drawn from classical automation theory, so treat it as a useful frame and not a result.
+
+3. **The ambient AI evidence is commercially and demographically narrow.** Abridge and DAX Copilot dominate the included studies, deployments were in voluntary early-adopter cohorts, mostly US outpatient primary care, with follow-up typically 8 to 12 weeks. People who volunteer to pilot a scribe are not a random sample of your medical staff. The authors also note that neither of the two ambient-AI RCTs measured downstream documentation accuracy or any patient-safety endpoint.
+
+4. **The largest effects came from the smallest studies,** which is the classic signature of small-study effects and the authors flag it as such. The single biggest effect in the review, NASA-TLX total workload of 25.0 with AI versus 461.3 without, came from a crossover simulation of **8 psychiatrists that was still a preprint**. A simulation of 7 junior doctors reported an 81% reduction in effort. These are not measurements of clinical practice.
+
+5. **The regulatory ask is a reasonable one.** The authors argue that the FDA and CE-marking bodies should fold human factors evaluation, including validated workload measurement, into AI device review, since current frameworks assess algorithmic performance and not what the tool does to the person using it.
+
+## My Takeaway
+
+The numbers to anchor on are the four significant pooled results for ambient documentation: temporal demand SMD -1.46, effort SMD -1.29, work exhaustion MD -0.35, and burnout odds ratio 0.47. Every one of them rests on 2 or 3 studies. Mental demand and documentation time, the two outcomes people most want ambient scribes to move, did not reach significance. And both burnout prediction intervals cross the null. I would quote this review as "consistent low-certainty evidence pointing in a good direction" and I would not quote the odds ratio on its own.
+
+What makes it worth an entry despite the thin pools is the contrast it draws. The ambient scribe literature keeps getting read as evidence about "AI in the clinic," and this review shows that you cannot extend it to the two categories with the longest deployment history in medicine, imaging AI and decision support alerts. I want to be precise about what the review does and does not show there, because it would be easy to overclaim. It does not show that those tools raise workload. It shows that the evidence is contradictory and too weak to predict anything: computer-aided detection for prostate MRI improved diagnostic performance and did nothing for workload, a pediatric sepsis model increased both workload and alert fatigue, and yet a pediatric dosing tool and a trauma transfusion tool both significantly reduced workload. The authors are explicit that this inconsistency should be read as genuine heterogeneity rather than as evidence of no effect. The useful conclusion is not that alerts are bad for cognitive load. It is that accuracy tells you nothing about what a tool will do to the person using it, which is what automation theory predicts when you convert a clinician into a monitor.
+
+This extends the argument in [Where the Scribe Evidence Stops](/editorials/where-the-scribe-evidence-stops) in a way I did not expect. I noted there that Topaz asserted a "workload paradox" without citation. This review does not confirm that paradox for ambient scribes, where the pooled direction is genuinely favorable, but it does document unintended workload increases in the alert-based tools, which is the same phenomenon arriving through a different door. It also underlines the point that the whole ambient literature is voluntary early adopters in ambulatory primary care over short horizons.
+
+Practically: if you are evaluating an ambient scribe, this supports the case that it reduces documentation-related strain, with the caveat that the effect is measured in volunteers over roughly 8 to 12 weeks and the next deployment might not reproduce it. If you are evaluating an alert or a detection flag, do not assume a workload effect in either direction, and measure it before and after rather than inferring it from accuracy. The strongest sentence in the paper is its last: net benefit on the health care workforce remains an open empirical question.
+
+---
+
+[Read the full article at the Journal of Medical Internet Research](https://doi.org/10.2196/93618)

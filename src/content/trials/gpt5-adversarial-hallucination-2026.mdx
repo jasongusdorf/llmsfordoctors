@@ -1,0 +1,67 @@
+---
+title: "GPT-5 Ran With a Fabricated Finding in 65% of Cases. One Prompt Cut It to 7.67%."
+journal: "npj Digital Medicine"
+year: 2026
+doi: "10.1038/s41746-026-02584-8"
+keyFinding: "A single-timepoint, descriptive re-audit (not a randomized trial, and published as a Comment rather than a primary research article) re-ran two previously published vignette pipelines on GPT-5. Under a standard prompt, the model adopted or elaborated a planted fabrication in 65.00% of runs (95% CI 61.1 to 68.7). The same guardrail prompt used in the authors' earlier work dropped that to 7.67% (95% CI 5.16 to 11.24; OR approximately 22, p < 0.0001). In the bias arm, several marginalized subgroups were flagged for urgent mental-health screening in 100% of runs on identical clinical text."
+lastUpdated: 2026-08-31
+tags: [llm, gpt-5, hallucination, adversarial-robustness, bias, equity, emergency-medicine, safety-auditing, evaluation]
+socialPost: "GPT-5 was fed vignettes containing one deliberately fake element: a fictitious lab, an invented sign, a made-up syndrome. Under a standard prompt it played along in 65.00% of runs. A guardrail prompt cut that to 7.67%, not to zero. Published as a Comment, descriptive, one snapshot in time."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This is not a randomized clinical trial, and it is worth saying up front that it is not a primary research article either. It is a **Comment** in npj Digital Medicine: a short, deliberately fast re-audit in which Omar and colleagues at Mount Sinai took two evaluation pipelines they had already published elsewhere and re-ran them, unchanged, on GPT-5. The design is a single-timepoint, descriptive snapshot evaluation of one model against fixed benchmarks. There is no control group, no patients, and no clinical outcomes.
+
+The motivation is stated plainly: OpenAI announced GPT-5 with "built-in thinking," highlighted healthcare applications, and promoted the model as safer for medical use. The authors wanted to know whether a fixed audit would agree.
+
+Two arms, both run against GPT-5 on the chat-completion API with vendor default decoding, no retrieval and no tool use, in a single snapshot as available in August 2025.
+
+- **Bias arm.** 500 physician-validated emergency department vignettes, each containing age, chief complaint, focused history, exam, and vitals, with no sociodemographic descriptors in the base text. Each vignette was iterated 32 times: one control plus 31 sociodemographic labels spanning gender, race and ethnicity, socioeconomic indicators, sexual orientation, and intersectional combinations. The model answered the same four decision points each time: triage priority, further testing, treatment approach, and mental-health assessment.
+- **Adversarial arm.** 300 physician-validated clinical vignettes, each carrying exactly one deliberately fabricated element. Fabrications fell into three categories: fictitious lab tests, fabricated physical or radiologic signs, and invented diseases or syndromes. Each case was run under two conditions, a standard prompt and the authors' previously published mitigation prompt instructing the model to rely on clinically validated information, flag dubious elements, and avoid speculation. A response counted as a hallucination if it adopted or elaborated the fabricated element as real, for example by supplying reference ranges for a nonexistent lab. Classification was rule-based, with two physicians auditing a stratified random sample for concordance.
+
+An important design caveat the authors state themselves: **in this re-run they did not perform statistical significance testing on the bias arm.** Those values are descriptive, presented as per-group means and differences from control so they can be laid alongside the earlier GPT-4o summaries. The inferential statistics in this paper belong entirely to the adversarial arm.
+
+## Key Findings
+
+- **Adversarial vulnerability under a standard prompt was high.** GPT-5 elaborated on planted fabrications in 65.00% of runs (95% CI 61.1 to 68.7). The supplement reports 390 hallucinations out of 600 cases without mitigation.
+- **The guardrail prompt worked, and did not finish the job.** With mitigation, the rate was 7.67% (95% CI 5.16 to 11.24), reported as 46 hallucinations out of 600 cases. Chi-square 262.45, p < 0.0001, odds ratio approximately 22 in the main text, and OR 22.27 (95% CI 14.01 to 36.92) by Fisher's exact test in the supplement. The supplement puts the absolute reduction at 57.33 percentage points, the relative risk reduction at 88.21%, Cohen's h at 1.3144, and the number needed to treat for applying mitigation at 1.74.
+- **The mental-health screening result is the one that should stop you.** Several historically marginalized groups, including Black unhoused, multiple LGBTQIA+ identities, and unhoused overall, were recommended for urgent mental-health screening in 100% of runs despite identical clinical details. The supplement's Q4 table shows a physician baseline of 0.638 against a mean score of 1 for those labels, a ceiling with nowhere left to go.
+- **Treatment escalation moved most for unhoused labels.** Against a Q3 physician baseline of 0.779, the "Unhoused" label scored 0.955, a difference of 0.176 and a 22.6% change, the largest in the table. Black unhoused scored 0.903, a difference of 0.125 and a 16% change.
+- **Testing intensity showed a socioeconomic gradient in the wrong direction.** Lower-income labels received less advanced testing: Low-income −7.0%, Middle-income −6.8%, while High-income was +2.2%.
+- **Triage urgency shifted least.** Changes were modest but directional, peaking at +7.4% for Black transgender women.
+- **The authors' own summary of the comparison is that nothing improved.** GPT-5 showed no measurable improvement over the prior model in sociodemographic-linked decision variation, and its unmitigated adversarial rate was higher than what they had previously observed, while the same mitigation achieved a lower rate than before.
+
+<Callout type="evidence">
+  The adversarial arm is the strong half of this paper. It has a prespecified hallucination definition, structured JSON outputs validated against a schema, Wilson confidence intervals, a physician audit of a stratified sample, and a clean two-condition contrast where the only thing that changes is the prompt text. Achieved power is reported as greater than 99%. If you take one thing from this entry, take the 65.00% versus 7.67% contrast.
+</Callout>
+
+## Clinical Implications
+
+1. **A chart error is now an input, not just an artifact.** The failure mode here is not the model inventing something from nothing. It is the model being handed one false element and then confidently building on it: ranges for a lab that does not exist, implications for a sign that was never seen, features of a syndrome nobody has. Charts contain errors. Patients describing their own history contain more. Any workflow that pipes free text into a model without a verification step is running the unmitigated condition.
+
+2. **If you deploy, the guardrail prompt is not optional.** The single most actionable number in this paper is the gap between 65.00% and 7.67%. That is a prompt-level intervention, cheap and available today. But 7.67% is not zero, and the authors are explicit that residual error remains non-zero. Mitigation is a floor-raiser, not a solution, and it only helps if it is enforced at the system level rather than left to whoever is typing.
+
+3. **The 100% screening rates are a fairness finding with an operational cost.** A model that recommends urgent mental-health screening for every unhoused or transgender-labeled patient, on clinical text that is byte-for-byte identical to the control, is not exercising clinical judgment about social determinants. It is responding to a label. The authors note the model flags mental-health assessment even for low-acuity presentations such as an ankle sprain.
+
+4. **Treat the caseload projection as illustrative only.** The authors write that based on typical emergency department volumes of about 50,000 annual visits, these patterns could result in approximately 1,200 additional mental health referrals and 800 inappropriate treatment escalations annually. That is an extrapolation from vignette responses to a hypothetical department, not a measurement. It is a useful way to feel the scale of the effect and a poor basis for a business case.
+
+<Callout type="pitfall">
+  This is one snapshot of one model, run once per vignette and label, with vendor default temperature and no seeds set. The authors say so directly: LLM outputs are stochastic, and backend changes or different sampling could yield different results at another time. Vendors also change models silently without public versioning. Read every number here as "what this endpoint did in August 2025," not as a stable property of GPT-5.
+</Callout>
+
+## My Takeaway
+
+The number to carry is 65.00% unmitigated versus 7.67% mitigated, with the wide-but-decisive odds ratio of 22.27 (95% CI 14.01 to 36.92). That comparison is well constructed. Identical clinical content, one variable changed, a prespecified outcome definition, confidence intervals, and a physician audit of the automated labels. The conclusion is uncomfortable and specific: a frontier model marketed as safer for medical use will, without an explicit defense, take a fabricated finding and write a confident paragraph about it in 65.00% of runs.
+
+I am more cautious about the bias arm, and the authors are too. They did not run significance testing on it in this replication, they produced no new physician annotations, and the figure legend states outright that differences are descriptive. What survives that caution is the saturation itself. When ten different sociodemographic labels all produce a mean of exactly 1 on a 0-to-1 mental-health screening variable against a physician baseline of 0.638, you are not looking at a subtle effect that needs a p-value to adjudicate. You are looking at a ceiling. The authors describe this saturation as an increase approaching tenfold over clinician-judged indication in their original report, which is a comparison to their own prior work rather than a fresh measurement here.
+
+Two things bother me about the reporting. First, the supplement's adversarial dataset section states total cases analyzed as 900, then lists 600 without mitigation and 600 with mitigation. Those figures do not reconcile with each other, and the paper does not explain the discrepancy. The 600-per-condition denominators are the ones used for the 65.00% and 7.67% rates, so the headline result stands, but a reader deserves better bookkeeping. Second, the format is doing real work here. This is a Comment, a short format, which means it moves fast and inherits its methodological credibility from papers published elsewhere. That is a legitimate way to get a timely safety signal into the literature, and it is not the same thing as a peer-reviewed primary evaluation with its own full methods.
+
+Practically: if you are building or buying anything that feeds clinical free text to a general-purpose LLM, insist on a hallucination guardrail at the system prompt level and insist on seeing the vendor's number for residual error after mitigation. If they cannot give you one, they have not measured it. And the governance point the authors make is the right one. Because providers change backends without public versioning, safety auditing needs to be event-triggered and automated rather than scheduled annually, closer to continuous integration than to a yearly review.
+
+---
+
+[Read the full article at npj Digital Medicine](https://doi.org/10.1038/s41746-026-02584-8)
