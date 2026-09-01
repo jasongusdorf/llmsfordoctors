@@ -61,13 +61,17 @@ export default function QualifierSearch({ qualifiers, diagnoses, idf, opposites 
           const tag = d.clusterTags[i];
           return !tag || !picked.includes(tag);
         });
-        return { d, hits, pending, score: hits.reduce((s, h) => s + (idf[h] || 0), 0) };
+        const fit = hits.length / Math.max(1, d.cluster.length);
+        return { d, hits, pending, fit, score: hits.reduce((s, h) => s + (idf[h] || 0), 0) };
       })
       .filter((r) => r.hits.length > 0)
-      .sort((a, b) => b.hits.length - a.hits.length || b.score - a.score)
-      .slice(0, 12);
+      .sort(
+        (a, b) => b.hits.length - a.hits.length || b.score - a.score || b.fit - a.fit,
+      );
   }, [picked, diagnoses, idf]);
 
+  const SHOWN = 12;
+  const shown = differential.slice(0, SHOWN);
   const maxScore = differential.length ? differential[0].score : 1;
   const bestCoverage = differential.length ? differential[0].hits.length : 0;
 
@@ -260,7 +264,7 @@ export default function QualifierSearch({ qualifiers, diagnoses, idf, opposites 
             </div>
           )}
           <ol class="space-y-3">
-            {differential.map(({ d, hits, pending, score }) => (
+            {shown.map(({ d, hits, pending, score }) => (
               <li
                 key={d.id}
                 class="p-4 rounded-lg border border-clinical-200 dark:border-clinical-700"
@@ -310,6 +314,12 @@ export default function QualifierSearch({ qualifiers, diagnoses, idf, opposites 
               </li>
             ))}
           </ol>
+          {differential.length > SHOWN && (
+            <p class="mt-4 text-sm text-clinical-500 dark:text-clinical-400">
+              Showing {SHOWN} of {differential.length} matching diagnoses. Add another qualifier to
+              narrow this; a long list means the combination you entered is not yet discriminating.
+            </p>
+          )}
         </div>
       )}
 
