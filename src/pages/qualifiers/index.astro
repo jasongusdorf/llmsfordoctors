@@ -4,7 +4,7 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import QualifierSearch from '../../components/QualifierSearch.tsx';
 import data from '../../data/semantic-qualifiers.json';
 
-const { qualifiers, diagnoses, idf } = data as any;
+const { qualifiers, diagnoses, idf, opposites } = data as any;
 
 // The island only needs enough to render autocomplete and explain a match.
 // Passing the full 8-field records would inline roughly 400 KB into the page.
@@ -43,7 +43,7 @@ const totalQualifiers = qualifiers.length;
     </header>
 
     <div class="p-5 sm:p-6 rounded-xl border border-clinical-200 dark:border-clinical-700 bg-clinical-50/60 dark:bg-clinical-800/40">
-      <QualifierSearch client:load qualifiers={searchQualifiers} diagnoses={diagnoses} idf={idf} />
+      <QualifierSearch client:load qualifiers={searchQualifiers} diagnoses={diagnoses} idf={idf} opposites={opposites} />
     </div>
 
     <aside
@@ -56,7 +56,9 @@ const totalQualifiers = qualifiers.length;
         {diagnoses.length} catalogued diagnoses, using inverse document frequency, so a rare
         qualifier counts for more than a common one. It does not know disease prevalence, it does not
         weigh pretest probability, and its list is deliberately small. It cannot generate a
-        differential for a patient, and it is not clinical decision support. Every result shows which
+        differential for a patient, and it is not clinical decision support. If a presentation is not
+        among the catalogued diagnoses, the search will still return its nearest partial matches, so
+        read the "matched N of N" count before you read the ranking. Every result shows which
         qualifiers matched and why, so you can check the reasoning rather than take the ranking.
       </p>
     </aside>

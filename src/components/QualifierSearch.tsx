@@ -11,13 +11,14 @@ interface Props {
   qualifiers: Qualifier[];
   diagnoses: Diagnosis[];
   idf: Record<string, number>;
+  opposites: Record<string, string[]>;
 }
 
 type Mode = 'disease' | 'term';
 
 const norm = (s: string) => s.toLowerCase().trim();
 
-export default function QualifierSearch({ qualifiers, diagnoses, idf }: Props) {
+export default function QualifierSearch({ qualifiers, diagnoses, idf, opposites }: Props) {
   const [mode, setMode] = useState<Mode>('disease');
   const [query, setQuery] = useState('');
   const [picked, setPicked] = useState<string[]>([]);
@@ -63,11 +64,33 @@ export default function QualifierSearch({ qualifiers, diagnoses, idf }: Props) {
         return { d, hits, pending, score: hits.reduce((s, h) => s + (idf[h] || 0), 0) };
       })
       .filter((r) => r.hits.length > 0)
-      .sort((a, b) => b.score - a.score || b.hits.length - a.hits.length)
+      .sort((a, b) => b.hits.length - a.hits.length || b.score - a.score)
       .slice(0, 12);
   }, [picked, diagnoses, idf]);
 
   const maxScore = differential.length ? differential[0].score : 1;
+  const bestCoverage = differential.length ? differential[0].hits.length : 0;
+
+  // A result matching one of several selected qualifiers is a lookup, not a differential.
+  const weak = picked.length >= 2 && bestCoverage < 2;
+
+  // Ties are common and were previously presented as if they were a ranking.
+  const tiedAtTop = differential.filter(
+    (r) => r.hits.length === bestCoverage && Math.abs(r.score - maxScore) < 1e-9,
+  ).length;
+
+  // Mutually exclusive selections, for example acute together with chronic.
+  const conflicts = useMemo(() => {
+    const names = picked.map((p) => norm(qById[p]?.name || ''));
+    const out: string[][] = [];
+    names.forEach((n, i) => {
+      (opposites[n] || []).forEach((o) => {
+        const j = names.indexOf(o);
+        if (j > i) out.push([qById[picked[i]].name, qById[picked[j]].name]);
+      });
+    });
+    return out;
+  }, [picked, qById, opposites]);
 
   // What separates the two leading candidates. Computed rather than read from the
   // curated "closest mimic" field, because that names one fixed pairing and the
@@ -182,9 +205,38 @@ export default function QualifierSearch({ qualifiers, diagnoses, idf }: Props) {
           </h2>
           <p class="text-sm text-clinical-500 dark:text-clinical-400 mb-4">
             {differential.length === 0
-              ? 'No diagnosis in this set carries that combination.'
-              : `${differential.length} of ${diagnoses.length} catalogued diagnoses match. The bar shows relative discriminating weight.`}
+              ? `No diagnosis in this set carries any of those. The set covers ${diagnoses.length} diagnoses.`
+              : `Ranked by how many of your ${picked.length} qualifier${picked.length === 1 ? '' : 's'} each diagnosis carries, then by how discriminating those are.`}
           </p>
+
+          {conflicts.length > 0 && (
+            <div class="mb-4 p-4 rounded-lg border border-amber-300 dark:border-amber-700/60 bg-amber-50 dark:bg-amber-950/30">
+              <p class="text-sm text-amber-900 dark:text-amber-200">
+                <strong class="font-semibold">Mutually exclusive selections.</strong>{' '}
+                {conflicts.map((c) => `${c[0]} and ${c[1]}`).join('; ')}. A single problem is rarely
+                both. If you meant to describe a problem with two tempos, that is worth naming as
+                acute on chronic rather than selecting both.
+              </p>
+            </div>
+          )}
+
+          {weak && (
+            <div class="mb-4 p-4 rounded-lg border border-amber-300 dark:border-amber-700/60 bg-amber-50 dark:bg-amber-950/30">
+              <p class="text-sm text-amber-900 dark:text-amber-200">
+                <strong class="font-semibold">Weak match, read with caution.</strong> No catalogued
+                diagnosis carries more than one of your {picked.length} qualifiers. What follows is
+                closer to {picked.length} separate lookups than to a differential. The likeliest
+                explanation is that the presentation you have in mind is not among the{' '}
+                {diagnoses.length} diagnoses catalogued here.
+              </p>
+            </div>
+          )}
+
+          {!weak && tiedAtTop > 1 && (
+            <p class="mb-4 text-sm text-clinical-600 dark:text-clinical-400">
+              The top {tiedAtTop} results are tied. Their order below is arbitrary.
+            </p>
+          )}
           {separator && (
             <div class="mb-5 p-4 rounded-lg border border-blue-200 dark:border-blue-800 bg-blue-50/70 dark:bg-blue-950/30">
               <h3 class="font-heading font-semibold text-blue-900 dark:text-blue-100 mb-2">
@@ -221,11 +273,16 @@ export default function QualifierSearch({ qualifiers, diagnoses, idf }: Props) {
                     {d.specialty}
                   </span>
                 </div>
-                <div class="mt-2 h-1.5 w-full rounded bg-clinical-100 dark:bg-clinical-800">
-                  <div
-                    class="h-1.5 rounded bg-blue-500"
-                    style={{ width: `${Math.max(4, (score / maxScore) * 100)}%` }}
-                  />
+                <div class="mt-2 flex items-center gap-3">
+                  <div class="h-1.5 flex-1 rounded bg-clinical-100 dark:bg-clinical-800">
+                    <div
+                      class={`h-1.5 rounded ${hits.length >= 2 ? 'bg-blue-500' : 'bg-clinical-400'}`}
+                      style={{ width: `${Math.max(4, (score / maxScore) * 100)}%` }}
+                    />
+                  </div>
+                  <span class="shrink-0 text-xs text-clinical-500 dark:text-clinical-400">
+                    matched {hits.length} of {picked.length}
+                  </span>
                 </div>
                 <p class="mt-2 text-sm text-clinical-600 dark:text-clinical-400">
                   <span class="font-medium">Matched on:</span>{' '}
