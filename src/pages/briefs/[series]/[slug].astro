@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import ContentLayout from '../../../layouts/ContentLayout.astro';
 import AdminEditButton from '../../../components/AdminEditButton.astro';
 import { BRIEF_SERIES_BY_ID } from '../../../lib/brief-series';
+import BriefDisclaimer from '../../../components/BriefDisclaimer.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('briefs');
@@ -32,6 +33,7 @@ const { Content } = await render(entry);
     { label: entry.data.date.toISOString().slice(0, 10) },
   ]}
 >
+  <BriefDisclaimer compact />
   <Content />
   <AdminEditButton collection="briefs" slug={entry.id} />
 </ContentLayout>
