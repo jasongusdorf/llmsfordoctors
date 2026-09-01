@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import library from '../../../data/heart-sounds-library.json';
+
+const tracks = library as any[];
+const cats = [...new Set(tracks.map((t) => t.category))].sort();
+const byCat = Object.fromEntries(cats.map((c) => [c, tracks.filter((t) => t.category === c)]));
+const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const totalMin = Math.round(tracks.reduce((s, t) => s + t.seconds, 0) / 60);
+---
+
+<BaseLayout
+  title="Heart Sound Library - LLMs for Doctors"
+  description="265 narrated auscultation recordings across 21 categories, from the Harvey cardiopulmonary simulator teaching collection."
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumb
+      crumbs={[
+        { label: 'Home', href: '/' },
+        { label: 'Semantic Qualifiers', href: '/qualifiers' },
+        { label: 'Heart Sound Library' },
+      ]}
+    />
+
+    <header class="mb-8">
+      <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mb-3">
+        Heart Sound Library
+      </h1>
+      <p class="text-lg text-clinical-600 dark:text-clinical-400">
+        {tracks.length} narrated auscultation recordings across {cats.length} categories, about
+        {totalMin} minutes in total. Each is a teaching recording rather than a raw clip, so the
+        finding is described as you hear it.
+      </p>
+      <p class="mt-3 text-clinical-600 dark:text-clinical-400">
+        Use headphones or a real speaker. Laptop speakers discard the low-frequency components that
+        carry most of the diagnosis.
+      </p>
+    </header>
+
+    <ul class="grid sm:grid-cols-2 gap-3">
+      {cats.map((c) => (
+        <li>
+          <a
+            href={`/qualifiers/sounds/${slug(c)}`}
+            class="block p-4 rounded-lg border border-clinical-200 dark:border-clinical-700 bg-warm-white dark:bg-clinical-800/60 hover:border-blue-500 dark:hover:border-blue-400 transition-colors"
+          >
+            <div class="flex items-baseline justify-between gap-3">
+              <h2 class="font-heading font-semibold text-clinical-900 dark:text-clinical-50">{c}</h2>
+              <span class="shrink-0 text-sm text-clinical-500 dark:text-clinical-400">
+                {byCat[c].length}
+              </span>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <p class="mt-8 text-sm text-clinical-500 dark:text-clinical-400">
+      Recordings from the Harvey cardiopulmonary patient simulator teaching collection, Gordon Center
+      for Simulation and Innovation in Medical Education, University of Miami Miller School of
+      Medicine. Reproduced with permission.
+    </p>
+  </div>
+</BaseLayout>

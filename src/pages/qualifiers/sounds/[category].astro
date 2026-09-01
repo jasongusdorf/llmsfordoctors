@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import library from '../../../data/heart-sounds-library.json';
+
+const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+export async function getStaticPaths() {
+  const tracks = library as any[];
+  const cats = [...new Set(tracks.map((t) => t.category))];
+  const sl = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  return cats.map((c) => ({
+    params: { category: sl(c) },
+    props: {
+      category: c,
+      tracks: tracks
+        .filter((t) => t.category === c)
+        .sort((a, b) => (a.track || '').localeCompare(b.track || '')),
+    },
+  }));
+}
+
+const { category, tracks } = Astro.props as any;
+const fmt = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+---
+
+<BaseLayout
+  title={`${category} - Heart Sound Library - LLMs for Doctors`}
+  description={`${tracks.length} narrated auscultation recordings of ${category}.`}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumb
+      crumbs={[
+        { label: 'Home', href: '/' },
+        { label: 'Semantic Qualifiers', href: '/qualifiers' },
+        { label: 'Heart Sounds', href: '/qualifiers/sounds' },
+        { label: category },
+      ]}
+    />
+
+    <header class="mb-8">
+      <h1 class="font-heading text-3xl font-bold text-clinical-900 dark:text-clinical-50 mb-2">
+        {category}
+      </h1>
+      <p class="text-clinical-600 dark:text-clinical-400">
+        {tracks.length} recording{tracks.length === 1 ? '' : 's'}. Nothing downloads until you press
+        play.
+      </p>
+    </header>
+
+    <ol class="space-y-4">
+      {tracks.map((t: any) => (
+        <li class="p-4 rounded-lg border border-clinical-200 dark:border-clinical-700 bg-warm-white dark:bg-clinical-800/60">
+          <div class="flex items-baseline justify-between gap-3 mb-2">
+            <h2 class="font-heading font-semibold text-clinical-900 dark:text-clinical-50">
+              {t.title}
+            </h2>
+            <span class="shrink-0 text-xs text-clinical-500 dark:text-clinical-400">
+              {fmt(t.seconds)}
+            </span>
+          </div>
+          <audio controls preload="none" class="w-full" src={t.file}>
+            <a href={t.file}>Download this recording</a>
+          </audio>
+        </li>
+      ))}
+    </ol>
+
+    <p class="mt-8 text-sm text-clinical-500 dark:text-clinical-400">
+      Recordings from the Harvey cardiopulmonary patient simulator teaching collection, Gordon Center
+      for Simulation and Innovation in Medical Education, University of Miami Miller School of
+      Medicine. Reproduced with permission.
+    </p>
+
+    <p class="mt-6">
+      <a href="/qualifiers/sounds" class="text-blue-600 dark:text-blue-400 hover:underline">
+        Back to the heart sound library
+      </a>
+    </p>
+  </div>
+</BaseLayout>
