@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import QualifierSearch from '../../components/QualifierSearch.tsx';
+import data from '../../data/semantic-qualifiers.json';
+
+const { qualifiers, diagnoses, idf } = data as any;
+
+// The island only needs enough to render autocomplete and explain a match.
+// Passing the full 8-field records would inline roughly 400 KB into the page.
+const searchQualifiers = qualifiers
+  .filter((q: any) => idf[q.id] !== undefined)
+  .map((q: any) => ({ id: q.id, name: q.name, domain: q.domain, definition: q.definition }));
+const domains = [...new Set(qualifiers.map((q: any) => q.domain))].sort();
+const searchable = qualifiers.filter((q: any) => idf[q.id] !== undefined).length;
+const totalQualifiers = qualifiers.length;
+---
+
+<BaseLayout
+  title="Semantic Qualifiers - LLMs for Doctors"
+  description="Search the coupled qualifier clusters behind common diagnoses, or enter qualifiers and see which diagnoses they discriminate."
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Semantic Qualifiers' }]} />
+
+    <header class="mb-8">
+      <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mb-3">
+        Semantic Qualifiers
+      </h1>
+      <p class="text-lg text-clinical-600 dark:text-clinical-400">
+        A semantic qualifier is a paired descriptor that turns a clinical detail into something
+        comparable to stored knowledge. Three weeks becomes <em>subacute</em>. Both ankles becomes
+        <em>bilateral</em> and <em>symmetric</em>. The abstraction is what lets a finding be matched
+        against an illness script.
+      </p>
+      <p class="mt-3 text-clinical-600 dark:text-clinical-400">
+        This searches {totalQualifiers} catalogued qualifiers and {diagnoses.length} diagnoses in
+        both directions.
+      </p>
+    </header>
+
+    <div class="p-5 sm:p-6 rounded-xl border border-clinical-200 dark:border-clinical-700 bg-clinical-50/60 dark:bg-clinical-800/40">
+      <QualifierSearch client:load qualifiers={searchQualifiers} diagnoses={diagnoses} idf={idf} />
+    </div>
+
+    <aside
+      class="mt-8 rounded-lg border border-amber-300 dark:border-amber-700/60 bg-amber-50 dark:bg-amber-950/30 px-4 py-3"
+      aria-label="Scope and limitations"
+    >
+      <p class="text-sm text-amber-900 dark:text-amber-200">
+        <strong class="font-semibold">What this is, and what it is not.</strong> A teaching tool for
+        clinical reasoning. It ranks by how discriminating a qualifier is across
+        {diagnoses.length} catalogued diagnoses, using inverse document frequency, so a rare
+        qualifier counts for more than a common one. It does not know disease prevalence, it does not
+        weigh pretest probability, and its list is deliberately small. It cannot generate a
+        differential for a patient, and it is not clinical decision support. Every result shows which
+        qualifiers matched and why, so you can check the reasoning rather than take the ranking.
+      </p>
+    </aside>
+
+    <section class="mt-10">
+      <h2 class="font-heading text-2xl font-semibold text-clinical-900 dark:text-clinical-50 mb-3">
+        The full reference
+      </h2>
+      <p class="text-clinical-600 dark:text-clinical-400 mb-4">
+        The search above is drawn from a longer reference document: the theory of semantic qualifiers
+        and what the evidence does and does not support, {diagnoses.length} diagnoses with their
+        coupled clusters and nearest mimics, and all {totalQualifiers} qualifiers with definitions,
+        how each is established at the bedside, how each shifts the differential, and how each is
+        commonly misused.
+      </p>
+      <a
+        href="/downloads/Semantic-Qualifiers-in-Clinical-Medicine.docx"
+        class="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors"
+        download
+      >
+        Download the full document (Word, {Math.round(136886 / 1024)} KB)
+      </a>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="font-heading text-2xl font-semibold text-clinical-900 dark:text-clinical-50 mb-3">
+        Coverage
+      </h2>
+      <p class="text-clinical-600 dark:text-clinical-400 mb-3">
+        {searchable} of the {totalQualifiers} qualifiers appear in at least one diagnosis cluster
+        and can therefore drive the differential search. The rest are reference entries. Qualifiers
+        are grouped into these domains:
+      </p>
+      <div class="flex flex-wrap gap-2">
+        {domains.map((d) => (
+          <span class="px-2.5 py-1 rounded bg-clinical-100 dark:bg-clinical-800 text-clinical-700 dark:text-clinical-300 text-sm">
+            {d}
+          </span>
+        ))}
+      </div>
+    </section>
+  </div>
+</BaseLayout>
