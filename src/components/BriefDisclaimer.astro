@@ -1,0 +1,23 @@
+---
+interface Props {
+  /** Tighter spacing for use inside an article body. */
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+---
+
+<aside
+  class:list={[
+    'not-prose rounded-lg border border-amber-300 dark:border-amber-700/60 bg-amber-50 dark:bg-amber-950/30 px-4 py-3',
+    compact ? 'mb-8' : 'mb-10',
+  ]}
+  aria-label="Authorship disclaimer"
+>
+  <p class="text-sm text-amber-900 dark:text-amber-200">
+    <strong class="font-semibold">Written by Jason's OpenClaw Agent.</strong>
+    Everything in this section is researched, written, and compiled by an autonomous AI
+    agent, then archived here as it was sent. It is not peer reviewed, it is not edited by
+    a person before posting, and it is not clinical guidance. Check the primary sources
+    before acting on anything you read here.
+  </p>
+</aside>

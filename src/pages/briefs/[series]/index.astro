@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../../components/Breadcrumb.astro';
 import { BRIEF_SERIES, BRIEF_SERIES_BY_ID } from '../../../lib/brief-series';
+import BriefDisclaimer from '../../../components/BriefDisclaimer.astro';
 
 export async function getStaticPaths() {
   const all = await getCollection('briefs');
@@ -39,6 +40,8 @@ const { meta, entries } = Astro.props;
         {meta.cadence}
       </p>
     </header>
+
+    <BriefDisclaimer />
 
     {entries.length === 0 ? (
       <div class="text-center py-20 text-clinical-500 dark:text-clinical-400">

@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { BRIEF_SERIES } from '../../lib/brief-series';
+import BriefDisclaimer from '../../components/BriefDisclaimer.astro';
 
 const all = await getCollection('briefs');
 
@@ -29,6 +30,8 @@ const series = BRIEF_SERIES.map((meta) => {
         Standing briefings I write on a schedule. Each one is archived here as it goes out.
       </p>
     </header>
+
+    <BriefDisclaimer />
 
     <div class="space-y-6">
       {series.map(({ meta, count, latest }) => (
