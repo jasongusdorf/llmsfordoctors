@@ -66,9 +66,11 @@ const { meta, entries } = Astro.props;
                   {entry.data.date.toISOString().slice(0, 10)}
                 </time>
               </div>
-              <p class="mt-1 text-clinical-600 dark:text-clinical-400">
-                {entry.data.description}
-              </p>
+              {meta.showDescriptionInList !== false && (
+                <p class="mt-1 text-clinical-600 dark:text-clinical-400">
+                  {entry.data.description}
+                </p>
+              )}
             </a>
           </li>
         ))}
