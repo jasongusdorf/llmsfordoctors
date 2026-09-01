@@ -11,7 +11,10 @@ const { qualifiers, diagnoses, idf } = data as any;
 const searchQualifiers = qualifiers
   .filter((q: any) => idf[q.id] !== undefined)
   .map((q: any) => ({ id: q.id, name: q.name, domain: q.domain, definition: q.definition }));
-const domains = [...new Set(qualifiers.map((q: any) => q.domain))].sort();
+const domains = [...new Set(qualifiers.map((q: any) => q.domain))].sort() as string[];
+const byDomain: Record<string, any[]> = Object.fromEntries(
+  domains.map((d) => [d, qualifiers.filter((q: any) => q.domain === d)]),
+);
 const searchable = qualifiers.filter((q: any) => idf[q.id] !== undefined).length;
 const totalQualifiers = qualifiers.length;
 ---
@@ -78,22 +81,38 @@ const totalQualifiers = qualifiers.length;
       </a>
     </section>
 
-    <section class="mt-10">
+    <section class="mt-12">
       <h2 class="font-heading text-2xl font-semibold text-clinical-900 dark:text-clinical-50 mb-3">
-        Coverage
+        Browse every qualifier
       </h2>
-      <p class="text-clinical-600 dark:text-clinical-400 mb-3">
-        {searchable} of the {totalQualifiers} qualifiers appear in at least one diagnosis cluster
-        and can therefore drive the differential search. The rest are reference entries. Qualifiers
-        are grouped into these domains:
+      <p class="text-clinical-600 dark:text-clinical-400 mb-6">
+        Each qualifier has its own entry: what it means, how you establish it at the bedside, which
+        way it moves the differential, and how it is commonly misused. {searchable} of the
+        {totalQualifiers} appear in at least one diagnosis cluster and can drive the search above.
+        The rest are reference entries.
       </p>
-      <div class="flex flex-wrap gap-2">
-        {domains.map((d) => (
-          <span class="px-2.5 py-1 rounded bg-clinical-100 dark:bg-clinical-800 text-clinical-700 dark:text-clinical-300 text-sm">
-            {d}
-          </span>
-        ))}
-      </div>
+      {domains.map((dom) => (
+        <details class="mb-3 rounded-lg border border-clinical-200 dark:border-clinical-700">
+          <summary class="cursor-pointer px-4 py-3 font-heading font-semibold text-clinical-900 dark:text-clinical-50">
+            {dom}
+            <span class="ml-2 font-sans font-normal text-sm text-clinical-500 dark:text-clinical-400">
+              {byDomain[dom].length}
+            </span>
+          </summary>
+          <ul class="px-4 pb-4 flex flex-wrap gap-2">
+            {byDomain[dom].map((q: any) => (
+              <li>
+                <a
+                  href={`/qualifiers/${q.id}`}
+                  class="inline-block px-2.5 py-1 rounded border border-clinical-200 dark:border-clinical-700 text-sm text-blue-600 dark:text-blue-400 hover:border-blue-500"
+                >
+                  {q.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </details>
+      ))}
     </section>
   </div>
 </BaseLayout>
