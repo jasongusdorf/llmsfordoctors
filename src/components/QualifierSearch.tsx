@@ -4,8 +4,8 @@ interface Qualifier {
   id: string; name: string; domain: string; definition: string;
 }
 interface Diagnosis {
-  id: string; name: string; specialty: string; cluster: string[]; tags: string[];
-  why: string; mimic: string;
+  id: string; name: string; specialty: string; cluster: string[];
+  clusterTags: (string | null)[]; tags: string[]; why: string; mimic: string;
 }
 interface Props {
   qualifiers: Qualifier[];
@@ -56,7 +56,11 @@ export default function QualifierSearch({ qualifiers, diagnoses, idf }: Props) {
     return diagnoses
       .map((d) => {
         const hits = picked.filter((p) => d.tags.includes(p));
-        return { d, hits, score: hits.reduce((s, h) => s + (idf[h] || 0), 0) };
+        const pending = d.cluster.filter((_, i) => {
+          const tag = d.clusterTags[i];
+          return !tag || !picked.includes(tag);
+        });
+        return { d, hits, pending, score: hits.reduce((s, h) => s + (idf[h] || 0), 0) };
       })
       .filter((r) => r.hits.length > 0)
       .sort((a, b) => b.score - a.score || b.hits.length - a.hits.length)
@@ -64,6 +68,21 @@ export default function QualifierSearch({ qualifiers, diagnoses, idf }: Props) {
   }, [picked, diagnoses, idf]);
 
   const maxScore = differential.length ? differential[0].score : 1;
+
+  // What separates the two leading candidates. Computed rather than read from the
+  // curated "closest mimic" field, because that names one fixed pairing and the
+  // search produces arbitrary ones. The curated line is shown only when it agrees.
+  const separator = useMemo(() => {
+    if (differential.length < 2) return null;
+    const [a, b] = differential;
+    const ta = new Set(a.d.tags);
+    const tb = new Set(b.d.tags);
+    const onlyA = a.d.tags.filter((t) => !tb.has(t)).map((t) => qById[t]?.name).filter(Boolean);
+    const onlyB = b.d.tags.filter((t) => !ta.has(t)).map((t) => qById[t]?.name).filter(Boolean);
+    if (!onlyA.length && !onlyB.length) return null;
+    const curatedMatches = a.d.mimic.toLowerCase().includes(b.d.name.toLowerCase().split(',')[0]);
+    return { a: a.d, b: b.d, onlyA, onlyB, curated: curatedMatches ? a.d.mimic : null };
+  }, [differential, qById]);
 
   function selectMode(m: Mode) {
     setMode(m); setQuery(''); setPicked([]); setOpenDx(null);
@@ -166,8 +185,30 @@ export default function QualifierSearch({ qualifiers, diagnoses, idf }: Props) {
               ? 'No diagnosis in this set carries that combination.'
               : `${differential.length} of ${diagnoses.length} catalogued diagnoses match. The bar shows relative discriminating weight.`}
           </p>
+          {separator && (
+            <div class="mb-5 p-4 rounded-lg border border-blue-200 dark:border-blue-800 bg-blue-50/70 dark:bg-blue-950/30">
+              <h3 class="font-heading font-semibold text-blue-900 dark:text-blue-100 mb-2">
+                What separates the top two
+              </h3>
+              <div class="grid sm:grid-cols-2 gap-3 text-sm">
+                <p class="text-blue-900 dark:text-blue-100">
+                  <span class="font-medium">{separator.a.name}</span> alone carries:{' '}
+                  {separator.onlyA.length ? separator.onlyA.join(', ') : 'nothing uniquely tagged'}
+                </p>
+                <p class="text-blue-900 dark:text-blue-100">
+                  <span class="font-medium">{separator.b.name}</span> alone carries:{' '}
+                  {separator.onlyB.length ? separator.onlyB.join(', ') : 'nothing uniquely tagged'}
+                </p>
+              </div>
+              {separator.curated && (
+                <p class="mt-2 text-sm text-blue-800 dark:text-blue-200">
+                  <span class="font-medium">Documented discriminator:</span> {separator.curated}
+                </p>
+              )}
+            </div>
+          )}
           <ol class="space-y-3">
-            {differential.map(({ d, hits, score }) => (
+            {differential.map(({ d, hits, pending, score }) => (
               <li
                 key={d.id}
                 class="p-4 rounded-lg border border-clinical-200 dark:border-clinical-700"
@@ -188,8 +229,23 @@ export default function QualifierSearch({ qualifiers, diagnoses, idf }: Props) {
                 </div>
                 <p class="mt-2 text-sm text-clinical-600 dark:text-clinical-400">
                   <span class="font-medium">Matched on:</span>{' '}
-                  {hits.map((h) => qById[h]?.name).join(', ')}
+                  {hits.map((h, i) => (
+                    <span key={h}>
+                      {i > 0 && ', '}
+                      <a
+                        href={`/qualifiers/${h}`}
+                        class="text-blue-600 dark:text-blue-400 hover:underline"
+                      >
+                        {qById[h]?.name}
+                      </a>
+                    </span>
+                  ))}
                 </p>
+                {pending.length > 0 && (
+                  <p class="mt-1 text-sm text-amber-800 dark:text-amber-300">
+                    <span class="font-medium">Not yet established:</span> {pending.join(', ')}
+                  </p>
+                )}
                 <p class="mt-1 text-sm text-clinical-700 dark:text-clinical-300">{d.why}</p>
                 <p class="mt-1 text-sm text-clinical-600 dark:text-clinical-400">
                   <span class="font-medium">Closest mimic:</span> {d.mimic}
