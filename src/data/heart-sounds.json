@@ -1,93 +1,132 @@
 [
   {
     "qualifier": "crescendo-decrescendo--cardiology",
-    "file": "/audio/heart/crescendo-decrescendo--cardiology.mp3",
+    "file": "/audio/heart/aortic-stenosis-058.mp3",
     "caption": "Aortic stenosis: the diamond-shaped ejection murmur",
     "source": "058 Aortic Stenosis.mp3",
-    "seconds": 69
+    "seconds": 69,
+    "category": "Aortic Stenosis",
+    "categoryHref": "/qualifiers/sounds/aortic-stenosis",
+    "categoryCount": 13
   },
   {
     "qualifier": "diastolic--cardiology",
-    "file": "/audio/heart/diastolic--cardiology.mp3",
+    "file": "/audio/heart/aortic-regurgitation-033.mp3",
     "caption": "Aortic regurgitation: early diastolic decrescendo murmur",
     "source": "033 Aortic Regurgitation_ heard best.mp3",
-    "seconds": 125
+    "seconds": 125,
+    "category": "Aortic Regurgitation",
+    "categoryHref": "/qualifiers/sounds/aortic-regurgitation",
+    "categoryCount": 6
   },
   {
     "qualifier": "holosystolic--cardiology",
-    "file": "/audio/heart/holosystolic--cardiology.mp3",
+    "file": "/audio/heart/mitral-regurgitation-176.mp3",
     "caption": "Mitral regurgitation: uniform intensity throughout systole",
     "source": "176 Mitral Regurgitation - holosysto.mp3",
-    "seconds": 36
+    "seconds": 36,
+    "category": "Mitral Regurgitation",
+    "categoryHref": "/qualifiers/sounds/mitral-regurgitation",
+    "categoryCount": 19
   },
   {
     "qualifier": "increases-with-handgrip--cardiology",
-    "file": "/audio/heart/increases-with-handgrip--cardiology.mp3",
+    "file": "/audio/heart/mitral-regurgitation-177.mp3",
     "caption": "Mitral regurgitation, demonstrating dynamic change",
     "source": "177 Mitral Regurgitation caused dyna.mp3",
-    "seconds": 68
+    "seconds": 68,
+    "category": "Mitral Regurgitation",
+    "categoryHref": "/qualifiers/sounds/mitral-regurgitation",
+    "categoryCount": 19
   },
   {
     "qualifier": "low-pitched--cardiology",
-    "file": "/audio/heart/low-pitched--cardiology.mp3",
+    "file": "/audio/heart/mitral-stenosis-222.mp3",
     "caption": "Mitral stenosis: the low-pitched apical diastolic rumble",
     "source": "222 Mitral Stenosis.mp3",
-    "seconds": 124
+    "seconds": 124,
+    "category": "Mitral Stenosis",
+    "categoryHref": "/qualifiers/sounds/mitral-stenosis",
+    "categoryCount": 10
   },
   {
     "qualifier": "opening-snap--cardiology",
-    "file": "/audio/heart/opening-snap--cardiology.mp3",
+    "file": "/audio/heart/mitral-stenosis-225.mp3",
     "caption": "Mitral stenosis with an opening snap",
     "source": "225 Mitral Stenosis_ opening snap an.mp3",
-    "seconds": 36
+    "seconds": 36,
+    "category": "Mitral Stenosis",
+    "categoryHref": "/qualifiers/sounds/mitral-stenosis",
+    "categoryCount": 10
   },
   {
     "qualifier": "s3-gallop--cardiology",
-    "file": "/audio/heart/s3-gallop--cardiology.mp3",
+    "file": "/audio/heart/gallops-138.mp3",
     "caption": "S3, the ventricular gallop",
     "source": "138 S3 Gallop - _Ventricular Gallop_.mp3",
-    "seconds": 51
+    "seconds": 51,
+    "category": "Gallops",
+    "categoryHref": "/qualifiers/sounds/gallops",
+    "categoryCount": 17
   },
   {
     "qualifier": "s4-gallop--cardiology",
-    "file": "/audio/heart/s4-gallop--cardiology.mp3",
+    "file": "/audio/heart/gallops-143.mp3",
     "caption": "S4, the atrial gallop",
     "source": "143 S4 Gallop.mp3",
-    "seconds": 82
+    "seconds": 82,
+    "category": "Gallops",
+    "categoryHref": "/qualifiers/sounds/gallops",
+    "categoryCount": 17
   },
   {
     "qualifier": "fixed-splitting-of-s2--cardiology",
-    "file": "/audio/heart/fixed-splitting-of-s2--cardiology.mp3",
+    "file": "/audio/heart/split-s2-088.mp3",
     "caption": "Fixed splitting of S2",
     "source": "088 Split S2 - fixed splitting of S2.mp3",
-    "seconds": 102
+    "seconds": 102,
+    "category": "Split S2",
+    "categoryHref": "/qualifiers/sounds/split-s2",
+    "categoryCount": 53
   },
   {
     "qualifier": "pericardial-knock--cardiology",
-    "file": "/audio/heart/pericardial-knock--cardiology.mp3",
+    "file": "/audio/heart/pericardial-knock-049.mp3",
     "caption": "Pericardial knock of constrictive pericarditis",
     "source": "049 Pericardial Knock_ Constrictive .mp3",
-    "seconds": 67
+    "seconds": 67,
+    "category": "Pericardial Knock",
+    "categoryHref": "/qualifiers/sounds/pericardial-knock",
+    "categoryCount": 3
   },
   {
     "qualifier": "friction-rub--cardiology",
-    "file": "/audio/heart/friction-rub--cardiology.mp3",
+    "file": "/audio/heart/pericardial-knock-048.mp3",
     "caption": "Pericardial friction rub",
     "source": "048 Pericardial Friction Rub_ Uremia.mp3",
-    "seconds": 63
+    "seconds": 63,
+    "category": "Pericardial Knock",
+    "categoryHref": "/qualifiers/sounds/pericardial-knock",
+    "categoryCount": 3
   },
   {
     "qualifier": "increases-with-valsalva--cardiology",
-    "file": "/audio/heart/increases-with-valsalva--cardiology.mp3",
+    "file": "/audio/heart/hypertrophic-cardiomyopathy-037.mp3",
     "caption": "Hypertrophic obstructive cardiomyopathy",
     "source": "037 Hypertrophic Obstructive Cardiom.mp3",
-    "seconds": 80
+    "seconds": 80,
+    "category": "Hypertrophic Cardiomyopathy",
+    "categoryHref": "/qualifiers/sounds/hypertrophic-cardiomyopathy",
+    "categoryCount": 5
   },
   {
     "qualifier": "systolic--cardiology",
-    "file": "/audio/heart/systolic--cardiology.mp3",
+    "file": "/audio/heart/innocent-heart-murmurs-070.mp3",
     "caption": "Innocent systolic murmur with normal heart sounds",
     "source": "070 Innocent Systolic Murmur and Nor.mp3",
-    "seconds": 163
+    "seconds": 163,
+    "category": "Innocent Heart Murmurs",
+    "categoryHref": "/qualifiers/sounds/innocent-heart-murmurs",
+    "categoryCount": 45
   }
 ]

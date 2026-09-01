@@ -67,7 +67,7 @@ const fields = [
       <p class="text-lg text-clinical-900 dark:text-clinical-50">{q.example}</p>
     </div>
 
-    {sound && <HeartSound file={sound.file} caption={sound.caption} seconds={sound.seconds} />}
+    {sound && <HeartSound file={sound.file} caption={sound.caption} seconds={sound.seconds} categoryHref={sound.categoryHref} category={sound.category} categoryCount={sound.categoryCount} />}
 
     <dl class="mt-8 space-y-6">
       {fields.filter((f) => f.value).map((f) => (

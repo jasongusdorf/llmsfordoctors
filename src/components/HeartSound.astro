@@ -3,8 +3,11 @@ interface Props {
   file: string;
   caption: string;
   seconds: number;
+  categoryHref?: string;
+  category?: string;
+  categoryCount?: number;
 }
-const { file, caption, seconds } = Astro.props;
+const { file, caption, seconds, categoryHref, category, categoryCount } = Astro.props;
 const mins = Math.floor(seconds / 60);
 const secs = String(seconds % 60).padStart(2, '0');
 ---
@@ -26,6 +29,14 @@ const secs = String(seconds % 60).padStart(2, '0');
   <audio controls preload="none" class="w-full" src={file}>
     <a href={file}>Download the recording</a>
   </audio>
+
+  {categoryHref && categoryCount && categoryCount > 1 && (
+    <p class="mt-3 text-sm">
+      <a href={categoryHref} class="text-blue-600 dark:text-blue-400 hover:underline">
+        {categoryCount} more recordings of {category}
+      </a>
+    </p>
+  )}
 
   <p class="mt-3 text-xs text-clinical-500 dark:text-clinical-400">
     Recording from the Harvey cardiopulmonary patient simulator teaching collection, Gordon Center
