@@ -5,6 +5,8 @@ export interface BriefSeriesMeta {
   label: string;
   blurb: string;
   cadence: string;
+  /** Show each entry's description beneath its title in the series listing. */
+  showDescriptionInList?: boolean;
 }
 
 export const BRIEF_SERIES: BriefSeriesMeta[] = [
@@ -35,6 +37,9 @@ export const BRIEF_SERIES: BriefSeriesMeta[] = [
     blurb:
       'Ten high-yield internal medicine facts a day, board-style, written for recall rather than for reading.',
     cadence: 'Daily',
+    // Every issue covers roughly the same ten specialties, so a per-entry
+    // description reads as noise under the title. Titles are dated and enough.
+    showDescriptionInList: false,
   },
 ];
 
