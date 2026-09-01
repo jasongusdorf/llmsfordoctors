@@ -2,6 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import data from '../../data/semantic-qualifiers.json';
+import sounds from '../../data/heart-sounds.json';
+import HeartSound from '../../components/HeartSound.astro';
 
 export async function getStaticPaths() {
   const d = data as any;
@@ -15,11 +17,12 @@ export async function getStaticPaths() {
         .filter((s: any) => s.domain === q.domain && s.id !== q.id)
         .slice(0, 14),
       searchable: d.idf[q.id] !== undefined,
+      sound: (sounds as any[]).find((x) => x.qualifier === q.id) ?? null,
     },
   }));
 }
 
-const { q, carriers, siblings, searchable } = Astro.props as any;
+const { q, carriers, siblings, searchable, sound } = Astro.props as any;
 
 const fields = [
   { label: 'How it is established', value: q.established },
@@ -64,7 +67,9 @@ const fields = [
       <p class="text-lg text-clinical-900 dark:text-clinical-50">{q.example}</p>
     </div>
 
-    <dl class="space-y-6">
+    {sound && <HeartSound file={sound.file} caption={sound.caption} seconds={sound.seconds} />}
+
+    <dl class="mt-8 space-y-6">
       {fields.filter((f) => f.value).map((f) => (
         <div>
           <dt class="font-heading font-semibold text-clinical-900 dark:text-clinical-50 mb-1">

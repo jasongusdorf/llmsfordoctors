@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import QualifierSearch from '../../components/QualifierSearch.tsx';
 import data from '../../data/semantic-qualifiers.json';
+import sounds from '../../data/heart-sounds.json';
 
 const { qualifiers, diagnoses, idf, opposites } = data as any;
 
@@ -81,6 +82,35 @@ const totalQualifiers = qualifiers.length;
       >
         Download the full document (Word, {Math.round(176932 / 1024)} KB)
       </a>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="font-heading text-2xl font-semibold text-clinical-900 dark:text-clinical-50 mb-3">
+        Auscultation recordings
+      </h2>
+      <p class="text-clinical-600 dark:text-clinical-400 mb-4">
+        {sounds.length} cardiology qualifiers carry a narrated recording of the finding itself, so
+        you can hear an opening snap or a fixed split rather than only read about one. Audio appears
+        on the qualifier's own page.
+      </p>
+      <ul class="flex flex-wrap gap-2">
+        {(sounds as any[]).map((s) => (
+          <li>
+            <a
+              href={`/qualifiers/${s.qualifier}`}
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-clinical-200 dark:border-clinical-700 bg-warm-white dark:bg-clinical-800/60 text-sm text-blue-700 dark:text-blue-300 hover:border-blue-500"
+            >
+              <span aria-hidden="true">♪</span>
+              {qualifiers.find((q: any) => q.id === s.qualifier)?.name ?? s.qualifier}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-3 text-xs text-clinical-500 dark:text-clinical-400">
+        Recordings from the Harvey cardiopulmonary patient simulator teaching collection, Gordon
+        Center for Simulation and Innovation in Medical Education, University of Miami Miller School
+        of Medicine. Reproduced with permission.
+      </p>
     </section>
 
     <section class="mt-12">

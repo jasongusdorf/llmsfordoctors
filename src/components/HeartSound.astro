@@ -1,0 +1,37 @@
+---
+interface Props {
+  file: string;
+  caption: string;
+  seconds: number;
+}
+const { file, caption, seconds } = Astro.props;
+const mins = Math.floor(seconds / 60);
+const secs = String(seconds % 60).padStart(2, '0');
+---
+
+<section
+  class="mt-8 rounded-lg border border-clinical-200 dark:border-clinical-700 bg-warm-white dark:bg-clinical-800/60 p-5"
+  aria-label="Auscultation recording"
+>
+  <div class="flex items-baseline justify-between gap-3 mb-1">
+    <h2 class="font-heading text-lg font-semibold text-clinical-900 dark:text-clinical-50">
+      Listen
+    </h2>
+    <span class="shrink-0 text-xs uppercase tracking-wide text-clinical-500 dark:text-clinical-400">
+      {mins}:{secs}
+    </span>
+  </div>
+  <p class="text-clinical-700 dark:text-clinical-300 mb-3">{caption}</p>
+
+  <audio controls preload="none" class="w-full" src={file}>
+    <a href={file}>Download the recording</a>
+  </audio>
+
+  <p class="mt-3 text-xs text-clinical-500 dark:text-clinical-400">
+    Recording from the Harvey cardiopulmonary patient simulator teaching collection, Gordon Center
+    for Simulation and Innovation in Medical Education, University of Miami Miller School of
+    Medicine. Reproduced with permission. These are narrated teaching recordings, so use headphones
+    or a good speaker: the low-frequency components that matter are the first thing a laptop speaker
+    discards.
+  </p>
+</section>
