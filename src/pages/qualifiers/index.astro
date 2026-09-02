@@ -5,10 +5,15 @@ import QualifierSearch from '../../components/QualifierSearch.tsx';
 import data from '../../data/semantic-qualifiers.json';
 import sounds from '../../data/heart-sounds.json';
 
-const { qualifiers, diagnoses, idf, opposites } = data as any;
+const { qualifiers, diagnoses, idf, opposites, complaints = [] } = data as any;
 
 // The island only needs enough to render autocomplete and explain a match.
 // Passing the full 8-field records would inline roughly 400 KB into the page.
+// the island renders complaint name, count and axes; the member diagnosis id
+// list is only needed at build time to derive the axes, so it is not shipped
+const searchComplaints = (complaints as any[]).map((c: any) => ({
+  id: c.id, name: c.name, synonyms: c.synonyms, total: c.total, axes: c.axes,
+}));
 const searchQualifiers = qualifiers
   .filter((q: any) => idf[q.id] !== undefined)
   .map((q: any) => ({ id: q.id, name: q.name, domain: q.domain, definition: q.definition }));
@@ -44,7 +49,14 @@ const totalQualifiers = qualifiers.length;
     </header>
 
     <div class="p-5 sm:p-6 rounded-xl border border-clinical-200 dark:border-clinical-700 bg-clinical-50/60 dark:bg-clinical-800/40">
-      <QualifierSearch client:load qualifiers={searchQualifiers} diagnoses={diagnoses} idf={idf} opposites={opposites} />
+      <QualifierSearch
+        client:load
+        qualifiers={searchQualifiers}
+        diagnoses={diagnoses}
+        idf={idf}
+        opposites={opposites}
+        complaints={searchComplaints}
+      />
     </div>
 
     <aside
