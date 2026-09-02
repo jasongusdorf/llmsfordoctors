@@ -11,8 +11,11 @@ const { qualifiers, diagnoses, idf, opposites, complaints = [] } = data as any;
 // Passing the full 8-field records would inline roughly 400 KB into the page.
 // the island renders complaint name, count and axes; the member diagnosis id
 // list is only needed at build time to derive the axes, so it is not shipped
+// the member diagnosis ids are needed at runtime: picking a fork from a
+// complaint must narrow within that complaint, not across all of medicine
 const searchComplaints = (complaints as any[]).map((c: any) => ({
   id: c.id, name: c.name, synonyms: c.synonyms, total: c.total, axes: c.axes,
+  diagnoses: c.diagnoses,
 }));
 const searchQualifiers = qualifiers
   .filter((q: any) => idf[q.id] !== undefined)
