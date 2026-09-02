@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import EcgAttribution from '../../components/EcgAttribution.astro';
+import data from '../../data/ecg-library.json';
+
+const d = data as any;
+const total = d.categories.reduce((n: number, c: any) => n + c.tracings.length, 0);
+---
+
+<BaseLayout
+  title="ECG Library - LLMs for Doctors"
+  description={`${total} real 12-lead ECGs across ${d.categories.length} diagnostic categories, rendered from open PTB-XL signal data.`}
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Cardiology', href: '/cardiology' }, { label: 'ECG Library' }]} />
+
+    <header class="mb-10">
+      <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mb-3">
+        ECG Library
+      </h1>
+      <p class="text-lg text-clinical-600 dark:text-clinical-400">
+        {total} real clinical 12-lead tracings across {d.categories.length} diagnostic categories,
+        rendered from raw signal at 25 mm/s and 10 mm/mV with a full 10 second rhythm strip. These
+        are recordings from actual patients, labelled by cardiologists, not textbook illustrations
+        and not simulations.
+      </p>
+    </header>
+
+    {d.groups.map((g: any) => {
+      const cats = d.categories.filter((c: any) => c.group === g.id);
+      if (!cats.length) return null;
+      return (
+        <section class="mb-10">
+          <h2 class="font-heading text-2xl font-semibold text-clinical-900 dark:text-clinical-50 mb-1">
+            {g.name}
+          </h2>
+          <p class="text-clinical-600 dark:text-clinical-400 mb-4">{g.blurb}</p>
+          <ul class="grid sm:grid-cols-2 gap-3">
+            {cats.map((c: any) => (
+              <li>
+                <a
+                  href={`/ecg/${c.id}`}
+                  class="block p-4 rounded-lg border border-clinical-200 dark:border-clinical-700 bg-warm-white dark:bg-clinical-800/60 hover:border-blue-500 dark:hover:border-blue-400 transition-colors"
+                >
+                  <h3 class="font-heading font-semibold text-clinical-900 dark:text-clinical-50">
+                    {c.name}
+                  </h3>
+                  <p class="mt-1 text-sm text-clinical-500 dark:text-clinical-400">
+                    {c.tracings.length} tracing{c.tracings.length === 1 ? '' : 's'}
+                  </p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      );
+    })}
+
+    <EcgAttribution />
+  </div>
+</BaseLayout>
