@@ -7,19 +7,29 @@ interface Diagnosis {
   id: string; name: string; specialty: string; cluster: string[];
   clusterTags: (string | null)[]; tags: string[]; why: string; mimic: string;
 }
+interface Axis {
+  a: string; b: string | null; aCount: number; bCount: number; paired: boolean; score: number;
+}
+interface Complaint {
+  id: string; name: string; synonyms: string[]; total: number; diagnoses: string[]; axes: Axis[];
+}
 interface Props {
   qualifiers: Qualifier[];
   diagnoses: Diagnosis[];
   idf: Record<string, number>;
   opposites: Record<string, string[]>;
+  complaints?: Complaint[];
 }
 
-type Mode = 'disease' | 'term';
+type Mode = 'symptom' | 'disease' | 'term';
 
 const norm = (s: string) => s.toLowerCase().trim();
 
-export default function QualifierSearch({ qualifiers, diagnoses, idf, opposites }: Props) {
-  const [mode, setMode] = useState<Mode>('term');
+export default function QualifierSearch({
+  qualifiers, diagnoses, idf, opposites, complaints = [],
+}: Props) {
+  const [mode, setMode] = useState<Mode>('symptom');
+  const [complaint, setComplaint] = useState<Complaint | null>(null);
   const [query, setQuery] = useState('');
   const [picked, setPicked] = useState<string[]>([]);
   const [openDx, setOpenDx] = useState<string | null>(null);
@@ -42,6 +52,14 @@ export default function QualifierSearch({ qualifiers, diagnoses, idf, opposites 
       .filter((d) => norm(d.name).includes(q) || norm(d.specialty).includes(q))
       .slice(0, 12);
   }, [query, diagnoses]);
+
+  const complaintMatches = useMemo(() => {
+    const q = norm(query);
+    if (!q) return complaints.slice(0, 8);
+    return complaints
+      .filter((c) => norm(c.name).includes(q) || c.synonyms.some((sy) => norm(sy).includes(q)))
+      .slice(0, 10);
+  }, [query, complaints]);
 
   const termMatches = useMemo(() => {
     const q = norm(query);
@@ -112,8 +130,17 @@ export default function QualifierSearch({ qualifiers, diagnoses, idf, opposites 
   }, [differential, qById]);
 
   function selectMode(m: Mode) {
-    setMode(m); setQuery(''); setPicked([]); setOpenDx(null);
+    setMode(m); setQuery(''); setPicked([]); setOpenDx(null); setComplaint(null);
     inputRef.current?.focus();
+  }
+
+  // Picking a side of an axis drops that qualifier into the ordinary term
+  // search, so the plain-language route is a funnel into the existing tool
+  // rather than a parallel one.
+  function chooseAxis(id: string) {
+    setPicked((prev) => (prev.includes(id) ? prev : [...prev, id]));
+    setMode('term');
+    setQuery('');
   }
 
   const btn = (active: boolean) =>
@@ -127,7 +154,11 @@ export default function QualifierSearch({ qualifiers, diagnoses, idf, opposites 
   return (
     <div>
       <label class="sr-only" for="sq-input">
-        {mode === 'disease' ? 'Search for a diagnosis' : 'Search for a semantic qualifier'}
+        {mode === 'symptom'
+          ? 'Describe the problem in plain language'
+          : mode === 'disease'
+            ? 'Search for a diagnosis'
+            : 'Search for a semantic qualifier'}
       </label>
       <input
         id="sq-input"
@@ -137,14 +168,19 @@ export default function QualifierSearch({ qualifiers, diagnoses, idf, opposites 
         value={query}
         onInput={(e) => setQuery((e.target as HTMLInputElement).value)}
         placeholder={
-          mode === 'disease'
-            ? 'Enter a diagnosis, for example pulmonary embolism'
-            : 'Enter a qualifier, for example painless'
+          mode === 'symptom'
+            ? 'Describe the problem, for example knee pain'
+            : mode === 'disease'
+              ? 'Enter a diagnosis, for example pulmonary embolism'
+              : 'Enter a qualifier, for example painless'
         }
         class="w-full px-4 py-3 text-lg rounded-lg border border-clinical-300 dark:border-clinical-600 bg-white dark:bg-clinical-800 text-clinical-900 dark:text-clinical-50 placeholder:text-clinical-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
       <div class="mt-3 flex gap-3">
+        <button type="button" class={btn(mode === 'symptom')} onClick={() => selectMode('symptom')}>
+          Search by symptom
+        </button>
         <button type="button" class={btn(mode === 'disease')} onClick={() => selectMode('disease')}>
           Search by disease
         </button>
@@ -154,10 +190,108 @@ export default function QualifierSearch({ qualifiers, diagnoses, idf, opposites 
       </div>
 
       <p class="mt-3 text-sm text-clinical-500 dark:text-clinical-400">
-        {mode === 'disease'
-          ? 'Returns the coupled qualifier cluster for a diagnosis, with its nearest mimic.'
-          : 'Add two or more qualifiers. Results are ranked by how discriminating each one is, not by how common the disease is.'}
+        {mode === 'symptom'
+          ? 'Start from what the patient actually complains of. You will get the questions that most divide the differential, in the order worth asking them.'
+          : mode === 'disease'
+            ? 'Returns the coupled qualifier cluster for a diagnosis, with its nearest mimic.'
+            : 'Add two or more qualifiers. Results are ranked by how discriminating each one is, not by how common the disease is.'}
       </p>
+
+      {/* plain-language entry: pick a complaint, then answer the forks */}
+      {mode === 'symptom' && !complaint && (
+        <ul class="mt-5 flex flex-wrap gap-2">
+          {complaintMatches.map((c) => (
+            <li key={c.id}>
+              <button
+                type="button"
+                onClick={() => { setComplaint(c); setQuery(''); }}
+                class="px-3 py-1.5 rounded-full border border-clinical-300 dark:border-clinical-600 text-sm text-clinical-700 dark:text-clinical-300 hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >
+                {c.name}
+                <span class="ml-1.5 text-clinical-400">{c.total}</span>
+              </button>
+            </li>
+          ))}
+          {query && complaintMatches.length === 0 && (
+            <li class="text-sm text-clinical-500 dark:text-clinical-400">
+              Nothing matches that. Try a simpler word, or{' '}
+              <button type="button" class="text-blue-600 dark:text-blue-400 hover:underline" onClick={() => selectMode('term')}>
+                search by term
+              </button>
+              .
+            </li>
+          )}
+        </ul>
+      )}
+
+      {mode === 'symptom' && complaint && (
+        <section class="mt-6">
+          <div class="flex flex-wrap items-baseline justify-between gap-2 mb-1">
+            <h2 class="font-heading text-xl font-semibold text-clinical-900 dark:text-clinical-50">
+              {complaint.name}
+            </h2>
+            <button
+              type="button"
+              onClick={() => setComplaint(null)}
+              class="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+            >
+              Choose a different problem
+            </button>
+          </div>
+          <p class="text-sm text-clinical-500 dark:text-clinical-400 mb-4">
+            {complaint.total} diagnoses in this library present this way. These are the questions
+            that split them most evenly, so they are the ones worth asking first. Pick a side.
+          </p>
+
+          <ul class="space-y-3">
+            {complaint.axes.map((ax) => {
+              const A = qById[ax.a];
+              const B = ax.b ? qById[ax.b] : null;
+              if (!A) return null;
+              return (
+                <li key={ax.a} class="p-4 rounded-lg border border-clinical-200 dark:border-clinical-700 bg-warm-white dark:bg-clinical-800/60">
+                  <div class="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() => chooseAxis(ax.a)}
+                      class="px-3 py-1.5 rounded-md border border-clinical-300 dark:border-clinical-600 text-sm font-medium text-clinical-800 dark:text-clinical-200 hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    >
+                      {A.name} <span class="text-clinical-400 font-normal">{ax.aCount}</span>
+                    </button>
+                    <span class="self-center text-sm text-clinical-400">or</span>
+                    {B ? (
+                      <button
+                        type="button"
+                        onClick={() => chooseAxis(ax.b as string)}
+                        class="px-3 py-1.5 rounded-md border border-clinical-300 dark:border-clinical-600 text-sm font-medium text-clinical-800 dark:text-clinical-200 hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                      >
+                        {B.name} <span class="text-clinical-400 font-normal">{ax.bCount}</span>
+                      </button>
+                    ) : (
+                      <span class="self-center px-3 py-1.5 text-sm text-clinical-500 dark:text-clinical-400">
+                        not {A.name.toLowerCase()} <span class="text-clinical-400">{ax.bCount}</span>
+                      </span>
+                    )}
+                  </div>
+                  {A.definition && (
+                    <p class="mt-2 text-sm text-clinical-500 dark:text-clinical-400">{A.definition}</p>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+
+          {complaint.axes.length === 0 && (
+            <p class="text-sm text-clinical-500 dark:text-clinical-400">
+              Too few diagnoses here to fork on. Try{' '}
+              <button type="button" class="text-blue-600 dark:text-blue-400 hover:underline" onClick={() => selectMode('term')}>
+                search by term
+              </button>
+              .
+            </p>
+          )}
+        </section>
+      )}
 
       {/* selected qualifier chips */}
       {mode === 'term' && picked.length > 0 && (
