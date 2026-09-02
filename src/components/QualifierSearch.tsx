@@ -19,7 +19,7 @@ type Mode = 'disease' | 'term';
 const norm = (s: string) => s.toLowerCase().trim();
 
 export default function QualifierSearch({ qualifiers, diagnoses, idf, opposites }: Props) {
-  const [mode, setMode] = useState<Mode>('disease');
+  const [mode, setMode] = useState<Mode>('term');
   const [query, setQuery] = useState('');
   const [picked, setPicked] = useState<string[]>([]);
   const [openDx, setOpenDx] = useState<string | null>(null);
