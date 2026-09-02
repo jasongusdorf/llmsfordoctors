@@ -1,0 +1,2352 @@
+{
+ "source": {
+  "name": "PTB-XL",
+  "version": "1.0.3",
+  "license": "CC BY 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+  "url": "https://physionet.org/content/ptb-xl/1.0.3/",
+  "citation": "Wagner P, Strodthoff N, Bousseljot R-D, Samek W, Schaeffter T. PTB-XL, a large publicly available electrocardiography dataset (version 1.0.3). PhysioNet (2022). https://doi.org/10.13026/kfzx-aw45",
+  "paper": "Wagner P, et al. PTB-XL, a large publicly available electrocardiography dataset. Scientific Data 7, 154 (2020). https://doi.org/10.1038/s41597-020-0495-6",
+  "physionet": "Goldberger AL, et al. PhysioBank, PhysioToolkit, and PhysioNet. Circulation 101(23):e215-e220 (2000)."
+ },
+ "groups": [
+  {
+   "id": "rhythm",
+   "name": "Rhythm",
+   "blurb": "What the atria and ventricles are doing, and whether the two are still talking to each other."
+  },
+  {
+   "id": "conduction",
+   "name": "Conduction",
+   "blurb": "Where the impulse is delayed or blocked on its way down."
+  },
+  {
+   "id": "chamber",
+   "name": "Chamber enlargement",
+   "blurb": "Voltage and morphology changes that follow a chamber working against a load."
+  },
+  {
+   "id": "ischemia",
+   "name": "Ischemia and infarction",
+   "blurb": "ST-T and Q wave patterns, grouped by the territory they point at."
+  },
+  {
+   "id": "other",
+   "name": "Other patterns",
+   "blurb": "Repolarization, drug effect, and the normal tracing you compare everything against."
+  }
+ ],
+ "categories": [
+  {
+   "id": "normal",
+   "code": "NORM",
+   "name": "Normal ECG",
+   "group": "other",
+   "description": "normal ECG",
+   "teaching": "The reference tracing. Sinus rhythm, PR 120 to 200 ms, QRS under 120 ms, no pathologic Q waves, concordant T waves, and an axis between -30 and +90 degrees. Reading abnormal tracings well depends on having a large internal library of normal ones, which is the least glamorous and most useful thing on this page.",
+   "tracings": [
+    {
+     "id": 3,
+     "image": "/ecg/normal/00003.png",
+     "age": "37",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 42,
+     "w": 1572,
+     "h": 776
+    },
+    {
+     "id": 4,
+     "image": "/ecg/normal/00004.png",
+     "age": "24",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 48,
+     "w": 1572,
+     "h": 939
+    },
+    {
+     "id": 5,
+     "image": "/ecg/normal/00005.png",
+     "age": "19",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 50,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 6,
+     "image": "/ecg/normal/00006.png",
+     "age": "18",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 54,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 7,
+     "image": "/ecg/normal/00007.png",
+     "age": "54",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 47,
+     "w": 1572,
+     "h": 1012
+    },
+    {
+     "id": 9,
+     "image": "/ecg/normal/00009.png",
+     "age": "55",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 44,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 10,
+     "image": "/ecg/normal/00010.png",
+     "age": "22",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 43,
+     "w": 1572,
+     "h": 970
+    },
+    {
+     "id": 13,
+     "image": "/ecg/normal/00013.png",
+     "age": "58",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 48,
+     "w": 1572,
+     "h": 863
+    }
+   ]
+  },
+  {
+   "id": "sinus-tachycardia",
+   "code": "STACH",
+   "name": "Sinus tachycardia",
+   "group": "rhythm",
+   "description": "sinus tachycardia",
+   "teaching": "Rate above 100 with a P wave before every QRS and a QRS after every P. The morphology is normal; the rate is the finding. Sinus tachycardia is almost always a response to something else, so the diagnostic work is naming that something rather than treating the rate.",
+   "tracings": [
+    {
+     "id": 12767,
+     "image": "/ecg/sinus-tachycardia/12767.png",
+     "age": "79",
+     "sex": "female",
+     "confident": true,
+     "also": [
+      {
+       "code": "IRBBB",
+       "label": "incomplete right bundle branch block"
+      }
+     ],
+     "kb": 57,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 108,
+     "image": "/ecg/sinus-tachycardia/00108.png",
+     "age": "89+",
+     "sex": "female",
+     "confident": false,
+     "also": [],
+     "kb": 67,
+     "w": 1572,
+     "h": 981
+    },
+    {
+     "id": 887,
+     "image": "/ecg/sinus-tachycardia/00887.png",
+     "age": "73",
+     "sex": "female",
+     "confident": false,
+     "also": [],
+     "kb": 65,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 892,
+     "image": "/ecg/sinus-tachycardia/00892.png",
+     "age": "77",
+     "sex": "female",
+     "confident": false,
+     "also": [],
+     "kb": 57,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 969,
+     "image": "/ecg/sinus-tachycardia/00969.png",
+     "age": "63",
+     "sex": "male",
+     "confident": false,
+     "also": [],
+     "kb": 61,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 976,
+     "image": "/ecg/sinus-tachycardia/00976.png",
+     "age": "42",
+     "sex": "female",
+     "confident": false,
+     "also": [],
+     "kb": 57,
+     "w": 1572,
+     "h": 998
+    }
+   ]
+  },
+  {
+   "id": "sinus-bradycardia",
+   "code": "SBRAD",
+   "name": "Sinus bradycardia",
+   "group": "rhythm",
+   "description": "sinus bradycardia",
+   "teaching": "Rate below 60 with normal sinus morphology and conduction. Common and benign in trained athletes and during sleep. It matters when it is symptomatic, when it is drug induced, or when it appears alongside conduction disease that suggests the whole system is failing rather than the node alone.",
+   "tracings": [
+    {
+     "id": 2,
+     "image": "/ecg/sinus-bradycardia/00002.png",
+     "age": "19",
+     "sex": "male",
+     "confident": false,
+     "also": [],
+     "kb": 36,
+     "w": 1572,
+     "h": 958
+    },
+    {
+     "id": 12,
+     "image": "/ecg/sinus-bradycardia/00012.png",
+     "age": "43",
+     "sex": "female",
+     "confident": false,
+     "also": [],
+     "kb": 36,
+     "w": 1572,
+     "h": 872
+    },
+    {
+     "id": 78,
+     "image": "/ecg/sinus-bradycardia/00078.png",
+     "age": "27",
+     "sex": "male",
+     "confident": false,
+     "also": [],
+     "kb": 38,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 240,
+     "image": "/ecg/sinus-bradycardia/00240.png",
+     "age": "54",
+     "sex": "male",
+     "confident": false,
+     "also": [],
+     "kb": 44,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 289,
+     "image": "/ecg/sinus-bradycardia/00289.png",
+     "age": "75",
+     "sex": "female",
+     "confident": false,
+     "also": [],
+     "kb": 31,
+     "w": 1572,
+     "h": 934
+    },
+    {
+     "id": 543,
+     "image": "/ecg/sinus-bradycardia/00543.png",
+     "age": "25",
+     "sex": "female",
+     "confident": false,
+     "also": [],
+     "kb": 35,
+     "w": 1572,
+     "h": 770
+    }
+   ]
+  },
+  {
+   "id": "sinus-arrhythmia",
+   "code": "SARRH",
+   "name": "Sinus arrhythmia",
+   "group": "rhythm",
+   "description": "sinus arrhythmia",
+   "teaching": "Sinus rhythm with beat to beat variation in the R-R interval, classically phasic with respiration. P wave morphology stays constant, which is what separates it from a wandering atrial pacemaker. A normal finding, and its absence in a young patient is the more interesting observation.",
+   "tracings": [
+    {
+     "id": 11,
+     "image": "/ecg/sinus-arrhythmia/00011.png",
+     "age": "20",
+     "sex": "female",
+     "confident": false,
+     "also": [],
+     "kb": 48,
+     "w": 1572,
+     "h": 996
+    },
+    {
+     "id": 37,
+     "image": "/ecg/sinus-arrhythmia/00037.png",
+     "age": "25",
+     "sex": "female",
+     "confident": false,
+     "also": [],
+     "kb": 42,
+     "w": 1572,
+     "h": 949
+    },
+    {
+     "id": 76,
+     "image": "/ecg/sinus-arrhythmia/00076.png",
+     "age": "38",
+     "sex": "female",
+     "confident": false,
+     "also": [],
+     "kb": 49,
+     "w": 1572,
+     "h": 941
+    },
+    {
+     "id": 100,
+     "image": "/ecg/sinus-arrhythmia/00100.png",
+     "age": "20",
+     "sex": "female",
+     "confident": false,
+     "also": [],
+     "kb": 45,
+     "w": 1572,
+     "h": 1013
+    }
+   ]
+  },
+  {
+   "id": "atrial-fibrillation",
+   "code": "AFIB",
+   "name": "Atrial fibrillation",
+   "group": "rhythm",
+   "description": "atrial fibrillation",
+   "teaching": "Irregularly irregular ventricular response with no organized P waves, replaced by a fibrillatory baseline best seen in V1. The irregularity is the diagnosis; rate can be anything. Look at a long rhythm strip rather than a 2.5 second window, because irregularity is a property of a sequence.",
+   "tracings": [
+    {
+     "id": 4117,
+     "image": "/ecg/atrial-fibrillation/04117.png",
+     "age": "39",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 65,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 4401,
+     "image": "/ecg/atrial-fibrillation/04401.png",
+     "age": "71",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 65,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 4423,
+     "image": "/ecg/atrial-fibrillation/04423.png",
+     "age": "71",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 68,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 4531,
+     "image": "/ecg/atrial-fibrillation/04531.png",
+     "age": "71",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 55,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 4532,
+     "image": "/ecg/atrial-fibrillation/04532.png",
+     "age": "71",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 55,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 5634,
+     "image": "/ecg/atrial-fibrillation/05634.png",
+     "age": "73",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 40,
+     "w": 1572,
+     "h": 995
+    },
+    {
+     "id": 5776,
+     "image": "/ecg/atrial-fibrillation/05776.png",
+     "age": "67",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 56,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 7215,
+     "image": "/ecg/atrial-fibrillation/07215.png",
+     "age": "74",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 47,
+     "w": 1572,
+     "h": 1013
+    }
+   ]
+  },
+  {
+   "id": "atrial-flutter",
+   "code": "AFLT",
+   "name": "Atrial flutter",
+   "group": "rhythm",
+   "description": "atrial flutter",
+   "teaching": "Organized atrial activity near 300 per minute producing sawtooth flutter waves, best seen in the inferior leads and V1. Conduction is usually 2 to 1, which parks the ventricular rate near 150 and is why a regular rate of exactly 150 should always prompt a hunt for flutter waves.",
+   "tracings": [
+    {
+     "id": 17,
+     "image": "/ecg/atrial-flutter/00017.png",
+     "age": "56",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 81,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 18,
+     "image": "/ecg/atrial-flutter/00018.png",
+     "age": "56",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 70,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 20,
+     "image": "/ecg/atrial-flutter/00020.png",
+     "age": "56",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 70,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 23,
+     "image": "/ecg/atrial-flutter/00023.png",
+     "age": "56",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 68,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 34,
+     "image": "/ecg/atrial-flutter/00034.png",
+     "age": "56",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 68,
+     "w": 1572,
+     "h": 1003
+    },
+    {
+     "id": 449,
+     "image": "/ecg/atrial-flutter/00449.png",
+     "age": "63",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 75,
+     "w": 1572,
+     "h": 1013
+    }
+   ]
+  },
+  {
+   "id": "svt",
+   "code": "SVTAC",
+   "name": "Supraventricular tachycardia",
+   "group": "rhythm",
+   "description": "supraventricular tachycardia",
+   "teaching": "Regular narrow complex tachycardia, typically 150 to 250, with P waves absent, buried in the QRS, or retrograde. Narrow means the ventricles are being activated through the normal system, which places the circuit at or above the AV node.",
+   "tracings": [
+    {
+     "id": 1173,
+     "image": "/ecg/svt/01173.png",
+     "age": "76",
+     "sex": "male",
+     "confident": false,
+     "also": [],
+     "kb": 69,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 7796,
+     "image": "/ecg/svt/07796.png",
+     "age": "77",
+     "sex": "male",
+     "confident": false,
+     "also": [],
+     "kb": 62,
+     "w": 1572,
+     "h": 904
+    },
+    {
+     "id": 10356,
+     "image": "/ecg/svt/10356.png",
+     "age": "41",
+     "sex": "female",
+     "confident": false,
+     "also": [],
+     "kb": 78,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 12489,
+     "image": "/ecg/svt/12489.png",
+     "age": "56",
+     "sex": "male",
+     "confident": false,
+     "also": [],
+     "kb": 56,
+     "w": 1572,
+     "h": 1013
+    }
+   ]
+  },
+  {
+   "id": "pvc",
+   "code": "PVC",
+   "name": "Ventricular premature complexes",
+   "group": "rhythm",
+   "description": "ventricular premature complex",
+   "teaching": "Early, wide, bizarre QRS complexes with no preceding P wave and discordant T waves, usually followed by a full compensatory pause. Uniform morphology suggests a single focus. The finding is usually benign in a structurally normal heart, and the tracing cannot tell you whether the heart is structurally normal.",
+   "tracings": [
+    {
+     "id": 219,
+     "image": "/ecg/pvc/00219.png",
+     "age": "78",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 48,
+     "w": 1572,
+     "h": 899
+    },
+    {
+     "id": 436,
+     "image": "/ecg/pvc/00436.png",
+     "age": "69",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 50,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 628,
+     "image": "/ecg/pvc/00628.png",
+     "age": "80",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 40,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 715,
+     "image": "/ecg/pvc/00715.png",
+     "age": "74",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 56,
+     "w": 1572,
+     "h": 809
+    },
+    {
+     "id": 818,
+     "image": "/ecg/pvc/00818.png",
+     "age": "27",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 49,
+     "w": 1572,
+     "h": 878
+    },
+    {
+     "id": 1004,
+     "image": "/ecg/pvc/01004.png",
+     "age": "73",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 42,
+     "w": 1572,
+     "h": 1013
+    }
+   ]
+  },
+  {
+   "id": "bigeminy",
+   "code": "BIGU",
+   "name": "Bigeminy",
+   "group": "rhythm",
+   "description": "bigeminal pattern (unknown origin, SV or Ventricular)",
+   "teaching": "Every sinus beat followed by a premature complex, producing a repeating couplet. The pattern is the point: grouped beating is a clue to look for a fixed relationship rather than random ectopy. PTB-XL does not specify supraventricular versus ventricular origin for this label.",
+   "tracings": [
+    {
+     "id": 4637,
+     "image": "/ecg/bigeminy/04637.png",
+     "age": "47",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 39,
+     "w": 1572,
+     "h": 945
+    },
+    {
+     "id": 5786,
+     "image": "/ecg/bigeminy/05786.png",
+     "age": "64",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 35,
+     "w": 1572,
+     "h": 940
+    },
+    {
+     "id": 8872,
+     "image": "/ecg/bigeminy/08872.png",
+     "age": "60",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 48,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 10355,
+     "image": "/ecg/bigeminy/10355.png",
+     "age": "80",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 56,
+     "w": 1572,
+     "h": 985
+    }
+   ]
+  },
+  {
+   "id": "paced",
+   "code": "PACE",
+   "name": "Paced rhythm",
+   "group": "rhythm",
+   "description": "normal functioning artificial pacemaker",
+   "teaching": "Pacing spikes preceding the complex they capture. Ventricular pacing produces a wide QRS, usually with a left bundle branch pattern from a right ventricular lead. A paced ventricular rhythm obscures the underlying repolarization, which is why the usual ischemia criteria do not apply.",
+   "tracings": [
+    {
+     "id": 144,
+     "image": "/ecg/paced/00144.png",
+     "age": "81",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 61,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 190,
+     "image": "/ecg/paced/00190.png",
+     "age": "66",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 63,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 382,
+     "image": "/ecg/paced/00382.png",
+     "age": "81",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 49,
+     "w": 1572,
+     "h": 993
+    },
+    {
+     "id": 385,
+     "image": "/ecg/paced/00385.png",
+     "age": "83",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 54,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 498,
+     "image": "/ecg/paced/00498.png",
+     "age": "71",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 59,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 1399,
+     "image": "/ecg/paced/01399.png",
+     "age": "82",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 62,
+     "w": 1572,
+     "h": 1013
+    }
+   ]
+  },
+  {
+   "id": "first-degree-av-block",
+   "code": "1AVB",
+   "name": "First degree AV block",
+   "group": "conduction",
+   "description": "first degree AV block",
+   "teaching": "PR interval above 200 ms with every P conducted. Not truly a block but a uniform delay, most often in the AV node. Isolated and asymptomatic it needs nothing; combined with bifascicular block it becomes part of a more worrying picture.",
+   "tracings": [
+    {
+     "id": 102,
+     "image": "/ecg/first-degree-av-block/00102.png",
+     "age": "64",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 60,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 218,
+     "image": "/ecg/first-degree-av-block/00218.png",
+     "age": "60",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 59,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 556,
+     "image": "/ecg/first-degree-av-block/00556.png",
+     "age": "88",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 51,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 1135,
+     "image": "/ecg/first-degree-av-block/01135.png",
+     "age": "70",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 50,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 1187,
+     "image": "/ecg/first-degree-av-block/01187.png",
+     "age": "69",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 58,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 1484,
+     "image": "/ecg/first-degree-av-block/01484.png",
+     "age": "41",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 43,
+     "w": 1572,
+     "h": 846
+    }
+   ]
+  },
+  {
+   "id": "second-degree-av-block",
+   "code": "2AVB",
+   "name": "Second degree AV block",
+   "group": "conduction",
+   "description": "second degree AV block",
+   "teaching": "Some P waves conduct and some do not. Mobitz I shows progressive PR lengthening before a dropped beat and usually sits in the node. Mobitz II drops beats without warning and sits below it, which is why Mobitz II is the one that earns a pacemaker.",
+   "tracings": [
+    {
+     "id": 11209,
+     "image": "/ecg/second-degree-av-block/11209.png",
+     "age": "56",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 37,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 14009,
+     "image": "/ecg/second-degree-av-block/14009.png",
+     "age": "89+",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 41,
+     "w": 1572,
+     "h": 815
+    },
+    {
+     "id": 16401,
+     "image": "/ecg/second-degree-av-block/16401.png",
+     "age": "70",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 57,
+     "w": 1572,
+     "h": 1004
+    },
+    {
+     "id": 1222,
+     "image": "/ecg/second-degree-av-block/01222.png",
+     "age": "71",
+     "sex": "male",
+     "confident": true,
+     "also": [
+      {
+       "code": "NDT",
+       "label": "non-diagnostic T abnormalities"
+      }
+     ],
+     "kb": 46,
+     "w": 1572,
+     "h": 940
+    },
+    {
+     "id": 10300,
+     "image": "/ecg/second-degree-av-block/10300.png",
+     "age": "85",
+     "sex": "female",
+     "confident": true,
+     "also": [
+      {
+       "code": "IRBBB",
+       "label": "incomplete right bundle branch block"
+      }
+     ],
+     "kb": 42,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 13938,
+     "image": "/ecg/second-degree-av-block/13938.png",
+     "age": "89+",
+     "sex": "male",
+     "confident": true,
+     "also": [
+      {
+       "code": "IVCD",
+       "label": "non-specific intraventricular conduction disturbance (block)"
+      }
+     ],
+     "kb": 47,
+     "w": 1572,
+     "h": 841
+    }
+   ]
+  },
+  {
+   "id": "third-degree-av-block",
+   "code": "3AVB",
+   "name": "Third degree AV block",
+   "group": "conduction",
+   "description": "third degree AV block",
+   "teaching": "Complete AV dissociation: regular P waves and a regular escape rhythm, marching independently, with the atrial rate faster than the ventricular. The escape QRS width tells you the level of the block, and a narrow junctional escape is considerably more stable than a wide ventricular one.",
+   "tracings": [
+    {
+     "id": 10505,
+     "image": "/ecg/third-degree-av-block/10505.png",
+     "age": "25",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 43,
+     "w": 1572,
+     "h": 821
+    },
+    {
+     "id": 16271,
+     "image": "/ecg/third-degree-av-block/16271.png",
+     "age": "81",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 33,
+     "w": 1572,
+     "h": 909
+    },
+    {
+     "id": 959,
+     "image": "/ecg/third-degree-av-block/00959.png",
+     "age": "88",
+     "sex": "female",
+     "confident": true,
+     "also": [
+      {
+       "code": "IRBBB",
+       "label": "incomplete right bundle branch block"
+      }
+     ],
+     "kb": 35,
+     "w": 1572,
+     "h": 963
+    },
+    {
+     "id": 2047,
+     "image": "/ecg/third-degree-av-block/02047.png",
+     "age": "89+",
+     "sex": "male",
+     "confident": true,
+     "also": [
+      {
+       "code": "IMI",
+       "label": "inferior myocardial infarction"
+      }
+     ],
+     "kb": 37,
+     "w": 1572,
+     "h": 924
+    },
+    {
+     "id": 4827,
+     "image": "/ecg/third-degree-av-block/04827.png",
+     "age": "80",
+     "sex": "male",
+     "confident": true,
+     "also": [
+      {
+       "code": "IMI",
+       "label": "inferior myocardial infarction"
+      }
+     ],
+     "kb": 47,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 8210,
+     "image": "/ecg/third-degree-av-block/08210.png",
+     "age": "76",
+     "sex": "female",
+     "confident": true,
+     "also": [
+      {
+       "code": "LNGQT",
+       "label": "long QT-interval"
+      }
+     ],
+     "kb": 45,
+     "w": 1572,
+     "h": 1013
+    }
+   ]
+  },
+  {
+   "id": "crbbb",
+   "code": "CRBBB",
+   "name": "Complete right bundle branch block",
+   "group": "conduction",
+   "description": "complete right bundle branch block",
+   "teaching": "QRS at or above 120 ms with an rSR' in V1 and a broad slurred S wave in I and V6. The right ventricle is depolarized late and through muscle rather than conducting tissue. Appropriate discordance means the T wave in the right precordial leads points away from the terminal QRS.",
+   "tracings": [
+    {
+     "id": 195,
+     "image": "/ecg/crbbb/00195.png",
+     "age": "51",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 47,
+     "w": 1572,
+     "h": 778
+    },
+    {
+     "id": 621,
+     "image": "/ecg/crbbb/00621.png",
+     "age": "70",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 48,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 903,
+     "image": "/ecg/crbbb/00903.png",
+     "age": "66",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 48,
+     "w": 1572,
+     "h": 974
+    },
+    {
+     "id": 1024,
+     "image": "/ecg/crbbb/01024.png",
+     "age": "23",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 47,
+     "w": 1572,
+     "h": 782
+    },
+    {
+     "id": 1123,
+     "image": "/ecg/crbbb/01123.png",
+     "age": "87",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 42,
+     "w": 1572,
+     "h": 692
+    },
+    {
+     "id": 1452,
+     "image": "/ecg/crbbb/01452.png",
+     "age": "86",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 52,
+     "w": 1572,
+     "h": 803
+    }
+   ]
+  },
+  {
+   "id": "irbbb",
+   "code": "IRBBB",
+   "name": "Incomplete right bundle branch block",
+   "group": "conduction",
+   "description": "incomplete right bundle branch block",
+   "teaching": "The right bundle pattern with a QRS under 120 ms. Common, often nothing. Worth a second look when it appears with right axis deviation or right atrial enlargement, where it may be reporting right ventricular volume load rather than conduction disease.",
+   "tracings": [
+    {
+     "id": 45,
+     "image": "/ecg/irbbb/00045.png",
+     "age": "51",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 58,
+     "w": 1572,
+     "h": 837
+    },
+    {
+     "id": 52,
+     "image": "/ecg/irbbb/00052.png",
+     "age": "35",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 42,
+     "w": 1572,
+     "h": 949
+    },
+    {
+     "id": 65,
+     "image": "/ecg/irbbb/00065.png",
+     "age": "62",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 55,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 77,
+     "image": "/ecg/irbbb/00077.png",
+     "age": "43",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 52,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 154,
+     "image": "/ecg/irbbb/00154.png",
+     "age": "59",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 45,
+     "w": 1572,
+     "h": 904
+    },
+    {
+     "id": 169,
+     "image": "/ecg/irbbb/00169.png",
+     "age": "68",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 56,
+     "w": 1572,
+     "h": 1013
+    }
+   ]
+  },
+  {
+   "id": "clbbb",
+   "code": "CLBBB",
+   "name": "Complete left bundle branch block",
+   "group": "conduction",
+   "description": "complete left bundle branch block",
+   "teaching": "QRS at or above 120 ms with a broad monophasic R in I, aVL and V6, and a dominant S in V1. Left bundle branch block reverses the direction of septal depolarization and rewrites repolarization wholesale, so ordinary ST criteria fail and the Sgarbossa criteria exist to work around it.",
+   "tracings": [
+    {
+     "id": 180,
+     "image": "/ecg/clbbb/00180.png",
+     "age": "81",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 55,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 256,
+     "image": "/ecg/clbbb/00256.png",
+     "age": "89+",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 44,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 279,
+     "image": "/ecg/clbbb/00279.png",
+     "age": "89+",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 43,
+     "w": 1572,
+     "h": 937
+    },
+    {
+     "id": 286,
+     "image": "/ecg/clbbb/00286.png",
+     "age": "81",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 40,
+     "w": 1572,
+     "h": 1004
+    },
+    {
+     "id": 287,
+     "image": "/ecg/clbbb/00287.png",
+     "age": "79",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 56,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 338,
+     "image": "/ecg/clbbb/00338.png",
+     "age": "69",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 34,
+     "w": 1572,
+     "h": 910
+    }
+   ]
+  },
+  {
+   "id": "lafb",
+   "code": "LAFB",
+   "name": "Left anterior fascicular block",
+   "group": "conduction",
+   "description": "left anterior fascicular block",
+   "teaching": "Left axis deviation beyond -45 degrees with qR in aVL, rS inferiorly, and a normal or near normal QRS duration. The commonest conduction abnormality on any ECG collection. Alone it means little; with right bundle branch block it is bifascicular block.",
+   "tracings": [
+    {
+     "id": 41,
+     "image": "/ecg/lafb/00041.png",
+     "age": "42",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 59,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 103,
+     "image": "/ecg/lafb/00103.png",
+     "age": "39",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 50,
+     "w": 1572,
+     "h": 887
+    },
+    {
+     "id": 157,
+     "image": "/ecg/lafb/00157.png",
+     "age": "74",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 50,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 220,
+     "image": "/ecg/lafb/00220.png",
+     "age": "46",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 50,
+     "w": 1572,
+     "h": 846
+    },
+    {
+     "id": 226,
+     "image": "/ecg/lafb/00226.png",
+     "age": "83",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 52,
+     "w": 1572,
+     "h": 888
+    },
+    {
+     "id": 238,
+     "image": "/ecg/lafb/00238.png",
+     "age": "69",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 43,
+     "w": 1572,
+     "h": 784
+    }
+   ]
+  },
+  {
+   "id": "lpfb",
+   "code": "LPFB",
+   "name": "Left posterior fascicular block",
+   "group": "conduction",
+   "description": "left posterior fascicular block",
+   "teaching": "Right axis deviation with rS in I and aVL and qR inferiorly, once other causes of right axis have been excluded. The posterior fascicle is short, thick and dual supplied, so isolated posterior fascicular block is genuinely rare and the diagnosis is one of exclusion.",
+   "tracings": [
+    {
+     "id": 32,
+     "image": "/ecg/lpfb/00032.png",
+     "age": "18",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 46,
+     "w": 1572,
+     "h": 900
+    },
+    {
+     "id": 377,
+     "image": "/ecg/lpfb/00377.png",
+     "age": "17",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 41,
+     "w": 1572,
+     "h": 899
+    },
+    {
+     "id": 378,
+     "image": "/ecg/lpfb/00378.png",
+     "age": "17",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 58,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 3681,
+     "image": "/ecg/lpfb/03681.png",
+     "age": "89+",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 44,
+     "w": 1572,
+     "h": 834
+    }
+   ]
+  },
+  {
+   "id": "ivcd",
+   "code": "IVCD",
+   "name": "Nonspecific intraventricular conduction delay",
+   "group": "conduction",
+   "description": "non-specific intraventricular conduction disturbance (block)",
+   "teaching": "QRS at or above 120 ms without meeting criteria for either bundle branch pattern. A description rather than a diagnosis. Causes include hyperkalemia, sodium channel blockade, cardiomyopathy and prior infarction, so it is a prompt to look outside the tracing.",
+   "tracings": [
+    {
+     "id": 49,
+     "image": "/ecg/ivcd/00049.png",
+     "age": "23",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 63,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 50,
+     "image": "/ecg/ivcd/00050.png",
+     "age": "59",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 48,
+     "w": 1572,
+     "h": 912
+    },
+    {
+     "id": 409,
+     "image": "/ecg/ivcd/00409.png",
+     "age": "71",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 40,
+     "w": 1572,
+     "h": 947
+    },
+    {
+     "id": 658,
+     "image": "/ecg/ivcd/00658.png",
+     "age": "46",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 45,
+     "w": 1572,
+     "h": 1013
+    }
+   ]
+  },
+  {
+   "id": "wpw",
+   "code": "WPW",
+   "name": "Ventricular pre-excitation",
+   "group": "conduction",
+   "description": "Wolf-Parkinson-White syndrome",
+   "teaching": "Short PR, a delta wave slurring the QRS upstroke, and a widened QRS from fusion between the accessory pathway and the normal system. Secondary ST-T changes follow the abnormal depolarization and should not be read as ischemia. Pre-excitation with atrial fibrillation is the dangerous combination, because the pathway can conduct rapidly without the AV node's protective delay.",
+   "tracings": [
+    {
+     "id": 2145,
+     "image": "/ecg/wpw/02145.png",
+     "age": "55",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 48,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 4658,
+     "image": "/ecg/wpw/04658.png",
+     "age": "59",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 48,
+     "w": 1572,
+     "h": 936
+    },
+    {
+     "id": 4825,
+     "image": "/ecg/wpw/04825.png",
+     "age": "45",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 40,
+     "w": 1572,
+     "h": 933
+    },
+    {
+     "id": 5028,
+     "image": "/ecg/wpw/05028.png",
+     "age": "58",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 50,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 5303,
+     "image": "/ecg/wpw/05303.png",
+     "age": "34",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 45,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 6240,
+     "image": "/ecg/wpw/06240.png",
+     "age": "71",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 62,
+     "w": 1572,
+     "h": 1013
+    }
+   ]
+  },
+  {
+   "id": "lvh",
+   "code": "LVH",
+   "name": "Left ventricular hypertrophy",
+   "group": "chamber",
+   "description": "left ventricular hypertrophy",
+   "teaching": "Increased QRS voltage by any of several criteria, commonly S in V1 plus R in V5 or V6 above 35 mm, with a strain pattern of downsloping ST depression and T inversion in the lateral leads. Voltage criteria are specific and quite insensitive, and body habitus moves them considerably.",
+   "tracings": [
+    {
+     "id": 30,
+     "image": "/ecg/lvh/00030.png",
+     "age": "25",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 40,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 96,
+     "image": "/ecg/lvh/00096.png",
+     "age": "31",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 45,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 138,
+     "image": "/ecg/lvh/00138.png",
+     "age": "74",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 47,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 542,
+     "image": "/ecg/lvh/00542.png",
+     "age": "43",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 55,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 1198,
+     "image": "/ecg/lvh/01198.png",
+     "age": "74",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 39,
+     "w": 1572,
+     "h": 945
+    },
+    {
+     "id": 1370,
+     "image": "/ecg/lvh/01370.png",
+     "age": "27",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 38,
+     "w": 1572,
+     "h": 982
+    }
+   ]
+  },
+  {
+   "id": "rvh",
+   "code": "RVH",
+   "name": "Right ventricular hypertrophy",
+   "group": "chamber",
+   "description": "right ventricular hypertrophy",
+   "teaching": "Right axis deviation with a dominant R in V1, deep S waves laterally, and often right atrial enlargement and repolarization change in the right precordial leads. Insensitive, so a normal tracing does not exclude it.",
+   "tracings": [
+    {
+     "id": 2417,
+     "image": "/ecg/rvh/02417.png",
+     "age": "78",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 48,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 2493,
+     "image": "/ecg/rvh/02493.png",
+     "age": "57",
+     "sex": "male",
+     "confident": true,
+     "also": [
+      {
+       "code": "CRBBB",
+       "label": "complete right bundle branch block"
+      }
+     ],
+     "kb": 31,
+     "w": 1572,
+     "h": 1003
+    },
+    {
+     "id": 4405,
+     "image": "/ecg/rvh/04405.png",
+     "age": "55",
+     "sex": "female",
+     "confident": true,
+     "also": [
+      {
+       "code": "IRBBB",
+       "label": "incomplete right bundle branch block"
+      }
+     ],
+     "kb": 41,
+     "w": 1572,
+     "h": 663
+    },
+    {
+     "id": 4713,
+     "image": "/ecg/rvh/04713.png",
+     "age": "51",
+     "sex": "male",
+     "confident": true,
+     "also": [
+      {
+       "code": "IRBBB",
+       "label": "incomplete right bundle branch block"
+      }
+     ],
+     "kb": 48,
+     "w": 1572,
+     "h": 850
+    }
+   ]
+  },
+  {
+   "id": "lae",
+   "code": "LAO/LAE",
+   "name": "Left atrial enlargement",
+   "group": "chamber",
+   "description": "left atrial overload/enlargement",
+   "teaching": "A broad notched P in the limb leads with a wide, deep terminal negative component in V1. Reflects delayed left atrial activation. Common wherever left sided filling pressures are chronically raised, most often mitral valve disease and diastolic dysfunction.",
+   "tracings": [
+    {
+     "id": 2229,
+     "image": "/ecg/lae/02229.png",
+     "age": "49",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 50,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 2957,
+     "image": "/ecg/lae/02957.png",
+     "age": "59",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 65,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 3483,
+     "image": "/ecg/lae/03483.png",
+     "age": "83",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 58,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 4001,
+     "image": "/ecg/lae/04001.png",
+     "age": "89",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 59,
+     "w": 1572,
+     "h": 1013
+    }
+   ]
+  },
+  {
+   "id": "rae",
+   "code": "RAO/RAE",
+   "name": "Right atrial enlargement",
+   "group": "chamber",
+   "description": "right atrial overload/enlargement",
+   "teaching": "A tall peaked P wave, classically at or above 2.5 mm in the inferior leads, with a prominent initial positive component in V1. Reflects increased right atrial mass or pressure and travels with pulmonary disease, pulmonary hypertension and tricuspid disease.",
+   "tracings": [
+    {
+     "id": 199,
+     "image": "/ecg/rae/00199.png",
+     "age": "19",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 52,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 1228,
+     "image": "/ecg/rae/01228.png",
+     "age": "78",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 38,
+     "w": 1572,
+     "h": 641
+    },
+    {
+     "id": 1670,
+     "image": "/ecg/rae/01670.png",
+     "age": "45",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 69,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 1785,
+     "image": "/ecg/rae/01785.png",
+     "age": "81",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 64,
+     "w": 1572,
+     "h": 1013
+    }
+   ]
+  },
+  {
+   "id": "inferior-mi",
+   "code": "IMI",
+   "name": "Inferior myocardial infarction",
+   "group": "ischemia",
+   "description": "inferior myocardial infarction",
+   "teaching": "Q waves and T wave changes in II, III and aVF. Usually a right coronary territory event. Reciprocal change in I and aVL supports it, and inferior involvement should always prompt right sided leads to look for right ventricular infarction.",
+   "tracings": [
+    {
+     "id": 257,
+     "image": "/ecg/inferior-mi/00257.png",
+     "age": "80",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 50,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 290,
+     "image": "/ecg/inferior-mi/00290.png",
+     "age": "73",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 56,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 453,
+     "image": "/ecg/inferior-mi/00453.png",
+     "age": "59",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 43,
+     "w": 1572,
+     "h": 744
+    },
+    {
+     "id": 532,
+     "image": "/ecg/inferior-mi/00532.png",
+     "age": "73",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 45,
+     "w": 1572,
+     "h": 943
+    },
+    {
+     "id": 567,
+     "image": "/ecg/inferior-mi/00567.png",
+     "age": "77",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 60,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 579,
+     "image": "/ecg/inferior-mi/00579.png",
+     "age": "79",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 49,
+     "w": 1572,
+     "h": 1013
+    }
+   ]
+  },
+  {
+   "id": "anteroseptal-mi",
+   "code": "ASMI",
+   "name": "Anteroseptal myocardial infarction",
+   "group": "ischemia",
+   "description": "anteroseptal myocardial infarction",
+   "teaching": "Q waves and loss of R wave progression in V1 to V3 or V4, a left anterior descending territory pattern. Poor R wave progression alone is nonspecific and is produced just as easily by lead placement, body habitus and left ventricular hypertrophy.",
+   "tracings": [
+    {
+     "id": 177,
+     "image": "/ecg/anteroseptal-mi/00177.png",
+     "age": "73",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 48,
+     "w": 1572,
+     "h": 863
+    },
+    {
+     "id": 492,
+     "image": "/ecg/anteroseptal-mi/00492.png",
+     "age": "79",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 38,
+     "w": 1572,
+     "h": 841
+    },
+    {
+     "id": 518,
+     "image": "/ecg/anteroseptal-mi/00518.png",
+     "age": "76",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 36,
+     "w": 1572,
+     "h": 946
+    },
+    {
+     "id": 526,
+     "image": "/ecg/anteroseptal-mi/00526.png",
+     "age": "69",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 47,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 594,
+     "image": "/ecg/anteroseptal-mi/00594.png",
+     "age": "85",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 60,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 1074,
+     "image": "/ecg/anteroseptal-mi/01074.png",
+     "age": "68",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 55,
+     "w": 1572,
+     "h": 964
+    }
+   ]
+  },
+  {
+   "id": "anterolateral-mi",
+   "code": "ALMI",
+   "name": "Anterolateral myocardial infarction",
+   "group": "ischemia",
+   "description": "anterolateral myocardial infarction",
+   "teaching": "Q waves and T wave change spanning the anterior and lateral leads, V4 through V6 with I and aVL. Implies a proximal left anterior descending or a large diagonal territory, and therefore a larger amount of myocardium than a septal pattern.",
+   "tracings": [
+    {
+     "id": 914,
+     "image": "/ecg/anterolateral-mi/00914.png",
+     "age": "68",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 60,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 2448,
+     "image": "/ecg/anterolateral-mi/02448.png",
+     "age": "23",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 40,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 2846,
+     "image": "/ecg/anterolateral-mi/02846.png",
+     "age": "72",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 55,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 4624,
+     "image": "/ecg/anterolateral-mi/04624.png",
+     "age": "30",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 48,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 4777,
+     "image": "/ecg/anterolateral-mi/04777.png",
+     "age": "68",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 41,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 5159,
+     "image": "/ecg/anterolateral-mi/05159.png",
+     "age": "78",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 53,
+     "w": 1572,
+     "h": 1013
+    }
+   ]
+  },
+  {
+   "id": "inferolateral-mi",
+   "code": "ILMI",
+   "name": "Inferolateral myocardial infarction",
+   "group": "ischemia",
+   "description": "inferolateral myocardial infarction",
+   "teaching": "Inferior and lateral involvement together, II, III and aVF with V5, V6, I and aVL. Fits a dominant right coronary artery or a left circumflex territory depending on coronary anatomy.",
+   "tracings": [
+    {
+     "id": 514,
+     "image": "/ecg/inferolateral-mi/00514.png",
+     "age": "61",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 48,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 827,
+     "image": "/ecg/inferolateral-mi/00827.png",
+     "age": "59",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 53,
+     "w": 1572,
+     "h": 876
+    },
+    {
+     "id": 947,
+     "image": "/ecg/inferolateral-mi/00947.png",
+     "age": "71",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 46,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 1935,
+     "image": "/ecg/inferolateral-mi/01935.png",
+     "age": "75",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 44,
+     "w": 1572,
+     "h": 905
+    },
+    {
+     "id": 1950,
+     "image": "/ecg/inferolateral-mi/01950.png",
+     "age": "68",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 57,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 2118,
+     "image": "/ecg/inferolateral-mi/02118.png",
+     "age": "51",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 35,
+     "w": 1572,
+     "h": 786
+    }
+   ]
+  },
+  {
+   "id": "ischemic-st-t",
+   "code": "ISC_",
+   "name": "Nonspecific ischemic ST-T change",
+   "group": "ischemia",
+   "description": "non-specific ischemic",
+   "teaching": "ST depression or T wave inversion that does not localize to a single territory. The label is honest about its own uncertainty. It carries weight with symptoms and prior tracings, and very little without either.",
+   "tracings": [
+    {
+     "id": 674,
+     "image": "/ecg/ischemic-st-t/00674.png",
+     "age": "73",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 41,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 701,
+     "image": "/ecg/ischemic-st-t/00701.png",
+     "age": "79",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 46,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 894,
+     "image": "/ecg/ischemic-st-t/00894.png",
+     "age": "87",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 50,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 978,
+     "image": "/ecg/ischemic-st-t/00978.png",
+     "age": "67",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 71,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 1050,
+     "image": "/ecg/ischemic-st-t/01050.png",
+     "age": "74",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 46,
+     "w": 1572,
+     "h": 986
+    },
+    {
+     "id": 1111,
+     "image": "/ecg/ischemic-st-t/01111.png",
+     "age": "84",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 45,
+     "w": 1572,
+     "h": 1013
+    }
+   ]
+  },
+  {
+   "id": "subendocardial-injury",
+   "code": "INJAS",
+   "name": "Subendocardial injury, anteroseptal",
+   "group": "ischemia",
+   "description": "subendocardial injury in anteroseptal leads",
+   "teaching": "Horizontal or downsloping ST depression across the anteroseptal leads, the pattern of demand ischemia or subendocardial injury rather than transmural infarction. Widespread ST depression with elevation in aVR raises the question of left main or proximal multivessel disease.",
+   "tracings": [
+    {
+     "id": 765,
+     "image": "/ecg/subendocardial-injury/00765.png",
+     "age": "63",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 44,
+     "w": 1572,
+     "h": 863
+    },
+    {
+     "id": 912,
+     "image": "/ecg/subendocardial-injury/00912.png",
+     "age": "76",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 51,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 2633,
+     "image": "/ecg/subendocardial-injury/02633.png",
+     "age": "77",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 38,
+     "w": 1572,
+     "h": 748
+    },
+    {
+     "id": 3445,
+     "image": "/ecg/subendocardial-injury/03445.png",
+     "age": "80",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 50,
+     "w": 1572,
+     "h": 1013
+    }
+   ]
+  },
+  {
+   "id": "long-qt",
+   "code": "LNGQT",
+   "name": "Long QT interval",
+   "group": "other",
+   "description": "long QT-interval",
+   "teaching": "A prolonged rate corrected QT, conventionally above 460 ms in women and 450 ms in men. Measure in the lead with the clearest T wave offset and beware of merging a U wave into the measurement. Matters because it is the substrate for torsades de pointes, and because the common causes are drugs and electrolytes, both of which are fixable.",
+   "tracings": [
+    {
+     "id": 320,
+     "image": "/ecg/long-qt/00320.png",
+     "age": "79",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 44,
+     "w": 1572,
+     "h": 953
+    },
+    {
+     "id": 907,
+     "image": "/ecg/long-qt/00907.png",
+     "age": "79",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 45,
+     "w": 1572,
+     "h": 967
+    },
+    {
+     "id": 2381,
+     "image": "/ecg/long-qt/02381.png",
+     "age": "27",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 35,
+     "w": 1572,
+     "h": 918
+    },
+    {
+     "id": 4132,
+     "image": "/ecg/long-qt/04132.png",
+     "age": "50",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 41,
+     "w": 1572,
+     "h": 763
+    },
+    {
+     "id": 5180,
+     "image": "/ecg/long-qt/05180.png",
+     "age": "58",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 43,
+     "w": 1572,
+     "h": 956
+    },
+    {
+     "id": 5301,
+     "image": "/ecg/long-qt/05301.png",
+     "age": "49",
+     "sex": "male",
+     "confident": true,
+     "also": [],
+     "kb": 51,
+     "w": 1572,
+     "h": 1013
+    }
+   ]
+  },
+  {
+   "id": "digitalis-effect",
+   "code": "DIG",
+   "name": "Digitalis effect",
+   "group": "other",
+   "description": "digitalis-effect",
+   "teaching": "Downsloping scooped ST depression, the so called reverse tick, with a shortened QT and flattened T waves. This is the ECG signature of a therapeutic digoxin level, not of toxicity. Digoxin toxicity is an arrhythmic diagnosis, most characteristically atrial tachycardia with block.",
+   "tracings": [
+    {
+     "id": 1065,
+     "image": "/ecg/digitalis-effect/01065.png",
+     "age": "89+",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 39,
+     "w": 1572,
+     "h": 834
+    },
+    {
+     "id": 2317,
+     "image": "/ecg/digitalis-effect/02317.png",
+     "age": "75",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 49,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 2886,
+     "image": "/ecg/digitalis-effect/02886.png",
+     "age": "82",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 52,
+     "w": 1572,
+     "h": 1013
+    },
+    {
+     "id": 3341,
+     "image": "/ecg/digitalis-effect/03341.png",
+     "age": "85",
+     "sex": "female",
+     "confident": true,
+     "also": [],
+     "kb": 59,
+     "w": 1572,
+     "h": 1013
+    }
+   ]
+  }
+ ]
+}
