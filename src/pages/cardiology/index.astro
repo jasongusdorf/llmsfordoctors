@@ -140,16 +140,27 @@ const card =
       <h2 class="font-heading text-2xl font-semibold text-clinical-900 dark:text-clinical-50 mb-4">
         Read
       </h2>
-      <a href="/ecg" class={card}>
-        <h3 class="font-heading font-semibold text-clinical-900 dark:text-clinical-50 mb-1">
-          ECG library
-        </h3>
-        <p class="text-sm text-clinical-600 dark:text-clinical-400">
-          {ecgCount} real 12-lead tracings across {ecgCats} diagnostic categories, from rhythm and
-          conduction to chamber enlargement and infarct territory. Rendered from open signal data,
-          labelled by cardiologists.
-        </p>
-      </a>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <a href="/cardiology/ecg" class={card}>
+          <h3 class="font-heading font-semibold text-clinical-900 dark:text-clinical-50 mb-1">
+            ECG library
+          </h3>
+          <p class="text-sm text-clinical-600 dark:text-clinical-400">
+            {ecgCount} real 12-lead tracings across {ecgCats} diagnostic categories, from rhythm and
+            conduction to chamber enlargement and infarct territory. Every tracing opens to its full
+            read.
+          </p>
+        </a>
+        <a href="/cardiology/ecg/quiz" class={card}>
+          <h3 class="font-heading font-semibold text-clinical-900 dark:text-clinical-50 mb-1">
+            ECG quiz
+          </h3>
+          <p class="text-sm text-clinical-600 dark:text-clinical-400">
+            A random tracing, four choices drawn from the same family of findings, immediate feedback
+            and the full read.
+          </p>
+        </a>
+      </div>
       <p class="mt-3 text-sm text-clinical-500 dark:text-clinical-400">
         Wide complex tachycardia drills remain at
         <a href="https://widecomplextachycardia.com" class="text-blue-600 dark:text-blue-400 hover:underline">

@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import EcgAttribution from '../../../components/EcgAttribution.astro';
+import data from '../../../data/ecg-library.json';
+
+export async function getStaticPaths() {
+  const d = data as any;
+  return d.categories.map((c: any, i: number) => ({
+    params: { category: c.id },
+    props: {
+      cat: c,
+      group: d.groups.find((g: any) => g.id === c.group),
+      prev: d.categories[i - 1] ?? null,
+      next: d.categories[i + 1] ?? null,
+    },
+  }));
+}
+
+const { cat, group, prev, next } = Astro.props as any;
+---
+
+<BaseLayout
+  title={`${cat.name} ECG - LLMs for Doctors`}
+  description={`${cat.tracings.length} real 12-lead tracings of ${cat.name.toLowerCase()}, with the criteria that identify it and a full read on each.`}
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumb
+      crumbs={[
+        { label: 'Home', href: '/' },
+        { label: 'Cardiology', href: '/cardiology' },
+        { label: 'ECG Library', href: '/cardiology/ecg' },
+        { label: cat.name },
+      ]}
+    />
+
+    <header class="mb-8">
+      <p class="text-sm font-medium text-blue-600 dark:text-blue-400 mb-1">{group?.name}</p>
+      <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mb-4">
+        {cat.name}
+      </h1>
+      <p class="text-lg text-clinical-600 dark:text-clinical-400">{cat.teaching}</p>
+    </header>
+
+    <p class="mb-6 text-sm text-clinical-500 dark:text-clinical-400">
+      {cat.tracings.length} tracings, each labelled
+      <code class="px-1 rounded bg-clinical-100 dark:bg-clinical-800">{cat.code}</code>
+      ({cat.description}) by the dataset's reviewing cardiologists. Click any tracing for its full
+      read. Real patients, so most carry other findings too.
+    </p>
+
+    <ol class="space-y-8">
+      {cat.tracings.map((t: any) => (
+        <li>
+          <figure>
+            <a href={`/cardiology/ecg/tracing/${t.id}`} class="block group">
+              <img
+                src={t.image}
+                width={t.w}
+                height={t.h}
+                loading="lazy"
+                decoding="async"
+                alt={`12-lead ECG showing ${cat.name.toLowerCase()}, PTB-XL record ${t.id}`}
+                class="w-full h-auto rounded-lg border border-clinical-200 dark:border-clinical-700 group-hover:border-blue-500 dark:group-hover:border-blue-400 transition-colors bg-white"
+              />
+            </a>
+            <figcaption class="mt-2 text-sm text-clinical-500 dark:text-clinical-400">
+              <a href={`/cardiology/ecg/tracing/${t.id}`} class="font-medium text-blue-600 dark:text-blue-400 hover:underline">
+                Record {t.id} - full read
+              </a>
+              {t.age && <span> · {t.age} y {t.sex}</span>}
+              {t.also.length > 0 && (
+                <span class="block mt-1">Also labelled: {t.also.map((a: any) => a.label).join(', ')}.</span>
+              )}
+            </figcaption>
+          </figure>
+        </li>
+      ))}
+    </ol>
+
+    <nav class="mt-10 flex justify-between gap-4 text-sm">
+      {prev ? <a href={`/cardiology/ecg/${prev.id}`} class="text-blue-600 dark:text-blue-400 hover:underline">← {prev.name}</a> : <span />}
+      {next ? <a href={`/cardiology/ecg/${next.id}`} class="text-blue-600 dark:text-blue-400 hover:underline text-right">{next.name} →</a> : <span />}
+    </nav>
+
+    <EcgAttribution />
+  </div>
+</BaseLayout>

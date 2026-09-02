@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import EcgAttribution from '../../../components/EcgAttribution.astro';
+import data from '../../../data/ecg-library.json';
+
+const d = data as any;
+const total = d.categories.reduce((n: number, c: any) => n + c.tracings.length, 0);
+const card =
+  'block p-4 rounded-lg border border-clinical-200 dark:border-clinical-700 bg-warm-white dark:bg-clinical-800/60 hover:border-blue-500 dark:hover:border-blue-400 transition-colors';
+---
+
+<BaseLayout
+  title="ECG Library - LLMs for Doctors"
+  description={`${total} real 12-lead ECGs across ${d.categories.length} diagnostic categories, with a full read on every tracing and a randomised quiz.`}
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Cardiology', href: '/cardiology' }, { label: 'ECG Library' }]} />
+
+    <header class="mb-8">
+      <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mb-3">
+        ECG Library
+      </h1>
+      <p class="text-lg text-clinical-600 dark:text-clinical-400">
+        {total} real clinical 12-lead tracings across {d.categories.length} diagnostic categories,
+        rendered from raw signal at 25 mm/s and 10 mm/mV with a full 10 second rhythm strip. Every
+        tracing opens to its complete read. These are recordings from actual patients, labelled by
+        cardiologists.
+      </p>
+    </header>
+
+    <a href="/cardiology/ecg/quiz" class="block mb-10 p-5 rounded-lg border-2 border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-950/30 hover:bg-blue-100 dark:hover:bg-blue-950/50 transition-colors">
+      <h2 class="font-heading text-xl font-semibold text-clinical-900 dark:text-clinical-50 mb-1">
+        Quiz mode
+      </h2>
+      <p class="text-sm text-clinical-600 dark:text-clinical-400">
+        A random tracing, four choices, immediate feedback and the full read. Draws from all {total}.
+      </p>
+    </a>
+
+    {d.groups.map((g: any) => {
+      const cats = d.categories.filter((c: any) => c.group === g.id);
+      if (!cats.length) return null;
+      const n = cats.reduce((a: number, c: any) => a + c.tracings.length, 0);
+      return (
+        <section class="mb-10">
+          <h2 class="font-heading text-2xl font-semibold text-clinical-900 dark:text-clinical-50 mb-1">
+            {g.name} <span class="text-base font-normal text-clinical-400">{n}</span>
+          </h2>
+          <p class="text-clinical-600 dark:text-clinical-400 mb-4">{g.blurb}</p>
+          <ul class="grid sm:grid-cols-2 gap-3">
+            {cats.map((c: any) => (
+              <li>
+                <a href={`/cardiology/ecg/${c.id}`} class={card}>
+                  <h3 class="font-heading font-semibold text-clinical-900 dark:text-clinical-50">
+                    {c.name}
+                  </h3>
+                  <p class="mt-1 text-sm text-clinical-500 dark:text-clinical-400">
+                    {c.tracings.length} tracings
+                  </p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      );
+    })}
+
+    <EcgAttribution />
+  </div>
+</BaseLayout>
