@@ -30,6 +30,8 @@ export default function QualifierSearch({
 }: Props) {
   const [mode, setMode] = useState<Mode>('symptom');
   const [complaint, setComplaint] = useState<Complaint | null>(null);
+  // the complaint a term search arrived from, used to keep results in context
+  const [scope, setScope] = useState<Complaint | null>(null);
   const [query, setQuery] = useState('');
   const [picked, setPicked] = useState<string[]>([]);
   const [openDx, setOpenDx] = useState<string | null>(null);
@@ -72,7 +74,11 @@ export default function QualifierSearch({
 
   const differential = useMemo(() => {
     if (!picked.length) return [];
-    return diagnoses
+    // When the search arrived from a presenting complaint, keep the answer
+    // inside that complaint. Otherwise "knee pain, acute" returns every acute
+    // condition in medicine instead of the acute knees.
+    const pool = scope ? diagnoses.filter((d) => scope.diagnoses.includes(d.id)) : diagnoses;
+    return pool
       .map((d) => {
         const hits = picked.filter((p) => d.tags.includes(p));
         const pending = d.cluster.filter((_, i) => {
@@ -86,7 +92,7 @@ export default function QualifierSearch({
       .sort(
         (a, b) => b.hits.length - a.hits.length || b.score - a.score || b.fit - a.fit,
       );
-  }, [picked, diagnoses, idf]);
+  }, [picked, diagnoses, idf, scope]);
 
   const SHOWN = 12;
   const shown = differential.slice(0, SHOWN);
@@ -130,7 +136,7 @@ export default function QualifierSearch({
   }, [differential, qById]);
 
   function selectMode(m: Mode) {
-    setMode(m); setQuery(''); setPicked([]); setOpenDx(null); setComplaint(null);
+    setMode(m); setQuery(''); setPicked([]); setOpenDx(null); setComplaint(null); setScope(null);
     inputRef.current?.focus();
   }
 
@@ -139,6 +145,7 @@ export default function QualifierSearch({
   // rather than a parallel one.
   function chooseAxis(id: string) {
     setPicked((prev) => (prev.includes(id) ? prev : [...prev, id]));
+    setScope(complaint);
     setMode('term');
     setQuery('');
   }
@@ -291,6 +298,20 @@ export default function QualifierSearch({
             </p>
           )}
         </section>
+      )}
+
+      {mode === 'term' && scope && picked.length > 0 && (
+        <p class="mt-4 text-sm text-clinical-600 dark:text-clinical-400">
+          Narrowing within <span class="font-medium">{scope.name.toLowerCase()}</span>, {scope.total}{' '}
+          diagnoses.{' '}
+          <button
+            type="button"
+            onClick={() => setScope(null)}
+            class="text-blue-600 dark:text-blue-400 hover:underline"
+          >
+            Search the whole library instead
+          </button>
+        </p>
       )}
 
       {/* selected qualifier chips */}
