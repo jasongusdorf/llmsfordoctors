@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import EcgAttribution from '../../../components/EcgAttribution.astro';
+import EcgQuiz from '../../../components/EcgQuiz.tsx';
+import data from '../../../data/ecg-library.json';
+
+const d = data as any;
+const cats = d.categories.map((c: any) => ({
+  id: c.id,
+  name: c.name,
+  group: c.group,
+  teaching: c.teaching,
+}));
+const catIndex = new Map(d.categories.map((c: any, i: number) => [c.id, i]));
+// tracings reference their category by index so the teaching text ships once, not 696 times
+const items = d.categories.flatMap((c: any) =>
+  c.tracings.map((t: any) => ({ i: t.id, s: t.image, w: t.w, h: t.h, c: catIndex.get(c.id) })),
+);
+const groups = d.groups.map((g: any) => ({ id: g.id, name: g.name }));
+---
+
+<BaseLayout
+  title="ECG Quiz - LLMs for Doctors"
+  description={`Randomised ECG interpretation quiz drawing from ${items.length} real 12-lead tracings.`}
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumb
+      crumbs={[
+        { label: 'Home', href: '/' },
+        { label: 'Cardiology', href: '/cardiology' },
+        { label: 'ECG Library', href: '/cardiology/ecg' },
+        { label: 'Quiz' },
+      ]}
+    />
+
+    <header class="mb-6">
+      <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mb-3">
+        ECG Quiz
+      </h1>
+      <p class="text-lg text-clinical-600 dark:text-clinical-400">
+        A random tracing from {items.length} real ECGs. Four choices, drawn from the same family of
+        findings so the answer is an actual discrimination rather than a guess. Every question links
+        to the full read.
+      </p>
+    </header>
+
+    <EcgQuiz client:load items={items} cats={cats} groups={groups} />
+
+    <EcgAttribution />
+  </div>
+</BaseLayout>

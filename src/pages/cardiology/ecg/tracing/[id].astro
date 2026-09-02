@@ -1,0 +1,176 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../../components/Breadcrumb.astro';
+import EcgAttribution from '../../../../components/EcgAttribution.astro';
+import data from '../../../../data/ecg-library.json';
+
+export async function getStaticPaths() {
+  const d = data as any;
+  const flat = d.categories.flatMap((c: any) =>
+    c.tracings.map((t: any) => ({ t, c })),
+  );
+  return flat.map(({ t, c }: any, i: number) => ({
+    params: { id: String(t.id) },
+    props: {
+      t,
+      cat: c,
+      group: d.groups.find((g: any) => g.id === c.group),
+      prev: flat[i - 1]?.t ?? null,
+      next: flat[i + 1]?.t ?? null,
+    },
+  }));
+}
+
+const { t, cat, group, prev, next } = Astro.props as any;
+
+const KIND: Record<string, string> = {
+  rhythm: 'Rhythm',
+  diagnostic: 'Diagnostic',
+  form: 'Morphology',
+  other: 'Other',
+};
+const order = ['rhythm', 'diagnostic', 'form', 'other'];
+const byKind = order
+  .map((k) => ({ kind: k, label: KIND[k], items: t.codes.filter((c: any) => c.kind === k) }))
+  .filter((g: any) => g.items.length);
+
+const QUALITY: Record<string, string> = {
+  baseline_drift: 'Baseline drift',
+  static_noise: 'Static noise',
+  burst_noise: 'Burst noise',
+  electrodes_problems: 'Electrode problem',
+  extra_beats: 'Extra beats',
+  pacemaker: 'Pacemaker',
+};
+const quality = Object.entries(t.quality || {});
+const facts = [
+  ['Age', t.age ? `${t.age} years` : null],
+  ['Sex', t.sex || null],
+  ['Height', t.height ? `${t.height} cm` : null],
+  ['Weight', t.weight ? `${t.weight} kg` : null],
+  ['Heart axis', t.axis || null],
+  ['Infarction stage', t.infarctStage || null],
+  ['Recorded', t.recorded || null],
+  ['Device', t.device || null],
+].filter(([, v]) => v);
+---
+
+<BaseLayout
+  title={`ECG record ${t.id}: ${cat.name} - LLMs for Doctors`}
+  description={`Full read of PTB-XL record ${t.id}, labelled ${cat.name.toLowerCase()}.`}
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumb
+      crumbs={[
+        { label: 'Home', href: '/' },
+        { label: 'Cardiology', href: '/cardiology' },
+        { label: 'ECG Library', href: '/cardiology/ecg' },
+        { label: cat.name, href: `/cardiology/ecg/${cat.id}` },
+        { label: `Record ${t.id}` },
+      ]}
+    />
+
+    <header class="mb-6">
+      <p class="text-sm font-medium text-blue-600 dark:text-blue-400 mb-1">
+        {group?.name} · <a href={`/cardiology/ecg/${cat.id}`} class="hover:underline">{cat.name}</a>
+      </p>
+      <h1 class="font-heading text-3xl font-bold text-clinical-900 dark:text-clinical-50">
+        Record {t.id}
+      </h1>
+    </header>
+
+    <a href={t.image} target="_blank" rel="noopener">
+      <img
+        src={t.image}
+        width={t.w}
+        height={t.h}
+        alt={`12-lead ECG, PTB-XL record ${t.id}, labelled ${cat.name.toLowerCase()}`}
+        class="w-full h-auto rounded-lg border border-clinical-200 dark:border-clinical-700 bg-white"
+      />
+    </a>
+    <p class="mt-2 text-xs text-clinical-500 dark:text-clinical-400">
+      25 mm/s, 10 mm/mV unless the tracing states otherwise. Open the image for full resolution.
+    </p>
+
+    <section class="mt-8">
+      <h2 class="font-heading text-2xl font-semibold text-clinical-900 dark:text-clinical-50 mb-3">
+        The read
+      </h2>
+      <p class="text-sm text-clinical-500 dark:text-clinical-400 mb-4">
+        Every statement the reviewing cardiologists assigned to this tracing, as SCP-ECG codes.
+        A statement marked provisional was recorded without a confidence value in the source dataset,
+        which is not the same as being doubted.
+      </p>
+      {byKind.map((g: any) => (
+        <div class="mb-5">
+          <h3 class="font-heading text-sm font-semibold uppercase tracking-wide text-clinical-500 dark:text-clinical-400 mb-2">
+            {g.label}
+          </h3>
+          <ul class="space-y-1.5">
+            {g.items.map((c: any) => (
+              <li class="flex flex-wrap items-baseline gap-x-2 text-clinical-700 dark:text-clinical-300">
+                <code class="px-1.5 py-0.5 rounded text-xs bg-clinical-100 dark:bg-clinical-800 text-clinical-600 dark:text-clinical-400">
+                  {c.code}
+                </code>
+                <span>{c.label}</span>
+                {!c.confident && (
+                  <span class="text-xs text-clinical-400 dark:text-clinical-500">provisional</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
+
+    <div class="grid sm:grid-cols-2 gap-6 mt-8">
+      <section>
+        <h2 class="font-heading text-xl font-semibold text-clinical-900 dark:text-clinical-50 mb-3">
+          Patient and recording
+        </h2>
+        <dl class="text-sm">
+          {facts.map(([k, v]: any) => (
+            <div class="flex justify-between gap-4 py-1.5 border-b border-clinical-100 dark:border-clinical-800">
+              <dt class="text-clinical-500 dark:text-clinical-400">{k}</dt>
+              <dd class="text-clinical-800 dark:text-clinical-200 text-right">{v}</dd>
+            </div>
+          ))}
+        </dl>
+        {t.age === '89+' && (
+          <p class="mt-2 text-xs text-clinical-400">
+            Ages above 89 are censored in the source dataset for de-identification.
+          </p>
+        )}
+      </section>
+
+      <section>
+        <h2 class="font-heading text-xl font-semibold text-clinical-900 dark:text-clinical-50 mb-3">
+          Provenance and signal quality
+        </h2>
+        <ul class="text-sm space-y-1.5 text-clinical-700 dark:text-clinical-300">
+          <li>{t.humanValidated ? 'Validated by a human reviewer' : 'Not marked as human validated'}</li>
+          {t.secondOpinion && <li>A second opinion was recorded</li>}
+          {t.autoReport && <li>The initial report was machine generated, then reviewed</li>}
+          {quality.length === 0 ? (
+            <li class="text-clinical-500 dark:text-clinical-400">No signal quality problems noted</li>
+          ) : (
+            quality.map(([k, v]: any) => (
+              <li>
+                <span class="text-clinical-500 dark:text-clinical-400">{QUALITY[k] || k}:</span>{' '}
+                {String(v).replace(/\s*,\s*/g, ', ').trim()}
+              </li>
+            ))
+          )}
+        </ul>
+      </section>
+    </div>
+
+    <nav class="mt-10 flex justify-between gap-4 text-sm">
+      {prev ? <a href={`/cardiology/ecg/tracing/${prev.id}`} class="text-blue-600 dark:text-blue-400 hover:underline">← Record {prev.id}</a> : <span />}
+      <a href="/cardiology/ecg/quiz" class="text-blue-600 dark:text-blue-400 hover:underline">Quiz mode</a>
+      {next ? <a href={`/cardiology/ecg/tracing/${next.id}`} class="text-blue-600 dark:text-blue-400 hover:underline">Record {next.id} →</a> : <span />}
+    </nav>
+
+    <EcgAttribution />
+  </div>
+</BaseLayout>
