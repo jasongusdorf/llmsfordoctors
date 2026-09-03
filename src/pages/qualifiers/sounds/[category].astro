@@ -39,7 +39,7 @@ const fmt = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '
     />
 
     <header class="mb-8">
-      <h1 class="font-heading text-3xl font-bold text-clinical-900 dark:text-clinical-50 mb-2">
+      <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mb-2">
         {category}
       </h1>
       <p class="text-clinical-600 dark:text-clinical-400">
@@ -50,7 +50,7 @@ const fmt = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '
 
     <ol class="space-y-4">
       {tracks.map((t: any) => (
-        <li class="p-4 rounded-lg border border-clinical-200 dark:border-clinical-700 bg-warm-white dark:bg-clinical-800/60">
+        <li class="p-4 rounded-lg border border-clinical-200 dark:border-clinical-700 bg-warm-white dark:bg-clinical-800">
           <div class="flex items-baseline justify-between gap-3 mb-2">
             <h2 class="font-heading font-semibold text-clinical-900 dark:text-clinical-50">
               {t.title}

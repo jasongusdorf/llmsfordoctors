@@ -7,7 +7,7 @@ import data from '../../../data/ecg-library.json';
 const d = data as any;
 const total = d.categories.reduce((n: number, c: any) => n + c.tracings.length, 0);
 const card =
-  'block p-4 rounded-lg border border-clinical-200 dark:border-clinical-700 bg-warm-white dark:bg-clinical-800/60 hover:border-blue-500 dark:hover:border-blue-400 transition-colors';
+  'block p-4 rounded-lg border border-clinical-200 dark:border-clinical-700 bg-warm-white dark:bg-clinical-800 hover:border-blue-500 dark:hover:border-blue-400 transition-colors';
 ---
 
 <BaseLayout

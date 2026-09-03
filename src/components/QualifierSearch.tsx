@@ -277,7 +277,7 @@ export default function QualifierSearch({
               const B = ax.b ? qById[ax.b] : null;
               if (!A) return null;
               return (
-                <li key={ax.a} class="p-4 rounded-lg border border-clinical-200 dark:border-clinical-700 bg-warm-white dark:bg-clinical-800/60">
+                <li key={ax.a} class="p-4 rounded-lg border border-clinical-200 dark:border-clinical-700 bg-warm-white dark:bg-clinical-800">
                   <div class="flex flex-wrap gap-2">
                     <button
                       type="button"

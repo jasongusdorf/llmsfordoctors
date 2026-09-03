@@ -99,7 +99,7 @@ export default function EcgQuiz({
             'text-left px-4 py-3 rounded-lg border transition-colors font-medium disabled:cursor-default ';
           if (!answered) {
             cls +=
-              'border-clinical-300 dark:border-clinical-600 bg-warm-white dark:bg-clinical-800/60 text-clinical-800 dark:text-clinical-200 hover:border-blue-500 dark:hover:border-blue-400';
+              'border-clinical-300 dark:border-clinical-600 bg-warm-white dark:bg-clinical-800 text-clinical-800 dark:text-clinical-200 hover:border-blue-500 dark:hover:border-blue-400';
           } else if (isAnswer) {
             cls +=
               'border-green-600 dark:border-green-500 bg-green-50 dark:bg-green-950/40 text-green-900 dark:text-green-200';
@@ -129,7 +129,7 @@ export default function EcgQuiz({
       </div>
 
       {answered && (
-        <div class="mt-5 p-5 rounded-lg border border-clinical-200 dark:border-clinical-700 bg-warm-white dark:bg-clinical-800/60">
+        <div class="mt-5 p-5 rounded-lg border border-clinical-200 dark:border-clinical-700 bg-warm-white dark:bg-clinical-800">
           <p class="font-heading font-semibold mb-2 text-clinical-900 dark:text-clinical-50">
             {correct ? 'Correct.' : `Not quite. This is ${cat.name.toLowerCase()}.`}
           </p>
