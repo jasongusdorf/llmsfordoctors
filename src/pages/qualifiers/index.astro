@@ -97,7 +97,7 @@ const totalQualifiers = qualifiers.length;
           <li>
             <a
               href={`/qualifiers/${s.qualifier}`}
-              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-clinical-200 dark:border-clinical-700 bg-warm-white dark:bg-clinical-800/60 text-sm text-blue-700 dark:text-blue-300 hover:border-blue-500"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-clinical-200 dark:border-clinical-700 bg-warm-white dark:bg-clinical-800 text-sm text-blue-700 dark:text-blue-300 hover:border-blue-500"
             >
               <span aria-hidden="true">♪</span>
               {qualifiers.find((q: any) => q.id === s.qualifier)?.name ?? s.qualifier}
