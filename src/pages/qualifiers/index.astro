@@ -63,23 +63,6 @@ const totalQualifiers = qualifiers.length;
       />
     </div>
 
-    <aside
-      class="mt-8 rounded-lg border border-amber-300 dark:border-amber-700/60 bg-amber-50 dark:bg-amber-950/30 px-4 py-3"
-      aria-label="Scope and limitations"
-    >
-      <p class="text-sm text-amber-900 dark:text-amber-200">
-        <strong class="font-semibold">What this is, and what it is not.</strong> A teaching tool for
-        clinical reasoning. It ranks by how discriminating a qualifier is across
-        {diagnoses.length} catalogued diagnoses, using inverse document frequency, so a rare
-        qualifier counts for more than a common one. It does not know disease prevalence, it does not
-        weigh pretest probability, and its list is deliberately small. It cannot generate a
-        differential for a patient, and it is not clinical decision support. If a presentation is not
-        among the catalogued diagnoses, the search will still return its nearest partial matches, so
-        read the "matched N of N" count before you read the ranking. Every result shows which
-        qualifiers matched and why, so you can check the reasoning rather than take the ranking.
-      </p>
-    </aside>
-
     <section class="mt-10">
       <h2 class="font-heading text-2xl font-semibold text-clinical-900 dark:text-clinical-50 mb-3">
         The full reference
