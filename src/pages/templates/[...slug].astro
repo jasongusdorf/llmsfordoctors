@@ -49,6 +49,7 @@ const categoryLabels: Record<string, string> = {
 
 <ContentLayout
   title={entry.data.title}
+  description={entry.data.socialPost || entry.data.description}
   lastUpdated={entry.data.lastUpdated}
   tags={entry.data.tags}
   breadcrumbs={[
