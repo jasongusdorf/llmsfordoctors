@@ -13,12 +13,14 @@ interface Axis {
 interface Complaint {
   id: string; name: string; synonyms: string[]; total: number; diagnoses: string[]; axes: Axis[];
 }
+interface LayPhrase { phrase: string; ids: string[] }
 interface Props {
   qualifiers: Qualifier[];
   diagnoses: Diagnosis[];
   idf: Record<string, number>;
   opposites: Record<string, string[]>;
   complaints?: Complaint[];
+  layPhrases?: LayPhrase[];
 }
 
 type Mode = 'symptom' | 'disease' | 'term';
@@ -26,7 +28,7 @@ type Mode = 'symptom' | 'disease' | 'term';
 const norm = (s: string) => s.toLowerCase().trim();
 
 export default function QualifierSearch({
-  qualifiers, diagnoses, idf, opposites, complaints = [],
+  qualifiers, diagnoses, idf, opposites, complaints = [], layPhrases = [],
 }: Props) {
   const [mode, setMode] = useState<Mode>('symptom');
   const [complaint, setComplaint] = useState<Complaint | null>(null);
@@ -63,14 +65,33 @@ export default function QualifierSearch({
       .slice(0, 10);
   }, [query, complaints]);
 
+  // Term search matches the qualifier's own name first, then the patient
+  // language a person would actually type. "spiky star-shaped" should find
+  // Spiculated even though those words appear nowhere in the qualifier name.
   const termMatches = useMemo(() => {
     const q = norm(query);
     if (!q) return [];
-    return searchable
-      .filter((t) => !picked.includes(t.id) && norm(t.name).includes(q))
-      .sort((a, b) => norm(a.name).indexOf(q) - norm(b.name).indexOf(q))
-      .slice(0, 10);
-  }, [query, searchable, picked]);
+    const direct = searchable.filter(
+      (t) => !picked.includes(t.id) && norm(t.name).includes(q),
+    );
+    const seen = new Set(direct.map((t) => t.id));
+    const viaLay: typeof direct = [];
+    for (const lp of layPhrases) {
+      if (!norm(lp.phrase).includes(q)) continue;
+      for (const id of lp.ids) {
+        if (seen.has(id) || picked.includes(id)) continue;
+        const t = qById[id];
+        if (t) {
+          seen.add(id);
+          viaLay.push(t);
+        }
+      }
+    }
+    return [
+      ...direct.sort((a, b) => norm(a.name).indexOf(q) - norm(b.name).indexOf(q)),
+      ...viaLay,
+    ].slice(0, 10);
+  }, [query, searchable, picked, layPhrases, qById]);
 
   const differential = useMemo(() => {
     if (!picked.length) return [];
