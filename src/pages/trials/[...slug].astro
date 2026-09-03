@@ -16,6 +16,7 @@ const doiUrl = entry.data.doi ? `https://doi.org/${entry.data.doi}` : null;
 
 <ContentLayout
   title={entry.data.title}
+  description={entry.data.keyFinding || entry.data.socialPost}
   lastUpdated={entry.data.lastUpdated}
   tags={entry.data.tags}
   breadcrumbs={[

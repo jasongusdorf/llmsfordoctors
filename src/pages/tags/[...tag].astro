@@ -4,11 +4,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 
 export async function getStaticPaths() {
-  const [workflows, guides, templates, trials] = await Promise.all([
+  const [workflows, guides, templates, trials, briefs, editorials] = await Promise.all([
     getCollection('workflows'),
     getCollection('guides'),
     getCollection('templates'),
     getCollection('trials'),
+    getCollection('briefs'),
+    getCollection('editorials'),
   ]);
 
   // Collect all unique tags
@@ -18,22 +20,35 @@ export async function getStaticPaths() {
   guides.forEach((e) => e.data.tags.forEach((t: string) => tagSet.add(t)));
   templates.forEach((e) => e.data.tags.forEach((t: string) => tagSet.add(t)));
   trials.forEach((e) => e.data.tags.forEach((t: string) => tagSet.add(t)));
+  // briefs and editorials carry tags too. Omitting them here rendered 262 tag
+  // links across the site as 404s, because the link was written but no page
+  // was ever generated for it.
+  briefs.forEach((e) => (e.data.tags || []).forEach((t: string) => tagSet.add(t)));
+  editorials.forEach((e) => (e.data.tags || []).forEach((t: string) => tagSet.add(t)));
 
   return Array.from(tagSet).map((tag) => ({
     params: { tag },
-    props: { tag, workflows, guides, templates, trials },
+    props: { tag, workflows, guides, templates, trials, briefs, editorials },
   }));
 }
 
-const { tag, workflows, guides, templates, trials } = Astro.props;
+const { tag, workflows, guides, templates, trials, briefs, editorials } = Astro.props;
 
 // Filter each collection to entries with this tag
 const matchingWorkflows = workflows.filter((e: any) => e.data.tags.includes(tag));
 const matchingGuides = guides.filter((e: any) => e.data.tags.includes(tag));
 const matchingTemplates = templates.filter((e: any) => e.data.tags.includes(tag));
 const matchingTrials = trials.filter((e: any) => e.data.tags.includes(tag));
+const matchingBriefs = briefs
+  .filter((e: any) => (e.data.tags || []).includes(tag))
+  .sort((a: any, b: any) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+const matchingEditorials = editorials.filter((e: any) => (e.data.tags || []).includes(tag));
 
-const totalCount = matchingWorkflows.length + matchingGuides.length + matchingTemplates.length + matchingTrials.length;
+const totalCount =
+  matchingWorkflows.length + matchingGuides.length + matchingTemplates.length +
+  matchingTrials.length + matchingBriefs.length + matchingEditorials.length;
+const fmt = (d: any) =>
+  new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 ---
 
 <BaseLayout
@@ -104,6 +119,48 @@ const totalCount = matchingWorkflows.length + matchingGuides.length + matchingTe
               </li>
             ))}
           </ul>
+        </section>
+      )}
+
+      {matchingEditorials.length > 0 && (
+        <section>
+          <h2 class="font-heading text-lg font-semibold text-clinical-800 dark:text-clinical-200 mb-3 pb-2 border-b border-clinical-200 dark:border-clinical-700">
+            Editorials
+          </h2>
+          <ul class="space-y-2">
+            {matchingEditorials.map((e: any) => (
+              <li>
+                <a href={`/editorials/${e.id}`} class="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline">
+                  <span class="text-clinical-400">&#8594;</span>
+                  {e.data.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {matchingBriefs.length > 0 && (
+        <section>
+          <h2 class="font-heading text-lg font-semibold text-clinical-800 dark:text-clinical-200 mb-3 pb-2 border-b border-clinical-200 dark:border-clinical-700">
+            Briefs
+          </h2>
+          <ul class="space-y-2">
+            {matchingBriefs.slice(0, 40).map((b: any) => (
+              <li>
+                <a href={`/briefs/${b.id}`} class="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline">
+                  <span class="text-clinical-400">&#8594;</span>
+                  {b.data.title}
+                  <span class="text-sm text-clinical-500">{fmt(b.data.date)}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          {matchingBriefs.length > 40 && (
+            <p class="mt-2 text-sm text-clinical-500">
+              Showing the 40 most recent of {matchingBriefs.length}.
+            </p>
+          )}
         </section>
       )}
 
