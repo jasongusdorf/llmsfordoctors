@@ -5,7 +5,7 @@ import QualifierSearch from '../../components/QualifierSearch.tsx';
 import data from '../../data/semantic-qualifiers.json';
 import sounds from '../../data/heart-sounds.json';
 
-const { qualifiers, diagnoses, idf, opposites, complaints = [] } = data as any;
+const { qualifiers, diagnoses, idf, opposites, complaints = [], layPhrases = [] } = data as any;
 
 // The island only needs enough to render autocomplete and explain a match.
 // Passing the full 8-field records would inline roughly 400 KB into the page.
@@ -59,6 +59,7 @@ const totalQualifiers = qualifiers.length;
         idf={idf}
         opposites={opposites}
         complaints={searchComplaints}
+        layPhrases={layPhrases}
       />
     </div>
 
