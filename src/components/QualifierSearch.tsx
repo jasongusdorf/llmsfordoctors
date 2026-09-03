@@ -59,7 +59,9 @@ export default function QualifierSearch({
 
   const complaintMatches = useMemo(() => {
     const q = norm(query);
-    if (!q) return complaints.slice(0, 8);
+    // Nothing is offered until the user searches. An unprompted list of
+    // complaints under an empty box reads as the answer rather than a prompt.
+    if (!q) return [];
     return complaints
       .filter((c) => norm(c.name).includes(q) || c.synonyms.some((sy) => norm(sy).includes(q)))
       .slice(0, 10);
@@ -226,7 +228,7 @@ export default function QualifierSearch({
       </p>
 
       {/* plain-language entry: pick a complaint, then answer the forks */}
-      {mode === 'symptom' && !complaint && (
+      {mode === 'symptom' && !complaint && query && (
         <ul class="mt-5 flex flex-wrap gap-2">
           {complaintMatches.map((c) => (
             <li key={c.id}>
