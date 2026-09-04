@@ -1,0 +1,128 @@
+---
+title: "Differential Diagnosis Table: Confirm, Disconfirm, Act"
+category: clinical-reasoning
+targetTool: any
+workflow: clinical-reasoning
+tags: [advanced, clinical-reasoning, diagnosis, differential, zebras, diagnostic-error]
+lastUpdated: 2026-09-04
+socialPost: "A differential diagnosis template that forces four columns: what would confirm each diagnosis, what would argue against it, and the concise next steps. It runs from bread-and-butter through the zebras, and it names the rare entities rather than gesturing at them."
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptPlayground from '../../components/PromptPlayground.astro';
+
+## When to use this
+
+Use this when you want a differential laid out as a working document rather than a ranked list: something you can take to the bedside, tick off, and act on.
+
+Most generated differentials fail in the same three ways. They list diagnoses without saying what would actually settle each one. They treat "absent finding" as evidence against when the finding is insensitive, so its absence proves nothing. And they stop at the common causes, or wave at "rare etiologies" without naming any.
+
+This template forces four columns and a named zebra tier.
+
+<Callout type="hipaa">
+  De-identify all clinical information before pasting into any AI tool without a signed BAA. Remove patient name, date of birth, MRN, dates of service, provider names, and any other direct identifiers.
+</Callout>
+
+<Callout type="pitfall">
+  The output is a reasoning aid, not a plan. Every test and threshold it proposes needs to be checked against your own judgment and local practice before it touches a patient.
+</Callout>
+
+---
+
+## The two columns people get wrong
+
+The confirmatory and disconfirmatory columns are not mirror images, and the distinction is the whole point of the template.
+
+A **confirmatory** finding is one whose *presence* moves you toward the diagnosis. High specificity, so ruling in. A positive Nikolsky sign, a salmon-pink evanescent rash, PAS-positive macrophages on duodenal biopsy.
+
+A **disconfirmatory** finding is one whose presence or absence moves you *away*. This only works when the finding is sensitive enough that its absence means something. A normal D-dimer in a low-risk patient argues meaningfully against PE. A normal chest film does not argue against tuberculosis in a patient who may have extrapulmonary or miliary disease.
+
+Most diagnostic errors of the anchoring type come from treating an insensitive test as if a negative result excluded the diagnosis. The prompt below makes the model state, for each disconfirmatory entry, whether the finding is actually sensitive enough to carry that weight.
+
+---
+
+## The prompt
+
+<PromptPlayground tool="Any LLM (GPT-5, Claude, etc.)" title="Differential Diagnosis Table">
+You are a senior internal medicine physician building a differential diagnosis as a structured working table for a colleague. Follow the rules and output format exactly.
+
+### Rules
+
+1. Do not infer history, exam findings, labs, or imaging that are not explicitly stated in the input. If a pivotal piece of information is missing, list it under Missing information and say why it matters, but still produce the table.
+2. Never fabricate test results, reference ranges, likelihood ratios, or criteria. If you do not know a numeric value, say so rather than inventing one.
+3. Name every diagnosis specifically. "Vasculitis" is not a diagnosis; "granulomatosis with polyangiitis" is. This applies with full force to the rare tier: name the actual entities.
+4. In the Confirmatory column, give findings whose PRESENCE would raise the probability materially. Prefer specific findings, named criteria (Duke, Yamaguchi, HLH-2004, Wells, Centor), and characteristic histology or imaging. Where a well-established likelihood ratio or criterion exists, name it.
+5. In the Disconfirmatory column, give findings that would argue AGAINST. For each one, state explicitly whether a negative or absent result is sensitive enough to meaningfully lower the probability. If it is not, write the caveat rather than the reassurance. Example: "Normal chest radiograph, but this does NOT exclude miliary or extrapulmonary disease."
+6. In Next steps, write imperative bullet fragments of at most eight words. A test, an action, or a threshold. No sentences, no explanation, no hedging. Order them by what you would do first.
+7. Flag any test that is commonly mistaken for a rule-out but is not one.
+8. State confidence per tier, not per row, and do not present the ordering as definitive.
+
+### Output format
+
+Produce four tiered tables using this exact column structure.
+
+```
+| Diagnosis | Confirmatory findings | Disconfirmatory findings | Next steps |
+| --- | --- | --- | --- |
+```
+
+Tiers, in this order:
+
+**1. Common causes.** The bread and butter for this presentation. Five to eight rows.
+
+**2. Must not miss.** Time-critical diagnoses that require active exclusion regardless of current probability. For each, give the specific harm of delay and the decision threshold that would make you act before confirmation. Three to six rows.
+
+**3. Uncommon but plausible.** Diagnoses a good clinician would reach for once the common causes do not fit. Four to six rows.
+
+**4. Zebras worth naming.** Genuinely rare entities that fit the presentation and are treatable or dangerous enough to be worth holding in mind. Name them specifically, and for each give the one feature that should make you think of it. Three to six rows.
+
+After the tables:
+
+**Discriminating questions.** Three to five questions or bedside findings that would most efficiently split the remaining differential, in the order worth asking them.
+
+**Missing information.** What you would need to know, and what each item would change.
+
+**Pivot points.** Any finding in the case that does not fit the leading diagnosis and deserves an explanation.
+
+### Input
+
+Clinical presentation:
+[PASTE DE-IDENTIFIED CASE HERE]
+
+Specific question, if any:
+[e.g. "I am anchored on lymphoma, what am I missing?"]
+</PromptPlayground>
+
+---
+
+## Worked example
+
+Input: a 42-year-old with three weeks of daily fever to 39.4 C, 6 kg unintentional weight loss, and drenching night sweats. Exam shows splenomegaly and no lymphadenopathy. Referred as fever of unknown origin.
+
+The abbreviated output, showing the shape of two tiers:
+
+### Common causes
+
+| Diagnosis | Confirmatory findings | Disconfirmatory findings | Next steps |
+| --- | --- | --- | --- |
+| Infective endocarditis | New regurgitant murmur, vegetation on echo, persistently positive cultures with a typical organism, embolic phenomena, Duke criteria | Repeatedly negative cultures drawn off antibiotics argue against, though they do not exclude culture-negative endocarditis from Coxiella, Bartonella, or Tropheryma | Three sets blood cultures before antibiotics. TTE now, TEE if suspicion persists. Apply Duke criteria. Ask about dental work, injection drug use |
+| Tuberculosis | Upper-lobe cavitary infiltrate, positive AFB smear or NAAT, exposure or endemic-region history, granulomas on tissue | Normal chest radiograph, but this does NOT exclude miliary or extrapulmonary disease. A negative IGRA does NOT exclude active TB and is insensitive in disseminated disease | Three sputum samples for AFB and NAAT. Airborne isolation. CT chest. IGRA, interpreting a negative with caution |
+| Lymphoma | Painless adenopathy, mediastinal or retroperitoneal nodes, elevated LDH, B symptoms, excisional biopsy showing clonal population | Absent palpable adenopathy does not argue against; deep nodal and splenic disease is common and this patient has splenomegaly | Excisional node biopsy, not fine-needle. CT chest, abdomen, pelvis. LDH, uric acid. Hematology referral |
+
+### Zebras worth naming
+
+| Diagnosis | Confirmatory findings | Disconfirmatory findings | Next steps |
+| --- | --- | --- | --- |
+| Hemophagocytic lymphohistiocytosis | Fever with splenomegaly, cytopenias in two or more lines, ferritin often above 10,000, hypertriglyceridemia, hypofibrinogenemia, elevated soluble CD25, hemophagocytosis on marrow, HLH-2004 criteria | A normal ferritin makes HLH unlikely and here the absence is genuinely informative, since marked hyperferritinemia is close to expected in active disease | Ferritin, triglycerides, fibrinogen today. Soluble CD25. Bone marrow biopsy. Call hematology now, do not wait for the marrow |
+| Adult-onset Still disease | Quotidian spiking fever, evanescent salmon-pink rash appearing with fever spikes, arthralgia, marked leukocytosis, very high ferritin with a low glycosylated fraction, Yamaguchi criteria | A positive ANA or rheumatoid factor argues against, since Still disease is characteristically seronegative. It remains a diagnosis of exclusion | Ferritin with glycosylated fraction. ANA, RF to exclude. Document the rash during a spike. Apply Yamaguchi criteria after excluding infection and malignancy |
+| Whipple disease | Arthralgia preceding gastrointestinal symptoms by years, diarrhea and weight loss, PAS-positive foamy macrophages on small-bowel biopsy, positive Tropheryma whipplei PCR | Absence of diarrhea does not exclude it; the classic history is years of seronegative arthropathy before any bowel symptoms | Duodenal biopsy with PAS staining. T. whipplei PCR on tissue. Ask specifically about years of joint pain |
+
+Notice what the disconfirmatory column is doing in each row. For HLH it says the absence is informative. For tuberculosis, lymphoma, and Whipple it says the opposite, and refuses to let a normal film or an absent symptom close the question. That asymmetry is the clinical content of the template.
+
+---
+
+## Limitations
+
+The model does not know your patient, your pretest probabilities, or what is actually available to you overnight. It will occasionally produce a plausible-sounding likelihood ratio, which is why rule 2 tells it to decline rather than guess, and why you should treat any specific number in the output as a prompt to check a source rather than as a source.
+
+The zebra tier is the most likely place for a confident error, because rare-disease detail is thinly represented in training data and the model is being pushed to be specific. Read that tier as a list of things to look up, not a list of things to believe.
