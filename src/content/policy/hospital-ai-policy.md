@@ -26,7 +26,7 @@ Every specialty has a small set of skills that define it, and those skills are m
 
 The policy consequence is a deliberate inventory, by department, of the skills that must survive: the differential built from a blank page, the independent read of the film or the tracing before opening the AI overlay, the physical examination that does not defer to the risk score. Aviation solved this problem by mandating hand-flying, and medicine can borrow the answer rather than relearn it. Offload the toil freely. Protect the reasoning and the perception on purpose, in writing, as a departmental norm rather than an individual act of discipline.
 
-## 3. Require training in the biases and failure modes of AI, including hallucination.
+## 3. Strongly recommend training in the biases and failure modes of AI, including hallucination.
 
 We credential clinicians before they touch a ventilator; we should expect basic competence before they act on a language model. The failure modes are learnable, and none of them are intuitive. Hallucination alone is three different problems: a model can misreport a document it was given, invent facts when it has no source, and fail to say "I do not know" when it should. These vary independently, which is why published hallucination rates for the same model can differ by an order of magnitude. A confident answer with a real-looking citation is the output that most needs checking, because the dominant citation failure is not the fabricated reference but the real reference that does not say what the model claims.
 
