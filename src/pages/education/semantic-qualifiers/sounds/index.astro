@@ -1,7 +1,7 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Breadcrumb from '../../../components/Breadcrumb.astro';
-import library from '../../../data/heart-sounds-library.json';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../../components/Breadcrumb.astro';
+import library from '../../../../data/heart-sounds-library.json';
 
 const tracks = library as any[];
 const cats = [...new Set(tracks.map((t) => t.category))].sort();
@@ -18,7 +18,7 @@ const totalMin = Math.round(tracks.reduce((s, t) => s + t.seconds, 0) / 60);
     <Breadcrumb
       crumbs={[
         { label: 'Home', href: '/' },
-        { label: 'Semantic Qualifiers', href: '/qualifiers' },
+        { label: 'Semantic Qualifiers', href: '/education/semantic-qualifiers' },
         { label: 'Heart Sound Library' },
       ]}
     />
@@ -42,7 +42,7 @@ const totalMin = Math.round(tracks.reduce((s, t) => s + t.seconds, 0) / 60);
       {cats.map((c) => (
         <li>
           <a
-            href={`/qualifiers/sounds/${slug(c)}`}
+            href={`/education/semantic-qualifiers/sounds/${slug(c)}`}
             class="block p-4 rounded-lg border border-clinical-200 dark:border-clinical-700 bg-warm-white dark:bg-clinical-800 hover:border-blue-500 dark:hover:border-blue-400 transition-colors"
           >
             <div class="flex items-baseline justify-between gap-3">

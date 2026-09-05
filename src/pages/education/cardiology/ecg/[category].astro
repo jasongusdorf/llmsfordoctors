@@ -1,8 +1,8 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Breadcrumb from '../../../components/Breadcrumb.astro';
-import EcgAttribution from '../../../components/EcgAttribution.astro';
-import data from '../../../data/ecg-library.json';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../../components/Breadcrumb.astro';
+import EcgAttribution from '../../../../components/EcgAttribution.astro';
+import data from '../../../../data/ecg-library.json';
 
 export async function getStaticPaths() {
   const d = data as any;
@@ -28,8 +28,8 @@ const { cat, group, prev, next } = Astro.props as any;
     <Breadcrumb
       crumbs={[
         { label: 'Home', href: '/' },
-        { label: 'Cardiology', href: '/cardiology' },
-        { label: 'ECG Library', href: '/cardiology/ecg' },
+        { label: 'Cardiology', href: '/education/cardiology' },
+        { label: 'ECG Library', href: '/education/cardiology/ecg' },
         { label: cat.name },
       ]}
     />
@@ -53,7 +53,7 @@ const { cat, group, prev, next } = Astro.props as any;
       {cat.tracings.map((t: any) => (
         <li>
           <figure>
-            <a href={`/cardiology/ecg/tracing/${t.id}`} class="block group">
+            <a href={`/education/cardiology/ecg/tracing/${t.id}`} class="block group">
               <img
                 src={t.image}
                 width={t.w}
@@ -65,7 +65,7 @@ const { cat, group, prev, next } = Astro.props as any;
               />
             </a>
             <figcaption class="mt-2 text-sm text-clinical-500 dark:text-clinical-400">
-              <a href={`/cardiology/ecg/tracing/${t.id}`} class="font-medium text-blue-600 dark:text-blue-400 hover:underline">
+              <a href={`/education/cardiology/ecg/tracing/${t.id}`} class="font-medium text-blue-600 dark:text-blue-400 hover:underline">
                 Record {t.id} - full read
               </a>
               {t.age && <span> · {t.age} y {t.sex}</span>}
@@ -79,8 +79,8 @@ const { cat, group, prev, next } = Astro.props as any;
     </ol>
 
     <nav class="mt-10 flex justify-between gap-4 text-sm">
-      {prev ? <a href={`/cardiology/ecg/${prev.id}`} class="text-blue-600 dark:text-blue-400 hover:underline">← {prev.name}</a> : <span />}
-      {next ? <a href={`/cardiology/ecg/${next.id}`} class="text-blue-600 dark:text-blue-400 hover:underline text-right">{next.name} →</a> : <span />}
+      {prev ? <a href={`/education/cardiology/ecg/${prev.id}`} class="text-blue-600 dark:text-blue-400 hover:underline">← {prev.name}</a> : <span />}
+      {next ? <a href={`/education/cardiology/ecg/${next.id}`} class="text-blue-600 dark:text-blue-400 hover:underline text-right">{next.name} →</a> : <span />}
     </nav>
 
     <EcgAttribution />

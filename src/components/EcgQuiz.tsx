@@ -136,13 +136,13 @@ export default function EcgQuiz({
           <p class="text-clinical-600 dark:text-clinical-400 mb-3">{cat.teaching}</p>
           <div class="flex flex-wrap gap-4 text-sm">
             <a
-              href={`/cardiology/ecg/tracing/${q.i}`}
+              href={`/education/cardiology/ecg/tracing/${q.i}`}
               class="text-blue-600 dark:text-blue-400 hover:underline"
             >
               Full read of record {q.i}
             </a>
             <a
-              href={`/cardiology/ecg/${cat.id}`}
+              href={`/education/cardiology/ecg/${cat.id}`}
               class="text-blue-600 dark:text-blue-400 hover:underline"
             >
               More {cat.name.toLowerCase()}

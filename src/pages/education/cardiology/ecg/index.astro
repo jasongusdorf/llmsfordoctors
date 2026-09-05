@@ -1,8 +1,8 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Breadcrumb from '../../../components/Breadcrumb.astro';
-import EcgAttribution from '../../../components/EcgAttribution.astro';
-import data from '../../../data/ecg-library.json';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../../components/Breadcrumb.astro';
+import EcgAttribution from '../../../../components/EcgAttribution.astro';
+import data from '../../../../data/ecg-library.json';
 
 const d = data as any;
 const total = d.categories.reduce((n: number, c: any) => n + c.tracings.length, 0);
@@ -15,7 +15,7 @@ const card =
   description={`${total} real 12-lead ECGs across ${d.categories.length} diagnostic categories, with a full read on every tracing and a randomised quiz.`}
 >
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Cardiology', href: '/cardiology' }, { label: 'ECG Library' }]} />
+    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Cardiology', href: '/education/cardiology' }, { label: 'ECG Library' }]} />
 
     <header class="mb-8">
       <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mb-3">
@@ -29,7 +29,7 @@ const card =
       </p>
     </header>
 
-    <a href="/cardiology/ecg/quiz" class="block mb-10 p-5 rounded-lg border-2 border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-950/30 hover:bg-blue-100 dark:hover:bg-blue-950/50 transition-colors">
+    <a href="/education/cardiology/ecg/quiz" class="block mb-10 p-5 rounded-lg border-2 border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-950/30 hover:bg-blue-100 dark:hover:bg-blue-950/50 transition-colors">
       <h2 class="font-heading text-xl font-semibold text-clinical-900 dark:text-clinical-50 mb-1">
         Quiz mode
       </h2>
@@ -51,7 +51,7 @@ const card =
           <ul class="grid sm:grid-cols-2 gap-3">
             {cats.map((c: any) => (
               <li>
-                <a href={`/cardiology/ecg/${c.id}`} class={card}>
+                <a href={`/education/cardiology/ecg/${c.id}`} class={card}>
                   <h3 class="font-heading font-semibold text-clinical-900 dark:text-clinical-50">
                     {c.name}
                   </h3>

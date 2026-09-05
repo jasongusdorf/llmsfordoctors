@@ -472,7 +472,7 @@ export default function QualifierSearch({
                     <span key={h}>
                       {i > 0 && ', '}
                       <a
-                        href={`/qualifiers/${h}`}
+                        href={`/education/semantic-qualifiers/${h}`}
                         class="text-blue-600 dark:text-blue-400 hover:underline"
                       >
                         {qById[h]?.name}

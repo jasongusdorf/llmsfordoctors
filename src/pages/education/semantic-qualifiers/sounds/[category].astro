@@ -1,7 +1,7 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Breadcrumb from '../../../components/Breadcrumb.astro';
-import library from '../../../data/heart-sounds-library.json';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../../components/Breadcrumb.astro';
+import library from '../../../../data/heart-sounds-library.json';
 
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
@@ -32,8 +32,8 @@ const fmt = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '
     <Breadcrumb
       crumbs={[
         { label: 'Home', href: '/' },
-        { label: 'Semantic Qualifiers', href: '/qualifiers' },
-        { label: 'Heart Sounds', href: '/qualifiers/sounds' },
+        { label: 'Semantic Qualifiers', href: '/education/semantic-qualifiers' },
+        { label: 'Heart Sounds', href: '/education/semantic-qualifiers/sounds' },
         { label: category },
       ]}
     />
@@ -73,7 +73,7 @@ const fmt = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '
     </p>
 
     <p class="mt-6">
-      <a href="/qualifiers/sounds" class="text-blue-600 dark:text-blue-400 hover:underline">
+      <a href="/education/semantic-qualifiers/sounds" class="text-blue-600 dark:text-blue-400 hover:underline">
         Back to the heart sound library
       </a>
     </p>
