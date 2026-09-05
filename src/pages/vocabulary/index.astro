@@ -4,9 +4,20 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import VocabSearch from '../../components/VocabSearch.tsx';
 import vocab from '../../data/ai-vocabulary.json';
 
-const terms = vocab as any[];
-const categories = [...new Set(terms.map((t) => t.category))].length;
-const sourced = terms.filter((t) => (t.reading || []).length > 0).length;
+const all = vocab as any[];
+// The index only renders the name, aliases and plain-language line. Shipping the
+// technical definitions and 240 citations into the island as props more than
+// doubled the payload for text the page never displays.
+const terms = all.map((t) => ({
+  id: t.id,
+  term: t.term,
+  aliases: t.aliases,
+  category: t.category,
+  intuitive: t.intuitive,
+  technical: t.technical,
+}));
+const categories = [...new Set(all.map((t) => t.category))].length;
+const sourced = all.filter((t) => (t.reading || []).length > 0).length;
 ---
 
 <BaseLayout

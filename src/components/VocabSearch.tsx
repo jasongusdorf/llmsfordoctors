@@ -102,7 +102,7 @@ export default function VocabSearch({ terms }: { terms: Term[] }) {
             <h2 class="font-heading text-sm font-semibold uppercase tracking-wide text-clinical-500 dark:text-clinical-400 border-b border-clinical-200 dark:border-clinical-700 pb-2">
               {category}
             </h2>
-            <dl class="mt-4 space-y-6">
+            <dl class="mt-4 space-y-5">
               {list.map((t) => (
                 <div key={t.id}>
                   <dt class="flex flex-wrap items-baseline gap-2">
@@ -119,9 +119,6 @@ export default function VocabSearch({ terms }: { terms: Term[] }) {
                     )}
                   </dt>
                   <dd class="mt-1 text-clinical-700 dark:text-clinical-300">{t.intuitive}</dd>
-                  <dd class="mt-1 text-sm text-clinical-500 dark:text-clinical-400">
-                    {t.technical}
-                  </dd>
                 </div>
               ))}
             </dl>
