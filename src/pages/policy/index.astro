@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+const docs = (await getCollection('policy')).sort(
+  (a, b) => b.data.lastUpdated.getTime() - a.data.lastUpdated.getTime(),
+);
+---
+
+<BaseLayout
+  title="Policy - LLMs for Doctors"
+  description="Recommended policy for hospitals and departments adopting clinical AI. Personal opinions, offered as a model for institutions writing their own."
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Policy' }]} />
+
+    <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mt-4">
+      Policy
+    </h1>
+    <p class="mt-4 text-lg text-clinical-600 dark:text-clinical-400">
+      Recommended policy for hospitals and departments adopting clinical AI. Most institutions
+      writing an AI policy today have nothing good to model it on, so these are offered as a
+      starting point: each position stated plainly, with the reasoning that supports it.
+    </p>
+
+    <div class="mt-6 p-4 rounded-lg border-l-4 border-amber-500 bg-amber-50 dark:bg-clinical-800">
+      <p class="text-clinical-800 dark:text-clinical-200">
+        These are personal opinions. They are not the policy or position of any institution,
+        including my employer. Where your institution's policy differs, your institution's policy
+        governs.
+      </p>
+    </div>
+
+    <ul class="mt-8 space-y-5">
+      {docs.map((d) => (
+        <li>
+          <a
+            href={`/policy/${d.id}`}
+            class="block p-5 rounded-lg border border-clinical-200 dark:border-clinical-700 bg-warm-white dark:bg-clinical-800 hover:border-blue-500 dark:hover:border-blue-400 transition-colors"
+          >
+            <h2 class="font-heading text-xl font-semibold text-clinical-900 dark:text-clinical-50">
+              {d.data.title}
+            </h2>
+            <p class="mt-2 text-clinical-600 dark:text-clinical-400">{d.data.description}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</BaseLayout>

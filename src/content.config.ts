@@ -75,6 +75,19 @@ const templates = defineCollection({
   }),
 });
 
+const policy = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/policy' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    tags: z.array(z.string()),
+    lastUpdated: z.date(),
+    featured: z.boolean().default(false),
+    hideToc: z.boolean().default(false),
+    socialPost: z.string().optional(),
+  }),
+});
+
 const trials = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/trials' }),
   schema: z.object({
@@ -150,6 +163,7 @@ export const collections = {
   editorials,
   tools,
   templates,
+  policy,
   trials,
   videos,
 };
