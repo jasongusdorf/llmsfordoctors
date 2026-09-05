@@ -1,16 +1,16 @@
 ---
-title: "Six Principles for a Hospital AI Policy"
-description: "Recommended policy for hospitals and departments adopting clinical AI: six principles, each with its rationale. Personal opinions, not those of any institution."
+title: "Seven Principles for a Hospital AI Policy"
+description: "Recommended policy for hospitals and departments adopting clinical AI: seven principles, each with its rationale. Personal opinions, not those of any institution."
 tags: [policy, governance, hipaa, deskilling, medical-education, disclosure, clinical-ai]
 lastUpdated: 2026-09-05
 featured: true
-socialPost: "Most hospital AI policy is either a blanket ban or a vendor pamphlet. Six principles I would want my own department to adopt, each with its rationale, including the case against mandatory AI disclosure."
+socialPost: "Most hospital AI policy is either a blanket ban or a vendor pamphlet. Seven principles I would want my own department to adopt, each with its rationale, including the case against mandatory AI disclosure and the case for using these tools to get back to the bedside."
 ---
 
 
 Most hospital AI policy today comes in one of two forms. The first is the blanket ban, written by people who fear the technology and enforced against people already using it, which drives use underground where no one can see it, audit it, or teach it. The second is the vendor pamphlet, a procurement document dressed as governance, which tells you what a product does and nothing about what your clinicians should do. Neither survives contact with a Tuesday afternoon on the wards, where a resident is drafting a discharge summary with one tool, a patient is arriving with a chatbot transcript, and an ambient scribe is listening to the encounter next door.
 
-Clinical AI is already in your building. The question a policy has to answer is not whether to allow it but how to make its use visible, competent, and owned by the people who sign their names to the work. The six principles below are the ones I would want my own department to adopt. They are short on ceremony and long on responsibility.
+Clinical AI is already in your building. The question a policy has to answer is not whether to allow it but how to make its use visible, competent, and owned by the people who sign their names to the work. The seven principles below are the ones I would want my own department to adopt. They are short on ceremony and long on responsibility.
 
 **A note on whose opinions these are.** These are mine. I am a hospitalist and an AI researcher, and this document reflects what I have learned building and evaluating these systems. It is not the policy of Weill Cornell Medicine or NewYork-Presbyterian, and nothing here speaks for my employer. Where your institution's actual policy differs from my advice, your institution's policy wins, and you should know what it says.
 
@@ -52,6 +52,12 @@ This is the principle most likely to be misread. A disclosure requirement is an 
 
 What actually protects patients is principle 1. Responsibility does not dilute with the tools used; the signer owns every word, however it was drafted, and accountability that travels with the signature scales in a way that labeling cannot. One boundary keeps this honest: where a law, a journal, or your institution imposes a specific disclosure requirement, that rule governs its own domain. Within the hospital's own policy, require ownership, not confession.
 
+## 7. Use AI to improve patient care and patient relationships.
+
+The first six principles are constraints, and a policy that is all constraint teaches avoidance rather than competence. This one is permission. Many physicians, often the most conscientious, feel a quiet embarrassment about using AI, a sense that the work no longer fully counts as theirs. That feeling deserves an argument rather than reassurance, and the argument is that the shame attaches to the wrong object: the tool, when everything that matters is in the outcome. We have never called it cheating to reach for a calculator, a guideline, a look at UpToDate before rounds, or a colleague's second opinion in the hallway. The obligation was never to work unaided. It was to get it right, and principle 1 already settles who owns the result.
+
+The payoff worth claiming deliberately is time, and what the time is for. Documentation is the burden most plausibly given back, and the hours it returns are not for throughput. They are for the bedside: the family meeting, the chair pulled up, the question you would not otherwise have had time to ask. None of this happens by default; it happens with practice, the way facility with any clinical instrument does. Do this, get good at it, and use it to be a better doctor.
+
 ## The through-line
 
-All six principles are one idea wearing different clothes: the tool has no stake, and the clinician does. A model does not answer the 2 a.m. phone call, sit with the family, or carry the error forward. Whatever the technology does well, and it now does a great deal well, the weighing of consequence cannot be delegated, because only one party to the exchange bears any. Good policy therefore governs people, not software: it keeps their skills alive, their training honest, their data inside the walls, their trainees growing, and their names worth what a signature has always been worth.
+The seventh principle is the reason to accept the other six. Together they are one idea: the tool has no stake, and the clinician does. A model does not answer the 2 a.m. phone call, sit with the family, or carry the error forward. Whatever the technology does well, and it now does a great deal well, the weighing of consequence cannot be delegated. Good policy governs people, not software: it keeps their skills alive, their data inside the walls, their trainees growing, and their hands free for the work only a person at the bedside can do.
