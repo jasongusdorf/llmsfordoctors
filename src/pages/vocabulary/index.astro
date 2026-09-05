@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import VocabSearch from '../../components/VocabSearch.tsx';
+import vocab from '../../data/ai-vocabulary.json';
+
+const terms = vocab as any[];
+const categories = [...new Set(terms.map((t) => t.category))].length;
+const sourced = terms.filter((t) => (t.reading || []).length > 0).length;
+---
+
+<BaseLayout
+  title="AI Vocabulary - LLMs for Doctors"
+  description="A working glossary of AI jargon for clinicians. Every term has a rigorous technical definition, a plain-language explanation, and real further reading."
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'AI Vocabulary' }]} />
+
+    <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mt-4">
+      AI Vocabulary
+    </h1>
+    <p class="mt-4 text-lg text-clinical-600 dark:text-clinical-400">
+      The jargon you will meet in a vendor demo, a journal club, or a paper you are asked to review.
+      Every term gets two definitions: one rigorous enough to be correct, and one plain enough to be
+      useful. Read it straight through, or search it.
+    </p>
+    <p class="mt-3 text-sm text-clinical-500 dark:text-clinical-400">
+      {terms.length} terms across {categories} categories. {sourced} carry further reading, and every
+      link has been checked to resolve.
+    </p>
+
+    <div class="mt-8">
+      <VocabSearch client:load terms={terms} />
+    </div>
+  </div>
+</BaseLayout>
