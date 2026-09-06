@@ -8,9 +8,15 @@ interface NavItem {
   label: string;
 }
 
+interface NavHeading {
+  heading: string;
+}
+
+type NavChild = NavItem | NavHeading;
+
 interface NavGroup {
   label: string;
-  items: NavItem[];
+  items: NavChild[];
 }
 
 type NavEntry = NavItem | NavGroup;
@@ -19,9 +25,19 @@ function isGroup(entry: NavEntry): entry is NavGroup {
   return 'items' in entry;
 }
 
+// A heading is a non-clickable divider inside a dropdown, so it must be skipped
+// by anything that reads hrefs: active-state matching and the mobile link list.
+function isHeading(child: NavChild): child is NavHeading {
+  return 'heading' in child;
+}
+
+function links(items: NavChild[]): NavItem[] {
+  return items.filter((i): i is NavItem => !isHeading(i));
+}
+
 function isActive(entry: NavEntry): boolean {
   if (isGroup(entry)) {
-    return entry.items.some(item => pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href)));
+    return links(entry.items).some(item => pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href)));
   }
   return pathname === entry.href || (entry.href !== '/' && pathname.startsWith(entry.href));
 }
@@ -31,6 +47,7 @@ const nav: NavEntry[] = [
   {
     label: 'AI',
     items: [
+      { heading: 'Learn' },
       { href: '/guides',     label: 'Guides' },
       { href: '/vocabulary', label: 'AI Vocabulary' },
       { href: '/policy',     label: 'Policy' },
@@ -38,6 +55,10 @@ const nav: NavEntry[] = [
       { href: '/trials',     label: 'Trials' },
       { href: '/briefs',     label: 'Briefs' },
       { href: '/videos',     label: 'Videos' },
+      { heading: 'Practical Tools' },
+      { href: '/workflows',  label: 'Workflows' },
+      { href: '/templates',  label: 'Templates' },
+      { href: '/tools',      label: 'Tools' },
     ],
   },
   {
@@ -49,14 +70,6 @@ const nav: NavEntry[] = [
       { href: '/education/cardiology/ecg',          label: 'ECG Library' },
       { href: '/education/semantic-qualifiers/sounds', label: 'Heart Sounds' },
       { href: '/briefs/abim',                       label: 'ABIM Board Review' },
-    ],
-  },
-  {
-    label: 'Use',
-    items: [
-      { href: '/workflows',  label: 'Workflows' },
-      { href: '/templates',  label: 'Templates' },
-      { href: '/tools',      label: 'Tools' },
     ],
   },
   { href: '/community', label: 'Community' },
@@ -72,7 +85,7 @@ const nav: NavEntry[] = [
 ];
 
 // Flat list for mobile menu
-const allLinks: NavItem[] = nav.flatMap(entry => isGroup(entry) ? entry.items : [entry]);
+const allLinks: NavItem[] = nav.flatMap(entry => isGroup(entry) ? links(entry.items) : [entry]);
 ---
 
 <nav class="fixed top-0 left-0 right-0 z-50 bg-clinical-50/95 dark:bg-clinical-900/95 backdrop-blur border-b border-clinical-200 dark:border-clinical-700">
@@ -112,18 +125,24 @@ const allLinks: NavItem[] = nav.flatMap(entry => isGroup(entry) ? entry.items : 
               </button>
               <div class="absolute left-0 top-full pt-1 hidden group-hover:block">
                 <div class="bg-warm-white dark:bg-clinical-800 border border-clinical-200 dark:border-clinical-700 rounded-lg shadow-lg py-1 min-w-[160px]">
-                  {entry.items.map(({ href, label }) => (
+                  {entry.items.map((child) => (
+                    isHeading(child) ? (
+                      <p class="px-4 pt-3 pb-1 text-[11px] font-semibold uppercase tracking-wider text-clinical-400 dark:text-clinical-500">
+                        {child.heading}
+                      </p>
+                    ) : (
                     <a
-                      href={href}
+                      href={child.href}
                       class:list={[
                         'block px-4 py-2 text-sm transition-colors',
-                        pathname === href || pathname.startsWith(href)
+                        pathname === child.href || pathname.startsWith(child.href)
                           ? 'bg-clinical-100 dark:bg-clinical-700 text-clinical-900 dark:text-clinical-50 font-medium'
                           : 'text-clinical-600 dark:text-clinical-400 hover:text-clinical-900 dark:hover:text-clinical-100 hover:bg-clinical-50 dark:hover:bg-clinical-700',
                       ]}
                     >
-                      {label}
+                      {child.label}
                     </a>
+                    )
                   ))}
                 </div>
               </div>
@@ -177,18 +196,24 @@ const allLinks: NavItem[] = nav.flatMap(entry => isGroup(entry) ? entry.items : 
             <p class="px-3 pt-3 pb-1 text-xs font-semibold uppercase tracking-wider text-clinical-400 dark:text-clinical-500">
               {entry.label}
             </p>
-            {entry.items.map(({ href, label }) => (
+            {entry.items.map((child) => (
+              isHeading(child) ? (
+                <p class="px-6 pt-3 pb-1 text-[11px] font-semibold uppercase tracking-wider text-clinical-400 dark:text-clinical-500">
+                  {child.heading}
+                </p>
+              ) : (
               <a
-                href={href}
+                href={child.href}
                 class:list={[
                   'block px-3 py-2 rounded-md text-sm font-medium transition-colors pl-6',
-                  pathname === href || pathname.startsWith(href)
+                  pathname === child.href || pathname.startsWith(child.href)
                     ? 'bg-clinical-100 dark:bg-clinical-800 text-clinical-900 dark:text-clinical-50'
                     : 'text-clinical-600 dark:text-clinical-400 hover:text-clinical-900 dark:hover:text-clinical-100 hover:bg-clinical-100 dark:hover:bg-clinical-800',
                 ]}
               >
-                {label}
+                {child.label}
               </a>
+              )
             ))}
           </>
         ) : (
