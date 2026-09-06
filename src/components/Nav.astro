@@ -187,7 +187,7 @@ const allLinks: NavItem[] = nav.flatMap(entry => isGroup(entry) ? links(entry.it
   <!-- Mobile menu (hidden by default) -->
   <div
     id="mobile-menu"
-    class="hidden sm:hidden border-t border-clinical-200 dark:border-clinical-700 bg-clinical-50 dark:bg-clinical-900"
+    class="hidden sm:hidden border-t border-clinical-200 dark:border-clinical-700 bg-clinical-50 dark:bg-clinical-900 max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain"
   >
     <div class="px-4 py-3 space-y-1">
       {nav.map((entry) => (
@@ -237,11 +237,49 @@ const allLinks: NavItem[] = nav.flatMap(entry => isGroup(entry) ? links(entry.it
 <script>
   const toggle = document.getElementById('mobile-menu-toggle');
   const menu = document.getElementById('mobile-menu');
+
   if (toggle && menu) {
+    // The menu is taller than the viewport, so it scrolls internally. Without
+    // locking the body the page behind scrolls with it, and overscroll-contain
+    // alone does not help once the menu hits its own end.
+    let scrollY = 0;
+
+    const setOpen = (open: boolean) => {
+      menu.classList.toggle('hidden', !open);
+      toggle.setAttribute('aria-expanded', String(open));
+      if (open) {
+        scrollY = window.scrollY;
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollY}px`;
+        document.body.style.left = '0';
+        document.body.style.right = '0';
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.style.overflow = '';
+        window.scrollTo(0, scrollY);
+      }
+    };
+
     toggle.addEventListener('click', () => {
-      const isOpen = !menu.classList.contains('hidden');
-      menu.classList.toggle('hidden', isOpen);
-      toggle.setAttribute('aria-expanded', String(!isOpen));
+      setOpen(menu.classList.contains('hidden'));
+    });
+
+    menu.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) setOpen(false);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !menu.classList.contains('hidden')) setOpen(false);
+    });
+
+    // Rotating to landscape or hitting the sm breakpoint reveals the desktop nav,
+    // which would otherwise leave the body locked with no visible way to unlock it.
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 640 && !menu.classList.contains('hidden')) setOpen(false);
     });
   }
 </script>
