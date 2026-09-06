@@ -1,13 +1,13 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumb from '../../components/Breadcrumb.astro';
-import { briefSeriesFor } from '../../lib/brief-series';
-import BriefDisclaimer from '../../components/BriefDisclaimer.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import { briefSeriesFor } from '../../../lib/brief-series';
+import BriefDisclaimer from '../../../components/BriefDisclaimer.astro';
 
 const all = await getCollection('briefs');
 
-const series = briefSeriesFor('ai').map((meta) => {
+const series = briefSeriesFor('clinical').map((meta) => {
   const entries = all
     .filter((e) => e.data.series === meta.id)
     .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
@@ -16,20 +16,19 @@ const series = briefSeriesFor('ai').map((meta) => {
 ---
 
 <BaseLayout
-  title="Briefs - LLMs for Doctors"
-  description="Recurring briefings on AI in medicine, major trials, and the news."
+  title="Board Review Briefs - LLMs for Doctors"
+  description="Recurring clinical briefs with no AI in them: high-yield internal medicine board review, published daily."
 >
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Briefs' }]} />
+    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Medical Education', href: '/education' }, { label: 'Briefs' }]} />
 
     <header class="mb-10">
       <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mb-3">
-        Briefs
+        Board Review Briefs
       </h1>
       <p class="text-lg text-clinical-600 dark:text-clinical-400">
-        Standing briefings I write on a schedule, on AI in medicine and on what moved in the
-        literature and the news. Each one is archived here as it goes out. Board review briefs live
-        under <a href="/education/briefs" class="text-blue-600 dark:text-blue-400 hover:underline">Medical Education</a>.
+        Clinical briefs with no AI in them, published on a schedule and archived here as they go
+        out. For the AI briefings see <a href="/briefs" class="text-blue-600 dark:text-blue-400 hover:underline">Briefs</a>.
       </p>
     </header>
 
@@ -38,7 +37,7 @@ const series = briefSeriesFor('ai').map((meta) => {
     <div class="space-y-6">
       {series.map(({ meta, count, latest }) => (
         <a
-          href={`/briefs/${meta.id}`}
+          href={`/education/briefs/${meta.id}`}
           class="block p-6 rounded-lg border border-clinical-200 dark:border-clinical-700 hover:border-blue-500 dark:hover:border-blue-400 transition-colors"
         >
           <div class="flex items-baseline justify-between gap-4 mb-2">

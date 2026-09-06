@@ -1,13 +1,13 @@
 ---
 import { getCollection, render } from 'astro:content';
-import ContentLayout from '../../../layouts/ContentLayout.astro';
-import AdminEditButton from '../../../components/AdminEditButton.astro';
-import { BRIEF_SERIES_BY_ID, briefSeriesFor } from '../../../lib/brief-series';
-import BriefDisclaimer from '../../../components/BriefDisclaimer.astro';
+import ContentLayout from '../../../../layouts/ContentLayout.astro';
+import AdminEditButton from '../../../../components/AdminEditButton.astro';
+import { BRIEF_SERIES_BY_ID, briefSeriesFor } from '../../../../lib/brief-series';
+import BriefDisclaimer from '../../../../components/BriefDisclaimer.astro';
 
 export async function getStaticPaths() {
-  const aiSeries = new Set(briefSeriesFor('ai').map((m) => m.id));
-  const entries = (await getCollection('briefs')).filter((e) => aiSeries.has(e.data.series));
+  const clinicalSeries = new Set(briefSeriesFor('clinical').map((m) => m.id));
+  const entries = (await getCollection('briefs')).filter((e) => clinicalSeries.has(e.data.series));
   return entries.map((entry) => {
     const [series, ...rest] = entry.id.split('/');
     return {

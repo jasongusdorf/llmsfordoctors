@@ -1,13 +1,13 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Breadcrumb from '../../../components/Breadcrumb.astro';
-import { briefSeriesFor, BRIEF_SERIES_BY_ID } from '../../../lib/brief-series';
-import BriefDisclaimer from '../../../components/BriefDisclaimer.astro';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../../components/Breadcrumb.astro';
+import { briefSeriesFor, BRIEF_SERIES_BY_ID } from '../../../../lib/brief-series';
+import BriefDisclaimer from '../../../../components/BriefDisclaimer.astro';
 
 export async function getStaticPaths() {
   const all = await getCollection('briefs');
-  return briefSeriesFor('ai').map((meta) => ({
+  return briefSeriesFor('clinical').map((meta) => ({
     params: { series: meta.id },
     props: {
       meta,
@@ -26,7 +26,8 @@ const { meta, entries } = Astro.props;
     <Breadcrumb
       crumbs={[
         { label: 'Home', href: '/' },
-        { label: 'Briefs', href: '/briefs' },
+        { label: 'Medical Education', href: '/education' },
+        { label: 'Briefs', href: '/education/briefs' },
         { label: meta.label },
       ]}
     />
@@ -52,7 +53,7 @@ const { meta, entries } = Astro.props;
         {entries.map((entry) => (
           <li>
             <a
-              href={`/briefs/${entry.id}`}
+              href={`/education/briefs/${entry.id}`}
               class="block p-5 rounded-lg border border-clinical-200 dark:border-clinical-700 hover:border-blue-500 dark:hover:border-blue-400 transition-colors"
             >
               <div class="flex items-baseline justify-between gap-4">
