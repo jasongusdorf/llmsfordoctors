@@ -4,6 +4,7 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import qdata from '../../data/semantic-qualifiers.json';
 import ecg from '../../data/ecg-library.json';
 import library from '../../data/heart-sounds-library.json';
+import { getCollection } from 'astro:content';
 
 const d = qdata as any;
 const qualCount = d.qualifiers.length;
@@ -12,6 +13,7 @@ const complaintCount = (d.complaints || []).length;
 const ecgCats = (ecg as any).categories.length;
 const ecgCount = (ecg as any).categories.reduce((n: number, c: any) => n + c.tracings.length, 0);
 const soundCount = (library as any[]).length;
+const abimCount = (await getCollection('briefs')).filter((b: any) => b.id.startsWith('abim/')).length;
 
 const card =
   'block p-6 rounded-lg border border-clinical-200 dark:border-clinical-700 bg-warm-white dark:bg-clinical-800 hover:border-blue-500 dark:hover:border-blue-400 transition-colors';
@@ -31,12 +33,19 @@ const sections = [
       'ECG interpretation and cardiac auscultation, built on real recordings rather than idealised diagrams, with the full read available on every tracing.',
     stats: `${ecgCount} ECG tracings across ${ecgCats} categories · ${soundCount} heart sound recordings`,
   },
+  {
+    href: '/briefs/abim',
+    title: 'ABIM Board Review',
+    blurb:
+      'High-yield internal medicine board-prep tips, published daily. Short enough to read between patients, specific enough to be worth the minute.',
+    stats: `${abimCount} briefs`,
+  },
 ];
 ---
 
 <BaseLayout
-  title="Medical Education - LLMs for Doctors"
-  description="Clinical reasoning and diagnostic teaching resources: semantic qualifiers, a real-tracing ECG library, and cardiac auscultation."
+  title="Medical Education (Non-AI) - LLMs for Doctors"
+  description="Clinical teaching resources with no AI in them: semantic qualifiers, a real-tracing ECG library, cardiac auscultation, and internal medicine board review."
 >
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
     <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Education' }]} />
@@ -45,9 +54,10 @@ const sections = [
       Medical Education
     </h1>
     <p class="mt-4 text-lg text-clinical-600 dark:text-clinical-400">
-      Teaching resources for clinical reasoning and bedside diagnosis. Everything here is built on
-      real, sourced material: cardiologist-labelled tracings, recorded heart sounds, and a qualifier
-      library where every term is tied to the diagnoses that actually carry it.
+      Teaching resources for clinical reasoning and bedside diagnosis, with no AI in any of them.
+      Everything here is built on real, sourced material: cardiologist-labelled tracings, recorded
+      heart sounds, and a qualifier library where every term is tied to the diagnoses that actually
+      carry it.
     </p>
 
     <div class="mt-8 grid gap-5 sm:grid-cols-2">
@@ -72,6 +82,7 @@ const sections = [
           { href: '/education/cardiology/ecg/quiz', label: 'ECG quiz' },
           { href: '/education/semantic-qualifiers', label: 'Qualifier search' },
           { href: '/education/semantic-qualifiers/sounds', label: 'Heart sounds' },
+          { href: '/briefs/abim', label: 'ABIM board review' },
         ].map((l) => (
           <li>
             <a

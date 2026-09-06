@@ -29,16 +29,26 @@ function isActive(entry: NavEntry): boolean {
 const nav: NavEntry[] = [
   { href: '/', label: 'Home' },
   {
-    label: 'Learn',
+    label: 'AI',
     items: [
       { href: '/guides',     label: 'Guides' },
       { href: '/vocabulary', label: 'AI Vocabulary' },
       { href: '/policy',     label: 'Policy' },
       { href: '/editorials', label: 'Editorials' },
       { href: '/trials',     label: 'Trials' },
-      { href: '/education', label: 'Medical Education' },
       { href: '/briefs',     label: 'Briefs' },
       { href: '/videos',     label: 'Videos' },
+    ],
+  },
+  {
+    label: 'Medical Education (Non-AI)',
+    items: [
+      { href: '/education',                        label: 'Overview' },
+      { href: '/education/semantic-qualifiers',     label: 'Semantic Qualifiers' },
+      { href: '/education/cardiology',              label: 'Cardiology' },
+      { href: '/education/cardiology/ecg',          label: 'ECG Library' },
+      { href: '/education/semantic-qualifiers/sounds', label: 'Heart Sounds' },
+      { href: '/briefs/abim',                       label: 'ABIM Board Review' },
     ],
   },
   {
