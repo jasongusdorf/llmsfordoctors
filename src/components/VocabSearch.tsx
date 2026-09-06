@@ -13,6 +13,26 @@ type Term = {
   reading?: Reading[];
 };
 
+// Read-through order: start with what the words mean, end with where they land
+// in a hospital. Alphabetical put Foundations fifth, which is backwards for
+// anyone reading the page top to bottom.
+const CATEGORY_ORDER = [
+  'Foundations',
+  'Model architecture',
+  'Training',
+  'Prompting and inference',
+  'Retrieval and agents',
+  'Evaluation',
+  'Failure modes',
+  'Safety and governance',
+  'Clinical AI',
+  'Infrastructure',
+];
+const catRank = (c: string) => {
+  const i = CATEGORY_ORDER.indexOf(c);
+  return i === -1 ? CATEGORY_ORDER.length : i;
+};
+
 const norm = (s: string) => s.toLowerCase().trim();
 
 export default function VocabSearch({ terms }: { terms: Term[] }) {
@@ -20,7 +40,7 @@ export default function VocabSearch({ terms }: { terms: Term[] }) {
   const [cat, setCat] = useState<string | null>(null);
 
   const categories = useMemo(
-    () => [...new Set(terms.map((t) => t.category))].sort(),
+    () => [...new Set(terms.map((t) => t.category))].sort((a, b) => catRank(a) - catRank(b)),
     [terms],
   );
 
@@ -57,7 +77,7 @@ export default function VocabSearch({ terms }: { terms: Term[] }) {
       m.get(t.category)!.push(t);
     }
     for (const list of m.values()) list.sort((a, b) => a.term.localeCompare(b.term));
-    return [...m.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+    return [...m.entries()].sort((a, b) => catRank(a[0]) - catRank(b[0]));
   }, [results]);
 
   const chip = (on: boolean) =>

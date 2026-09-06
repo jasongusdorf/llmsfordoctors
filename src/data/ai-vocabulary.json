@@ -1,5 +1,48 @@
 [
  {
+  "id": "alert-fatigue",
+  "term": "Alert fatigue",
+  "aliases": [
+   "alarm fatigue",
+   "override behavior"
+  ],
+  "category": "Clinical AI",
+  "technical": "The desensitization that follows repeated exposure to interruptive decision support, empirically expressed as override rates that commonly exceed ninety percent for medication alerts and that rise with workload, alert repetition, and low positive predictive value. Because override behavior generalizes across alert types, a low precision alert degrades response to unrelated alerts, making it a system level rather than a per alert cost.",
+  "intuitive": "If a warning is usually wrong, people stop reading it, and then they stop reading the ones that are right. The dismissal becomes a reflex before the clinician has consciously evaluated anything.",
+  "clinical": "This is the single most common way a technically accurate model fails in the building: a sepsis or deterioration score with excellent AUROC but a positive predictive value in the single digits will be silenced within weeks, so the deployment question is not how accurate is it but how many false alerts per nurse per shift and what action does the alert actually ask for.",
+  "related": [
+   "clinical-decision-support",
+   "precision-and-recall",
+   "workflow-integration",
+   "automation-bias",
+   "calibration",
+   "silent-trial"
+  ],
+  "reading": [
+   {
+    "title": "Overrides of medication-related clinical decision support alerts in outpatients",
+    "source": "JAMIA",
+    "year": 2014,
+    "url": "https://doi.org/10.1136/amiajnl-2013-001813",
+    "note": "measured override rates and how often the override was clinically appropriate"
+   },
+   {
+    "title": "Effects of workload, work complexity, and repeated alerts on alert fatigue in a clinical decision support system",
+    "source": "BMC Medical Informatics and Decision Making",
+    "year": 2017,
+    "url": "https://doi.org/10.1186/s12911-017-0430-8",
+    "note": "quantifies fatigue as a function of exposure and workload rather than alert content"
+   },
+   {
+    "title": "Improving clinical practice using clinical decision support systems: a systematic review of trials to identify features critical to success",
+    "source": "BMJ",
+    "year": 2005,
+    "url": "https://doi.org/10.1136/bmj.38398.500764.8F",
+    "note": "identifies automatic delivery within workflow and actionable recommendations as the features that predict effect"
+   }
+  ]
+ },
+ {
   "id": "ambient-documentation",
   "term": "Ambient documentation",
   "aliases": [
@@ -31,6 +74,51 @@
     "year": 2023,
     "url": "https://doi.org/10.1056/NEJMra2302038",
     "note": "review that situates documentation tools among current clinical AI applications"
+   }
+  ]
+ },
+ {
+  "id": "data-warehouse",
+  "term": "Clinical data warehouse",
+  "aliases": [
+   "enterprise data warehouse",
+   "EDW",
+   "research data repository",
+   "common data model"
+  ],
+  "category": "Clinical AI",
+  "technical": "An analytic store built by extracting and transforming operational EHR data into a query oriented schema, often a common data model such as OMOP or PCORnet or a vendor research layer. The transformation is lossy and opinionated: source values are mapped to standard vocabularies, encounters are reconstructed, and timestamps are normalized, so warehouse tables are an interpretation of the record rather than a copy of it.",
+  "intuitive": "A cleaned up copy of the chart data, reorganized for asking questions across many patients. Someone made judgment calls while building it, and those calls are usually invisible to whoever writes the query later.",
+  "clinical": "Two failure points recur: the warehouse refreshes nightly so nothing trained on it can be assumed to work on live data, and the mapping rules that made a cohort clean also silently dropped the patients whose data did not fit, which is why a model that looks strong retrospectively can behave differently in a silent trial.",
+  "related": [
+   "structured-data",
+   "electronic-health-record",
+   "icd-coding",
+   "distribution-shift",
+   "silent-trial",
+   "external-validation"
+  ],
+  "reading": [
+   {
+    "title": "MIMIC-IV, a freely accessible electronic health record dataset",
+    "source": "Scientific Data",
+    "year": 2023,
+    "url": "https://doi.org/10.1038/s41597-022-01899-x",
+    "note": "the most widely used public clinical warehouse and its documented transformations"
+   },
+   {
+    "title": "Observational Health Data Sciences and Informatics (OHDSI): Opportunities for Observational Researchers",
+    "source": "Studies in Health Technology and Informatics",
+    "year": 2015,
+    "url": "https://doi.org/10.3233/978-1-61499-564-7-574",
+    "note": "the OMOP common data model program and its federated analytic goals"
+   },
+   {
+    "title": "The Book of OHDSI",
+    "source": "OHDSI",
+    "year": 2021,
+    "url": "https://ohdsi.github.io/TheBookOfOhdsi/",
+    "note": "open reference on common data model design and vocabulary mapping practice"
    }
   ]
  },
@@ -70,6 +158,85 @@
   ]
  },
  {
+  "id": "clinical-terminology",
+  "term": "Clinical terminology",
+  "aliases": [
+   "controlled vocabulary",
+   "ontology",
+   "code system"
+  ],
+  "category": "Clinical AI",
+  "technical": "A curated set of concepts with stable identifiers, preferred and synonymous terms, and defined relationships, used to give clinical statements a machine comparable meaning. Major systems divide by purpose: SNOMED CT for findings and procedures, LOINC for observations, RxNorm for medications, ICD for classification and billing, with UMLS providing cross mappings that are useful but lossy.",
+  "intuitive": "Agreed lists of clinical concepts with agreed identifiers, so that heart attack, MI, and myocardial infarction resolve to the same thing. Different lists were built for different jobs, and mapping between them always loses something.",
+  "clinical": "Terminology work is the unglamorous task that quietly consumes months of an AI project, because the model outputs a concept and the EHR wants a code, and the mapping between them has to be maintained as the source vocabularies release new versions twice a year.",
+  "related": [
+   "snomed-ct",
+   "icd-coding",
+   "structured-data",
+   "interoperability",
+   "knowledge-graph"
+  ],
+  "reading": [
+   {
+    "title": "The Unified Medical Language System (UMLS): integrating biomedical terminology",
+    "source": "Nucleic Acids Research",
+    "year": 2004,
+    "url": "https://doi.org/10.1093/nar/gkh061",
+    "note": "describes the Metathesaurus that links concepts across source vocabularies"
+   },
+   {
+    "title": "Unified Medical Language System",
+    "source": "US National Library of Medicine",
+    "year": 2025,
+    "url": "https://www.nlm.nih.gov/research/umls/index.html",
+    "note": "official access point, licensing, and release documentation"
+   },
+   {
+    "title": "HL7 Terminology",
+    "source": "HL7 International",
+    "year": 2025,
+    "url": "https://terminology.hl7.org/",
+    "note": "the code systems and value sets that FHIR profiles bind to"
+   }
+  ]
+ },
+ {
+  "id": "electronic-health-record",
+  "term": "Electronic health record",
+  "aliases": [
+   "EHR",
+   "EMR",
+   "electronic medical record"
+  ],
+  "category": "Clinical AI",
+  "technical": "A transactional database system whose primary design goal is documentation, order entry, and billing capture rather than analysis. Its data model is vendor specific, heavily denormalized across hundreds of tables, and mixes coded fields, free text, and workflow state that only makes sense relative to the configuration of a particular site. Any model trained or deployed on EHR data inherits that local configuration as a hidden covariate.",
+  "intuitive": "The chart, but as software. It was built to make sure a note gets signed and a bill goes out, not to make sense of what happened to a patient, which is why the data coming out of it is so much messier than the screen makes it look.",
+  "clinical": "The first hour of any AI implementation meeting is really about the EHR: who owns the build, whether the vendor will grant read and write scopes, and whether the same lab result means the same thing at your two hospitals, which it usually does not.",
+  "related": [
+   "fhir",
+   "structured-data",
+   "unstructured-data",
+   "workflow-integration",
+   "protected-health-information"
+  ],
+  "reading": [
+   {
+    "title": "Allocation of Physician Time in Ambulatory Practice: A Time and Motion Study in 4 Specialties",
+    "source": "Annals of Internal Medicine",
+    "year": 2016,
+    "url": "https://doi.org/10.7326/M16-0961",
+    "note": "the time and motion study behind the two hours of EHR work per hour of patient care figure"
+   },
+   {
+    "title": "Report of the AMIA EHR-2020 Task Force on the status and future direction of EHRs",
+    "source": "JAMIA",
+    "year": 2015,
+    "url": "https://doi.org/10.1093/jamia/ocv066",
+    "note": "informatics community consensus on what EHRs do badly and why"
+   }
+  ]
+ },
+ {
   "id": "external-validation",
   "term": "External validation",
   "aliases": [
@@ -105,6 +272,161 @@
   ]
  },
  {
+  "id": "fhir",
+  "term": "FHIR",
+  "aliases": [
+   "Fast Healthcare Interoperability Resources",
+   "HL7 FHIR"
+  ],
+  "category": "Clinical AI",
+  "technical": "An HL7 standard that models clinical data as discrete Resources such as Patient, Observation, Condition, and MedicationRequest, exchanged over a RESTful API in JSON or XML. The base specification is deliberately underconstrained, so real deployments depend on Implementation Guides and profiles such as US Core that pin down which elements are required and which value sets are bound.",
+  "intuitive": "A common shape for clinical data plus a standard way to ask for it over the web. It fixes the plumbing, but it does not by itself guarantee that two hospitals filled the same field with the same meaning.",
+  "clinical": "A vendor saying they are FHIR based is telling you the transport is solved, not the semantics: ask which Implementation Guide, which resource profiles, whether write scopes are supported, and whether the extensions they rely on exist outside their own sandbox.",
+  "related": [
+   "hl7",
+   "interoperability",
+   "electronic-health-record",
+   "structured-data",
+   "api"
+  ],
+  "reading": [
+   {
+    "title": "HL7 FHIR Specification",
+    "source": "HL7 International",
+    "year": 2025,
+    "url": "https://www.hl7.org/fhir/",
+    "note": "the normative specification, including resource definitions and maturity levels"
+   },
+   {
+    "title": "HL7 FHIR: An Agile and RESTful approach to healthcare information exchange",
+    "source": "IEEE CBMS",
+    "year": 2013,
+    "url": "https://doi.org/10.1109/CBMS.2013.6627810",
+    "note": "early technical framing of why FHIR broke from prior HL7 messaging"
+   },
+   {
+    "title": "SMART on FHIR: a standards-based, interoperable apps platform for electronic health records",
+    "source": "JAMIA",
+    "year": 2016,
+    "url": "https://doi.org/10.1093/jamia/ocv189",
+    "note": "the app launch and authorization layer most clinical AI tools ride on"
+   }
+  ]
+ },
+ {
+  "id": "hl7",
+  "term": "HL7",
+  "aliases": [
+   "Health Level Seven",
+   "HL7 v2",
+   "HL7 International"
+  ],
+  "category": "Clinical AI",
+  "technical": "Both a standards development organization and a family of health data exchange standards. HL7 v2 is a pipe delimited messaging format from the late 1980s that remains the workhorse for admissions, lab results, and orders inside hospitals; v3 and CDA introduced a formal reference information model; FHIR is the current resource and REST oriented generation.",
+  "intuitive": "The set of agreed formats hospitals use to send each other messages about patients. Most of the traffic in a live hospital is still the oldest of these formats, which is why integration work is rarely as modern as the demo suggests.",
+  "clinical": "When an AI tool needs to fire in real time on an admission or a new potassium, it is almost always subscribing to an HL7 v2 feed through an interface engine, and the queue delay in that feed sets a floor on how fast your alert can possibly be.",
+  "related": [
+   "fhir",
+   "interoperability",
+   "electronic-health-record",
+   "latency"
+  ],
+  "reading": [
+   {
+    "title": "HL7 International",
+    "source": "HL7 International",
+    "year": 2025,
+    "url": "https://www.hl7.org/",
+    "note": "the standards body and index of the v2, CDA, and FHIR product families"
+   },
+   {
+    "title": "HL7 FHIR: An Agile and RESTful approach to healthcare information exchange",
+    "source": "IEEE CBMS",
+    "year": 2013,
+    "url": "https://doi.org/10.1109/CBMS.2013.6627810",
+    "note": "contrasts FHIR with the earlier HL7 messaging generations"
+   }
+  ]
+ },
+ {
+  "id": "icd-coding",
+  "term": "ICD coding",
+  "aliases": [
+   "ICD-10",
+   "ICD-11",
+   "diagnosis coding"
+  ],
+  "category": "Clinical AI",
+  "technical": "Assignment of concepts from the WHO International Classification of Diseases, a statistical classification designed for mortality and morbidity reporting and adapted nationally for reimbursement. ICD is a classification rather than a reference terminology: categories are mutually exclusive and exhaustive by design, which means clinical detail is deliberately collapsed and code assignment is shaped by documentation and payment rules.",
+  "intuitive": "The billing and statistics codes on the chart. They are a reasonable record of what was documented and billed, and a much weaker record of what the patient actually had.",
+  "clinical": "Using ICD codes as ground truth is the quiet reason many published models are less useful than they look: code accuracy varies substantially by condition, and a model trained on codes learns to predict coding behavior, which is why sensitivity often collapses when the label is replaced by chart review.",
+  "related": [
+   "clinical-terminology",
+   "snomed-ct",
+   "ground-truth",
+   "structured-data",
+   "data-warehouse"
+  ],
+  "reading": [
+   {
+    "title": "International Classification of Diseases",
+    "source": "World Health Organization",
+    "year": 2025,
+    "url": "https://icd.who.int/",
+    "note": "official WHO home for ICD-11 and ICD-10 including the browser and reference guide"
+   },
+   {
+    "title": "Measuring Diagnoses: ICD Code Accuracy",
+    "source": "Health Services Research",
+    "year": 2005,
+    "url": "https://doi.org/10.1111/j.1475-6773.2005.00444.x",
+    "note": "foundational account of why administrative codes are imperfect clinical labels"
+   },
+   {
+    "title": "ICD-10 Codes",
+    "source": "Centers for Medicare and Medicaid Services",
+    "year": 2025,
+    "url": "https://www.cms.gov/medicare/coding-billing/icd-10-codes",
+    "note": "the US clinical modification and its reimbursement context"
+   }
+  ]
+ },
+ {
+  "id": "interoperability",
+  "term": "Interoperability",
+  "aliases": [
+   "health information exchange",
+   "data exchange"
+  ],
+  "category": "Clinical AI",
+  "technical": "The ability of systems to exchange data (syntactic interoperability) and to use it with preserved meaning (semantic interoperability). Syntactic interoperability is largely a solved standards problem; semantic interoperability requires shared terminologies, shared value set bindings, and shared documentation conventions, and is not achieved by adopting a transport standard alone.",
+  "intuitive": "Two systems can be interoperable in the weak sense that the file arrives and parses, while still disagreeing about what a field means. Getting the envelope through is easy; agreeing on what is written inside it is the hard part.",
+  "clinical": "This is where multi-site AI projects stall: the model that validated internally degrades at the partner hospital not because the population differs but because their creatinine flows through a different order set, their problem list is curated by a different specialty, and their nursing flowsheets encode acuity somewhere yours does not.",
+  "related": [
+   "fhir",
+   "hl7",
+   "clinical-terminology",
+   "distribution-shift",
+   "external-validation"
+  ],
+  "reading": [
+   {
+    "title": "HealthIT.gov",
+    "source": "Office of the National Coordinator for Health IT",
+    "year": 2025,
+    "url": "https://www.healthit.gov/",
+    "note": "US federal policy hub for certification, information blocking, and exchange requirements"
+   },
+   {
+    "title": "SMART on FHIR: a standards-based, interoperable apps platform for electronic health records",
+    "source": "JAMIA",
+    "year": 2016,
+    "url": "https://doi.org/10.1093/jamia/ocv189",
+    "note": "the write once run anywhere ambition and its practical constraints"
+   }
+  ]
+ },
+ {
   "id": "prospective-validation",
   "term": "Prospective validation",
   "aliases": [
@@ -135,6 +457,40 @@
     "year": 2020,
     "url": "https://doi.org/10.1038/s41591-020-1034-x",
     "note": "the trial reporting standard once an AI intervention reaches randomization"
+   }
+  ]
+ },
+ {
+  "id": "snomed-ct",
+  "term": "SNOMED CT",
+  "aliases": [
+   "SNOMED",
+   "Systematized Nomenclature of Medicine Clinical Terms"
+  ],
+  "category": "Clinical AI",
+  "technical": "A large description logic based clinical terminology of several hundred thousand active concepts, each with a numeric identifier, organized in a polyhierarchy with defining relationships that support subsumption queries. Post coordination allows expressions to be composed from multiple concepts, which increases expressivity and greatly increases the difficulty of exact matching.",
+  "intuitive": "A very large, formally organized dictionary of clinical ideas in which every concept knows what it is a kind of. That structure is what lets a query for lung disease also retrieve a specific pneumonia without anyone listing every case by hand.",
+  "clinical": "Its hierarchy is the practical reason a cohort definition can be written once and still capture specific diagnoses, but the same expressivity means two sites can encode the identical finding as different valid concepts, so agreement has to be verified rather than assumed.",
+  "related": [
+   "clinical-terminology",
+   "icd-coding",
+   "structured-data",
+   "knowledge-graph"
+  ],
+  "reading": [
+   {
+    "title": "SNOMED International",
+    "source": "SNOMED International",
+    "year": 2025,
+    "url": "https://www.snomed.org/",
+    "note": "the maintaining body, licensing model, and release documentation"
+   },
+   {
+    "title": "The Unified Medical Language System (UMLS): integrating biomedical terminology",
+    "source": "Nucleic Acids Research",
+    "year": 2004,
+    "url": "https://doi.org/10.1093/nar/gkh061",
+    "note": "context for how SNOMED CT relates to other source vocabularies"
    }
   ]
  },
@@ -212,6 +568,118 @@
     "year": 2022,
     "url": "https://doi.org/10.1038/s41591-022-01772-9",
     "note": "frames the evaluation stages between offline accuracy and randomized trials"
+   }
+  ]
+ },
+ {
+  "id": "structured-data",
+  "term": "Structured data",
+  "aliases": [
+   "coded data",
+   "discrete data"
+  ],
+  "category": "Clinical AI",
+  "technical": "Clinical data recorded in predefined fields with constrained value sets: labs with LOINC codes and units, medications with RxNorm identifiers, diagnoses as ICD or SNOMED CT concepts, vitals in flowsheet rows. It is machine readable by construction, but its completeness and meaning are artifacts of local build decisions, order set design, and billing incentives rather than of the underlying clinical reality.",
+  "intuitive": "The parts of the chart that live in boxes rather than sentences. Easy for a computer to read, but the box being empty usually means nobody was asked to fill it, not that the finding was absent.",
+  "clinical": "Missingness in structured data is almost never random: a problem list entry appears because it supported a bill, a smoking status is blank because that clinic skips the intake screen, and a model that learns from those patterns learns your documentation habits at least as much as your patients.",
+  "related": [
+   "unstructured-data",
+   "clinical-terminology",
+   "icd-coding",
+   "data-warehouse",
+   "ground-truth"
+  ],
+  "reading": [
+   {
+    "title": "Scalable and accurate deep learning with electronic health records",
+    "source": "npj Digital Medicine",
+    "year": 2018,
+    "url": "https://doi.org/10.1038/s41746-018-0029-1",
+    "note": "large scale prediction built on a FHIR representation of the raw record"
+   },
+   {
+    "title": "Validation of a common data model for active safety surveillance research",
+    "source": "JAMIA",
+    "year": 2012,
+    "url": "https://doi.org/10.1136/amiajnl-2011-000376",
+    "note": "what is preserved and lost when source records are mapped to a common structured model"
+   }
+  ]
+ },
+ {
+  "id": "unstructured-data",
+  "term": "Unstructured data",
+  "aliases": [
+   "free text",
+   "clinical narrative",
+   "narrative notes"
+  ],
+  "category": "Clinical AI",
+  "technical": "Clinical information carried in free text: progress notes, radiology and pathology reports, operative notes, telephone encounters, and scanned outside documents. Extracting usable variables requires handling negation, hedging, temporality, family versus patient attribution, section structure, and heavy copy forward duplication, all of which vary by specialty and by author.",
+  "intuitive": "The prose part of the chart, where most of the actual reasoning lives. A language model reads it far better than older tools did, which is exactly why it will also confidently repeat a copied paragraph that stopped being true three admissions ago.",
+  "clinical": "Roughly the majority of clinically decisive information exists only in notes, so any project that claims to work from structured fields alone is quietly excluding the reasoning; conversely any project that ingests notes inherits copy forward, negation, and stale problem descriptions as first class failure modes.",
+  "related": [
+   "structured-data",
+   "hallucination",
+   "chunking",
+   "retrieval-augmented-generation",
+   "ambient-documentation"
+  ],
+  "reading": [
+   {
+    "title": "Clinical information extraction applications: A literature review",
+    "source": "Journal of Biomedical Informatics",
+    "year": 2018,
+    "url": "https://doi.org/10.1016/j.jbi.2017.11.011",
+    "note": "survey of what note based extraction had achieved before large language models"
+   },
+   {
+    "title": "Publicly Available Clinical BERT Embeddings",
+    "source": "arXiv",
+    "year": 2019,
+    "url": "https://arxiv.org/abs/1904.03323",
+    "note": "shows domain pretraining on clinical notes measurably beats general text models"
+   }
+  ]
+ },
+ {
+  "id": "workflow-integration",
+  "term": "Workflow integration",
+  "aliases": [
+   "fit to workflow",
+   "sociotechnical integration"
+  ],
+  "category": "Clinical AI",
+  "technical": "The degree to which a tool delivers its output at the point of decision, to the person who can act, with the action available in the same interface and without added authentication or context switching. Trials of decision support consistently find that delivery characteristics predict effect on clinician behavior more strongly than the accuracy of the underlying logic.",
+  "intuitive": "Whether the thing shows up where the work already happens. A recommendation that requires opening a second application, logging in again, and copying a value across will not survive contact with a real clinic day, however good it is.",
+  "clinical": "The predictable stall point is the meeting where everyone agrees the model works and no one owns the build: who writes the order set it fires into, which role sees it, what the one click action is, and what happens at 3am when it is wrong.",
+  "related": [
+   "alert-fatigue",
+   "clinical-decision-support",
+   "electronic-health-record",
+   "human-in-the-loop"
+  ],
+  "reading": [
+   {
+    "title": "Ten Commandments for Effective Clinical Decision Support: Making the Practice of Evidence-based Medicine a Reality",
+    "source": "JAMIA",
+    "year": 2003,
+    "url": "https://doi.org/10.1197/jamia.M1370",
+    "note": "the durable checklist on speed, fitting workflow, and suggesting rather than scolding"
+   },
+   {
+    "title": "A new sociotechnical model for studying health information technology in complex adaptive healthcare systems",
+    "source": "Quality and Safety in Health Care",
+    "year": 2010,
+    "url": "https://doi.org/10.1136/qshc.2010.042085",
+    "note": "the eight dimension framework covering people, workflow, and organizational policy alongside software"
+   },
+   {
+    "title": "The Extent and Importance of Unintended Consequences Related to Computerized Provider Order Entry",
+    "source": "JAMIA",
+    "year": 2007,
+    "url": "https://doi.org/10.1197/jamia.M2373",
+    "note": "catalogues the new errors created by well intentioned electronic interventions"
    }
   ]
  },
@@ -420,6 +888,42 @@
     "year": 2019,
     "url": "https://arxiv.org/abs/1909.10155",
     "note": "shows common calibration error estimates are themselves biased"
+   }
+  ]
+ },
+ {
+  "id": "confusion-matrix",
+  "term": "Confusion matrix",
+  "aliases": [
+   "contingency table",
+   "error matrix"
+  ],
+  "category": "Evaluation",
+  "technical": "A cross-tabulation of predicted against actual class, whose four cells in the binary case are true positives, false positives, false negatives, and true negatives. Every scalar classification metric is a function of these counts: sensitivity is TP over TP plus FN, specificity is TN over TN plus FP, precision is TP over TP plus FP, and accuracy is the trace over the total. It is defined only at a fixed decision threshold, which is why threshold-free summaries such as AUROC cannot be recovered from a single matrix.",
+  "intuitive": "The two by two table you already use for diagnostic tests, applied to a model. Its value is that it is the raw material behind every headline metric, so asking for it forces the counts into the open. A model described as 94 percent accurate looks different once you see it caught 3 of 40 true cases and generated 200 false alarms.",
+  "clinical": "Always ask for the raw cell counts at the threshold that will actually fire in your workflow, since that is the only way to estimate how many alerts per shift and how many missed cases you are buying.",
+  "related": [
+   "accuracy",
+   "precision-and-recall",
+   "sensitivity-and-specificity",
+   "class-imbalance",
+   "f1-score",
+   "auroc"
+  ],
+  "reading": [
+   {
+    "title": "The advantages of the Matthews correlation coefficient (MCC) over F1 score and accuracy in binary classification evaluation",
+    "source": "BMC Genomics",
+    "year": 2020,
+    "url": "https://doi.org/10.1186/s12864-019-6413-7",
+    "note": "worked examples of how summary metrics hide the underlying cell counts"
+   },
+   {
+    "title": "The Precision-Recall Plot Is More Informative than the ROC Plot When Evaluating Binary Classifiers on Imbalanced Datasets",
+    "source": "PLOS ONE",
+    "year": 2015,
+    "url": "https://doi.org/10.1371/journal.pone.0118432",
+    "note": "connects the four cells to the right choice of summary curve"
    }
   ]
  },
@@ -1277,6 +1781,731 @@
   ]
  },
  {
+  "id": "algorithm",
+  "term": "Algorithm",
+  "aliases": [],
+  "category": "Foundations",
+  "technical": "A finite, well defined procedure for transforming input into output. In machine learning the word is used for two distinct things: the learning algorithm, which is the training procedure that fits parameters to data, and the resulting inference procedure, which computes a prediction from a new input. Precision matters because the first is run once by the developer and the second runs every time a clinician sees a result.",
+  "intuitive": "A recipe. In everyday AI talk the word gets stretched to mean the whole system, which hides an important split: there is the procedure that learned from the data, and there is the fixed thing that now scores your patient. When people say the algorithm is biased they nearly always mean the learned model, not the training procedure, and confusing the two makes it unclear where a fix would even go.",
+  "clinical": "Race adjusted clinical equations such as older eGFR formulas are algorithms in the plain sense, no learning involved, and they show that a rule can encode a harmful assumption without any machine learning in sight.",
+  "related": [
+   "model",
+   "machine-learning",
+   "algorithmic-bias",
+   "inference"
+  ],
+  "reading": [
+   {
+    "title": "Dissecting racial bias in an algorithm used to manage the health of populations",
+    "source": "Science",
+    "year": 2019,
+    "url": "https://doi.org/10.1126/science.aax2342",
+    "note": "Obermeyer et al, on how the choice of target variable, not the code, produced the bias"
+   },
+   {
+    "title": "Statistical Modeling: The Two Cultures",
+    "source": "Statistical Science",
+    "year": 2001,
+    "url": "https://doi.org/10.1214/ss/1009213726",
+    "note": "Breiman on algorithmic versus data modeling cultures"
+   }
+  ]
+ },
+ {
+  "id": "artificial-general-intelligence",
+  "term": "Artificial general intelligence",
+  "aliases": [
+   "AGI",
+   "strong AI"
+  ],
+  "category": "Foundations",
+  "technical": "A hypothesized system able to acquire competence across an open ended range of tasks, including tasks not anticipated by its designers, at or above human level. There is no accepted formal definition and no agreed measurement, so claims about proximity to AGI are largely arguments about definitions. Proposed operationalizations, such as skill acquisition efficiency on novel tasks or graded capability levels, remain contested.",
+  "intuitive": "A machine that could pick up genuinely new kinds of problems the way a person does, rather than performing well on the kinds of problem it was trained for. It does not exist, and there is no consensus on what would count as evidence that it had arrived. This matters mainly as a filter: AGI language in a product pitch is a claim about the future, and nothing in it bears on whether the tool in front of you works on your patients.",
+  "clinical": "Nothing in current or near term clinical practice depends on AGI, and treating breadth of conversational ability as evidence of general competence is a reliable way to over trust a narrow tool.",
+  "related": [
+   "narrow-ai",
+   "artificial-intelligence",
+   "benchmark",
+   "construct-validity"
+  ],
+  "reading": [
+   {
+    "title": "On the Measure of Intelligence",
+    "source": "arXiv",
+    "year": 2019,
+    "url": "https://arxiv.org/abs/1911.01547",
+    "note": "argues generality should be measured as efficiency at acquiring new skills"
+   },
+   {
+    "title": "Sparks of Artificial General Intelligence: Early experiments with GPT-4",
+    "source": "arXiv",
+    "year": 2023,
+    "url": "https://arxiv.org/abs/2303.12712",
+    "note": "the most cited and most disputed claim of early generality"
+   }
+  ]
+ },
+ {
+  "id": "artificial-intelligence",
+  "term": "Artificial intelligence",
+  "aliases": [
+   "AI"
+  ],
+  "category": "Foundations",
+  "technical": "An umbrella field concerned with building systems that perform tasks normally requiring human cognition, including perception, reasoning, planning and language. It contains approaches that involve no learning at all, such as hand written rule engines, search and constraint solvers, alongside statistical learning methods. Machine learning is one subfield of AI, and deep learning is one subfield of machine learning.",
+  "intuitive": "AI is a goal, not a technique. It names the ambition of getting a machine to do something we would call intelligent, and says nothing about how. A decision tree written by hand from a guideline is AI, and so is a large language model, even though they share almost no machinery. Because the label is about aspiration rather than method, a vendor saying a product uses AI tells you close to nothing on its own.",
+  "clinical": "Products marketed as AI range from fixed if-then alert logic to opaque learned models, and the two demand entirely different validation and monitoring, so the first question about any AI tool is which kind it is.",
+  "related": [
+   "machine-learning",
+   "deep-learning",
+   "narrow-ai",
+   "artificial-general-intelligence",
+   "algorithm"
+  ],
+  "reading": [
+   {
+    "title": "Computing Machinery and Intelligence",
+    "source": "Mind",
+    "year": 1950,
+    "url": "https://doi.org/10.1093/mind/LIX.236.433",
+    "note": "Turing's founding paper, which reframes can machines think as a behavioral test"
+   },
+   {
+    "title": "Sparks of Artificial General Intelligence: Early experiments with GPT-4",
+    "source": "arXiv",
+    "year": 2023,
+    "url": "https://arxiv.org/abs/2303.12712",
+    "note": "influential and contested attempt to characterize how general a modern system is"
+   }
+  ]
+ },
+ {
+  "id": "classification",
+  "term": "Classification",
+  "aliases": [
+   "classifier",
+   "discrete prediction"
+  ],
+  "category": "Foundations",
+  "technical": "A supervised task whose target is categorical, either binary, multiclass or multilabel. Most classifiers output a continuous score, usually a probability, which becomes a class only after a threshold is applied, and the threshold is a separate decision driven by the relative cost of false positives and false negatives. Discrimination and calibration are distinct properties: a model can rank cases well while its probabilities are systematically wrong.",
+  "intuitive": "Predicting which category a case falls into, such as malignant or benign. The important and often skipped point is that the model does not really output a category, it outputs a number, and someone chose the cut point that turns that number into an alert. Moving that cut point changes sensitivity and specificity without retraining anything, so a complaint that a model fires too often may be a threshold problem rather than a model problem.",
+  "clinical": "Every binary clinical alert conceals a threshold choice that should be set from the local cost of missed cases versus alert fatigue, not inherited from the vendor's default.",
+  "related": [
+   "regression",
+   "supervised-learning",
+   "label",
+   "sensitivity-and-specificity",
+   "auroc",
+   "calibration"
+  ],
+  "reading": [
+   {
+    "title": "An Introduction to Statistical Learning",
+    "source": "Springer",
+    "year": 2021,
+    "url": "https://www.statlearning.com/",
+    "note": "accessible treatment of classifiers and decision thresholds"
+   },
+   {
+    "title": "Calibration: the Achilles heel of predictive analytics",
+    "source": "BMC Medicine",
+    "year": 2019,
+    "url": "https://doi.org/10.1186/s12916-019-1466-7",
+    "note": "why good discrimination does not make the predicted probabilities usable"
+   }
+  ]
+ },
+ {
+  "id": "computer-vision",
+  "term": "Computer vision",
+  "aliases": [
+   "CV",
+   "machine vision",
+   "image analysis"
+  ],
+  "category": "Foundations",
+  "technical": "The subfield concerned with extracting structured information from images and video, including classification, detection, segmentation, and registration. Convolutional networks with learned hierarchical filters displaced hand-engineered features, and vision transformers now match or exceed them given sufficient data. Medical imaging differs from natural-image benchmarks in bit depth, three-dimensional volumes, extreme class imbalance, and a strong tendency for models to latch onto scanner, protocol, or laterality-marker artifacts rather than pathology.",
+  "intuitive": "Getting a computer to interpret pictures. Performance on curated image sets is genuinely superhuman for narrow tasks, but these models routinely learn the wrong cue. A pneumonia classifier that appears excellent may have learned to detect which hospital's scanner produced the film, because that hospital had sicker patients, and it will fail the moment you install it somewhere else.",
+  "clinical": "Radiology, dermatology, pathology, and ophthalmology hold the largest number of cleared AI devices, and external validation on your own scanners is the only meaningful check on shortcut learning.",
+  "related": [
+   "image-segmentation",
+   "neural-network",
+   "distribution-shift",
+   "external-validation",
+   "fda-clearance",
+   "multimodal-model"
+  ],
+  "reading": [
+   {
+    "title": "Deep Residual Learning for Image Recognition",
+    "source": "arXiv",
+    "year": 2015,
+    "url": "https://arxiv.org/abs/1512.03385",
+    "note": "ResNet, the backbone most medical imaging models still build on"
+   },
+   {
+    "title": "An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale",
+    "source": "arXiv",
+    "year": 2020,
+    "url": "https://arxiv.org/abs/2010.11929",
+    "note": "vision transformers, the current alternative to convolutional backbones"
+   },
+   {
+    "title": "Dermatologist-level classification of skin cancer with deep neural networks",
+    "source": "Nature",
+    "year": 2017,
+    "url": "https://doi.org/10.1038/nature21056",
+    "note": "landmark clinical demonstration and a useful case study in dataset limitations"
+   }
+  ]
+ },
+ {
+  "id": "deep-learning",
+  "term": "Deep learning",
+  "aliases": [
+   "deep neural networks"
+  ],
+  "category": "Foundations",
+  "technical": "A subfield of machine learning that uses neural networks with many stacked layers of learned nonlinear transformations, trained end to end by gradient descent with gradients computed by backpropagation. Depth allows the network to learn its own hierarchy of representations from raw input, so feature engineering is largely replaced by representation learning. Transformers, convolutional networks and diffusion models are all deep learning.",
+  "intuitive": "Deep learning is one particular family of machine learning methods, not a synonym for it. The nesting runs one way: all deep learning is machine learning, all machine learning is AI, and neither holds in reverse. What makes it deep is that the model builds its own intermediate concepts in layers instead of being handed a list of variables a human chose. That is why it works on raw pixels, waveforms and text, where nobody can enumerate the relevant measurements in advance.",
+  "clinical": "Imaging and ECG models that read the raw signal rather than a set of extracted measurements are deep learning, which is also why their reasoning is harder to inspect than a logistic regression on named lab values.",
+  "related": [
+   "machine-learning",
+   "artificial-intelligence",
+   "neural-network",
+   "backpropagation",
+   "feature",
+   "transformer"
+  ],
+  "reading": [
+   {
+    "title": "Deep learning",
+    "source": "Nature",
+    "year": 2015,
+    "url": "https://doi.org/10.1038/nature14539",
+    "note": "LeCun, Bengio and Hinton's canonical review of the field"
+   },
+   {
+    "title": "Deep Learning",
+    "source": "MIT Press",
+    "year": 2016,
+    "url": "https://www.deeplearningbook.org/",
+    "note": "Goodfellow, Bengio and Courville's free textbook"
+   },
+   {
+    "title": "Dermatologist-level classification of skin cancer with deep neural networks",
+    "source": "Nature",
+    "year": 2017,
+    "url": "https://doi.org/10.1038/nature21056",
+    "note": "an early high profile clinical demonstration and a useful case study in its own limits"
+   }
+  ]
+ },
+ {
+  "id": "feature",
+  "term": "Feature",
+  "aliases": [
+   "predictor",
+   "covariate",
+   "input variable"
+  ],
+  "category": "Foundations",
+  "technical": "An individual measurable input to a model, one coordinate of the input vector. Classical machine learning depends on feature engineering, in which humans construct informative variables such as a change in creatinine over 48 hours. Deep learning largely replaces this with representation learning, in which intermediate layers compute their own features from raw input, though the choice of what raw data to supply remains a human decision with the same consequences.",
+  "intuitive": "The variables the model gets to look at. In a regression these are the named things a clinician would recognize, such as age, sodium and heart rate. In a deep model on raw images or text there is no such list, because the model builds its own internal variables, which is precisely why you cannot read off which factors it used. Either way the model can only see what was put in front of it, and a variable that is missing not at random, such as a lab only ordered when someone is worried, carries information about clinician suspicion rather than about physiology.",
+  "clinical": "Models routinely exploit workflow artifacts as features, such as the fact that a test was ordered at all or which scanner produced an image, and these shortcuts break the moment the workflow changes.",
+  "related": [
+   "label",
+   "embedding",
+   "supervised-learning",
+   "deep-learning",
+   "distribution-shift"
+  ],
+  "reading": [
+   {
+    "title": "Representation Learning: A Review and New Perspectives",
+    "source": "arXiv",
+    "year": 2012,
+    "url": "https://arxiv.org/abs/1206.5538",
+    "note": "Bengio et al on learned representations replacing hand engineered features"
+   },
+   {
+    "title": "A Few Useful Things to Know about Machine Learning",
+    "source": "Communications of the ACM",
+    "year": 2012,
+    "url": "https://doi.org/10.1145/2347736.2347755",
+    "note": "argues feature engineering is usually where the real work is"
+   }
+  ]
+ },
+ {
+  "id": "image-segmentation",
+  "term": "Image segmentation",
+  "aliases": [
+   "semantic segmentation",
+   "instance segmentation",
+   "contouring"
+  ],
+  "category": "Foundations",
+  "technical": "Assigning a class label to every pixel or voxel, producing a delineated region rather than a single image-level prediction. Encoder-decoder architectures with skip connections, notably U-Net and its self-configuring successors, remain the standard for biomedical volumes. Evaluation uses overlap measures such as Dice and Jaccard plus boundary distances like Hausdorff, and reported scores are bounded above by interobserver variability, since the reference standard is itself a human-drawn contour with real disagreement.",
+  "intuitive": "Outlining exactly where a structure is in an image rather than just saying whether it is present: the tumor boundary, the ventricle, the infarct volume. Judge these tools against how much two experienced readers disagree with each other, not against an imagined perfect answer, because a Dice score of 0.85 may already exceed human agreement for that structure or fall well short of it depending on the task.",
+  "clinical": "This is the workhorse behind radiotherapy contouring, volumetric quantification, and surgical planning tools, where the output is edited by a human rather than accepted outright.",
+  "related": [
+   "computer-vision",
+   "neural-network",
+   "ground-truth",
+   "human-in-the-loop",
+   "fda-clearance"
+  ],
+  "reading": [
+   {
+    "title": "U-Net: Convolutional Networks for Biomedical Image Segmentation",
+    "source": "arXiv",
+    "year": 2015,
+    "url": "https://arxiv.org/abs/1505.04597",
+    "note": "the architecture that defined biomedical segmentation"
+   },
+   {
+    "title": "nnU-Net: a self-configuring method for deep learning-based biomedical image segmentation",
+    "source": "Nature Methods",
+    "year": 2021,
+    "url": "https://doi.org/10.1038/s41592-020-01008-z",
+    "note": "automatically configured pipeline that remains a strong default across medical tasks"
+   },
+   {
+    "title": "Segment Anything",
+    "source": "arXiv",
+    "year": 2023,
+    "url": "https://arxiv.org/abs/2304.02643",
+    "note": "promptable foundation model for segmentation, with known limits on medical modalities"
+   }
+  ]
+ },
+ {
+  "id": "label",
+  "term": "Label",
+  "aliases": [
+   "target",
+   "outcome variable",
+   "annotation"
+  ],
+  "category": "Foundations",
+  "technical": "The known output value attached to a training example, which the supervised loss compares predictions against. Labels may be human annotations, registry outcomes, billing codes or automatically derived proxies, and each carries a different noise structure and bias. Because the loss is defined against the label, the model optimizes for the label as recorded, not for the underlying construct the label is meant to stand for.",
+  "intuitive": "The answer key. Its presence or absence is what separates supervised from unsupervised learning, and its quality is what sets the ceiling on a supervised model. The failure that keeps recurring is the proxy label: you cannot easily measure what you care about, so you substitute something recorded in the data, and the model faithfully learns the substitute. A model trained on ICD codes for sepsis learns coding behavior, which overlaps with sepsis but is not the same thing.",
+  "clinical": "An algorithm used on millions of patients was found to under refer Black patients because it was trained to predict healthcare spending as a proxy for illness, and less had historically been spent on them at equal severity.",
+  "related": [
+   "supervised-learning",
+   "unsupervised-learning",
+   "ground-truth",
+   "classification",
+   "algorithmic-bias"
+  ],
+  "reading": [
+   {
+    "title": "Dissecting racial bias in an algorithm used to manage the health of populations",
+    "source": "Science",
+    "year": 2019,
+    "url": "https://doi.org/10.1126/science.aax2342",
+    "note": "the definitive case study in proxy label harm"
+   },
+   {
+    "title": "Pervasive Label Errors in Test Sets Destabilize Machine Learning Benchmarks",
+    "source": "arXiv",
+    "year": 2021,
+    "url": "https://arxiv.org/abs/2103.14749",
+    "note": "documents substantial label error even in the field's reference datasets"
+   }
+  ]
+ },
+ {
+  "id": "machine-learning",
+  "term": "Machine learning",
+  "aliases": [
+   "ML",
+   "statistical learning"
+  ],
+  "category": "Foundations",
+  "technical": "A subfield of AI in which a model's parameters are fit from data rather than specified by hand, so that behavior on new inputs is induced from examples. Formally, a learning algorithm searches a hypothesis space for parameters that minimize a loss function on training data, subject to regularization intended to make the result generalize to unseen data drawn from the same distribution. The defining property is that no one writes the decision rule; the fitting procedure produces it.",
+  "intuitive": "The rules are learned from examples instead of written by a person. A rule based system encodes what an expert says: if the creatinine rose by this much, fire an alert. A machine learning system is instead shown many past cases and their outcomes, and it works out the pattern itself. The consequence people miss is that the system inherits whatever is in the examples, including the mistakes, the local practice habits and the reasons some patients were never tested in the first place.",
+  "clinical": "Nearly every predictive score in a modern EHR, from sepsis alerts to readmission risk, is a learned model, which is why performance can decay when the population or the documentation habits shift.",
+  "related": [
+   "artificial-intelligence",
+   "deep-learning",
+   "supervised-learning",
+   "unsupervised-learning",
+   "model",
+   "algorithm",
+   "distribution-shift"
+  ],
+  "reading": [
+   {
+    "title": "Machine Learning in Medicine",
+    "source": "NEJM",
+    "year": 2019,
+    "url": "https://doi.org/10.1056/NEJMra1814259",
+    "note": "Rajkomar, Dean and Kohane's orientation to ML for a clinical readership"
+   },
+   {
+    "title": "A Few Useful Things to Know about Machine Learning",
+    "source": "Communications of the ACM",
+    "year": 2012,
+    "url": "https://doi.org/10.1145/2347736.2347755",
+    "note": "Domingos on generalization, overfitting and why more data often beats a cleverer algorithm"
+   },
+   {
+    "title": "Statistical Modeling: The Two Cultures",
+    "source": "Statistical Science",
+    "year": 2001,
+    "url": "https://doi.org/10.1214/ss/1009213726",
+    "note": "Breiman on the split between explanatory models and predictive algorithms"
+   }
+  ]
+ },
+ {
+  "id": "model",
+  "term": "Model",
+  "aliases": [
+   "trained model",
+   "checkpoint"
+  ],
+  "category": "Foundations",
+  "technical": "The combination of an architecture, which specifies the family of functions available, and a set of fitted parameter values, which selects one function from that family. A trained model is therefore a concrete function from inputs to outputs, usually distributed as a weights file plus the code needed to run it. It is distinct from the training data, from the training algorithm and from the system that wraps it with prompts, retrieval and guardrails.",
+  "intuitive": "The frozen result of training, a large table of numbers plus the code that applies them. It is worth separating the model from the product built around it, because most of what a user experiences, including the instructions it is given, the documents fed to it and the filters on its output, sits outside the model and can change without the model changing at all. Two hospitals running the identical model can get very different behavior for exactly this reason.",
+  "clinical": "When a vendor says they updated their AI, ask whether the model weights changed, since a weights change may need revalidation while a prompt or threshold change is a different kind of risk that is often not disclosed at all.",
+  "related": [
+   "parameters",
+   "algorithm",
+   "inference",
+   "foundation-model",
+   "model-card",
+   "model-drift"
+  ],
+  "reading": [
+   {
+    "title": "Model Cards for Model Reporting",
+    "source": "arXiv",
+    "year": 2018,
+    "url": "https://arxiv.org/abs/1810.03993",
+    "note": "proposes documenting what a released model is, was trained on and is for"
+   },
+   {
+    "title": "On the Opportunities and Risks of Foundation Models",
+    "source": "arXiv",
+    "year": 2021,
+    "url": "https://arxiv.org/abs/2108.07258",
+    "note": "on models as reusable substrates that many downstream systems inherit from"
+   }
+  ]
+ },
+ {
+  "id": "narrow-ai",
+  "term": "Narrow AI",
+  "aliases": [
+   "weak AI",
+   "artificial narrow intelligence"
+  ],
+  "category": "Foundations",
+  "technical": "A system competent only within the task distribution it was built and validated for, with no guarantee of transfer beyond it. Essentially all deployed AI is narrow in this sense, including large language models, whose apparent breadth reflects a very wide pretraining distribution rather than task general reasoning. Narrowness is a claim about the validated operating envelope, not about how simple the system is.",
+  "intuitive": "The system works inside a boundary and gives no warning when it steps outside one. A retinal screening model handed a photo from a different camera in a different population is outside its envelope, but it will still return a confident number. The word narrow is misleading if you hear it as unsophisticated; a model can be enormously capable and still be narrow, because narrow refers to where its performance has actually been demonstrated.",
+  "clinical": "Regulatory clearance is granted for a specific indication and population, so a cleared tool used slightly outside that envelope is being used off label in a way that its own performance data does not cover.",
+  "related": [
+   "artificial-general-intelligence",
+   "artificial-intelligence",
+   "distribution-shift",
+   "external-validation",
+   "fda-clearance"
+  ],
+  "reading": [
+   {
+    "title": "Key challenges for delivering clinical impact with artificial intelligence",
+    "source": "BMC Medicine",
+    "year": 2019,
+    "url": "https://doi.org/10.1186/s12916-019-1426-2",
+    "note": "Kelly et al on why narrow validation fails to transfer to real deployment"
+   },
+   {
+    "title": "On the Measure of Intelligence",
+    "source": "arXiv",
+    "year": 2019,
+    "url": "https://arxiv.org/abs/1911.01547",
+    "note": "Chollet on the difference between task specific skill and generality"
+   }
+  ]
+ },
+ {
+  "id": "natural-language-processing",
+  "term": "Natural language processing",
+  "aliases": [
+   "NLP",
+   "computational linguistics",
+   "text mining"
+  ],
+  "category": "Foundations",
+  "technical": "The subfield concerned with computational representation and manipulation of human language, spanning tokenization, syntactic and semantic parsing, information extraction, translation, and generation. The field moved from hand-built rules to statistical models to self-supervised pretrained transformers, which now dominate because a single pretrained representation transfers across nearly all downstream tasks. Clinical text is a recognized hard domain because of dense abbreviation, negation and uncertainty expression, copy-forward redundancy, and heavy institutional idiosyncrasy.",
+  "intuitive": "Everything computers do with written or spoken language, from pulling a problem list out of a note to writing a discharge summary. Clinical notes are unusually hostile territory: a general-purpose system will not reliably know that PCP means pneumocystis pneumonia here and primary care physician three lines later, or that ruled out for PE means the patient does not have one.",
+  "clinical": "Nearly every non-imaging AI product you will encounter, including chart abstraction, coding, cohort identification, and ambient scribes, is an NLP system underneath.",
+  "related": [
+   "large-language-model",
+   "tokenization",
+   "transformer",
+   "embedding",
+   "ambient-documentation",
+   "structured-output"
+  ],
+  "reading": [
+   {
+    "title": "Attention Is All You Need",
+    "source": "arXiv",
+    "year": 2017,
+    "url": "https://arxiv.org/abs/1706.03762",
+    "note": "the transformer architecture underlying essentially all modern NLP"
+   },
+   {
+    "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+    "source": "arXiv",
+    "year": 2018,
+    "url": "https://arxiv.org/abs/1810.04805",
+    "note": "established pretrain-then-finetune as the standard NLP recipe"
+   },
+   {
+    "title": "Publicly Available Clinical BERT Embeddings",
+    "source": "arXiv",
+    "year": 2019,
+    "url": "https://arxiv.org/abs/1904.03323",
+    "note": "shows domain-specific pretraining on clinical notes outperforms general text models"
+   }
+  ]
+ },
+ {
+  "id": "optical-character-recognition",
+  "term": "Optical character recognition",
+  "aliases": [
+   "OCR",
+   "document AI",
+   "text recognition"
+  ],
+  "category": "Foundations",
+  "technical": "Converting rendered text in images or scanned documents into machine-readable character sequences, usually as detection of text regions followed by sequence recognition, or increasingly as a single end-to-end encoder-decoder that emits structured output directly. Error rates rise sharply on handwriting, low-resolution faxes, stamps, checkbox forms, and multi-column or tabular layouts where reading order is ambiguous. Because errors are character-level and locally plausible, downstream models often propagate them without any signal that something was misread.",
+  "intuitive": "Reading text off a picture of a page. It is nearly solved for clean printed documents and still unreliable for handwriting and degraded faxes, which is most of what arrives from outside referrals. The dangerous part is that a misread produces a confident, well-formed wrong value: a decimal point lost in a scanned lab table becomes a tenfold dosing or result error with nothing to flag it.",
+  "clinical": "Outside records, faxed referrals, and scanned prior charts usually enter the EHR through OCR, so any downstream extraction or summarization inherits its silent errors.",
+  "related": [
+   "computer-vision",
+   "multimodal-model",
+   "natural-language-processing",
+   "structured-output",
+   "human-in-the-loop"
+  ],
+  "reading": [
+   {
+    "title": "An End-to-End Trainable Neural Network for Image-based Sequence Recognition and Its Application to Scene Text Recognition",
+    "source": "arXiv",
+    "year": 2015,
+    "url": "https://arxiv.org/abs/1507.05717",
+    "note": "CRNN, the long-standing baseline architecture for text recognition"
+   },
+   {
+    "title": "TrOCR: Transformer-based Optical Character Recognition with Pre-trained Models",
+    "source": "arXiv",
+    "year": 2021,
+    "url": "https://arxiv.org/abs/2109.10282",
+    "note": "transformer approach that substantially improves handwritten text recognition"
+   },
+   {
+    "title": "OCR-free Document Understanding Transformer",
+    "source": "arXiv",
+    "year": 2021,
+    "url": "https://arxiv.org/abs/2111.15664",
+    "note": "Donut, which reads documents into structured fields without a separate OCR stage"
+   }
+  ]
+ },
+ {
+  "id": "regression",
+  "term": "Regression",
+  "aliases": [
+   "continuous prediction"
+  ],
+  "category": "Foundations",
+  "technical": "A supervised task whose target is a continuous quantity, fit by minimizing a loss such as mean squared or absolute error. The term is overloaded: it names the task of predicting a number, and it also names specific model families such as linear and logistic regression, the latter of which performs classification despite the name. Error metrics are in the units of the outcome, so their acceptability is a clinical judgment rather than a statistical one.",
+  "intuitive": "Predicting a number rather than a category, such as expected length of stay in days. Two naming traps catch people. First, logistic regression is a classifier despite the word regression in its name. Second, regression in the machine learning sense means predicting an outcome, which is not the same use as in classical epidemiology, where a regression is often fit to estimate the effect of one exposure while adjusting for others. A model tuned to predict well can be badly misleading if read as a statement about causes.",
+  "clinical": "A model that predicts a lab value or a length of stay accurately still says nothing about what would happen if you intervened, and that gap between prediction and causal effect is where clinical misuse concentrates.",
+  "related": [
+   "classification",
+   "supervised-learning",
+   "loss-function",
+   "label",
+   "model"
+  ],
+  "reading": [
+   {
+    "title": "An Introduction to Statistical Learning",
+    "source": "Springer",
+    "year": 2021,
+    "url": "https://www.statlearning.com/",
+    "note": "standard accessible reference for regression methods and error metrics"
+   },
+   {
+    "title": "Statistical Modeling: The Two Cultures",
+    "source": "Statistical Science",
+    "year": 2001,
+    "url": "https://doi.org/10.1214/ss/1009213726",
+    "note": "Breiman on the difference between fitting to explain and fitting to predict"
+   }
+  ]
+ },
+ {
+  "id": "reinforcement-learning",
+  "term": "Reinforcement learning",
+  "aliases": [
+   "RL"
+  ],
+  "category": "Foundations",
+  "technical": "Learning a policy that maps states to actions so as to maximize expected cumulative reward, typically formalized as a Markov decision process. Unlike supervised learning there is no correct action given for each state; the agent receives only a scalar reward signal, often delayed, and must resolve the credit assignment problem and trade exploration against exploitation. It underlies RLHF, which fits language model behavior to a reward model trained on human preferences.",
+  "intuitive": "Learning by consequence rather than by answer key. Nobody says which move was right, only whether things went well eventually, so the system has to work out which of its earlier choices deserve the credit. The catch is that it optimizes exactly the reward it was given, so if the reward is a poor proxy for what you actually wanted, it will pursue the proxy with complete indifference to your intent.",
+  "clinical": "Proposals to learn treatment policies from observational records with RL are appealing and dangerous, because the data only contain outcomes for actions clinicians actually chose, and the model has no way to try an alternative and see.",
+  "related": [
+   "rlhf",
+   "dpo",
+   "alignment",
+   "machine-learning",
+   "supervised-learning"
+  ],
+  "reading": [
+   {
+    "title": "Reinforcement Learning: An Introduction",
+    "source": "MIT Press",
+    "year": 2018,
+    "url": "http://incompleteideas.net/book/the-book-2nd.html",
+    "note": "Sutton and Barto, the free standard textbook"
+   },
+   {
+    "title": "Playing Atari with Deep Reinforcement Learning",
+    "source": "arXiv",
+    "year": 2013,
+    "url": "https://arxiv.org/abs/1312.5602",
+    "note": "deep Q networks, the result that made deep RL prominent"
+   },
+   {
+    "title": "Deep Reinforcement Learning from Human Preferences",
+    "source": "arXiv",
+    "year": 2017,
+    "url": "https://arxiv.org/abs/1706.03741",
+    "note": "the preference learning method that became RLHF"
+   }
+  ]
+ },
+ {
+  "id": "speech-recognition",
+  "term": "Speech recognition",
+  "aliases": [
+   "ASR",
+   "automatic speech recognition",
+   "speech to text"
+  ],
+  "category": "Foundations",
+  "technical": "Mapping an acoustic waveform to a token sequence, historically via separate acoustic, pronunciation, and language models and now typically via a single end-to-end sequence model trained on large weakly supervised audio-text corpora. Performance is reported as word error rate, which weights all substitutions equally and therefore obscures clinically asymmetric errors. Accuracy degrades with accent, speaking rate, overlapping speakers, background noise, and out-of-vocabulary drug and eponym terms.",
+  "intuitive": "Turning spoken audio into text. Modern systems are strong on clean single-speaker audio and much weaker in a noisy exam room with two people talking and a heavy accent. Word error rate also hides what matters to you, because dropping a single word can flip hypertension to hypotension or 15 to 50 milligrams, and that error counts the same as a mangled article.",
+  "clinical": "This is the front end of every ambient scribe and dictation product, so its failure modes propagate silently into whatever note the downstream language model composes.",
+  "related": [
+   "ambient-documentation",
+   "natural-language-processing",
+   "multimodal-model",
+   "human-in-the-loop",
+   "large-language-model"
+  ],
+  "reading": [
+   {
+    "title": "Robust Speech Recognition via Large-Scale Weak Supervision",
+    "source": "arXiv",
+    "year": 2022,
+    "url": "https://arxiv.org/abs/2212.04356",
+    "note": "Whisper, the model underlying much current transcription tooling"
+   },
+   {
+    "title": "Deep Speech 2: End-to-End Speech Recognition in English and Mandarin",
+    "source": "arXiv",
+    "year": 2015,
+    "url": "https://arxiv.org/abs/1512.02595",
+    "note": "early end-to-end system that replaced the classical modular pipeline"
+   }
+  ]
+ },
+ {
+  "id": "supervised-learning",
+  "term": "Supervised learning",
+  "aliases": [
+   "learning from labeled data"
+  ],
+  "category": "Foundations",
+  "technical": "Learning a mapping from inputs to outputs from a training set of paired examples, where each input carries a known target value. Training minimizes a loss that compares the model's prediction to the given target, for example cross entropy for discrete targets or squared error for continuous ones. Classification and regression are the two standard cases, distinguished by whether the target is categorical or numeric.",
+  "intuitive": "You already know the right answer for every training case, and the model is fit to reproduce it. The distinction from unsupervised learning turns on exactly one thing: whether the training examples come with answers attached. If someone had to decide what counts as the correct output for each case, it is supervised. The hard part in medicine is rarely the algorithm, it is that the answer key has to come from somewhere, and chart codes, adjudicated diagnoses and a radiologist's read are three different answer keys that will not agree.",
+  "clinical": "Almost all deployed clinical prediction models are supervised, so their ceiling is set by the quality of the label used at training time rather than by the sophistication of the model.",
+  "related": [
+   "unsupervised-learning",
+   "label",
+   "classification",
+   "regression",
+   "ground-truth",
+   "machine-learning"
+  ],
+  "reading": [
+   {
+    "title": "An Introduction to Statistical Learning",
+    "source": "Springer",
+    "year": 2021,
+    "url": "https://www.statlearning.com/",
+    "note": "free textbook, the standard accessible treatment of supervised methods"
+   },
+   {
+    "title": "Machine Learning in Medicine",
+    "source": "NEJM",
+    "year": 2019,
+    "url": "https://doi.org/10.1056/NEJMra1814259",
+    "note": "frames clinical prediction as a supervised problem and discusses label choice"
+   }
+  ]
+ },
+ {
+  "id": "unsupervised-learning",
+  "term": "Unsupervised learning",
+  "aliases": [
+   "self-supervised learning"
+  ],
+  "category": "Foundations",
+  "technical": "Learning structure from data with no target values attached, using objectives defined purely on the inputs, such as reconstruction error, likelihood, cluster compactness or contrastive agreement between augmented views. Clustering, dimensionality reduction and density estimation are the classical cases. Self supervised learning is the modern dominant variant, in which a target is manufactured from the input itself, for example predicting the next token, which is how large language models are pretrained.",
+  "intuitive": "Nobody wrote down the answers, so the model can only look for structure. It can tell you that these ten thousand patients fall into six groups that resemble each other, but it cannot tell you which group is sicker, because it was never told what sick means. This is the real dividing line from supervised learning, and it is often misstated as being about complexity or autonomy when it is only about the presence of labels. Self supervised learning blurs the picture usefully: the model invents its own labels from the data, such as hiding the next word and predicting it, which is why pretraining a language model needs no annotation at all.",
+  "clinical": "Phenotype discovery and patient clustering are unsupervised, and their output is a hypothesis about subgroups rather than a validated diagnostic category, which is a distinction that gets lost fast in translation to practice.",
+  "related": [
+   "supervised-learning",
+   "label",
+   "embedding",
+   "pretraining",
+   "machine-learning"
+  ],
+  "reading": [
+   {
+    "title": "Reducing the Dimensionality of Data with Neural Networks",
+    "source": "Science",
+    "year": 2006,
+    "url": "https://doi.org/10.1126/science.1127647",
+    "note": "Hinton and Salakhutdinov on autoencoders, a foundational unsupervised result"
+   },
+   {
+    "title": "Auto-Encoding Variational Bayes",
+    "source": "arXiv",
+    "year": 2013,
+    "url": "https://arxiv.org/abs/1312.6114",
+    "note": "the variational autoencoder, a standard generative unsupervised model"
+   },
+   {
+    "title": "A Simple Framework for Contrastive Learning of Visual Representations",
+    "source": "arXiv",
+    "year": 2020,
+    "url": "https://arxiv.org/abs/2002.05709",
+    "note": "SimCLR, a clear demonstration of self supervised representation learning"
+   }
+  ]
+ },
+ {
   "id": "api",
   "term": "API",
   "aliases": [
@@ -1607,6 +2836,189 @@
   ]
  },
  {
+  "id": "attention-head",
+  "term": "Attention head",
+  "aliases": [
+   "head",
+   "multi-head attention"
+  ],
+  "category": "Model architecture",
+  "technical": "One of several parallel attention computations within a layer, each with its own learned query, key, and value projections operating in a lower-dimensional subspace. Heads specialise: interpretability work has identified heads that track syntactic dependencies, copy earlier tokens, or implement pattern completion, and many heads can be pruned with little loss.",
+  "intuitive": "Rather than one reader of the text, each layer has a panel of readers, each following a different kind of relationship: this pronoun to its referent, this number to its unit, this phrase to an earlier identical phrase. The output blends what all of them found.",
+  "clinical": "It matters mainly as the honest answer to why these systems are hard to audit: behaviour is distributed across thousands of small specialised components, so there is no single place to inspect for the rule that produced a given clinical claim.",
+  "related": [
+   "self-attention",
+   "transformer",
+   "interpretability",
+   "explainability",
+   "in-context-learning"
+  ],
+  "reading": [
+   {
+    "title": "Attention Is All You Need",
+    "source": "arXiv",
+    "year": 2017,
+    "url": "https://arxiv.org/abs/1706.03762",
+    "note": "defines multi-head attention"
+   },
+   {
+    "title": "Analyzing Multi-Head Self-Attention: Specialized Heads Do the Heavy Lifting, the Rest Can Be Pruned",
+    "source": "arXiv",
+    "year": 2019,
+    "url": "https://arxiv.org/abs/1905.09418",
+    "note": "empirical evidence that heads specialise and are unequally important"
+   },
+   {
+    "title": "A Mathematical Framework for Transformer Circuits",
+    "source": "Transformer Circuits Thread",
+    "year": 2021,
+    "url": "https://transformer-circuits.pub/2021/framework/index.html",
+    "note": "formal account of how heads compose into circuits"
+   }
+  ]
+ },
+ {
+  "id": "autoregressive",
+  "term": "Autoregressive generation",
+  "aliases": [
+   "autoregression",
+   "left-to-right generation"
+  ],
+  "category": "Model architecture",
+  "technical": "A generation scheme in which the model factorises the probability of a sequence into a product of conditional probabilities, predicting each token given all preceding tokens. At inference the model is run once per token, and each sampled token is appended to the input for the next step. Causal masking during training ensures a position can never attend to future positions.",
+  "intuitive": "The model writes one word-piece at a time, and every piece it has already written becomes part of what it is reading. It cannot look ahead, revise an earlier sentence, or plan the ending before it starts.",
+  "clinical": "It explains why a confident but wrong opening clause tends to be defended for the rest of the answer: the model is conditioning on its own earlier mistake rather than reconsidering it.",
+  "related": [
+   "next-token-prediction",
+   "decoder-only",
+   "sampling",
+   "confabulation",
+   "token"
+  ],
+  "reading": [
+   {
+    "title": "Attention Is All You Need",
+    "source": "arXiv",
+    "year": 2017,
+    "url": "https://arxiv.org/abs/1706.03762",
+    "note": "introduces the causal-masked decoder that makes generation strictly left to right"
+   },
+   {
+    "title": "The Curious Case of Neural Text Degeneration",
+    "source": "arXiv",
+    "year": 2019,
+    "url": "https://arxiv.org/abs/1904.09751",
+    "note": "shows how step-by-step decoding choices shape the quality of generated text"
+   }
+  ]
+ },
+ {
+  "id": "base-model",
+  "term": "Base model",
+  "aliases": [
+   "pretrained model",
+   "foundation checkpoint",
+   "completion model"
+  ],
+  "category": "Model architecture",
+  "technical": "A model that has completed pretraining on a next-token objective but has received no instruction tuning or preference optimisation. It continues text rather than answering questions, has no notion of a user or assistant role, and exhibits few safety behaviours beyond whatever the corpus statistics imply.",
+  "intuitive": "The raw engine before anyone fitted a steering wheel. Give it a question and it may continue with a list of more questions, because that is what often follows a question in ordinary text.",
+  "clinical": "Almost nothing a clinician touches is a base model, but the distinction matters when evaluating open-weight releases, since a base checkpoint has none of the refusal or safety behaviour of the assistant version with a similar name.",
+  "related": [
+   "instruction-tuned-model",
+   "pretraining",
+   "instruction-tuning",
+   "open-weights",
+   "rlhf"
+  ],
+  "reading": [
+   {
+    "title": "Language Models are Few-Shot Learners",
+    "source": "arXiv",
+    "year": 2020,
+    "url": "https://arxiv.org/abs/2005.14165",
+    "note": "describes a large pretrained model used before instruction tuning existed"
+   },
+   {
+    "title": "Training language models to follow instructions with human feedback",
+    "source": "arXiv",
+    "year": 2022,
+    "url": "https://arxiv.org/abs/2203.02155",
+    "note": "directly contrasts base and instruction-following versions of the same model"
+   }
+  ]
+ },
+ {
+  "id": "batch-size",
+  "term": "Batch size",
+  "aliases": [
+   "minibatch size",
+   "global batch size"
+  ],
+  "category": "Model architecture",
+  "technical": "The number of examples, or tokens, whose gradients are averaged into a single weight update. Larger batches give lower-variance gradient estimates and better hardware utilisation but yield diminishing returns past a critical size, and their effect on optimisation is tightly coupled to the learning rate.",
+  "intuitive": "How many examples the model looks at before adjusting itself. Averaging over more examples gives a steadier signal, but past a point you are spending far more compute for the same progress.",
+  "clinical": "Relevant when fine-tuning on a small institutional dataset, where hardware limits force small batches and the learning rate has to be reduced accordingly for training to remain stable.",
+  "related": [
+   "learning-rate",
+   "gradient-descent",
+   "fine-tuning",
+   "epoch",
+   "gpu"
+  ],
+  "reading": [
+   {
+    "title": "An Empirical Model of Large-Batch Training",
+    "source": "arXiv",
+    "year": 2018,
+    "url": "https://arxiv.org/abs/1812.06162",
+    "note": "defines the critical batch size beyond which returns diminish"
+   },
+   {
+    "title": "On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima",
+    "source": "arXiv",
+    "year": 2016,
+    "url": "https://arxiv.org/abs/1609.04836",
+    "note": "classic evidence that very large batches can hurt generalisation"
+   }
+  ]
+ },
+ {
+  "id": "checkpoint",
+  "term": "Checkpoint",
+  "aliases": [
+   "model snapshot",
+   "weights file"
+  ],
+  "category": "Model architecture",
+  "technical": "A saved snapshot of model weights, and sometimes optimiser state, at a specific point in training. Checkpoints are the unit that is actually evaluated, deployed, and versioned; two checkpoints from the same training run can differ measurably in behaviour despite sharing architecture, data, and name.",
+  "intuitive": "The specific saved file that is doing the work, as opposed to the family name printed on the product. Saying which checkpoint was tested is the equivalent of naming the lot number rather than just the drug.",
+  "clinical": "Reproducibility and regulatory traceability depend on it: a validation study is only meaningful if it records the exact checkpoint, since a silent update behind the same product name can change performance without any visible signal.",
+  "related": [
+   "model-card",
+   "model-drift",
+   "predetermined-change-control-plan",
+   "external-validation",
+   "non-determinism"
+  ],
+  "reading": [
+   {
+    "title": "Pythia: A Suite for Analyzing Large Language Models Across Training and Scaling",
+    "source": "arXiv",
+    "year": 2023,
+    "url": "https://arxiv.org/abs/2304.01373",
+    "note": "releases many intermediate checkpoints specifically to study how behaviour changes during training"
+   },
+   {
+    "title": "OLMo: Accelerating the Science of Language Models",
+    "source": "arXiv",
+    "year": 2024,
+    "url": "https://arxiv.org/abs/2402.00838",
+    "note": "an openly released model with full checkpoint and data provenance"
+   }
+  ]
+ },
+ {
   "id": "context-window",
   "term": "Context window",
   "aliases": [
@@ -1635,6 +3047,40 @@
     "year": 2023,
     "url": "https://arxiv.org/abs/2307.03172",
     "note": "shows accuracy degrades for information buried mid-context"
+   }
+  ]
+ },
+ {
+  "id": "decoder-only",
+  "term": "Decoder-only architecture",
+  "aliases": [
+   "causal transformer",
+   "GPT-style architecture"
+  ],
+  "category": "Model architecture",
+  "technical": "A transformer variant that keeps only the causally masked self-attention stack, discarding the separate encoder and its cross-attention. Input and output occupy a single sequence, so any task must be cast as text continuation. This is the dominant design for current large language models.",
+  "intuitive": "One stack of layers reading a single stream of text, where the prompt and the answer are the same object rather than an input side and an output side. It is why a prompt, a document, and a reply all compete for the same limited context.",
+  "related": [
+   "transformer",
+   "autoregressive",
+   "self-attention",
+   "context-window",
+   "attention-head"
+  ],
+  "reading": [
+   {
+    "title": "Attention Is All You Need",
+    "source": "arXiv",
+    "year": 2017,
+    "url": "https://arxiv.org/abs/1706.03762",
+    "note": "the original encoder-decoder transformer from which this design is a reduction"
+   },
+   {
+    "title": "Generating Wikipedia by Summarizing Long Sequences",
+    "source": "arXiv",
+    "year": 2018,
+    "url": "https://arxiv.org/abs/1801.10198",
+    "note": "early demonstration that a decoder-only transformer suffices for sequence-to-sequence work"
    }
   ]
  },
@@ -1705,6 +3151,39 @@
   ]
  },
  {
+  "id": "emergent-abilities",
+  "term": "Emergent abilities",
+  "aliases": [
+   "emergence"
+  ],
+  "category": "Model architecture",
+  "technical": "Capabilities that appear absent in smaller models and present in larger ones, with a sharp rather than smooth transition as scale increases. The claim is contested: several apparent discontinuities dissolve into smooth improvement when the evaluation uses a continuous metric instead of exact-match accuracy, so some emergence is an artefact of measurement.",
+  "intuitive": "Beyond a certain size, models start doing things nobody trained them to do, seemingly all at once. Part of that suddenness is real and part of it is an illusion created by scoring answers as simply right or wrong.",
+  "clinical": "It undercuts the assumption that a bigger model is a predictable upgrade of a smaller one, so a validated smaller system does not license inferring anything about its larger successor without retesting.",
+  "related": [
+   "scaling-laws",
+   "benchmark",
+   "foundation-model",
+   "construct-validity"
+  ],
+  "reading": [
+   {
+    "title": "Emergent Abilities of Large Language Models",
+    "source": "arXiv",
+    "year": 2022,
+    "url": "https://arxiv.org/abs/2206.07682",
+    "note": "the original catalogue of sharp capability transitions with scale"
+   },
+   {
+    "title": "Are Emergent Abilities of Large Language Models a Mirage?",
+    "source": "arXiv",
+    "year": 2023,
+    "url": "https://arxiv.org/abs/2304.15004",
+    "note": "argues much apparent emergence is an artefact of discontinuous metrics"
+   }
+  ]
+ },
+ {
   "id": "foundation-model",
   "term": "Foundation model",
   "aliases": [
@@ -1728,6 +3207,161 @@
     "year": 2021,
     "url": "https://arxiv.org/abs/2108.07258",
     "note": "the report that coined and defined the term"
+   }
+  ]
+ },
+ {
+  "id": "in-context-learning",
+  "term": "In-context learning",
+  "aliases": [
+   "ICL",
+   "learning from the prompt"
+  ],
+  "category": "Model architecture",
+  "technical": "The ability of a trained model to adapt its behaviour to examples or instructions supplied in the prompt, without any weight update. The adaptation lives entirely in the forward pass over the context and disappears once that context is gone; mechanistic work attributes much of it to induction-style circuits that copy and complete patterns.",
+  "intuitive": "Show the model three worked examples in the prompt and it will imitate the pattern for the fourth. Nothing has been learned in a lasting sense: close the conversation and the model is exactly as it was.",
+  "clinical": "It is why pasting two examples of your preferred note format usually works better than describing the format in words, and also why that improvement does not carry over to tomorrow's session.",
+  "related": [
+   "few-shot",
+   "zero-shot",
+   "prompt",
+   "context-window",
+   "fine-tuning"
+  ],
+  "reading": [
+   {
+    "title": "Language Models are Few-Shot Learners",
+    "source": "arXiv",
+    "year": 2020,
+    "url": "https://arxiv.org/abs/2005.14165",
+    "note": "the paper that named and popularised the phenomenon"
+   },
+   {
+    "title": "Rethinking the Role of Demonstrations: What Makes In-Context Learning Work?",
+    "source": "arXiv",
+    "year": 2022,
+    "url": "https://arxiv.org/abs/2202.12837",
+    "note": "finds the format and label space of examples matter more than their correctness"
+   },
+   {
+    "title": "In-context Learning and Induction Heads",
+    "source": "Transformer Circuits Thread",
+    "year": 2022,
+    "url": "https://transformer-circuits.pub/2022/in-context-learning-and-induction-heads/index.html",
+    "note": "proposes a mechanistic account inside the attention layers"
+   }
+  ]
+ },
+ {
+  "id": "instruction-tuned-model",
+  "term": "Instruction-tuned model",
+  "aliases": [
+   "chat model",
+   "assistant model",
+   "aligned model"
+  ],
+  "category": "Model architecture",
+  "technical": "A base model further trained on instruction-response pairs and usually on human or AI preference signals, so that it maps a user request onto a helpful response in an assistant persona. The underlying knowledge is largely unchanged from pretraining; what changes is the conditional distribution over how that knowledge is expressed, including refusals and formatting.",
+  "intuitive": "The same engine with a steering wheel and brakes fitted. It has been shaped to behave like a helpful respondent, which improves usability but also teaches it to sound accommodating, sometimes at the expense of pushing back.",
+  "clinical": "Every clinical-facing chat product is one of these, and the same tuning that makes it answer politely is a plausible source of agreement with a clinician's stated but incorrect hypothesis.",
+  "related": [
+   "base-model",
+   "instruction-tuning",
+   "rlhf",
+   "dpo",
+   "sycophancy",
+   "refusal"
+  ],
+  "reading": [
+   {
+    "title": "Training language models to follow instructions with human feedback",
+    "source": "arXiv",
+    "year": 2022,
+    "url": "https://arxiv.org/abs/2203.02155",
+    "note": "the InstructGPT recipe underlying most current chat assistants"
+   },
+   {
+    "title": "Direct Preference Optimization: Your Language Model is Secretly a Reward Model",
+    "source": "arXiv",
+    "year": 2023,
+    "url": "https://arxiv.org/abs/2305.18290",
+    "note": "a simpler alternative to reinforcement learning for the preference stage"
+   }
+  ]
+ },
+ {
+  "id": "kv-cache",
+  "term": "KV cache",
+  "aliases": [
+   "key-value cache",
+   "attention cache"
+  ],
+  "category": "Model architecture",
+  "technical": "The stored key and value tensors for all previously processed tokens, retained so that generating token n does not require recomputing attention over the first n minus one positions. It converts generation from quadratic recomputation into a single incremental step per token, at the cost of memory that grows linearly with sequence length and batch size.",
+  "intuitive": "A scratchpad that lets the model reuse its reading of everything so far instead of rereading the whole conversation for each new word. It is the reason the first response to a long document is slow while the words after it stream out quickly.",
+  "clinical": "It explains the cost and latency shape of long-context clinical tools: memory, not intelligence, is usually what caps how much chart you can paste and how many users a deployment can serve at once.",
+  "related": [
+   "inference",
+   "latency",
+   "inference-cost",
+   "context-window",
+   "gpu"
+  ],
+  "reading": [
+   {
+    "title": "Fast Transformer Decoding: One Write-Head is All You Need",
+    "source": "arXiv",
+    "year": 2019,
+    "url": "https://arxiv.org/abs/1911.02150",
+    "note": "identifies cache bandwidth as the decoding bottleneck and proposes multi-query attention"
+   },
+   {
+    "title": "Efficiently Scaling Transformer Inference",
+    "source": "arXiv",
+    "year": 2022,
+    "url": "https://arxiv.org/abs/2211.05102",
+    "note": "analyses the memory and latency tradeoffs of serving large models"
+   },
+   {
+    "title": "Efficient Memory Management for Large Language Model Serving with PagedAttention",
+    "source": "arXiv",
+    "year": 2023,
+    "url": "https://arxiv.org/abs/2309.06180",
+    "note": "the paged cache design behind widely used serving stacks"
+   }
+  ]
+ },
+ {
+  "id": "knowledge-cutoff",
+  "term": "Knowledge cutoff",
+  "aliases": [
+   "training cutoff",
+   "data cutoff"
+  ],
+  "category": "Model architecture",
+  "technical": "The latest date represented in a model's pretraining corpus. Parametric knowledge is frozen at that point, and the boundary is fuzzy rather than sharp because coverage of recent events thins out well before the nominal date and because later fine-tuning or retrieval layers may inject newer material.",
+  "intuitive": "The model's built-in knowledge stops at a certain date, like a textbook with a publication year. It does not know that it is out of date, and it will answer questions about later events in the same confident register as anything else.",
+  "clinical": "Guidelines, drug approvals, black-box warnings, and recall notices that postdate the cutoff will simply be absent, so an answer about current management may reflect superseded practice unless the tool is explicitly retrieving live sources.",
+  "related": [
+   "retrieval-augmented-generation",
+   "pretraining",
+   "model-drift",
+   "hallucination"
+  ],
+  "reading": [
+   {
+    "title": "FreshLLMs: Refreshing Large Language Models with Search Engine Augmentation",
+    "source": "arXiv",
+    "year": 2023,
+    "url": "https://arxiv.org/abs/2310.03214",
+    "note": "documents how badly models handle questions whose answers changed after training"
+   },
+   {
+    "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+    "source": "arXiv",
+    "year": 2020,
+    "url": "https://arxiv.org/abs/2005.11401",
+    "note": "the standard architectural workaround for stale parametric knowledge"
    }
   ]
  },
@@ -1762,6 +3396,78 @@
     "year": 2021,
     "url": "https://arxiv.org/abs/2108.07258",
     "note": "broad survey of what these models are and what they break"
+   }
+  ]
+ },
+ {
+  "id": "learning-rate",
+  "term": "Learning rate",
+  "aliases": [
+   "step size",
+   "learning rate schedule"
+  ],
+  "category": "Model architecture",
+  "technical": "The scalar multiplier applied to the gradient when updating weights, typically varied over training by a schedule with a warmup phase and a decay phase. Too large a value destabilises or diverges training; too small wastes compute and can leave the model in a poor region of the loss surface.",
+  "intuitive": "How big a step the model takes each time it corrects itself. Large steps cover ground fast but overshoot; small steps are stable but may never arrive.",
+  "clinical": "It surfaces for clinicians only when fine-tuning a model on local data, where an unsuitable value is a common cause of a tuned model that has forgotten its general ability while barely learning the new task.",
+  "related": [
+   "gradient-descent",
+   "fine-tuning",
+   "batch-size",
+   "catastrophic-forgetting",
+   "loss-function",
+   "epoch"
+  ],
+  "reading": [
+   {
+    "title": "Adam: A Method for Stochastic Optimization",
+    "source": "arXiv",
+    "year": 2014,
+    "url": "https://arxiv.org/abs/1412.6980",
+    "note": "the optimiser whose per-parameter step sizes underpin most current training"
+   },
+   {
+    "title": "SGDR: Stochastic Gradient Descent with Warm Restarts",
+    "source": "arXiv",
+    "year": 2016,
+    "url": "https://arxiv.org/abs/1608.03983",
+    "note": "the cosine decay schedule now used almost universally"
+   }
+  ]
+ },
+ {
+  "id": "logits",
+  "term": "Logits",
+  "aliases": [
+   "scores",
+   "pre-softmax outputs"
+  ],
+  "category": "Model architecture",
+  "technical": "The raw, unnormalised scores the final layer assigns to every token in the vocabulary at a given position, before conversion into probabilities. Decoding controls such as temperature, top-p, and repetition penalties operate on the logits, and their magnitudes are not calibrated probabilities.",
+  "intuitive": "Before the model commits to a word it holds a score for every possible word it could say. What you see is only the winner; the scores behind it carry information about how close the contest was.",
+  "clinical": "Logits are where any honest uncertainty signal has to come from, and their availability is the practical difference between a tool that can flag a low-confidence answer and one that must present every answer with equal assurance.",
+  "related": [
+   "softmax",
+   "temperature",
+   "sampling",
+   "calibration",
+   "greedy-decoding",
+   "top-p-sampling"
+  ],
+  "reading": [
+   {
+    "title": "On Calibration of Modern Neural Networks",
+    "source": "arXiv",
+    "year": 2017,
+    "url": "https://arxiv.org/abs/1706.04599",
+    "note": "shows raw network scores overstate confidence and how temperature scaling corrects it"
+   },
+   {
+    "title": "Distilling the Knowledge in a Neural Network",
+    "source": "arXiv",
+    "year": 2015,
+    "url": "https://arxiv.org/abs/1503.02531",
+    "note": "argues the full score vector carries information the top prediction discards"
    }
   ]
  },
@@ -1864,6 +3570,41 @@
   ]
  },
  {
+  "id": "next-token-prediction",
+  "term": "Next-token prediction",
+  "aliases": [
+   "language modelling objective",
+   "causal language modelling"
+  ],
+  "category": "Model architecture",
+  "technical": "The training objective behind most large language models: minimise the cross-entropy between the model's predicted distribution over the vocabulary at each position and the token actually observed there. Nothing about facts, reasoning, or helpfulness is specified directly; those behaviours are whatever best reduces prediction error over a very large corpus.",
+  "intuitive": "The entire training signal is a fill-in-the-blank game played trillions of times over text. Everything the model appears to know is a side effect of getting very good at guessing what comes next, not of having been taught facts as facts.",
+  "clinical": "A statement is produced because it is a likely continuation of the preceding text, not because it was checked against a source, which is why fluency and correctness come apart so easily in clinical answers.",
+  "related": [
+   "autoregressive",
+   "pretraining",
+   "perplexity",
+   "logits",
+   "hallucination"
+  ],
+  "reading": [
+   {
+    "title": "Language Models are Few-Shot Learners",
+    "source": "arXiv",
+    "year": 2020,
+    "url": "https://arxiv.org/abs/2005.14165",
+    "note": "shows how far a pure next-token objective at scale can be pushed"
+   },
+   {
+    "title": "Scaling Laws for Neural Language Models",
+    "source": "arXiv",
+    "year": 2020,
+    "url": "https://arxiv.org/abs/2001.08361",
+    "note": "relates the prediction loss to model size, data, and compute"
+   }
+  ]
+ },
+ {
   "id": "open-weights",
   "term": "Open weights",
   "aliases": [
@@ -1933,6 +3674,110 @@
   ]
  },
  {
+  "id": "perplexity",
+  "term": "Perplexity",
+  "aliases": [
+   "PPL"
+  ],
+  "category": "Model architecture",
+  "technical": "The exponential of the average per-token cross-entropy loss on held-out text, interpretable as the effective number of equally likely choices the model faces at each position. Lower is better, but values are only comparable across models sharing a tokenizer and evaluation corpus.",
+  "intuitive": "A measure of how surprised the model is by real text: roughly, how many plausible next words it was wavering between. It tracks general language modelling skill, not whether any particular answer is true.",
+  "clinical": "It is a training-side diagnostic rather than a clinical metric, so a paper reporting only improved perplexity has shown nothing about diagnostic accuracy or safety.",
+  "related": [
+   "next-token-prediction",
+   "loss-function",
+   "benchmark",
+   "scaling-laws"
+  ],
+  "reading": [
+   {
+    "title": "Scaling Laws for Neural Language Models",
+    "source": "arXiv",
+    "year": 2020,
+    "url": "https://arxiv.org/abs/2001.08361",
+    "note": "uses language modelling loss as the central quantity predicted by scale"
+   },
+   {
+    "title": "The Curious Case of Neural Text Degeneration",
+    "source": "arXiv",
+    "year": 2019,
+    "url": "https://arxiv.org/abs/1904.09751",
+    "note": "demonstrates that better likelihood does not imply better generated text"
+   }
+  ]
+ },
+ {
+  "id": "positional-encoding",
+  "term": "Positional encoding",
+  "aliases": [
+   "position embedding",
+   "RoPE",
+   "rotary embeddings"
+  ],
+  "category": "Model architecture",
+  "technical": "The mechanism that injects token order into a transformer, whose attention operation is otherwise permutation invariant. Schemes include learned absolute embeddings, sinusoidal encodings, relative position representations, and rotary embeddings, and the choice determines how gracefully a model handles sequences longer than those seen in training.",
+  "intuitive": "Attention by itself sees a bag of words with no sense of order, so position has to be added deliberately. The scheme chosen is what sets the practical limit on context length and how well the model still tracks order near that limit.",
+  "clinical": "It is the underlying reason that a very long chart pasted into a prompt degrades in the middle rather than failing outright, since order and distance information gets less reliable far from where the model was trained.",
+  "related": [
+   "transformer",
+   "self-attention",
+   "context-window",
+   "attention-head",
+   "decoder-only"
+  ],
+  "reading": [
+   {
+    "title": "Attention Is All You Need",
+    "source": "arXiv",
+    "year": 2017,
+    "url": "https://arxiv.org/abs/1706.03762",
+    "note": "introduces sinusoidal position encodings and the reason they are needed"
+   },
+   {
+    "title": "RoFormer: Enhanced Transformer with Rotary Position Embedding",
+    "source": "arXiv",
+    "year": 2021,
+    "url": "https://arxiv.org/abs/2104.09864",
+    "note": "the rotary scheme used by most current large models"
+   },
+   {
+    "title": "Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation",
+    "source": "arXiv",
+    "year": 2021,
+    "url": "https://arxiv.org/abs/2108.12409",
+    "note": "on generalising to sequences longer than those seen in training"
+   }
+  ]
+ },
+ {
+  "id": "seed",
+  "term": "Random seed",
+  "aliases": [
+   "seed",
+   "sampling seed"
+  ],
+  "category": "Model architecture",
+  "technical": "The integer initialising the pseudorandom number generator used for stochastic operations such as sampling from the output distribution. Fixing the seed makes sampling reproducible in principle, but bitwise identical outputs also require identical model version, hardware, batching, and kernel implementations, so seeded reproducibility across a hosted API is not guaranteed.",
+  "intuitive": "The setting that decides which of the many possible answers you get. Fixing it makes a run repeatable in a controlled environment, but on a shared hosted service the same question can still return a different answer tomorrow.",
+  "clinical": "It is the practical reason you cannot assume a documented model answer will reproduce for an audit or a malpractice review, so the output itself must be captured at the time rather than regenerated later.",
+  "related": [
+   "non-determinism",
+   "sampling",
+   "temperature",
+   "top-p-sampling",
+   "checkpoint"
+  ],
+  "reading": [
+   {
+    "title": "The Curious Case of Neural Text Degeneration",
+    "source": "arXiv",
+    "year": 2019,
+    "url": "https://arxiv.org/abs/1904.09751",
+    "note": "explains how stochastic decoding produces different outputs from one model"
+   }
+  ]
+ },
+ {
   "id": "self-attention",
   "term": "Self-attention",
   "aliases": [
@@ -1954,6 +3799,41 @@
     "year": 2017,
     "url": "https://arxiv.org/abs/1706.03762",
     "note": "defines multi-head self-attention and its quadratic cost"
+   }
+  ]
+ },
+ {
+  "id": "softmax",
+  "term": "Softmax",
+  "aliases": [
+   "softmax function",
+   "normalised exponential"
+  ],
+  "category": "Model architecture",
+  "technical": "The function that maps a vector of logits to a probability distribution by exponentiating each score and dividing by their sum. It appears twice in a transformer: over the vocabulary to produce next-token probabilities, and inside attention to produce the weights over previous positions. Temperature divides the logits before exponentiation, sharpening or flattening the distribution.",
+  "intuitive": "The step that turns raw scores into percentages that add to one hundred. Because it exponentiates, small score gaps become large probability gaps, so the model can look highly certain when the underlying contest was close.",
+  "clinical": "It is why a reported model probability should not be read like a validated clinical risk estimate: the number is a normalised score, and it will be confidently near one whether or not the answer is correct, unless the model has been explicitly calibrated.",
+  "related": [
+   "logits",
+   "temperature",
+   "calibration",
+   "self-attention",
+   "sampling"
+  ],
+  "reading": [
+   {
+    "title": "Attention Is All You Need",
+    "source": "arXiv",
+    "year": 2017,
+    "url": "https://arxiv.org/abs/1706.03762",
+    "note": "shows the function in both its attention and output-distribution roles"
+   },
+   {
+    "title": "On Calibration of Modern Neural Networks",
+    "source": "arXiv",
+    "year": 2017,
+    "url": "https://arxiv.org/abs/1706.04599",
+    "note": "on the gap between these outputs and true probabilities"
    }
   ]
  },
@@ -2717,6 +4597,50 @@
   ]
  },
  {
+  "id": "grounding",
+  "term": "Grounding",
+  "aliases": [
+   "attribution",
+   "source grounding",
+   "evidence grounding"
+  ],
+  "category": "Retrieval and agents",
+  "technical": "Constraining a model's output to be supported by identifiable source material, and evaluating that support as an explicit property. Grounding is typically implemented by retrieving passages into context and then verified post hoc by decomposing the output into atomic claims and checking each against the cited source, since a citation being present is not evidence that it entails the sentence attached to it.",
+  "intuitive": "Making the model show its work by pointing at the specific text it is relying on. Retrieval makes grounding possible but does not make it true: the model can still cite a real document that does not actually say what it claims.",
+  "clinical": "The vendor claim that a tool is grounded in the guidelines or grounded in the chart is a claim about the retrieval step, not about entailment, so ask what fraction of generated statements were verified against their cited source and by whom, and check whether links point at the exact passage or at a document you then have to read yourself.",
+  "related": [
+   "retrieval-augmented-generation",
+   "hallucination",
+   "confabulation",
+   "semantic-search",
+   "knowledge-graph",
+   "llm-as-judge"
+  ],
+  "reading": [
+   {
+    "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+    "source": "arXiv",
+    "year": 2020,
+    "url": "https://arxiv.org/abs/2005.11401",
+    "note": "the architecture that made retrieval conditioned generation standard"
+   },
+   {
+    "title": "Attributed Question Answering: Evaluation and Modeling for Attributed Large Language Models",
+    "source": "arXiv",
+    "year": 2022,
+    "url": "https://arxiv.org/abs/2212.08037",
+    "note": "formalizes attribution to identified sources as a measurable task"
+   },
+   {
+    "title": "FActScore: Fine-grained Atomic Evaluation of Factual Precision in Long Form Text Generation",
+    "source": "arXiv",
+    "year": 2023,
+    "url": "https://arxiv.org/abs/2305.14251",
+    "note": "claim level scoring rather than whole answer judgments"
+   }
+  ]
+ },
+ {
   "id": "guardrails",
   "term": "Guardrails",
   "aliases": [
@@ -2755,6 +4679,42 @@
     "year": 2022,
     "url": "https://arxiv.org/abs/2212.08073",
     "note": "shaping behaviour with an explicit written principle set"
+   }
+  ]
+ },
+ {
+  "id": "knowledge-graph",
+  "term": "Knowledge graph",
+  "aliases": [
+   "KG",
+   "semantic network"
+  ],
+  "category": "Retrieval and agents",
+  "technical": "A structured representation of entities as nodes and typed relations as edges, supporting multi hop traversal, constraint checking, and provenance on individual assertions. Combined with language models it is used either to supply retrieval targets with explicit relational structure or to validate generated claims against curated edges, trading the coverage of free text for auditability.",
+  "intuitive": "Facts stored as explicit links between things rather than as sentences, so you can walk from a drug to its mechanism to a contraindicated condition and see each step. It knows less than the open web but can tell you exactly where each link came from.",
+  "clinical": "Clinical medicine already runs on graphs, from SNOMED CT hierarchies to drug interaction and gene disease databases, and grounding a model against them is attractive precisely because each edge has a maintainer and a citation; the limit is coverage, since the graph only contains what someone curated.",
+  "related": [
+   "grounding",
+   "retrieval-augmented-generation",
+   "clinical-terminology",
+   "snomed-ct",
+   "semantic-search",
+   "embedding"
+  ],
+  "reading": [
+   {
+    "title": "A Survey on Knowledge Graphs: Representation, Acquisition and Applications",
+    "source": "arXiv",
+    "year": 2020,
+    "url": "https://arxiv.org/abs/2002.00388",
+    "note": "broad technical survey of construction, embedding, and reasoning methods"
+   },
+   {
+    "title": "Unifying Large Language Models and Knowledge Graphs: A Roadmap",
+    "source": "arXiv",
+    "year": 2023,
+    "url": "https://arxiv.org/abs/2306.08302",
+    "note": "maps the ways graphs are used to constrain and verify language model output"
    }
   ]
  },
@@ -3489,6 +5449,160 @@
   ]
  },
  {
+  "id": "class-imbalance",
+  "term": "Class imbalance",
+  "aliases": [
+   "imbalanced data",
+   "rare event prediction",
+   "skewed classes"
+  ],
+  "category": "Training",
+  "technical": "The condition in which outcome classes occur at very different base rates, so a classifier minimizing average loss is driven toward the majority class. With prevalence p, the trivial always-negative classifier achieves accuracy 1 minus p, making accuracy uninformative for small p. Mitigations include resampling, class-weighted or focal losses, and threshold selection on a validation set; evaluation should use precision-recall curves and calibration rather than ROC alone, since ROC is insensitive to prevalence while positive predictive value is not.",
+  "intuitive": "Most things worth predicting in medicine are rare, and rarity breaks the obvious scoreboard. If in-hospital cardiac arrest occurs in 1 of 200 admissions, a model that says no every single time is 99.5 percent accurate and completely useless. The number that actually matters to you is different: of the patients this model flags, what fraction truly have the condition, and that number collapses as prevalence falls even when sensitivity and specificity look excellent.",
+  "clinical": "Sepsis, arrest, and rare-disease models all live here, and a vendor quoting accuracy or even AUROC without positive predictive value at the deployed threshold and local prevalence has told you almost nothing about alert burden.",
+  "related": [
+   "accuracy",
+   "confusion-matrix",
+   "precision-and-recall",
+   "auroc",
+   "sensitivity-and-specificity",
+   "calibration"
+  ],
+  "reading": [
+   {
+    "title": "SMOTE: Synthetic Minority Over-sampling Technique",
+    "source": "Journal of Artificial Intelligence Research",
+    "year": 2002,
+    "url": "https://doi.org/10.1613/jair.953",
+    "note": "the most widely used resampling method for rare positive classes"
+   },
+   {
+    "title": "The Precision-Recall Plot Is More Informative than the ROC Plot When Evaluating Binary Classifiers on Imbalanced Datasets",
+    "source": "PLOS ONE",
+    "year": 2015,
+    "url": "https://doi.org/10.1371/journal.pone.0118432",
+    "note": "why ROC flatters rare-outcome models and PR curves do not"
+   },
+   {
+    "title": "Focal Loss for Dense Object Detection",
+    "source": "arXiv",
+    "year": 2017,
+    "url": "https://arxiv.org/abs/1708.02002",
+    "note": "reweights the loss toward hard, rare examples during training"
+   }
+  ]
+ },
+ {
+  "id": "data-augmentation",
+  "term": "Data augmentation",
+  "aliases": [
+   "augmentation"
+  ],
+  "category": "Training",
+  "technical": "Applying label-preserving transformations to training examples so the model sees more variation than the raw dataset contains. Typical image transforms include rotation, flipping, cropping, and intensity jitter; text analogues include paraphrase and back-translation. Augmentation acts as a regularizer by encoding invariances the modeler believes should hold, which means a badly chosen transform teaches a false invariance.",
+  "intuitive": "Showing the model the same case many times under different conditions, the way a resident learns to recognize a rash across skin tones, lighting, and camera angles. The catch is that you are asserting which changes should not matter. Flipping a chest radiograph left to right creates a normal-looking image that is actually a dextrocardia case, so the transform must respect the medicine.",
+  "clinical": "Imaging models are almost always trained with augmentation, and inappropriate transforms are a quiet source of clinically wrong invariances such as ignoring laterality.",
+  "related": [
+   "synthetic-data",
+   "overfitting",
+   "pretraining",
+   "computer-vision"
+  ],
+  "reading": [
+   {
+    "title": "A survey on Image Data Augmentation for Deep Learning",
+    "source": "Journal of Big Data",
+    "year": 2019,
+    "url": "https://doi.org/10.1186/s40537-019-0197-0",
+    "note": "broad catalogue of augmentation strategies and when they help"
+   },
+   {
+    "title": "mixup: Beyond Empirical Risk Minimization",
+    "source": "arXiv",
+    "year": 2017,
+    "url": "https://arxiv.org/abs/1710.09412",
+    "note": "augmentation by interpolating between examples and their labels"
+   }
+  ]
+ },
+ {
+  "id": "data-provenance",
+  "term": "Data provenance",
+  "aliases": [
+   "dataset lineage",
+   "data lineage"
+  ],
+  "category": "Training",
+  "technical": "The documented chain of origin, licensing, consent basis, and transformation history for every corpus used to build a model. Provenance determines whether training was legally and ethically permitted, whether evaluation sets are contaminated by overlap with training data, and whether a known-bad source can be traced and excised. Large web-scraped corpora are frequently assembled by aggregation, and audits have found license and origin metadata to be wrong or missing at high rates.",
+  "intuitive": "Knowing where the training data actually came from, who consented to it, and what happened to it along the way. Without this you cannot answer basic questions such as whether the model was trained on your institution's notes, whether the benchmark it scored well on was already in its training set, or whether a source you now consider unreliable can be removed.",
+  "clinical": "If a vendor cannot describe the provenance of its training corpus, you cannot assess contamination of the benchmarks they cite or verify that patient data was used within its permitted purpose.",
+  "related": [
+   "benchmark-contamination",
+   "training-data-contamination",
+   "model-card",
+   "protected-health-information",
+   "fine-tuning-on-phi"
+  ],
+  "reading": [
+   {
+    "title": "The Data Provenance Initiative: A Large Scale Audit of Dataset Licensing & Attribution in AI",
+    "source": "arXiv",
+    "year": 2023,
+    "url": "https://arxiv.org/abs/2310.16787",
+    "note": "audit finding widespread license and origin misattribution in popular datasets"
+   },
+   {
+    "title": "Datasheets for Datasets",
+    "source": "arXiv",
+    "year": 2018,
+    "url": "https://arxiv.org/abs/1803.09010",
+    "note": "proposes standard documentation of collection, composition, and intended use"
+   }
+  ]
+ },
+ {
+  "id": "differential-privacy",
+  "term": "Differential privacy",
+  "aliases": [
+   "DP",
+   "epsilon-differential privacy"
+  ],
+  "category": "Training",
+  "technical": "A formal guarantee on an algorithm, not a property of a dataset. A mechanism is epsilon-differentially private if the distribution over its outputs changes by at most a factor of exp(epsilon) when any single individual is added to or removed from the input. In machine learning it is usually achieved by clipping per-example gradients and adding calibrated noise, as in DP-SGD, and reported as a pair (epsilon, delta) where delta bounds the probability the guarantee fails outright.",
+  "intuitive": "A mathematical promise that the result would have come out nearly the same whether or not your chart was included, which bounds how much anyone can learn specifically about you. The strength of the promise lives entirely in the epsilon value: small epsilon is a real guarantee, and large epsilon is a number on a slide. It protects individuals against inference, and it does not make the underlying data safe to release, prevent a model from being wrong, or say anything about group-level harms.",
+  "clinical": "When a data-sharing proposal claims differential privacy, the only substantive questions are what epsilon and delta are, and at what unit the guarantee applies, per record or per patient across many encounters.",
+  "related": [
+   "federated-learning",
+   "de-identification",
+   "protected-health-information",
+   "synthetic-data",
+   "hipaa-safe-harbor"
+  ],
+  "reading": [
+   {
+    "title": "Calibrating Noise to Sensitivity in Private Data Analysis",
+    "source": "Theory of Cryptography Conference",
+    "year": 2006,
+    "url": "https://doi.org/10.1007/11681878_14",
+    "note": "the original definition and the Laplace mechanism"
+   },
+   {
+    "title": "Deep Learning with Differential Privacy",
+    "source": "arXiv",
+    "year": 2016,
+    "url": "https://arxiv.org/abs/1607.00133",
+    "note": "DP-SGD, the standard way differential privacy is applied to neural network training"
+   },
+   {
+    "title": "The Algorithmic Foundations of Differential Privacy",
+    "source": "Foundations and Trends in Theoretical Computer Science",
+    "year": 2014,
+    "url": "https://doi.org/10.1561/0400000042",
+    "note": "book-length reference on what the guarantee does and does not cover"
+   }
+  ]
+ },
+ {
   "id": "dpo",
   "term": "Direct preference optimization",
   "aliases": [
@@ -3569,6 +5683,49 @@
     "year": 2023,
     "url": "https://arxiv.org/abs/2305.16264",
     "note": "quantifies the value of repeating data for multiple epochs"
+   }
+  ]
+ },
+ {
+  "id": "federated-learning",
+  "term": "Federated learning",
+  "aliases": [
+   "FL",
+   "collaborative learning",
+   "federated training"
+  ],
+  "category": "Training",
+  "technical": "A distributed training scheme in which each site computes model updates on its local data and transmits only those updates to a coordinator, which aggregates them into a shared global model. The canonical algorithm is federated averaging. It removes the need to pool raw records, but the transmitted gradients are functions of the local data and can leak substantial information about it; formal privacy requires layering secure aggregation and differential privacy on top.",
+  "intuitive": "The model travels to each hospital instead of the data traveling to the model. Each site trains on its own patients and sends back only what it learned, which is then averaged across sites. What is critical to understand is that raw data staying home is a governance and logistics win, not a mathematical privacy guarantee, because the updates themselves can be inverted to reconstruct training examples unless additional protections are added.",
+  "clinical": "This is the architecture behind most multi-institution model-building proposals, and vendors routinely describe it as privacy-preserving when unprotected federated learning is merely data-minimizing.",
+  "related": [
+   "differential-privacy",
+   "protected-health-information",
+   "on-premises-deployment",
+   "business-associate-agreement",
+   "external-validation"
+  ],
+  "reading": [
+   {
+    "title": "Communication-Efficient Learning of Deep Networks from Decentralized Data",
+    "source": "arXiv",
+    "year": 2016,
+    "url": "https://arxiv.org/abs/1602.05629",
+    "note": "the federated averaging paper that defined the approach"
+   },
+   {
+    "title": "The future of digital health with federated learning",
+    "source": "npj Digital Medicine",
+    "year": 2020,
+    "url": "https://doi.org/10.1038/s41746-020-00323-1",
+    "note": "health-system framing, including governance and incentive issues"
+   },
+   {
+    "title": "Deep Leakage from Gradients",
+    "source": "arXiv",
+    "year": 2019,
+    "url": "https://arxiv.org/abs/1906.08935",
+    "note": "reconstructs training examples from shared gradients, the key counterexample to privacy claims"
    }
   ]
  },
@@ -3959,6 +6116,77 @@
   ]
  },
  {
+  "id": "synthetic-data",
+  "term": "Synthetic data",
+  "aliases": [
+   "simulated data",
+   "generated data"
+  ],
+  "category": "Training",
+  "technical": "Records produced by a generative model or simulator that are fitted to the statistical structure of a real dataset rather than drawn from it directly. Utility is measured by whether models trained on synthetic data transfer to real data, and privacy is measured by resistance to membership inference and attribute inference attacks. The two objectives trade off: synthetic data that preserves rare joint distributions well is also the kind most likely to memorize the individuals who produced them.",
+  "intuitive": "A fabricated patient cohort built to have the same shape as a real one, so it can be shared or used for testing without handing over the original charts. It is not automatically anonymous. If a generator has seen exactly one 34 year old with a rare mitochondrial disorder, the synthetic record it emits for that phenotype may effectively be that person.",
+  "clinical": "Vendors increasingly offer synthetic EHR extracts as a way around data use agreements, but synthetic does not mean de-identified and does not by itself discharge HIPAA or IRB obligations.",
+  "related": [
+   "data-augmentation",
+   "differential-privacy",
+   "de-identification",
+   "protected-health-information",
+   "distribution-shift"
+  ],
+  "reading": [
+   {
+    "title": "Generating Multi-label Discrete Patient Records using Generative Adversarial Networks",
+    "source": "arXiv",
+    "year": 2017,
+    "url": "https://arxiv.org/abs/1703.06490",
+    "note": "medGAN, an early demonstration of generating synthetic EHR records"
+   },
+   {
+    "title": "Synthetic data in machine learning for medicine and healthcare",
+    "source": "Nature Biomedical Engineering",
+    "year": 2021,
+    "url": "https://doi.org/10.1038/s41551-021-00751-8",
+    "note": "overview of promise and privacy limits in the health setting"
+   }
+  ]
+ },
+ {
+  "id": "train-validation-test-split",
+  "term": "Train, validation, and test split",
+  "aliases": [
+   "data splitting",
+   "train test split",
+   "holdout split"
+  ],
+  "category": "Training",
+  "technical": "Partitioning data into a set used to fit parameters, a set used to select hyperparameters and stopping points, and a set touched only once for the final unbiased performance estimate. The estimate is unbiased only if the partition respects the dependence structure of the data: splitting by row rather than by patient, site, or time leaks information across the boundary. Repeated evaluation on the test set converts it into a second validation set and reinflates the reported performance.",
+  "intuitive": "Three separate piles of data with three separate jobs: one to learn from, one to tune against, and one that stays sealed until the very end. The most common way this goes wrong in clinical work is splitting by encounter instead of by patient, so the same person appears on both sides and the model gets credit for recognizing an individual rather than a disease. Splitting at random across time is a subtler version of the same error, since it lets the model learn from the future.",
+  "clinical": "Ask any model developer how they split, and treat patient-level plus temporal or site-level splitting as the minimum bar before believing a reported performance figure.",
+  "related": [
+   "holdout-set",
+   "overfitting",
+   "external-validation",
+   "benchmark-contamination",
+   "distribution-shift"
+  ],
+  "reading": [
+   {
+    "title": "Leakage and the Reproducibility Crisis in ML-based Science",
+    "source": "arXiv",
+    "year": 2022,
+    "url": "https://arxiv.org/abs/2207.07048",
+    "note": "catalogues leakage types across hundreds of published papers, many biomedical"
+   },
+   {
+    "title": "TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods",
+    "source": "BMJ",
+    "year": 2024,
+    "url": "https://doi.org/10.1136/bmj-2023-078378",
+    "note": "reporting standard specifying how data splitting and validation must be described"
+   }
+  ]
+ },
+ {
   "id": "training-data-contamination",
   "term": "Training data contamination",
   "aliases": [
@@ -3989,6 +6217,39 @@
     "year": 2021,
     "url": "https://arxiv.org/abs/2104.08758",
     "note": "finds benchmark data present inside a standard pretraining corpus"
+   }
+  ]
+ },
+ {
+  "id": "watermarking",
+  "term": "Watermarking",
+  "aliases": [
+   "LLM watermarking",
+   "AI content watermarking"
+  ],
+  "category": "Training",
+  "technical": "Embedding a statistically detectable signal into model output so that a party holding the detection key can test whether text or an image was machine generated. For language models this is typically done at decoding time by pseudorandomly partitioning the vocabulary at each step and biasing sampling toward one partition, which yields a hypothesis test with a computable p-value. Watermarks degrade under paraphrase, translation, and heavy editing, and they say nothing about output from unwatermarked models.",
+  "intuitive": "A hidden fingerprint deliberately woven into generated text or images so it can later be identified as machine produced. It only works if the generating system chose to add it, and it can be washed out by rewriting. So a positive detection is meaningful evidence, while a negative detection is close to worthless, which is the opposite of how it is usually marketed.",
+  "clinical": "Relevant to documentation integrity and academic honesty policies, but a watermark absence cannot be used to certify that a note or manuscript was human written.",
+  "related": [
+   "data-provenance",
+   "guardrails",
+   "hallucination"
+  ],
+  "reading": [
+   {
+    "title": "A Watermark for Large Language Models",
+    "source": "arXiv",
+    "year": 2023,
+    "url": "https://arxiv.org/abs/2301.10226",
+    "note": "the green-list decoding scheme that most current LLM watermarks derive from"
+   },
+   {
+    "title": "Can AI-Generated Text be Reliably Detected?",
+    "source": "arXiv",
+    "year": 2023,
+    "url": "https://arxiv.org/abs/2303.11156",
+    "note": "shows paraphrase attacks defeat both watermarks and post-hoc detectors"
    }
   ]
  }
