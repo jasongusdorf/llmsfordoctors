@@ -1,0 +1,75 @@
+---
+title: "What the FDA's 1,016 AI Device Authorizations Actually Cover"
+journal: "npj Digital Medicine"
+year: 2025
+doi: "10.1038/s41746-025-01800-1"
+keyFinding: "A taxonomy of all 1,016 FDA authorizations of AI/ML-enabled devices, resolving to 736 unique devices, found that 621 (84.4%) take images as their AI input, 107 (14.5%) take signals, 5 (0.7%) take omics data, and just 3 (0.4%) take tabular EHR data. Of the 653 devices whose AI performs analysis, 427 (65%) do quantification or feature localization rather than diagnosis. The authors report finding no evidence of large language models anywhere in the device list."
+lastUpdated: 2026-09-07
+tags: [fda, medical-devices, regulation, taxonomy, imaging, radiology, ecg, clinical-decision-support, health-policy]
+socialPost: "All 1,016 FDA authorizations of AI-enabled devices, mapped to 736 unique devices: 84.4% take images as input, 0.4% take tabular EHR data, and the authors found no evidence of an LLM anywhere on the list. Two thirds of the analysis devices measure or localize something rather than diagnosing it."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This is a Brief Communication in npj Digital Medicine, from Rohan Singh, Monika Bapna, Abdul Rahman Diab, Emily S. Ruiz, and William Lotter at Dana-Farber, Brigham and Women's, and Harvard Medical School. It is descriptive by design: no outcomes, no performance comparison, no safety analysis. What it offers is a map, and the map turns out to be more informative than most of the performance literature.
+
+The authors reviewed all 1,016 authorizations of AI/ML-enabled medical devices on the FDA's published list, spanning 1995 to 2024, and built a taxonomy with three axes:
+
+- **Clinical function:** what medical role the device serves, split into Assessment (diagnosis, monitoring) and Intervention (surgery, treatment guidance).
+- **AI function:** whether the AI performs data Analysis, data Generation, or both, then subclassified further into nine categories.
+- **Data type:** what the AI takes as input, categorized as images, signals, omics, or tabular EHR.
+
+Two details of the method matter for how much weight the counts can bear. First, classification was two-phase: for each product code the authors judged whether taxonomy values could vary across the devices within it, and only codes where they could were sent to a second phase in which individual authorization summaries were read device by device. Devices in codes judged internally uniform were classified from the code. Second, where an authorization summary left it unclear whether or where AI/ML was used at all, a problem the authors say was particularly common for devices performing many functions, they estimated the taxonomy classes from similar devices, domain expertise, and manufacturer websites.
+
+Because a single device can accumulate multiple authorizations over time, the 1,016 authorizations were grouped into 736 unique devices through a semi-automated matching process, and results are reported primarily at the device level. The version of the FDA list used was the December 20, 2024 update, which covers devices authorized **up to September 27, 2024**, so the final quarter of 2024 is absent from the entire dataset, not only from the trend figures.
+
+## Key Findings
+
+- **This is almost entirely an imaging story.** Of 736 unique devices, 621 (84.4%) use images as the core AI input, 107 (14.5%) use signals such as ECG and EEG, 5 (0.7%) use omics data, and 3 (0.4%) use tabular electronic health record data. Among imaging devices, Radiology was the lead review panel for 88.2%, followed by Neurology at 2.9% and Hematology at 1.9%. Among signal-based devices, cardiovascular was the most common panel at 64.5%, then neurology at 16.8% and anesthesiology at 12.1%.
+- **Most of these devices measure things; they do not diagnose.** Across the 653 devices whose AI performs analysis, 427 (65% of analysis devices, 58% of all devices) were classified as quantification or feature localization: segment a structure, compute a volume, mark a location. Triage was next at 84 devices (12.9% of analysis devices). Diagnosis accounted for 47 (7.2%), detection 45 (6.9%), detection plus diagnosis 40 (6.1%), and predictive devices, which forecast future risk rather than current state, just 11 (1.7%).
+- **Assessment dominates over Intervention.** 84.1% of devices fall under Assessment. Of the 117 (15.9%) Intervention devices, 112 (95.7%) are image-based, 3 (2.6%) signal-based, and 2 (1.7%) EHR-based. Current intervention applications among the signal and EHR devices include assisting with insulin dosing.
+- **Generative AI in devices means image enhancement, not language.** 83 devices (11.3%) use AI for data generation and 23 (3.1%) do both generation and analysis, giving 106 generation devices. Of those, 84 (79.2%) perform image enhancement such as denoising and reconstruction, 17 (16.0%) do acquisition guidance, and 8 (7.5%) do synthetic data generation. Images were the data type for 105 of the 106. The authors state that they did not find evidence of large language models in the device list they studied.
+- **The imaging share is falling, slowly.** Images peaked at 94% of new devices in 2021 and stood at 81% in 2024, with 2024 counted through late September. Quantification and feature localization peaked at 81% of new devices in 2016 and had declined to 51% by 2024, with triage and image enhancement rising in between.
+- **FDA product codes are not a reliable proxy for what a device does.** Of the 69 product codes containing more than one device, 19 (27.5%) contain devices with different taxonomy classifications. Those 19 codes account for 57% of all devices, driven in part by the radiology codes QIH and LLZ, which together cover 31% of devices.
+- **A growing share of authorizations are re-authorizations.** Authorizations representing updated versions of existing devices averaged 34% over 2022 to 2024, up from 14% between 2017 and 2019.
+
+<Callout type="evidence">
+  This works from the full published list rather than a sample, and the device-level rollup is the right unit of analysis: reporting it alongside authorization-level results, which the authors say show the same trends, guards against a single heavily revised product inflating a category. The trend analysis is the most robust part, because it depends on relative shifts rather than on any individual device being classified correctly.
+</Callout>
+
+## Clinical Implications
+
+1. **The AI you argue about and the AI that is cleared are two different technologies.** Three devices out of 736 take tabular EHR data. Eleven do risk prediction. The authors found no evidence of an LLM anywhere on the list. Meanwhile essentially every conversation about clinical AI is about note generation, chart summarization, differential diagnosis, and risk scores. Almost none of that runs through the device pathway, which means almost none of it has been reviewed the way a segmentation tool has.
+
+2. **"FDA-authorized AI" usually means a measuring instrument.** Two thirds of analysis devices quantify or localize. When a vendor says their product is FDA-cleared, the honest first question is which of these nine functions it performs, because the clinical stakes of an automated volume measurement and an automated diagnosis are not comparable, and the clearance label does not distinguish them.
+
+3. **Do not infer a device's function from its product code.** A quarter of the multi-device product codes contain devices doing categorically different things, and those codes cover more than half of all devices. If you are auditing what AI is running in your institution, the product code will not tell you.
+
+<Callout type="pitfall">
+  The authors explicitly instruct that their findings "should be interpreted in terms of overall trends rather than precise class counts," because where an authorization summary left it unclear whether or where AI/ML was used, they estimated classes from similar devices, domain expertise, and manufacturer websites. Treat every count here as approximate. They also note the FDA's list is updated irregularly and covers only devices authorized for marketing, so products used through the investigational or humanitarian device exemption pathways are absent entirely. And the AI/ML label is the FDA's own broad one: some listed devices explicitly use traditional non-deep-learning methods, and one product code lists K-nearest neighbors. Finally, the absence of LLMs is an absence of evidence in public summaries the authors themselves describe as often unclear about methods, not a demonstrated absence of LLMs.
+</Callout>
+
+## My Takeaway
+
+The single most striking figure in this paper is 3. Three devices out of 736 take tabular electronic health record data as their AI input. Five take omics. Everything else is pictures and waveforms. The authors would want me to add immediately that they ask readers to treat these as trends rather than precise counts, and that caveat is real. But the order of magnitude is not in doubt, and the order of magnitude is the point.
+
+That asymmetry explains a great deal about why regulatory discussions of clinical AI feel disconnected from clinical experience of it. The device pathway was built around instruments that produce a measurement from a signal, and it has done a reasonable job regulating exactly that. The tools reshaping daily practice right now, ambient scribes, chart summarizers, chatbots that clinicians consult between patients, mostly do not enter through this door at all. This paper does not make that argument, but it supplies the denominator for it, and it pairs with the site's existing entries on the NEJM AI analysis of 950 cleared devices and on the argument that FDA clearance is not a quality signal.
+
+The second thing worth sitting with is the quantification finding. When 65% of analysis devices are measuring or localizing rather than concluding, the clinical risk profile of the authorized fleet is much lower than the discourse suggests, and so is the clinical value. An automated left ventricular volume is useful and low-stakes. It is also not the thing anyone means when they worry about diagnostic AI.
+
+On honesty about what this is: it is a Brief Communication and a descriptive taxonomy. There are no outcomes here, no accuracy figures, no safety signal. Some devices were classified from their product code rather than from their own authorization summary, and the paper does not say how many. The AI/ML label is the FDA's, broad enough to include K-nearest neighbors. The dataset stops at September 27, 2024, so the most recent period is incomplete. And the LLM finding is a failure to find evidence in public summaries, not a search of submissions.
+
+Practically, the use for this is as a reference: when someone tells you a tool is FDA-authorized AI, this paper gives you the nine categories to ask which one it is, and reasonable confidence that the answer is "it measures something."
+
+---
+
+## Related on this site
+
+- [950 FDA-Cleared AI Devices: Who Makes Them, and Which Ones Get Recalled](/trials/ai-medical-device-commercialization-safety-2025): a different cut of the same device population, focused on manufacturers and recalls
+- [The Illusion of Safety: An Argument About FDA AI Oversight, Not an Audit of It](/trials/illusion-of-safety-fda-ai-approvals-2025): why clearance is not a quality signal
+
+---
+
+[Read the full article at npj Digital Medicine](https://doi.org/10.1038/s41746-025-01800-1)

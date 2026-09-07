@@ -1,0 +1,73 @@
+---
+title: "A Pediatric Echo Model That Reads Whole Studies, and Why the Adult Models Could Not"
+journal: "Circulation"
+year: 2026
+doi: "10.1161/CIRCULATIONAHA.126.080619"
+keyFinding: "EchoAI-Peds, a video vision transformer trained on more than 700,000 videos from over 12,000 Stanford pediatric echocardiograms, detected 28 congenital defects, structural and functional abnormalities, repairs, and interventions with a macroaveraged AUROC of 0.91 (95% CI 0.90 to 0.92) internally and 0.89 (95% CI 0.88 to 0.90) at an external site. Two adult echocardiography foundation models trained on far larger datasets performed poorly on the same tasks, at 0.58 to 0.61. Note that the labels the model was trained and scored against were extracted from cardiologist reports by MedGemma 27B, a large language model, not read off the reports by a human."
+lastUpdated: 2026-09-07
+tags: [echocardiography, pediatrics, congenital-heart-disease, deep-learning, vision-transformer, external-validation, cardiology, multitask]
+socialPost: "A pediatric echo model trained on 700,000+ videos hit macroaveraged AUROC 0.91 internally and 0.89 at an external hospital across 28 findings. Adult echo foundation models trained on much larger datasets managed 0.58 to 0.61 on the same task. The ground-truth labels were extracted from cardiologist reports by an LLM."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+Congenital heart defects affect roughly 1% of births worldwide, and echocardiography is the principal modality for evaluating them. The interpretation problem is real: pediatric echo requires substantial expertise, specialists are scarce, and interobserver variability is well documented. The authors describe adult echo AI as having already progressed from small single-task, single-view models to large-scale systems handling many tasks across many views, and pediatric work as not having followed: existing pediatric models are limited to small datasets, narrow diagnostic scope, and specific views. They also note, citing prior work, that adult-based models have already been shown to fail to generalize to children.
+
+EchoAI-Peds is a video-based multiscale vision transformer trained to detect 28 clinical findings simultaneously, spanning congenital defects, structural abnormalities, functional abnormalities, and prior repairs and interventions. During training, a single video was randomly selected from each study and a 16-frame clip sampled from it, producing study-level predictions for all 28 findings against a multilabel binary cross-entropy loss. At inference, up to four nonoverlapping 16-frame clips were sampled per video, and predictions were averaged across clips within a video and then across all videos in the study.
+
+- **Development data:** more than 700,000 videos from more than 12,000 studies performed at Stanford Medicine between 2014 and 2021, split at the patient level into 6,549 training patients (80%), 819 validation (10%), and 819 held-out internal test (10%).
+- **By study:** training 10,815 studies (median age 8 years, IQR 2 to 14; 45% female); validation 1,294 studies (median age 9, IQR 2 to 15; 46% female); internal test 1,336 studies (median age 8, IQR 2 to 14; 47% female).
+- **External test set:** 2,121 studies from all 1,979 patients at the Children's Hospital of Philadelphia, performed in 2024 and 2025 (median age 6, IQR 0.92 to 13; 44.4% female). Separated from the development data in both place and time.
+- **Labels:** every study at both institutions came with a text report whose findings were verified by a board-certified cardiologist. **MedGemma 27B, a large language model, was then used to extract the 28 clinical class labels from those reports**, and those extracted labels were what the model was trained on and scored against. The authors present this LLM-based labeling as itself a first for pediatric echocardiography.
+
+The comparators are the interesting design choice. Rather than benchmarking against a weaker pediatric model, the authors ran two adult echocardiography foundation models, EchoCLIP and EchoPrime, on the same tasks. Both were trained on substantially larger datasets than EchoAI-Peds.
+
+## Key Findings
+
+- **Performance held up across institutions.** Macroaveraged AUROC was 0.91 (95% CI 0.90 to 0.92) on the internal test set and 0.89 (95% CI 0.88 to 0.90) on the external CHOP set. The external site is a different hospital, a different era, and a younger population, and the model largely held.
+- **The adult foundation models performed poorly.** EchoCLIP scored a macroaveraged AUROC of 0.58 (95% CI 0.56 to 0.60) internally and 0.61 (0.59 to 0.62) externally. EchoPrime scored 0.58 (0.57 to 0.61) internally and 0.60 (0.59 to 0.62) externally, despite larger training corpora. The authors call this a similar outcome to what Reddy and colleagues observed for pediatric ejection fraction with a smaller adult-based model.
+- **The showcased individual findings were strong.** Internally: ventricular septal defect 0.89 (0.86 to 0.91), Tetralogy of Fallot 0.97 (0.95 to 0.98), transposition of the great arteries 0.93 (0.90 to 0.95), left ventricular dilation 0.93 (0.90 to 0.95), hypertrophic cardiomyopathy 0.93 (0.87 to 0.98), left ventricular systolic dysfunction 0.94 (0.91 to 0.96), left ventricular diastolic dysfunction 0.86 (0.82 to 0.91).
+- **Repairs and interventions scored high.** Internally, VSD repair 0.95 (0.94 to 0.97), Glenn procedure 0.99 (0.98 to 0.99), heart transplant 0.98 (0.96 to 1.00). Externally these were 0.92, 0.99, and 0.99.
+- **Several values slipped externally, and one dropped hard.** VSD fell to 0.83 (0.80 to 0.85), diastolic dysfunction to 0.81 (0.69 to 0.91), Tetralogy of Fallot to 0.92 (0.90 to 0.94), and transposition to 0.88 (0.86 to 0.91). Detection of major aortopulmonary collateral arteries fell from 0.92 (0.88 to 0.96) internally to 0.75 (0.67 to 0.82) at CHOP, which the authors call out explicitly as substantially lower.
+- **Subgroup performance was strong overall but explicitly not uniform.** The abstract reports robust performance across age, sex, and video count, but the results section, which examined five labels rather than all 28, repeatedly states that performance "varied considerably." Internally, left ventricular dilation ran 0.84 (0.75 to 0.92) in children under 1 versus 1.00 (0.98 to 1.00) in those 18 and over. Split by number of videos per study, left ventricular systolic dysfunction was 0.79 (0.40 to 1.00) in studies with 100 or more videos versus 0.96 (0.94 to 0.98) in studies with 25 to 50, an interval wide enough that the authors devote a supplemental section to that subgroup.
+
+<Callout type="evidence">
+  The external test set is the strongest part of this paper. It is a different institution, a different time period (2024 to 2025 versus 2014 to 2021), and a younger cohort, and the macroaveraged AUROC moved from 0.91 to 0.89. The split was made at the patient level rather than the study level, which matters in a population that gets serial echocardiograms. The head-to-head against two adult foundation models on identical tasks is also a more demanding comparison than most validation papers attempt, and the confidence intervals on those comparators are tight.
+</Callout>
+
+## Clinical Implications
+
+1. **The transfer failure is the finding with the widest reach.** Two adult echocardiography foundation models, trained on more data, scored 0.58 to 0.61 on pediatric studies. The authors list this in their "What Is New?" box, and also note it is consistent with a prior report by Reddy and colleagues using a smaller adult-based model. The general lesson is not about echo: a model's training scale tells you nothing about whether its competence crosses a population boundary. If a vendor proposes using an adult-validated imaging model in children, this is the counterexample to put in front of them.
+
+2. **The plausible deployment is triage and second read, and it has not been tested.** The authors propose two uses, automated screening where pediatric cardiology expertise is scarce, and a second reader alongside sonographers and cardiologists. Their stated limitation is that EchoAI-Peds "has not been prospectively evaluated in either screening or physician-assist workflows." My own reading of that is that there is no reader study here at all, and nothing measures what happens to a human interpreter with the model's output on screen.
+
+3. **The rare and clinically urgent findings are where it is weakest.** The authors name patent ductus arteriosus and bicuspid aortic valve as conditions where performance is lower, without giving numbers for them in the main text, and MAPCA detection fell from 0.92 internally to 0.75 externally. A macroaveraged 0.89 is an average over 28 labels, and the per-label figures the paper showcases are its strong ones.
+
+<Callout type="pitfall">
+  The ground truth is not a cardiologist's finding; it is MedGemma 27B's extraction of that finding from a cardiologist-verified report. Every AUROC in this paper is measured against LLM-generated labels, so any systematic extraction error is invisible to the evaluation and would be learned by the model rather than penalized. That is the caveat to carry, and it is not in the abstract. Beyond it: the model outputs binary predictions even for conditions normally graded by severity, such as left ventricular dilation, and it cannot produce quantitative measurements like fractional shortening because measurement-based labels were deliberately excluded. It omits several congenital and acquired diseases, repairs, and interventions outside its 28 labels. Training was single-institution, which the authors name as a limit on robustness.
+</Callout>
+
+## My Takeaway
+
+Two numbers do the work here: 0.89 external, and 0.58 to 0.61 for the adult models on the same studies. The first says a pediatric-specific multitask model can survive a move to a different hospital in a different decade with a small performance cost. The second says a big foundation model trained on adult echoes has not learned something general enough about hearts on ultrasound to carry into children. The authors claim this as new, and also cite a prior study finding the same thing for pediatric ejection fraction with a smaller model, so read it as a substantially stronger demonstration of something already suspected.
+
+The design is well matched to how echo actually gets read. Most published pediatric echo AI works on a single curated view for a single question. This model returns 28 labels for a whole study, which is closer to what a cardiologist does on opening it. Training on more than 700,000 videos from over 12,000 studies, splitting at the patient level, and testing on 1,336 internal and 2,121 external studies is a serious evidence base for a model paper.
+
+The thing I would want stated more loudly than it is: the labels are LLM-extracted. MedGemma 27B read the cardiologist's report and produced the 28 binary findings that the model was trained on and evaluated against. The reports were cardiologist-verified, so the underlying clinical truth is sound, but every performance number in this paper is a measure of agreement with a language model's reading of a report. If MedGemma systematically misses a hedged phrasing of, say, mild aortic root dilation, the vision model learns to miss it too and the AUROC never notices. The authors are open about the method and treat it as a contribution. It still belongs next to the headline number rather than in the methods.
+
+What this is not is a clinical trial, and the authors are direct about that. There is no prospective evaluation in either a screening or a physician-assist workflow. Everything about the deployment case, whether it finds disease earlier where specialists are scarce, whether it helps or anchors a human reader, whether the false positives are tolerable in practice, is unmeasured. Training came from one institution. The model gives binary answers to graded questions and cannot measure anything. Its subgroup analyses cover five of the 28 labels and repeatedly note that performance varied considerably by age and by study size, including one interval running from 0.79 with a lower bound of 0.40.
+
+The honest summary is a strong pediatric echo model with an unusually good external test, a hard demonstration that adult-to-pediatric transfer fails, and a ground-truth pipeline that deserves more scrutiny than it is likely to get, sitting at exactly the stage where a prospective reader study is the next thing that would change practice.
+
+---
+
+## Related on this site
+
+- [EchoJEPA: A Foundation Model That Learns the Heart and Ignores the Noise](/trials/echojepa-echocardiography-foundation-model-2026): the foundation-model approach to echocardiography, in adults
+- [An Open ECG Dataset for Structural Heart Disease, and a Model That Reads It](/trials/echonext-mini-ecg-structural-heart-disease-2026): structural heart disease detection from a cheaper input
+
+---
+
+[Read the full article at Circulation](https://doi.org/10.1161/CIRCULATIONAHA.126.080619)

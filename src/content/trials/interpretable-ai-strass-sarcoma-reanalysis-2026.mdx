@@ -1,0 +1,77 @@
+---
+title: "An AI Reanalysis of a Negative Trial Narrows Who Should Get Radiotherapy"
+journal: "The Lancet Digital Health"
+year: 2026
+doi: "10.1016/j.landig.2026.101021"
+keyFinding: "A random survival forest plus optimal policy tree, trained on all 266 patients in the negative STRASS trial of preoperative radiotherapy for retroperitoneal sarcoma, split the cohort into seven subgroups and identified two in which radiotherapy significantly improved 3-year abdominal recurrence-free survival: 79% versus 58%, hazard ratio 0.40 (95% CI 0.22 to 0.72), p=0.0016. The conventional STRASS and STREXIT subgroups fared worse on re-testing: the combined STRASS-recommended group reached significance on Kaplan-Meier (HR 0.60, p=0.029) but not on competing risks (HR 0.72, p=0.19), and liposarcoma split the conventional way showed nothing. In the patients the tree recommended for radiotherapy, overall survival did not differ."
+lastUpdated: 2026-09-07
+tags: [subgroup-analysis, machine-learning, interpretable-ai, randomized-trial, oncology, radiotherapy, causal-inference, methods, reanalysis]
+socialPost: "An interpretable-AI reanalysis of the negative STRASS trial found two narrow subgroups where preoperative radiotherapy improved 3-year abdominal recurrence-free survival (79% vs 58%, HR 0.40). The conventional subgroups behind current guidance held up far less well. And overall survival did not differ in the recommended group."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+STRASS (EORTC-62092) is the only completed randomized phase 3 trial of preoperative radiotherapy plus surgery versus surgery alone in primary retroperitoneal sarcoma. It was negative overall. Its conventional subgroup analysis has been read as supporting radiotherapy for all liposarcoma, and the STREXIT extension, which merged STRASS with an observational cohort, has been read as supporting it for well differentiated liposarcoma and low-grade or intermediate-grade dedifferentiated liposarcoma. European guideline language reflects that ambiguity. Because the disease is rare and a new trial is unlikely to be feasible, the authors obtained the original STRASS dataset from EORTC and reanalyzed it.
+
+The method has two stages. First, a random survival forest was trained on all 266 randomized patients to predict 5-year abdominal recurrence-free survival under each treatment option, producing counterfactual predictions for every patient. Its predictors were established prognostic factors, including two intraoperative ones, number of organs resected and vascular resection, which the authors state were used only to improve the forest's prognostic accuracy. Second, those predictions were fed to an optimal policy tree, which partitions patients into nodes by sequential splits on pretreatment variables only, so that the resulting rule is usable preoperatively. Subgroups were then compared using Kaplan-Meier curves and Fine-Gray competing-risks models within the trial data.
+
+- **Cohort:** all 266 randomized patients, 133 per arm. Median follow-up 49 months (IQR 32 to 61). 61 abdominal recurrence-free survival events in the surgery-only arm, 52 in the radiotherapy arm.
+- **Outcome:** abdominal recurrence-free survival, the original trial's investigator-assessed primary endpoint, defined as time to first abdominal recurrence or death.
+- **Model performance:** the random survival forest achieved a concordance index of 0.85, a discrimination statistic. Separately, its predicted 5-year abdominal recurrence-free survival (55% with radiotherapy, 53% without) closely matched the Kaplan-Meier estimates (53%, 95% CI 43 to 65, versus 46%, 95% CI 36 to 59).
+- **Data limits stated by the authors:** the dataset includes sex but not gender, and race and ethnicity were not collected.
+- **Funding:** National Cancer Institute and Memorial Sloan Kettering Cancer Center.
+
+## Key Findings
+
+- **The tree found seven subgroups, and predicted benefit in three of them.** Nodes 8, 10, and 13 covered 152 of 266 patients, with predicted absolute 5-year gains of 6 to 10 percentage points. The four no-benefit nodes included patients with protocol-defined R2 deviations, intermediate-grade or high-grade leiomyosarcoma, and two age-and-histology combinations.
+- **Two of the three held up statistically.** In node 8, well differentiated liposarcoma aged 60 or younger, 3-year abdominal recurrence-free survival was 92% (95% CI 81 to 100) with radiotherapy versus 55% (37 to 82) without, HR 0.21 (0.06 to 0.74), p=0.0079. In node 10, dedifferentiated liposarcoma with curative-intent surgery, it was 73% (61 to 87) versus 59% (47 to 75), HR 0.51 (0.26 to 1.00), p=0.045.
+- **The third did not, and the authors say so.** Node 13, low-grade leiomyosarcoma, showed 100% (95% CI 100 to 100) versus 75% (50 to 100), with the hazard ratio not estimable because one group had zero events, p=0.21. The paper explicitly warns that estimates in this small node warrant caution.
+- **Combining the two significant liposarcoma nodes:** 3-year abdominal recurrence-free survival 79% (95% CI 70 to 89) with radiotherapy versus 58% (48 to 72) without, HR 0.40 (95% CI 0.22 to 0.72), p=0.0016. Competing-risks analysis agreed: cumulative incidence of abdominal recurrence 17% (9 to 27) versus 33% (22 to 45), HR 0.40, p=0.0090.
+- **The result survived a horizon change.** Re-estimated at 5 years with inverse probability of censoring weighting, combined nodes 8 and 10 showed 71.9% (95% CI 58 to 84) with radiotherapy versus 46.3% (29 to 61) without, a difference of 25.6 percentage points, similar to the 21-point gap at 3 years.
+- **Age behaved as a genuine effect modifier.** A Cox model with a radiotherapy-by-age interaction term gave an interaction hazard ratio of 9.69, p=0.018, with a likelihood-ratio test p=0.012.
+- **The conventional subgroups fared worse on re-testing, but not uniformly.** The combined group implied by the conventional STRASS subgroup analysis (any liposarcoma plus any low-grade retroperitoneal sarcoma) did show a significant Kaplan-Meier difference favouring radiotherapy, HR 0.60, p=0.029, though the cumulative incidence of abdominal recurrence in that same group did not differ significantly, HR 0.72, p=0.19. When liposarcoma was split the conventional way, neither well differentiated liposarcoma (HR 0.53, p=0.11) nor dedifferentiated liposarcoma (HR 0.69, p=0.22) reached significance. The STREXIT-recommended group showed nothing on either analysis (HR 0.64, p=0.10; competing risks HR 0.72, p=0.27).
+- **In the four no-benefit nodes, nothing differed significantly.** 3-year abdominal recurrence-free survival was 51% (39 to 65) with radiotherapy versus 56% (44 to 72) without, HR 1.60 (0.94 to 2.70), p=0.081. Competing risks agreed: cumulative incidence 43% (30 to 55) with radiotherapy versus 33% (21 to 47) without, HR 1.43, p=0.20.
+- **Overall survival did not differ in the recommended group.** In the patients the policy tree recommended for radiotherapy, overall survival was not significantly different with or without it. The parent trial had already found no overall survival benefit of radiotherapy.
+
+<Callout type="evidence">
+  Three things raise this above ordinary subgroup mining. The analysis was run inside randomized data rather than on an observational cohort, and a separate analysis found no evidence of within-node observed confounding across the seven subsets. The counterfactual model's predictions were checked against the Kaplan-Meier estimates. And two sensitivity analyses, which the authors describe as robustness checks, held up: excluding the intraoperative variables from both the forest and the tree produced a tree identifying the same benefiting subgroups, and excluding either the six patients assigned to radiotherapy who did not receive it or all 21 patients with radiotherapy or surgical protocol deviations produced trees with nearly identical structures and treatment recommendations.
+</Callout>
+
+## Clinical Implications
+
+1. **For sarcoma practice, the message is narrower indications, not new ones.** The reanalysis does not add a group to the radiotherapy indication. Its two positive subgroups are subsets of the liposarcoma population that guidelines already gesture at, and when liposarcoma is split the conventional way into well differentiated and dedifferentiated, neither half reaches significance on its own.
+
+2. **Recurrence is not survival, and this study only moved the first one.** Every positive result here is about abdominal recurrence-free survival. In the patients the tree recommended for radiotherapy, overall survival did not differ. That gap is the single most important thing to carry out of this paper before letting it influence a decision.
+
+3. **The general lesson travels beyond sarcoma.** This is what disciplined subgroup analysis looks like when a trial is negative overall: predict counterfactual outcomes, partition on predicted benefit rather than on one variable at a time, then re-test the conventional subgroups in the same data and publish how they do. The result was mixed rather than a clean refutation, and reporting it that way is the part worth copying.
+
+<Callout type="pitfall">
+  This remains post hoc analysis of a negative trial with 266 patients, and the authors are direct about what that costs. The sample size precluded a stable split into independent training and test sets, so the model was fit and evaluated in the same data. No second completed randomized trial exists for external validation. Key variables including R0 versus R1 margins, postoperative grade, and detailed histological subtypes were unavailable or coarsely coded. Age was dichotomized at 60 using an a priori threshold from external sarcoma literature, and the authors state plainly that they do not claim a biological cliff at 60. Node 13 has zero events in one arm. Follow-up is short for some patients and the endpoint is a composite. Note also a small internal inconsistency: the summary reports the combined hazard ratio as 0.40 (95% CI 0.22 to 0.71) while the results text gives 0.22 to 0.72. Nothing turns on it, but it is there.
+</Callout>
+
+## My Takeaway
+
+The number that matters is HR 0.40 for abdominal recurrence-free survival in two narrow liposarcoma subgroups, and the number that constrains it is the absence of an overall survival difference in the patients the tree recommended for treatment. A trial that was negative overall contains, on this analysis, a real signal in two of its seven nodes for one endpoint, and no detectable difference on the endpoint patients care about most. Both halves of that sentence are the finding.
+
+What I find useful here is the methodological inversion. The usual complaint about subgroup analysis is that it goes fishing: you slice a negative trial by histology, by grade, by age, and something eventually clears p=0.05. This does something closer to the opposite. It builds a partition from predicted treatment benefit, then turns around and re-tests the conventional subgroups, the ones behind current guideline language, in the same randomized data.
+
+It is worth being precise about what that re-test showed, because the tidy version of this story is not the true one. The combined group STRASS recommends for radiotherapy did clear significance on Kaplan-Meier, HR 0.60, p=0.029. What it did not do was survive the competing-risks analysis of abdominal recurrence itself, HR 0.72, p=0.19, and neither liposarcoma subtype reached significance when taken separately. STREXIT's recommended group failed both. So the honest summary is that the conventional subgroups look weaker and less internally consistent than their reputation, not that they collapse. The authors' own framing, that broad indications "did not show statistically significant gains," is doing some work in how it aggregates those results, and a careful reader should notice the HR 0.60 sitting inside it.
+
+The robustness work is real. Strip out intraoperative variables, or strip out the protocol deviators, and the tree comes back the same shape with the same recommendations. The authors describe these as robustness checks, which is the right label for work of this kind.
+
+The honest counterweight is that 266 patients cannot support a train-test split, and the authors say so first. The model was fit and assessed in the same data, no second completed randomized trial exists anywhere for external validation, the age cutoff was imported from other literature rather than learned, and one of the three benefit nodes has a hazard ratio that cannot be computed. This is hypothesis-generating work with unusually good hygiene, not a practice change. The authors frame it as a basis for designing focused future trials, which is exactly right.
+
+For a general reader, the transferable point is about how to read subgroup claims. When someone tells you a negative trial "worked in a subgroup," the question this paper models is whether that subgroup was chosen before or after looking, and whether anyone went back and tested it inside the randomized data on more than one endpoint. Here, someone did, and the popular subgroup came out looking considerably shakier than its citation record suggests.
+
+---
+
+## Related on this site
+
+- [The Most Common Fix in Clinical Prediction Pipelines Makes the Probabilities Wrong](/trials/class-imbalance-correction-clinical-risk-models-2026): another paper where a standard modelling habit does not survive being tested
+- [Does AI Help Doctors? The Meta-Analysis Says Probably, and the Prediction Interval Says We Do Not Know](/trials/human-llm-collaboration-meta-analysis-2026): what happens when you look past a pooled point estimate
+
+---
+
+[Read the full article at The Lancet Digital Health](https://doi.org/10.1016/j.landig.2026.101021)
