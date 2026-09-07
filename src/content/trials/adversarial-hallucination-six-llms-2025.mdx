@@ -1,0 +1,81 @@
+---
+title: "Plant One Fake Lab Value in a Note and Six LLMs Run With It"
+journal: "Communications Medicine"
+year: 2025
+doi: "10.1038/s43856-025-01021-3"
+keyFinding: "Six large language models were given clinical vignettes containing a single fabricated lab test, sign, or syndrome, across three prompting conditions, for 5,400 outputs in total. Under the default prompt the models elaborated on the planted falsehood 65.9% of the time. A mitigation prompt cut that to 44.2% (OR 0.27, 95% CI 0.23 to 0.32), while setting temperature to zero did nothing (66.5%, OR 1.05, 95% CI 0.89 to 1.23). The best model, GPT-4o, still hallucinated in 50.0% to 53.3% of default-condition cases."
+lastUpdated: 2026-09-07
+tags: [hallucination, adversarial, patient-safety, prompt-engineering, gpt-4o, deepseek, llama, benchmark, clinical-decision-support]
+socialPost: "Six LLMs were shown clinical vignettes containing one invented lab test, sign, or syndrome. Under the default prompt they elaborated on the fake detail 65.9% of the time. A mitigation prompt dropped it to 44.2%. Temperature 0 did nothing. Even GPT-4o, the best model, hallucinated about half the time."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This is a full research Article in Communications Medicine, led by Mahmud Omar with Girish Nadkarni and Eyal Klang, based largely at the Icahn School of Medicine at Mount Sinai with coauthors at Mayo Clinic and LMU Munich. The same lead authors later re-ran this adversarial pipeline on GPT-5, which is the npj Digital Medicine Comment already covered on this site.
+
+The setup is deliberately adversarial rather than naturalistic. The authors wrote 300 physician-validated clinical vignettes, each containing exactly one fabricated medical detail: a fictitious laboratory test (for example "Serum Neurostatin"), a fabricated physical or radiological sign (for example a "Cardiac Spiral Sign" on echocardiography), or an invented disease (for example "Faulkenstein Syndrome"). Each came in a short version of 50 to 60 words and a long version of 90 to 100 words, identical in medical content and differing only in word count.
+
+Case drafting was assisted by Claude Sonnet 3.5 working from two physician-written templates, and every generated case was independently validated by two physicians who confirmed a single fabricated element was present, that no real-world analog existed after targeted PubMed and Google Scholar searches, and that the internal clinical details were consistent. Disagreements affected under 3% of cases and were reconciled by consensus.
+
+Six models were tested under three conditions: default settings, a mitigation prompt instructing the model to use only clinically validated information and acknowledge uncertainty rather than speculate, and temperature set to zero. The paper reports 5,400 outputs. An output counted as a hallucination if the model elaborated on, endorsed, or otherwise treated the fabricated element as real, and as a non-hallucination if the model expressed uncertainty, stated the element did not exist, or omitted it.
+
+- **Models in the quantitative benchmark:** GPT-4o, Distilled-DeepSeek-R1-70B, Llama-3.3-70B-Instruct, Phi-4, gemma-2-27b-it, and Qwen-2.5-72B. GPT-o1 appears only in the separate qualitative arm described below.
+- **Infrastructure:** closed models were queried by API; open models were run on a high-performance computing cluster with four NVIDIA H100 GPUs.
+- **Default decoding:** each vendor's standard preset, described as temperature around 0.7 and top-p 0.9 to 1.0.
+- **Statistics:** mixed-effects logistic regression with each case as a random intercept, Bonferroni-adjusted pairwise comparisons, R 4.4.2.
+- **Classification:** automated using GPT-4o. Two physicians independently reviewed 200 randomly chosen outputs and agreed with the automated labels in 100% of cases.
+
+One arithmetic note worth flagging, because it affects how you read every rate below. The paper says 300 vignettes were created and that each was presented in a short and a long version, which reads as 600 prompts, yet its stated total of 5,400 outputs reconciles only if the 300 already counts short and long separately (300 by 6 models by 3 conditions). The paper does not resolve this. Nothing about the reported percentages depends on it, since the rates are given directly, but the underlying number of distinct clinical scenarios is either 150 or 300 and the text supports both readings.
+
+## Key Findings
+
+- **Two thirds of default outputs adopted the planted falsehood.** The overall hallucination rate under the default prompt was 65.9%. Across models and prompting methods together, individual rates span roughly 50% to 82.7%. The paper states this upper bound inconsistently, as 82% in the abstract, 82.7% in the discussion, and 83% in the conclusion.
+- **The mitigation prompt worked, and did not come close to solving the problem.** Overall rate fell to 44.2%, odds ratio 0.27 (95% CI 0.23 to 0.32, p=0.00002). Nearly half of all outputs still ran with the fabrication.
+- **Turning temperature to zero achieved nothing.** The overall rate was 66.5% at temperature 0 versus 65.9% at default, odds ratio 1.05 (95% CI 0.89 to 1.23, p=0.58).
+- **The spread across models was wide.** By default, Distilled-DeepSeek-R1 had the highest rates (80.0% on long cases, 82.7% on short) and GPT-4o the lowest (53.3% long, 50.0% short), with the remaining models between 58.7% and 82.0%. Against GPT-4o as reference, the odds of hallucination were 8.41 for DeepSeek (p=0.0001), 7.12 for Phi-4 (p=0.0003), 3.11 for gemma-2-27b-it (p=0.0001), and 1.95 for Qwen-2.5-72B (p=0.022). Llama-3.3-70B was statistically indistinguishable from GPT-4o (OR 1.00, p about 1.000).
+- **The best combination still failed a quarter of the time.** GPT-4o with the mitigation prompt hallucinated on 20.7% of long cases and 24.7% of short ones.
+- **Shorter notes were slightly riskier.** The all-conditions model gave short-format cases an odds ratio of 1.22 (95% CI 1.07 to 1.39, p=0.003); the dedicated short-versus-long analysis gave 1.20 (1.06 to 1.37, p=0.005). Within individual conditions the effect was inconsistent: significant at temperature 0 (OR 1.27, p=0.039), not significant with no mitigation (OR 1.24, p=0.062) or with the mitigating prompt (OR 1.15, p=0.23).
+- **Crossover in the wrong direction was rare.** The authors report that "only" 1.2% (65/5400) of outputs classified as non-hallucinations under the base prompt were re-classified as hallucinations once the mitigation prompt was applied. Note that the denominator is the full 5,400 rather than the smaller number of clean base-prompt outputs, so 1.2% understates the crossover rate among the outputs actually at risk of flipping.
+- **On famous public-health falsehoods, the models mostly held.** In a separate qualitative arm of 45 runs (5 claims by 3 models by 3 runs), 43 produced no hallucination. The two failures were both GPT-4o on the natural-immunity-versus-vaccination claim, where the model endorsed natural immunity as superior without addressing severe-infection risk or vaccination benefit.
+
+<Callout type="evidence">
+  The classification pipeline was checked rather than assumed: 200 randomly sampled outputs were reviewed by physicians and matched the automated labels perfectly. The vignettes were physician-designed and double-validated, and the fabricated terms were searched against PubMed and Google Scholar to confirm no real analog existed. The short-versus-long contrast is a tight manipulation by design, since the authors state the two versions were identical in medical content and differed only in word count.
+</Callout>
+
+## Clinical Implications
+
+1. **The failure mode is your chart, not a jailbreak.** The authors note that clinical prompts can carry both accidental and deliberate fabrications: copy-forward errors, an outdated allergy, a misheard drug dose, a misspelled lab value, all of which "can slip in unnoticed," alongside deliberate disinformation. This study measures what happens when one of those reaches a model, and under default settings the model built on it about two thirds of the time. If you paste a note into an LLM, you are also pasting every error in that note, and the paper's framing is that a model may treat every token as ground truth.
+
+2. **Prompting is the only lever here that moves, and it moves halfway.** A single instruction to use only validated information and to flag uncertainty cut the rate from 65.9% to 44.2%. That is a real effect with a tight confidence interval, and it is something any clinician can do today at zero cost. It is also not a fix. Planning around a 44% adversarial hallucination rate is different from planning around a solved problem.
+
+3. **Do not reach for the temperature slider, with one caveat.** The single most common piece of folk advice about hallucination, set temperature to zero, produced an odds ratio of 1.05 with a p-value of 0.58. The caveat is that each prompt was run once per condition, so the comparison is one stochastic draw at temperature around 0.7 against one deterministic draw. The authors flag this themselves and recommend repeating each sample across several draws. The null result is the best evidence available, not a definitive one.
+
+<Callout type="pitfall">
+  The classifier was GPT-4o, and GPT-4o was also one of the evaluated models. The 200-output audit that validates it was performed by the first and last authors, the same two physicians who validated the vignettes, one of whom wrote them, so it establishes agreement between the classifier and the study's own designers rather than independent review. Read GPT-4o's status as best performer with both facts in mind. The authors also note their definition of hallucination captured explicit fabrication only, potentially missing subtler inaccuracies, that each prompt was run once per condition, and that they did not employ retrieval-augmented generation or internet lookup, which might mitigate further.
+</Callout>
+
+## My Takeaway
+
+The number to carry around is 65.9%, and the number to argue about is 44.2%. Six models, a single invented detail per case, and under default settings roughly two thirds of outputs wrote confidently about a laboratory test that does not exist. The mitigation prompt is the one intervention that worked, and it left the rate just under half.
+
+What makes this study more useful than the usual hallucination benchmark is the manipulation. Most of this literature asks whether a model produces false statements unprompted. This asks something narrower and much closer to practice: given a note that already contains one error, does the model catch it or amplify it? The answer, across both closed and open models, is amplify.
+
+The spread across models is worth noticing on its own. Distilled-DeepSeek-R1-70B hallucinated above 80% while its own base checkpoint, Llama-3.3-70B-Instruct, was statistically indistinguishable from GPT-4o, despite identical parameter counts. The authors flag this as a possible artifact of the distillation or reinforcement-learning pipeline, and they are careful to say it may suggest rather than does show. It is a good reminder that "70B open model" tells you almost nothing about safety behavior. It also cuts against reading this as a fixed property of language models in general: odds of hallucination running from 1.00 to 8.41 across models under identical settings is a large amount of variation for something architectural.
+
+The authors list five limitations and they are the right ones. These are simulated vignettes, not real notes. Six models is not all models. The hallucination definition captures explicit fabrication only. Each prompt was run once per condition, which under-represents run-to-run variability and is the weakest joint in the temperature-zero comparison. And no retrieval-augmented generation or internet lookup was tested, which the authors think might help further. The qualitative misinformation arm is 45 runs and should be read as an anecdote with a denominator.
+
+Practically: assume that anything false in the text you hand a model can come back to you elaborated and confident. Add an explicit instruction to flag unverifiable elements, because it demonstrably helps. Then check the output anyway, because on these numbers just under half of them will still be wrong in exactly the way you were trying to prevent.
+
+---
+
+## Related on this site
+
+- [GPT-5 Ran With a Fabricated Finding in 65% of Cases. One Prompt Cut It to 7.67%.](/trials/gpt5-adversarial-hallucination-2026): the same lead authors' later re-run of this pipeline on GPT-5, using a different vignette set
+- [Hallucination, and the One Line That Helps](/editorials/hallucination-and-the-one-line-that-helps): the editorial that works through what the mitigation prompt does and does not buy
+- [Omissions Outnumber Hallucinations: A Clinical Safety Framework for AI-Generated Notes](/trials/llm-summarisation-safety-hallucination-framework-2025): the other half of the problem, what the model leaves out rather than what it invents
+
+---
+
+[Read the full article at Communications Medicine](https://doi.org/10.1038/s43856-025-01021-3)
