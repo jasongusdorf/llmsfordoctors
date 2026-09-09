@@ -47,7 +47,7 @@ const categoryLabels: Record<string, string> = {
 
 <ContentLayout
   title={entry.data.title}
-  description={entry.data.description || entry.data.socialPost}
+  description={entry.data.socialPost || `${entry.data.tools.join(', ')} workflow for clinicians.`}
   lastUpdated={entry.data.lastUpdated}
   tags={entry.data.tags}
   timeToRead={entry.data.timeToRead}

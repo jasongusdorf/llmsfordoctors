@@ -50,11 +50,9 @@ const nav: NavEntry[] = [
       { heading: 'Learn' },
       { href: '/guides',     label: 'Guides' },
       { href: '/vocabulary', label: 'AI Vocabulary' },
-      { href: '/policy',     label: 'Policy' },
       { href: '/editorials', label: 'Editorials' },
-      { href: '/trials',     label: 'Trials' },
+      { href: '/trials',     label: 'Evidence' },
       { href: '/briefs',     label: 'Briefs' },
-      { href: '/videos',     label: 'Videos' },
       { heading: 'Practical Tools' },
       { href: '/workflows',  label: 'Workflows' },
       { href: '/templates',  label: 'Templates' },
@@ -62,7 +60,7 @@ const nav: NavEntry[] = [
     ],
   },
   {
-    label: 'Medical Education (Non-AI)',
+    label: 'Clinical Education',
     items: [
       { href: '/education',                        label: 'Overview' },
       { href: '/education/semantic-qualifiers',     label: 'Semantic Qualifiers' },
@@ -73,19 +71,10 @@ const nav: NavEntry[] = [
     ],
   },
   { href: '/community', label: 'Community' },
-  {
-    label: 'About',
-    items: [
-      { href: '/about',   label: 'About the Creator' },
-      { href: '/terms',   label: 'Terms of Service' },
-      { href: '/privacy', label: 'Privacy Policy' },
-    ],
-  },
+  { href: '/about', label: 'About' },
   { href: '/donate',    label: 'Donate' },
 ];
 
-// Flat list for mobile menu
-const allLinks: NavItem[] = nav.flatMap(entry => isGroup(entry) ? links(entry.items) : [entry]);
 ---
 
 <nav class="fixed top-0 left-0 right-0 z-50 bg-clinical-50/95 dark:bg-clinical-900/95 backdrop-blur border-b border-clinical-200 dark:border-clinical-700">
@@ -235,6 +224,15 @@ const allLinks: NavItem[] = nav.flatMap(entry => isGroup(entry) ? links(entry.it
 </nav>
 
 <script>
+  document.querySelectorAll<HTMLElement>('[data-theme-toggle]').forEach((themeToggle) => {
+    themeToggle.addEventListener('click', () => {
+      const html = document.documentElement;
+      const nextTheme = html.classList.contains('dark') ? 'light' : 'dark';
+      html.classList.toggle('dark', nextTheme === 'dark');
+      localStorage.setItem('theme', nextTheme);
+    });
+  });
+
   const toggle = document.getElementById('mobile-menu-toggle');
   const menu = document.getElementById('mobile-menu');
 

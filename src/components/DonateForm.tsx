@@ -146,7 +146,7 @@ export default function DonateForm({ stripeKey }: Props) {
           body: JSON.stringify({ amount: amountInCents, currency: 'usd' }),
         });
 
-        const data = await res.json();
+        const data = await res.json() as { error?: string; clientSecret?: string };
 
         if (!res.ok) {
           setError(data.error || 'Something went wrong');
@@ -154,6 +154,10 @@ export default function DonateForm({ stripeKey }: Props) {
           return;
         }
 
+        if (!data.clientSecret) {
+          setError('The payment service did not return a client secret.');
+          return;
+        }
         setClientSecret(data.clientSecret);
       } catch {
         setError('Network error. Please try again.');

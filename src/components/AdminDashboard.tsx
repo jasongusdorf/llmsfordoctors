@@ -17,7 +17,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     fetch('/api/admin/content-index', { credentials: 'same-origin' })
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
-      .then((d) => setItems(d.items))
+      .then((d) => setItems((d as { items: Item[] }).items))
       .catch((e) => setError(e instanceof Error ? e.message : 'Failed to load'));
   }, []);
 

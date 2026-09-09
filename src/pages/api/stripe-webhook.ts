@@ -35,12 +35,12 @@ export const POST: APIRoute = async ({ request }) => {
     }
     case 'invoice.payment_succeeded': {
       const invoice = event.data.object as Stripe.Invoice;
-      console.log(`Subscription payment: ${invoice.subscription}, amount: ${invoice.amount_paid}`);
+      console.log(`Invoice payment: ${invoice.id}, amount: ${invoice.amount_paid}`);
       break;
     }
     case 'invoice.payment_failed': {
       const invoice = event.data.object as Stripe.Invoice;
-      console.log(`Subscription payment failed: ${invoice.subscription}`);
+      console.log(`Invoice payment failed: ${invoice.id}`);
       break;
     }
     case 'customer.subscription.deleted': {

@@ -37,7 +37,7 @@ export function parseRssFeed(xml: string, sourceName: string): NewsItem[] {
   if (!itemBlocks) return [];
 
   return itemBlocks
-    .map((block) => {
+    .map<NewsItem | null>((block) => {
       const title = extractTag(block, 'title');
       const url = extractTag(block, 'link');
       if (!title || !url) return null;

@@ -10,7 +10,7 @@ const footerLinks = [
   { href: '/tools',      label: 'Tools' },
   { href: '/templates',  label: 'Templates' },
   { href: '/trials',     label: 'Trials' },
-  { href: '/education', label: 'Medical Education (Non-AI)' },
+  { href: '/education', label: 'Clinical Education' },
   { href: '/education/cardiology', label: 'Cardiology' },
   { href: '/education/semantic-qualifiers', label: 'Semantic Qualifiers' },
   { href: '/briefs',     label: 'Briefs' },
@@ -101,7 +101,7 @@ const footerLinks = [
                 status.className = 'text-xs mt-1 text-green-400';
                 form.reset();
               } else {
-                const data = await res.json();
+                const data = await res.json() as { error?: string };
                 status.textContent = data.error || 'Something went wrong.';
                 status.className = 'text-xs mt-1 text-red-400';
               }
