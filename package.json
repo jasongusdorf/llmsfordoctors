@@ -11,6 +11,8 @@
     "post-build": "node scripts/post-build.mjs",
     "preview": "astro preview",
     "astro": "astro",
+    "check": "wrangler types --check && astro check",
+    "types:cloudflare": "wrangler types",
     "deploy": "astro build && node scripts/post-build.mjs && wrangler deploy --config dist/server/wrangler.json",
     "fetch-news": "echo 'News is now fetched via Cloudflare cron. Manual trigger: curl -X POST -H \"Authorization: Bearer <secret>\" https://llmsfordoctors.com/api/refresh-news'",
     "test": "vitest run"

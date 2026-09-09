@@ -30,8 +30,9 @@ function constantTimeEqual(a: string, b: string): boolean {
 
 async function pbkdf2(password: string, salt: Uint8Array, iterations: number): Promise<string> {
   const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveBits']);
+  const saltBytes = Uint8Array.from(salt);
   const bits = await crypto.subtle.deriveBits(
-    { name: 'PBKDF2', salt, iterations, hash: 'SHA-256' }, key, 256,
+    { name: 'PBKDF2', salt: saltBytes, iterations, hash: 'SHA-256' }, key, 256,
   );
   return toHex(new Uint8Array(bits));
 }

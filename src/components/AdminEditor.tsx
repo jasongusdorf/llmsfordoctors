@@ -48,7 +48,11 @@ export default function AdminEditor({ collection, slug: initialSlug, initialFron
       headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'lfd-editor' },
       body: JSON.stringify({ collection, slug, frontmatter: fmToSend, body, create: isCreate }),
     });
-    const d = await res.json().catch(() => ({}));
+    const d = await res.json().catch(() => ({})) as {
+      error?: string;
+      commitSha?: string;
+      commitUrl?: string;
+    };
     if (!res.ok) {
       setStatus({ kind: 'error', msg: d.error || 'Save failed' });
       return;
@@ -60,7 +64,7 @@ export default function AdminEditor({ collection, slug: initialSlug, initialFron
       setStatus({ kind: 'error', msg: 'Saved, but deploy tracking is unavailable. The page updates in a minute or two.', url: d.commitUrl, viewPath });
       return;
     }
-    await waitForDeployThenGo(d.commitSha, d.commitUrl, viewPath);
+    await waitForDeployThenGo(d.commitSha, d.commitUrl ?? '', viewPath);
   }
 
   // Polls the deploy triggered by the commit, then navigates to the live page.

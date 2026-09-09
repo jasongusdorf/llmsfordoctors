@@ -10,6 +10,6 @@ const { collection, slug } = Astro.props;
 <script>
   fetch('/api/admin/whoami', { credentials: 'same-origin' })
     .then((r) => r.json())
-    .then((d) => { if (d.authed) document.getElementById('admin-edit-link')?.classList.remove('hidden'); })
+    .then((d) => { if ((d as { authed?: boolean }).authed) document.getElementById('admin-edit-link')?.classList.remove('hidden'); })
     .catch(() => {});
 </script>

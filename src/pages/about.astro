@@ -141,7 +141,7 @@ import Breadcrumb from '../components/Breadcrumb.astro';
               status.className = 'text-sm text-green-600 dark:text-green-400';
               form.reset();
             } else {
-              const data = await res.json();
+              const data = await res.json() as { error?: string };
               status.textContent = data.error || 'Something went wrong.';
               status.className = 'text-sm text-red-600 dark:text-red-400';
             }
