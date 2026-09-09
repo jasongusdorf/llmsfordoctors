@@ -4,34 +4,15 @@ import SearchBar from './SearchBar.astro';
 
 <section class="home-hero border-b border-clinical-200 dark:border-clinical-700" aria-labelledby="home-heading">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24">
-    <div class="grid lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,0.55fr)] gap-12 lg:gap-16 items-end">
-      <div>
-        <p class="home-kicker mb-6">Independent clinical AI education</p>
-        <h1 id="home-heading" class="font-heading text-[clamp(2.9rem,7vw,5.8rem)] font-medium tracking-[-0.045em] leading-[0.94] text-clinical-900 dark:text-clinical-50 max-w-4xl">
-          AI, examined with a clinician&rsquo;s judgment.
-        </h1>
-        <p class="mt-7 max-w-2xl text-lg sm:text-xl leading-relaxed text-clinical-600 dark:text-clinical-300">
-          Practical workflows, candid tool reviews, and close readings of the evidence. Written by a physician for people taking care of patients.
-        </p>
-      </div>
+    <h1 id="home-heading" class="font-heading text-[clamp(2.9rem,7vw,5.8rem)] font-medium tracking-[-0.045em] leading-[0.94] text-clinical-900 dark:text-clinical-50 max-w-5xl">
+      Artificial Intelligence for Physicians
+    </h1>
+    <p class="mt-6 font-display text-2xl sm:text-3xl italic text-clinical-600 dark:text-clinical-300">
+      Expand your clinical abilities.
+    </p>
 
-      <aside class="lg:border-l lg:border-clinical-300 dark:lg:border-clinical-700 lg:pl-8" aria-label="About this publication">
-        <p class="font-display text-xl sm:text-2xl italic leading-snug text-clinical-800 dark:text-clinical-100">
-          Less hype. Better questions. Useful answers for the work clinicians actually do.
-        </p>
-        <div class="mt-6 pt-5 border-t border-clinical-200 dark:border-clinical-700 text-sm leading-relaxed text-clinical-500 dark:text-clinical-400">
-          <p class="font-semibold text-clinical-800 dark:text-clinical-200">Jason Gusdorf, MD</p>
-          <p>Hospitalist and medical educator</p>
-        </div>
-      </aside>
-    </div>
-
-    <div class="mt-12 sm:mt-16 grid lg:grid-cols-[minmax(0,1fr)_auto] gap-5 items-center border-t border-clinical-300 dark:border-clinical-700 pt-6">
+    <div class="mt-10 sm:mt-12 border-t border-clinical-300 dark:border-clinical-700 pt-6">
       <div class="max-w-2xl"><SearchBar /></div>
-      <nav class="flex flex-wrap gap-x-6 gap-y-2 text-sm" aria-label="Recommended starting points">
-        <a href="/guides/llms-in-clinical-care-101" class="home-text-link">Clinical AI 101 <span aria-hidden="true">&rarr;</span></a>
-        <a href="/workflows" class="home-text-link">Browse workflows <span aria-hidden="true">&rarr;</span></a>
-      </nav>
     </div>
   </div>
 </section>

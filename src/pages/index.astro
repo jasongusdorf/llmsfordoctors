@@ -41,28 +41,28 @@ const abimTipPreviews = latestAbim?.body
   : [];
 
 const recentAdditions = [
-  ...allGuides.map((item) => ({ type: 'Guide', title: item.data.title, blurb: item.data.description, href: `/guides/${item.id}`, date: item.data.lastUpdated })),
-  ...allEditorials.map((item) => ({ type: 'Editorial', title: item.data.title, blurb: item.data.description, href: `/editorials/${item.id}`, date: item.data.lastUpdated })),
-  ...allTrials.map((item) => ({ type: 'Evidence', title: item.data.title, blurb: item.data.keyFinding, href: `/trials/${item.id}`, date: item.data.lastUpdated })),
-  ...allTools.map((item) => ({ type: 'Review', title: item.data.title, blurb: item.data.verdict, href: `/tools/${item.id}`, date: item.data.lastUpdated })),
-  ...allWorkflows.map((item) => ({ type: 'Workflow', title: item.data.title, blurb: item.data.tools.join(', '), href: `/workflows/${item.id}`, date: item.data.lastUpdated })),
-  ...allTemplates.map((item) => ({ type: 'Template', title: item.data.title, blurb: `For ${item.data.targetTool}`, href: `/templates/${item.id}`, date: item.data.lastUpdated })),
-  ...allVideos.map((item) => ({ type: 'Video', title: item.data.title, blurb: item.data.summary, href: `/videos/${item.id}`, date: item.data.dateAdded })),
+  ...allGuides.map((item) => ({ type: 'Guide', title: item.data.title, href: `/guides/${item.id}`, date: item.data.lastUpdated })),
+  ...allEditorials.map((item) => ({ type: 'Editorial', title: item.data.title, href: `/editorials/${item.id}`, date: item.data.lastUpdated })),
+  ...allTrials.map((item) => ({ type: 'Evidence', title: item.data.title, href: `/trials/${item.id}`, date: item.data.lastUpdated })),
+  ...allTools.map((item) => ({ type: 'Review', title: item.data.title, href: `/tools/${item.id}`, date: item.data.lastUpdated })),
+  ...allWorkflows.map((item) => ({ type: 'Workflow', title: item.data.title, href: `/workflows/${item.id}`, date: item.data.lastUpdated })),
+  ...allTemplates.map((item) => ({ type: 'Template', title: item.data.title, href: `/templates/${item.id}`, date: item.data.lastUpdated })),
+  ...allVideos.map((item) => ({ type: 'Video', title: item.data.title, href: `/videos/${item.id}`, date: item.data.dateAdded })),
 ].sort((a, b) => b.date.getTime() - a.date.getTime()).slice(0, 5);
 
 const sections = [
-  { label: 'Guides', count: allGuides.length, href: '/guides', description: 'Plain-language introductions and deeper clinical AI explainers.' },
-  { label: 'Workflows', count: allWorkflows.length, href: '/workflows', description: 'Tested approaches for documentation, research, and daily practice.' },
-  { label: 'Tool reviews', count: allTools.length, href: '/tools', description: 'Candid assessments, including privacy and practical limitations.' },
-  { label: 'Evidence', count: allTrials.length, href: '/trials', description: 'Important clinical AI studies, read closely and summarized.' },
-  { label: 'Templates', count: allTemplates.length, href: '/templates', description: 'Reusable prompts for specific clinical and administrative tasks.' },
-  { label: 'Editorials', count: allEditorials.length, href: '/editorials', description: 'Arguments and analysis about how medicine should use AI.' },
+  { label: 'Guides', count: allGuides.length, href: '/guides' },
+  { label: 'Workflows', count: allWorkflows.length, href: '/workflows' },
+  { label: 'Tool reviews', count: allTools.length, href: '/tools' },
+  { label: 'Evidence', count: allTrials.length, href: '/trials' },
+  { label: 'Templates', count: allTemplates.length, href: '/templates' },
+  { label: 'Editorials', count: allEditorials.length, href: '/editorials' },
 ];
 ---
 
 <BaseLayout
-  title="LLMs for Doctors - Independent Clinical AI Education"
-  description="Practical workflows, candid tool reviews, and close readings of clinical AI evidence, written by a physician."
+  title="Artificial Intelligence for Physicians | LLMs for Doctors"
+  description="Expand your clinical abilities with practical medical AI education."
 >
   <Hero />
 
@@ -70,8 +70,7 @@ const sections = [
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <header class="home-section-header">
         <div>
-          <p class="home-kicker">A considered place to begin</p>
-          <h2 id="start-heading" class="home-section-title">Start with the fundamentals</h2>
+          <h2 id="start-heading" class="home-section-title">Start here</h2>
         </div>
         <a href="/guides" class="home-text-link">All guides <span aria-hidden="true">&rarr;</span></a>
       </header>
@@ -81,8 +80,6 @@ const sections = [
           <a href={`/guides/${guide.id}`} class:list={['home-feature', index > 0 && 'md:border-l md:border-clinical-300 dark:md:border-clinical-700']}>
             <span class="home-index">0{index + 1}</span>
             <h3>{guide.data.title}</h3>
-            <p>{guide.data.description}</p>
-            <span class="home-read">Read the guide <span aria-hidden="true">&rarr;</span></span>
           </a>
         ))}
       </div>
@@ -104,7 +101,7 @@ const sections = [
                 {abimTipPreviews.map((tip) => (
                   <li class="py-4 first:pt-0">
                     <p class="text-xs font-semibold uppercase tracking-[0.12em] text-emerald-700 dark:text-emerald-400">{tip.specialty}</p>
-                    <p class="mt-1.5 text-sm leading-relaxed text-clinical-600 dark:text-clinical-300 line-clamp-3">{tip.text}</p>
+                    <p class="mt-1.5 text-sm leading-relaxed text-clinical-600 dark:text-clinical-300 line-clamp-2">{tip.text}</p>
                   </li>
                 ))}
               </ol>
@@ -119,7 +116,6 @@ const sections = [
       <div>
         <header class="home-section-header">
           <div>
-            <p class="home-kicker">Recently published</p>
             <h2 id="latest-heading" class="home-section-title">From the desk</h2>
           </div>
         </header>
@@ -130,7 +126,6 @@ const sections = [
                 <span class="home-kicker pt-1">{item.type}</span>
                 <span>
                   <span class="block font-heading text-xl sm:text-2xl leading-tight text-clinical-900 dark:text-clinical-50 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">{item.title}</span>
-                  <span class="block mt-2 text-sm leading-relaxed text-clinical-500 dark:text-clinical-400 line-clamp-2">{item.blurb}</span>
                 </span>
               </a>
             </li>
@@ -150,7 +145,7 @@ const sections = [
                     {trial.data.journal} &middot; {trial.data.lastUpdated.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' })}
                   </p>
                   <h3 class="mt-1.5 font-heading text-lg leading-snug text-clinical-900 dark:text-clinical-50 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">{trial.data.title}</h3>
-                  <p class="mt-2 text-sm leading-relaxed text-clinical-500 dark:text-clinical-400 line-clamp-3">{trial.data.keyFinding}</p>
+                  <p class="mt-2 text-sm leading-relaxed text-clinical-500 dark:text-clinical-400 line-clamp-2">{trial.data.keyFinding}</p>
                 </a>
               </li>
             ))}
@@ -161,33 +156,11 @@ const sections = [
     </div>
   </section>
 
-  <section class="home-section" aria-labelledby="evidence-heading">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <header class="home-section-header">
-        <div>
-          <p class="home-kicker">Journal watch</p>
-          <h2 id="evidence-heading" class="home-section-title">What the evidence says</h2>
-        </div>
-        <a href="/trials" class="home-text-link">All {allTrials.length} studies <span aria-hidden="true">&rarr;</span></a>
-      </header>
-      <div class="grid md:grid-cols-2 border-t border-clinical-300 dark:border-clinical-700">
-        {recentTrials.map((trial, index) => (
-          <a href={`/trials/${trial.id}`} class:list={['group py-7 border-b border-clinical-200 dark:border-clinical-700', index % 2 === 0 ? 'md:pr-8' : 'md:pl-8 md:border-l md:border-clinical-200 dark:md:border-clinical-700']}>
-            <p class="home-kicker">{trial.data.journal} &middot; {trial.data.lastUpdated.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</p>
-            <h3 class="mt-3 font-heading text-xl sm:text-2xl leading-tight text-clinical-900 dark:text-clinical-50 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">{trial.data.title}</h3>
-            <p class="mt-3 text-sm leading-relaxed text-clinical-500 dark:text-clinical-400 line-clamp-3">{trial.data.keyFinding}</p>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
   <section class="home-section bg-clinical-900 text-clinical-100" aria-labelledby="library-heading">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <header class="home-section-header !border-clinical-700">
         <div>
-          <p class="home-kicker !text-clinical-400">The library</p>
-          <h2 id="library-heading" class="home-section-title !text-white">Find what you need</h2>
+          <h2 id="library-heading" class="home-section-title !text-white">Explore</h2>
         </div>
       </header>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3">
@@ -197,7 +170,6 @@ const sections = [
               <span class="font-heading text-xl text-white group-hover:text-blue-300 transition-colors">{section.label}</span>
               <span class="text-xs tabular-nums text-clinical-500">{String(section.count).padStart(2, '0')}</span>
             </p>
-            <p class="mt-3 text-sm leading-relaxed text-clinical-400">{section.description}</p>
           </a>
         ))}
       </div>
@@ -208,14 +180,12 @@ const sections = [
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 md:gap-20">
       <div>
         <p class="home-kicker">Physician forum</p>
-        <h2 id="community-heading" class="home-section-title mt-3">Continue the conversation with colleagues.</h2>
-        <p class="mt-5 text-clinical-600 dark:text-clinical-300 leading-relaxed">A physician-moderated community without ads or vendor noise.</p>
+        <h2 id="community-heading" class="home-section-title mt-3">Join the discussion.</h2>
         <a href="https://community.llmsfordoctors.com" class="home-text-link inline-block mt-6">Visit the forum <span aria-hidden="true">&rarr;</span></a>
       </div>
       <div class="md:border-l md:border-clinical-300 dark:md:border-clinical-700 md:pl-12 lg:pl-20">
         <p class="home-kicker">Keep it independent</p>
-        <h2 class="home-section-title mt-3">Free, ad-free, and reader-supported.</h2>
-        <p class="mt-5 text-clinical-600 dark:text-clinical-300 leading-relaxed">Donations pay the bills without putting a thumb on the editorial scale.</p>
+        <h2 class="home-section-title mt-3">Reader-supported.</h2>
         <a href="/donate" class="home-text-link inline-block mt-6">Support the project <span aria-hidden="true">&rarr;</span></a>
       </div>
     </div>
