@@ -73,6 +73,71 @@
   }
 }
 
+@layer components {
+  .home-hero {
+    background:
+      linear-gradient(90deg, color-mix(in srgb, var(--color-clinical-200) 42%, transparent) 1px, transparent 1px),
+      var(--color-warm-white);
+    background-size: min(11vw, 9rem) 100%;
+  }
+
+  .dark .home-hero {
+    background:
+      linear-gradient(90deg, rgb(51 65 85 / 0.32) 1px, transparent 1px),
+      var(--color-clinical-900);
+    background-size: min(11vw, 9rem) 100%;
+  }
+
+  .home-kicker {
+    @apply text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-clinical-500 dark:text-clinical-400;
+  }
+
+  .home-section {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  .home-section-header {
+    @apply flex items-end justify-between gap-6 border-t border-clinical-300 dark:border-clinical-700 pt-4 mb-9;
+  }
+
+  .home-section-title {
+    @apply mt-2 font-heading text-3xl sm:text-4xl font-medium tracking-[-0.025em] leading-tight text-clinical-900 dark:text-clinical-50;
+  }
+
+  .home-text-link {
+    @apply font-semibold text-clinical-700 dark:text-clinical-200 underline decoration-clinical-300 dark:decoration-clinical-600 underline-offset-4 hover:text-blue-700 dark:hover:text-blue-300 hover:decoration-current transition-colors;
+  }
+
+  .home-feature {
+    @apply relative flex flex-col py-7 md:p-7 md:first:pl-0 border-b last:border-b-0 md:border-b-0 border-clinical-200 dark:border-clinical-700 min-h-64;
+  }
+
+  .home-feature .home-index {
+    @apply text-xs tabular-nums text-clinical-400 dark:text-clinical-500;
+  }
+
+  .home-feature h3 {
+    @apply mt-8 font-heading text-2xl leading-tight text-clinical-900 dark:text-clinical-50 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors;
+  }
+
+  .home-feature p {
+    @apply mt-3 text-sm leading-relaxed text-clinical-500 dark:text-clinical-400;
+  }
+
+  .home-feature .home-read {
+    @apply mt-auto pt-7 text-sm font-semibold text-clinical-700 dark:text-clinical-300;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /* Aurora background color variables */
 :root {
   --white: #fff;
