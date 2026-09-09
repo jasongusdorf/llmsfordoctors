@@ -11,9 +11,14 @@ interface Props {
 const { title, description = 'Practical guides, workflows, and tools for clinicians using AI in medicine.' } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-// Dynamic OG image: strip trailing slash so index pages resolve correctly
+// Only collections covered by the OG generator get a page-specific card.
+// Every other route uses the site card instead of advertising a 404 URL.
 const pagePath = Astro.url.pathname.replace(/\/$/, '');
-const ogImageUrl = new URL(pagePath ? `/og${pagePath}.png` : '/og/home.png', Astro.site);
+const customOgPrefixes = ['/workflows/', '/guides/', '/tools/', '/templates/', '/trials/', '/editorials/', '/videos/'];
+const customOgPages = ['/workflows', '/guides', '/tools', '/templates', '/trials', '/about', '/donate'];
+const hasCustomOg = customOgPages.includes(pagePath) || customOgPrefixes.some((prefix) => pagePath.startsWith(prefix));
+const ogImageUrl = new URL(hasCustomOg ? `/og${pagePath}.png` : '/og/home.png', Astro.site);
+const isPrivatePath = Astro.url.pathname.startsWith('/admin');
 ---
 
 <!DOCTYPE html>
@@ -25,6 +30,7 @@ const ogImageUrl = new URL(pagePath ? `/og${pagePath}.png` : '/og/home.png', Ast
 
     <title>{title}</title>
     <meta name="description" content={description} />
+    {isPrivatePath && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Favicon -->
