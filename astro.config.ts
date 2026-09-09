@@ -1748,6 +1748,8 @@ export default defineConfig({
       filter: (page) => {
         const path = new URL(page).pathname;
         return !(
+          path.startsWith('/admin') ||
+          path.startsWith('/tags') ||
           path.startsWith('/qualifiers') ||
           path.startsWith('/cardiology') ||
           path.startsWith('/ecg')

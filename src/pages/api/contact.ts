@@ -3,13 +3,37 @@ import { env } from 'cloudflare:workers';
 
 export const prerender = false;
 
+const RATE_WINDOW_SECONDS = 10 * 60;
+const RATE_MAX_SUBMISSIONS = 5;
+const MAX_NAME_LENGTH = 100;
+const MAX_EMAIL_LENGTH = 254;
+const MAX_MESSAGE_LENGTH = 10_000;
+
+function json(body: unknown, status: number, extraHeaders: Record<string, string> = {}) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { 'Content-Type': 'application/json', ...extraHeaders },
+  });
+}
+
 export const POST: APIRoute = async ({ request }) => {
   const origin = request.headers.get('Origin');
   const allowed = ['https://llmsfordoctors.com', 'https://www.llmsfordoctors.com', 'http://localhost:4321'];
   if (!origin || !allowed.includes(origin)) {
-    return new Response(JSON.stringify({ error: 'Forbidden' }), {
-      status: 403,
-      headers: { 'Content-Type': 'application/json' },
+    return json({ error: 'Forbidden' }, 403);
+  }
+
+  const contentLength = Number(request.headers.get('Content-Length') ?? 0);
+  if (contentLength > MAX_MESSAGE_LENGTH + 1_000) {
+    return json({ error: 'Request body is too large' }, 413);
+  }
+
+  const ip = request.headers.get('CF-Connecting-IP') ?? 'unknown';
+  const rateKey = `contact_rate:${ip}`;
+  const attempts = parseInt((await env.FORM_STORE.get(rateKey)) ?? '0', 10);
+  if (attempts >= RATE_MAX_SUBMISSIONS) {
+    return json({ error: 'Too many messages. Please try again later.' }, 429, {
+      'Retry-After': String(RATE_WINDOW_SECONDS),
     });
   }
 
@@ -17,31 +41,19 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     body = await request.json();
   } catch {
-    return new Response(JSON.stringify({ error: 'Invalid JSON' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return json({ error: 'Invalid JSON' }, 400);
   }
 
   const { name, email, message } = body;
 
-  if (!name || typeof name !== 'string' || name.trim().length === 0) {
-    return new Response(JSON.stringify({ error: 'Name is required' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+  if (!name || typeof name !== 'string' || name.trim().length === 0 || name.length > MAX_NAME_LENGTH) {
+    return json({ error: `Name is required and must be ${MAX_NAME_LENGTH} characters or fewer` }, 400);
   }
-  if (!email || typeof email !== 'string' || !email.includes('@')) {
-    return new Response(JSON.stringify({ error: 'Valid email required' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+  if (!email || typeof email !== 'string' || !email.includes('@') || email.length > MAX_EMAIL_LENGTH) {
+    return json({ error: 'Valid email required' }, 400);
   }
-  if (!message || typeof message !== 'string' || message.trim().length === 0) {
-    return new Response(JSON.stringify({ error: 'Message is required' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+  if (!message || typeof message !== 'string' || message.trim().length === 0 || message.length > MAX_MESSAGE_LENGTH) {
+    return json({ error: `Message is required and must be ${MAX_MESSAGE_LENGTH} characters or fewer` }, 400);
   }
 
   try {
@@ -49,6 +61,10 @@ export const POST: APIRoute = async ({ request }) => {
     const trimmedEmail = email.toLowerCase().trim();
     const trimmedMessage = message.trim();
     const submittedAt = new Date().toISOString();
+
+    // Cloudflare KV increments are eventually consistent, but this is enough to
+    // deter routine form spam; edge rate limiting remains the stronger boundary.
+    await env.FORM_STORE.put(rateKey, String(attempts + 1), { expirationTtl: RATE_WINDOW_SECONDS });
 
     const key = `contact:${Date.now()}-${crypto.randomUUID().slice(0, 8)}`;
     await env.FORM_STORE.put(key, JSON.stringify({
@@ -78,16 +94,10 @@ export const POST: APIRoute = async ({ request }) => {
       console.error('Resend email failed:', emailErr);
     }
 
-    return new Response(JSON.stringify({ ok: true }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return json({ ok: true }, 200);
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'Submission failed';
-    return new Response(JSON.stringify({ error: msg }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return json({ error: msg }, 500);
   }
 };
 
