@@ -1,0 +1,8 @@
+/briefs/abim /education/briefs/abim 301
+/briefs/abim/* /education/briefs/abim/:splat 301
+/qualifiers /education/semantic-qualifiers 301
+/qualifiers/* /education/semantic-qualifiers/:splat 301
+/cardiology /education/cardiology 301
+/cardiology/* /education/cardiology/:splat 301
+/ecg /education/cardiology/ecg 301
+/ecg/* /education/cardiology/ecg/:splat 301
