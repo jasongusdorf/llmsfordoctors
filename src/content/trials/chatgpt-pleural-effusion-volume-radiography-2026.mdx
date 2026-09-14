@@ -1,0 +1,54 @@
+---
+title: "ChatGPT and Radiologists Are Similarly Imprecise at Estimating Pleural Effusion Volume"
+journal: "European Radiology Experimental"
+year: 2026
+doi: "10.1186/s41747-026-00790-3"
+keyFinding: "In a retrospective, single-center observational study of 88 patients selected for CT-confirmed pleural effusion, ChatGPT 5.2 estimated effusion volume from chest radiographs with moderate agreement with CT volumetry (ICC 0.66) and a mean absolute error of 264 mL. Its performance was similar to that of two experienced radiologists, but its limits of agreement, from -651 to +765 mL, were too wide for reliable quantification."
+lastUpdated: 2026-09-14
+tags: [chatgpt, multimodal-ai, chest-radiography, pleural-effusion, radiology, diagnostic-imaging, observational-study]
+socialPost: "ChatGPT 5.2 performed similarly to two radiologists when estimating pleural effusion volume from chest radiographs, but all three estimates were imprecise. Against CT, the model's mean absolute error was 264 mL, with limits of agreement from -651 to +765 mL."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This retrospective, single-center observational study compared estimates of pleural effusion volume from chest radiographs by a general-purpose multimodal model and experienced radiologists. Investigators at one tertiary institution identified adults who underwent chest CT and radiography on the same day during 2025. The cohort was enriched for positive cases: every patient had at least one CT-confirmed effusion of 20 mL or more. After exclusions, the analysis included 88 patients and 176 hemithoraces. Manual CT segmentation served as the reference standard.
+
+Two board-certified radiologists with 19 and 9 years of experience independently estimated the volume on each side, blinded to the CT images and measurements and to each other's assessments. The AI evaluation used the commercial browser version of ChatGPT 5.2 with default settings and a standardized zero-shot prompt. The model was not selected prospectively through a quantitative comparison. The investigators qualitatively prescreened five accessible models, then chose the one they considered best suited to the task. Each radiograph was submitted as a screen capture, and the model returned a volume estimate and confidence score for each hemithorax.
+
+## Key Findings
+
+- **Agreement with CT was moderate for everyone.** Intraclass correlation coefficients were 0.64 and 0.74 for the two radiologists and 0.66 for ChatGPT 5.2.
+- **The errors were substantial.** Mean absolute error was 300 mL for radiologist 1, 250 mL for radiologist 2, and 264 mL for the AI. The AI's Bland-Altman limits of agreement extended from -651 to +765 mL.
+- **On the exploratory threshold analysis, ChatGPT performed similarly to one radiologist and worse than the other.** For identifying CT volumes of at least 300 mL, AUC was 0.84 for radiologist 1, 0.90 for radiologist 2, and 0.85 for the AI. The AI's selected cutoff of 380 mL yielded sensitivity and specificity of 0.78 each.
+- **Position and anatomy mattered.** Larger CT-measured volumes, left-sided effusions, and supine acquisition were independently associated with greater AI estimation error.
+- **Confidence did not identify better estimates.** AI confidence was not significantly associated with error relative to CT.
+
+<Callout type="evidence">
+  CT volumetry is a stronger reference standard than a radiologist label, and both human readers were blinded. Still, this was not a broad diagnostic study. The investigators selected 88 patients with CT-confirmed pleural fluid in at least one hemithorax, then analyzed both hemithoraces. The resulting spectrum bias limits generalization of the threshold performance to an unselected chest radiography population.
+</Callout>
+
+## Clinical Implications
+
+1. **"Comparable to radiologists" does not mean accurate.** ChatGPT's 264 mL mean absolute error fell between those of the two readers, but its limits of agreement spanned 1,416 mL. The study did not evaluate whether any of these estimates could safely guide drainage or other management decisions.
+
+2. **The threshold result does not establish clinical utility.** In this selected cohort, AI distinguished effusions above versus below 300 mL with an AUC of 0.85. This exploratory analysis did not test triage or treatment decisions. The authors conclude that accurate quantification requires ultrasound or CT.
+
+3. **There is no evidence here for a stable, general model capability.** Only ChatGPT 5.2 and one prompt were evaluated. The commercial model was not locked, images were passed through browser screen captures, and performance may change with model updates, image handling, or different prompts.
+
+<Callout type="pitfall">
+  The investigators selected ChatGPT 5.2 after qualitatively prescreening five models on images outside the study dataset. Because they did not report a quantitative comparison, the relative performance of the other models is unknown. A different prompt could also produce different results.
+</Callout>
+
+## My Takeaway
+
+The clearest finding is that ChatGPT 5.2 performed similarly to two experienced radiologists on a task all three performed imprecisely. Its ICC against CT was 0.66, compared with 0.64 and 0.74 for the radiologists, and its mean absolute error was 264 mL, compared with 300 and 250 mL. The AI's limits of agreement, from -651 to +765 mL, show how far an individual estimate could diverge from CT volumetry.
+
+The reference standard and blinding are strengths: CT volumes came from manual segmentation, and the radiologists did not see the CT images or measurements. The design otherwise calls for restraint. This was a retrospective observational study at one tertiary center, with 88 patients selected for an effusion of at least 20 mL in one hemithorax. ChatGPT 5.2 was chosen after qualitative prescreening; only one model and one zero-shot prompt entered the formal comparison; and the commercial model was not locked. The exploratory AUC of 0.85 for identifying effusions of at least 300 mL therefore has uncertain applicability to an unselected population.
+
+The study does not establish a clinical role for uploading chest radiographs to a general chatbot for volume estimates. It instead shows that estimates derived from chest radiographs were imprecise whether produced by this model or by experienced radiologists. The authors conclude that accurate quantification requires ultrasound or CT. Confidence scores did not identify more accurate estimates for either the model or the radiologists.
+
+---
+
+[Read the full article at European Radiology Experimental](https://doi.org/10.1186/s41747-026-00790-3)
