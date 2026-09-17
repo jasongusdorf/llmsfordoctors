@@ -19,6 +19,7 @@ export type CardiologyTrack = {
   eyebrow: string;
   description: string;
   color: string;
+  references: string[];
   lessons: CardiologyLesson[];
 };
 
@@ -29,6 +30,7 @@ export const cardiologyTracks: CardiologyTrack[] = [
     eyebrow: 'Mechanism first',
     description: 'Anatomy, physiology, electrophysiology, and the clinical reasoning moves that make later interpretation coherent.',
     color: '#315f7d',
+    references: ['Current Diagnosis and Treatment: Cardiology, 5th ed. (Crawford)', 'Pocket Cardiology (Sabatine)', 'Opie’s Cardiovascular Drugs: A Companion to Braunwald’s Heart Disease (Bhatt)'],
     lessons: [
       {
         slug: 'cardiac-anatomy-and-flow', title: 'Cardiac anatomy and flow', level: 'Core',
@@ -79,6 +81,7 @@ export const cardiologyTracks: CardiologyTrack[] = [
     eyebrow: 'Hear and see physiology',
     description: 'Heart sounds, murmurs, venous waveforms, pulses, the precordium, congestion, and perfusion.',
     color: '#277f73',
+    references: ['Pocket Cardiology (Sabatine)', 'Cardiology Board Review (Pai and Varadarajan)', 'Atlas of Cardiovascular Emergencies (Lefebvre and O’Neill)'],
     lessons: [
       {
         slug: 'heart-sounds-and-splitting', title: 'Heart sounds and splitting', level: 'Core',
@@ -131,6 +134,7 @@ export const cardiologyTracks: CardiologyTrack[] = [
     eyebrow: 'Normal → abnormal → apply',
     description: 'ECG, telemetry, imaging, biomarkers, hemodynamics, exercise testing, and the pitfalls that create false certainty.',
     color: '#416f9f',
+    references: ['Goldberger’s Clinical Electrocardiography: A Simplified Approach', 'Essential Echocardiography: A Companion to Braunwald’s Heart Disease (Solomon and Wu)', 'Invasive Cardiology (Watson and Gorski)', 'Podrid’s Real-World ECGs, Vol. 2'],
     lessons: [
       {
         slug: 'systematic-ecg-interpretation', title: 'Systematic ECG interpretation', level: 'Core',
@@ -192,6 +196,7 @@ export const cardiologyTracks: CardiologyTrack[] = [
     eyebrow: 'From phenotype to mechanism',
     description: 'Deep disease hubs organized around presentation, mechanism, diagnostic proof, phenotype, and management.',
     color: '#7b557d',
+    references: ['Current Diagnosis and Treatment: Cardiology, 5th ed. (Crawford)', 'The ESC Handbook of Preventive Cardiology', 'Hypertension, Oxford Cardiology Library, 3rd ed. (Nadar and Lip)', 'Case Reports in Cardiology: Valvular Heart Disease (Roberts)'],
     lessons: [
       {
         slug: 'heart-failure', title: 'Heart failure', level: 'Core',
@@ -278,6 +283,7 @@ export const cardiologyTracks: CardiologyTrack[] = [
     eyebrow: 'Choose, perform, follow',
     description: 'Pharmacology, catheter-based care, devices, surgery, advanced therapies, and the decisions around them.',
     color: '#477981',
+    references: ['Cardiology Procedures: A Clinical Primer, 2nd ed. (Hendel and Kimmelstiel)', 'Invasive Cardiology (Watson and Gorski)', 'The EHRA Book of Interventional Electrophysiology', 'Opie’s Cardiovascular Drugs (Bhatt)'],
     lessons: [
       {
         slug: 'cardiovascular-pharmacology', title: 'Cardiovascular pharmacology by mechanism', level: 'Core',
@@ -330,6 +336,7 @@ export const cardiologyTracks: CardiologyTrack[] = [
     eyebrow: 'Apply under uncertainty',
     description: 'Symptom-first reasoning, interpretation drills, and decisions that connect mechanism to action.',
     color: '#5f697f',
+    references: ['Case Files: Cardiology (Toy and Faulx)', 'Cardiology Board Review: ECG, Hemodynamic and Angiographic Unknowns (Stouffer)', '1133 Questions: An Interventional Cardiology Board Review (Cho, Moliterno, and Lange)', 'Critical Cases in Electrocardiography (Lowenstein)'],
     lessons: [
       {
         slug: 'chest-pain', title: 'Chest pain: a risk-first approach', level: 'Core',

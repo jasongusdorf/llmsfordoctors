@@ -61,8 +61,7 @@ const sectionClass = 'rounded-xl border border-clinical-200 bg-warm-white p-5 da
       ))}
     </div>
 
-    {(lesson.related?.length || matchingGuidelines.length) && (
-      <section class="mt-8 rounded-xl bg-clinical-50 p-5 dark:bg-clinical-900">
+    <section class="mt-8 rounded-xl bg-clinical-50 p-5 dark:bg-clinical-900">
         <h2 class="font-heading text-xl font-semibold text-clinical-900 dark:text-clinical-50">Continue learning</h2>
         {lesson.related?.length && (
           <div class="mt-3 flex flex-wrap gap-2">
@@ -80,8 +79,13 @@ const sectionClass = 'rounded-xl border border-clinical-200 bg-warm-white p-5 da
             <a href="/education/cardiology/guidelines" class="mt-3 inline-block text-sm font-medium text-blue-600 hover:underline dark:text-blue-400">Browse the full guideline library →</a>
           </div>
         )}
+        <div class="mt-5">
+          <h3 class="text-sm font-semibold uppercase tracking-wide text-clinical-500">Core textbook references</h3>
+          <ul class="mt-2 space-y-1 text-sm leading-6 text-clinical-600 dark:text-clinical-300">
+            {track.references.map((reference) => <li>• {reference}</li>)}
+          </ul>
+        </div>
       </section>
-    )}
 
     <footer class="mt-10 border-t border-clinical-200 pt-5 text-sm text-clinical-500 dark:border-clinical-700 dark:text-clinical-400">
       <p>Evidence review: September 17, 2026. Educational material for clinicians. Verify recommendations against the linked current guideline and the patient’s circumstances.</p>
