@@ -8,7 +8,7 @@ const ROOT = new URL('..', import.meta.url).pathname;
 const OUT_DIR = path.join(ROOT, 'public/videos/cardiology/open-cine');
 const POSTER_DIR = path.join(ROOT, 'public/images/cardiology/cine-posters');
 const MANIFEST = path.join(ROOT, 'src/data/cardiology-cine-media.json');
-const MAX_COMMONS = Number(process.env.CARDIOLOGY_CINE_MAX_COMMONS || 180);
+const MAX_COMMONS = Number(process.env.CARDIOLOGY_CINE_MAX_COMMONS || 400);
 const MAX_SOURCE_BYTES = Number(process.env.CARDIOLOGY_CINE_MAX_SOURCE_BYTES || 30_000_000);
 const USER_AGENT = 'LLMsForDoctorsCineIngest/1.0 (educational attribution pipeline)';
 const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -95,7 +95,7 @@ async function transcode(sourceUrl, id) {
     } catch {}
     const cleanSource = new URL(sourceUrl);
     cleanSource.search = '';
-    const response = await fetchRetry(cleanSource, 0, 2);
+    const response = await fetchRetry(cleanSource, 0, 1);
     const length = Number(response.headers.get('content-length') || 0);
     if (length > MAX_SOURCE_BYTES) throw new Error(`source is ${length} bytes`);
     const bytes = Buffer.from(await response.arrayBuffer());
@@ -141,6 +141,16 @@ async function commonsPlaybackUrl(row) {
   return webm?.src || row.url;
 }
 
+async function echopediaPlaybackUrl(meta) {
+  const credit = meta.Credit?.value || '';
+  const match = credit.match(/href=["'](https?:\/\/www\.echopedia\.org\/\/wiki\/File:[^"']+|https?:\/\/www\.echopedia\.org\/wiki\/File:[^"']+)["']/i);
+  if (!match) return null;
+  const pageUrl = match[1].replace('http://', 'https://').replace('www.echopedia.org//', 'www.echopedia.org/');
+  const html = await (await fetchRetry(pageUrl, 0, 2)).text();
+  const file = html.match(/href=["']([^"']+\.avi)["']/i)?.[1];
+  return file ? new URL(file, pageUrl).href : null;
+}
+
 await mkdir(OUT_DIR, { recursive: true });
 await mkdir(POSTER_DIR, { recursive: true });
 let existing = [];
@@ -178,11 +188,13 @@ for (const row of candidates) {
   if (bySource.has(row.url)) { assets.push(bySource.get(row.url)); commonsCount++; continue; }
   const id = `commons-cine-${slug(row.title.replace(/^File:/, '').replace(/\.[^.]+$/, ''))}-${String(row.sha1).slice(0, 7)}`;
   try {
-    const file = await transcode(await commonsPlaybackUrl(row), id);
+    const playbackUrl = await echopediaPlaybackUrl(meta) || await commonsPlaybackUrl(row);
+    const file = await transcode(playbackUrl, id);
     const { category, modality } = seenTitles.get(row.title);
     assets.push({ id, title: text(meta.ObjectName?.value || row.title.replace(/^File:/, '').replace(/\.[^.]+$/, '')), description: text(meta.ImageDescription?.value || meta.Caption?.value || row.title.replace(/^File:/, '').replace(/\.[^.]+$/, '')), modality, category: `Wikimedia Commons · ${category}`, mediaKind: 'video', ...file, sourcePage: meta.DescriptionUrl?.value || `https://commons.wikimedia.org/wiki/${encodeURIComponent(row.title).replace(/%20/g, '_')}`, originalUrl: row.url, creator: text(meta.Artist?.value || 'Wikimedia Commons contributor'), credit: text(meta.Credit?.value || ''), license, licenseUrl: meta.LicenseUrl?.value || 'https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia', attributionRequired: !/^(cc0|pd|public domain)/i.test(license), changes: 'Transcoded to H.264 MP4 and resized to a maximum width of 720 px for browser compatibility; clinical content otherwise unchanged.', mime: 'video/mp4', commonsSha1: row.sha1, importedAt: new Date().toISOString() });
     commonsCount++;
     console.log(`Commons ${commonsCount}/${MAX_COMMONS}: ${row.title}`);
+    await pause(1200);
   } catch (error) { console.warn(`Commons skipped ${row.title}: ${error.message}`); }
 }
 
