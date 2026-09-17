@@ -3,13 +3,14 @@ import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import commons from './cardiology-open-media.json';
 import minnesota from './cardiology-minnesota-media.json';
+import cine from './cardiology-cine-media.json';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
-const media = [...commons, ...minnesota];
+const media = [...commons, ...minnesota, ...cine];
 
 describe('cardiology open media archive', () => {
   it('contains a substantial multi-source collection', () => {
-    expect(media.length).toBeGreaterThanOrEqual(75);
+    expect(media.length).toBeGreaterThanOrEqual(140);
     expect(new Set(media.map((item) => new URL(item.sourcePage).hostname)).size).toBeGreaterThanOrEqual(2);
   });
 
@@ -24,7 +25,15 @@ describe('cardiology open media archive', () => {
   });
 
   it('references files that exist in the public tree', () => {
-    for (const item of media) expect(existsSync(`${root}public${item.src}`), item.src).toBe(true);
+    for (const item of media) {
+      expect(existsSync(`${root}public${item.src}`), item.src).toBe(true);
+      if ('poster' in item) expect(existsSync(`${root}public${item.poster}`), item.poster).toBe(true);
+    }
+  });
+
+  it('contains a substantial echo and CMR cine collection', () => {
+    expect(cine.length).toBeGreaterThanOrEqual(65);
+    expect(new Set(cine.map((item) => item.modality))).toEqual(new Set(['Echo', 'Cardiac MRI']));
+    expect(cine.every((item) => item.mime === 'video/mp4' && item.mediaKind === 'video')).toBe(true);
   });
 });
-

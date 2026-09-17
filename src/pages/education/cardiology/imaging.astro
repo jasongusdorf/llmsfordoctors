@@ -5,14 +5,15 @@ import CardiologyImagingLab from '../../../components/CardiologyImagingLab';
 import { cardiologyImagingStudies } from '../../../data/cardiology-imaging-studies';
 import media from '../../../data/cardiology-open-media.json';
 import minnesotaMedia from '../../../data/cardiology-minnesota-media.json';
-const mediaCount = media.length + minnesotaMedia.length;
+import cineMedia from '../../../data/cardiology-cine-media.json';
+const mediaCount = media.length + minnesotaMedia.length + cineMedia.length;
 ---
 <BaseLayout title="Cardiology Imaging & Hemodynamics Lab - LLMs for Doctors" description="Interactive echo, catheterization, pressure-volume loop, JVP, angiography, CT, and MRI interpretation practice.">
  <div class="cardiology-page mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
   <Breadcrumb crumbs={[{label:'Home',href:'/'},{label:'Cardiology',href:'/education/cardiology'},{label:'Imaging & Hemodynamics Lab'}]}/>
   <header class="cardiology-hero mb-8 max-w-5xl"><p class="cardiology-kicker cardiology-pulse-rule mb-2 text-sm font-semibold uppercase tracking-[0.18em]">Interpretation lab</p><h1 class="font-heading text-3xl font-bold text-clinical-900 dark:text-clinical-50 sm:text-5xl">Cardiology Imaging & Hemodynamics Lab</h1><p class="mt-4 max-w-3xl text-lg leading-8 text-clinical-600 dark:text-clinical-300">Read the picture, tracing, or loop before seeing the answer. Practice echo, invasive hemodynamics, pressure-volume loops, JVP, angiography, and cardiac MRI with confidence calibration and spaced repetition.</p><div class="mt-5 flex flex-wrap gap-2 text-sm"><span class="rounded-full bg-clinical-100 px-3 py-1.5 dark:bg-clinical-800">{cardiologyImagingStudies.length} interactive studies</span><span class="rounded-full bg-clinical-100 px-3 py-1.5 dark:bg-clinical-800">7 modalities</span><span class="rounded-full bg-clinical-100 px-3 py-1.5 dark:bg-clinical-800">No account required</span></div></header>
   <a href="/education/cardiology/media" class="mb-8 flex flex-col gap-3 rounded-xl border border-red-200 bg-red-50 p-5 transition hover:border-red-500 hover:shadow-md dark:border-red-900 dark:bg-red-950/20 sm:flex-row sm:items-center sm:justify-between"><span><strong class="font-heading text-xl">Practice with real open cardiac media</strong><span class="mt-1 block text-sm text-clinical-600 dark:text-clinical-300">Browse {mediaCount} echo, CMR, angiography, CT, and anatomy assets with explicit licenses and provenance.</span></span><span class="shrink-0 font-semibold text-red-700 dark:text-red-300">Open the library →</span></a>
-  <CardiologyImagingLab client:load studies={cardiologyImagingStudies} media={[...media, ...minnesotaMedia]}/>
+  <CardiologyImagingLab client:load studies={cardiologyImagingStudies} media={[...cineMedia, ...media, ...minnesotaMedia]}/>
   <footer class="mt-10 border-t border-clinical-200 pt-5 text-sm leading-6 text-clinical-500 dark:border-clinical-700">Evidence review: September 17, 2026. Clinical peer review status: pending. Schematics are original educational abstractions, not patient studies and not suitable for clinical measurement. Verify patient-specific decisions against primary imaging, current guidelines, and local expertise.</footer>
  </div>
 </BaseLayout>

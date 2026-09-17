@@ -4,7 +4,8 @@ import Breadcrumb from '../../../components/Breadcrumb.astro';
 import CardiologyMediaLibrary from '../../../components/CardiologyMediaLibrary';
 import media from '../../../data/cardiology-open-media.json';
 import minnesotaMedia from '../../../data/cardiology-minnesota-media.json';
-const allMedia = [...media, ...minnesotaMedia];
+import cineMedia from '../../../data/cardiology-cine-media.json';
+const allMedia = [...cineMedia, ...media, ...minnesotaMedia];
 ---
 <BaseLayout title="Open Cardiology Media Library - LLMs for Doctors" description="A source-traceable collection of openly licensed echocardiography, cardiac MRI, angiography, CT, and anatomy images.">
   <div class="cardiology-page mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
@@ -12,8 +13,8 @@ const allMedia = [...media, ...minnesotaMedia];
     <header class="cardiology-hero mb-8 max-w-5xl">
       <p class="cardiology-kicker cardiology-pulse-rule mb-2 text-sm font-semibold uppercase tracking-[0.18em]">Real images · explicit provenance</p>
       <h1 class="font-heading text-3xl font-bold sm:text-5xl">Open Cardiology Media Library</h1>
-      <p class="mt-4 max-w-3xl text-lg leading-8 text-clinical-600 dark:text-clinical-300">Openly licensed echo, CMR, angiography, CT, and anatomy assets. Every file retains its creator, source page, license, and modification record. Images are educational examples, not substitutes for complete clinical studies.</p>
-      <div class="mt-5 flex flex-wrap gap-2 text-sm"><span class="rounded-full bg-clinical-100 px-3 py-1.5 dark:bg-clinical-800">{allMedia.length} licensed assets</span><span class="rounded-full bg-clinical-100 px-3 py-1.5 dark:bg-clinical-800">Source-level attribution</span><span class="rounded-full bg-clinical-100 px-3 py-1.5 dark:bg-clinical-800">No research-only datasets</span></div>
+      <p class="mt-4 max-w-3xl text-lg leading-8 text-clinical-600 dark:text-clinical-300">Openly licensed echo and CMR cine loops plus angiography, CT, and anatomy images. Every file retains its creator, source page, license, and modification record. Media are educational examples, not substitutes for complete clinical studies.</p>
+      <div class="mt-5 flex flex-wrap gap-2 text-sm"><span class="rounded-full bg-clinical-100 px-3 py-1.5 dark:bg-clinical-800">{allMedia.length} licensed assets</span><span class="rounded-full bg-clinical-100 px-3 py-1.5 dark:bg-clinical-800">{cineMedia.length} real cine loops</span><span class="rounded-full bg-clinical-100 px-3 py-1.5 dark:bg-clinical-800">Source-level attribution</span><span class="rounded-full bg-clinical-100 px-3 py-1.5 dark:bg-clinical-800">No research-only datasets</span></div>
     </header>
     <CardiologyMediaLibrary client:load items={allMedia}/>
     <footer class="mt-10 border-t border-clinical-200 pt-5 text-sm leading-6 text-clinical-500 dark:border-clinical-700">Licenses apply per asset. Attribution and source links appear in each expanded record. Clinical labels inherit source descriptions and have not been independently adjudicated. Report corrections through the site contact.</footer>

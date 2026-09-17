@@ -9,13 +9,14 @@ import { cardiologyImagingStudies } from '../../../data/cardiology-imaging-studi
 import { cardiologyCalculators } from '../../../data/cardiology-calculators';
 import openMedia from '../../../data/cardiology-open-media.json';
 import minnesotaMedia from '../../../data/cardiology-minnesota-media.json';
+import cineMedia from '../../../data/cardiology-cine-media.json';
 import guidelines from '../../../data/cardiology-guidelines.json';
 import data from '../../../data/semantic-qualifiers.json';
 import library from '../../../data/heart-sounds-library.json';
 import ecg from '../../../data/ecg-library.json';
 
 const d = data as any;
-const mediaCount = openMedia.length + minnesotaMedia.length;
+const mediaCount = openMedia.length + minnesotaMedia.length + cineMedia.length;
 const quals = d.qualifiers.filter((q: any) => q.domain === 'Cardiology');
 const dxs = d.diagnoses.filter((item: any) => item.specialty === 'Cardiology');
 const tracks = library as any[];
@@ -26,10 +27,10 @@ const ecgCount = (ecg as any).categories.reduce((total: number, category: any) =
 const searchItems = [
   {
     title: 'Open Cardiology Media Library',
-    description: `${mediaCount} source-traceable, openly licensed cardiac images.`,
+    description: `${mediaCount} source-traceable, openly licensed cardiac images and cine loops.`,
     href: '/education/cardiology/media',
     section: 'Real echo, CMR, CT, angiography, and anatomy',
-    terms: ['images', 'media', 'echo', 'CMR', 'MRI', 'angiography', 'CT'],
+    terms: ['images', 'media', 'video', 'cine', 'loops', 'echo', 'CMR', 'MRI', 'angiography', 'CT'],
   },
   ...cardiologyCalculators.map((item) => ({
     title: item.title,
