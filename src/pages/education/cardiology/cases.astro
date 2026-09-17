@@ -6,10 +6,10 @@ import { cardiologyCases } from '../../../data/cardiology-cases';
 ---
 
 <BaseLayout title="Cardiology Case Lab - LLMs for Doctors" description="Progressive cardiology cases with ECGs, heart sounds, committed answers, confidence tracking, and spaced repetition.">
-  <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+  <div class="cardiology-page mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
     <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Cardiology', href: '/education/cardiology' }, { label: 'Case Lab' }]} />
-    <header class="mb-8 max-w-4xl">
-      <p class="mb-2 text-sm font-semibold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-400">Active learning</p>
+    <header class="cardiology-hero mb-8 max-w-5xl">
+      <p class="cardiology-kicker cardiology-pulse-rule mb-2 text-sm font-semibold uppercase tracking-[0.18em]">Active learning</p>
       <h1 class="font-heading text-3xl font-bold text-clinical-900 dark:text-clinical-50 sm:text-5xl">Cardiology Case Lab</h1>
       <p class="mt-4 text-lg leading-8 text-clinical-600 dark:text-clinical-300">Work through staged clinical decisions before seeing the answer. Real teaching ECGs and heart sounds are paired with synthetic vignettes, confidence calibration, error tracking, and a browser-local spaced-repetition queue.</p>
       <div class="mt-5 flex flex-wrap gap-2 text-sm">

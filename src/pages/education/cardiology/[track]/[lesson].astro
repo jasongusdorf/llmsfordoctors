@@ -19,7 +19,7 @@ const sectionClass = 'rounded-xl border border-clinical-200 bg-warm-white p-5 da
 ---
 
 <BaseLayout title={`${lesson.title} - Cardiology - LLMs for Doctors`} description={lesson.dek}>
-  <article class="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
+  <article class="cardiology-page mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
     <Breadcrumb crumbs={[
       { label: 'Home', href: '/' },
       { label: 'Cardiology', href: '/education/cardiology' },
@@ -27,7 +27,7 @@ const sectionClass = 'rounded-xl border border-clinical-200 bg-warm-white p-5 da
       { label: lesson.title },
     ]} />
 
-    <header class="mb-10">
+    <header class="cardiology-hero mb-10">
       <div class="mb-3 flex flex-wrap items-center gap-2">
         <span class="text-sm font-semibold uppercase tracking-[0.15em]" style={`color:${track.color}`}>{track.title}</span>
         <span class="text-clinical-300">•</span>

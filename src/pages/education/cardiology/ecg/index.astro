@@ -14,10 +14,11 @@ const card =
   title="ECG Library - LLMs for Doctors"
   description={`${total} real 12-lead ECGs across ${d.categories.length} diagnostic categories, with a full read on every tracing and a randomised quiz.`}
 >
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <div class="cardiology-page max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
     <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Cardiology', href: '/education/cardiology' }, { label: 'ECG Library' }]} />
 
-    <header class="mb-8">
+    <header class="cardiology-hero mb-8">
+      <p class="cardiology-kicker cardiology-pulse-rule mb-2 text-sm font-semibold uppercase tracking-[0.16em]">Signal library</p>
       <h1 class="font-heading text-3xl sm:text-4xl font-bold text-clinical-900 dark:text-clinical-50 mb-3">
         ECG Library
       </h1>

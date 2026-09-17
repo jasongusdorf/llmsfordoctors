@@ -12,10 +12,10 @@ const bySociety = societies.map((society) => ({
 ---
 
 <BaseLayout title="Current Cardiology Guidelines - LLMs for Doctors" description="The current ACC/AHA and ESC cardiology guidelines published from 2021 onward, with superseded editions removed.">
-  <div class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+  <div class="cardiology-page mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
     <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Cardiology', href: '/education/cardiology' }, { label: 'Guidelines' }]} />
-    <header class="mb-9">
-      <p class="mb-2 text-sm font-semibold uppercase tracking-[0.16em] text-blue-600 dark:text-blue-400">Evidence shelf</p>
+    <header class="cardiology-hero mb-9">
+      <p class="cardiology-kicker cardiology-pulse-rule mb-2 text-sm font-semibold uppercase tracking-[0.16em]">Evidence shelf</p>
       <h1 class="font-heading text-3xl font-bold text-clinical-900 dark:text-clinical-50 sm:text-4xl">Current cardiology guidelines</h1>
       <p class="mt-3 max-w-3xl text-lg text-clinical-600 dark:text-clinical-300">ACC/AHA and ESC clinical practice guidelines published from 2021 onward. When a newer edition updates the same topic, only the newest edition is retained.</p>
       <p class="mt-3 text-sm text-clinical-500 dark:text-clinical-400">Last reviewed September 17, 2026 · {sorted.length} documents · Official publisher links</p>

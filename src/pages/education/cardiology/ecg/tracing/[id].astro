@@ -59,7 +59,7 @@ const facts = [
   title={`ECG record ${t.id}: ${cat.name} - LLMs for Doctors`}
   description={`Full read of PTB-XL record ${t.id}, labelled ${cat.name.toLowerCase()}.`}
 >
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <div class="cardiology-page max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
     <Breadcrumb
       crumbs={[
         { label: 'Home', href: '/' },
@@ -70,7 +70,7 @@ const facts = [
       ]}
     />
 
-    <header class="mb-6">
+    <header class="cardiology-hero mb-6">
       <p class="text-sm font-medium text-blue-600 dark:text-blue-400 mb-1">
         {group?.name} · <a href={`/education/cardiology/ecg/${cat.id}`} class="hover:underline">{cat.name}</a>
       </p>

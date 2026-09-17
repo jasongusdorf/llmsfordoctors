@@ -78,13 +78,13 @@ const trackColumns = cardiologyTracks.map((track) => ({ ...track, preview: track
   title="Comprehensive Cardiology Education - LLMs for Doctors"
   description="Mechanism-first cardiology education: physical examination, ECG and imaging interpretation, disease hubs, procedures, cases, and current ACC/AHA and ESC guidelines."
 >
-  <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+  <div class="cardiology-page mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
     <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Cardiology' }]} />
 
-    <header class="mx-auto mb-9 max-w-4xl text-center">
-      <p class="mb-2 text-sm font-semibold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-400">Comprehensive cardiology education</p>
+    <header class="cardiology-hero mx-auto mb-9 max-w-5xl text-left sm:px-10 sm:py-10">
+      <p class="cardiology-kicker cardiology-pulse-rule mb-3 text-sm font-semibold uppercase tracking-[0.18em]">Comprehensive cardiology education</p>
       <h1 class="font-heading text-3xl font-bold text-clinical-900 dark:text-clinical-50 sm:text-5xl">Learn the skills. Interpret the findings. Understand the disease.</h1>
-      <p class="mx-auto mt-4 max-w-3xl text-lg leading-8 text-clinical-600 dark:text-clinical-300">A mechanism-first curriculum that moves from physiology to the bedside, from a tracing to a diagnosis, and from a diagnosis to a defensible management decision.</p>
+      <p class="mt-4 max-w-3xl text-lg leading-8 text-clinical-600 dark:text-clinical-300">A mechanism-first curriculum that moves from physiology to the bedside, from a tracing to a diagnosis, and from a diagnosis to a defensible management decision.</p>
     </header>
 
     <div class="mx-auto mb-12 max-w-4xl">
@@ -92,10 +92,10 @@ const trackColumns = cardiologyTracks.map((track) => ({ ...track, preview: track
       <p class="mt-2 text-center text-xs text-clinical-400">Search {allCardiologyLessons.length} lessons, {(guidelines as any[]).length} current guidelines, and {quals.length} cardiac findings</p>
     </div>
 
-    <a href="/education/cardiology/cases" class="group mb-12 block overflow-hidden rounded-2xl border border-blue-300 bg-gradient-to-r from-blue-950 to-clinical-900 p-6 text-white shadow-sm hover:border-blue-400 hover:shadow-md sm:p-8">
+    <a href="/education/cardiology/cases" class="cardiology-feature-primary group mb-12 block overflow-hidden rounded-2xl border p-6 text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg sm:p-8">
       <div class="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
         <div class="max-w-3xl">
-          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-blue-300">New · active learning</p>
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-red-200">Active learning · 50 cases</p>
           <h2 class="mt-2 font-heading text-2xl font-bold sm:text-3xl">Enter the Cardiology Case Lab</h2>
           <p class="mt-3 leading-7 text-clinical-200">Progressive cases with real ECGs and heart sounds, committed answers, confidence calibration, recurring-error tracking, and spaced repetition.</p>
         </div>
@@ -103,8 +103,8 @@ const trackColumns = cardiologyTracks.map((track) => ({ ...track, preview: track
       </div>
     </a>
 
-    <a href="/education/cardiology/imaging" class="group mb-12 block overflow-hidden rounded-2xl border border-cyan-300 bg-gradient-to-r from-cyan-950 to-blue-950 p-6 text-white shadow-sm hover:border-cyan-400 hover:shadow-md sm:p-8">
-      <div class="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between"><div class="max-w-3xl"><p class="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-300">New · visual interpretation</p><h2 class="mt-2 font-heading text-2xl font-bold sm:text-3xl">Imaging & Hemodynamics Lab</h2><p class="mt-3 leading-7 text-clinical-200">Commit to a read across echo, cath tracings, pressure-volume loops, JVP, angiography, and cardiac MRI—then calibrate confidence and schedule review.</p></div><span class="shrink-0 rounded-full bg-white px-5 py-2.5 font-semibold text-blue-900 transition-transform group-hover:translate-x-1">Read a study →</span></div>
+    <a href="/education/cardiology/imaging" class="cardiology-feature-secondary group mb-12 block overflow-hidden rounded-2xl border p-6 text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg sm:p-8">
+      <div class="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between"><div class="max-w-3xl"><p class="text-sm font-semibold uppercase tracking-[0.18em] text-teal-200">Visual interpretation · 7 modalities</p><h2 class="mt-2 font-heading text-2xl font-bold sm:text-3xl">Imaging & Hemodynamics Lab</h2><p class="mt-3 leading-7 text-clinical-200">Commit to a read across echo, cath tracings, pressure-volume loops, JVP, angiography, and cardiac MRI—then calibrate confidence and schedule review.</p></div><span class="shrink-0 rounded-full bg-white px-5 py-2.5 font-semibold text-teal-900 transition-transform group-hover:translate-x-1">Read a study →</span></div>
     </a>
 
     <section class="mb-12 grid gap-4 md:grid-cols-2">
