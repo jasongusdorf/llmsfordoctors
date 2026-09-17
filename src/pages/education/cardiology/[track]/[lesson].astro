@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../../components/Breadcrumb.astro';
+import guidelines from '../../../../data/cardiology-guidelines.json';
+import { cardiologyTracks, type CardiologyLesson, type CardiologyTrack } from '../../../../data/cardiology-curriculum';
+
+export function getStaticPaths() {
+  return cardiologyTracks.flatMap((track) => track.lessons.map((lesson) => ({
+    params: { track: track.slug, lesson: lesson.slug },
+    props: { track, lesson },
+  })));
+}
+
+const { track, lesson } = Astro.props as { track: CardiologyTrack; lesson: CardiologyLesson };
+const matchingGuidelines = (guidelines as any[]).filter((guideline) =>
+  lesson.guidelineTopics?.some((topic) => guideline.topic.toLowerCase().includes(topic.toLowerCase())),
+);
+const sectionClass = 'rounded-xl border border-clinical-200 bg-warm-white p-5 dark:border-clinical-700 dark:bg-clinical-800';
+---
+
+<BaseLayout title={`${lesson.title} - Cardiology - LLMs for Doctors`} description={lesson.dek}>
+  <article class="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
+    <Breadcrumb crumbs={[
+      { label: 'Home', href: '/' },
+      { label: 'Cardiology', href: '/education/cardiology' },
+      { label: track.title, href: `/education/cardiology/${track.slug}` },
+      { label: lesson.title },
+    ]} />
+
+    <header class="mb-10">
+      <div class="mb-3 flex flex-wrap items-center gap-2">
+        <span class="text-sm font-semibold uppercase tracking-[0.15em]" style={`color:${track.color}`}>{track.title}</span>
+        <span class="text-clinical-300">•</span>
+        <span class="rounded-full bg-clinical-100 px-2.5 py-1 text-xs font-medium text-clinical-600 dark:bg-clinical-700 dark:text-clinical-300">{lesson.level}</span>
+      </div>
+      <h1 class="font-heading text-3xl font-bold text-clinical-900 dark:text-clinical-50 sm:text-4xl">{lesson.title}</h1>
+      <p class="mt-3 text-lg leading-8 text-clinical-600 dark:text-clinical-300">{lesson.dek}</p>
+    </header>
+
+    <section class={`${sectionClass} mb-5 border-l-4`} style={`border-left-color:${track.color}`}>
+      <h2 class="font-heading text-xl font-semibold text-clinical-900 dark:text-clinical-50">Mechanism</h2>
+      <p class="mt-3 leading-7 text-clinical-700 dark:text-clinical-200">{lesson.mechanism}</p>
+    </section>
+
+    <div class="grid gap-5 md:grid-cols-2">
+      {[
+        { title: 'Findings', items: lesson.findings, number: '01' },
+        { title: 'Tests and interpretation', items: lesson.testing, number: '02' },
+        { title: 'Management', items: lesson.management, number: '03' },
+        { title: 'Common pitfalls', items: lesson.pitfalls, number: '04' },
+      ].map((section) => (
+        <section class={sectionClass}>
+          <div class="flex items-baseline gap-3">
+            <span class="text-xs font-bold text-clinical-400">{section.number}</span>
+            <h2 class="font-heading text-xl font-semibold text-clinical-900 dark:text-clinical-50">{section.title}</h2>
+          </div>
+          <ul class="mt-3 space-y-3 text-sm leading-6 text-clinical-700 dark:text-clinical-200">
+            {section.items.map((item) => <li class="flex gap-2"><span aria-hidden="true" class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-500"></span><span>{item}</span></li>)}
+          </ul>
+        </section>
+      ))}
+    </div>
+
+    {(lesson.related?.length || matchingGuidelines.length) && (
+      <section class="mt-8 rounded-xl bg-clinical-50 p-5 dark:bg-clinical-900">
+        <h2 class="font-heading text-xl font-semibold text-clinical-900 dark:text-clinical-50">Continue learning</h2>
+        {lesson.related?.length && (
+          <div class="mt-3 flex flex-wrap gap-2">
+            {lesson.related.map((item) => <a href={item.href} class="rounded-full border border-clinical-200 bg-white px-3 py-1.5 text-sm text-blue-600 hover:border-blue-500 dark:border-clinical-700 dark:bg-clinical-800 dark:text-blue-400">{item.label}</a>)}
+          </div>
+        )}
+        {matchingGuidelines.length > 0 && (
+          <div class="mt-5">
+            <h3 class="text-sm font-semibold uppercase tracking-wide text-clinical-500">Current guidelines</h3>
+            <ul class="mt-2 space-y-2">
+              {matchingGuidelines.map((guideline) => (
+                <li><a href={guideline.landingUrl} target="_blank" rel="noreferrer" class="text-sm text-blue-600 hover:underline dark:text-blue-400">{guideline.title} ↗</a></li>
+              ))}
+            </ul>
+            <a href="/education/cardiology/guidelines" class="mt-3 inline-block text-sm font-medium text-blue-600 hover:underline dark:text-blue-400">Browse the full guideline library →</a>
+          </div>
+        )}
+      </section>
+    )}
+
+    <footer class="mt-10 border-t border-clinical-200 pt-5 text-sm text-clinical-500 dark:border-clinical-700 dark:text-clinical-400">
+      <p>Evidence review: September 17, 2026. Educational material for clinicians. Verify recommendations against the linked current guideline and the patient’s circumstances.</p>
+      <p class="mt-2">Clinical peer review status: pending. This draft should not be represented as independently physician-reviewed until a named reviewer has approved it.</p>
+    </footer>
+  </article>
+</BaseLayout>

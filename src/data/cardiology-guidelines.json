@@ -1,0 +1,372 @@
+[
+  {
+    "society": "ACC/AHA",
+    "year": 2026,
+    "topic": "Cardiovascular-kidney-metabolic syndrome",
+    "title": "2026 AHA/ACC/ADA/ASN Guideline for the Prevention, Detection, Evaluation, and Management of Cardiovascular-Kidney-Metabolic Syndrome",
+    "doi": "10.1016/j.jacc.2026.03.056",
+    "landingUrl": "https://www.acc.org/guidelines",
+    "category": "Prevention and cardiometabolic health",
+    "filename": "2026-ACC-AHA-Cardiovascular-Kidney-Metabolic-Syndrome.pdf"
+  },
+  {
+    "society": "ACC/AHA",
+    "year": 2026,
+    "topic": "Dyslipidemia",
+    "title": "2026 ACC/AHA Guideline for the Management of Dyslipidemia",
+    "doi": "10.1016/j.jacc.2025.11.016",
+    "landingUrl": "https://www.acc.org/guidelines",
+    "category": "Prevention and cardiometabolic health",
+    "filename": "2026-ACC-AHA-Dyslipidemia.pdf"
+  },
+  {
+    "society": "ACC/AHA",
+    "year": 2026,
+    "topic": "Acute pulmonary embolism",
+    "title": "2026 ACC/AHA Guideline for the Evaluation and Management of Acute Pulmonary Embolism",
+    "doi": "10.1016/j.jacc.2025.11.005",
+    "landingUrl": "https://www.acc.org/guidelines",
+    "category": "Pulmonary vascular disease",
+    "filename": "2026-ACC-AHA-Acute-Pulmonary-Embolism.pdf"
+  },
+  {
+    "society": "ACC/AHA",
+    "year": 2025,
+    "topic": "Adult congenital heart disease",
+    "title": "2025 ACC/AHA Guideline for the Management of Adults With Congenital Heart Disease",
+    "doi": "10.1016/j.jacc.2025.09.006",
+    "landingUrl": "https://www.acc.org/guidelines",
+    "category": "Structural and congenital disease",
+    "filename": "2025-ACC-AHA-Adult-Congenital-Heart-Disease.pdf"
+  },
+  {
+    "society": "ACC/AHA",
+    "year": 2025,
+    "topic": "High blood pressure",
+    "title": "2025 ACC/AHA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults",
+    "doi": "10.1016/j.jacc.2025.05.007",
+    "landingUrl": "https://www.acc.org/guidelines",
+    "category": "Prevention and cardiometabolic health",
+    "filename": "2025-ACC-AHA-High-Blood-Pressure.pdf"
+  },
+  {
+    "society": "ACC/AHA",
+    "year": 2025,
+    "topic": "Acute coronary syndromes",
+    "title": "2025 ACC/AHA/ACEP/NAEMSP/SCAI Guideline for the Management of Patients With Acute Coronary Syndromes",
+    "doi": "10.1016/j.jacc.2024.11.009",
+    "landingUrl": "https://www.acc.org/guidelines/hubs/non-st-elevation-acute-coronary-syndromes",
+    "category": "Coronary and ischemic disease",
+    "filename": "2025-ACC-AHA-Acute-Coronary-Syndromes.pdf"
+  },
+  {
+    "society": "ACC/AHA",
+    "year": 2024,
+    "topic": "Perioperative cardiovascular management",
+    "title": "2024 AHA/ACC Guideline for Perioperative Cardiovascular Management for Noncardiac Surgery",
+    "doi": "10.1016/j.jacc.2024.06.013",
+    "landingUrl": "https://www.acc.org/guidelines",
+    "category": "Perioperative care",
+    "filename": "2024-ACC-AHA-Perioperative-Cardiovascular-Management.pdf"
+  },
+  {
+    "society": "ACC/AHA",
+    "year": 2024,
+    "topic": "Lower-extremity peripheral artery disease",
+    "title": "2024 ACC/AHA Guideline for the Management of Lower Extremity Peripheral Artery Disease",
+    "doi": "10.1016/j.jacc.2024.02.013",
+    "landingUrl": "https://www.acc.org/guidelines",
+    "category": "Aortic and peripheral vascular disease",
+    "filename": "2024-ACC-AHA-Lower-Extremity-PAD.pdf"
+  },
+  {
+    "society": "ACC/AHA",
+    "year": 2024,
+    "topic": "Hypertrophic cardiomyopathy",
+    "title": "2024 AHA/ACC Guideline for the Management of Hypertrophic Cardiomyopathy",
+    "doi": "10.1016/j.jacc.2024.02.014",
+    "landingUrl": "https://www.acc.org/guidelines",
+    "category": "Heart failure and cardiomyopathy",
+    "filename": "2024-ACC-AHA-Hypertrophic-Cardiomyopathy.pdf"
+  },
+  {
+    "society": "ACC/AHA",
+    "year": 2023,
+    "topic": "Atrial fibrillation",
+    "title": "2023 ACC/AHA/ACCP/HRS Guideline for the Diagnosis and Management of Atrial Fibrillation",
+    "doi": "10.1016/j.jacc.2023.08.017",
+    "landingUrl": "https://www.acc.org/guidelines",
+    "category": "Arrhythmias and devices",
+    "filename": "2023-ACC-AHA-Atrial-Fibrillation.pdf"
+  },
+  {
+    "society": "ACC/AHA",
+    "year": 2023,
+    "topic": "Chronic coronary disease",
+    "title": "2023 AHA/ACC Guideline for the Management of Patients With Chronic Coronary Disease",
+    "doi": "10.1016/j.jacc.2023.04.003",
+    "landingUrl": "https://www.acc.org/guidelines",
+    "category": "Coronary and ischemic disease",
+    "filename": "2023-ACC-AHA-Chronic-Coronary-Disease.pdf"
+  },
+  {
+    "society": "ACC/AHA",
+    "year": 2022,
+    "topic": "Aortic disease",
+    "title": "2022 ACC/AHA Guideline for the Diagnosis and Management of Aortic Disease",
+    "doi": "10.1016/j.jacc.2022.08.004",
+    "landingUrl": "https://www.acc.org/guidelines",
+    "category": "Aortic and peripheral vascular disease",
+    "filename": "2022-ACC-AHA-Aortic-Disease.pdf"
+  },
+  {
+    "society": "ACC/AHA",
+    "year": 2022,
+    "topic": "Heart failure",
+    "title": "2022 AHA/ACC/HFSA Guideline for the Management of Heart Failure",
+    "doi": "10.1016/j.jacc.2021.12.012",
+    "landingUrl": "https://www.acc.org/guidelines",
+    "category": "Heart failure and cardiomyopathy",
+    "filename": "2022-ACC-AHA-Heart-Failure.pdf"
+  },
+  {
+    "society": "ACC/AHA",
+    "year": 2021,
+    "topic": "Coronary artery revascularization",
+    "title": "2021 ACC/AHA/SCAI Guideline for Coronary Artery Revascularization",
+    "doi": "10.1016/j.jacc.2021.09.006",
+    "landingUrl": "https://www.acc.org/guidelines",
+    "category": "Coronary and ischemic disease",
+    "filename": "2021-ACC-AHA-Coronary-Artery-Revascularization.pdf"
+  },
+  {
+    "society": "ACC/AHA",
+    "year": 2021,
+    "topic": "Chest pain",
+    "title": "2021 AHA/ACC Guideline for the Evaluation and Diagnosis of Chest Pain",
+    "doi": "10.1016/j.jacc.2021.07.053",
+    "landingUrl": "https://www.acc.org/guidelines",
+    "category": "Symptoms and diagnostic approach",
+    "filename": "2021-ACC-AHA-Chest-Pain.pdf"
+  },
+  {
+    "society": "ESC",
+    "year": 2026,
+    "topic": "Cardiac rehabilitation",
+    "title": "2026 ESC Guidelines on Cardiac Rehabilitation",
+    "doi": "10.1093/eurheartj/ehag099",
+    "landingUrl": "https://www.escardio.org/guidelines/clinical-practice-guidelines/all-esc-practice-guidelines/cardiac-rehabilitation/",
+    "category": "Prevention and cardiometabolic health",
+    "filename": "2026-ESC-Cardiac-Rehabilitation.pdf"
+  },
+  {
+    "society": "ESC",
+    "year": 2026,
+    "topic": "Cardiovascular disease and chronic kidney disease",
+    "title": "2026 ESC Guidelines for the Management of Cardiovascular Disease and Chronic Kidney Disease",
+    "doi": "10.1093/eurheartj/ehag098",
+    "landingUrl": "https://www.escardio.org/guidelines/clinical-practice-guidelines/all-esc-practice-guidelines/cvd-chronic-kidney-disease/",
+    "category": "Prevention and cardiometabolic health",
+    "filename": "2026-ESC-CVD-and-Chronic-Kidney-Disease.pdf"
+  },
+  {
+    "society": "ESC",
+    "year": 2026,
+    "topic": "Heart failure",
+    "title": "2026 ESC Guidelines for the Management of Heart Failure",
+    "doi": "10.1093/eurheartj/ehag100",
+    "landingUrl": "https://www.escardio.org/guidelines/clinical-practice-guidelines/all-esc-practice-guidelines/heart-failure/",
+    "category": "Heart failure and cardiomyopathy",
+    "filename": "2026-ESC-Heart-Failure.pdf"
+  },
+  {
+    "society": "ESC/ACC/AHA/WHF",
+    "year": 2026,
+    "topic": "Universal definition of myocardial infarction",
+    "title": "Fifth Universal Definition of Myocardial Infarction",
+    "doi": "10.1093/eurheartj/ehag101",
+    "landingUrl": "https://www.escardio.org/guidelines/clinical-practice-guidelines/all-esc-practice-guidelines/universal-definition-myocardial-infarction/",
+    "category": "Coronary and ischemic disease",
+    "filename": "2026-Fifth-Universal-Definition-Myocardial-Infarction.pdf"
+  },
+  {
+    "society": "ESC",
+    "year": 2025,
+    "topic": "Cardiovascular disease and pregnancy",
+    "title": "2025 ESC Guidelines for the Management of Cardiovascular Disease and Pregnancy",
+    "doi": "10.1093/eurheartj/ehaf193",
+    "landingUrl": "https://www.escardio.org/guidelines/clinical-practice-guidelines/all-esc-practice-guidelines/cardiovascular-diseases-during-pregnancy-management-of/",
+    "category": "Special populations",
+    "filename": "2025-ESC-Cardiovascular-Disease-and-Pregnancy.pdf"
+  },
+  {
+    "society": "ESC",
+    "year": 2025,
+    "topic": "Dyslipidaemias",
+    "title": "2025 Focused Update of the 2019 ESC/EAS Guidelines for the Management of Dyslipidaemias",
+    "doi": "10.1093/eurheartj/ehaf190",
+    "landingUrl": "https://www.escardio.org/guidelines/clinical-practice-guidelines/all-esc-practice-guidelines/dyslipidaemias/",
+    "category": "Prevention and cardiometabolic health",
+    "filename": "2025-ESC-EAS-Dyslipidaemias-Focused-Update.pdf"
+  },
+  {
+    "society": "ESC",
+    "year": 2025,
+    "topic": "Myocarditis and pericarditis",
+    "title": "2025 ESC Guidelines for the Management of Myocarditis and Pericarditis",
+    "doi": "10.1093/eurheartj/ehaf192",
+    "landingUrl": "https://www.escardio.org/guidelines/clinical-practice-guidelines/all-esc-practice-guidelines/myocarditis-and-pericarditis/",
+    "category": "Inflammatory and pericardial disease",
+    "filename": "2025-ESC-Myocarditis-and-Pericarditis.pdf"
+  },
+  {
+    "society": "ESC",
+    "year": 2025,
+    "topic": "Valvular heart disease",
+    "title": "2025 ESC/EACTS Guidelines for the Management of Valvular Heart Disease",
+    "doi": "10.1093/eurheartj/ehaf194",
+    "landingUrl": "https://www.escardio.org/guidelines/clinical-practice-guidelines/all-esc-practice-guidelines/valvular-heart-disease/",
+    "category": "Structural and congenital disease",
+    "filename": "2025-ESC-EACTS-Valvular-Heart-Disease.pdf"
+  },
+  {
+    "society": "ESC",
+    "year": 2024,
+    "topic": "Atrial fibrillation",
+    "title": "2024 ESC Guidelines for the Management of Atrial Fibrillation",
+    "doi": "10.1093/eurheartj/ehae176",
+    "landingUrl": "https://www.escardio.org/guidelines/clinical-practice-guidelines/all-esc-practice-guidelines/atrial-fibrillation/",
+    "category": "Arrhythmias and devices",
+    "filename": "2024-ESC-Atrial-Fibrillation.pdf"
+  },
+  {
+    "society": "ESC",
+    "year": 2024,
+    "topic": "Chronic coronary syndromes",
+    "title": "2024 ESC Guidelines for the Management of Chronic Coronary Syndromes",
+    "doi": "10.1093/eurheartj/ehae177",
+    "landingUrl": "https://www.escardio.org/guidelines/clinical-practice-guidelines/all-esc-practice-guidelines/chronic-coronary-syndromes/",
+    "category": "Coronary and ischemic disease",
+    "filename": "2024-ESC-Chronic-Coronary-Syndromes.pdf"
+  },
+  {
+    "society": "ESC",
+    "year": 2024,
+    "topic": "Elevated blood pressure and hypertension",
+    "title": "2024 ESC Guidelines for the Management of Elevated Blood Pressure and Hypertension",
+    "doi": "10.1093/eurheartj/ehae178",
+    "landingUrl": "https://www.escardio.org/guidelines/clinical-practice-guidelines/all-esc-practice-guidelines/elevated-blood-pressure-and-hypertension/",
+    "category": "Prevention and cardiometabolic health",
+    "filename": "2024-ESC-Elevated-Blood-Pressure-and-Hypertension.pdf"
+  },
+  {
+    "society": "ESC",
+    "year": 2024,
+    "topic": "Peripheral arterial and aortic diseases",
+    "title": "2024 ESC Guidelines for the Management of Peripheral Arterial and Aortic Diseases",
+    "doi": "10.1093/eurheartj/ehae179",
+    "landingUrl": "https://www.escardio.org/guidelines/clinical-practice-guidelines/all-esc-practice-guidelines/peripheral-arterial-and-aortic-diseases/",
+    "category": "Aortic and peripheral vascular disease",
+    "filename": "2024-ESC-Peripheral-Arterial-and-Aortic-Diseases.pdf"
+  },
+  {
+    "society": "ESC",
+    "year": 2023,
+    "topic": "Acute coronary syndromes",
+    "title": "2023 ESC Guidelines for the Management of Acute Coronary Syndromes",
+    "doi": "10.1093/eurheartj/ehad191",
+    "landingUrl": "https://www.escardio.org/guidelines/clinical-practice-guidelines/all-esc-practice-guidelines/acute-coronary-syndromes/",
+    "category": "Coronary and ischemic disease",
+    "filename": "2023-ESC-Acute-Coronary-Syndromes.pdf"
+  },
+  {
+    "society": "ESC",
+    "year": 2023,
+    "topic": "Cardiomyopathies",
+    "title": "2023 ESC Guidelines for the Management of Cardiomyopathies",
+    "doi": "10.1093/eurheartj/ehad194",
+    "landingUrl": "https://www.escardio.org/guidelines/clinical-practice-guidelines/all-esc-practice-guidelines/cardiomyopathy/",
+    "category": "Heart failure and cardiomyopathy",
+    "filename": "2023-ESC-Cardiomyopathies.pdf"
+  },
+  {
+    "society": "ESC",
+    "year": 2023,
+    "topic": "Cardiovascular disease in diabetes",
+    "title": "2023 ESC Guidelines for the Management of Cardiovascular Disease in Patients With Diabetes",
+    "doi": "10.1093/eurheartj/ehad192",
+    "landingUrl": "https://www.escardio.org/guidelines/clinical-practice-guidelines/all-esc-practice-guidelines/cvd-and-diabetes/",
+    "category": "Prevention and cardiometabolic health",
+    "filename": "2023-ESC-CVD-in-Diabetes.pdf"
+  },
+  {
+    "society": "ESC",
+    "year": 2023,
+    "topic": "Infective endocarditis",
+    "title": "2023 ESC Guidelines for the Management of Endocarditis",
+    "doi": "10.1093/eurheartj/ehad193",
+    "landingUrl": "https://www.escardio.org/guidelines/clinical-practice-guidelines/all-esc-practice-guidelines/endocarditis/",
+    "category": "Structural and congenital disease",
+    "filename": "2023-ESC-Endocarditis.pdf"
+  },
+  {
+    "society": "ESC",
+    "year": 2022,
+    "topic": "Cardio-oncology",
+    "title": "2022 ESC Guidelines on Cardio-Oncology",
+    "doi": "10.1093/eurheartj/ehac244",
+    "landingUrl": "https://www.escardio.org/guidelines/clinical-practice-guidelines/all-esc-practice-guidelines/cardio-oncology/",
+    "category": "Special populations",
+    "filename": "2022-ESC-Cardio-Oncology.pdf"
+  },
+  {
+    "society": "ESC",
+    "year": 2022,
+    "topic": "Noncardiac surgery",
+    "title": "2022 ESC Guidelines on Cardiovascular Assessment and Management of Patients Undergoing Noncardiac Surgery",
+    "doi": "10.1093/eurheartj/ehac270",
+    "landingUrl": "https://www.escardio.org/guidelines/clinical-practice-guidelines/all-esc-practice-guidelines/non-cardiac-surgery/",
+    "category": "Perioperative care",
+    "filename": "2022-ESC-Noncardiac-Surgery.pdf"
+  },
+  {
+    "society": "ESC/ERS",
+    "year": 2022,
+    "topic": "Pulmonary hypertension",
+    "title": "2022 ESC/ERS Guidelines for the Diagnosis and Treatment of Pulmonary Hypertension",
+    "doi": "10.1093/eurheartj/ehac237",
+    "landingUrl": "https://www.escardio.org/guidelines/clinical-practice-guidelines/all-esc-practice-guidelines/pulmonary-hypertension/",
+    "category": "Pulmonary vascular disease",
+    "filename": "2022-ESC-ERS-Pulmonary-Hypertension.pdf"
+  },
+  {
+    "society": "ESC",
+    "year": 2022,
+    "topic": "Ventricular arrhythmias and sudden cardiac death",
+    "title": "2022 ESC Guidelines for the Management of Patients With Ventricular Arrhythmias and the Prevention of Sudden Cardiac Death",
+    "doi": "10.1093/eurheartj/ehac262",
+    "landingUrl": "https://www.escardio.org/guidelines/clinical-practice-guidelines/all-esc-practice-guidelines/ventricular-arrhythmias-and-the-prevention-of-sudden-cardiac-death/",
+    "category": "Arrhythmias and devices",
+    "filename": "2022-ESC-Ventricular-Arrhythmias-and-SCD.pdf"
+  },
+  {
+    "society": "ESC",
+    "year": 2021,
+    "topic": "Cardiac pacing and cardiac resynchronization therapy",
+    "title": "2021 ESC Guidelines on Cardiac Pacing and Cardiac Resynchronization Therapy",
+    "doi": "10.1093/eurheartj/ehab364",
+    "landingUrl": "https://www.escardio.org/guidelines/clinical-practice-guidelines/all-esc-practice-guidelines/cardiac-pacing-and-cardiac-resynchronization-therapy/",
+    "category": "Arrhythmias and devices",
+    "filename": "2021-ESC-Cardiac-Pacing-and-CRT.pdf"
+  },
+  {
+    "society": "ESC",
+    "year": 2021,
+    "topic": "Cardiovascular disease prevention",
+    "title": "2021 ESC Guidelines on Cardiovascular Disease Prevention in Clinical Practice",
+    "doi": "10.1093/eurheartj/ehab484",
+    "landingUrl": "https://www.escardio.org/guidelines/clinical-practice-guidelines/all-esc-practice-guidelines/cvd-prevention/",
+    "category": "Prevention and cardiometabolic health",
+    "filename": "2021-ESC-CVD-Prevention.pdf"
+  }
+]
