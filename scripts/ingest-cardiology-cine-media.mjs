@@ -8,15 +8,25 @@ const ROOT = new URL('..', import.meta.url).pathname;
 const OUT_DIR = path.join(ROOT, 'public/videos/cardiology/open-cine');
 const POSTER_DIR = path.join(ROOT, 'public/images/cardiology/cine-posters');
 const MANIFEST = path.join(ROOT, 'src/data/cardiology-cine-media.json');
-const MAX_COMMONS = Number(process.env.CARDIOLOGY_CINE_MAX_COMMONS || 52);
+const MAX_COMMONS = Number(process.env.CARDIOLOGY_CINE_MAX_COMMONS || 180);
 const MAX_SOURCE_BYTES = Number(process.env.CARDIOLOGY_CINE_MAX_SOURCE_BYTES || 30_000_000);
 const USER_AGENT = 'LLMsForDoctorsCineIngest/1.0 (educational attribution pipeline)';
 const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const commonsCategories = [
   ['Echocardiography', 'Echo'],
+  ['Doppler echocardiography', 'Echo'],
+  ['Three-dimensional echocardiography', 'Echo'],
+  ['Transesophageal echocardiography', 'Echo'],
+  ['Respiratory maneuvers in echocardiography', 'Echo'],
+  ['Media from CardioNetworks ECHOpedia', 'Echo'],
+  ['Media from Cardiovascular Ultrasound', 'Echo'],
+  ['Media from Moir and Marwick 2004 - 10.1186/1476-7120-2-15', 'Echo'],
   ['Magnetic resonance imaging of the heart', 'Cardiac MRI'],
   ['Cine magnetic resonance imaging', 'Cardiac MRI'],
+  ['MRI of diseases and disorders of the heart', 'Cardiac MRI'],
+  ['4D flow CMR', 'Cardiac MRI'],
+  ['Phase-contrast CMR', 'Cardiac MRI'],
 ];
 
 const minnesotaPages = [
@@ -44,7 +54,16 @@ function slug(value) {
 }
 
 async function fetchRetry(url, attempt = 0, maxAttempts = 7) {
-  const response = await fetch(url, { headers: { 'user-agent': USER_AGENT } });
+  let response;
+  try {
+    response = await fetch(url, { headers: { 'user-agent': USER_AGENT }, signal: AbortSignal.timeout(25_000) });
+  } catch (error) {
+    if (attempt < maxAttempts) {
+      await pause(Math.min(15000, 1000 * 2 ** attempt));
+      return fetchRetry(url, attempt + 1, maxAttempts);
+    }
+    throw error;
+  }
   if ((response.status === 429 || response.status >= 500) && attempt < maxAttempts) {
     await pause(Math.min(30000, 1200 * 2 ** attempt));
     return fetchRetry(url, attempt + 1, maxAttempts);
@@ -82,7 +101,7 @@ async function transcode(sourceUrl, id) {
     const bytes = Buffer.from(await response.arrayBuffer());
     if (bytes.length > MAX_SOURCE_BYTES) throw new Error(`source is ${bytes.length} bytes`);
     await writeFile(sourcePath, bytes);
-    await run('ffmpeg', ['-y', '-i', sourcePath, '-an', '-vf', "scale='min(720,iw)':-2:flags=lanczos", '-c:v', 'libx264', '-preset', 'medium', '-crf', '27', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', videoPath]);
+    await run('ffmpeg', ['-y', '-i', sourcePath, '-an', '-vf', "scale='trunc(min(720,iw)/2)*2':'trunc(ow/a/2)*2':flags=lanczos", '-c:v', 'libx264', '-preset', 'medium', '-crf', '27', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', videoPath]);
     await run('ffmpeg', ['-y', '-i', videoPath, '-vf', 'thumbnail,scale=720:-2', '-frames:v', '1', '-q:v', '3', posterPath]);
     const video = await readFile(videoPath);
     const poster = await stat(posterPath);
@@ -102,6 +121,7 @@ async function categoryMembers(category) {
 async function commonsMetadata(titles) {
   const rows = [];
   for (let index = 0; index < titles.length; index += 25) {
+    if (index % 100 === 0) console.log(`Checking Commons metadata ${index}/${titles.length}`);
     const url = new URL('https://commons.wikimedia.org/w/api.php');
     for (const [key, value] of Object.entries({ action: 'query', format: 'json', prop: 'imageinfo', titles: titles.slice(index, index + 25).join('|'), iiprop: 'url|mime|size|sha1|extmetadata' })) url.searchParams.set(key, value);
     const data = await (await fetchRetry(url)).json();
