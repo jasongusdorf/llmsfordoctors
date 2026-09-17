@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import CardiologyImagingLab from '../../../components/CardiologyImagingLab';
+import { cardiologyImagingStudies } from '../../../data/cardiology-imaging-studies';
+---
+<BaseLayout title="Cardiology Imaging & Hemodynamics Lab - LLMs for Doctors" description="Interactive echo, catheterization, pressure-volume loop, JVP, angiography, CT, and MRI interpretation practice.">
+ <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+  <Breadcrumb crumbs={[{label:'Home',href:'/'},{label:'Cardiology',href:'/education/cardiology'},{label:'Imaging & Hemodynamics Lab'}]}/>
+  <header class="mb-8 max-w-4xl"><p class="mb-2 text-sm font-semibold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-400">Interpretation lab</p><h1 class="font-heading text-3xl font-bold text-clinical-900 dark:text-clinical-50 sm:text-5xl">Cardiology Imaging & Hemodynamics Lab</h1><p class="mt-4 text-lg leading-8 text-clinical-600 dark:text-clinical-300">Read the picture, tracing, or loop before seeing the answer. Practice echo, invasive hemodynamics, pressure-volume loops, JVP, angiography, and cardiac MRI with confidence calibration and spaced repetition.</p><div class="mt-5 flex flex-wrap gap-2 text-sm"><span class="rounded-full bg-clinical-100 px-3 py-1.5 dark:bg-clinical-800">{cardiologyImagingStudies.length} interactive studies</span><span class="rounded-full bg-clinical-100 px-3 py-1.5 dark:bg-clinical-800">7 modalities</span><span class="rounded-full bg-clinical-100 px-3 py-1.5 dark:bg-clinical-800">No account required</span></div></header>
+  <CardiologyImagingLab client:load studies={cardiologyImagingStudies}/>
+  <footer class="mt-10 border-t border-clinical-200 pt-5 text-sm leading-6 text-clinical-500 dark:border-clinical-700">Evidence review: September 17, 2026. Clinical peer review status: pending. Schematics are original educational abstractions, not patient studies and not suitable for clinical measurement. Verify patient-specific decisions against primary imaging, current guidelines, and local expertise.</footer>
+ </div>
+</BaseLayout>

@@ -5,6 +5,7 @@ import CardiologySearch from '../../../components/CardiologySearch';
 import { getCollection } from 'astro:content';
 import { allCardiologyLessons, cardiologyTracks } from '../../../data/cardiology-curriculum';
 import { cardiologyCases } from '../../../data/cardiology-cases';
+import { cardiologyImagingStudies } from '../../../data/cardiology-imaging-studies';
 import guidelines from '../../../data/cardiology-guidelines.json';
 import data from '../../../data/semantic-qualifiers.json';
 import library from '../../../data/heart-sounds-library.json';
@@ -19,6 +20,13 @@ const ecgCats = (ecg as any).categories.length;
 const ecgCount = (ecg as any).categories.reduce((total: number, category: any) => total + category.tracings.length, 0);
 
 const searchItems = [
+  ...cardiologyImagingStudies.map((item) => ({
+    title: item.title,
+    description: item.vignette,
+    href: '/education/cardiology/imaging',
+    section: `Imaging Lab · ${item.modality}`,
+    terms: [...item.pearls, item.errorTag],
+  })),
   ...cardiologyCases.map((item) => ({
     title: item.title,
     description: item.opening,
@@ -87,6 +95,10 @@ const trackColumns = cardiologyTracks.map((track) => ({ ...track, preview: track
       </div>
     </a>
 
+    <a href="/education/cardiology/imaging" class="group mb-12 block overflow-hidden rounded-2xl border border-cyan-300 bg-gradient-to-r from-cyan-950 to-blue-950 p-6 text-white shadow-sm hover:border-cyan-400 hover:shadow-md sm:p-8">
+      <div class="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between"><div class="max-w-3xl"><p class="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-300">New · visual interpretation</p><h2 class="mt-2 font-heading text-2xl font-bold sm:text-3xl">Imaging & Hemodynamics Lab</h2><p class="mt-3 leading-7 text-clinical-200">Commit to a read across echo, cath tracings, pressure-volume loops, JVP, angiography, and cardiac MRI—then calibrate confidence and schedule review.</p></div><span class="shrink-0 rounded-full bg-white px-5 py-2.5 font-semibold text-blue-900 transition-transform group-hover:translate-x-1">Read a study →</span></div>
+    </a>
+
     <section aria-labelledby="curriculum-heading" class="mb-14">
       <div class="mb-5 text-center">
         <h2 id="curriculum-heading" class="font-heading text-2xl font-semibold text-clinical-900 dark:text-clinical-50">Six routes into the same clinical problem</h2>
@@ -121,6 +133,7 @@ const trackColumns = cardiologyTracks.map((track) => ({ ...track, preview: track
           <p class="mt-3 text-sm leading-6 text-clinical-200">Practice on source-labeled ECGs and narrated heart sounds, then connect each signal to the physiology and disease hub that explains it.</p>
         </div>
         <div class="grid gap-3 sm:grid-cols-2">
+          <a href="/education/cardiology/imaging" class="rounded-xl border border-cyan-300/40 bg-cyan-400/10 p-4 hover:bg-cyan-400/15"><h3 class="font-semibold">Imaging & hemodynamics</h3><p class="mt-1 text-sm text-clinical-200">{cardiologyImagingStudies.length} interactive studies across seven modalities.</p></a>
           <a href="/education/cardiology/ecg" class="rounded-xl border border-white/20 bg-white/10 p-4 hover:bg-white/15"><h3 class="font-semibold">ECG library</h3><p class="mt-1 text-sm text-clinical-200">{ecgCount} 12-lead tracings across {ecgCats} diagnostic categories.</p></a>
           <a href="/education/cardiology/ecg/quiz" class="rounded-xl border border-white/20 bg-white/10 p-4 hover:bg-white/15"><h3 class="font-semibold">ECG quiz</h3><p class="mt-1 text-sm text-clinical-200">Commit to an interpretation before seeing the complete read.</p></a>
           <a href="/education/semantic-qualifiers/sounds" class="rounded-xl border border-white/20 bg-white/10 p-4 hover:bg-white/15"><h3 class="font-semibold">Heart sound library</h3><p class="mt-1 text-sm text-clinical-200">{tracks.length} recordings across {soundCats.length} categories.</p></a>
