@@ -5,13 +5,13 @@ import CardiologyCaseLab from '../../../components/CardiologyCaseLab';
 import { cardiologyCases } from '../../../data/cardiology-cases';
 ---
 
-<BaseLayout title="Cardiology Case Lab - LLMs for Doctors" description="Progressive cardiology cases with ECGs, heart sounds, committed answers, confidence tracking, and spaced repetition.">
+<BaseLayout title="Cardiology Case Lab - LLMs for Doctors" description="Progressive cardiology cases with licensed echo and CMR cine loops, ECGs, heart sounds, committed answers, confidence tracking, and spaced repetition.">
   <div class="cardiology-page mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
     <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Cardiology', href: '/education/cardiology' }, { label: 'Case Lab' }]} />
     <header class="cardiology-hero mb-8 max-w-5xl">
       <p class="cardiology-kicker cardiology-pulse-rule mb-2 text-sm font-semibold uppercase tracking-[0.18em]">Active learning</p>
       <h1 class="font-heading text-3xl font-bold text-clinical-900 dark:text-clinical-50 sm:text-5xl">Cardiology Case Lab</h1>
-      <p class="mt-4 text-lg leading-8 text-clinical-600 dark:text-clinical-300">Work through staged clinical decisions before seeing the answer. Real teaching ECGs and heart sounds are paired with synthetic vignettes, confidence calibration, error tracking, and a browser-local spaced-repetition queue.</p>
+      <p class="mt-4 text-lg leading-8 text-clinical-600 dark:text-clinical-300">Work through staged clinical decisions before seeing the answer. Licensed echo and CMR cine loops, real teaching ECGs, and heart sounds are paired with synthetic vignettes, confidence calibration, error tracking, and a browser-local spaced-repetition queue.</p>
       <div class="mt-5 flex flex-wrap gap-2 text-sm">
         <span class="rounded-full bg-clinical-100 px-3 py-1.5 text-clinical-700 dark:bg-clinical-800 dark:text-clinical-200">{cardiologyCases.length} progressive cases</span>
         <span class="rounded-full bg-clinical-100 px-3 py-1.5 text-clinical-700 dark:bg-clinical-800 dark:text-clinical-200">Board · bedside · rapid fire</span>
@@ -20,7 +20,7 @@ import { cardiologyCases } from '../../../data/cardiology-cases';
     </header>
     <CardiologyCaseLab client:load cases={cardiologyCases} />
     <footer class="mt-10 border-t border-clinical-200 pt-5 text-sm leading-6 text-clinical-500 dark:border-clinical-700 dark:text-clinical-400">
-      Evidence review: September 17, 2026. Clinical peer review status: pending. Educational material for clinicians. Cases are synthetic; representative ECG and audio assets are labeled separately. Verify patient-specific decisions against current guidelines and local protocols.
+      Evidence review: September 17, 2026. Clinical peer review status: pending. Educational material for clinicians. Cases are synthetic; representative cine, ECG, and audio assets are labeled separately with source and license details. Verify patient-specific decisions against current guidelines and local protocols.
     </footer>
   </div>
 </BaseLayout>

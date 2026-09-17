@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { cardiologyCases, type CaseMode } from './cardiology-cases';
 
 describe('cardiology cases', () => {
@@ -25,6 +27,19 @@ describe('cardiology cases', () => {
       for (const mode of modes) {
         expect(item.stages.some((stage) => !stage.modes || stage.modes.includes(mode)), `${item.id} lacks ${mode}`).toBe(true);
       }
+    }
+  });
+
+  it('incorporates licensed cine loops into exact-match cases', () => {
+    const videoStages = cardiologyCases.flatMap((item) => item.stages.filter((stage) => stage.media?.type === 'video'));
+    expect(videoStages).toHaveLength(22);
+    for (const stage of videoStages) {
+      if (stage.media?.type !== 'video') continue;
+      expect(existsSync(resolve(`public${stage.media.src}`)), stage.media.src).toBe(true);
+      expect(existsSync(resolve(`public${stage.media.poster}`)), stage.media.poster).toBe(true);
+      expect(stage.media.href).toMatch(/^https:\/\//);
+      expect(stage.media.licenseUrl).toMatch(/^https:\/\//);
+      expect(stage.media.credit.length).toBeGreaterThan(5);
     }
   });
 });

@@ -1,5 +1,20 @@
 export type CaseMode = 'board' | 'bedside' | 'rapid';
 import { expandedCardiologyCases } from './cardiology-case-expansion';
+import cineMedia from './cardiology-cine-media.json';
+
+export type CaseMedia =
+  | { type: 'ecg' | 'audio'; src: string; alt: string; href?: string }
+  | {
+      type: 'video';
+      src: string;
+      poster: string;
+      alt: string;
+      href: string;
+      license: string;
+      licenseUrl: string;
+      credit: string;
+      modality: string;
+    };
 
 export type CaseStage = {
   title: string;
@@ -10,7 +25,7 @@ export type CaseStage = {
   explanation: string;
   errorTag: string;
   modes?: CaseMode[];
-  media?: { type: 'ecg' | 'audio'; src: string; alt: string; href?: string };
+  media?: CaseMedia;
 };
 
 export type CardiologyCase = {
@@ -164,4 +179,57 @@ const coreCardiologyCases: CardiologyCase[] = [
   },
 ];
 
-export const cardiologyCases: CardiologyCase[] = [...coreCardiologyCases, ...expandedCardiologyCases];
+type CineAsset = (typeof cineMedia)[number];
+
+// Only exact or directly representative matches are attached. The cases remain
+// synthetic, and every clip retains its own source and license disclosure.
+const caseCineMap: Record<string, { stage: number; assetId: string }> = {
+  'aortic-stenosis-syncope': { stage: 1, assetId: 'commons-cine-aortic-valve-stenosis-e00122-cardionetworks-echopedia-3290d3c' },
+  'hypertrophic-cardiomyopathy': { stage: 2, assetId: 'commons-cine-evaluation-of-left-ventricular-outflow-tract-gradient-during-treadmill-exercise-and-in-rec-fcd80a8' },
+  'post-mi-acute-mitral-regurgitation': { stage: 0, assetId: 'commons-cine-acute-severe-mitral-regurgitation-consideration-of-papillary-muscle-architecture-1476-7120-b126190' },
+  'high-risk-pulmonary-embolism': { stage: 0, assetId: 'commons-cine-echocardiographic-diagnosis-management-and-monitoring-of-pulmonary-embolism-with-right-hea-39cceca' },
+  'post-mi-vsd': { stage: 1, assetId: 'commons-cine-multimodality-cardiac-imaging-of-a-ventricular-septal-rupture-post-myocardial-infarction-a-fd09aec' },
+  'post-mi-free-wall': { stage: 1, assetId: 'commons-cine-subacute-left-ventricle-free-wall-rupture-after-acute-myocardial-infarction-awareness-of-t-d6bee2e' },
+  'gdmt-hfref': { stage: 1, assetId: 'commons-cine-cardiovascular-magnetic-resonance-in-wet-beriberi-1532-429x-13-41-s1-8387b4f' },
+  'acute-aortic-regurg': { stage: 1, assetId: 'commons-cine-bicuspid-aortic-valve-severe-aortic-regurgitation-e00853-cardionetworks-echopedia-59c5cf4' },
+  'primary-mr': { stage: 1, assetId: 'commons-cine-towards-comprehensive-assessment-of-mitral-regurgitation-using-cardiovascular-magnetic-res-ca98c26' },
+  'secondary-mr': { stage: 1, assetId: 'commons-cine-dilated-cardiomyopathy-with-severe-mitral-valve-regurgitation-e00134-cardionetworks-echope-de6faa6' },
+  'tricuspid-regurg': { stage: 1, assetId: 'commons-cine-dilated-coronary-sinus-e00711-cardionetworks-echopedia-a871e77' },
+  'myopericarditis': { stage: 1, assetId: 'commons-cine-left-ventricular-function-in-acute-inflammatory-peri-myocardial-diseases-new-insights-and--26cb7cb' },
+  'dilated-cardiomyopathy': { stage: 1, assetId: 'commons-cine-dilated-cardiomyopathy-with-severe-mitral-valve-regurgitation-e00135-cardionetworks-echope-196748a' },
+  'cardiac-amyloid': { stage: 1, assetId: 'commons-cine-intraventricular-dyssynchrony-in-light-chain-amyloidosis-a-new-mechanism-of-systolic-dysfu-6071dfc' },
+  'arrhythmogenic-cardiomyopathy': { stage: 1, assetId: 'commons-cine-cardiac-magnetic-resonance-arrhythmogenic-right-ventricular-dysplasia-f493974' },
+  'pulmonary-hypertension': { stage: 1, assetId: 'commons-cine-acute-hemodynamic-effect-of-inhaled-iloprost-in-pulmonary-artery-hypertension-evaluated-wi-b9b2afb' },
+  'asd-adult': { stage: 1, assetId: 'commons-cine-noninvasive-cardiac-flow-assessment-using-high-speed-magnetic-resonance-fluid-motion-track-8755b61' },
+  'coarctation': { stage: 1, assetId: 'commons-cine-comprehensive-4d-velocity-mapping-of-the-heart-and-great-vessels-by-cardiovascular-magneti-e820152' },
+  'chronic-thromboembolic-ph': { stage: 1, assetId: 'commons-cine-left-ventricular-strain-and-strain-rate-by-2d-speckle-tracking-in-chronic-thromboembolic-p-2bf9897' },
+  'aortic-dissection': { stage: 1, assetId: 'commons-cine-aortic-dissection-e00246-cardionetworks-echopedia-4546c69' },
+  'infective-endocarditis': { stage: 1, assetId: 'commons-cine-aortic-valve-endocarditis-with-vegetation-e00114-cardionetworks-echopedia-bd23747' },
+  'cardiac-sarcoidosis': { stage: 1, assetId: 'commons-cine-cardiovascular-magnetic-resonance-in-cardiac-sarcoidosis-with-mr-conditional-pacemaker-in--3f72082' },
+};
+
+const cineById = new Map<string, CineAsset>(cineMedia.map((asset) => [asset.id, asset]));
+
+function attachCaseCine(caseItem: CardiologyCase): CardiologyCase {
+  const match = caseCineMap[caseItem.id];
+  if (!match) return caseItem;
+  const asset = cineById.get(match.assetId);
+  if (!asset || !caseItem.stages[match.stage]) return caseItem;
+  const stages = caseItem.stages.map((stage, index) => index === match.stage ? {
+    ...stage,
+    media: {
+      type: 'video' as const,
+      src: asset.src,
+      poster: asset.poster,
+      alt: `${asset.modality} cine: ${asset.description}`,
+      href: asset.sourcePage,
+      license: asset.license,
+      licenseUrl: asset.licenseUrl,
+      credit: asset.credit,
+      modality: asset.modality,
+    },
+  } : stage);
+  return { ...caseItem, stages };
+}
+
+export const cardiologyCases: CardiologyCase[] = [...coreCardiologyCases, ...expandedCardiologyCases].map(attachCaseCine);

@@ -238,8 +238,27 @@ export default function CardiologyCaseLab({ cases }: { cases: CardiologyCase[] }
 
       {stage.media && (
         <section class="mt-5 rounded-xl border border-clinical-200 bg-white p-4 dark:border-clinical-700 dark:bg-clinical-900">
-          {stage.media.type === 'ecg' ? <img src={stage.media.src} alt={stage.media.alt} class="h-auto w-full rounded-lg" /> : <audio controls preload="metadata" class="w-full"><source src={stage.media.src} type="audio/mpeg" />Your browser does not support audio playback.</audio>}
-          <div class="mt-2 flex items-center justify-between gap-3 text-xs text-clinical-500"><span>Representative teaching media; not from the synthetic vignette patient.</span>{stage.media.href && <a href={stage.media.href} target="_blank" class="shrink-0 text-blue-600 hover:underline dark:text-blue-400">Full read ↗</a>}</div>
+          {stage.media.type === 'ecg' && <img src={stage.media.src} alt={stage.media.alt} class="h-auto w-full rounded-lg" />}
+          {stage.media.type === 'audio' && <audio controls preload="metadata" class="w-full"><source src={stage.media.src} type="audio/mpeg" />Your browser does not support audio playback.</audio>}
+          {stage.media.type === 'video' && (
+            <video controls playsInline loop preload="metadata" poster={stage.media.poster} class="mx-auto max-h-[34rem] w-full rounded-lg bg-black object-contain" aria-label={stage.media.alt}>
+              <source src={stage.media.src} type="video/mp4" />
+              Your browser does not support video playback.
+            </video>
+          )}
+          <div class="mt-2 flex flex-col justify-between gap-2 text-xs text-clinical-500 sm:flex-row sm:items-start">
+            <span>Representative teaching media; not from the synthetic vignette patient.</span>
+            {stage.media.type === 'video' ? (
+              <span class="sm:text-right">
+                <span class="block">{stage.media.modality} · {stage.media.credit}</span>
+                <span class="mt-1 block">
+                  <a href={stage.media.href} target="_blank" rel="noreferrer" class="text-blue-600 hover:underline dark:text-blue-400">Source ↗</a>
+                  {' · '}
+                  <a href={stage.media.licenseUrl} target="_blank" rel="noreferrer" class="text-blue-600 hover:underline dark:text-blue-400">{stage.media.license} ↗</a>
+                </span>
+              </span>
+            ) : stage.media.href && <a href={stage.media.href} target="_blank" rel="noreferrer" class="shrink-0 text-blue-600 hover:underline dark:text-blue-400">Full read ↗</a>}
+          </div>
         </section>
       )}
 
