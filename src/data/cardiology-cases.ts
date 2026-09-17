@@ -1,4 +1,5 @@
 export type CaseMode = 'board' | 'bedside' | 'rapid';
+import { expandedCardiologyCases } from './cardiology-case-expansion';
 
 export type CaseStage = {
   title: string;
@@ -29,7 +30,7 @@ export type CardiologyCase = {
 
 const guidelineLibrary = '/education/cardiology/guidelines';
 
-export const cardiologyCases: CardiologyCase[] = [
+const coreCardiologyCases: CardiologyCase[] = [
   {
     id: 'inferior-occlusion-rv-infarct',
     title: 'Inferior occlusion with a pressure problem',
@@ -162,3 +163,5 @@ export const cardiologyCases: CardiologyCase[] = [
     textbookReferences: ['The EHRA Book of Interventional Electrophysiology', 'Electrocardiography of Arrhythmias: A Comprehensive Review (Das and Zipes)'],
   },
 ];
+
+export const cardiologyCases: CardiologyCase[] = [...coreCardiologyCases, ...expandedCardiologyCases];

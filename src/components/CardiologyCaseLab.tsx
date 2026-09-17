@@ -49,6 +49,7 @@ export default function CardiologyCaseLab({ cases }: { cases: CardiologyCase[] }
   const [picked, setPicked] = useState<number | null>(null);
   const [confidence, setConfidence] = useState<Confidence>('medium');
   const [complete, setComplete] = useState(false);
+  const [query, setQuery] = useState('');
   const [session, setSession] = useState({ cases: 0, correct: 0, total: 0 });
 
   useEffect(() => {
@@ -77,6 +78,7 @@ export default function CardiologyCaseLab({ cases }: { cases: CardiologyCase[] }
       return (ap?.lastScore ?? 0) - (bp?.lastScore ?? 0);
     });
   }, [cases, progress]);
+  const visibleQueue = queue.filter((item) => `${item.title} ${item.category} ${item.opening}`.toLowerCase().includes(query.toLowerCase()));
 
   const startCase = (id: string) => {
     setActiveId(id);
@@ -173,8 +175,9 @@ export default function CardiologyCaseLab({ cases }: { cases: CardiologyCase[] }
             <div><h2 class="font-heading text-2xl font-semibold text-clinical-900 dark:text-clinical-50">Case queue</h2><p class="mt-1 text-sm text-clinical-500">Due, unseen, and lower-scoring cases rise to the top.</p></div>
             {attemptedCount > 0 && <button type="button" class="text-sm text-red-600 hover:underline dark:text-red-400" onClick={() => { if (confirm('Reset all Cardiology Case Lab progress on this browser?')) { setProgress(EMPTY_PROGRESS); saveProgress(EMPTY_PROGRESS); } }}>Reset progress</button>}
           </div>
+          <label class="mb-4 block"><span class="sr-only">Filter case queue</span><input type="search" value={query} onInput={(event) => setQuery(event.currentTarget.value)} placeholder="Filter 50 cases by topic, diagnosis, or presentation…" class="w-full rounded-lg border border-clinical-300 bg-white px-4 py-3 text-sm text-clinical-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-200 dark:border-clinical-600 dark:bg-clinical-900 dark:text-clinical-50" /></label>
           <div class="grid gap-3 md:grid-cols-2">
-            {queue.map((item) => {
+            {visibleQueue.map((item) => {
               const row = progress.cases[item.id];
               return (
                 <button type="button" onClick={() => startCase(item.id)} class="rounded-xl border border-clinical-200 bg-warm-white p-5 text-left hover:border-blue-500 hover:shadow-sm dark:border-clinical-700 dark:bg-clinical-800 dark:hover:border-blue-400">
@@ -188,6 +191,7 @@ export default function CardiologyCaseLab({ cases }: { cases: CardiologyCase[] }
               );
             })}
           </div>
+          {visibleQueue.length === 0 && <p class="rounded-lg border border-dashed border-clinical-300 p-6 text-center text-clinical-500 dark:border-clinical-700">No cases match that filter.</p>}
         </section>
       </div>
     );

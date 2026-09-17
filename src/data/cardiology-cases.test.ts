@@ -2,6 +2,9 @@ import { describe, expect, it } from 'vitest';
 import { cardiologyCases, type CaseMode } from './cardiology-cases';
 
 describe('cardiology cases', () => {
+  it('contains the complete 50-case curriculum', () => {
+    expect(cardiologyCases).toHaveLength(50);
+  });
   it('uses unique IDs and valid answer indices', () => {
     expect(new Set(cardiologyCases.map((item) => item.id)).size).toBe(cardiologyCases.length);
     for (const item of cardiologyCases) {
