@@ -4,7 +4,7 @@ import Breadcrumb from '../../../../components/Breadcrumb.astro';
 import openMedia from '../../../../data/cardiology-open-media.json';
 import minnesotaMedia from '../../../../data/cardiology-minnesota-media.json';
 import cineMedia from '../../../../data/cardiology-cine-media.json';
-import { interpretationFor, type CardiologyMedia } from '../../../../lib/cardiology-media';
+import { displayTitleFor, interpretationFor, sourceNameFor, type CardiologyMedia } from '../../../../lib/cardiology-media';
 
 const items = [...cineMedia, ...openMedia, ...minnesotaMedia] as CardiologyMedia[];
 
@@ -14,18 +14,20 @@ export function getStaticPaths() {
 
 const { item } = Astro.props as { item: CardiologyMedia };
 const interpretation = interpretationFor(item);
+const displayTitle = displayTitleFor(item);
 const index = items.findIndex(candidate => candidate.id === item.id);
 const previous = items[(index - 1 + items.length) % items.length];
 const next = items[(index + 1) % items.length];
 ---
-<BaseLayout title={`${item.title} - Cardiology Media - LLMs for Doctors`} description={item.description}>
+<BaseLayout title={`${displayTitle} - Cardiology Media - LLMs for Doctors`} description={item.description}>
   <main class="cardiology-page mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
-    <Breadcrumb crumbs={[{label:'Home',href:'/'},{label:'Cardiology',href:'/education/cardiology'},{label:'Open media library',href:'/education/cardiology/media'},{label:item.title}]}/>
+    <Breadcrumb crumbs={[{label:'Home',href:'/'},{label:'Cardiology',href:'/education/cardiology'},{label:'Media library',href:'/education/cardiology/media'},{label:displayTitle}]}/>
 
     <header class="mt-5 max-w-4xl">
       <p class="cardiology-kicker cardiology-pulse-rule mb-2 text-sm font-semibold uppercase tracking-[0.16em]">{item.modality}{item.mediaKind === 'video' ? ' · Cine loop' : ' · Image'}</p>
-      <h1 class="font-heading text-3xl font-bold leading-tight sm:text-5xl">{item.title}</h1>
+      <h1 class="font-heading text-3xl font-bold leading-tight sm:text-5xl">{displayTitle}</h1>
       <p class="mt-4 text-base leading-7 text-clinical-600 dark:text-clinical-300 sm:text-lg sm:leading-8">{item.description}</p>
+      <p class="mt-3 text-sm text-clinical-400">From {sourceNameFor(item)} · Openly licensed teaching media</p>
     </header>
 
     <section class="mt-7 overflow-hidden rounded-2xl border border-clinical-700 bg-black shadow-xl" aria-label="Cardiac study">
@@ -35,25 +37,33 @@ const next = items[(index + 1) % items.length];
     </section>
 
     <div class="mt-8 grid gap-7 lg:grid-cols-[minmax(0,1fr)_20rem]">
-      <article class="space-y-7">
-        <section class="rounded-2xl border border-red-200 bg-red-50/60 p-5 dark:border-red-900 dark:bg-red-950/20 sm:p-7">
+      <article class="space-y-8">
+        <nav class="flex gap-1 overflow-x-auto rounded-xl bg-clinical-100 p-1 text-xs font-semibold text-clinical-600 dark:bg-clinical-800 dark:text-clinical-300 sm:text-sm" aria-label="Interpretation flow">
+          <a href="#orient" class="whitespace-nowrap rounded-lg px-3 py-2 hover:bg-white dark:hover:bg-clinical-700">1. Orient</a>
+          <a href="#observe" class="whitespace-nowrap rounded-lg px-3 py-2 hover:bg-white dark:hover:bg-clinical-700">2. Observe</a>
+          <a href="#interpret" class="whitespace-nowrap rounded-lg px-3 py-2 hover:bg-white dark:hover:bg-clinical-700">3. Interpret</a>
+          <a href="#apply" class="whitespace-nowrap rounded-lg px-3 py-2 hover:bg-white dark:hover:bg-clinical-700">4. Apply</a>
+        </nav>
+        <section id="orient" class="scroll-mt-24 rounded-2xl border border-red-200 bg-red-50/60 p-5 dark:border-red-900 dark:bg-red-950/20 sm:p-7">
           <p class="text-xs font-bold uppercase tracking-[0.16em] text-red-700 dark:text-red-300">How to orient yourself</p>
           <p class="mt-3 leading-7">{interpretation.orientation}</p>
         </section>
 
-        <section>
-          <h2 class="font-heading text-2xl font-bold">Systematic interpretation</h2>
+        <section id="observe" class="scroll-mt-24">
+          <p class="text-xs font-bold uppercase tracking-[0.16em] text-red-700 dark:text-red-300">Observe</p>
+          <h2 class="mt-1 font-heading text-2xl font-bold">Read it systematically</h2>
           <ol class="mt-4 space-y-3">
             {interpretation.checklist.map((step, i) => <li class="flex gap-3 leading-7"><span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-red-800 text-sm font-bold text-white">{i + 1}</span><span>{step}</span></li>)}
           </ol>
         </section>
 
-        <section class="rounded-2xl border border-clinical-200 bg-warm-white p-5 dark:border-clinical-700 dark:bg-clinical-800 sm:p-7">
-          <h2 class="font-heading text-2xl font-bold">What this study supports</h2>
+        <section id="interpret" class="scroll-mt-24 rounded-2xl border border-clinical-200 bg-warm-white p-5 dark:border-clinical-700 dark:bg-clinical-800 sm:p-7">
+          <p class="text-xs font-bold uppercase tracking-[0.16em] text-red-700 dark:text-red-300">Interpret</p>
+          <h2 class="mt-1 font-heading text-2xl font-bold">What the findings support</h2>
           <ul class="mt-4 list-disc space-y-2 pl-5 leading-7">
             {interpretation.supportedFindings.map(finding => <li>{finding}</li>)}
           </ul>
-          <h3 class="mt-6 font-heading text-xl font-semibold">Clinical meaning</h3>
+          <h3 id="apply" class="mt-6 scroll-mt-24 font-heading text-xl font-semibold">Apply it clinically</h3>
           <p class="mt-2 leading-7 text-clinical-700 dark:text-clinical-200">{interpretation.clinicalMeaning}</p>
         </section>
 
@@ -64,27 +74,27 @@ const next = items[(index + 1) % items.length];
           </ul>
         </section>
 
-        <section class="rounded-xl border border-clinical-200 p-5 text-sm leading-6 dark:border-clinical-700">
-          <h2 class="font-heading text-xl font-bold">Evidence boundary</h2>
-          <p class="mt-2">The source description above is the asset-level clinical label supplied by the original publisher. The systematic interpretation is educational guidance derived from that label and modality; it is not an independent read of a complete clinical examination. Measurements, absent sequences, acquisition quality, and patient context may materially change the interpretation.</p>
-        </section>
+        <details class="rounded-xl border border-clinical-200 p-4 text-sm leading-6 text-clinical-500 dark:border-clinical-700">
+          <summary class="cursor-pointer font-semibold text-clinical-700 dark:text-clinical-200">About this interpretation</summary>
+          <p class="mt-3">The source description is the asset-level clinical label supplied by the original publisher. This educational framework is derived from that label and modality; it is not an independent read of a complete examination. Measurements, absent sequences, acquisition quality, and patient context may materially change the interpretation.</p>
+        </details>
       </article>
 
       <aside class="space-y-5 lg:sticky lg:top-24 lg:self-start">
-        <section class="rounded-2xl border border-clinical-200 bg-warm-white p-5 text-sm leading-6 dark:border-clinical-700 dark:bg-clinical-800">
-          <h2 class="font-heading text-lg font-bold">Source & license</h2>
-          <dl class="mt-3 space-y-3">
+        <details class="rounded-xl border border-clinical-200 bg-warm-white p-4 text-sm leading-6 text-clinical-500 dark:border-clinical-700 dark:bg-clinical-800">
+          <summary class="cursor-pointer font-semibold text-clinical-700 dark:text-clinical-200">Source, credit & license</summary>
+          <dl class="mt-4 space-y-3">
             <div><dt class="font-semibold">Creator</dt><dd>{item.creator}</dd></div>
             {item.credit && <div><dt class="font-semibold">Credit</dt><dd>{item.credit}</dd></div>}
             <div><dt class="font-semibold">License</dt><dd><a href={item.licenseUrl} rel="license" class="text-red-700 underline dark:text-red-300">{item.license}</a></dd></div>
             <div><dt class="font-semibold">Changes</dt><dd>{item.changes}</dd></div>
           </dl>
-          <a href={item.sourcePage} class="mt-5 inline-block font-semibold text-red-700 underline dark:text-red-300">Original file and complete attribution →</a>
-        </section>
+          <a href={item.sourcePage} class="mt-4 inline-block font-semibold text-red-700 underline dark:text-red-300">View original record →</a>
+        </details>
 
         <nav class="grid grid-cols-2 gap-3 text-sm" aria-label="Media studies">
-          <a href={`/education/cardiology/media/${previous.id}`} class="rounded-xl border border-clinical-300 p-3 hover:border-red-600 dark:border-clinical-600">← Previous</a>
-          <a href={`/education/cardiology/media/${next.id}`} class="rounded-xl border border-clinical-300 p-3 text-right hover:border-red-600 dark:border-clinical-600">Next →</a>
+          <a href={`/education/cardiology/media/${previous.id}`} class="min-w-0 rounded-xl border border-clinical-300 p-3 hover:border-red-600 dark:border-clinical-600"><span class="block text-xs text-clinical-400">← Previous</span><span class="mt-1 block truncate font-semibold">{displayTitleFor(previous)}</span></a>
+          <a href={`/education/cardiology/media/${next.id}`} class="min-w-0 rounded-xl border border-clinical-300 p-3 text-right hover:border-red-600 dark:border-clinical-600"><span class="block text-xs text-clinical-400">Next →</span><span class="mt-1 block truncate font-semibold">{displayTitleFor(next)}</span></a>
           <a href="/education/cardiology/media" class="col-span-2 rounded-xl bg-red-800 p-3 text-center font-semibold text-white hover:bg-red-700">Back to all studies</a>
         </nav>
       </aside>

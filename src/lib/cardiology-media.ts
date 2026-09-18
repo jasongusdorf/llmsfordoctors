@@ -13,6 +13,40 @@ export type MediaInterpretation = {
   pitfalls: string[];
 };
 
+const acronyms: Record<string,string> = {
+  cmr:'CMR', mri:'MRI', ct:'CT', tee:'TEE', tte:'TTE', lv:'LV', rv:'RV', lvot:'LVOT',
+  hcm:'HCM', arvc:'ARVC', asd:'ASD', vsd:'VSD', tavi:'TAVI', ivus:'IVUS', ivc:'IVC',
+  '3d':'3D', '4d':'4D', dense:'DENSE', ecg:'ECG', mr:'MR', tr:'TR', ar:'AR', as:'AS',
+};
+
+export function displayTitleFor(item: CardiologyMedia): string {
+  let title = item.title
+    .replace(/\.(gif|ogv|webm|mp4|mov|jpe?g|png)$/i, '')
+    .replace(/\s*\(CardioNetworks ECHOpedia\)\s*/gi, '')
+    .replace(/\s+[EM]{1,2}\d{4,}\s*$/i, '')
+    .replace(/[-_](?:\d{4}-\d{3,4}X?-\d+(?:-\d+)?|pone\.\d+)[.-]*(?:s|f)\d+\s*$/i, '')
+    .replace(/[-_]\d{5,}\.f\d+\s*$/i, '')
+    .replace(/[-_]+/g, ' ')
+    .replace(/^\d+\s+(?=[A-Za-z])/,'')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (/^clip\s*\d+$/i.test(title)) {
+    const usefulDescription = item.description.split(/[.;]/)[0]?.trim();
+    title = usefulDescription && !/^moving .* teaching example/i.test(usefulDescription)
+      ? usefulDescription
+      : `${item.modality} cine study`;
+  }
+  title = title.replace(/\b[a-zA-Z0-9]+\b/g, word => acronyms[word.toLowerCase()] ?? word);
+  return title || `${item.modality} study`;
+}
+
+export function sourceNameFor(item: CardiologyMedia): string {
+  if (/wikimedia/i.test(item.category ?? '') || /commons\.wikimedia/i.test(item.sourcePage)) return 'Wikimedia Commons';
+  if (/minnesota|vhlab/i.test(`${item.category ?? ''} ${item.sourcePage}`)) return 'University of Minnesota Cardiac Atlas';
+  if (/echopedia|cardionetworks/i.test(`${item.title} ${item.creator} ${item.sourcePage}`)) return 'ECHOpedia / CardioNetworks';
+  return 'Original publisher';
+}
+
 const diseaseGuides: Array<{match: RegExp; findings: string[]; meaning: string; pitfalls: string[]}> = [
   { match:/aortic stenosis|stenotic aortic/i, findings:['Assess cusp opening and calcification, then look for secondary LV hypertrophy and systolic consequences.','Severity cannot be assigned from morphology alone; it requires Doppler velocity/gradient, valve area, flow state, and clinical concordance.'], meaning:'The moving anatomy can support the mechanism of fixed LV outflow obstruction, but the cine is one component of a complete valve assessment.', pitfalls:['Do not infer severe AS from restricted-looking leaflets without hemodynamic measurements.'] },
   { match:/hypertrophic|HCM|LVOT|systolic anterior motion/i, findings:['Look for asymmetric hypertrophy, systolic anterior motion of the mitral valve, mitral–septal contact, and associated posteriorly directed MR.','Compare chamber size and wall thickening through the cardiac cycle.'], meaning:'These features can support hypertrophic cardiomyopathy and dynamic obstruction; provocation and Doppler establish the physiologic burden.', pitfalls:['Do not diagnose HCM from apparent wall thickness in an off-axis view.','A cine cannot provide an LVOT gradient.'] },
