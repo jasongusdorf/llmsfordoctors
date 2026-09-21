@@ -1,0 +1,55 @@
+---
+title: "AI Assistance Improved Detection of Eight Fetal Ultrasound Findings in a Multireader Study"
+journal: "npj Digital Medicine"
+year: 2026
+doi: "10.1038/s41746-026-03037-y"
+keyFinding: "In a retrospective multireader, multicase study, 13 U.S. physicians interpreted 750 enriched fetal ultrasound still images with and without Sonio Suspect. AI assistance increased mean AUC from 0.689 to 0.909, sensitivity from 54.2% to 88.5%, and specificity from 80.7% to 87.9%, while reducing mean interpretation time from 40 to 23 seconds per image. The study tested eight predefined findings on isolated images, not complete examinations or clinical outcomes."
+lastUpdated: 2026-09-21
+tags: [fetal-ultrasound, prenatal-diagnosis, diagnostic-imaging, deep-learning, human-ai-collaboration, multireader-study, retrospective-study, obstetrics]
+socialPost: "In a 13-reader study of 750 fetal ultrasound still images, AI assistance raised mean AUC from 0.689 to 0.909 and sensitivity from 54.2% to 88.5%, while cutting reading time from 40 to 23 seconds. The test was retrospective, enriched, and limited to eight findings on isolated images."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This retrospective, fully crossed multireader, multicase study evaluated whether Sonio Suspect, an FDA-cleared fetal ultrasound aid, improved physicians' interpretation of still images. Thirteen U.S.-licensed physicians, including five maternal-fetal medicine specialists, six obstetrician-gynecologists, and two diagnostic radiologists, each reviewed all 750 images twice: once without AI and once with its findings displayed. The sessions were separated by at least 28 days, and image order was randomized.
+
+The 750 images came from 287 examinations performed at 47 international sites. Investigators deliberately enriched the set with abnormalities: 250 images were positive for one of eight predefined findings and 500 were negative. The findings covered selected cardiac, thoracic, abdominal, and brain abnormalities, including great-vessel malposition, situs abnormalities, and absent visualization of the corpus callosum. Three experts established the image-level reference standard by majority consensus. Ground truth did not incorporate other images from the examination, cine loops, postnatal findings, or the eventual clinical diagnosis.
+
+The primary outcomes were area under the receiver operating characteristic curve (AUC), sensitivity, and specificity. Secondary outcomes included interpretation time and inter-reader agreement. Five authors were Sonio employees, and the remaining four authors served on the company's scientific advisory board. The publisher labels this an unedited Article in Press.
+
+## Key Findings
+
+- **Discrimination improved substantially with AI assistance.** Mean AUC across readers and findings rose from 0.689 (95% CI, 0.65 to 0.73) without AI to 0.909 (95% CI, 0.886 to 0.931) with AI, a difference of 0.219 (95% CI, 0.185 to 0.253).
+- **Both sensitivity and specificity increased.** Mean sensitivity rose from 54.2% to 88.5%, and mean specificity rose from 80.7% to 87.9%. All 13 readers improved sensitivity. Specificity improved for 10 readers and fell by no more than 5 percentage points for the other three.
+- **Readers became faster and more consistent.** Mean interpretation time fell from 40 seconds (95% CI, 39 to 41) to 23 seconds (95% CI, 22 to 24) per image. Mean pairwise Kendall tau-b for inter-reader agreement increased from 0.26 to 0.72.
+- **Readers often followed the model when it was wrong.** Among AI false negatives, readers accepted the AI output in 70% of cases. The manuscript's false-positive adherence figures do not reconcile, so no exact rate is reported here.
+
+<Callout type="evidence">
+  Every reader interpreted every image in both conditions, and the analysis accounted for the correlation inherent in a multireader, multicase design. The gains therefore reflect within-reader performance on the same image set. They do not establish how the software performs during a complete live examination, where clinicians can sweep through anatomy, acquire additional views, and use the rest of the clinical record.
+</Callout>
+
+## Clinical Implications
+
+1. **This is evidence for concurrent image interpretation, not for autonomous prenatal diagnosis.** The model displayed a determination for eight findings on isolated still images. It did not conduct the scan, decide which views to acquire, or integrate a complete examination.
+
+2. **The sensitivity gain is meaningful within the study, but the dataset was constructed to test detection.** One third of images were finding-positive, and the eight abnormalities were deliberately balanced at roughly 31 positive images each. This is not the prevalence or case mix of routine screening, so prevalence-dependent measures and workflow effects will differ in practice.
+
+3. **Automation bias remains visible despite the aggregate improvement.** Readers followed 70% of AI false negatives. The manuscript gives mutually inconsistent figures for false-positive adherence and correction, so those rates cannot be interpreted reliably. A higher overall AUC does not remove the need to understand which findings the system confuses and how often clinicians defer to it.
+
+<Callout type="pitfall">
+  The reference standard was image-level expert consensus, not a postnatal diagnosis. The source dataset defined a "confirmed diagnosis" as one documented in the contemporaneous ultrasound report, and ground-truth readers were intentionally blinded to the rest of each examination. This keeps the comparison controlled but limits claims about diagnostic accuracy for the fetus or pregnancy.
+</Callout>
+
+## My Takeaway
+
+The performance change is large: mean AUC rose from 0.689 to 0.909, sensitivity from 54.2% to 88.5%, and specificity from 80.7% to 87.9%. At the same time, readers became faster, not slower, with mean interpretation time falling from 40 to 23 seconds per image. Because all 13 readers reviewed the same 750 images in both conditions after a washout, this is stronger evidence of an assistance effect than a comparison between separate reader groups.
+
+The boundaries matter just as much as the effect size. This was a retrospective study of isolated still images enriched to one third abnormal, limited to eight predefined findings, and analyzed against image-level expert consensus rather than clinical outcomes. Only U.S. physicians participated. Five authors worked for the manufacturer, the other four served on its scientific advisory board, and the model's separate standalone validation study was still under review. The paper also remains an unedited Article in Press.
+
+The most useful warning comes from the model's errors. Readers followed 70% of its false negatives. The false-positive analysis cannot support a precise rate: one results paragraph says readers followed 76% of false positives but did not follow 30%, while the discussion gives correction rates of both 23% and 24%. Human review improved aggregate performance, but the paper's own reporting prevents a reliable estimate of how often readers overrode false-positive outputs. The next persuasive evidence would be a prospective study during complete examinations that uses clinical or postnatal reference standards and measures missed diagnoses, unnecessary referrals, acquisition time, and downstream decisions.
+
+---
+
+[Read the full article at npj Digital Medicine](https://doi.org/10.1038/s41746-026-03037-y)
