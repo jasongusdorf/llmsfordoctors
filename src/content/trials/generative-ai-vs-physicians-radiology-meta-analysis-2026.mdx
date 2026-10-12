@@ -1,0 +1,60 @@
+---
+title: "Generative AI Trailed Expert Physicians by 13 Points in a Meta-Analysis of 48 Radiology Diagnostic Studies"
+journal: "Japanese Journal of Radiology"
+year: 2026
+doi: "10.1007/s11604-026-02090-7"
+keyFinding: "A prospectively registered systematic review and meta-analysis of 48 studies found pooled generative AI diagnostic accuracy in radiology of 42.9% for free-text tasks and 58.1% for choice-format tasks. In model-based comparisons across studies, AI was 13.0 percentage points less accurate than expert physicians (95% CI 0.9 to 25.2), while the gap versus non-experts was not significant. Image-only input was associated with 25.9-point lower accuracy than text-only input, which the authors caution may reflect task difficulty rather than modality. The included studies mostly tested GPT-4-era models and only one was at low risk of bias."
+lastUpdated: 2026-10-12
+tags: [meta-analysis, systematic-review, llm, radiology, diagnostic-accuracy, multimodal-ai, benchmark]
+socialPost: "Meta-analysis of 48 radiology studies: generative AI got 42.9% of free-text diagnoses right and 58.1% of choice-format questions. It trailed expert physicians by 13.0 points; the gap vs non-experts was not significant. Image-only input scored 25.9 points lower than text-only. Mostly GPT-4-era models; only 1 of 48 studies at low risk of bias."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This is a systematic review and meta-analysis, not a primary study. It was prospectively registered in PROSPERO (CRD420251040000) and followed PRISMA guidance for diagnostic test accuracy reviews. The authors searched Medline, Scopus, Web of Science, Cochrane Central, and medRxiv from June 2018 through March 2025 for studies that tested generative AI on diagnostic tasks in radiology. Two reviewers screened and extracted independently, with a third resolving disagreements, and risk of bias was assessed with PROBAST+AI.
+
+- **Included studies:** 48 (46 peer reviewed, 2 preprints): 45 from 24,334 database records and 3 found by web search.
+- **Models:** GPT-4 was evaluated most often (20 articles), followed by GPT-4V (19), GPT-4o (12), GPT-3.5 (9), and Claude 3.5 Sonnet (8).
+- **Tasks:** free-text diagnosis (31 articles) and choice-format questions (19); some studies did both. For free-text tasks, top-1 accuracy was used.
+- **Inputs:** text-only (28 articles), image-only (19), and text-and-image (11).
+- **Physician comparisons:** 12 studies included physicians, totaling 40 physicians (24 experts and 16 non-experts). Residents and trainees were classified as non-experts.
+
+The AI-versus-physician estimates are model-based comparisons across studies using multilevel random-effects meta-regression, not head-to-head comparisons on the same cases. The same research group previously published an all-specialty meta-analysis; this one is radiology-specific, with an independent study collection and a different bias tool.
+
+## Key Findings
+
+- **Pooled AI accuracy was modest.** Generative AI achieved 42.9% (95% CI 35.8 to 50.1%) on free-text tasks and 58.1% (50.0 to 66.2%) on choice tasks. Pooled physician accuracy was 48.4% and 70.8%, respectively.
+- **AI trailed experts; the non-expert comparison was inconclusive.** Physicians overall outperformed AI by 10.6 percentage points (95% CI 0.5 to 20.6). Expert physicians outperformed AI by 13.0 points (0.9 to 25.2). The difference from non-expert physicians, 7.2 points (-3.7 to 18.2), was not significant.
+- **Text-only input was associated with higher accuracy.** Expressed as image-only minus text-only, the difference was -25.9 percentage points (95% CI -39.1 to -12.8); for text-and-image minus text-only it was -10.6 points (-20.8 to -0.3). Input type was not randomized, and the authors caution that text inputs often contained human-written findings.
+- **The evidence base was weak.** By PROBAST+AI, 13 of 48 studies (27%) were at high risk of bias, 34 (71%) unclear, and only 1 (2%) low. The main driver of unclear risk was the absence of a priori sample size calculations.
+- **The overall gap was stable in sensitivity analyses, but borderline.** The physicians-overall-minus-AI difference stayed near 10.6 points when the assumed within-study correlation was varied and remained positive on the log-odds scale, with the lower confidence bound staying at about 0.5 points across the correlation assumptions. These checks were reported for the overall comparison, not the expert comparison. There was no clear evidence of small-study effects (Egger-type test, P = 0.066).
+
+<Callout type="evidence">
+  The registration, duplicate extraction, and cluster-robust modeling are careful. But a meta-analysis cannot be better than its inputs. Physician data came from only 12 of 48 studies, so case mix differs between the AI and physician estimates. The search ended in March 2025, so the models are mostly GPT-4, GPT-4V, and GPT-4o. In 14 studies the test data were public and predated model training cutoffs, so contamination cannot be excluded. Model versions, prompts, and temperature settings were often unreported, and all but one study used English-only materials.
+</Callout>
+
+## Clinical Implications
+
+1. **A general-purpose chatbot is not a radiologist.** Pooled free-text diagnostic accuracy below 50% and a significant gap to experts argue against using these models to interpret studies on their own. The authors suggest evaluating these models as assistive tools, pointing to triage support, after-hours assistance, and generating differentials for a clinician to review.
+
+2. **Be wary of performance on text inputs.** Text-only inputs, which often contained findings already written or curated by a human, did far better than images. The authors caution that this may reflect task difficulty and the information already in the text rather than modality itself. A model that does well when given the radiologist's description is not showing that it can read the image.
+
+3. **Watch the format of any performance claim.** Pooled accuracy was 42.9% on free-text tasks and 58.1% on choice tasks, and physicians showed the same pattern (48.4% and 70.8%). These are separate pooled estimates rather than a formal comparison, but choice-format results are likely the more flattering number.
+
+<Callout type="pitfall">
+  "No significant difference from non-expert physicians" is not the same as "equivalent to residents." The confidence interval runs from AI being 3.7 points better to 18.2 points worse. The study was not designed to show equivalence.
+</Callout>
+
+## My Takeaway
+
+The two numbers to remember are 42.9% pooled free-text accuracy and a 13.0-point deficit relative to expert physicians. The second number has a wide confidence interval, 0.9 to 25.2, and comes from cross-study modeling in which physician data came from only 12 of the 48 studies. The authors acknowledge that case-mix differences may have influenced the estimate. The gap favors experts, but its size is uncertain.
+
+The most useful finding for clinicians is the modality gap. Image-only tasks scored 25.9 points lower than text-only tasks. The authors are careful to say this may reflect task difficulty and the information already in the text, since text inputs often carried a human's interpretation. Either way, the practical reading is the same: strong performance on a written description is not evidence that a model can read the image.
+
+The obvious objection is that the models are old, and that is fair. The search closed in March 2025, before most current multimodal systems. But the methodological finding will not age out: only 1 of 48 studies was at low risk of bias, and the most common reason for an unclear rating was that sample sizes were not justified in advance. Newer models will need better studies, not just better scores.
+
+---
+
+[Read the full article at Japanese Journal of Radiology](https://doi.org/10.1007/s11604-026-02090-7)

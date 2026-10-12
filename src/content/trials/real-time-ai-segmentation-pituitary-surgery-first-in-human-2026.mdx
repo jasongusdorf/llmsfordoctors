@@ -1,0 +1,61 @@
+---
+title: "First-in-Human Real-Time AI Anatomy Overlay in Pituitary Surgery: Feasible in Six of Eight Cases"
+journal: "Pituitary"
+year: 2026
+doi: "10.1007/s11102-026-01762-x"
+keyFinding: "In a single-center IDEAL Stage 1 case series, a vision-transformer model that outlined the sella and carotid arteries live on the endoscopic video ran in six of eight pituitary operations; two deployments failed before surgery from the same computer boot fault. There were no intraoperative complications and no significant surgeon distraction. This was a non-comparative feasibility study with one surgical team, and the model's preclinical carotid segmentation was weak (recall 13.6%)."
+lastUpdated: 2026-10-12
+tags: [computer-vision, deep-learning, neurosurgery, surgery, pituitary, first-in-human, feasibility, human-factors]
+socialPost: "First-in-human: a real-time AI overlay outlining the sella and carotids during endoscopic pituitary surgery ran in 6 of 8 cases (2 failed from one boot bug), with no intraoperative complications or significant surgeon distraction. Feasibility only: no control group, one team, and weak preclinical carotid segmentation."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This is a first-in-human feasibility case series, IDEAL Stage 1, reported under the DECIDE-AI framework and registered as NCT07568366. It was non-comparative, single-center (the National Hospital for Neurology and Neurosurgery in London), and performed by one attending surgeon and team. It tested whether real-time, pixel-level segmentation of anatomy from the live endoscopic video feed could be deployed safely in the operating room.
+
+The model was a DINOv3-derived vision transformer built from 2157 annotated frames from 110 prior operations. In preclinical testing, with 97 patients used for training and 13 held out, sella segmentation reached a Dice score of 86.4%, but carotid artery segmentation was much weaker, with precision of 54.3%, recall of 13.6%, and Dice of 21.8%. For the trial, the same configuration was retrained on all 110 patients plus each new trial patient. It ran on a local NVIDIA edge computer with no cloud dependence, with end-to-end latency of 50 to 100 ms in pre-operative testing.
+
+The interface was designed from earlier simulation studies. Structures were drawn as outlines rather than filled masks, the overlay appeared on a secondary monitor only when the surgeon pressed a foot pedal, and a separate confidence score could be toggled on. Surgery was otherwise performed as usual on the primary display.
+
+- **Patients:** eight consecutive adults undergoing elective endoscopic transsphenoidal surgery for pituitary adenoma; six had been planned.
+- **Users:** four team members (three surgeons and one scrub nurse).
+- **Outcomes:** feasibility and acceptability questionnaires, operating room video review for distraction and workflow disruption, blinded surgical skill scoring (OSATS), and routine clinical outcomes. The model was updated between operating sessions.
+
+## Key Findings
+
+- **The system ran in six of eight cases.** Both failures (cases 2 and 3, same day) were a pre-operative computer boot-configuration fault on the hardware platform, fixed by correcting the boot settings and updating firmware, and not seen again.
+- **No intraoperative harm was observed.** There were no intraoperative complications, including vascular or neural injury, and no events of significant surgeon distraction or workflow disruption. Postoperatively, median length of stay was 4 days; three patients needed anterior pituitary hormone supplementation and two had hyponatremia requiring treatment (one of them in a case where the AI was not used), which the authors report as in line with their historical data.
+- **The team rated it feasible.** The median feasibility score was 4.8 of 5, acceptability 4 of 5, usability (SUS) 78 of 100, and trust in the system was moderate at 4.3 of 7.
+- **Surgical skill scores were close to historical.** Mean sellar-phase OSATS was 27.2 of 30, which the authors describe as not meaningfully declining from a retrospective score of 28.6. No statistical comparison was reported.
+- **Early errors were real.** The first model drew sella (a "go" zone) over the carotid arteries (a "no-go" zone), and overlays distorted when instruments entered the field. Carotid segmentation was added and refined over successive versions; a fix for instrument distortion is planned for the next stage rather than achieved in this one.
+- **Latency was noticed once.** Surgeons perceived lag in one case, at about 100 ms, which the authors say was likely due to the computer running continuously through two operations. It resolved after the system was rested.
+
+<Callout type="evidence">
+  This study was designed to answer "can it run safely in a real operating room," not "does it help." With six patients exposed to the AI, one surgical team, no control group, and a model changed between cases, it cannot show any effect on accuracy, complications, or outcomes. The comparison to a historical skill score is descriptive. The authors are explicit that the system was used as a training and educational tool rather than as primary decision support.
+</Callout>
+
+## Clinical Implications
+
+1. **This is a deployment milestone, not a clinical tool.** Getting a pixel-level model to run live on a neurosurgical video feed without distracting the surgeon is a necessary first step. The next stages the authors plan, IDEAL 2a and 2b, are where benefit would have to be shown.
+
+2. **The failure modes are the useful part.** A "safe zone" overlay drawn over a carotid artery is exactly the kind of error that matters in surgery. Reporting it, along with the boot failures and instrument-related distortion, is more informative than another high accuracy number from a curated dataset.
+
+3. **Carotid detection is the open problem.** Preclinical recall of 13.6% for the carotid arteries means the model missed most of the carotid it should have found on the test set. The authors report improvement during the trial but give no updated quantitative carotid performance.
+
+<Callout type="pitfall">
+  Two authors hold shares in or are employed by surgical AI companies (Panda Surgical, Odin Vision, TouchSurgery and Medtronic), and the work was done in collaboration with Medtronic, NVIDIA, and Encord. That does not invalidate a feasibility study, but it matters when later stages report effectiveness.
+</Callout>
+
+## My Takeaway
+
+The honest summary is that the system ran in six of eight operations without intraoperative complications or distracting the surgeon, and that is all this design can show. It is a careful, transparently reported Stage 1 study, and the transparency is its main contribution: two outright deployment failures, an early model that marked a carotid as safe territory, and preclinical carotid recall of 13.6%.
+
+Most surgical AI papers report segmentation scores on retrospective, cleaned-up frames. This one put a model in an operating room, wrapped it in a surgeon-controlled interface with outlines rather than filled shapes and a foot pedal to call it up, and documented what broke. That is the right order of operations for a high-stakes tool.
+
+It is not evidence that the overlay improves anatomical orientation, shortens the learning curve, or prevents injury. Those claims need a comparative study with more surgeons and a model frozen before the trial begins. Until then, treat this as a proof that the plumbing works.
+
+---
+
+[Read the full article at Pituitary](https://doi.org/10.1007/s11102-026-01762-x)

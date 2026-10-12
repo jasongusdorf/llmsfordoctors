@@ -1,0 +1,60 @@
+---
+title: "Guideline-Grounded Rheumatology Chatbots Answered 6291 Questions, but Most Answers Were Graded Only by an LLM"
+journal: "Journal of Medical Systems"
+year: 2026
+doi: "10.1007/s10916-026-02470-6"
+keyFinding: "Ten GPT-4o chatbots grounded in German rheumatology guidelines, deployed through 13 centers and six patient organizations, answered 6291 user questions over five months. Of 2671 user-rated answers, 92.9% were rated positively. An LLM judge rated 95.3% of all answers completely safe, 79.1% completely correct, and 6.0% incorrect, but only 45.0% fully guideline-adherent; its adherence ratings agreed only weakly with a rheumatologist (AC2 0.38). This was an uncontrolled, observational deployment with no patient outcomes."
+lastUpdated: 2026-10-12
+tags: [llm, rag, gpt-4o, rheumatology, patient-education, chatbot, llm-as-judge, implementation, observational-study]
+socialPost: "10 guideline-grounded rheumatology chatbots, 6291 real-world user questions: 92.9% of user ratings were positive, and an LLM judge called 95.3% of answers completely safe. But only 45.0% were judged fully guideline-adherent, and that judge agreed weakly with a rheumatologist (AC2 0.38). No outcomes measured."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This was a prospective, multicenter, observational deployment study in Germany. Investigators built ten disease-specific chatbots, the most used being those for rheumatoid arthritis, axial spondyloarthritis, and ANCA-associated vasculitis. Each used GPT-4o through a German Azure endpoint with retrieval-augmented generation (RAG) limited to the latest German clinical guideline for that disease. The model was not fine-tuned. Retrieved guideline passages were cited to users alongside each answer. Two patient research partners from Deutsche Rheuma-Liga, which the authors describe as the largest German patient organization, helped design the system prompts and the study.
+
+The chatbots were open from September 2, 2025 to January 31, 2026, and promoted through 13 rheumatology centers with QR-code leaflets and posters, and through six patient organizations. There was no control group.
+
+- **User feedback:** a thumbs-up or thumbs-down after any answer, plus an optional questionnaire.
+- **Quality assessment:** a locally hosted LLM judge (gpt-oss:120b) rated every question-answer pair on six dimensions, including safety and correctness, and separately on guideline adherence. Two rheumatologists independently rated a random sample of 100 pairs. Those same ratings were used both to refine the judge's prompts and to measure its agreement with physicians, so the agreement figures are in-sample. Guideline adherence, defined as whether an answer was supported by the guideline passages retrieved for it, was checked against one rheumatologist only.
+- **Safety architecture:** guidance to seek professional advice was in the system prompt, but there was no deterministic clinical safeguard, real-time safety monitoring, or escalation pathway.
+
+## Key Findings
+
+- **Use was substantial.** The chatbots handled 6291 question-answer pairs across 1534 sessions, with a median of three turns per session. The most common topics were disease-specific questions (50.2%), medication and monitoring (37.3%), and diagnostics (28.2%).
+- **Users liked it.** Of 2671 rated answers (42.5% of all answers), 92.9% got a positive rating. The most common reason for a negative rating was insufficient detail (125 of 190). Among 602 questionnaire respondents, 84.6% found it easy to use, 80.2% called it a useful addition to patient education, 67.3% found the answers trustworthy, and 56.0% preferred it to a general internet search.
+- **The LLM judge rated most answers safe and correct.** It rated 95.3% of answers completely safe and 79.1% completely correct; 14.9% were partially correct and 6.0% incorrect, which the paper defines as major errors with potential for harm. On its separate safety check, the same judge flagged only 0.2% (11 of 6291) as potentially unsafe. The paper does not reconcile those two figures.
+- **Guideline adherence was low, by the judge's own rating.** Only 45.0% of answers were rated fully guideline-adherent, 44.2% partially, and 10.9% not adherent. Agreement between the LLM judge and the rheumatologist on adherence was weak (AC2 0.38, 95% CI 0.21 to 0.53).
+- **Agreement varied by dimension.** LLM-physician agreement was substantial for safety (AC2 0.91 and 0.96), patient-centeredness, correctness, and completeness, with no significant systematic differences for safety, correctness, or completeness. It was moderate for patient-readiness, where the LLM was far more conservative (21.9% fully patient-ready versus 93% and 86% for the two rheumatologists), and weak for question difficulty.
+- **Rare safety failures were hard to confirm.** The LLM flagged 11 of 6291 answers as potentially unsafe. Both rheumatologists agreed on one: a statement that cortisone could be given subcutaneously during flares.
+- **Refusals were mostly genuine gaps.** The chatbots declined 263 questions (4.2%); on rheumatologist review, 45 of these (17.1%) would have been answerable from the guideline.
+
+<Callout type="evidence">
+  The scale and real-world setting are the strengths: these were real users asking unscripted questions, not curated vignettes. But users' clinical status could not be verified, only about two in five answers were rated by users at all, the questionnaire was optional, and diagnoses were self-reported. Physicians did not review the full set of answers. The study measured satisfaction and judged answer quality; it did not measure knowledge, adherence, or any clinical outcome.
+</Callout>
+
+## Clinical Implications
+
+1. **RAG grounding does not guarantee guideline-faithful answers.** Even with retrieval limited to a single guideline and a low temperature setting, fewer than half of answers were judged fully adherent, though that judgment agreed only weakly with a physician. The authors note that in some cases the model gave clinically appropriate answers drawn from its general training knowledge rather than the guideline, which helps patients but undermines source transparency. Non-adherent does not necessarily mean wrong.
+
+2. **A guideline-only corpus ages.** One chatbot told a patient that no JAK inhibitors were approved for ankylosing spondylitis, which reflected the outdated guideline it was given rather than current approvals. Any grounded tool needs a plan for keeping its sources current.
+
+3. **User satisfaction is not a quality signal.** High approval ratings coexisted with a 6.0% rate of answers the LLM judge classified as incorrect. Those are different measurements and should not be blended.
+
+<Callout type="pitfall">
+  The 95.3% "completely safe" figure is an LLM's rating, not a physician's. The validation sample of 100 pairs was random rather than enriched for risky questions, and the authors state the study provides limited evidence that the LLM judge can detect rare safety-critical failures. One author is employed by the company whose platform hosted the chatbots and stored the study data, and that author also contributed to the LLM-based analysis and prompt refinement.
+</Callout>
+
+## My Takeaway
+
+This is a useful paper about what happens when you actually put a grounded chatbot in front of patients: thousands of questions, most often about disease specifics and medications, and mostly happy users. The number that gives me pause is not the 92.9% satisfaction but the 45.0% full guideline adherence, from a system whose whole design premise was guideline grounding. The authors rightly warn that this figure is soft, because the judge and the rheumatologist agreed only weakly on it, but it is the clearest sign that grounding alone does not keep a model on the page.
+
+The evaluation layer deserves as much scrutiny as the chatbot. An LLM judged another LLM's answers at scale, and it agreed well with physicians on safety and correctness, though on the same 100 pairs used to tune it, and only weakly on guideline adherence. The one clearly unsafe answer that both rheumatologists confirmed surfaced because the judge flagged it. We do not know how many it missed, and the authors are candid that their design cannot tell us.
+
+For anyone building or buying a patient-facing tool: retrieval grounding, plain-language prompting, and patient co-design are reasonable starting points, and this group did all three. But "users liked it and an LLM said it was safe" is a deployment report, not validation. The next study needs physician review of an enriched sample, a comparison group, and at least one patient-level outcome.
+
+---
+
+[Read the full article at Journal of Medical Systems](https://doi.org/10.1007/s10916-026-02470-6)

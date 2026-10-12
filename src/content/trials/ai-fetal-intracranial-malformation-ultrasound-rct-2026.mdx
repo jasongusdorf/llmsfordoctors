@@ -1,0 +1,63 @@
+---
+title: "Real-Time AI Helped Sonographers Catch More Fetal Brain Malformations in a Randomized Crossover Trial"
+journal: "The Lancet Digital Health"
+year: 2026
+doi: "10.1016/j.landig.2026.101040"
+keyFinding: "In a five-center randomized crossover trial of 1584 high-risk pregnancies in China, real-time AI assistance raised sonographers' sensitivity for ten targeted fetal intracranial malformations from 0.786 to 0.873 (difference 0.087, 95% CI 0.029 to 0.147) while specificity met the prespecified non-inferiority margin. Detection of anomalies outside the AI's scope did not differ significantly, but the reference standard was expert video review rather than postnatal outcome, and AI-assisted scans took about 40 seconds longer."
+lastUpdated: 2026-10-12
+tags: [rct, obstetrics, fetal-ultrasound, prenatal-diagnosis, deep-learning, computer-vision, imaging, human-ai-collaboration]
+socialPost: "RCT, 1584 high-risk pregnancies, 29 sonographers: real-time AI raised fetal-based sensitivity for ten targeted brain malformations from 0.786 to 0.873 without a loss of specificity, with no significant change in detection of anomalies outside its scope. Reference standard was expert video review, not postnatal outcome."
+---
+
+import Callout from '../../components/Callout.astro';
+
+## Study Design
+
+This was a multicenter, randomized, two-by-two crossover trial at five tertiary prenatal diagnostic centers in China, registered with the Chinese Clinical Trial Registry (ChiCTR2200063424). It tested PAICS, a real-time deep-learning system built on a YOLOv3 object-detection network that flags ten specific fetal intracranial malformations, including mild and severe ventriculomegaly, intraventricular and non-intraventricular cysts, an open fourth ventricle, megacisterna magna, and an absent or incomplete cranial halo.
+
+Eligible pregnancies were singletons at 11 to 32 weeks' gestation with a high risk of fetal malformation: a suspected anomaly on a prior scan, abnormal serum or genetic screening, or a referral for suspected malformation. Each participant was randomized 1:1 to one of two sequences. In sequence A, the sonographer made an independent diagnosis during live scanning, then reviewed the recorded video with AI assistance four weeks later. In sequence B, the order was reversed: AI-assisted live scanning, then an independent video review after a four-week washout. Every scan therefore produced one AI-assisted and one unassisted read from the same sonographer.
+
+- **Readers:** 29 sonographers with 3 to less than 8 years of obstetric ultrasound experience and at least 200 prenatal scans. PAICS developers were excluded.
+- **Participants:** 1592 randomized between September 2022 and November 2023; 1584 scans entered the intention-to-treat analysis.
+- **Reference standard:** a three-person expert panel (two specialists with more than 20 years of prenatal ultrasound experience and a leader with more than 30) reviewed every video. The panel was masked to group assignment. Sonographers were masked to anomaly status but not, of course, to whether the AI was on.
+- **Primary outcomes:** sensitivity (tested for superiority) and specificity (tested for non-inferiority against a 5% margin) for the ten targeted malformations, analyzed both per fetus and per malformation.
+
+The research scans were done in addition to routine clinical scans and were not used for clinical decisions.
+
+## Key Findings
+
+- **Sensitivity rose.** In the fetal-based analysis, sensitivity increased from 0.786 (95% CI 0.736 to 0.830) without AI to 0.873 (0.831 to 0.908) with AI, a difference of 0.087 (0.029 to 0.147). In the malformation-targeted analysis, sensitivity rose from 0.696 to 0.814, a difference of 0.118 (0.054 to 0.181).
+- **Specificity held.** The fetal-based specificity difference was 0.009 (95% CI -0.006 to 0.023) and the malformation-targeted difference was 0.001 (-0.001 to 0.002), both meeting the non-inferiority criterion.
+- **In the overall analyses, the pair beat either alone.** In the fetal-based ROC analysis, the AUC was 0.921 for AI-assisted sonographers, 0.873 for unassisted sonographers, and 0.864 for the AI alone.
+- **Out-of-scope anomalies showed no significant change.** Sensitivity for malformations the system was not built to detect did not differ significantly with and without AI, though only 18 fetuses had other intracranial malformations. Specificity for other intracranial malformations improved from 0.973 to 0.992; no significant differences were seen for extracranial malformations.
+- **Sonographers mostly overrode AI errors.** They overrode 53 of 83 AI false positives (64%) and 38 of 64 AI false negatives (59%), while overriding correct AI assessments rarely (10 [1%] and 13 [5%]). When the AI was wrong, assisted and unassisted performance did not differ significantly.
+- **Scans took longer.** AI-assisted scans took a mean of 40.12 seconds longer (95% CI 25.32 to 54.83) after adjustment for center, malformation status, gestational age, and sonographer experience.
+- **Gains were uneven across subgroups, which were exploratory.** The authors report significant sensitivity gains in mid-gestation and in participants with BMI under 25 kg/m2, but not at 11 to 13 or 28 to 32 weeks or at BMI of 25 or higher. These subgroup analyses were not adjusted for multiplicity, the authors note they were underpowered, and several reported differences and confidence intervals in the subgroup table do not reconcile cleanly.
+
+<Callout type="evidence">
+  This is one of very few randomized trials of AI in live prenatal scanning, and the crossover design lets each scan serve as its own control. Attrition was only 8 of 1592 randomized participants. The sample size calculation called for 329 fetuses with targeted malformations and the trial had 308, though the primary result was still significant. In our reading, the main limit is the reference standard: the authors deliberately chose expert review of the same ultrasound videos rather than fetal MRI or postnatal confirmation, so the trial measures agreement with expert sonographers rather than ground truth about the baby. Postnatal confirmation rates are reported only in the appendix.
+</Callout>
+
+## Clinical Implications
+
+1. **This supports AI as concurrent decision support in high-risk referral settings, not general screening.** The cohort was enriched for suspected anomalies; the expert panel identified targeted malformations in 308 fetuses. The authors state that predictive values cannot be carried over to a low-prevalence screening population without further validation.
+
+2. **The worry that a narrow tool narrows attention was tested and not borne out.** Detection of anomalies outside the AI's ten targets did not fall significantly, although the small number of other intracranial malformations limits that conclusion. The authors still flag a non-significant 2.8% drop in specificity for extracranial malformations as worth further study.
+
+3. **The human stayed in the loop and mostly behaved well.** Sonographers rejected most AI errors and rarely overrode correct AI calls. That pattern came from sonographers with 3 to less than 8 years of experience at tertiary centers after a 15-minute training session. It may not hold in other settings or under heavier workloads.
+
+<Callout type="pitfall">
+  One author is affiliated with Guangzhou Aiyunji Information Technology, co-designed the protocol, and helped update the algorithm; the same company provided the trial's software and hardware. The paper nonetheless declares no competing interests. PAICS is proprietary, its code is not public, and it was developed by the same group that ran the trial. Independent replication outside China, in lower-risk and higher-BMI populations, would make the result much more convincing.
+</Callout>
+
+## My Takeaway
+
+The headline is a fetal-based sensitivity gain from 0.786 to 0.873 with no meaningful loss of specificity, in a properly randomized trial. That is a real result in a field that has mostly produced retrospective accuracy studies. The more interesting finding may be the one the authors set out to test as a safety question: a tool that looks for ten specific brain malformations did not make sonographers worse at seeing everything else.
+
+Three things keep this in proportion. The reference standard was expert review of the same videos, so a malformation the panel also missed would be invisible to the analysis. The population was high-risk and referred, which flatters any detection tool. And in exploratory subgroups the benefit concentrated in mid-gestation and in lower-BMI patients, which the authors attribute to better image quality; at 11 to 13 weeks the point estimate for sensitivity actually fell, though with very wide uncertainty.
+
+For a clinician outside fetal medicine, the general lesson is about how to evaluate decision support: compare the human with AI against the human alone, check whether attention to out-of-scope findings suffers, and look at what happens when the AI is wrong. This trial did all three, which is less common than it should be.
+
+---
+
+[Read the full article at The Lancet Digital Health](https://doi.org/10.1016/j.landig.2026.101040)
