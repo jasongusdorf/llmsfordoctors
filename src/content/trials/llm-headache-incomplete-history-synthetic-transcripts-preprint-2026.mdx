@@ -1,0 +1,64 @@
+---
+title: "Given Incomplete Headache Histories, GPT-5.2 and GPT-5-mini Downgraded Emergencies Rather Than Deferring"
+journal: "medRxiv (preprint)"
+year: 2026
+doi: "10.64898/2026.03.23.26349082"
+keyFinding: "In 1,000 synthetic doctor-patient headache transcripts with a known ground-truth diagnosis, GPT-5.2's differential included the correct diagnosis 97.5% of the time when given the full history. When the history was cut to 20% of the needed information, its rate of unsafe triage for life- or sight-threatening diagnoses (routine follow-up or self-management) rose from 7.0% to 42.9%, and GPT-5-mini's rose from 9.3% to 54.8%. When offered the option to say an investigation could not be decided from the history, both models seldom took it. This is a simulation study posted as a preprint, with no human comparison arm."
+lastUpdated: 2026-10-19
+tags: [preprint, simulation, triage, headache, neurology, patient-safety, gpt-5, diagnostic-uncertainty, sex-disparities, patient-facing]
+socialPost: "1,000 simulated headache consults. With the full history, GPT-5.2 got the diagnosis into its differential 97.5% of the time. Strip the history to a fifth and it sent 42.9% of seven can't-miss diagnoses (SAH, meningitis, GCA, tumor, others) to routine follow-up or self-care. GPT-5-mini: 54.8%. Both rarely chose 'can't decide from this history' when offered. Synthetic patients, preprint."
+---
+
+import Callout from '../../components/Callout.astro';
+
+<Callout type="pitfall">
+  **This is a preprint.** It was posted to medRxiv on March 25, 2026, carries medRxiv's standard notice that it "has not been certified by peer review and should not be used to guide clinical practice," and as of October 19, 2026 we found no peer-reviewed version in Crossref. The patients are synthetic, written by another language model. There is no human clinician comparison arm, so claims in the paper about how clinicians would behave differently are argument, not data.
+</Callout>
+
+## Study Design
+
+Most LLM evaluations hand the model a tidy vignette. This study, from neurology researchers at Imperial College London, built a simulation engine to produce messy ones instead, and then deliberately removed information to see what the models did with less.
+
+Headache was the test domain because diagnosis rests almost entirely on history and the ICHD-3 classification gives explicit diagnostic criteria. The engine generated 1,000 cases sampled evenly across 33 headache and facial pain diagnoses, from migraine to subarachnoid hemorrhage, giant cell arteritis, and acute angle-closure glaucoma. For each case it fixed the ground-truth diagnosis and the phenotype facts required by ICHD-3, filled the remaining details at random, and assigned the simulated patient one of 3,645 possible communication personas (varying verbosity, health literacy, English proficiency, memory, focus, disclosure, and pain framing).
+
+A scripted "doctor" asked identically worded questions in every case. Patient answers were written by a local model (GPT-OSS 20B, temperature 0.7) from the case facts, with a second automated check that no clinical features were invented. Each transcript was randomly assigned to include 20%, 40%, 60%, 80%, or 100% of the clinical information needed for an ICHD-3 diagnosis. Every transcript ended with a statement that the neurological examination was normal. All the diagnostic logic and ground truth were built and validated by one of the two authors, a specialist neurologist, with no independent check described.
+
+GPT-5.2 and GPT-5-mini were each given every transcript, zero-shot, with reasoning set to high, and asked seven separate questions: a prioritized differential; whether to get a head CT, head MRI, or lumbar puncture; whether to give indomethacin or codeine; and how soon to follow up. Investigation questions allowed "Yes," "No," or "Inappropriate to decide from current information." Medication questions were Yes/No. Question wording was randomized (for example, "request" vs "cancel" a scan) to reduce framing effects. Each question was sent separately in a single turn, so the models had no way to ask the patient anything. Triage was a forced choice among immediate ED, urgent (24 to 48 hours), routine (1 to 6 months), or self-management. That made 14,000 decisions in total. Unsafe triage was defined as routine or self-management for any of seven diagnoses the authors classed as emergencies: acute angle-closure glaucoma, giant cell arteritis, brain tumors, idiopathic intracranial hypertension with signs of raised pressure, meningitis, reversible cerebral vasoconstriction syndrome, and subarachnoid hemorrhage. Only OpenAI models were tested.
+
+## Key Findings
+
+- **Full histories, high accuracy.** With 100% of the information, GPT-5.2's differential included the ground-truth diagnosis 97.5% of the time (95% CI 95.0 to 99.5). The paper reports 84.9% (79.9 to 89.4) for GPT-5-mini in the same comparison. Migraine, tension-type headache, and trigeminal neuralgia were identified by both models at every completeness level. But subarachnoid hemorrhage, RCVS, meningitis, and acute angle-closure glaucoma were each identified no more than 50% of the time at the lowest completeness level.
+- **Less information made the models only slightly more cautious.** Going from 100% to 20% of the history, GPT-5.2 answered "inappropriate to decide" on investigations 5.2% vs 13.8% of the time, and GPT-5-mini 3.5% vs 7.2%. Both rises were statistically significant but, in the authors' words, "only modest." GPT-5.2's differential did not widen (5.28 vs 5.27 entries), and GPT-5-mini's narrowed slightly (5.42 to 5.26).
+- **Unsafe triage climbed as information fell.** For the emergency diagnoses, GPT-5.2's unsafe triage rose from 7.0% (95% CI 0.0 to 16.3) with complete histories to 42.9% (28.6 to 57.1) at 20%. GPT-5-mini's rose from 9.3% (2.3 to 18.6) to 54.8% (40.5 to 69.0).
+- **Lumbar puncture was declined even when SAH was on the differential.** In subarachnoid hemorrhage presenting 12 hours to 14 days after onset, GPT-5.2 recommended against LP in 12.5% of cases and GPT-5-mini in 18.8%. At 40% completeness or less, the paper reports that this rejection rate reached 100%. For idiopathic intracranial hypertension with signs of raised pressure, both recommended LP in 0% of cases despite high diagnostic accuracy for the condition.
+- **Female patients were triaged less safely.** For GPT-5.2, unsafe triage of emergencies occurred in 23.5% of female cases vs 7.3% of male cases (P = 0.025). GPT-5-mini showed 28.4% vs 14.5% (P = 0.09, not significant). These comparisons pool all diagnoses and completeness levels and are unadjusted.
+- **The smaller model made more unsafe medication calls.** GPT-5-mini recommended codeine in 16.1% of all cases vs 0.8% for GPT-5.2, rising from 9.5% to 21.7% as information fell, with no reduction in patients over 70. At 40% completeness or less, GPT-5-mini recommended indomethacin in 33.3% of subarachnoid hemorrhage cases; GPT-5.2 never did.
+- **Imaging was uneven.** GPT-5.2 recommended head CT far more often (47.8% vs 20.1%) and for 88.1% of patients over 70 vs 38.3% under 30. Neither model recommended MRI in every brain tumor case: GPT-5-mini missed 25.0% and GPT-5.2 missed 18.8%.
+
+<Callout type="evidence">
+  The design is clever in one specific way: because the authors wrote the ground truth, they know exactly which facts each transcript contains and which it does not. That makes it possible to show the models failing to defer when a key fact (such as time since SAH onset) is absent, something a retrospective chart study cannot isolate. The weaknesses are equally specific. The patients are LLM-written, the paper describes a single run of each model per transcript, and the raw transcripts and generation code are withheld to prevent benchmark contamination. Processed data and analysis code are promised on publication, and transcripts may be shared for non-commercial research on request, but for now the results cannot be independently reproduced.
+</Callout>
+
+## Clinical Implications
+
+1. **The failure is in what the model does with missing information, not in what it knows.** Both models could list subarachnoid hemorrhage and still advise against the test that rules it out. If you use an LLM to reason through a case, an answer built on a thin history will not tell you it is thin. You have to supply the missing history or notice what is absent yourself.
+
+2. **This matters most for patient-facing tools.** Patients are the ones most likely to give an incomplete history, and they cannot judge whether "routine follow-up" is safe advice. The authors note reports that GPT-5-mini underlies a public-facing health product. That claim is cited secondhand in the paper, not tested.
+
+3. **Model choice is not interchangeable.** On codeine, indomethacin, and diagnostic accuracy, the smaller model was consistently worse in this test. A product's safety profile depends on which model is behind it.
+
+<Callout type="pitfall">
+  Several design choices shape the numbers. Triage offered no "need more information" option, so a model that wanted to defer had to pick one of four urgency levels anyway. Every transcript stated the neurological exam was normal, which a reasonable clinician might also weigh toward a lower urgency. The 1,000 cases were spread across 33 diagnoses and five completeness levels, so diagnosis-specific results at a single completeness level, such as the 100% LP refusal in SAH, rest on small numbers that the paper does not print. Treat those subgroup percentages as illustrations of a pattern, not as rates. And at the lowest completeness level, a transcript may simply not contain the features that identify an emergency. Without a clinician answering the same transcripts, there is no way to know how often a human would also have said "routine."
+</Callout>
+
+## My Takeaway
+
+The two numbers worth remembering are the 97.5% diagnostic accuracy with a complete history and the rise in unsafe triage, from 7.0% to 42.9% for GPT-5.2 and from 9.3% to 54.8% for GPT-5-mini, when the history was cut to a fifth. The models were good at naming the disease when everything was in front of them. They were poor at recognizing when it was not: even with 80% of the information missing, GPT-5.2 chose "inappropriate to decide" on an investigation only 13.8% of the time.
+
+The study's limits are real. It is a preprint. The patients are synthetic and were written by another LLM. No clinician answered the same transcripts, so the paper's contrast with how a human would handle uncertainty is asserted rather than measured. The triage question forced a choice with no option to ask for more history, the appended normal neuro exam may have nudged both models toward lower urgency, and at a fifth of the history some transcripts may not have contained enough to recognize the emergency at all. The sex difference for GPT-5.2 is a single unadjusted comparison among many in the paper, with no stated correction for multiple testing, pooled across diagnoses and completeness levels, so I would treat it as a hypothesis to test in a better-powered study, not a finding to quote.
+
+Still, part of the pattern survives those caveats. On the investigation questions, where deferring was an explicit option, the models seldom took it as the history thinned, and they declined lumbar puncture in SAH cases they had themselves listed on the differential. When information was missing, these models did not widen the net or escalate. Anyone using an LLM to think through a case, or deciding whether to put one in front of patients, should assume that a short history can produce a falsely reassuring answer, and should check the plan against the must-not-miss diagnoses themselves.
+
+---
+
+[Read the full article at medRxiv](https://doi.org/10.64898/2026.03.23.26349082)

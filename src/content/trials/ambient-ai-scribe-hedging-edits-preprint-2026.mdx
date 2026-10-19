@@ -1,0 +1,63 @@
+---
+title: "When Clinicians Rewrite Ambient AI Notes, They Add Hedging More Often Than They Remove It"
+journal: "arXiv (preprint)"
+year: 2026
+doi: "10.48550/arXiv.2606.00018"
+keyFinding: "In 62,811 paired ambient AI draft and final note sections from outpatient clinics at University of California Health, clinicians introduced hedging into 4,803 sections whose rewritten text had been unhedged, and removed it from 3,135 (McNemar P < 0.001). Among sections with a hedging-related replacement edit, 3,440 moved toward more uncertainty, 2,516 toward more certainty, and 612 showed no net shift. The tilt is real but small: 89.54% of sections had no hedging-related edit in the rewritten text, and the overall mean net score was 0.02. The analysis covers only rewritten sentences, not deleted or inserted ones, and is a descriptive, unadjusted preprint."
+lastUpdated: 2026-10-19
+tags: [preprint, ambient-ai, ai-scribe, documentation, clinical-uncertainty, hedging, nlp, observational, outpatient]
+socialPost: "62,811 ambient AI note sections, before and after clinicians edited them. Where clinicians rewrote AI sentences, they added hedging more often than they removed it (4,803 sections vs 3,135). Small effect, most rewritten text untouched, unreviewed preprint. Worth a glance at how sure your signed AI notes sound."
+---
+
+import Callout from '../../components/Callout.astro';
+
+<Callout type="pitfall">
+  **This is a preprint.** It is posted on arXiv (2606.00018) and does not state that it has been peer reviewed. The analysis is descriptive and unadjusted: the authors say plainly that they fit no multivariable models, so vendor and specialty differences may reflect case mix rather than anything about the vendor or specialty.
+</Callout>
+
+## Study Design
+
+Ambient AI scribes turn a recorded visit into a draft note, and the clinician edits it before signing. A team at UC Irvine asked a narrow question about those edits: when clinicians rewrite the AI's sentences, do they make the language more certain or less?
+
+University of California Health has piloted two commercial ambient AI platforms in outpatient settings since late 2023, called Vendor A and Vendor B in the paper for contractual reasons. The team pulled paired AI drafts and clinician-finalized text for up to four note sections (HPI, Physical Exam, Assessment & Plan, Results). Of 98,311 paired sections, 62,811 remained after excluding sections with empty provider text or missing specialty: 47,403 from Vendor A and 15,408 from Vendor B, 32,518 from primary care and 30,293 from 32 other specialties. This paper does not report the number of clinicians, patients, or encounters; it refers to the group's earlier work for those details.
+
+Draft and final sentences were aligned by similarity. Unmatched draft sentences counted as deletions, unmatched final sentences as insertions, and partially matched pairs as replacements. The primary analysis compared only the replaced text, before and after editing, which the authors describe as "the most symmetric comparison unit." That is a small slice of what clinicians changed: across the retained sections, clinicians replaced 52,542 sentences, dropped 216,199, and inserted 165,939. Inserted text added 77,981 hedging mentions, but it was summarized descriptively rather than tested, and hedging in deleted text was not reported.
+
+Hedging was detected with a rule-based NLP pipeline against a lexicon of 536 terms merged from two prior sources. Three reviewers labeled each term's direction (386 toward more uncertainty, 46 toward more certainty, 104 neutral), with Fleiss' kappa of 0.72. The paper reports no check of the detector's accuracy against manual annotation.
+
+## Key Findings
+
+- **In rewritten text, clinicians added hedging more than they removed it.** Within replaced text, clinicians removed 6,990 hedging mentions and added 10,381. Sections whose replaced text contained at least one hedge rose from 5,088 before editing to 6,756 after.
+- **The paired transitions were asymmetric.** In 4,803 sections the replaced text went from no hedging to some hedging, and in 3,135 it went the other way (McNemar P < 0.001). In 52,920 sections (84.25%) the replaced text had no hedging before or after.
+- **Hedging edits leaned toward uncertainty.** Of 6,568 sections with a hedging-related replacement edit, 3,440 shifted toward more uncertainty, 2,516 toward more certainty, and 612 had no net shift. The mean net score in that subset was 0.23 (SD 1.33).
+- **Most rewritten text had no hedging change.** 56,243 sections (89.54%) had no hedging-related replacement edit, and the mean net score across all 62,811 sections was 0.02 (SD 0.44).
+- **Both vendors showed the same direction.** Vendor B's shift toward uncertainty was larger (mean net score 0.34 vs 0.20 among sections with hedging-related edits, P < 0.001). Primary care and specialty care showed no significant difference in direction (0.24 vs 0.21, P = 0.41).
+- **Specialties varied.** Among specialties with at least 20 eligible sections, dermatology had the highest mean net score (0.49), followed by rheumatology (0.38) and neurology (0.34), while urology (−0.14) and endocrinology (−0.26) moved the other way. The paper gives no per-specialty sample sizes, so these means are noisy.
+
+<Callout type="evidence">
+  The dataset is large and real: tens of thousands of actual clinician edits to production ambient AI output, from two vendors and dozens of specialties. That is a rare look at what clinicians do to AI text, rather than what they say about it in a survey. But the unit of analysis is a dictionary match in rewritten sentences, not a judgment about whether the hedge was clinically correct.
+</Callout>
+
+## Clinical Implications
+
+1. **A reasonable hypothesis, not a proven one: ambient drafts may sometimes sound more certain than the clinician intended.** When clinicians did rewrite hedging language, they more often softened the AI's wording than sharpened it. The study did not measure whether the drafts were actually overconfident. Still, if your note will be read by a covering clinician, a consultant, or the patient through the portal, the certainty level is part of the content.
+
+2. **The effect is small per note, which is the reason to watch for it.** Nearly nine in ten sections had no hedging-related change in the rewritten text. A shift that rarely shows up in any single note is exactly the kind a busy clinician signs without noticing.
+
+3. **This is outpatient evidence.** Every note came from ambulatory clinics. Inpatient progress notes and discharge summaries were not studied.
+
+<Callout type="pitfall">
+  The lexicon is blunt. The most frequent hedging substitution in the paper's table is a genuine one, "likely" to "possibly," but close behind are "or" to "if" and "consider" to "if," which often are not expressions of clinical uncertainty at all. Edited replacement text was also longer than the AI text it replaced (mean 5.45 vs 3.8 words), and the paper does not adjust hedge counts for length, so some of the increase may simply reflect clinicians writing more words. Finally, every statistical test treats sections as independent even though many come from the same clinicians, so with this many sections even tiny differences reach P < 0.001.
+</Callout>
+
+## My Takeaway
+
+The headline numbers are 4,803 sections where a clinician introduced hedging into unhedged rewritten AI text versus 3,135 where they removed it, and, among sections with a hedging-related replacement edit, 3,440 shifted toward uncertainty versus 2,516 toward certainty. The direction held for both vendors and for primary care and specialty care alike. That is a consistent signal, and it fits what clinicians told the same group in earlier interviews (also not yet peer reviewed): that they "tend to hedge more in medicine."
+
+I would hold it loosely. This is an unreviewed preprint, every comparison is unadjusted, the hedge detector was never validated against human annotation, and the analysis covers rewritten sentences only, which are a minority of what clinicians actually changed. The overall mean net score was 0.02, so this is a modest tilt rather than a systematic flaw. The study also cannot say whether the AI's original certainty was wrong. A clinician adding "likely" to "the patient has pneumonia" might be correcting overconfidence, or might be practicing defensive documentation. The paper itself notes that clinicians describe hedging partly as medico-legal protection.
+
+What I take from it is a habit, not a conclusion. Ambient scribes turn a conversation full of "maybe" and "let's see" into prose, and prose tends to sound settled. When you sign an AI draft, read the assessment once just for how sure it sounds, and ask whether that matches how sure you are. That costs a few seconds and is the part of the note most likely to be quoted back to you.
+
+---
+
+[Read the full article at arXiv](https://doi.org/10.48550/arXiv.2606.00018)
