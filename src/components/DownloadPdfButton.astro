@@ -1,0 +1,50 @@
+---
+/**
+ * Download-as-PDF button.
+ *
+ * Triggers the browser's native print-to-PDF on the current page. The page's
+ * print styles (see `@media print` in src/styles/global.css) strip the nav,
+ * footer, dark-mode toggle and this button, and lay the article out as a clean
+ * document, so "Save as PDF" in the print dialog produces a faithful PDF of the
+ * rendered summary (not the raw MDX). No build step or extra dependency needed.
+ *
+ * The button itself carries `no-print` so it never appears in the PDF.
+ */
+interface Props {
+  label?: string;
+}
+
+const { label = 'Save as PDF' } = Astro.props;
+---
+
+<button
+  type="button"
+  data-print-trigger
+  class="no-print download-pdf-btn inline-flex items-center gap-1.5 rounded-md border border-clinical-300 dark:border-clinical-600 bg-warm-white dark:bg-clinical-800 px-3 py-1.5 text-sm font-medium text-clinical-700 dark:text-clinical-200 hover:border-clinical-400 dark:hover:border-clinical-500 hover:shadow-sm transition-all"
+  aria-label={`${label}. Opens your browser's print dialog; choose "Save as PDF" as the destination.`}
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="15"
+    height="15"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+    <polyline points="7 10 12 15 17 10"></polyline>
+    <line x1="12" y1="15" x2="12" y2="3"></line>
+  </svg>
+  {label}
+</button>
+
+<script>
+  // Wire every download-PDF trigger on the page to the browser print dialog.
+  document.querySelectorAll('[data-print-trigger]').forEach((el) => {
+    el.addEventListener('click', () => window.print());
+  });
+</script>
