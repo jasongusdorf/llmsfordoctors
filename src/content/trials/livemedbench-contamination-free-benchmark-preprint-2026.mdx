@@ -1,0 +1,69 @@
+---
+title: "LiveMedBench: A Rolling Benchmark of Online Medical Q&A Cases, Graded Against Rubrics Built From Forum Physicians' Answers"
+journal: "arXiv (preprint)"
+year: 2026
+doi: "10.48550/arXiv.2602.10367"
+keyFinding: "LiveMedBench collects real cases from four online medical communities (iCliniq, Student Doctor Network, DXY, Medlive), currently 2,756 cases with 16,702 rubric criteria, and grades 38 LLMs against rubrics an LLM derived from the verified physician advice in each thread. The top model, GPT-5.2, scored 39.2%, meaning it earned on average 39.2% of the available weighted rubric points, not that it was right 39.2% of the time. 84% of models (32 out of 38) scored lower on cases posted after their knowledge cutoff or release date than on the full dataset; the largest drop in that comparison was 3.99% (Kimi-K2), and no statistical test is reported. Grading is done by GPT-4.1, which reached a criterion-level Macro F1 of 0.76 against two physicians on 50 cases (physician-to-physician 0.89). Unreviewed preprint."
+lastUpdated: 2026-10-26
+tags: [preprint, benchmark, llm-evaluation, data-contamination, rubric-evaluation, llm-as-a-judge, online-health-communities, clinical-reasoning, gpt-5, multilingual]
+socialPost: "New preprint benchmark: 2,756 real cases from online medical Q&A sites, 38 LLMs, best score 39.2% of rubric points (GPT-5.2). The score measures agreement with forum physicians' advice turned into a rubric and graded by GPT-4.1, not a direct measure of clinical accuracy. Most models dipped on newer cases. Useful idea, soft ground truth."
+---
+
+import Callout from '../../components/Callout.astro';
+
+<Callout type="pitfall">
+  **This is a preprint.** It is posted on arXiv (2602.10367) and does not state that it has been peer reviewed; the PDF still carries a placeholder conference template header. The "ground truth" for every case is the verified physician advice in an online forum thread, restructured by an LLM; the rubrics are written by a small LLM, and the grading is done by another LLM. Physician checks covered a random sample of 50 cases.
+</Callout>
+
+## Study Design
+
+Most medical LLM benchmarks are fixed question sets. Once published, they can leak into training data, and a model that has seen the answers will look better than it is. A team from Lehigh, Harvard, Massachusetts General Hospital, and Imperial College London built LiveMedBench to get around this by continuously collecting new cases, so a model can be tested on cases posted after its training data ends.
+
+**Where the cases come from.** The authors harvest threads from four online medical communities: iCliniq (an English-language telemedicine "second opinion" site), Student Doctor Network (SDN, a North American forum for students, residents, and attending physicians), and DXY and Medlive (Chinese professional platforms). They describe the collection as weekly. Threads had to be posted on or after January 1, 2023, be text-only (anything needing images, video, or audio was dropped), be in English or Chinese, contain a clinical keyword, and include at least one reply from a verified physician. The current set is 2,756 cases (1,568 English from iCliniq and SDN, 1,188 Chinese from DXY and Medlive) across 38 specialties. The most common specialty is gastroenterology and hepatology, with 375 cases.
+
+**How cases are cleaned.** A chain of LLM agents restructures each thread into a patient narrative, a question, and the physician's advice. One agent checks that the question is clinically meaningful and that the narrative contains more than half of the clinical details an LLM judged necessary to answer it. It also checks the physician's advice against retrieved evidence (guidelines, PubMed, StatPearls) and discards the case if any piece of advice is contradicted. A final agent rejects the case if the structured version contains details not present in the original thread. The structuring agents ran on Qwen3-4B-Instruct and the validation agent (all three checks) on gpt-oss-120b.
+
+**How rubrics are made.** Each case is assigned one theme, and advice not relevant to that theme is discarded first; for example, long-term dietary advice is dropped from an "Emergency Referrals" case. Another LLM (also Qwen3-4B-Instruct) then converts the remaining advice into a case-specific checklist of yes/no criteria, adapted from the HealthBench approach. Positive criteria reward including a key point; negative criteria penalize errors such as recommending a contraindicated drug. Each criterion gets a weight from -10 to +10 and one of five axes (Accuracy, Completeness, Communication Quality, Context Awareness, Safety). Cases average 6.06 criteria (range 2 to 19), and 51.2% of all criteria fall on the Accuracy axis.
+
+**How models are scored.** Each model answered every case zero-shot at temperature 0. GPT-4.1 then marked each criterion as met or not met. The case score is the sum of weights for criteria met (penalties subtract), divided by the maximum possible positive score, and clipped to between 0 and 1. A model's benchmark score is the mean across cases. So a score of 39.2% means the model earned, on average, 39.2% of the rubric points derived from the forum physicians' advice. It measures agreement with a reference answer, not a rate of correct diagnoses or safe recommendations, although about half the criteria sit on the Accuracy axis and negative criteria penalise harmful advice.
+
+**Validation.** Two physicians, described as proficient in English and Chinese, reviewed a random sample of 50 cases containing 292 criteria. They rated narrative and question coherence, the quality of the forum physician's advice, and whether each rubric criterion was clinically valid, and they also graded model responses against the criteria so the LLM grader could be compared with them.
+
+## Key Findings
+
+- **Scores were low across the board.** GPT-5.2 scored 39.2%, followed by GPT-5.1 at 38.5%. The best non-GPT models named in the text were Grok-4.1 at 28.3% and Baichuan M3 at 25.6%. Domain-specific models were not uniformly weaker: the medical model Baichuan M3 was among the best non-GPT models, while Med-Gemma 27B scored 5.9%.
+- **Most models dipped on newer cases.** On cases posted after each model's knowledge cutoff (or release date when the cutoff was undisclosed), 84% of models (32 out of 38) scored lower than on the full set. The largest drop in that comparison was a 3.99% decrease, for Kimi-K2 (the paper does not say whether this is points or a relative change). The authors call these drops "significant," but the paper does not report how many cases were in each model's post-cutoff subset and gives no statistical test. Some models' dates fall within weeks of the paper's posting, so their post-cutoff subsets must be very small.
+- **Scores were lower on the newest cases, and retrieval helped.** On a subset of cases from January 2026 (size not reported), closed-book scores sat below each model's full-dataset baseline, sometimes by a lot: Qwen3-14B 8.68 vs 15.45, GLM-4.5 16.19 vs 22.46, GPT-5.2 36.84 vs 39.23. These compare different case sets, so they mix recency with case difficulty. Adding knowledge retrieval improved all six models tested; for GPT-5.2 the gain was small (37.17 open-book), for Qwen3-14B large (15.47).
+- **The physician reviewers mostly accepted the data.** Inter-rater agreement (Gwet's AC1) was 0.9792 for narrative and question quality, 0.9566 for the forum physician's advice, and 0.8914 for rubric criteria. The two physicians approved 0.9589 and 0.9110 of criteria as valid. Scores of 1 ("Good") or 2 counted as high quality, and "Good" allows minor omissions or minor irrelevant information.
+- **The LLM grader tracked physicians moderately well.** At the criterion level, GPT-4.1's Macro F1 against the physicians was 0.76, compared with 0.89 between the two physicians. At the case level, the rubric grader's scores correlated with physician scores at a Pearson correlation of 0.54, a moderate correlation, while a conventional "rate this answer overall" LLM judge using the same GPT-4.1 managed 0.26 (p = 0.07). The physicians themselves scored responses against the same rubric criteria, which tilts this comparison toward the rubric grader.
+- **Failures were mostly about applying knowledge to the patient.** GPT-4.1 classified the bottom-100 scoring cases for six representative models into error types. Contextual neglect (ignoring patient-specific details) accounted for 35 to 48% of these failures and guideline overgeneralization for 22 to 32%. The text says knowledge gaps and reasoning deficits were low, but the paper's own table shows higher rates for some models (Qwen3-14B: 17 for knowledge gaps, 36 for reasoning deficits).
+
+<Callout type="evidence">
+  The core idea is sound and worth having: test models on cases that did not exist when they were trained. The rubric-based grading also tracked physicians better than a holistic LLM judge in this small validation, although the physicians were themselves scoring against the rubric. But every link in the chain, from case cleaning to rubric writing to grading to error classification, is done by an LLM, and the human check is two physicians on 50 cases.
+</Callout>
+
+## Clinical Implications
+
+1. **Do not read the headline as "the best model is right 39% of the time."** The reference answer is the forum physicians' advice, filtered to one theme and condensed by a small model (Qwen3-4B-Instruct) into a short checklist. A model that gives a different but defensible answer loses points. A low score tells you the model's answers did not cover the forum doctor's specific points, which is not the same as being clinically wrong.
+
+2. **The contamination signal is plausible but loosely measured.** Most models scored worse on newer cases, which supports the general warning that static benchmark scores can be inflated. Without subset sizes or statistical tests it is hard to say how large the effect is, and "contamination-free" only applies to each model's post-cutoff subset. Cases go back to January 1, 2023, so for most models much of the full dataset predates their cutoff, and the threads are public web pages.
+
+3. **The error pattern matches what clinicians see at the bedside.** The dominant failure was not missing facts but failing to apply them to the specific patient: comorbidities, contraindications, details in the history. When you use an LLM for a clinical question, include the relevant patient details and check whether the answer actually used them.
+
+4. **This is not inpatient medicine.** The cases are text-only online consultations and forum threads, a mix of patient questions and clinician-to-clinician discussion. Nothing here tests performance on a hospitalized patient with a full chart.
+
+<Callout type="pitfall">
+  Several design choices could tilt results. GPT-4.1 grades the answers and GPT models top the leaderboard; the paper does not test whether the grader favors its own model family. Cases were kept only if the forum advice was not contradicted by retrieved evidence, and the open-book experiment then used a similar retrieval approach, which may make retrieval look more helpful than it would on unfiltered questions. Some of the dates in the model table (cutoff or release date) look questionable (GPT-5.1 is listed with an earlier date than GPT-5), and those dates define the post-cutoff subsets. The authors also note their sources may reflect the demographics of internet users in the US and China.
+</Callout>
+
+## My Takeaway
+
+I like the problem this paper is going after. Medical benchmark scores keep climbing, and it is fair to ask how much of that is models having seen the test. A benchmark that keeps adding cases posted after a model's cutoff is a reasonable answer, and the finding that 32 of 38 models did worse on their post-cutoff cases than on the full dataset fits that concern.
+
+I would not lean on the leaderboard numbers. The ground truth is forum physicians' advice per case, the rubric is written by a small LLM, the grader is GPT-4.1, and the human validation is two physicians on 50 cases. The grader's agreement with physicians (Macro F1 0.76 versus 0.89 between the physicians) is decent but clearly short of human-level. The paper gives no subset sizes or significance tests for the post-cutoff drops. This is an unreviewed preprint, and the gaps show.
+
+What I take from it is the error analysis, more than the scores. Even the strongest models mostly failed by giving generic, guideline-shaped answers that ignored something specific about the patient. That matches my experience. When I use these tools, the question I ask of the output is not "is this true?" but "is this true for this patient?"
+
+---
+
+[Read the full article at arXiv](https://doi.org/10.48550/arXiv.2602.10367)
