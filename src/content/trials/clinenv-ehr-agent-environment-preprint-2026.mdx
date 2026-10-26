@@ -1,0 +1,79 @@
+---
+title: "ClinEnv: LLM Agents Replaying Real MIMIC-IV Admissions Recover Diagnoses Far Better Than Management Decisions"
+journal: "arXiv (preprint)"
+year: 2026
+doi: "10.48550/arXiv.2606.02568"
+keyFinding: "ClinEnv is a benchmark, not a trial: 3,509 MIMIC-IV admissions from 1,809 patients are cut into 9,297 decision stages, and a model playing the attending must query four simulated information agents before committing to medications, procedures, and diagnoses, which are scored against what the treating team actually recorded. Across seven models, the best (GPT-5.4) reached a decision F1 of 0.306 overall and 0.235 on admissions with at least three stages. GPT-5.4 scored 0.511 on diagnosis-only stages but 0.172 on management stages, and no model's overall medication match score exceeded 0.101. The ground truth is recorded care rather than correct care, the data come from one US academic center, and the work is an unreviewed preprint."
+lastUpdated: 2026-10-26
+tags: [preprint, benchmark, agents, ehr, mimic-iv, inpatient, hospital-medicine, clinical-decision-making, llm]
+socialPost: "New preprint benchmark: LLMs play the attending across 3,509 real MIMIC-IV admissions, asking simulated patient, nurse, lab and history agents for data before each decision. Best model: decision F1 0.306. Matching the team's discharge diagnoses went far better than matching its medication and procedure decisions (0.511 vs 0.172 for GPT-5.4). Scored against recorded care, not ideal care."
+---
+
+import Callout from '../../components/Callout.astro';
+
+<Callout type="pitfall">
+  **This is a preprint.** It is posted on arXiv (2606.02568) and does not state that it has been peer reviewed. It is also a benchmark, not a clinical trial: no patients were treated, no clinicians used the models, and every score measures agreement with what a treating team documented years ago, not whether the model's choice would have been good care.
+</Callout>
+
+## Study Design
+
+ClinEnv, from a group at Georgia Tech, Peking University, UT Southwestern, and Tsinghua, tries to test something closer to inpatient work than a multiple-choice exam: the model plays the attending through a real hospitalization, has to ask for information rather than being handed a vignette, and commits to decisions stage by stage.
+
+**Data.** Cases are built from MIMIC-IV v3.1 and MIMIC-IV-Note v2.2. Structured tables (labs, microbiology, medication orders and administrations, ICU charting, fluids, procedures, ICD codes) and notes (discharge summaries, radiology reports) are merged into one event timeline per admission. The benchmark samples 3,509 admissions from 1,809 patients, one case per admission, stratified so short and long stays are both represented. That yields 9,297 decision stages and 26,043 ground-truth decisions: 71.7% diagnoses, 21.4% medications, and 6.9% procedures. Cases average 2.65 stages and run up to nine; 49.8% are "long-horizon" (at least three stages). The set spans 2,128 distinct ICD codes and 488 distinct drugs.
+
+**How cases are built.** There is no manual annotation. Claude-Sonnet-4.6 reads each discharge note, extracts the attending-level decisions, and anchors each one to a point in the timeline. Everything before that point becomes the context for that stage. A final diagnosis stage is appended to every case, with ground truth taken from discharge ICD codes that a separate LLM scan judged to be evidenced or managed in the timeline. Drug names and ICD codes in the ground truth are copied from the structured tables rather than generated, but the decision type and the medication action (start, stop, switch, adjust), which gates medication scoring, are assigned by an LLM. Only decisions the discharge note describes become targets, and continuing medications already active are skipped, so many real inpatient decisions are never scored. The authors argue construction quality is "guaranteed by construction"; the paper reports no physician review of a sample of cases.
+
+**How the model gets information.** In interactive mode the model starts each stage with no clinical data and must query four agents, each powered by GPT-5.4-mini and restricted to its own slice of the chart: a patient agent (demographics, chief complaint, HPI, past history, in lay language), a nurse agent (vitals, fluid balance, medication administration), a lab agent (returns only tests actually on record for that stage, nothing otherwise), and a history agent (prior discharge summaries, if any). One tool call per turn, capped at 60 turns per stage.
+
+**Two design choices that make the task easier than real practice.** First, the model is told which decision types are due at each stage and exactly how many of each to submit. Second, at each new stage the environment injects the decisions the real team actually made in earlier stages, so a model's early mistakes do not carry forward. This is a fair way to isolate each decision, but it means ClinEnv does not test an agent running a hospitalization on its own.
+
+**Scoring.** Within each decision type, submissions are paired to ground truth with the Hungarian algorithm (an optimal one-to-one matching), and "decision F1" is the harmonic mean of precision and recall computed from those partial-credit match scores, averaged across stages. Partial credit works differently by type:
+
+- **Medications:** the action (start, stop, switch, adjust) is a hard gate. A wrong action scores zero. With the right action, the drug earns partial credit by how close it sits to the recorded drug in the ATC drug-class hierarchy. For adjust decisions, an opposite dose direction halves the score.
+- **Diagnoses and procedures:** the model's free text is mapped to an ICD code by embedding search plus an LLM reranker, then scored by hierarchical F1 over the code's ancestors, so a nearby code earns partial credit.
+
+Process is scored separately: a judge (the paper does not name the model) lists the key facts in the patient, nurse, and lab views of the chart and marks which ones the model's questions surfaced ("coverage"), an efficiency score discounts coverage for redundant querying, and lab "waste" is the share of lab spending (priced from the CMS fee schedule) on tests not supported by the record.
+
+**Models.** Seven: GPT-5.4, GPT-5.4-mini, GPT-5.4-nano, Llama-3.1-70B, Llama-3.1-8B, Gemma-3-27B, and Gemma-3-12B. No Claude or Gemini model was evaluated, there is no physician baseline, and results are reported for interactive mode only.
+
+**How it differs from [MedAgentBench](/trials/medagentbench-ehr-agent-benchmark-2025).** MedAgentBench gives agents 300 physician-written, single-purpose tasks (look up a value, place an order) on 100 patient profiles, scored on whether the action was executed correctly. ClinEnv's paper groups MedAgentBench with "data-interaction" benchmarks that measure data-access skill. ClinEnv instead asks the model to decide what to do next in a real admission, without being told what to look up, and grades the clinical choice. The two are complementary: one tests whether an agent can operate the chart, the other whether it reaches the same decisions as the team.
+
+## Key Findings
+
+- **Overall scores were low.** GPT-5.4 had the highest decision F1 (0.306), diagnosis score (0.511), procedure score (0.379), and information coverage (0.430), but not the highest medication score. The weakest model, Gemma-3-12B, had a decision F1 of 0.197. The overall F1 includes the closing diagnosis stage, which the authors say "inflates whole-case scores"; for GPT-5.4 in multi-stage cases, first-stage F1 was 0.214 and intermediate-stage F1 0.115.
+- **Diagnoses were recovered far better than management.** On diagnosis-only stages, models scored 0.40 pooled (0.51 for GPT-5.4). On management stages (medication or procedure), F1 fell to 0.13 pooled (0.172 for GPT-5.4). The authors call the gap "roughly threefold" and report it for every model.
+- **Medications were the weakest category.** Models chose the right action type for 53% to 73% of medication decisions, but medication match scores stayed around 0.10 at best; the top medication score was 0.101 (Llama-3.1-70B). Llama-3.1-8B had the highest action accuracy (0.73) and one of the lowest medication scores (0.082). The residual error is picking the specific drug the team chose.
+- **Later stages were harder.** Every model had lower decision F1 on admissions with at least three stages; GPT-5.4 fell from 0.306 to 0.235. Across management stages, GPT-5.4's decision F1 dropped from 0.21 at the first management stage to below 0.03 by the fourth, while its query count climbed from about four to over fifty per stage with coverage staying near 0.45. Those late stages are reached only by the longest admissions, so they rest on fewer cases.
+- **More information did not mean better decisions, at least per stage.** At the stage level, coverage and decision F1 were essentially uncorrelated (Pearson r = 0.08 overall, 0.04 within GPT-5.4). Across the seven model averages (seven data points), coverage and decision F1 were strongly correlated (r = 0.865), so better models both gather more and decide better, but within a model, retrieving more of the record did not track with better decisions.
+- **Outcome and process diverged.** Llama-3.1-70B had the best medication score yet one of the lowest coverage scores (0.140; only Gemma-3-12B, at 0.137, was lower), the most turns (14.1), and the highest lab waste (35.8%). GPT-5.4-nano used the fewest turns (4.4) and had the lowest lab waste (4.1%).
+- **Information gathering was lopsided.** Every model leaned on the nurse channel most and the lab channel least; GPT-5.4 covered 0.89 of nurse facts but 0.25 of lab facts. For the Llama and Gemma models, 60% to 73% of lab requests were for tests not resulted at that stage of the real admission, against 11% to 19% for the GPT models.
+
+<Callout type="evidence">
+  The strongest part of the design is that the ground truth is not written by an LLM or an exam author. Decisions are anchored to real inpatient timelines, drug names and ICD codes come straight from the structured record, and the model has to ask for information rather than being handed a curated vignette.
+</Callout>
+
+## Clinical Implications
+
+1. **The low scores are a ceiling on concordance, not a measure of safety.** The authors say this directly: because ClinEnv scores against "the management actually recorded," a "clinically reasonable alternative may therefore score as a miss." Recorded care also includes the team's mistakes, habits, and formulary choices. A model that picks a different but appropriate drug can lose points; a model that copies a questionable choice gains them. The scores tell you how often a model matched one hospital's documented course, not how often it was right.
+
+2. **The diagnosis score is softer than it looks.** Diagnosis ground truth comes from discharge ICD codes, and the paper notes the most frequent ones are chronic comorbidities such as essential hypertension, hyperlipidemia, GERD, and diabetes. Recovering those from a chart is closer to coding than to diagnostic reasoning. The management gap is the more clinically meaningful result.
+
+3. **This is not evidence about autonomous inpatient agents.** The model is told which decision types are due and how many, and it is handed the team's real prior decisions at each new stage. In practice, nobody tells you "one medication decision is needed now," and your own earlier choices shape what comes next. Performance of an unsupervised agent in a live chart could well be worse.
+
+4. **Read the lab "waste" numbers carefully.** A large share of the open-weight models' lab requests (60% to 73%) were for tests not drawn at that point in the real admission. Some of that is poorly targeted querying, but the metric also penalises reasonable tests the team simply did not order; the paper's own worked example is GPT-5.4 asking for iron studies in a microcytic anemia and getting "no results available."
+
+<Callout type="pitfall">
+  Several limitations deserve weight. All cases come from one US academic center (MIMIC-IV), with US coding and pricing systems. LLMs sit inside the pipeline at many points: Claude-Sonnet-4.6 extracts and anchors decisions, GPT-5.4-mini plays all four information agents while also being one of the tested models, an LLM reranker maps free text to ICD codes, an LLM classifies each decision and medication action, and a judge scores coverage. The paper does not name the judge or reranker model and reports no human validation of case construction, ICD mapping, or the coverage judge. The efficiency metric is defined one way in the main text and a different way in the appendix's implementation notes. There is no physician comparison arm, no confidence intervals in the main results table, and no reported comparison with the "direct" mode (full chart handed over, no querying) that the paper describes.
+</Callout>
+
+## My Takeaway
+
+I like the premise. Most clinical LLM benchmarks hand the model a tidy vignette and ask for an answer. ClinEnv makes it ask for data, work through a real admission in order, and commit to orders that can be checked against the chart. That is much closer to what a hospitalist actually does, and the main result rings true: models were much better at naming the discharge diagnoses (GPT-5.4 at 0.511) than at matching the management the team chose (0.172), and medication matching was poor across the board.
+
+I would read the absolute numbers carefully. "Correct" here means "what was done at one US academic medical center," and the authors concede that a reasonable alternative scores as a miss. The authors' own reading is that models "propose a plausible class of therapy but rarely the specific agent the treating team selected," and some of that gap will be preference rather than error. The scorer does give most of the credit for a drug in the same chemical subgroup, so this is not just a formulary artifact. In the other direction, the model is told how many decisions are due and is reset to the real team's choices at each stage, which flatters it. There is no physician baseline, so I cannot tell you what a good hospitalist would score on the same cases, and that number is what I would need to interpret 0.306.
+
+What I take from it is narrower and still useful. Diagnosis extraction from a chart is the part of inpatient reasoning these models do reasonably well, and choosing what to do next, especially the specific drug, is the part they do not. Asking more questions did not fix that. Anyone pitching an inpatient "agent" should be able to show management performance on something like this, preferably next to clinicians, and not just diagnostic accuracy. Until a peer-reviewed version with a physician baseline appears, I would treat ClinEnv as a well-built measuring stick, not a verdict.
+
+---
+
+[Read the full article at arXiv](https://doi.org/10.48550/arXiv.2606.02568)

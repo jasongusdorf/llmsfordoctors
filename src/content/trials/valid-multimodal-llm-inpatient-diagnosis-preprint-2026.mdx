@@ -1,0 +1,72 @@
+---
+title: "Ten Multimodal LLMs Scored Close Together, and Above Documented Ward Diagnoses, on Real Inpatient Records Graded by an LLM Jury"
+journal: "arXiv (preprint)"
+year: 2026
+doi: "10.48550/arXiv.2604.16980"
+keyFinding: "In VALID, a retrospective diagnostic-accuracy evaluation of 300 expert-adjudicated inpatient cases from a South African tertiary public hospital, ten frontier multimodal LLMs were given the full admission record (notes, labs, vitals, imaging, radiology reports) and scored against a two-specialist panel consensus by a jury of three LLMs. Models clustered tightly: raw composite (S3) scores ran from 2.87 to 3.35 on a 1 to 5 scale, and 3.76 to 4.01 after calibration to human scores. GPT-5.1 ranked first, and GPT-5 Mini came within 5% of it for about $0.02 per case. Every model scored higher than the diagnoses documented in the ward notes (raw S3 3.35 for GPT-5.1 vs 2.50 for the ward), but the ward was penalised for notes that commonly lacked a differential, and on the uncalibrated jury scores all models still had 10 to 18% low-safety outputs (under 3% on calibrated scores with a stricter cutoff). Unreviewed preprint, single site, grading mostly done by LLMs."
+lastUpdated: 2026-10-26
+tags: [preprint, llm, multimodal, diagnosis, diagnostic-accuracy, inpatient, hospital-medicine, patient-safety, llm-as-judge, lmic, global-health, benchmark]
+socialPost: "VALID preprint: 10 multimodal LLMs read 300 real inpatient records from a Johannesburg public hospital. Scores clustered tightly despite a 50x cost spread, and all models scored above the diagnoses documented in ward notes. But an LLM jury did most of the grading, the ward was penalised for missing differentials, and on raw jury scores every model had a 10 to 18% low-safety tail."
+---
+
+import Callout from '../../components/Callout.astro';
+
+<Callout type="pitfall">
+  **This is a preprint.** It is posted on arXiv (2604.16980) and does not state that it has been peer reviewed. Most of the scoring was done by a jury of three LLMs rather than by physicians, and the method behind that jury is described in a companion paper from the same group that is also a preprint. Three authors list an affiliation with Grai Labs (Cape Town), the study was funded by the Gates Foundation, which the authors say "provided useful input to aspects of the study design" but "had no authority over" the design, analysis, manuscript, or decision to submit, and I could not find a competing-interests statement.
+</Callout>
+
+## Study Design
+
+VALID (Validation of LLMs versus Doctors in Diagnosis) is a retrospective, cross-sectional diagnostic-accuracy evaluation. It is not a trial: no model was used in patient care, and no patient outcome was measured. The team abstracted 539 inpatient records from Chris Hani Baragwanath Academic Hospital, a high-volume tertiary public hospital in Johannesburg, from patients discharged March to October 2025. Roughly 80% came from Internal Medicine and 20% from Paediatrics. Records had to include laboratory results plus at least one other diagnostic modality (ECG, chest radiograph, CT, MRI, or ultrasound), and cases judged to lack diagnostic complexity or core clinical information were excluded.
+
+**Reference standard.** 300 of the 539 records went to expert panels of two senior internal medicine or two paediatric specialists, who reviewed each case independently, then met to agree a combined primary and secondary diagnosis, a differential at admission, and clinical reasoning. The workflow had the panel record its consensus before formally rating the ward diagnosis and one randomly selected model output. Panels had access to the full records, and the paper does not say whether the ward team's own impressions were removed from the notes the panel (or the models) read. The authors chose panel consensus because "no single gold standard applies" across these conditions, and the paper does not describe any outcome follow-up or independent confirmation of the panel's diagnoses. The panels worked from the same retrospective record the models saw. One of the joint senior authors is also listed among the panel physicians.
+
+**Two very different case sets.** The 300 adjudicated cases were made up of:
+
+- **Balanced subset (139 cases):** random sampling with pragmatic balancing across diagnosis categories.
+- **Discordant subset (161 cases):** deliberately chosen because the LLM ensemble disagreed most with the ward diagnosis.
+
+**The models.** Ten multimodal LLMs from Anthropic, Google, OpenAI, and xAI (including GPT-5.1, GPT-5 Mini, o3, o4-mini, Gemini 3 Pro Preview, Gemini 2.5 Pro and Flash, Claude 4.1 Opus, Claude 4.5 Sonnet, and Grok 4.1 Fast Reasoning) received the notes, vitals, labs, radiology reports as images, and imaging downsampled to short videos. Each model got one zero-shot, closed-book pass with the same prompt and default settings, except GPT-5.1, which was run at high reasoning effort.
+
+**The comparator.** "Ward diagnoses" were extracted from routine clinical documentation. The authors note that ward notes "commonly lacked structured differential diagnoses and explicit reasoning," so the ward could only be scored on diagnosis, differential, and safety.
+
+**Who graded.** Scoring at this scale (over 10,000 model evaluations) was done by an "LLM Jury" of Gemini 2.5 Pro, o3, and Claude 4.1 Opus, which compared each output against the panel's reference diagnosis on four 1 to 5 scales: diagnostic accuracy, differential, clinical reasoning, and patient safety (the estimated risk of harm if care had followed that diagnosis rather than the panel's). All three jurors are also among the models being evaluated; the authors report that no juror systematically favoured its own model's diagnoses. Jurors saw only the output and the reference, not the case data or model identity, which also means they rated potential harm without seeing the patient. The raw jury ran about 1 point stricter than the human panels, so the authors calibrated it to 330 human panel scores (only 30 of them ratings of ward diagnoses) with isotonic regression and report both raw and calibrated results. The main comparison score, S3, weights diagnosis 0.40, differential 0.20, and safety 0.40, leaving out reasoning so the ward can be included.
+
+## Key Findings
+
+- **The models clustered tightly.** Raw S3 ran from 2.87 (Claude 4.1 Opus) to 3.35 (GPT-5.1), and calibrated S3 from 3.76 to 4.01. The paper describes the spread inconsistently (29% raw and 13% calibrated in the text, under 15% in the abstract, under 10% in a figure caption). GPT-5.1 ranked first on all four dimensions, but by small margins of 0.03 to 0.12 points on the raw 1 to 5 scales.
+- **Cost varied far more than performance.** Cost per case varied about 50-fold. GPT-5 Mini came within 5% of the top model for about $0.02 per case, and Grok 4.1 within 13% for about $0.01 (Grok's token use was estimated, not reported). Claude 4.1 Opus, one of the most expensive models, scored lowest of the ten (raw S3 2.87).
+- **Every model scored above the documented ward diagnosis.** On the full 300 cases, raw S3 was 3.35 for GPT-5.1 and 2.50 for the ward (calibrated 4.01 vs 3.57). In the cleaner Balanced subset, the LLM average was 3.20 vs 2.63 for the ward. In case-by-case comparisons, every model had at least a 62% win rate against the ward, and the ward won 18% or fewer of its cases against GPT-5.1.
+- **The ward's raw differential score was 1.99 out of 5** in the full, Balanced, and Discordant sets, which reflects notes that commonly lacked a documented differential. That subscore carries 0.20 of the S3 weight.
+- **Low-safety outputs depended on the scoring.** Using a raw (uncalibrated) jury safety threshold, all models produced 10 to 18% low-safety outputs, the top six models 11% or less, and the ward 22%. With the calibrated scores and a stricter threshold, every model and the ward fell under 3%.
+- **Missing answers were not penalised.** Claude models returned a diagnosis on only about 65% of cases, mainly because of a 100-image limit, while Google models were near 100%. Scores were calculated only on cases where a model answered, as the authors acknowledge. In the 195 cases where every model answered, rankings were similar.
+- **Readable radiology reports helped.** A pipeline error initially fed the models 128 x 128 pixel, unreadable report images. Rerunning with readable reports improved scores by about 6% on average (per the abstract), even though the models had the actual images both times.
+- **The tie-breaker result is the weakest evidence in the paper.** The most senior panels re-adjudicated 20 cases (10 adult, 10 paediatric) chosen because the models disagreed most with the first expert panel. These tie-breakers could see both the LLM and the panel diagnoses. Using their answers as truth, on raw jury scores, GPT-5.1 scored 3.29 (95% CI 3.01 to 3.61) vs 2.57 (2.33 to 2.79) for the original expert panels, and the authors estimate a 97.6% probability that GPT-5.1 outperformed the panels on this subset. The text says 9 of 10 models beat the panels, which matches the table's numbers; the Table 7 caption's "7 of 10" appears to be an error.
+
+<Callout type="evidence">
+  This is one of the few LLM diagnosis studies using real, messy, multimodal inpatient records from a public hospital, with specialist consensus as the reference rather than a vignette answer key. The cost findings are the most robust: models scoring within a narrow band of each other differed about 50-fold in cost per case. The ward comparison is weaker than the headline. The ward was graded on a written note, penalised for an undocumented differential, and in 161 of the 300 adjudicated cases was selected precisely because it disagreed with the models.
+</Callout>
+
+## Clinical Implications
+
+1. **"LLMs beat ward diagnoses" means something narrow here.** The comparison is: what the models output from a complete retrospective record, versus the diagnosis written in the chart, both graded by LLMs against what two specialists concluded later from the same record. It does not show that models outperform clinicians working in real time, and the authors say plainly that it "does not imply under-performance by clinicians." The paper also does not state when during the admission the ward diagnosis was recorded, or whether the team's own impressions were removed from the notes the models read.
+
+2. **The safety tail is the clinically important number, and it is soft.** Even the best models had low-safety ratings on about 10% of cases under the raw jury threshold, but under 3% on calibrated scores, and the jurors judged harm from two diagnosis texts without seeing the patient. As the authors note, some of these may be panel errors rather than model errors. Either way, the per-case risk is not close to zero, which matters more to a hospitalist using one of these tools than a fraction-of-a-point difference in mean score.
+
+3. **Practical limits shape which answers you get.** Image caps left the Claude models answering on only about 65% of cases, and every case they skipped had more than 100 images. The absence of an answer is itself a failure mode in deployment, and the paper's scores leave it out.
+
+<Callout type="pitfall">
+  The adjudication layers are only moderately reliable. Agreement between the LLM jury and the expert panels was modest on safety (weighted kappa 0.33), and a second human panel, scoring 30 cases without the case data, agreed no better (0.32), so the safety scores sit on a noisy foundation. The preprint also has internal inconsistencies: the Table 6 caption describes the safety threshold as applying to the mean S3 score while the text applies it to the safety score, the low-safety cutoff is written as both "below 2" and "≤ 2," the tie-breaker table caption and text disagree on how many models beat the panels, and Table 3 lists a GPT-5.1 version dated 2025-11-13 although all models were said to be accessed in October 2025. The study's own expert panels cost about $40 per case; the $2 lower bound uses a reported Nigerian public-sector physician salary of about US$1,200 a year.
+</Callout>
+
+## My Takeaway
+
+The finding I believe most is the boring one: on 300 real inpatient records, ten frontier models landed within a narrow band of each other while cost per case varied about 50-fold, and GPT-5 Mini came within 5% of the top model for about $0.02 per case. If you are choosing a model for diagnostic support, this is decent evidence that price, image limits, and reliability should weigh as heavily as the leaderboard.
+
+I would hold the ward comparison much more loosely. Every model scored above the documented ward diagnosis (raw S3 3.35 for GPT-5.1 vs 2.50 for the ward), but the ward was graded on a chart note that commonly lacked a differential, 161 of the 300 adjudicated cases were selected because the models disagreed with the ward, and the grading was done by LLMs calibrated to two-specialist panels who reviewed the whole record afterward. That is a comparison between a model reading a finished chart and a busy team's written note, not between a model and a doctor at the bedside. The tie-breaker claim that models outperformed the expert panels rests on 20 non-random cases with unblinded adjudicators, and the authors themselves call it indicative.
+
+What I take into practice: these tools can produce a reasonable differential from a full admission record, the difference between leading models is small, and on the stricter raw jury scoring about 10% of outputs from even the best models were still rated low on safety. That is consistent with using them as a second reader I check, not a source I trust. I would want to see this repeated prospectively, at other hospitals, with clinicians rather than LLMs doing the safety grading, and in peer-reviewed form.
+
+---
+
+[Read the full article at arXiv](https://doi.org/10.48550/arXiv.2604.16980)
