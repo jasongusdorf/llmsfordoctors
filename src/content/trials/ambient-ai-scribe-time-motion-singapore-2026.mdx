@@ -1,0 +1,90 @@
+---
+title: "Watching the Room: A Time-Motion Study of an In-House Ambient AI Scribe in Singapore Specialist Clinics"
+journal: "JMIR Medical Informatics"
+year: 2026
+doi: "10.2196/85580"
+keyFinding: "In a prospective, non-randomized, within-clinician observational quality improvement study at Singapore General Hospital, trained observers timed 169 specialist outpatient consultations by 9 experienced users of an in-house ambient scribe (78 with the scribe, 91 without). In linear mixed-effects models, scribe use was associated with 0.8 fewer minutes of documentation per consultation (95% CI 0.05 to 1.5; P=.04; unadjusted means 5.3 minutes without vs 4.5 with) and 7.4 percentage points more eye contact (95% CI 1.9 to 13.0; P=.009), with no significant change in consultation duration (P=.42) or total cycle time per patient (P=.57). The documentation difference was not significant in the crude analysis (P=.07). Clinicians chose which session used the scribe, observers were not blinded, and the patient survey (39 patients, scribe visits only) had no comparison group."
+lastUpdated: 2026-11-02
+tags: [ambient-ai, ai-scribe, documentation, time-motion, observational, quality-improvement, outpatient, multilingual, patient-experience, eye-contact]
+socialPost: "Observers sat in the room and timed 169 Singapore clinic visits by 9 clinicians, with and without an in-house ambient AI scribe (not randomized). Adjusted documentation time fell 0.8 minutes per visit and eye contact rose; visit length and total time per patient showed no significant change. Small and unblinded, but it measured the room, not EHR timestamps."
+---
+
+import Callout from '../../components/Callout.astro';
+
+<Callout type="pitfall">
+  **Design first.** This is a prospective, within-clinician, non-randomized observational study that the institution classified as quality improvement (no formal IRB review). Nine clinicians, one hospital, one in-house tool developed by the health system's analytics office, to which two of the authors belong. Each clinician picked which of their two clinic sessions would use the scribe. The observers sat in the room and could not be blinded.
+</Callout>
+
+## Study Design
+
+Most real-world scribe studies measure documentation time from EHR timestamps, which record when a note window is open rather than when someone is actually typing. This team, at Singapore General Hospital, put a trained observer in the consultation room instead and timed what the clinician did.
+
+**The tool.** Note Buddy was built in-house (the acknowledgments credit the SingHealth Office of Insights and Analytics, which is also the affiliation of two authors). It uses automatic speech recognition plus GPT-4o and supports 5 languages; English, Mandarin, and Malay consultations were observed. It does not store audio. It was not integrated into the EHR during the study, so clinicians reviewed the draft and manually transferred it into the chart.
+
+**The clinicians.** Eligibility required at least 30 notes generated with the scribe in the prior 3 months. Of 27 eligible clinicians, 9 (33.3%) were chosen by convenience sampling based on scheduling and observer availability. They were senior, with a mean of 20.8 (SD 7.8) years in practice, across 7 specialties (respiratory medicine, endocrinology, gastroenterology, neurology, rehabilitation medicine, neonatology, general surgery). The authors say they deliberately chose experienced users "most likely to demonstrate its optimal impact."
+
+**The comparison.** Each clinician was observed in 2 clinic sessions within 2 weeks of each other, one with the scribe and one with usual documentation (manual typing, possibly with EHR smart phrases, which were not recorded). Clinicians were asked to pick sessions with a similar case mix, and each clinician decided whether the scribe session came first or second; this was not randomized. 4 went scribe-first and 5 went without-scribe first.
+
+**The measurements.** Five observers, each assigned to the same clinician for both sessions, recorded in real time using a standardized macro-enabled Excel worksheet after a joint training session:
+
+- **Documentation time:** all time the clinician interacted with the computer before, during, and immediately after the consultation. In scribe sessions this included reviewing, editing, and transferring the AI note, and waiting for it to generate. Only documentation finished within the observation window was counted.
+- **Proportion of eye contact:** percentage of the consultation the clinician spent looking directly at the patient.
+- **Consultation duration:** patient entry to exit.
+- **Total cycle time:** start of preclerking (if any) to completion of documentation.
+
+Analysis used linear mixed-effects models with a random intercept for clinician and fixed effects for scribe use and patient type (new vs follow-up). Sample size was set by feasibility, not a formal power calculation.
+
+**The patient survey.** Separately, independent surveyors from the hospital's Office of Patient Experience surveyed patients verbally immediately after consultations in which the scribe was used, in clinics of 4 of the 9 clinicians. Of 45 eligible patients, 39 (86.7%) completed it. There was no survey of patients seen without the scribe.
+
+## Key Findings
+
+The study observed 169 consultations: 78 (46.2%) with the scribe and 91 (53.8%) without. New patients made up 33.3% of scribe consultations and 30.8% of non-scribe consultations (P=.72). Of the 78 scribe consultations, 63 (80.8%) were in English, 14 (17.9%) in Mandarin, and 1 (1.3%) in Malay.
+
+Adjusted results from the mixed-effects models (Table 3 of the paper):
+
+- **Documentation time fell modestly.** Adjusted difference of 0.8 minutes less per consultation (95% CI 0.05 to 1.5; P=.04). Unadjusted means were 5.3 (SD 2.7) minutes without the scribe and 4.5 (SD 2.4) minutes with it. The paper reports this as a 15.0% change.
+- **Eye contact rose.** Adjusted difference of 7.4 percentage points (95% CI 1.9 to 13.0; P=.009). Unadjusted means were 69.6% (SD 18.6%) of the consultation without the scribe and 77.1% (SD 17.7%) with it. The 10.6% figure in the abstract is the paper's percentage change column, not 10.6 percentage points.
+- **No significant change in visit length.** Consultation duration: unadjusted 11.5 (SD 6.9) vs 10.9 (SD 5.6) minutes; adjusted difference 0.7 minutes less (95% CI 2.6 less to 1.1 more; P=.42).
+- **No significant change in total time per patient.** Total cycle time: unadjusted 13.7 (SD 7.7) vs 13.2 (SD 6.3) minutes; adjusted difference 0.6 minutes less (95% CI 2.6 less to 1.4 more; P=.57).
+- **The documentation result depends on the model.** In crude t tests treating every consultation as independent, the eye contact difference held (+7.5%; P=.008) but the documentation difference did not reach significance (0.74 minutes less; P=.07). Only the adjusted analysis crossed P&lt;.05. Effects did not differ between new and follow-up patients (interaction P=.79 for documentation time, P=.35 for eye contact).
+- **Clinicians varied a lot.** In unadjusted clinician-level comparisons, 7 of 9 clinicians reduced documentation time (by 7.9% to 34.6%), 6 of 9 had shorter consultations (4.3% to 42.2%), and 8 of 9 had more eye contact (4.2% to 35.8%).
+
+Patient survey (scribe visits only, 39 patients, 16 of them aged 65 or older):
+
+- 27 of 39 (69.2%) agreed their physician focused on them more during the consultation, and 24 of 39 (61.5%) would recommend the technology for use by other physicians.
+- None expressed discomfort with the scribe. The paper also reports that 20 of 39 (51.3%) gave neutral responses and 1 of 39 (2.6%) said the scribe did not enhance the visit.
+- In the 18 surveyed patients who were also in the time-motion observations, measured eye contact was 72.7% vs 63.1% in the same clinicians' non-scribe sessions, a difference that was not statistically significant (P=.07). The authors present this as "directional alignment."
+
+<Callout type="evidence">
+  The strength here is the measurement. A person in the room timing actual computer interaction is a better instrument for documentation time than EHR timestamps, and it is what made measuring eye contact possible here. The within-clinician comparison, plus a random intercept per clinician, handles stable differences between doctors. The adjusted documentation estimate is small and its confidence interval runs almost to zero (0.05 minutes); the authors themselves note that with only 9 clinician clusters the mixed model's variance estimates are less reliable and the risk of a type 1 error is higher.
+</Callout>
+
+## Clinical Implications
+
+1. **Expect attention, not throughput.** The clearest pattern is that documentation time and eye contact moved while consultation length and total time per patient did not. The authors' own reading is that the scribe shifts clinician effort toward the patient rather than speeding up the clinic, and they say ambient scribes "should not be expected to increase clinic throughput or patient volume." That is a fair reading of these data.
+
+2. **The time saving is small even under favorable conditions.** These were senior, already proficient users chosen because they were likely to show the tool at its best. The authors say the findings reflect "optimal rather than average implementation outcomes" and cannot predict what happens during initial adoption or with infrequent users. On the other hand, the manual copy-and-paste into the EHR was counted as documentation time, so an EHR-integrated tool might do somewhat better. The study cannot tell you which effect dominates.
+
+3. **Eye contact is the more robust finding, but it is also the most exposed to bias.** It was significant in both crude and adjusted analyses. It was also judged in real time by an observer who knew which condition they were watching, in front of a clinician who knew they were being watched. The authors name observer expectancy and the Hawthorne effect as possible influences, and interrater reliability could not be assessed.
+
+4. **Treat the patient survey as acceptability data only.** Surveys were done only after scribe visits, immediately after the consultation, inside the clinic, with 39 patients from 4 clinicians. A question about whether the physician "focused on them more" has no measured comparison behind it. The authors acknowledge possible social desirability bias. No discomfort is a useful signal; it is not evidence of better care.
+
+5. **Note quality was not measured.** The study did not assess whether note accuracy was preserved alongside the shorter documentation time; it relies on a prior pilot of the same tool. Faster documentation of an unchecked note is not the same outcome as faster documentation of a correct one.
+
+6. **This is specialist outpatient medicine.** Nothing here was done on a ward or in the ED. Documentation was counted only if finished during or right after the visit, so the study says nothing about after-hours charting.
+
+<Callout type="pitfall">
+  Several design choices could tilt results toward the scribe. Clinicians picked which session used it (the authors note patient mix and volume were similar, 9.0 vs 9.8 patients per session, P=.44). The tool was built in-house, and two authors are from the office the paper credits with developing it; the authors acknowledge possible institutional bias. Clinicians used their own prompts, which the authors call a potential confounder. And although the tool supports 5 languages, 63 of 78 scribe consultations were in English, which the authors say limits conclusions about multilingual performance.
+</Callout>
+
+## My Takeaway
+
+What this study adds is a different instrument. Instead of EHR audit logs, someone sat in the room with a stopwatch, and what they saw lines up with the direction of the larger trials: a small documentation saving, an adjusted 0.8 minutes per consultation with a confidence interval that nearly touches zero, and no significant change in how long visits took or how long each patient consumed in total. The more interesting number is eye contact, up an adjusted 7.4 percentage points. That is a direct measurement of the "my doctor is looking at me again" claim, though it was measured by unblinded observers in a non-randomized design, so I would treat it as plausible and directionally encouraging rather than established.
+
+The limits are real and mostly acknowledged by the authors: 9 convenience-sampled, senior, already-proficient clinicians at one hospital; sessions chosen by the clinicians; an in-house tool evaluated in part by authors from the office that built it; a documentation effect that loses statistical significance without the mixed model (crude P=.07); a patient survey with no comparison arm; and no assessment of note accuracy. It is also ambulatory specialist care, which keeps it inside the boundary I described in [Where the Scribe Evidence Stops](/editorials/where-the-scribe-evidence-stops). It supports setting expectations at documentation time and clinician attention, not throughput, and it does not move the evidence on patient outcomes.
+
+Practically: if your institution is piloting a scribe, this is a reasonable argument for measuring what happens in the room and not only in the audit log, and for telling clinicians the honest version. Expect to spend a little less time on the computer and a little more looking at the patient. Do not expect to see more patients, and keep reading the note before you sign it.
+
+---
+
+[Read the full article at JMIR Medical Informatics](https://doi.org/10.2196/85580)
