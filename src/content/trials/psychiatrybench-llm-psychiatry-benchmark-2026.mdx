@@ -1,0 +1,74 @@
+---
+title: "PsychiatryBench: 15 LLMs Tested on Psychiatry Textbook and Casebook Questions, Mostly Graded by Another LLM"
+journal: "npj Digital Medicine"
+year: 2026
+doi: "10.1038/s41746-026-02582-w"
+keyFinding: "PsychiatryBench is a benchmark study built entirely from published psychiatry textbooks, casebooks, and exam-prep books (5,188 items across eleven task types), not from patients. Across 15 LLMs, GPT 5 Medium (Thinking) had the highest average score (84.5%), followed by Sonnet 4.5 (Thinking) at 83.7%. For the open-ended tasks, these percentages are 0 to 100 similarity scores from an LLM judge (Llama 3.3 70B) comparing each answer with the book's reference answer; they are not rates of correct answers. The judge was also one of the models being tested, the source books are public and probably in the models' training data, and the main paper reports no comparison of judge scores with psychiatrist ratings. Assigning the exact set of specific disorders to a case was the weakest task, with subset accuracy (every label exactly right) of 45% at best."
+lastUpdated: 2026-11-02
+tags: [benchmark, psychiatry, mental-health, llm-evaluation, llm-as-a-judge, data-contamination, clinical-reasoning, gpt-5, claude, medgemma]
+socialPost: "PsychiatryBench tested 15 LLMs on 5,188 items taken from psychiatry textbooks and casebooks. Top average: GPT 5 Medium (Thinking) 84.5%. Most of those percentages are similarity to the textbook answer as scored by another LLM, not accuracy, and the books are likely in the training data. Exact multi-label diagnosis topped out at 45%."
+---
+
+import Callout from '../../components/Callout.astro';
+
+<Callout type="pitfall">
+  **What the scores mean.** No patients are involved. Every item comes from a published psychiatry textbook, casebook, or exam-prep book, and the reference answer is the book's answer. For the open-ended tasks, a single LLM (Llama 3.3 70B) scored each model's answer from 0 to 100 for similarity to that reference answer, and Llama 3.3 70B was also one of the 15 models being ranked. The authors acknowledge that the source books are public and "probably included in the pre-training data" of the models tested.
+</Callout>
+
+## Study Design
+
+PsychiatryBench is an attempt to build a psychiatry benchmark from authoritative teaching material rather than social media posts or synthetic dialogs. The four authors are from Compumacy for Artificial Intelligence Solutions (Cairo, Egypt) and the Department of Behavioural Health at Saint Elizabeths Hospital (Washington, DC); they declare no competing interests.
+
+**Where the items come from.** The source list includes DSM-5 Clinical Cases, DSM-5-TR Clinical Cases, 100 Cases in Psychiatry, Case Files Psychiatry, Stahl's psychopharmacology case books, a geriatric psychiatry guide, DSM-5-TR Self-Exam Questions, and an MRCPsych revision book of MCQs and EMIs. The authors say licensed psychiatrists selected and annotated the material; the reference answers are the books' answers. Explanatory text was stripped from multiple-choice items so the answer rationale did not leak into the prompt. The Clinical Approach questions were different: the source vignettes had no questions attached, so Gemini 2.5 Pro wrote them and each was then manually checked.
+
+**The eleven tasks** (Table 4 counts): Diagnosis (467), Treatment (258), Treatment follow-up (27), Classification (418), Management plan (337), Clinical approach (56), Mental QA (326, definitions of terms and concepts), Sequential QA (32 vignettes with a chain of linked questions), multiple-choice questions (1353), extended matching items (277 sets), and an Exams set (600: 300 EMI and 300 MCQ). The 5,188 total also counts the 277 EMI sets a second time, split into 1037 standalone "EMI separated" items. Figure 2 describes the evaluated data as a "selected evaluation subset (S-dataset)"; its task percentages match the Table 4 counts with the 1037 separated EMI items left out.
+
+**Scope.** Adult outpatient psychiatry, with some geriatric cases. Child and adolescent psychiatry is excluded, and the authors say high-acuity presentations (acute mania requiring admission, delirium, imminent suicidality) are not comprehensively represented. Each item is a single zero-shot prompt; nothing tests conversation, risk in patient-facing use, or work with a real chart.
+
+**Models.** Fifteen were compared head to head in Table 2: GPT 5 Medium (Thinking), Claude Sonnet 4, Sonnet 4.5, and Sonnet 4.5 (Thinking), Gemini 2.0 Flash, 2.5 Flash, 2.5 Flash (Thinking), and 2.5 Pro, DeepSeek-R1, DeepSeek-chat, Llama 3.3 70B, QWQ-32, Qwen 3 32B, GPT-oss, and MedGemma. MedGemma was carried forward as the representative medical model after a screen of several medical LLMs on two tasks; JSL-MedLlama scored 61.0 on Management Plan and 65.0 on Mental QA and was dropped for falling below a 75% threshold.
+
+**Scoring, by task type.** This matters for reading the results:
+
+- **Classification** (assign a broad diagnostic category and a specific disorder): weighted F1 and subset accuracy, where a case counts as correct only if the predicted set of labels exactly matches the reference set.
+- **Extended matching items**: partial credit per set, the proportion of subquestions answered correctly.
+- **Multiple-choice questions**: accuracy, according to the Methods.
+- **Open-ended tasks** (Diagnosis, Treatment, Treatment follow-up, Management plan, Clinical approach, Mental QA, Sequential QA): Llama 3.3 70B, acting as judge, rated each answer from 0 to 100 for "substantive congruence" with the reference answer, and the task score is the mean.
+
+The judge prompt was written by Gemini and chosen over a rubric-style prompt written by GPT-4.5. Llama 3.3 70B was picked over LearnLM and GPT-4o mini because it "assigned scores with higher discernment and sensitivity"; the main paper does not report a comparison of the judge's scores against psychiatrists, and points to the Supplementary Information for reliability checks. The paper also names the judge once as "Llama 3 70B" and elsewhere as "LLaMA 3.3 70B." Prompt templates for the tested models were refined in two sessions, and the authors kept the configuration "that produced the highest performance." The Table 2 caption says all non-classification tasks were scored by the LLM judge, which conflicts with the Methods' description of accuracy and partial-credit scoring for the multiple-choice formats. The paper does not say how the "AVG." column combines similarity scores, accuracy, and classification metrics.
+
+## Key Findings
+
+- **Newer frontier models led, but the field was bunched.** In Table 2, average scores ran from 72.3% (GPT-oss) to 84.5% (GPT 5 Medium, Thinking). Sonnet 4.5 (Thinking) was second at 83.7% and Sonnet 4.5 third at 81.5%. Gemini 2.0 Flash was at 74.6%.
+- **Open-ended tasks scored high, as similarity scores.** Sequential QA reached 96.9 (Gemini 2.5 Pro) and 96.2 (Sonnet 4.5, Thinking); the text calls the latter "near-perfect," although Table 2 shows Gemini 2.5 Pro slightly higher. Clinical Approach peaked at 90.2 (Sonnet 4.5). These numbers mean the judge rated the answers as closely matching the book's answer, not that they were verified as clinically correct.
+- **Exact multi-label diagnosis was the weakest task.** For specific disorders, weighted F1 ranged from 0.35 to 0.69 and subset accuracy from 14.0 to 45.0 across models. GPT 5 Medium (Thinking) scored 0.52/45.0; MedGemma scored best on F1 at 0.69/45.0. Broad diagnostic categories were easier, topping out at 0.75/59.0 (GPT 5 Medium, Thinking).
+- **The medical model held its own on recall-type tasks.** MedGemma averaged 78.5%, close to Gemini 2.5 Pro (80.2%) and DeepSeek-R1 (80.4%), and scored 87.4% on MCQ. The Discussion describes that 87.4% as MedGemma's result on "structured exams," but in Table 2 it is the MCQ column; MedGemma's Exams score is 69.2.
+- **"Thinking" modes were not consistently better.** Sonnet 4.5 (Thinking) averaged 83.7% versus 81.5% for standard Sonnet 4.5, while Gemini 2.5 Flash (Thinking) averaged 77.5% versus 77.6% without it. No statistical test is reported for either comparison.
+- **Answers changed with question format.** For the five strongest EMI models, the authors rescored 144 EMI sets (514 subquestions) both as whole sets and as separate questions. Gemini 2.5 Pro gave the same right-or-wrong result in both formats 95.7% of the time; DeepSeek-R1 did so 78.3% of the time, and its score rose from 72.0% as a whole set to 83.6% when the subquestions were asked one at a time.
+
+<Callout type="evidence">
+  The sourcing is a genuine strength: the items come from material psychiatrists actually train on, not scraped forum posts. But the strength of the inputs does not carry over to the scoring. Most of the headline percentages are one LLM's judgment of similarity to a textbook answer, the judge is also a contestant, the books are public, and the dataset and code are available only on request.
+</Callout>
+
+## Clinical Implications
+
+1. **Read the percentages as agreement with a textbook answer, not accuracy.** An 84.5% average is a blend of LLM-judged similarity scores and other metrics, combined in a way the paper does not specify. A model can phrase a defensible plan differently from the casebook and lose points, or match the casebook's wording on a plan that would be wrong for a particular patient.
+
+2. **Contamination is a real possibility.** The authors themselves say the textbooks are probably in the models' pre-training data and that this "could lead to an artificial enhancement of performance through memorization instead of true reasoning." No contamination testing is reported.
+
+3. **The scenarios that worry clinicians most are largely not tested.** Delirium, imminent suicidality, and acute mania are not comprehensively represented, and the authors list patient-facing risks they did not evaluate, including reinforcement of delusions, mishandling acute suicidality, and sycophancy. For a hospitalist, the psychiatric questions that come up on the wards (delirium versus primary psychiatric illness, agitation, capacity, suicide risk) fall largely outside what this benchmark measures.
+
+4. **Comorbidity is where the models slipped.** The task that required naming the full, exact set of specific disorders for a case was, in the authors' words, "the most difficult across the benchmark." If you use an LLM to help think through a psychiatric differential, expect it to miss or add diagnoses when presentations overlap.
+
+5. **The authors' own conclusion is cautious.** They argue for LLMs in education, documentation, or preliminary formulation "rather than unsupervised decision-making in high-stakes scenarios such as crisis triage or medication initiation."
+
+## My Takeaway
+
+I like the choice of source material. Building a psychiatry benchmark from DSM casebooks, 100 Cases in Psychiatry, and board-style question books is a more serious starting point than social media posts or synthetic chats, and the task mix goes beyond multiple choice into management plans and sequential case questions.
+
+The scoring is where I get stuck. For most tasks, the number is how similar one LLM thought the answer was to the book's answer, the judge model was also ranked, the judge was chosen for spreading scores out rather than for agreeing with psychiatrists (as far as the main paper says), and the books are probably in every model's training data. There are also a few places where the text, tables, and methods do not line up. I would not use the leaderboard to choose a model for clinical use.
+
+What I take from it is narrower. Current frontier models can produce textbook-shaped answers to textbook psychiatry vignettes, and they still struggle to commit to the exact set of diagnoses when presentations overlap. That is useful to know if you use these tools to study or to organize a differential. It says little about how they would handle an agitated, delirious, or suicidal patient on the wards, which the benchmark was not built to test.
+
+---
+
+[Read the full article at npj Digital Medicine](https://doi.org/10.1038/s41746-026-02582-w)
